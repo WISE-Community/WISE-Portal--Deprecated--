@@ -1,0 +1,345 @@
+/**
+ * Copyright (c) 2006 Encore Research Group, University of Toronto
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+  
+/* THESE STYLES ARE USED GLOBALLY IN THE SITE  */	
+
+/* CSS Reset */
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  font-size:100%;
+  font-weight:normal;
+  font-style:normal;
+  vertical-align:baseline;
+  background:transparent;
+}
+ul,ol {list-style:none;}
+fieldset,img,hr {border:none;}
+caption,th {text-align:left;}
+table {border-collapse:collapse; border-spacing:0;}
+td {vertical-align:top;}
+
+body {
+	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;	
+	font-size: 100%;
+	text-align: center;
+	margin: 5px;
+	background-color:#FFFFFF;
+	overflow-y:scroll;  	/* This style allocates permanent area for a vertical scroll bar.  This keeps the top navigation buttons from moving around.  */
+	overflow-x:auto;  
+	}
+	
+img {border: 0px;}
+
+h1 {font-size:2.0em;} 
+h2 {font-size:1.5em; }
+h3 {font-size:1.4em;}
+h4 {font-size:1.2em;}
+h5 {font-size:.9em; }
+h6 {font-size:.8em; }
+p  {font-size:.8em; line-height:150%;padding:0px; margin:0px;}
+	
+abbr, acronym {
+	cursor:help;
+	border-bottom: 1px dotted #666666;	
+	}
+
+#bannerArea1 {
+	position:relative;
+	background-image:url(../images/WISE-Secondary-Banner-Gradient.png);
+	background-position: center top;
+	width: 100%;
+	height: 60px;
+	margin: 0px 0 10px 0;
+	padding:0px;
+	position:relative;
+	}
+	
+#bannerArea2 {
+	position:relative;
+	background-image:url(../images/WISE-Secondary-Banner-Gradient65.png);
+	background-position: center top;
+	width: 100%;
+	height: 65px;
+	margin: 5px 0 10px 0;
+	padding:0px;
+	position:relative;
+	}
+
+#bannerArea1 #betaTag  {
+	position:absolute;
+	left:240px;
+	top:-6px;
+	}
+
+#bannerArea2 #betaTag   {
+	position:absolute;
+	left:0px;
+	top:25px;
+	}
+	
+#teacherInterfaceHeader {
+	position:absolute;
+	top:3px;
+	left:390px;
+	font-variant:small-caps;
+	font-weight:bold;
+	letter-spacing:3px;
+	color:#FFE6C6;
+	opacity:50%;
+}
+
+#centeredDiv {
+		background-color:#FFFFFF;
+		width: 958px;
+		text-align:left;
+		padding: 0;
+		margin: 0 auto;
+		}
+
+#centeredDivDynamicFrame {
+		background-color:#FFFFFF;
+		text-align:left;
+		padding: 0;
+		margin: 0 auto;
+		}
+		
+	
+#hotInputFields  {
+	margin:15px;
+}
+
+#hotInputFields input {
+	text-align:center;
+	border-top:1px solid #666666;
+	border-right:2px ridge #000000;
+	border-bottom:2px ridge #000000;
+	border-left:1px solid #666666;
+	background-color:#CCCCFF;
+	padding:5px;
+		}
+
+#hotInputFields input:hover {
+	background-color:#FFFF33;
+}
+
+.center {text-align:center;}
+
+form {margin:0px; padding:0px;}
+
+
+
+/* STYLES FOR PROJECT OVERVIEW PANEL, ACCESSED FROM MANY SECTIONS OF THE SITE   */	
+
+#projectOverviewTable {
+	border-collapse:collapse;
+	border-top:1px solid #333;
+	border-bottom:2px solid #333;
+	margin-bottom:15px;
+	text-align:left; 
+	}
+
+#projectOverviewTable th, #projectOverviewTable td  {
+	border:1px solid #333; 
+	font-size:.7em;
+	vertical-align:top;
+}
+
+#projectOverviewTable td {
+	padding:2px 8px;
+	border:1px solid #333; 
+	}
+	
+#projectOverviewTable #row2 th {
+	padding:1px 2px 1px 6px;
+	margin:0px;
+	color:#fff;
+	background-color:#999;
+	font-size:.65em;
+			}	
+		
+#projectOverviewTable #row2 th.archive {
+	color:#fff;
+	background-color:#FF0000;
+			}	
+			
+#projectOverviewTable a {
+	color:blue;
+	padding:1px 3px;
+	border:1px solid transparent;
+	text-decoration:none;
+			}	
+
+#projectOverviewTable a:hover {
+	background-color:#FFFF00;
+	border:1px solid #999;
+			}	
+
+#projectOverviewTable #titleCell {
+	border-right:0px;	
+	padding:3px 4px 5px 5px;
+	}
+			
+#projectOverviewTable #titleCell a {
+	font-size:1.8em;
+	letter-spacing:-.5px;
+		}		
+	
+#projectOverviewTable #titleCellUnlinked {
+	border-right:0px;	
+	padding:3px 5px 8px 5px;
+	font-size:1.1em;
+	font-weight:bold;
+	letter-spacing:-.5px;
+	color:#333;
+	}
+			
+#projectOverviewTable #sharedNamesContainer {
+	padding:8px;
+	margin:7px 10px 5px 3px;
+	background:#ffb759;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+}
+
+#projectOverviewTable #sharedNamesContainerOwned {
+	padding:8px;
+	margin:7px 10px 5px 3px;
+	background:#46587B;
+	color:#FFF;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+}
+
+#projectOverviewTable #sharedNamesContainerArchived {
+	padding:8px;
+	margin:7px 10px 5px 3px;
+	background-color:#FF0000;
+	color:#FFF;
+	font-weight:bold;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+}
+
+
+#projectOverviewTable #sharedNames  {
+	display:inline;
+	font-weight:bold;
+}
+	
+	
+#projectOverviewTable .actions {
+	 border-left:0px;
+			}
+			
+#projectOverviewTable .actions ul {
+	 margin:7px 0 0 0px;
+	 padding:0;
+			}
+
+#projectOverviewTable .actions input {
+	 vertical-align:middle;
+	 position:relative;
+	 left:3px;
+	 top:-2px; 
+				}
+			
+#projectOverviewTable .actions li {
+	display:inline;
+	list-style-type:none;
+	margin-right:10px;
+	letter-spacing:-.5px;
+	
+			}		
+
+#projectOverviewTable #title4, #projectOverviewTable #title5 {
+	letter-spacing:-.5px; 
+			}	
+
+#projectOverviewTable #row4 #hideShowLink{
+	float:right;
+	font-size:85%;
+			}
+	
+#projectOverviewTable #row4 {
+	background-color:#FFDBAC;
+	background-color:#FFF;
+	background-image:url(../images/Gradient_tan320.png);
+	background-position: bottom;
+	
+			}	
+					
+#projectOverviewTable #row4 .summary{
+	padding-right:10px;
+	font-weight:bold;  
+			}	
+			
+#projectOverviewTable #row4 #detailsTable{
+	border-collapse:collapse;
+	text-align:left;
+	border:0;
+				}	
+	
+#projectOverviewTable #row4 #detailsTable th {
+	color:#000;
+	background:transparent;
+	border:0px;
+	width:150px;
+	padding:4px 4px 4px 0;
+	vertical-align:top;
+	font-weight:normal;
+				}
+						
+#projectOverviewTable #row4 #detailsTable td {
+	border:0;
+	padding:4px 4px 4px 0;
+	vertical-align:top;
+	
+			}
+			
+#projectOverviewTable #row4 #detailsTable .keywords {
+	font-style:normal;
+			}
+			
+.checkCompatibilityWarning {
+	font-size:1.0em;
+	text-align:left;
+	color:red
+}
+
+.checkCompatibilityCaution {
+	font-size:1.0em;
+	text-align:left;
+	color:blue
+}

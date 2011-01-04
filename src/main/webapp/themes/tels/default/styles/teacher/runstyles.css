@@ -1,0 +1,398 @@
+
+
+/* NOTE: the min-height hack immediately below is a temporary measure, until we dynamically 
+resize the size of Projectruntabs.jsp when the user switches between Current or Archived tabs (MattFish Dec 2009) */
+
+table, td, th {
+	border:1px solid;
+}
+
+#currentrunWrapper {
+	background-color:#FFF;
+	min-height:480px;
+}
+
+#currentRuns {
+	background-color:#FFF;
+}
+
+#noRuns {
+	color:#336600;
+}
+
+#noRuns a {
+	border:1px solid transparent;
+}
+
+#noRuns a:hover {
+	background:#FFFF00;
+	border:1px solid #999;
+	
+}
+
+#subHeader {
+	margin:3px 0 8px 0 ;
+	font-size:.8em;
+	font-weight:bold;
+	color:#333;
+}
+
+#runBox {
+	padding:0;
+	margin:0;
+}
+
+#currentRunTable {
+	border-collapse:collapse;
+	margin:5px 0;
+	background:#FFF;
+}
+
+.tableHeaderMain {
+	background:#99CC99;
+	color:#333;
+	font-size:.8em;
+	padding: 2px 0px 2px 10px;
+	text-align:left;
+	letter-spacing:1.5px;
+}
+
+.tableHeaderMain.archive {
+	background-color: brown;
+    border-color: #000000;
+    color: #FFFFFF;
+    font-size: 0.8em;
+    letter-spacing: 1.5px;
+    padding: 2px 0 2px 10px;
+    text-align: left;
+}
+
+#runTitleRow {
+	border-bottom:2px solid #666;
+}
+
+#titleCell {
+	padding: 5px 2px 5px 6px;
+	vertical-align:top;
+	}
+
+#titleCell #titleCellLinkList{
+	margin:0px auto;
+	padding:0px;
+	}
+	
+#titleCell #titleCellLinkList li{
+	list-style-type:none;
+	margin:0px;
+	padding:0px;
+	}
+	
+#runTitle {
+	font-size:1.0em;
+	font-weight:bold;
+	margin: 0px 0px;
+	padding:0px;
+	letter-spacing:-.5px;
+}
+
+#sharedTeacherMsg1 {
+	background-color:#ffb759;
+	border-left:6px solid #bf955f;
+	font-size:.75em;
+	padding: 1px 4px 1px 8px;
+	margin:4px 0 0 0px;
+}
+
+#runTitleTable {
+	border-collapse:collapse;
+	border:0px;
+	font-size:.7em;
+	color:#000000;
+	margin:5px 0;
+}
+
+#runTitleTable th {
+	border:0px;
+	padding:1px 0;
+	width:150px;
+	text-align:left;
+	color:#666;
+	vertical-align:top;
+	
+	}
+	
+#runTitleTable .accesscodeClass {
+	font-weight:bold;
+	color:#660000;
+	font-size:110%;
+} 
+
+#runTitleTable td {
+	border:0px;
+	padding:1px 0;
+	vertical-align:top;
+	}
+
+#currentRunInfoTable {
+	border:0 none;
+	margin:0px;
+	padding:0px;
+	width:100%;
+	vertical-align:middle;
+		}
+	
+#currentRunInfoTable .tableInnerHeader {
+	background-color: #CCCCCC;
+    border-left: 0 none;
+    border-top: 0 none;
+    font-size: 0.7em;
+    font-weight: bold;
+    padding: 2px 1px;
+    text-align: center;
+}
+
+#currentRunInfoTable .tableInnerHeaderRight {
+	font-size:.7em;
+	font-weight:bold;
+	text-align:center;
+	padding: 2px 1px;
+	border-top:0px;
+	border-bottom:0px;
+	border-right:0px;
+	background-color:#CCCCCC;
+}
+
+#currentRunInfoTable .tableInnerData {
+	font-size:.7em;
+	text-align:center;
+	padding: 0px;
+	margin:0px;
+}
+
+#currentRunInfoTable .tableInnerDataRight {
+	text-align:center;
+	padding: 0 0 2px 0px;
+	border-right:0px;
+	margin:0px;
+}
+
+#currentRunInfoTable .archivedNumberStudents {
+	font-size:.7em;
+	text-align:center;
+	padding: 2px 1px;
+}
+
+#actionList1  {
+	float:left;
+	text-align:left;
+	margin:4px 0 4px 3px;
+	padding:0px;
+	}
+	
+#actionList2  {
+	float:left;
+	text-align:left;
+	margin:4px 0px 4px 0px;
+	padding:0px;
+	border-left:1px solid #CCC;
+	
+		}
+		
+#actionList3  {
+	text-align:left;
+	margin:4px 2px 4px 4px;
+	padding:0px;
+		}
+	
+	
+#actionList1 li, #actionList2 li, #actionList3 li  {
+	list-style-type:none;
+	line-height:100%;
+	font-size:0.7em;
+	margin:4px 2px 4px 4px;
+	}
+	
+#actionList2 .qaBullet  {
+	margin:0 0 0 20px;
+	}
+	
+	
+#currentRunTable a:link, #currentRunTable a:visited, #actionList a:link, #actionList a:visited {
+	text-decoration:none;
+	color:#0033CC;
+	padding:1px 7px 1px 7px;
+}
+
+#currentRunTable a:hover, #actionList a:hover {
+	color:#000066;
+	padding:0px 6px 0px 6px;
+	background-color:#ffff33;
+	border:1px solid #666666;
+}
+
+
+
+/* STYLES FOR MY PROJECT RUN: POP UP WINDOWS  */
+
+#popUpBoxBoundary {
+	margin:5px;
+	border:1px solid #333333;
+	}
+
+#largeHeader {
+	margin-top:30px;
+	font-size:2.1em;
+	letter-spacing:2px;
+	font-variant:small-caps;
+	text-align:center;
+}
+
+#blockHighlight {
+	width:80%;
+	text-align:center;
+	background-color:#99FF99;
+	border:1px solid #000000; 
+	margin: 20px auto 20px auto;
+	padding:15px;
+}
+
+#blockHighlight #blockItem {
+	width:170px; 
+}
+
+#popUpNotice1 {
+	font-size:1.0em;
+	font-weight:bold;
+	text-align:center;
+	padding: 0px 85px;
+	margin: 10px auto;
+}
+
+#popUpNotice2 {
+	text-align:center;
+	font-size:90%;
+	margin:10px auto;
+	width:85%;
+	margin:15px auto;
+	color:#FF0000;
+	}
+
+#responseButtons  {
+	padding:10px;
+}
+
+#responseButtons input {
+	text-align:center;
+	border:1px solid #666666;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	background-color:#1e69ff;
+	color:#CCC;
+	padding:4px 10px;
+	margin:0 8px;
+		}
+
+#responseButtons input:hover {
+	background-color:#FFFF00;
+	color:#666;
+}
+
+
+
+/* STYLES FOR VIEW STUDENTS: POP-UP WINDOWS  */
+
+#popUpWindowViewStudents {
+	width:560px;
+	background-image: url(../../images/student/Gradient-ProjectMenu-Green-450.png);
+	background-position: center bottom;
+	background-repeat: repeat-x;
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	margin: 40px auto;
+	padding:20px;
+	}
+	
+#errorMessage {
+	color:#FF0000;
+	padding:0px;
+	margin:0px;
+	font-size:1.3em;
+}
+
+#studentchangepasswordbox {
+	text-align:left;
+	margin: 0 auto;
+}
+
+#studentchangepasswordbox dt {
+	float:left;
+	vertical-align:baseline;
+	width:215px;
+	font-size:.8em;
+	font-weight:bold;
+	padding:3px 0px;
+	margin:6px 0 0 30px; ;
+}
+
+#studentchangepasswordbox dd {
+	margin:0px;
+	padding:5px 0px;
+	 }
+
+.changePasswordField {
+	font-size:.8em;
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	margin:0 0 0 10px;
+	padding:3px;
+}
+
+#saveCancelButtons {
+text-align:center;
+margin: 30px auto 5px auto;
+}
+
+#errorMsgDiv {
+	color:#aa5522;	
+}
+
+#mainDiv {
+	text-align:left;
+}
+
+.editRunBlock {
+	background-color:#333333;
+	font-size:1.2em;
+	color:silver;
+	-webkit-border-radius:7px;
+	-moz-border-radius:7px;
+	border-radius:7px;
+	margin:3px 0 2px 0;
+	padding:0 5px 0 5px;
+}
+
+#errorMsgDiv {
+	height:25px;
+}
+
+#existingPeriodsList {
+	list-style-type:none;
+	background-color:#666666;
+	border:1px solid silver;
+	-webkit-border-radius:7px;
+	-moz-border-radius:7px;
+	border-radius:7px;
+}
+
+#editRunPeriodsAddPeriodDiv {
+	margin: 5px;
+}
+
+.buffer {
+	height:10px;
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+        "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <bean id="pedagogicalPlanService" class="eu.scy.server.pedagogicalplan.PedagogicalPlanServiceImpl">
+        <property name="scenarioService" ref="scenarioService"/>
+    </bean>
+
+    <!--bean name="/pedagogicalPlan-httpinvoker" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+        <property name="service" ref="pedagogicalPlanService"/>
+        <property name="serviceInterface" value="eu.scy.server.pedagogicalplan.PedagogicalPlanService"/>
+    </bean-->
+
+
+
+</beans>

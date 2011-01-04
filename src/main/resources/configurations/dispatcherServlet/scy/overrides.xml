@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    * Copyright (c) 2007 Encore Research Group, University of Toronto
+    * 
+    * This library is free software; you can redistribute it and/or
+    * modify it under the terms of the GNU Lesser General Public
+    * License as published by the Free Software Foundation; either
+    * version 2.1 of the License, or (at your option) any later version.
+    *
+    * This library is distributed in the hope that it will be useful,
+    * but WITHOUT ANY WARRANTY; without even the implied warranty of
+    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    * Lesser General Public License for more details.
+    *
+    * You should have received a copy of the GNU Lesser General Public
+    * License along with this library; if not, write to the Free Software
+    * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+-->
+
+<!-- $Id: overrides.xml 2444 2009-08-25 02:01:02Z honchikun@gmail.com $ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+    <!-- Specifies where theme properties are located -->
+    <bean id="themeSource"
+        class="org.springframework.ui.context.support.ResourceBundleThemeSource">
+        <property name="basenamePrefix" value="/themes/scy/" />
+    </bean>
+
+    <!--bean id="registerstudentController" class="eu.scy.controllers.RegisterStudentForSCYController">
+    	<property name="userService" ref="userService" />
+    	<property name="studentService" ref="studentService" />
+    	<property name="commandName" value="studentAccountForm" />
+    	<property name="validator" ref="studentAccountFormValidator" />
+    	<property name="formView" value="student/registerstudent" />
+    	<property name="successView" value="student/registerSCYStudentConfirm" />
+    </bean-->
+
+    
+    <!--bean id="registerCurnitController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.author.module.RegisterModuleController">
+    	<property name="curnitService" ref="curnitService" />
+    	<property name="commandName" value="curnitParameters" />
+    	<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.CreateUrlModuleParameters" />
+    	<property name="validator" ref="curnitParametersValidator" />
+    </bean-->
+    
+    <bean id="registerOtmlModuleController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.author.module.RegisterOtmlModuleController">
+    	<property name="curnitService" ref="curnitService" />
+    	<property name="commandName" value="otmlFile" />
+    	<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.admin.OtmlFileUpload" />    </bean>
+    
+
+    <!-- JSP with optional JSTL views -->
+    <bean id="viewResolver"
+        class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass"
+            value="org.springframework.web.servlet.view.JstlView" />
+        <property name="prefix" value="/WEB-INF/jsp/scy/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <!-- Localizable messages -->
+    <bean id="messageSource"
+        class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>messages/scy/ui-html</value>
+            </list>
+        </property>
+    </bean>
+    <!--  The real exceptions are logged to the tomcat/logs/catalina.out file. Look there if you've got a problem. -->
+    <!--bean id="exceptionResolver"
+        class="org.telscenter.sail.webapp.spring.impl.TelsSimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception">errors/friendlyError</prop>
+                <prop key="org.acegisecurity.AccessDeniedException">
+                    errors/securityFriendlyError
+                </prop>
+                <prop
+                    key="net.sf.sail.webapp.domain.webservice.NetworkTransportException">
+                    errors/networkFriendlyError
+                </prop>
+            </props>
+        </property>
+        <property name="portalService" ref="portalService" />
+        <property name="emaillisteners" ref="emaillisteners" />
+    </bean-->
+    
+
+    <bean id="openSessionInViewInterceptor"
+        class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="viewScenariosController" class="eu.scy.controllers.ViewScenarioBankController">
+        <!--property name="scenarioService" ref="scenarioService"/-->
+    </bean>
+
+
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- place any extra extension files after the pas/hibernate.cfg.xml base file -->
+        <property name="configLocations">
+            <list>
+                <value>
+                    classpath:configurations/hibernate/pas/hibernate.cfg.xml
+                </value>
+                <value>
+                    classpath:configurations/hibernate/tels/hibernate-extensions.cfg.xml
+                </value>
+                <value>
+                    classpath:eu/scy/core/model/impl/hibernate-scy.cfg.xml
+                </value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="scyStudentIndexController" class="eu.scy.controllers.SCYStudentIndexController">
+
+    </bean>
+    
+    <bean
+    	class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    	<property name="order" value="2"></property>
+    	<property name="mappings">
+    		<value>
+    		    /index.html=urlFilenameViewController
+    		    <!--/smartroom/smartroom.html=smartRoomController
+    		    /preview.html=previewLDProjectController
+    		    /contactwisegeneral.html=contactWiseController
+    		    /contactwiseproject.html=contactWiseProjectController
+    		    /student/index.html=scyStudentIndexController
+    		    /student/vle/vle.html=studentVLEController
+    		    /student/vle/studentdata.html=studentDataController
+    		    /student/vle/basic_example_otml.html=basicExampleController
+    		    /student/selectteam.html=selectteamController
+    		    /student/teamsignin.html=teamSignInController
+    		    /student/addproject.html=addProjectController
+    		    /student/changeperiodteam.html=changePeriodTeamController
+    		    /student/startproject.html=startProjectController -->
+    		    <!--/student/registerstudent.html=registerstudentController-->
+    		    <!--/student/getannotationbundle.html=getAnnotationBundleController
+				/student/changestudentpassword.html=changeUserPasswordController
+				/student/brainstorm/studentbrainstorm.html=studentBrainstormController-->
+			<!-- 	/student/brainstorm/teststudentbrainstorm.html=testStudentBrainstormController
+				/student/brainstorm/testpostanswer.html=testPostBrainstormAnswerController  -->
+                <!--/student/brainstorm/brainstormresponse.html=brainstormResponseController-->
+				<!--/student/brainstorm/addcomment.html=addCommentController-->
+				<!--/student/brainstorm/postresponse.html=postResponseController-->
+				<!--/student/brainstorm/postcomment.html=postCommentController
+				/student/brainstorm/postrevision.html=postRevisionController
+				/student/brainstorm/addrevision.html=addRevisionController
+				/student/brainstorm/markanswerhelpful.html=markAnswerHelpfulController
+				/student/brainstorm/requesthelp.html=requestHelpController
+				/student/brainstorm/pollnewposts.html=pollNewPostsController
+				/student/brainstorm/getallposts.html=getAllPostsController
+				/student/brainstorm/resultsgraph.html=resultsGraphController
+				/student/brainstorm/pollinstantpoll.html=pollInstantPollController
+				/student/service/workgroup.html=studentWorkgroupServiceController-->
+<!--				/teacher/index.html=teacherIndexController
+    		    /teacher/termsofuse.html=termsOfUseController
+    		    /teacher/registerteacher.html=registerteacherController
+    		    /teacher/states.html=statesController
+    		    /teacher/countries.html=countriesController
+    		    /teacher/curriculumsubjects.html=curriculumSubjectsController
+    		    /teacher/projects/overview.html=projectOverviewController
+    		    /teacher/projects/runmanager.html=projectRunManagerController
+    		    /teacher/projects/changeperiods.html=changePeriodsController
+    		    /teacher/projects/languagetranslations.html=languageTranslationsController
+    		    /teacher/projects/studentmessage.html=studentMessageController
+    		    /teacher/projects/studentmessageinput.html=studentMessageInputController
+    		    /teacher/projects/studentmessageoptions.html=studentMessageOptionsController
+    		    /teacher/projects/studentmessageconfirm.html=studentMessageConfirmController
+    		    /teacher/projects/reportproblem.html=reportProblemController
+    		    /teacher/projects/library/options.html=projectOptionsController
+    		    /teacher/projects/projectlibrary.html=projectLibraryController
+    		    /teacher/projects/projectinfo.html=projectInfoController
+    		    /teacher/projects/customized/index.html=customizedIndexController
+    		    /teacher/projects/customized/shareproject.html=shareProjectController
+    		    /teacher/run/shareprojectrun.html=shareProjectRunController
+    		    /teacher/run/myprojectruns.html=myProjectRunsController
+    		    /teacher/run/myarchivedruns.html=myArchivedRunsController
+    		    /teacher/run/archivedrunmanager.html=archivedRunManagerController
+    		    /teacher/run/manage/archiveRun.html=endRunController
+    		    /teacher/run/manage/startRun.html=startRunController
+    		    /teacher/run/createRun.html=createRunController
+    		    /teacher/run/brainstorm/createbrainstorm.html=createBrainstormController
+    		    /teacher/run/brainstorm/managebrainstorm.html=manageBrainstormController
+				/teacher/run/brainstorm/getallposts.html=getAllPostsController
+				/teacher/run/brainstorm/brainstormresponse.html=brainstormResponseController
+				/teacher/run/brainstorm/addcomment.html=addCommentController
+
+				/teacher/run/brainstorm/postcomment.html=postCommentController
+				/teacher/run/brainstorm/postrevision.html=postRevisionController
+				/teacher/run/brainstorm/addrevision.html=addRevisionController
+				/teacher/run/brainstorm/markanswerhelpful.html=markAnswerHelpfulController
+				/teacher/run/brainstorm/requesthelp.html=requestHelpController
+				/teacher/run/brainstorm/pollnewposts.html=pollNewPostsController
+				/teacher/run/brainstorm/resultsgraph.html=resultsGraphController
+				/teacher/run/brainstorm/pollinstantpoll.html=pollInstantPollController
+				/teacher/run/brainstorm/createnewbrainstorm.html=createNewBrainstormController
+				/teacher/run/brainstorm/createopenresponsebrainstorm.html=createOpenResponseBrainstormController
+				/teacher/run/brainstorm/createsinglechoicebrainstorm.html=createSingleChoiceBrainstormController
+				/teacher/run/report.html=projectRunReportController
+    		    /teacher/grading/overview.html=gradeOverviewController
+    		    /teacher/grading/gradebystep.html=gradeByStepController
+				/teacher/grading/gradingtool.html=gradingToolController
+				/teacher/grading/gradingsubmit.html=gradingSubmitController
+				/teacher/grading/currentscore.html=currentScoreController
+				/teacher/grading/projectPickerGrading.html=projectPickerGradingController
+				/teacher/grading/premadeComments.html=premadeCommentsController
+				/teacher/grading/editComment.html=editCommentController
+				/teacher/grading/createNewCommentList.html=createNewCommentListController
+				/teacher/grading/deleteCommentList.html=deleteCommentListController
+				/teacher/grading/addCommentToList.html=addCommentToListController
+				/teacher/grading/createNewCommentList.html=createNewCommentListController
+				/teacher/grading/selectworkgroup.html=selectWorkgroupController
+				/teacher/grading/gradebyworkgroup.html=gradeByWorkgroupController
+				/teacher/grading/editmaxstepvalues.html=editMaxStepValuesController
+				/teacher/grading/batchscore.html=batchScoreController
+				/teacher/grading/gradingcellinfo.html=gradingCellInfoController
+ 				/teacher/management/progresscellinfo.html=progressCellInfoController
+    		    /teacher/management/overview.html=managementOverviewController
+    		    /teacher/management/projectPickerManagement.html=projectPickerManagementController
+    		    /teacher/management/exportsandreports.html=exportsAndReportsController
+    		    /teacher/management/managemystudents.html=manageStudentsController
+    		    /teacher/management/updatemyaccount.html=updateMyAccountController
+    		    /teacher/management/changeteacherpasswordsuccess.html=changeTeacherPasswordSuccessController    -->
+    		    <!--  /teacher/management/updateteacheraccount.html=updateTeacherAccountController-->
+    		    <!--/teacher/management/submitworkgroupchanges.html=submitWorkgroupChangesController
+    		    /studentinfo.html=infoController
+    		    /teacher/management/studentlist.html=studentListController
+    		    /teacher/management/studentlistexcel.html=viewMyStudentsController-->
+    		    <!--  /teacher/management/manageextrateachers.html=manageExtraTeachersController -->
+    		    <!--/teacher/management/addsharedteacher.html=addSharedTeacherController
+    		    /teacher/help/overview.html=overviewHelpController
+    		    /teacher/help/main.html=mainHelpController
+    		    /teacher/help/contactwise.html=contactWiseController
+    		    /teacher/vle/vle.html=studentVLEController-->
+    		    /**/index.html=indexController
+    		    <!--/previewproject.html=previewprojectController
+    		    /previewprojectlist.html=previewprojectlistController
+    		    /credits.html=creditsController
+    		    /forgotaccount/selectaccounttype.html=selectAccountTypeController
+    		    /forgotaccount/teacher/index.html=forgotAccountTeacherIndexController
+    		    /forgotaccount/teacher/success.html=forgotAccountTeacherSuccessController
+    		    /forgotaccount/teacher/error.html=forgotAccountTeacherErrorController
+    		    /forgotaccount/student/username.html=forgotAccountStudentUsernameController
+				/forgotaccount/student/password.html=forgotAccountStudentPasswordController
+	  			/forgotaccount/student/passwordreminder*.html=forgotAccountStudentPasswordReminderWizardController
+				/forgotaccount/student/enterprojectcode.html=forgotAccountStudentCheckProjectCodeController
+				/**/changepassword.html=changePasswordController
+				/teacher/management/viewmystudents.html=viewMyStudentsController
+				/teacher/management/batchstudentchangepassword.html=batchStudentChangePasswordController
+				/teacher/management/changeteacherpassword.html=changeUserPasswordController
+				/teacher/management/changestudentpassword.html=changeUserPasswordController
+				/teacher/management/changeworkgroup.html=changeWorkgroupController
+				/teacher/management/removestudentfromrun.html=removeStudentFromRunController
+				/teacher/management/updatemyaccountinfo.html=updateMyAccountInfoController
+				/teacher/management/projectpickerclassmonitor.html=projectPickerClassMonitorController
+				/teacher/management/classmonitor.html=classMonitorController
+				/teacher/management/classmonitormeaning.html=classMonitorMeaningController
+				/teacherinfo.html=infoController
+				/dwr/*=dwrController -->
+				<!--/author/registermodule.html=registerCurnitController
+				/author/registerotmlmodule.html=registerOtmlModuleController
+     			/author/registerroolootmlmodule.html=registerRooloOtmlModuleController
+				/author/registerjnlp.html=registerJnlpController
+				/author/createproject.html=createProjectController
+				/author/createrooloproject.html=createRooloProjectController
+				/author/authorproject.html=authorProjectController
+				/author/brainstorm/createbrainstorm.html=createBrainstormQuestionController
+				/author/brainstorm/editpreparedanswer.html=editPreparedAnswerController
+				/author/project/postproject.html=postProjectController
+				/author/brainstorm/authorbrainstorm.html=authorBrainstormController   -->
+				<!--/admin/manageusers.html=viewAllUsersController
+				/admin/scenarios.html=viewScenariosController
+				/admin/lookupuser.html=lookupUserController
+				/admin/manageallprojects.html=manageAllProjectsController
+				/admin/editproject.html=editProjectController
+				/admin/manageallprojectruns.html=manageAllProjectRunsController
+				/admin/uploadotml.html=uploadOtmlController
+				/admin/findprojectruns.html=findProjectRunsController
+				/admin/manageproject.html=listProjectsController
+				/admin/managenewsitems.html=listNewsItemsController
+				/admin/addnewsitems.html=addNewsItemController
+				/admin/editnewsitem.html=editNewsItemController
+				/admin/removenewssuccess.html=removeNewsItemController
+				/admin/removenewsconfirm.html=removeNewsConfirmController
+				/admin/findprojectrunsbyteacher.html=findProjectRunsByTeacherController
+				/admin/lookupteacher.html=lookupTeacherController
+				/admin/lookupstudent.html=lookupStudentController
+				/admin/project/importexternalproject.html=importExternalProjectController
+				/admin/project/getallexternalprojects.html=getAllExternalProjectsController
+				/admin/project/viewprojectcommunicators.html=projectCommunicatorController
+				/admin/project/manageprojectcommunicator.html=projectCommunicatorController
+				/admin/portal/manageportal.html=managePortalController
+				/newsarchive.html=listNewsItemsController
+				/teacher/management/changestudentperiod.html=changeStudentPeriodController
+				/repository/retrieveotml.html=retrieveOtmlController   -->
+				<!--/teacher/reports/stepactivitygraph.html=stepActivityGraphController
+				/teacher/reports/totaltimeperstep.html=totalTimePerStepController
+				/teacher/run/announcement/manageannouncement.html=manageAnnouncementController
+				/teacher/run/announcement/viewannouncement.html=viewAnnouncementController
+				/teacher/run/announcement/createannouncement.html=createAnnouncementController
+				/teacher/run/announcement/editannouncement.html=editAnnouncementController
+				/teacher/run/announcement/removeannouncement.html=removeAnnouncementController
+				/teacher/projects/bookmarkedprojects.html=bookmarkedProjectController
+				/teacher/projects/bookmark.html=bookmarkController
+				/teacher/projects/copyproject.html=copyProjectController
+				/teacher/projects/uploadproject.html=uploadProjectController
+				/student/viewannouncements.html=viewAnnouncementsController
+				/createhierarchytype.html=createHierarchyTypeController
+				/createnode.html=createNodeController
+				/managehierarchytypes.html=manageHierarchyTypesController
+				/managehierarchy.html=manageHierarchyController-->
+				<!-- /reposit.html=repositController  -->
+				<!-- /junk.html=junkController  -->
+				<!-- /retrieve.html=retrieveController  -->
+				<!--/rooloproject.html=rooloProjectController
+				/author/authorrooloproject.html=authorRooloProjectController
+				/author/uploadxml.html=uploadXMLProjectController
+				/bridge/*.html=bridgeController-->
+    		</value>
+    	</property>
+    </bean>
+
+
+</beans>

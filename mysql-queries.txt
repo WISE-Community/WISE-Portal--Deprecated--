@@ -1,0 +1,93 @@
+This file contains mysql queries for portal sail_database changes.
+
+### 2010.06.11 Start
+
+Comment: Run all these queries if you are switching from webapp-2.0 to webapp-2.2
+
+
+ALTER TABLE `sail_database`.`runs` ADD COLUMN `versionId` VARCHAR(255) AFTER `postLevel`;
+ALTER TABLE `sail_database`.`projects` DROP COLUMN `metadata_fk`;
+ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `project_fk` BIGINT(20) AFTER `keywords`;
+ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `version_id` VARCHAR(255) AFTER `project_fk`;
+
+ALTER TABLE `sail_database`.`messages` DROP COLUMN `isRead`, DROP COLUMN `recipient`;
+
+CREATE TABLE `sail_database`.`messages_related_to_message_recipients` (
+messages_fk bigint not null,
+recipients_fk bigint not null,
+primary key(messages_fk, recipients_fk),
+unique(recipients_fk)
+) type=InnoDB;
+
+CREATE TABLE `sail_database`.`message_recipient` (
+`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+`recipient_fk` BIGINT(20) NOT NULL,
+`isRead` BOOLEAN,
+PRIMARY KEY (`id`)
+)
+CHARACTER SET utf8;
+
+CREATE TABLE `sail_database`.`projects_related_to_tags` (
+`project_fk` BIGINT(20) NOT NULL,
+`tag_fk` BIGINT(20) NOT NULL,
+PRIMARY KEY (`project_fk`, `tag_fk`)
+)
+CHARACTER SET utf8;
+
+CREATE TABLE `sail_database`.`tags` (
+`id` BIGINT(20) AUTO_INCREMENT,
+`name` VARCHAR(256),
+PRIMARY KEY (`id`)
+)
+CHARACTER SET utf8;
+
+ALTER TABLE `sail_database`.`runs` ADD COLUMN `timesRun` INT AFTER `versionId`, ADD COLUMN `lastRun` DATETIME AFTER `timesRun`;
+
+ALTER TABLE `sail_database`.`premadecommentlists` ADD COLUMN `global` BOOLEAN DEFAULT NULL AFTER `run`;
+
+ALTER TABLE `sail_database`.`premadecomments` DROP COLUMN `label`,
+ DROP COLUMN `run`,
+ DROP INDEX `FK7786D42CF4421937`,
+ DROP FOREIGN KEY `FK7786D42CF4421937`;
+
+ALTER TABLE `sail_database`.`premadecommentlists` DROP COLUMN `run`
+, DROP INDEX `FKF237B2CEF4421937`,
+ DROP FOREIGN KEY `FKF237B2CEF4421937`;
+
+ALTER TABLE `sail_database`.`premadecomments` ADD COLUMN `listposition` INT AFTER `owner`;
+
+delete FROM sail_database.premadecomments_related_to_premadecommentlists;
+delete FROM sail_database.premadecommentlists;
+delete FROM sail_database.premadecomments;
+
+update projects set projecttype=2 where projecttype is null;
+
+### 2010.06.11 End
+
+### 2010.08.13 BEGIN
+ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `last_cleaned` DATETIME AFTER `version_id`;
+ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `last_edited` DATETIME AFTER `last_cleaned`;
+ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `post_level` BIGINT(20) AFTER `last_edited`;
+ALTER TABLE `sail_database`.`projects` ADD COLUMN `metadata_fk` BIGINT(20) AFTER `datecreated`;
+ALTER TABLE `sail_database`.`projects` ADD COLUMN `parentProjectId` BIGINT(20) AFTER `metadata_fk`;
+### 2010.08.13 END
+
+### 2010.08.17 BEGIN
+ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `language` varchar(50) AFTER `keywords`;
+update project_metadata set tech_reqs=null where tech_reqs is null or tech_reqs = 'null' or tech_reqs = ''
+### 2010.08.17 END
+
+### 2010.08.30 BEGIN
+ALTER TABLE `sail_database`.`project_metadata` MODIFY COLUMN `total_time` VARCHAR(255) DEFAULT NULL,
+ MODIFY COLUMN `comp_time` VARCHAR(255) DEFAULT NULL;
+### 2010.08.30 END
+
+### 2010.09.17 BEGIN
+INSERT INTO granted_authorities values (6, 'ROLE_RESEARCHER',0)
+### 2010.09.17 END
+
+
+### 2010.09.24 BEGIN
+ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `last_minified` DATETIME DEFAULT NULL AFTER `last_edited`;
+ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `max_scores` TEXT DEFAULT NULL AFTER `post_level`;
+### 2010.09.24 END

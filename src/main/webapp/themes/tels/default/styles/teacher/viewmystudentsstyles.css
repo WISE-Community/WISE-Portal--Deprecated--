@@ -1,0 +1,334 @@
+#L3Label {
+	color:#0000FF;
+	letter-spacing:1px;
+	font-variant:small-caps;
+	font-size:1.1em;
+	margin:0px;
+	padding:8px 0 0px 3px;
+	}
+	
+	
+table {
+	border-collapse:collapse;
+	border:0px;
+	margin:0px 0px 0px 3px;
+}
+
+#projectTitleBox {
+	margin:5px 0 10px 0;
+}
+	
+#projectTitleBox th {
+	border:0px;
+	font-size:1.4em;
+	font-weight:bold;
+	text-align:left;
+	vertical-align:text-bottom;
+	color:#000066;
+	padding:0px;
+	margin:0;
+	}
+	
+#projectTitleBox td {
+	border:0px;
+	font-size:.7em;
+	text-align:left;
+	vertical-align:text-bottom;
+	color:#666666;
+	padding:0 0 0 10px;
+	margin:0px;
+		}
+		
+#periodHeaderBar {
+	padding:0px;
+	margin: 5px 0 8px 10px;
+}	
+
+.manageDataStyle {
+	font-weight:bold;
+	color:#0000cc;
+}
+
+#periodHeaderBar li {
+	list-style-type: none;
+	display:inline;
+}	
+	
+.periodHeaderStart {
+	font-size:.8em;
+	font-weight:normal;
+	padding:0 25px 0 0 ;
+}
+
+.viewStudentsLink {
+	font-size:.9em;
+	margin: 0 0px 0 25px;
+	}
+
+#periodHeaderBar a:link, #periodHeaderBar a:visited {
+	font-size:.8em;
+	font-weight:bold;
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	padding:3px 5px;
+	background-image: url(../../images/WISE-Secondary-Banner-Gradient.png);
+	background-position: top;
+	text-decoration:none;
+  	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+	    }	
+    
+#periodHeaderBar a:hover {
+	color:#000000;
+	background-image: none;
+	background-color:#FFFF66;	
+    }	
+
+#instructionsBar {
+	font-size:.7em;
+	text-transform:uppercase;
+	margin: 12px 5px 8px 8px;
+	padding:4px 4px 4px 33px;	
+	background-color:#FFCCCC;
+	background-image: url(../../images/help.png);
+	background-position: 8px center;
+	background-repeat:no-repeat;
+	text-decoration:none;
+	color:#000066;
+	}
+	
+#instructionsBar:hover {
+	cursor:pointer;
+	background-color:#FFFF00;
+	}
+
+#instructionsBar .subText{
+	color:#666;
+	text-transform:none;
+	
+	}
+	
+#viewStudentsInstructions {
+	margin: -8px 5px 8px 8px;
+	padding:0px;
+	border:2px solid #FFCCCC;
+	}
+
+#viewStudentsInstructions li {
+	font-size:.8em;
+	margin-bottom:4px;
+	list-style-type:circle
+		}
+
+/* BEGIN STYLING FOR STUDENT DATA  */
+
+#manageStudentsTable {
+	margin-top:10px;}
+	
+#manageStudentsTable td {
+	padding:0 0 0 20px;
+	vertical-align:top;
+}
+
+.workarea {
+	display:inline;
+}
+
+ul.draglist { 
+    position: relative;
+    width: 420px;
+    background: #f7f7f7;
+    border-top: 1px solid #999999;
+    border-right: 1px solid #666666;
+    border-bottom: 1px solid #666666;
+    border-left: 1px solid #999999;
+    margin-top:4px;
+    margin-bottom:4px;
+    padding:0;
+}
+
+ul.draglist li {
+    margin: 0px;
+    cursor: move; 
+    list-style-type: none;
+    padding:1px 1px 1px 3px;
+        }
+
+ul.draglist_alt li {
+    margin: 1px;
+    cursor: move;
+}
+
+.grouplessHeader{
+	background-color:#990000;
+	color:#FFFFFF;
+	font-weight:bold;
+	font-size:.85em		}
+
+li.grouplesslist {
+    font-weight:bold;
+    background-color: #FFCCCC;
+    border: 1px solid #999999;
+    }
+
+#userNameWithinView {
+	 font-size:.80em;
+	 padding-right:20px;
+		  }
+	
+#userLinksBar {
+	position:absolute;
+	right:15px;
+		  }
+	  
+.userLinks {
+	font-size:.75em;
+	font-weight:normal;
+	margin: 0 4px;
+		  }
+
+li.grouplesslist a:active, li.grouplesslist a:visited{
+    color: #CC0000;
+    text-decoration:underline;  
+     }
+
+li.grouplesslist a:hover{
+	color: #000033;
+	text-decoration:underline;
+	}
+
+.workgroupHeader{
+	background-color:#336633;
+	color:#FFFFFF;
+	font-weight:bold;
+	font-size:.8em; 	}
+	
+li.workgrouplist {
+    font-weight:bold;
+    background-color: #CCFF99;
+    border: 1px solid #999999;
+}
+
+li.workgrouplist a:active, li.workgrouplist a:visited{
+    list-style-type:none;
+    color: #009900;
+    text-decoration:underline;  
+   }
+
+li.workgrouplist a:hover{
+	color: #000033;
+	text-decoration:underline;
+	}
+
+.createPdfLink {
+	font-size:.9em;
+	position:absolute;
+	right: 10px;
+	color:#ffffff;
+}
+
+li.workgroupHeader a:hover {
+	color:#CC99FF;
+}
+
+#saveBar {
+	text-align:center;  }
+	
+.saveButton {
+	font-size:1.0em;
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	padding:4px;
+	margin:20px auto 10px auto;
+	background-image: url(../../images/WISE-Secondary-Banner-Gradient.png);
+	background-position:top;
+	
+}
+
+.saveButton:hover {
+	background-image:none;
+	background-color:#FFFF66;	
+}
+
+/* STYLING FOR STUDENT INFORMATION BOX */
+
+#studentInfoNameHeader {
+	margin:30px 0 10px 0px;
+	color:#0000FF;
+	letter-spacing:1px;
+	font-variant:small-caps;
+	font-size:1.6em; 
+	font-weight:bold;
+}
+
+#studentInfoTable {
+	border-collapse:collapse;
+	border:3px double #000000;
+	margin:10px auto 30px auto;
+	font-size:.9em;
+	text-align:left;
+	vertical-align:top;
+	}
+	
+#studentInfoTable th, #studentInfoTable td {
+	padding:10px 15px 10px 10px;
+	background-color:#CCFFCC;
+	border:1px solid #000000;
+		} 
+	
+#studentInfoTable th { 
+	font-weight:normal;
+		} 	
+#studentInfoTable td { 
+	font-weight:bold;
+		} 
+		
+.studentInfoSmallText {
+	font-size:.8em;
+	color:#333333;
+}
+	
+#printLink {
+	margin:0 0 20px 0;
+}
+
+#printLinkText {
+	font-size:.8em;
+	letter-spacing:-.4px;
+	vertical-align:text-top;
+	}
+	
+#printLink a:hover{
+	background-color:#FFFF00;
+	}
+		
+	
+/* STYLING FOR PRINTABLE STUDENT LIST */
+
+#studentPrintableListBox {
+	margin:5px 2px; 
+	padding: 20px;
+	border:1px solid #666666
+	}
+	
+#studentListPeriod {
+	font-weight:bold;
+	font-size:1.2em;
+}
+
+#studentListNames {
+	list-style-type:circle;
+	margin: 8px 0 20px 15px;
+}
+
+#studentListNames li {
+	font-weight:normal;
+	font-size:.85em;
+	color:#333333;
+}
+	

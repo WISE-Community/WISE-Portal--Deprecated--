@@ -1,0 +1,257 @@
+/**
+ * Copyright (c) 2006 Encore Research Group, University of Toronto
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * $Id:styles.css 266 2007-04-04 15:40:42Z cynick $
+ */
+
+#column1 {
+	float:left;
+	width:258px;
+	}
+
+#column2 {
+	float:left;
+	margin-left: 10px;
+	width:690px;
+	}
+
+.panelStyleStatus {
+	margin-top:0px;
+	min-height:72px; 
+	/* background-image:url(../../images/teacher/Gradient-Gray-to-White-120px.png);  */
+	background-position: top;
+	background-repeat:repeat-x;
+	border: 1px solid #999;  
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+
+.panelStyleMessages {
+	position:relative;
+	padding-bottom:25px;
+	margin-top:15px;
+	/* background-image:url(../../images/teacher/Gradient-Gray-to-White-350px.png);  */
+	background-position: top;
+	background-repeat:repeat-x;
+	border: 1px solid #999;  
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	min-height:172px; 
+	}
+
+.panelStyleCommunity{
+	margin-top:15px;
+	/* background-image:url(../../images/teacher/Gradient-Gray-to-White-200px.png);  */
+	background-position: top;
+	background-repeat:repeat-x;
+	border: 1px solid #999;  
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	min-height:100px; 
+	
+}
+
+.panelStyleMyProjectRuns {
+	min-height:550px; 
+	border: 1px solid #999;
+	border-bottom: 2px solid #999;  
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+	
+#headerTeacherHome {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	text-align:left;
+	margin: 0px 0px 12px 0px;
+	padding: 3px 10px;
+	font-size: 1.0em;
+	font-weight:bold;
+	background-image:url(../../images/teacher/teacherSubHeader.png);
+	-moz-border-radius-topleft:4px;
+	-moz-border-radius-topright:4px;
+	-webkit-border-radius-topleft:4px;
+	-webkit-border-radius-topright:4px;
+	border-radius-topleft:4px;
+	border-radius-topright:4px;
+	border-bottom:1px solid #999;
+}
+
+#teacherStatusTable	{  
+	border-collapse:collapse;
+	font-size:.7em;
+	margin: -4px 0px 6px 12px;
+		}
+
+#teacherStatusTable th  {
+	color:#336600;
+	width:110px;
+}
+
+#teacherStatusTable th, #teacherStatusTable td	{  
+	vertical-align:text-top;
+	text-align:left;
+	padding:0px;
+	}	
+
+#teacherMessageTable	{  
+	border-collapse:collapse;
+	font-size:.8em;
+	margin: -6px 5px 0 5px;
+		}
+	
+#teacherMessageTable td	{  
+	vertical-align:text-top;
+	letter-spacing:-.5px;
+	text-align:left;
+	}	
+		
+#teacherMessageTable ul	{  
+	padding:0 4px;
+	margin:0;
+	overflow:auto;
+}
+		
+#teacherMessageTable li	{  
+	padding:4px 4px 10px 0px;
+	list-style-type:none;
+			}
+
+#teacherMessageTable a  {
+	color:blue;
+	cursor:pointer;
+	text-decoration:none;
+	}
+
+#teacherMessageTable a:hover  {
+	background:#FFFF00;
+	color:#000;
+}
+
+#manageMessageContainer  {  
+	position:absolute;
+	left:8px;
+	bottom:10px;
+			}
+
+#manageMessageContainer a {  
+	color:blue;
+	font-size:.75em;
+	text-decoration:none;
+	padding:4px;
+			}
+			
+#manageMessageContainer a:hover {  
+	background:#FFFF00;
+			}
+
+#newMessageCountDiv {
+	font-weight:bold;
+	margin-bottom:10px;
+}
+
+.messageDiv {
+}
+
+.messageDisplayTable {
+	border-collapse:collapse;
+	margin:0 0 10px;
+	}
+
+.messageDisplayTable th, .messageDisplayTable td {
+	font-size:.8em;
+	line-height:120%;
+	padding:0px;
+	border:0;
+	text-align:left;
+	vertical-align:top;
+	max-width:225px;
+}
+
+.messageDisplayTable th {
+	color:#666;
+	font-weight:normal;
+	width:55px;
+	letter-spacing:-1px; 
+}
+
+.messageDisplayTable td.messageBody {
+	padding:2px 1px
+	}
+
+/* TOOL TIP STYLES */
+
+#dashboardSections a.tooltip:hover  {background:#ffffff; text-decoration:none;} 
+
+#dashboardSections a.tooltip span {display:none; padding:8px; margin:20px 0 0 -255px; width:280px;}
+
+#dashboardSections a.tooltip:hover span {
+	display:inline; 
+	position:absolute; 
+	background:#FFE6C6; 
+	background:#46575b;
+	border:3px solid #232c3d;
+	color:#334B7B;
+	color:#FFF;
+	font-style:normal;
+	font-weight:normal;
+	text-align:left;
+	line-height:150%;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	}
+
+.panelStyleCommunity ul {
+	font-size:.7em;
+	margin:15px 8px 8px -5px;
+	}
+
+.panelStyleCommunity ul li {
+	list-style-type:circle;
+	margin-bottom:3px;
+	}
+
+.panelStyleCommunity ul a {
+	color:#0033CC;
+	padding: 1px;
+	margin-left:-1px;
+	text-decoration:none;
+	border:1px solid transparent;
+	}
+
+.panelStyleCommunity ul a.lineThrough {
+	text-decoration:line-through;
+	}
+	
+.panelStyleCommunity ul a:hover {
+	background-color:#FFFF00;
+	border:1px solid #999;
+	}
+	
+#myprojectrunsPanel {
+	width:958px;
+	padding:0;
+	margin:0;  
+}
+
+
+	
+

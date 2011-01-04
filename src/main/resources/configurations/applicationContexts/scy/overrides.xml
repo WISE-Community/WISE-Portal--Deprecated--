@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    * Copyright (c) 2006 Encore Research Group, University of Toronto
+    *
+    * This library is free software; you can redistribute it and/or
+    * modify it under the terms of the GNU Lesser General Public
+    * License as published by the Free Software Foundation; either
+    * version 2.1 of the License, or (at your option) any later version.
+    *
+    * This library is distributed in the hope that it will be useful,
+    * but WITHOUT ANY WARRANTY; without even the implied warranty of
+    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    * Lesser General Public License for more details.
+    *
+    * You should have received a copy of the GNU Lesser General Public
+    * License along with this library; if not, write to the Free Software
+    * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+-->
+
+<!-- $Id: overrides.xml 2492 2009-09-26 00:21:29Z honchikun@gmail.com $ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+    <bean id="userService"
+        class="org.telscenter.sail.webapp.service.impl.UserServiceImpl">
+        <property name="userDetailsDao" ref="userDetailsDao" />
+        <property name="grantedAuthorityDao" ref="grantedAuthorityDao" />
+        <property name="userDao" ref="userDao" />
+        <property name="sdsUserDao" ref="sdsUserDao" />
+        <property name="passwordEncoder" ref="passwordEncoder" />
+        <property name="saltSource" ref="systemSaltSource" />
+    </bean>
+
+	<bean id="curnitParameters"
+		class="org.telscenter.sail.webapp.domain.impl.ModuleParameters"
+		scope="prototype" />
+
+    <bean id="createRooloOtmlModuleParameters"
+        class="org.telscenter.sail.webapp.domain.impl.CreateRooloOtmlModuleParameters"
+        scope="prototype">
+    </bean>
+
+	  <bean id="createRooloLOROtmlModuleParameters"
+        class="org.telscenter.sail.webapp.domain.impl.CreateRooloLOROtmlModuleParameters"
+        scope="prototype">
+    </bean>
+
+    <bean id="createUrlModuleParameters"
+		class="org.telscenter.sail.webapp.domain.impl.CreateUrlModuleParameters"
+		scope="prototype" />
+
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- place any extra extension files after the pas/hibernate.cfg.xml base file -->
+        <property name="configLocations">
+            <list>
+                <value>
+                    classpath:configurations/hibernate/pas/hibernate.cfg.xml
+                </value>
+                <value>
+                    classpath:configurations/hibernate/tels/hibernate-extensions.cfg.xml
+                </value>
+                <value>
+                    classpath:eu/scy/core/model/impl/hibernate-scy.cfg.xml
+                </value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="authenticationProcessingFilter"
+        class="org.telscenter.sail.webapp.presentation.web.filters.TelsAuthenticationProcessingFilter">
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="authenticationFailureUrl"
+            value="/login.html?failed=true" />
+        <property name="alwaysUseDefaultTargetUrl" value="false" />
+        <property name="defaultTargetUrl" value="/teacherindex.html" />
+        <property name="filterProcessesUrl" value="/j_acegi_security_check" />
+        <property name="userDetailsService" ref="userDetailsService" />
+    </bean>
+
+    <bean id="filterInvocationInterceptor"
+        class="org.springframework.security.intercept.web.FilterSecurityInterceptor">
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="accessDecisionManager" ref="urlAccessDecisionManager" />
+        <property name="objectDefinitionSource">
+            <value>
+                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+                PATTERN_TYPE_APACHE_ANT
+                /index.html=ROLE_ANONYMOUS,ROLE_USER
+                /smartroom/smartroom.html=ROLE_ANONYMOUS,ROLE_USER
+                /vle/preview.html=ROLE_ANONYMOUS,ROLE_USER
+                /index.jsp=ROLE_ANONYMOUS,ROLE_USER
+                /login.html=ROLE_ANONYMOUS,ROLE_USER
+                /signup.html=ROLE_ANONYMOUS,ROLE_USER
+                /contactwisegeneral.html=ROLE_ANONYMOUS,ROLE_USER
+                /contactwiseproject.html=ROLE_ANONYMOUS,ROLE_USER
+                /contactwiseconfirm.html=ROLE_ANONYMOUS,ROLE_USER
+                /previewprojectlist.html=ROLE_ANONYMOUS,ROLE_USER
+                /previewproject.html=ROLE_ANONYMOUS,ROLE_USER
+                /credits.html=ROLE_ANONYMOUS,ROLE_USER
+                /teacher/countries.html=ROLE_ANONYMOUS,ROLE_USER
+                /teacher/states.html=ROLE_ANONYMOUS,ROLE_USER
+                /help.html=ROLE_ANONYMOUS,ROLE_USER
+                /setup*.html=ROLE_ANONYMOUS,ROLE_USER
+                /lostpassword*.html=ROLE_ANONYMOUS,ROLE_USER
+                /enter*.html=ROLE_ANONYMOUS,ROLE_USER
+                /student/registerstudent.html=ROLE_ANONYMOUS,ROLE_USER
+                /student/getannotationbundle.html=ROLE_ANONYMOUS,ROLE_USER
+                /student/**/*.html=ROLE_STUDENT,ROLE_TEACHER,ROLE_ADMINISTRATOR
+                /teacher/registerteacher.html=ROLE_ANONYMOUS,ROLE_USER
+                /teacher/curriculumsubjects.html=ROLE_ANONYMOUS,ROLE_USER
+                /teacher/termsofuse.html=ROLE_ANONYMOUS,ROLE_USER
+				/teacher/**/*.html=ROLE_TEACHER,ROLE_ADMINISTRATOR
+                /wiseoverview.html=ROLE_ANONYMOUS,ROLE_USER
+                /forgotaccount/*.html=ROLE_ANONYMOUS,ROLE_USER
+                /forgotaccount/**/*.html=ROLE_ANONYMOUS,ROLE_USER
+                /admin/**/*.html=ROLE_ADMINISTRATOR
+                /j_acegi_switch_user*=ROLE_ADMINISTRATOR
+                /repository/**/*.html=ROLE_ANONYMOUS,ROLE_USER
+                /author/**/*.html=ROLE_TEACHER,ROLE_ADMINISTRATOR
+                /author/publishproject.html=ROLE_ADMINISTRATOR
+                /author/project/postproject.html=ROLE_ANONYMOUS,ROLE_USER
+                /author/brainstorm/*.html=ROLE_ANONYMOUS,ROLE_USER
+                /bridge/authoringtool/*.html=ROLE_ANONYMOUS,ROLE_USER
+                /bridge/*.html=ROLE_USER
+                /*.html=ROLE_USER
+                /**/*.html=ROLE_USER
+            </value>
+        </property>
+    </bean>
+
+    <bean id="httpRestTransport"
+        class="net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl">
+        <!-- portal id must already be known in advance (4 is the SDS test portal set aside for this project) -->
+        <!-- http://rails.dev.concord.org/sds/{portal-id}/ -->
+        <!-- http://saildataservice.concord.org/{portal-id}/ -->
+        <!--
+            <property name="baseUrl" value="http://127.0.0.1:3000/1" />
+        -->
+        <property name="baseUrl"
+            value="http://rails.dev.concord.org/sds/20" />
+    </bean>
+    
+
+    
+</beans>

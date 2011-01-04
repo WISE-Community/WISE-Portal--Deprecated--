@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  - Dispatcher servlet for HTTP remoting via Hessian, Burlap, and Spring's
+  - HTTP invoker (see remoting-servlet.xml for the controllers).
+  -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+
+    <!--alias name="/pedagogicalPlan-httpinvoker" alias="pedPlan"/-->
+    <!-- HTTP invoker exporter for the RoOLO repository -->
+    <!-- Spring's HTTP invoker uses Java serialization via HTTP  -->
+    <!--bean name="/repository-httpinvoker" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+         <property name="service" ref="repository"/>
+         <property name="serviceInterface" value="roolo.api.IRepository"/>
+     </bean-->
+
+
+    <!--bean id="pedagogicalPlanService" class="eu.scy.server.pedagogicalplan.PedagogicalPlanServiceImpl">
+        <property name="scenarioService" ref="scenarioService"/>
+    </bean-->
+
+    <bean id="pedPlanInvoker" name="/pedagogicalPlan-httpinvoker" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+        <property name="service" ref="pedagogicalPlanService"/>
+        <property name="serviceInterface" value="eu.scy.server.pedagogicalplan.PedagogicalPlanService"/>
+    </bean>
+
+
+
+
+    <!-- HTTP invoker exporter for the RoOLO metadata type manager -->
+    <!-- Spring's HTTP invoker uses Java serialization via HTTP  -->
+    <!--bean name="/metadataTypeManager-httpinvoker" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+         <property name="service" ref="metadataTypeManager"/>
+         <property name="serviceInterface" value="roolo.elo.api.IMetadataTypeManager"/>
+     </bean-->
+
+    <!-- HTTP invoker exporter for the RoOLO extension manager -->
+    <!-- Spring's HTTP invoker uses Java serialization via HTTP  -->
+    <!--bean name="/extensionManager-httpinvoker" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+         <property name="service" ref="extensionManager"/>
+         <property name="serviceInterface" value="roolo.api.IExtensionManager"/>
+     </bean-->
+
+    <!-- the RoOLO ELOFactory should be accessed remotely, it can run locally -->
+
+    <!-- HTTP invoker exporter for the RoOLO extension manager -->
+    <!-- Spring's HTTP invoker uses Java serialization via HTTP  -->
+    <!--bean name="/sessionManager-httpinvoker" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+         <property name="service" ref="sessionManager"/>
+         <property name="serviceInterface" value="eu.scy.sessionmanager.SessionManager"/>
+     </bean-->
+
+</beans>

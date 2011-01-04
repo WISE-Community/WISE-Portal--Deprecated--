@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<otrunk id="33754150-b594-11d9-9669-0800200c9a66">
+    <imports>
+        <import class="org.concord.otrunk.OTSystem" />
+        <import class="org.concord.otrunk.view.OTViewEntry" />
+        <import class="org.concord.otrunk.view.OTViewBundle" />
+        <import class="org.concord.otrunk.OTInclude" />
+        <import class="org.telscenter.pas.otrunk.skeleton.OTPasProject" />
+        <import class="org.telscenter.pas.otrunk.skeleton.OTPasActivity" />
+        <import class="org.telscenter.pas.otrunk.skeleton.OTPasStep" />
+        <import class="org.telscenter.pas.otrunk.skeleton.steps.OTDisplayPage" />
+        <import class="org.telscenter.pas.otrunk.skeleton.steps.OTEvidence" />
+        <import class="org.telscenter.pas.otrunk.skeleton.steps.OTHelloWorld" />
+        <import class="org.telscenter.pas.otrunk.skeleton.steps.OTOutsideLink" />
+    	<import class="org.telscenter.pas.otrunk.skeleton.steps.OTNote" />
+    	<import class="org.telscenter.pas.otrunk.skeleton.steps.OTStudentAssessment" />
+    	<import class="org.telscenter.pas.otrunk.skeleton.steps.OTSelfAssessment" />
+    	<import class="org.telscenter.pas.otrunk.skeleton.steps.OTChallengeQuestion" />
+        <import class="org.telscenter.pas.otrunk.skeleton.OTGenericOTrunkStep" />
+        <import class="org.concord.graph.util.state.OTDrawingTool" />
+        <import class="org.concord.otrunk.view.OTViewMode" />
+        <import class="org.concord.data.state.OTDataStore" />
+        <import class="org.concord.otrunk.graph.OTDataCollectorViewConfig" />
+        <import class="org.concord.data.state.OTDataChannelDescription" />
+        <import class="org.concord.data.state.OTDataField" />
+        <import class="org.concord.data.state.OTWaveGenerator" />
+        <import class="org.concord.data.state.OTMultiWaveGenerator" />
+        <import class="org.concord.data.state.OTWave" />
+        <import class="org.concord.datagraph.state.OTDataGraph" />
+        <import class="org.concord.datagraph.state.OTDataAxis" />
+        <import class="org.concord.datagraph.state.OTDataGraphable" />
+        <import class="org.concord.datagraph.state.OTDataCollector" />
+        <import class="org.concord.datagraph.state.OTMultiDataGraph" />
+        <import class="org.concord.datagraph.state.OTDataPointLabel" />
+        <import class="org.concord.datagraph.state.OTDataPointRuler" />
+        <import class="org.concord.graph.util.state.OTDrawingTool" />
+        <import class="org.concord.graph.util.state.OTDrawingStamp" />
+        <import class="org.concord.graph.util.state.OTDrawingImageIcon" />
+        <import class="org.concord.graph.util.state.OTDrawingShape" />
+        <import class="org.concord.graph.util.state.OTPointTextLabel" />
+        <import class="org.concord.otrunk.util.OTSharingBundle" />
+        <import class="org.concord.otrunk.view.document.OTCompoundDoc" />
+        <import class="org.concord.otrunk.view.document.OTDocumentViewConfig" />
+        <import class="org.concord.otrunk.view.OTObjectEditViewConfig" />
+        <import class="org.concord.data.state.OTDataStore" />
+        <import class="org.concord.data.state.OTDataChannelDescription" />
+        <import class="org.concord.data.state.OTDataField" />
+        <import class="org.concord.data.state.OTDataTable" />
+        <import class="org.concord.datagraph.state.OTDataGraph" />
+        <import class="org.concord.datagraph.state.OTDataAxis" />
+        <import class="org.concord.datagraph.state.OTDataGraphable" />
+        <import class="org.concord.datagraph.state.OTDataCollector" />
+        <import class="org.concord.datagraph.state.OTMultiDataGraph" />
+        <import class="org.concord.datagraph.state.OTPluginView" />
+        <import class="org.concord.datagraph.state.OTDataBarGraphable" />
+        <import class="org.concord.framework.otrunk.view.OTFrame" />
+        <import class="org.concord.graph.util.state.OTDrawingTool" />
+        <import class="org.concord.graph.util.state.OTDrawingStamp" />
+        <import class="org.concord.graph.util.state.OTDrawingImageIcon" />
+        <import class="org.concord.graph.util.state.OTDrawingShape" />
+        <import class="org.concord.graph.util.state.OTDrawingTool2" />
+        <import class="org.concord.graph.util.state.OTPointTextLabel" />
+        <import class="org.concord.multimedia.state.OTSoundDataCollector" />
+        <import class="org.concord.multimedia.state.OTSoundDataProducer" />
+        <import class="org.concord.otrunk.OTInclude" />
+        <import class="org.concord.otrunk.OTSystem" />
+        <import class="org.concord.otrunk.browser.mozswing.OTMozSwing" />
+        <import class="org.concord.otrunk.graph.OTDataCollectorViewConfig" />
+        <import class="org.concord.otrunk.overlay.OTOverlay" />
+        <import class="org.concord.otrunk.script.ui.OTScriptObject" />
+        <import class="org.concord.otrunk.script.ui.OTScriptVariable" />
+        <import class="org.concord.otrunk.script.ui.OTScriptVariableComponent" />
+        <import class="org.concord.otrunk.script.ui.OTScriptVariableView" />
+        <import class="org.concord.otrunk.script.js.OTJavascript" />
+        <import class="org.concord.otrunk.script.OTScriptEngineBundle" />
+        <import class="org.concord.otrunk.script.OTScriptEngineEntry" />
+        <import class="org.concord.otrunk.ui.OTButton" />
+        <import class="org.concord.otrunk.ui.OTCardContainer" />
+        <import class="org.concord.otrunk.ui.OTChoice" />
+        <import class="org.concord.otrunk.ui.OTChoiceMultiple" />
+        <import class="org.concord.otrunk.ui.OTImage" />
+        <import class="org.concord.otrunk.ui.OTModeSwitcher" />
+        <import class="org.concord.otrunk.ui.OTSoundPlayer" />
+        <import class="org.concord.otrunk.ui.OTText" />
+        <import class="org.concord.otrunk.ui.snapshot.OTSnapshot" />
+        <import class="org.concord.otrunk.ui.snapshot.OTSnapshotButton" />
+        <import class="org.concord.otrunk.ui.snapshot.OTSnapshotAlbum" />
+        <import class="org.concord.otrunk.ui.snapshot.OTSnapshotChooser" />
+        <import class="org.concord.otrunk.ui.swing.OTChoiceViewConfig" />
+        <import class="org.concord.otrunk.view.OTFolderObject" />
+        <import class="org.concord.otrunk.view.OTObjectEditViewConfig" />
+        <import class="org.concord.otrunk.view.OTViewChild" />
+        <import class="org.concord.otrunk.view.OTViewEntry" />
+        <import class="org.concord.otrunk.view.OTViewBundle" />
+        <import class="org.concord.otrunk.view.OTViewMode" />
+        <import class="org.concord.otrunk.view.document.OTCompoundDoc" />
+        <import class="org.concord.otrunk.view.document.OTCssText" />
+        <import class="org.concord.otrunk.view.document.edit.OTDocumentEditViewConfig" />
+        <import class="org.concord.otrunk.view.prototype.OTPrototypeViewEntry" />
+        <import class="org.concord.otrunk.view.prototype.OTPrototypeEventController" />
+        <import class="org.concord.otrunk.view.prototype.OTPrototypeMapEntry" />
+        <import class="org.concord.otrunkmw.OTModelerPage" />
+        <import class="org.concord.otrunknl4.OTNLogoModel" />
+        <import class="org.concord.otrunkcck.OTCCKModel" />
+        <import class="org.concord.otrunkphet.balloons.OTPhetBalloonsModel" />
+        <import class="org.concord.sensor.state.OTDeviceConfig" />
+        <import class="org.concord.sensor.state.OTExperimentRequest" />
+        <import class="org.concord.sensor.state.OTInterfaceManager" />
+        <import class="org.concord.sensor.state.OTSensorDataProxy" />
+        <import class="org.concord.sensor.state.OTSensorRequest" />
+        <import class="org.concord.sensor.state.OTZeroSensor" />
+        <!-- import evidence -->
+    </imports>
+    <idMap>
+        <idMapping local_id="css-font" id="23cc14f0-c44f-11dc-95ff-0800200c9a66" />
+        <idMapping local_id="css-color" id="31193bb0-c44f-11dc-95ff-0800200c9a66" />
+        <idMapping local_id="css-layout" id="3cefc800-c44f-11dc-95ff-0800200c9a66" />
+        <idMapping local_id="imported-view-bundle" id="8d880970-c22a-11dc-95ff-0800200c9a66" />
+        <idMapping local_id="overlays-pulldown-menus" id="234e6400-c450-11dc-95ff-0800200c9a66" />
+        <idMapping local_id="menu-vertical" id="1b0cb6e0-c453-11dc-95ff-0800200c9a66" />
+        <idMapping local_id="menu-horizontal-circle" id="29dc5ef0-c453-11dc-95ff-0800200c9a66" />
+        <idMapping local_id="menu-horizontal-book" id="416eeab0-c453-11dc-95ff-0800200c9a66" />
+        <idMapping local_id="css-color-34-overlay" id="bfc60e90-db35-11dc-95ff-0800200c9a66" />
+        <idMapping local_id="css-color-56-overlay" id="b5d8b4a0-db35-11dc-95ff-0800200c9a66" />
+        <idMapping local_id="text-edit" id="be713960-e18a-11dc-95ff-0800200c9a66" />
+        <idMapping local_id="text-label" id="c93a7460-e18a-11dc-95ff-0800200c9a66" />
+        <idMapping local_id="choice-combo-view" id="453a61b0-e18b-11dc-95ff-0800200c9a66" />
+        <!--  <idMapping local_id="compound_doc_view" id="0d03b9c0-e48a-11dc-95ff-0800200c9a66" /> -->
+        <idMapping local_id="questions-card-view" id="c0e33320-e611-11dc-95ff-0800200c9a66" />
+    </idMap>
+    <objects>
+        <OTSystem>
+            <includes>
+                <OTInclude href="http://tels-group.soe.berkeley.edu/aperritano/predefined-sensor-graphs.otml" />
+            </includes>
+            <bundles>
+                <OTViewBundle>
+                    <viewEntries>
+                        <OTViewEntry objectClass="org.telscenter.pas.otrunk.skeleton.OTPasProject"
+                            viewClass="org.telscenter.pas.otrunk.skeleton.OTPasProjectView" />
+                        <OTViewEntry local_id="sound-grapher-view"
+                            viewClass="org.concord.multimedia.state.ui.OTSoundDataCollectorView"
+                            objectClass="org.concord.multimedia.state.OTSoundDataCollector" />
+                        <OTViewEntry local_id="mw-view" objectClass="org.concord.otrunkmw.OTModelerPage"
+                            viewClass="org.concord.otrunkmw.OTModelerPageView" />
+                        <OTViewEntry objectClass="org.concord.otrunk.OTIncludeRootObject"
+                            viewClass="org.concord.otrunk.OTIncludeRootObjectView" />
+                        <OTViewEntry local_id="moz-swing-view"
+                            objectClass="org.concord.otrunk.browser.mozswing.OTMozSwing"
+                            viewClass="org.concord.otrunk.browser.mozswing.OTMozSwingView" />
+                        <OTViewEntry objectClass="org.concord.otrunk.ui.OTModeSwitcher"
+                            viewClass="org.concord.otrunk.ui.swing.OTModeSwitcherView" />
+                        <OTViewEntry objectClass="org.concord.otrunk.ui.OTImage"
+                            viewClass="org.concord.otrunk.ui.swing.OTImageView" />
+                        <OTViewEntry objectClass="org.concord.otrunk.ui.OTModeSwitcher"
+                            viewClass="org.concord.otrunk.ui.swing.OTModeSwitcherView" />
+                        <OTViewEntry local_id="snapshot_button_view"
+                            objectClass="org.concord.otrunk.ui.snapshot.OTSnapshotButton"
+                            viewClass="org.concord.otrunk.ui.snapshot.OTSnapshotButtonView" />
+                        <OTViewEntry local_id="snapshot-chooser-view"
+                            objectClass="org.concord.otrunk.ui.snapshot.OTSnapshotChooser"
+                            viewClass="org.concord.otrunk.ui.snapshot.OTSnapshotChooserView" />
+                        <OTViewEntry objectClass="org.concord.otrunk.ui.snapshot.OTSnapshotAlbum"
+                            viewClass="org.concord.otrunk.ui.snapshot.OTSnapshotAlbumView" />
+                        <OTDocumentViewConfig local_id="compound_doc_view"
+                            objectClass="org.concord.otrunk.view.document.OTCompoundDoc"
+                            viewClass="org.concord.otrunk.view.document.OTDocumentView">
+                            <cssBlocks>
+                                <OTCssText
+                                    cssText="body { font-size: 18; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial; FONT-VARIANT: normal; TEXT-DECORATION: none }" />
+                            </cssBlocks>
+                        </OTDocumentViewConfig>
+                        <OTViewEntry objectClass="org.concord.otrunk.ui.OTButton"
+                            viewClass="org.concord.otrunk.ui.swing.OTButtonView" />
+                        <OTViewEntry local_id="script-view" objectClass="org.concord.otrunk.script.ui.OTScriptObject"
+                            viewClass="org.concord.otrunk.script.ui.OTScriptObjectView" />
+                        <OTViewEntry objectClass="org.concord.otrunk.ui.OTButton"
+                            viewClass="org.concord.otrunk.ui.swing.OTButtonView" />
+                        <OTChoiceViewConfig local_id="choice-checkbox-view"
+                            objectClass="org.concord.otrunk.ui.OTChoiceMultiple"
+                            viewClass="org.concord.otrunk.ui.swing.OTChoiceCheckBoxView" useViewsAsChoices="true" />
+                        <OTChoiceViewConfig local_id="choice-radio-view" objectClass="org.concord.otrunk.ui.OTChoice"
+                            viewClass="org.concord.otrunk.ui.swing.OTChoiceRadioButtonView" useViewsAsChoices="true" />
+                        <OTViewEntry id="453a61b0-e18b-11dc-95ff-0800200c9a66"
+                            objectClass="org.concord.otrunk.ui.OTChoice"
+                            viewClass="org.concord.otrunk.ui.swing.OTChoiceComboBoxView" />
+                        <OTViewEntry objectClass="org.concord.otrunk.script.ui.OTScriptObject"
+                            viewClass="org.concord.otrunk.script.ui.OTScriptObjectView" />
+                        <OTViewEntry objectClass="org.concord.otrunk.ui.OTCardContainer"
+                            viewClass="org.concord.otrunk.ui.swing.OTCardContainerView" />
+                        <OTViewEntry objectClass="org.concord.otrunk.ui.OTBorderContainer"
+                            viewClass="org.concord.otrunk.ui.swing.OTBorderContainerView" />
+                        <OTViewEntry objectClass="org.concord.otrunk.ui.OTPlacementContainer"
+                            viewClass="org.concord.otrunk.ui.swing.OTPlacementContainerView" />
+                        <OTViewEntry id="be713960-e18a-11dc-95ff-0800200c9a66"
+                            objectClass="org.concord.otrunk.ui.OTText"
+                            viewClass="org.concord.otrunk.ui.swing.OTTextEditView" />
+                        <OTViewEntry id="c93a7460-e18a-11dc-95ff-0800200c9a66"
+                            objectClass="org.concord.otrunk.ui.OTText"
+                            viewClass="org.concord.otrunk.ui.swing.OTTextView" />
+                        <OTViewEntry local_id="data-collector-view"
+                            viewClass="org.concord.datagraph.state.OTDataCollectorView"
+                            objectClass="org.concord.datagraph.state.OTDataCollector" />
+                        <OTViewEntry viewClass="org.concord.datagraph.state.OTDataGraphView"
+                            objectClass="org.concord.datagraph.state.OTDataGraph" />
+                        <OTViewEntry viewClass="org.concord.data.state.OTDataFieldView"
+                            objectClass="org.concord.data.state.OTDataField" />
+                        <OTViewEntry local_id="drawing-view"
+                            viewClass="org.concord.datagraph.state.OTDataDrawingToolView"
+                            objectClass="org.concord.graph.util.state.OTDrawingTool" />
+                        <OTViewEntry viewClass="org.concord.datagraph.state.OTMultiDataGraphView"
+                            objectClass="org.concord.datagraph.state.OTMultiDataGraph" />
+                        <OTViewEntry local_id="cck-view" objectClass="org.concord.otrunkcck.OTCCKModel"
+                            viewClass="org.concord.otrunkcck.OTCCKModelView" />
+                        <OTViewEntry local_id="data-table-view" objectClass="org.concord.data.state.OTDataTable"
+                            viewClass="org.concord.data.state.OTDataTableView" />
+                        <OTViewEntry local_id="netlogo-view" viewClass="org.concord.otrunknl4.OTNLogoModelView"
+                            objectClass="org.concord.otrunknl4.OTNLogoModel" />
+                        <OTViewEntry objectClass="org.concord.otrunkphet.balloons.OTPhetBalloonsModel"
+                            viewClass="org.concord.otrunkphet.balloons.OTPhetBalloonsModelView" />
+                        <OTViewEntry local_id="sound-player-view" objectClass="org.concord.otrunk.ui.OTSoundPlayer"
+                            viewClass="org.concord.otrunk.ui.swing.OTSoundPlayerView" />
+                        <OTPrototypeViewEntry id="textsize-choice-view" objectClass="org.concord.otrunk.OTSystem"
+                            viewClass="org.concord.otrunk.view.prototype.OTPrototypeView" copyPrototype="false">
+                            <viewEntry>
+                                <object refid="${choice-combo-view}" />
+                            </viewEntry>
+                            <prototype>
+                                <OTChoice>
+                                    <choices>
+                                        <OTOverlay id="da41a2a0-c44e-11dc-95ff-0800200c9a66" name="Small text">
+                                            <deltaObjectMap>
+                                                <entry key="${css-font}">
+                                                    <OTCssText src="../css/otrunk-small-font.css" />
+                                                </entry>
+                                            </deltaObjectMap>
+                                        </OTOverlay>
+                                        <OTOverlay id="6cc8e2b0-c44e-11dc-95ff-0800200c9a66" name="Normal text" />
+                                        <OTOverlay id="7ba31210-c44e-11dc-95ff-0800200c9a66" name="Large text">
+                                            <deltaObjectMap>
+                                                <entry key="${css-font}">
+                                                    <OTCssText src="../css/otrunk-large-font.css" />
+                                                </entry>
+                                            </deltaObjectMap>
+                                        </OTOverlay>
+                                    </choices>
+                                </OTChoice>
+                            </prototype>
+                            <controller>
+                                <OTPrototypeEventController>
+                                    <mapping>
+                                        <OTPrototypeMapEntry modelProperty="overlays[0]"
+                                            prototypeProperty="currentChoice" />
+                                    </mapping>
+                                </OTPrototypeEventController>
+                            </controller>
+                        </OTPrototypeViewEntry>
+                        <OTPrototypeViewEntry id="language-choice-view" objectClass="org.concord.otrunk.OTSystem"
+                            viewClass="org.concord.otrunk.view.prototype.OTPrototypeView" copyPrototype="false">
+                            <viewEntry>
+                                <object refid="${choice-combo-view}" />
+                            </viewEntry>
+                            <prototype>
+                                <OTChoice>
+                                    <choices>
+                                        <OTOverlay id="english-overlay" name="English" />
+                                        <OTOverlay id="spanish-overlay" name="Español" />
+                                    </choices>
+                                </OTChoice>
+                            </prototype>
+                            <controller>
+                                <OTPrototypeEventController>
+                                    <mapping>
+                                        <OTPrototypeMapEntry modelProperty="overlays[1]"
+                                            prototypeProperty="currentChoice" />
+                                    </mapping>
+                                </OTPrototypeEventController>
+                            </controller>
+                        </OTPrototypeViewEntry>
+                        <OTViewEntry objectClass="org.concord.graph.util.state.OTDrawingTool2"
+                            viewClass="org.concord.datagraph.state.OTDataDrawingToolView" />
+                    </viewEntries>
+                    <modes>
+                        <OTViewMode name="authoring">
+                            <map>
+                                <entry key="${sound-grapher-view}">
+                                    <OTViewEntry
+                                        viewClass="org.concord.multimedia.state.ui.OTSoundDataCollectorEditView"
+                                        objectClass="org.concord.multimedia.state.OTSoundDataCollector" />
+                                </entry>
+                                <entry key="${moz-swing-view}">
+                                    <OTViewEntry objectClass="org.concord.otrunk.browser.mozswing.OTMozSwing"
+                                        viewClass="org.concord.otrunk.browser.mozswing.OTMozSwingEditView" />
+                                </entry>
+                                <entry key="${snapshot_button_view}">
+                                    <OTViewEntry objectClass="org.concord.otrunk.ui.snapshot.OTSnapshotButton"
+                                        viewClass="org.concord.otrunk.ui.snapshot.OTSnapshotButtonEditView" />
+                                </entry>
+                                <entry key="${choice-radio-view}">
+                                    <OTChoiceViewConfig objectClass="org.concord.otrunk.ui.OTChoice"
+                                        viewClass="org.concord.otrunk.ui.swing.OTChoiceComboBoxEditView"
+                                        useViewsAsChoices="true" />
+                                </entry>
+                                <entry key="${choice-checkbox-view}">
+                                    <OTChoiceViewConfig objectClass="org.concord.otrunk.ui.OTChoiceMultiple"
+                                        viewClass="org.concord.otrunk.ui.swing.OTChoiceComboBoxEditView"
+                                        useViewsAsChoices="true" />
+                                </entry>
+                                <entry key="${data-table-view}">
+                                    <OTViewEntry objectClass="org.concord.data.state.OTDataTable"
+                                        viewClass="org.concord.otrunk.ui.swing.OTDataTableEditView" />
+                                </entry>
+                                <entry key="${netlogo-view}">
+                                    <OTViewEntry viewClass="org.concord.otrunknl4.OTNLogoModelEditView"
+                                        objectClass="org.concord.otrunknl4.OTNLogoModel" />
+                                </entry>
+                                <entry key="${compound_doc_view}">
+                                    <OTDocumentEditViewConfig
+                                        objectClass="org.concord.otrunk.view.document.OTCompoundDoc"
+                                        viewClass="org.concord.otrunk.view.document.edit.OTDocumentEditView">
+                                        <documentViewConfig>
+                                            <object refid="${compound_doc_view}" />
+                                        </documentViewConfig>
+                                        <objectsToInsert>
+                                            <OTText name="Text field" />
+                                            <OTDrawingTool2 name="Draw tool" />
+                                            <OTChoice name="Multiple-choice (single answer)" />
+                                            <OTChoiceMultiple name="Multiple-choice (check boxes)" />
+                                            <!--  <OTQuestion name="Question" showConvertButton="true" /> -->
+                                            <OTDataTable name="Data table" showLastRowForAddingNew="true">
+                                                <dataStore>
+                                                    <OTDataStore numberChannels="2" />
+                                                </dataStore>
+                                            </OTDataTable>
+                                            <OTDataCollector name="Data graph" title="Data graph">
+                                                <source>
+                                                    <OTDataGraphable name="Data Graph" connectPoints="true"
+                                                        controllable="true" yColumn="1" drawMarks="false"
+                                                        color="16711680" xColumn="0" lineWidth="2.0">
+                                                        <dataStore>
+                                                            <OTDataStore />
+                                                        </dataStore>
+                                                    </OTDataGraphable>
+                                                </source>
+                                                <xDataAxis>
+                                                    <OTDataAxis max="60.0" units="s" min="0.0" label="Time" />
+                                                </xDataAxis>
+                                                <yDataAxis>
+                                                    <OTDataAxis max="40.0" units="" min="0.0" label="" />
+                                                </yDataAxis>
+                                            </OTDataCollector>
+                                            <!--  <OTNLogoModel name="NetLogo model" /> -->
+                                            <!--  <OTSnapshotButton name="Snapshot button" /> -->
+                                            <!--  <OTSnapshotChooser name="Snapshot chooser" /> -->
+                                            <!--  <OTMozSwing name="Web browser" /> -->
+                                            <!--  <OTAuthorNote name="Author's note">
+                                                <note>
+                                                    <OTText />
+                                                </note>
+                                            </OTAuthorNote> -->
+                                            <OTSoundPlayer name="Sound player" />
+                                            <OTSoundDataCollector name="Sound grapher" title="Data graph">
+                                                <source>
+                                                    <OTDataGraphable drawMarks="false" color="255" connectPoints="true"
+                                                        xColumn="0" yColumn="1" name="vf" lineWidth="2.0">
+                                                        <dataProducer>
+                                                            <OTSoundDataProducer isFFT="false" />
+                                                        </dataProducer>
+                                                        <dataStore>
+                                                            <OTDataStore />
+                                                        </dataStore>
+                                                    </OTDataGraphable>
+                                                </source>
+                                                <xDataAxis>
+                                                    <OTDataAxis max="0.06" units="ms" min="0.0" label="Time" />
+                                                </xDataAxis>
+                                                <yDataAxis>
+                                                    <OTDataAxis max="150" units="" min="-150" label="" />
+                                                </yDataAxis>
+                                            </OTSoundDataCollector>
+                                            <!--  <OTModelerPage name="Molecular workbench"
+                                                authoredDataURL="http://mw2.concord.org/public/student/classic/motion/undershotwaterwheel.cml" /> -->
+                                        </objectsToInsert>
+                                    </OTDocumentEditViewConfig>
+                                </entry>
+                                <entry key="${cck-view}">
+                                    <OTViewEntry objectClass="org.concord.otrunkcck.OTCCKModel"
+                                        viewClass="org.concord.otrunkcck.OTCCKModelEditView" />
+                                </entry>
+                                <entry key="${data-collector-view}">
+                                    <OTDataCollectorViewConfig
+                                        viewClass="org.concord.otrunk.graph.OTDataCollectorEditView"
+                                        objectClass="org.concord.datagraph.state.OTDataCollector">
+                                        <predefinedGraphs>
+                                            <object refid="088786c2-8719-11dc-8314-0800200c9a66" />
+                                        </predefinedGraphs>
+                                    </OTDataCollectorViewConfig>
+                                </entry>
+                                <entry key="${drawing-view}">
+                                    <OTViewEntry viewClass="org.concord.datagraph.state.OTDataDrawingToolEditView"
+                                        objectClass="org.concord.graph.util.state.OTDrawingTool" />
+                                </entry>
+                                <entry key="${text-edit}">
+                                    <OTViewEntry objectClass="org.concord.otrunk.ui.OTText"
+                                        viewClass="org.concord.otrunk.ui.swing.OTTextEditEditView" />
+                                </entry>
+                                <entry key="${sound-player-view}">
+                                    <OTViewEntry objectClass="org.concord.otrunk.ui.OTSoundPlayer"
+                                        viewClass="org.concord.otrunk.ui.swing.OTSoundPlayerEditView" />
+                                </entry>
+                                <entry key="${mw-view}">
+                                    <OTViewEntry objectClass="org.concord.otrunkmw.OTModelerPage"
+                                        viewClass="org.concord.otrunkmw.OTModelerPageEditView" />
+                                </entry>
+                            </map>
+                        </OTViewMode>
+                    </modes>
+                </OTViewBundle>
+                <OTSharingBundle />
+            </bundles>
+           <root>
+
+        <OTPasProject id="33754150-b594-11d9-9669-0800200c9a66//root" title="Project Title"  >
+
+          <activityList>
+
+            <OTPasActivity title="Activity1 Title Example 1">
+
+              <stepList>
+
+                <OTOutsideLink id="7b26e396-7de9-4b6d-ae21-f6296df1b8b9" title="Act 1" url="http://www.google.com/" />
+
+                <OTChallengeQuestion title="CQ" gotoStepIndex="1" maxAttempts="4" authorNotes="" hoverString="Pas Step" isInjectPrompt="false" lockStudentAnswers="false" randomChoiceOrder="true">
+				     <pasProject>
+
+                    <object refid="33754150-b594-11d9-9669-0800200c9a66//root" />
+
+                  </pasProject>
+                  <scoreList>
+
+                    <string>5</string>
+
+                    <string>4</string>
+
+                    <string>2</string>
+
+                    <string>1</string>
+
+                  </scoreList>
+
+                  <jaxbXML>
+
+                    <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:ns3="http://www.w3.org/1998/Math/MathML" xmlns:ns2="http://www.w3.org/1999/xlink" timeDependent="false" adaptive="false">
+
+                      <responseDeclaration baseType="identifier" identifier="CHOICE_CQ_CHECK_ID">
+
+                        <correctResponse interpretation="choice 3" />
+
+                      </responseDeclaration>
+
+                      <outcomeDeclaration baseType="identifier" cardinality="multiple" identifier="FEEDBACK" />
+
+                      <itemBody>
+
+                        <choiceInteraction hasInlineFeedback="false" responseIdentifier="CHOICE_CQ_CHECK_ID" maxChoices="1" shuffle="false">
+
+                          <prompt>&lt;html&gt;&lt;body&gt;this is a choice interaction with inline feedback&lt;/body&gt;&lt;/html&gt;</prompt>
+
+                          <simpleChoice identifier="choice 1">
+
+                            is it red?
+
+                            <feedbackInline identifier="choice 1" showHide="show">no!</feedbackInline>
+
+                          </simpleChoice>
+
+                          <simpleChoice identifier="choice 2">
+
+                            is it blue?
+
+                            <feedbackInline identifier="choice 2" showHide="show">nopee</feedbackInline>
+
+                          </simpleChoice>
+
+                          <simpleChoice identifier="choice 3">
+
+                            is it green?
+
+                            <feedbackInline identifier="choice 3" showHide="show">this is correct</feedbackInline>
+
+                          </simpleChoice>
+
+                          <simpleChoice identifier="choice 4">
+
+                            is it purple?
+
+                            <feedbackInline identifier="choice 4" showHide="show">stay wrong</feedbackInline>
+
+                          </simpleChoice>
+
+                          <simpleChoice identifier="choice 5">
+
+                            is it yellow?
+
+                            <feedbackInline identifier="choice 4" showHide="show">be wrong</feedbackInline>
+
+                          </simpleChoice>
+
+                        </choiceInteraction>
+
+                      </itemBody>
+
+                      <responseProcessing>
+
+                        <responseCondition>
+
+                          <responseIf>
+
+                            <match>
+
+                              <variable identifier="ATTEMPTS" />
+
+                              <baseValue baseType="identifier">start</baseValue>
+
+                            </match>
+
+                            <setOutcomeValue identifier="ATTEMPTS">
+
+                              <baseValue baseType="identifier">firstAttempt</baseValue>
+
+                            </setOutcomeValue>
+
+                          </responseIf>
+
+                          <responseElseIf>
+
+                            <match>
+
+                              <variable identifier="ATTEMPTS" />
+
+                              <baseValue baseType="identifier">firstAttempt</baseValue>
+
+                            </match>
+
+                            <setOutcomeValue identifier="ATTEMPTS">
+
+                              <baseValue baseType="identifier">secondAttempt</baseValue>
+
+                            </setOutcomeValue>
+
+                          </responseElseIf>
+
+                          <responseElseIf>
+
+                            <match>
+
+                              <variable identifier="ATTEMPTS" />
+
+                              <baseValue baseType="identifier">secondAttempt</baseValue>
+
+                            </match>
+
+                            <setOutcomeValue identifier="ATTEMPTS">
+
+                              <baseValue baseType="identifier">thirdAttempt</baseValue>
+
+                            </setOutcomeValue>
+
+                          </responseElseIf>
+
+                          <responseElse>
+
+                            <setOutcomeValue identifier="ATTEMPTS">
+
+                              <baseValue baseType="identifier">forthAttempt</baseValue>
+
+                            </setOutcomeValue>
+
+                          </responseElse>
+
+                        </responseCondition>
+
+                      </responseProcessing>
+
+                      <modalFeedback identifier="firstAttempt" showHide="show" outcomeIdentifier="FEEDBACK">Explanation 1</modalFeedback>
+
+                      <modalFeedback identifier="secondAttempt" showHide="show" outcomeIdentifier="FEEDBACK">Explanation 2</modalFeedback>
+
+                      <modalFeedback identifier="thirdAttempt" showHide="show" outcomeIdentifier="FEEDBACK">Explanation 3</modalFeedback>
+
+                      <modalFeedback identifier="forthAttempt" showHide="show" outcomeIdentifier="FEEDBACK">Explanation 4</modalFeedback>
+
+                      <modalFeedback identifier="correct" showHide="show" outcomeIdentifier="FEEDBACK">correct explantation</modalFeedback>
+
+                    </assessmentItem>
+
+                  </jaxbXML>
+
+                  <gotoStep>
+
+                    <OTEvidence id="4ff25e44-2927-11dd-9d6c-1986a23acd4a" title="e" authorNotes="" hoverString="Pas Step" url="http://www.google.com" />
+
+                  </gotoStep>
+
+                </OTChallengeQuestion>
+
+              </stepList>
+
+            </OTPasActivity>
+
+          </activityList>
+
+        </OTPasProject>
+
+      </root>
+
+    </OTSystem>
+
+  </objects>
+
+</otrunk>
+
+
+
