@@ -220,6 +220,8 @@ public class BridgeController extends AbstractController {
 			} else if(type.equals("xlsexport")) {
 				//TODO: need to check user permissions
 				return true;
+			} else if(type.equals("ideaBasket")) {
+				return true;
 			} else {
 				// this should never happen
 			}
@@ -385,6 +387,8 @@ public class BridgeController extends AbstractController {
 			
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/getxls.html");
 			requestDispatcher.forward(request, response);
+		} else if(type.equals("ideaBasket")) {
+			handleIdeaBasket(request, response);
 		}
 		return null;
 	}
@@ -411,23 +415,44 @@ public class BridgeController extends AbstractController {
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/peerreview.html");
 			requestDispatcher.forward(request, response);
 		} else if(type.equals("ideaBasket")) {
-			try {
-				String runId = request.getParameter("runId");
-				Run run = runService.retrieveById(new Long(runId));
-				Project project = run.getProject();
-				Serializable projectId = project.getId();
-				
-				request.setAttribute("projectId", projectId);
-				
-				RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/ideaBasket.html");
-				requestDispatcher.forward(request, response);
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (ObjectNotFoundException e) {
-				e.printStackTrace();
-			}
+			handleIdeaBasket(request, response);
 		}
 		return null;
+	}
+	
+	private void handleIdeaBasket(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ServletContext servletContext2 = this.getServletContext();
+		ServletContext vlewrappercontext = servletContext2.getContext("/vlewrapper");
+		User user = ControllerUtil.getSignedInUser();
+		
+		try {
+			//get the run
+			String runId = request.getParameter("runId");
+			Run run = runService.retrieveById(new Long(runId));
+			
+			//get the project id
+			Project project = run.getProject();
+			Serializable projectId = project.getId();
+			
+			//set the project id into the request so the vlewrapper controller has access to it
+			request.setAttribute("projectId", projectId + "");
+
+			//get the workgroup id
+			List<Workgroup> workgroupListByOfferingAndUser = workgroupService.getWorkgroupListByOfferingAndUser(run, user);
+			Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
+			Long workgroupId = workgroup.getId();
+
+			//set the workgroup id into the request so the vlewrapper controller has access to it
+			request.setAttribute("workgroupId", workgroupId + "");
+			
+			//forward the request to the vlewrapper controller
+			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/ideaBasket.html");
+			requestDispatcher.forward(request, response);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**

@@ -432,6 +432,12 @@ public class InformationController extends AbstractController{
 	    	//get the url for premade comments
 	    	String postPremadeCommentsUrl = portalurl + "/webapp/teacher/grading/premadeComments.html?action=postData";
 			
+	    	//get the url to get idea basket data
+	    	String getIdeaBasketUrl = portalurl + "/webapp/bridge/request.html?type=ideaBasket&runId=" + run.getId().toString();
+	    	
+	    	//get the url to post idea basket data
+	    	String postIdeaBasketUrl = portalurl + "/webapp/bridge/request.html?type=ideaBasket&runId=" + run.getId().toString();
+	    	
 			/* Set the post level if specified in the run */
 			Integer postLevel = run.getPostLevel();
 	    	
@@ -452,6 +458,8 @@ public class InformationController extends AbstractController{
 				config.put("getXLSExportUrl", getXLSExportUrl);
 				config.put("getPremadeCommentsUrl", getPremadeCommentsUrl);
 				config.put("postPremadeCommentsUrl", postPremadeCommentsUrl);
+				config.put("getIdeaBasketUrl", getIdeaBasketUrl);
+				config.put("postIdeaBasketUrl", postIdeaBasketUrl);
 				if(postLevel!=null){
 					config.put("postLevel", postLevel);
 				};
