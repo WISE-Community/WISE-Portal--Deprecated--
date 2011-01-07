@@ -368,7 +368,7 @@ public class LdProjectServiceImpl implements ProjectService {
 			request.getContextPath();
 		
 		String launchVLEUrl;
-		if(versionId != null){
+		if(versionId != null && versionId != ""){
 			launchVLEUrl = "/vle/preview.html?projectId=" + project.getId() + "&versionId=" + versionId;
 		} else {
 			launchVLEUrl = "/vle/preview.html?projectId=" + project.getId();

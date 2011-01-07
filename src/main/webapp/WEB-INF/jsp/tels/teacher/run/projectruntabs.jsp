@@ -213,7 +213,7 @@
 					               </c:when>
 					               <c:otherwise>
 					        <li>
-					        	Project:<a href="../../previewproject.html?projectId=${run.project.id}&versionId=${run.versionId}" target="_blank"> Preview</a>
+					        	Project:<a href="../../previewproject.html?projectId=${run.project.id}" target="_blank"> Preview</a>
 				    			&nbsp;|&nbsp;<a href="../projects/projectinfo.html?projectId=${run.project.id}" target="_top"> Info</a>
 					        	<sec:accesscontrollist domainObject="${run.project}" hasPermission="16">
 					        		&nbsp;|&nbsp;<a href="#" onclick="if(confirm('You will be editing the project that is used for this run. If students have already started work on this run, this may have undesirable effects for their work. Are you sure you wish to proceed?')){window.top.location='../../author/authorproject.html?projectId=${run.project.id}&versionId=${run.versionId}';} return true;">Edit</a>
