@@ -34,6 +34,16 @@ td, th
 {
 padding:2px;
 }
+
+hr 
+{
+border:thin solid;
+}
+
+h3
+{
+margin:15px;
+}
 </style>
 </head>
 
@@ -109,6 +119,7 @@ padding:2px;
 		<div id='compatibilityCheckResult'></div>
 		<div id='compatibilityCheckMessages'></div>
 		<br/>
+		<hr/>			
 		<h3 id='contentFilter'>Network Compatibility Check (Firewall/Proxy)</h3>
 		<div>You should not be behind firewall/proxy if possible when running WISE projects.  Parts or all of the WISE may not load 
 		     depending on your school's firewall settings. This section checks if you are
@@ -118,7 +129,47 @@ padding:2px;
 			<span>Can Retrieve Flash objects (.swf):</span><span id='contentFilterSwfRequirementSatisfied'>checking...</span><br/><br/>
 			<span>Can Retrieve Java archives (.jar):</span><span id='contentFilterJarRequirementSatisfied'>checking...</span>
 		</div>
+		
+	<br/>
+	<hr/>	
+	<h3>Browser Recommendation</h3>
+	<div>Use this section to choose which browser to use to run WISE</div>
+	<table>
+			<tr>
+				<th>Browser,version,OS</th>
+				<th>Known Issues</th>
+				<th>Recommendation Level</th>
+			</tr>
+			<tr>
+				<td>Firefox 3.5/3.6 on OSX and Windows</td>
+				<td>none</td>
+				<td>Strongly Recommended</td>
+			</tr>
+			<tr>
+				<td>Chrome on OSX and OSX and Windows</td>
+				<td>none</td>
+				<td>Recommended</td>
+			</tr>
+			<tr>
+				<td>Safari 4.0+ on OSX</td>
+				<td>none</td>
+				<td>Recommended</td>
+			</tr>
+			<tr>
+				<td>IE 7,8 on Windows</td>
+				<td>Drawing and MySystem steps do not work, some usability issues in student+teacher pages</td>
+				<td>Least Recommended</td>
+			</tr>
+			<tr>
+				<td colspan="3">Other browsers are not yet recommended</td>
+			</tr>
+	</table>
+
 	</div>
+	
+			
+	
+	
 
 </div>   <!-- end of centered div-->
 
