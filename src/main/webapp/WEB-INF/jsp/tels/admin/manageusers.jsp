@@ -46,16 +46,22 @@
 <br/>
 <div>Currently logged in students (${fn:length(loggedInStudentUsernames)}):</div>
 <table id="studentsTable" border="2">
-	<c:forEach var="username" items="${loggedInStudentUsernames}">
+	<c:forEach var="user" items="${loggedInStudentUsernames}">
+	<!--  user[0] = student username
+	      user[1] = run object that student is running
+	-->
 		<tr>
-			<td>${username}</td>
+			<td>${user[0]}</td>
 			<td><a href="#"
-				onclick="javascript:popup640('../teacher/management/changepassword.html?userName=${username}');">Change
+				onclick="javascript:popup640('../teacher/management/changepassword.html?userName=${user[0]}');">Change
 			Password</a></td>
-			<td><a href="../j_acegi_switch_user?j_username=${username}">Log
+			<td><a href="../j_acegi_switch_user?j_username=${user[0]}">Log
 			in as this user</a></td>
 			<td><a href="#"
-				onclick="javascript:popup640('../teacherinfo.html?userName=${username}');">info</a></td>
+				onclick="javascript:popup640('../teacherinfo.html?userName=${user[0]}');">info</a></td>
+			<c:if test="${not empty user[1]}">
+				<td>${user[1].name} (run ID ${user[1].id})</td>
+			</c:if>
 		</tr>
 	</c:forEach>
 </table>

@@ -12,6 +12,14 @@
 List of current, open issues can be found <a href="http://code.google.com/p/wise4/issues/list">here</a>.<br/>
 WISE4 Roadmap is <a href="http://code.google.com/p/wise4/wiki/WISE4Roadmap">here</a>.
 <h3>Version 4.1 Release Notes</h3>
+<div>Not yet released. Scheduled to be released in February 2011</div>
+
+<h4>Major additions/changes</h4>
+
+<h4>Minor additions/changes</h4>
+<ul>
+<li>admin tool enhancements: http://code.google.com/p/wise4/issues/detail?id=103</li>
+</ul>
 
 <h3>Version 4.0 Release Notes</h3>
 <div>Release date: January 6, 2011. Message to developer/administrator group is <a href="https://groups.google.com/forum/#!topic/wise4-dev/X8_-mASAH6Y">here</a>.</div>
@@ -22,6 +30,7 @@ WISE4 Roadmap is <a href="http://code.google.com/p/wise4/wiki/WISE4Roadmap">here
 <li>project sync: overrides project A with project B. In authoring tool, if the project is a copy of another project, there will be a "update project" button. Clicking on this will backup the project and override it with the contents of the parent</li>
 <li>IE 7/8 support for student VLE and gradingtool</li>
 <li>Compatibility checker improvements including check to see if a resource (.swf/.jar) is being blocked.</li>
+<li>Session Timeout handling for Student VLE, Authoring Tool, and Grading Tool</li>
 </ul>
 
 <h4>Minor additions/changes</h4>

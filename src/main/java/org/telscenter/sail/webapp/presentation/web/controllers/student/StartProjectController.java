@@ -22,19 +22,25 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.presentation.web.listeners.PasSessionListener;
+import net.sf.sail.webapp.service.UserService;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
@@ -133,6 +139,10 @@ public class StartProjectController extends AbstractController {
 				launchProjectParameters.setWorkgroup(workgroup);
 				launchProjectParameters.setHttpRestTransport(this.httpRestTransport);
 				launchProjectParameters.setHttpServletRequest(request);
+
+				// update servlet session
+				notifyServletSession(request, run);
+
 				return (ModelAndView) projectService.launchProject(launchProjectParameters);
 			} else {
 				// need to create a workgroup for this user, take them to create workgroup wizard
@@ -153,6 +163,9 @@ public class StartProjectController extends AbstractController {
 				launchProjectParameters.setWorkgroup(workgroup);
 				launchProjectParameters.setHttpRestTransport(this.httpRestTransport);
 				launchProjectParameters.setHttpServletRequest(request);
+				
+				// update servlet session
+				notifyServletSession(request, run);
 				return (ModelAndView) projectService.launchProject(launchProjectParameters);				
 			} else {
 				ModelAndView modelAndView = new ModelAndView(TEAM_SIGN_IN_URL);
@@ -173,6 +186,24 @@ public class StartProjectController extends AbstractController {
 //							"groups for the run " + run.getSdsOffering().getName());
 		}
 
+	}
+	
+	/**
+	 * Inserts [user's sessionId,run] info into servletContext session variable.
+	 * @param request current request
+	 * @param run run that the logged in user is running
+	 */
+	public void notifyServletSession(HttpServletRequest request, Run run) {
+		HttpSession session = request.getSession();
+
+		// add new session in a allLoggedInUsers servletcontext HashMap variable
+		String sessionId = session.getId();
+		HashMap<String, Run> studentToRuns = (HashMap<String, Run>) session.getServletContext().getAttribute("studentsToRuns");
+		if (studentToRuns == null) {
+			studentToRuns = new HashMap<String, Run>();
+			session.getServletContext().setAttribute("studentsToRuns", studentToRuns);
+		}
+		studentToRuns.put(sessionId, run);
 	}
 
 	/**

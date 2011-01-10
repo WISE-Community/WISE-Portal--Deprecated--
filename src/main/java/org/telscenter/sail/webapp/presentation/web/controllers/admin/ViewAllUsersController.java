@@ -39,6 +39,7 @@ import net.sf.sail.webapp.service.UserService;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.admin.AdminJob;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
@@ -96,16 +97,30 @@ public class ViewAllUsersController extends AbstractController{
 			HashMap<String, User> allLoggedInUsers = 
 				(HashMap<String, User>) servletRequest.getSession()
 					.getServletContext().getAttribute(PasSessionListener.ALL_LOGGED_IN_USERS);
-			ArrayList<String> loggedInStudentUsernames = new ArrayList<String>();
+
+			HashMap<String, Run> studentsToRuns = 
+				(HashMap<String, Run>) servletRequest.getSession()
+					.getServletContext().getAttribute("studentsToRuns");
+
+			ArrayList<Object> loggedInStudent = new ArrayList<Object>();
 			ArrayList<String> loggedInTeacherUsernames = new ArrayList<String>();
-			for (User loggedInUser : allLoggedInUsers.values()) {
+			for (String sessionId : allLoggedInUsers.keySet()) {
+				User loggedInUser = allLoggedInUsers.get(sessionId);
 				if (loggedInUser.getUserDetails() instanceof StudentUserDetails) {
-					loggedInStudentUsernames.add(loggedInUser.getUserDetails().getUsername());
+					Object[] loggedInStudentArray=new Object[2];
+					loggedInStudentArray[0] = loggedInUser.getUserDetails().getUsername();
+					// since this is a student, look in the studentToRuns session variable and see if this student is running
+					// any projects
+					if (studentsToRuns.containsKey(sessionId)) {
+						Run run = studentsToRuns.get(sessionId);
+						loggedInStudentArray[1] = run;		
+					}
+					loggedInStudent.add(loggedInStudentArray);
 				} else {
 					loggedInTeacherUsernames.add(loggedInUser.getUserDetails().getUsername());					
 				}
 			}
-			modelAndView.addObject(LOGGED_IN_STUDENT_USERNAMES, loggedInStudentUsernames);
+			modelAndView.addObject(LOGGED_IN_STUDENT_USERNAMES, loggedInStudent);
 			modelAndView.addObject(LOGGED_IN_TEACHER_USERNAMES, loggedInTeacherUsernames);
 		} else if (onlyShowUsersWhoLoggedInToday != null && onlyShowUsersWhoLoggedInToday.equals("true")) {
 			AdminJob adminJob = (AdminJob) this.getApplicationContext().getBean("adminjob");
