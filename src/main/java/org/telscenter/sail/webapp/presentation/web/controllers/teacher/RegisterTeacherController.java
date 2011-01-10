@@ -95,6 +95,7 @@ public class RegisterTeacherController extends SignupController {
 		
 		if(referrer.contains(domain + registerUrl) || 
 				referrer.contains(domainWithPort + registerUrl) ||
+				referrer.contains(domain + updateAccountInfoUrl) ||
 				referrer.contains(domainWithPort + updateAccountInfoUrl)){
 			TeacherAccountForm accountForm = (TeacherAccountForm) command;
 			TeacherUserDetails userDetails = (TeacherUserDetails) accountForm.getUserDetails();
