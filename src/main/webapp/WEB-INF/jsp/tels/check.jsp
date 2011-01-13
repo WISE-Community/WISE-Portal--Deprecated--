@@ -16,7 +16,7 @@
 <script type="text/javascript" src="./javascript/tels/general.js"></script>
 <script type="text/javascript" src="./javascript/tels/browserdetect.js"></script>
 <script type="text/javascript" src="./javascript/tels/deployJava.js"></script>
-<script type="text/javascript" src="./javascript/tels/checkCompatibility.js"></script>
+<script type="text/javascript" src="./javascript/tels/checkCompatibility.js" defer="defer"></script>
 
 <link rel="shortcut icon" href="./themes/tels/default/images/favicon_panda.ico" /> 
 

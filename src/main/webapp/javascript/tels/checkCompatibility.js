@@ -723,7 +723,7 @@ function checkContentFiltering() {
 			}
 			var requirementSatisfiedIcon = getRequirementSatisfiedIcon(contentFilterSwfRequirementSatisfied);				
 			document.getElementById('contentFilterSwfRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
-		},
+		}
 	});
 
 	// test loading of jar file
@@ -741,7 +741,7 @@ function checkContentFiltering() {
 			}
 			var requirementSatisfiedIcon = getRequirementSatisfiedIcon(contentFilterRequirementSatisfied);				
 			document.getElementById('contentFilterJarRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
-		},
+		}
 	});
 
 };
