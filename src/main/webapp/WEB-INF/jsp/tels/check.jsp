@@ -21,6 +21,9 @@
 <link rel="shortcut icon" href="./themes/tels/default/images/favicon_panda.ico" /> 
 
 <style type="text/css">
+body{
+text-align:left;
+}
 table
 {
 border-spacing:2px;
@@ -42,19 +45,27 @@ border:thin solid;
 
 h3
 {
-margin:15px;
+margin-bottom:15px;
+}
+
+h4
+{
+margin-top:10px;
+margin-bottom:10px;
 }
 </style>
 </head>
 
 <body onload='checkCompatibility(${specificRequirements})'>
 
-<div id="centeredDiv">
-
 <%@ include file="headermain_nousername.jsp"%>
 
-	<div align='center'>
-		<h3>Browser Compatibility Check</h3>
+<a href="#compatibility">Browser Compatibility Check</a><br/>
+<a href="#firewall">Network Compatibility Check (Firewall/Proxy)</a><br/>
+<a href="#browser">Browser Recommendation</a><br/>
+<a href="#system">Computer System Requirements to run WISE4 projects</a><br/><br/>
+	<div>
+		<h3><a name="compatibility"></a>Browser Compatibility Check</h3>
 		<table>
 			<tr>
 				<td>Resource</td>
@@ -120,7 +131,7 @@ margin:15px;
 		<div id='compatibilityCheckMessages'></div>
 		<br/>
 		<hr/>			
-		<h3 id='contentFilter'>Network Compatibility Check (Firewall/Proxy)</h3>
+		<h3 id='contentFilter'><a name="firewall"></a>Network Compatibility Check (Firewall/Proxy)</h3>
 		<div>You should not be behind firewall/proxy if possible when running WISE projects.  Parts or all of the WISE may not load 
 		     depending on your school's firewall settings. This section checks if you are
 			 restricted from accessing certain resources on the WISE server. 
@@ -132,7 +143,7 @@ margin:15px;
 		
 	<br/>
 	<hr/>	
-	<h3>Browser Recommendation</h3>
+	<h3><a name="browser"></a>Browser Recommendation</h3>
 	<div>Use this section to choose which browser to use to run WISE</div>
 	<table>
 			<tr>
@@ -165,14 +176,101 @@ margin:15px;
 			</tr>
 	</table>
 
-	</div>
-	
-			
-	
-	
+
+	<hr/>
+		
+	<h3><a name="system"></a>Computer System Requirements to run WISE4 projects</h3>
+ 
+<h4>Fully supported configuration</h4> 
+ 
+<table class='confluenceTable'><tbody> 
+<tr> 
+<td class='confluenceTd'>Operating system</td> 
+<td class='confluenceTd'>OS X &gt;=10.5 or Windows XP/2k, Vista, 7</td> 
+</tr> 
+<tr> 
+<td class='confluenceTd'>RAM</td> 
+<td class='confluenceTd'>512MB or more</td> 
+</tr> 
+<tr> 
+<td class='confluenceTd'>Java</td> 
+<td class='confluenceTd'>1.5.0 or later</td> 
+</tr> 
+<tr> 
+<td class='confluenceTd'>Flash</td> 
+<td class='confluenceTd'>10.0 or later</td> 
+</tr> 
+<tr> 
+<td class='confluenceTd'>Firewall</td> 
+<td class='confluenceTd'>no firewall</td> 
+</tr> 
+<tr> 
+<td class='confluenceTd'>Proxy</td> 
+<td class='confluenceTd'>no proxy</td> 
+</tr> 
+<tr> 
+<td class='confluenceTd'>Execution</td> 
+<td class='confluenceTd'>User have permissions to run (<a href="http://javatechniques.com/blog/launching-java-webstart-from-the-command-line" rel="nofollow">javaws</a>)</td> 
+</tr> 
+<tr> 
+<td class='confluenceTd'>Storage</td> 
+<td class='confluenceTd'>Users can write to system disk</td> 
+</tr> 
+<tr> 
+<td class='confluenceTd'>Peristence</td> 
+<td class='confluenceTd'>Writes to disk persist all week</td> 
+</tr> 
+</tbody></table> 
+ 
+<h4>Partially supported configuration</h4> 
+ 
+<table class='confluenceTable'><tbody> 
+<tr> 
+<td class='confluenceTd'>Operating system</td> 
+<td class='confluenceTd'>OS X &gt;=10.4 or Windows XP,Vista, 7</td> 
+</tr> 
+<tr> 
+<td class='confluenceTd'>RAM</td> 
+<td class='confluenceTd'>256MB or more</td> 
+</tr> 
+<tr> 
+<td class='confluenceTd'>Java</td> 
+<td class='confluenceTd'>1.5.0 or later</td> 
+</tr> 
+<tr> 
+<td class='confluenceTd'>Flash</td> 
+<td class='confluenceTd'>10.0 or later</td> 
+</tr> 
+<tr> 
+<td class='confluenceTd'>Firewall</td> 
+<td class='confluenceTd'>no firewall</td> 
+</tr> 
+<tr> 
+<td class='confluenceTd'>Proxy</td> 
+<td class='confluenceTd'>some proxies okay</td> 
+</tr> 
+<tr> 
+<td class='confluenceTd'>Execution</td> 
+<td class='confluenceTd'>User have permissions to run javaws</td> 
+</tr> 
+<tr> 
+<td class='confluenceTd'>Storage</td> 
+<td class='confluenceTd'>Users can write to system disk</td> 
+</tr> 
+<tr> 
+<td class='confluenceTd'>Peristence</td> 
+<td class='confluenceTd'>without persistence, downloads take place each session</td> 
+</tr> 
+</tbody></table> 
+ 
+<h4>Unsupported configuration</h4> 
+ 
+<p>Any configuration that doesn't meet the criteria above.</p> 	
 
 </div>   <!-- end of centered div-->
-
+<br/>
+<hr/>
+<a href="pages/schoolIT.html">Resource for school technicians</a>
 </body>
 </html>
 
