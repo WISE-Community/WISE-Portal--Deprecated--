@@ -445,21 +445,26 @@ CREATE before they click the Show Class Periods buttons  */
 }
 
 #previewProjectTable {
-	width:90%;
-	border-collapse:collapse;
-	margin: 5px auto 25px auto;
-	font-size:.9em;
+	border: 1px solid;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    margin: 5px auto 20px;
+    width: 96%;
 }
 
 #previewProjectTable td {
-	text-align:left;
-	background-color:#FFCE8E;
+	background-color: #FFCE8E;
+    padding: 0 0.5em;
+    text-align: left;
+    vertical-align: middle;
 }
 
 #previewProjectTable th {
-	text-align:left;
-	background-color:#a97e46;
-	color:#000
+	background-color: #A97E46;
+    color: #000000;
+    font-weight: bold;
+    padding: 0.25em 0.5em;
+    text-align: left;
 }
 
 #previewActionLinks{
