@@ -194,9 +194,13 @@ public class MessageServiceImpl implements MessageService {
     		
     		String fromEmail = "noreply@telscenter.org";
     		
+    		String[] recipientsEmailArray = new String[recipients.size()];
+    		for (int i=0; i < recipients.size(); i++) {
+    			recipientsEmailArray[i] = recipients.get(i);
+    		}
     		//sends the email to the recipients
     		try {
-    			javaMail.postMail((String[]) recipients.toArray(), subject, messageString, fromEmail);
+    			javaMail.postMail(recipientsEmailArray, subject, messageString, fromEmail);
     		} catch (MessagingException e) {
     			// do nothing, no notification to uber_admin required.
     			e.printStackTrace();
