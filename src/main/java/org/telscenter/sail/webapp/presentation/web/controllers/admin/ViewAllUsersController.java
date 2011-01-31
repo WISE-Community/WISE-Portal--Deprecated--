@@ -111,7 +111,7 @@ public class ViewAllUsersController extends AbstractController{
 					loggedInStudentArray[0] = loggedInUser.getUserDetails().getUsername();
 					// since this is a student, look in the studentToRuns session variable and see if this student is running
 					// any projects
-					if (studentsToRuns.containsKey(sessionId)) {
+					if (studentsToRuns != null && studentsToRuns.containsKey(sessionId)) {
 						Run run = studentsToRuns.get(sessionId);
 						loggedInStudentArray[1] = run;		
 					}
