@@ -424,30 +424,40 @@ public class BridgeController extends AbstractController {
 		ServletContext servletContext2 = this.getServletContext();
 		ServletContext vlewrappercontext = servletContext2.getContext("/vlewrapper");
 		User user = ControllerUtil.getSignedInUser();
+		String action = request.getParameter("action");
 		
 		try {
-			//get the run
-			String runId = request.getParameter("runId");
-			Run run = runService.retrieveById(new Long(runId));
-			
-			//get the project id
-			Project project = run.getProject();
-			Serializable projectId = project.getId();
-			
-			//set the project id into the request so the vlewrapper controller has access to it
-			request.setAttribute("projectId", projectId + "");
+			//check if the request is for all idea baskets and the user is not a teacher
+			if(action.equals("getAllIdeaBaskets") && !(user.getUserDetails() instanceof TeacherUserDetails)) {
+				/*
+				 * the request is for all idea baskets and the user is not a teacher
+				 * so we will not allow this
+				 */
+				response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You are not authorized to access this page");
+			} else {
+				//get the run
+				String runId = request.getParameter("runId");
+				Run run = runService.retrieveById(new Long(runId));
+				
+				//get the project id
+				Project project = run.getProject();
+				Serializable projectId = project.getId();
+				
+				//set the project id into the request so the vlewrapper controller has access to it
+				request.setAttribute("projectId", projectId + "");
 
-			//get the workgroup id
-			List<Workgroup> workgroupListByOfferingAndUser = workgroupService.getWorkgroupListByOfferingAndUser(run, user);
-			Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
-			Long workgroupId = workgroup.getId();
+				//get the workgroup id
+				List<Workgroup> workgroupListByOfferingAndUser = workgroupService.getWorkgroupListByOfferingAndUser(run, user);
+				Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
+				Long workgroupId = workgroup.getId();
 
-			//set the workgroup id into the request so the vlewrapper controller has access to it
-			request.setAttribute("workgroupId", workgroupId + "");
-			
-			//forward the request to the vlewrapper controller
-			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/ideaBasket.html");
-			requestDispatcher.forward(request, response);
+				//set the workgroup id into the request so the vlewrapper controller has access to it
+				request.setAttribute("workgroupId", workgroupId + "");
+				
+				//forward the request to the vlewrapper controller
+				RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/ideaBasket.html");
+				requestDispatcher.forward(request, response);				
+			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (ObjectNotFoundException e) {
