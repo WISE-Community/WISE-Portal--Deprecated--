@@ -73,7 +73,7 @@
 	
 </script>
 
-<div id="centeredDiv">
+<div id="centeredDiv" style="width:1050px">
 
 <%@ include file="../headerteacher.jsp"%>
 
