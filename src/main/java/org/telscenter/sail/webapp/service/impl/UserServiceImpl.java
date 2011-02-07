@@ -157,7 +157,7 @@ public class UserServiceImpl extends
 					"Welcome to our new WISE4 learning environment. Our research over the past many " +
 					"years demonstrates that students have significant learning gains when using WISE " +
 					"projects. We are still actively developing WISE4 so you may notice some teacher support " +
-					"links that are not yet available, these will not limit your use of the program with students. " +
+					"links that are not yet available. These will not limit your use of the program with students. " +
 					"The following resource link will be of help to you: \"Teacher Information Sheet\" at " +
 					"http://wise4.telscenter.org/webapp/pages/gettingstarted.html. Be sure to let us know if you " +
 					"have any problems or questions.\n\n" +
