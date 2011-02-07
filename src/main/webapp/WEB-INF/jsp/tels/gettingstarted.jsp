@@ -9,7 +9,7 @@
 
 <body>
 
-<h1 align=center style='text-align:center'>Teacher Information Sheet</h1>
+<h1 align=center style='text-align:center'>WISE4 Teacher Information Sheet</h1>
 
 <h3>Technical Requirements</h3>
 
