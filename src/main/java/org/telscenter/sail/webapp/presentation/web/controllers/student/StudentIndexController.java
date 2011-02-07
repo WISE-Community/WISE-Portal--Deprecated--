@@ -57,6 +57,8 @@ import org.telscenter.sail.webapp.service.project.impl.PodProjectServiceImpl;
 import org.telscenter.sail.webapp.service.student.StudentService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
+import com.ibm.icu.util.Calendar;
+
 /**
  * Controller for Student's index page
  *
@@ -132,6 +134,11 @@ public class StudentIndexController extends AbstractController {
 			// check if there are new announcement for this run
 			if (user.getUserDetails() != null) {
 				Date lastLoginTime = ((StudentUserDetails) user.getUserDetails()).getLastLoginTime();
+				if (request.getParameter("pLT") != null) {
+					Calendar cal = Calendar.getInstance();
+					cal.setTimeInMillis(new Long(request.getParameter("pLT")));
+					lastLoginTime = cal.getTime();
+				}
 				for (Announcement announcement : run.getAnnouncements()) {
 					if (lastLoginTime == null ||
 							lastLoginTime.before(announcement.getTimestamp())) {

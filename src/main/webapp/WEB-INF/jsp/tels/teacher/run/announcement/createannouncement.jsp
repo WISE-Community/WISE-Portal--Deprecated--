@@ -50,13 +50,13 @@
 
 <div id="centeredDiv">
 
-<h3>Create Announcement</h3>
+<h3>Create Announcement for run <c:out value="${run.name}" /></h3>
 <form:form method="post" action="createannouncement.html" commandName="announcementParameters" id="createannouncement" autocomplete='off'>
-	<label for="titleField">Title</label>
-	<form:input path="title" id="titleField"/>
-	<label for="announcementField">Announcement</label>
-	<form:input path="announcement" id="announcementField"/>
-	<input type="image" id="save" src="../<spring:theme code="register_save" />" 
+	<label for="titleField">Title</label><br/>
+	<form:input path="title" id="titleField" size="50"/><br/><br/>
+	<label for="announcementField">Announcement</label><br/>
+	<form:textarea path="announcement" rows="10" cols="50" id="announcementField"/><br/><br/>
+	<input type="image" id="save" src="../../../<spring:theme code="register_save" />" 
     	onmouseover="swapSaveImage('save',1)"onmouseout="swapSaveImage('save',0)"/>
 </form:form>
 

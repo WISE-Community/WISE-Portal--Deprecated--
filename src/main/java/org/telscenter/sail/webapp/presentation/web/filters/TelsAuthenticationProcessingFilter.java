@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.presentation.web.filters;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 
@@ -71,8 +72,14 @@ public class TelsAuthenticationProcessingFilter extends
 			Authentication authResult) throws IOException, ServletException {
 		
         UserDetails userDetails = (UserDetails) authResult.getPrincipal();
-        if (userDetails instanceof StudentUserDetails) {
-        	this.setDefaultTargetUrl(STUDENT_DEFAULT_TARGET_PATH);
+        if (userDetails instanceof StudentUserDetails) {        	
+        	// pLT= previous login time (not this time, but last time)
+        	Date lastLoginTime = ((StudentUserDetails) userDetails).getLastLoginTime();
+        	long pLT = 0L; // previous last log in time
+        	if (lastLoginTime != null) {
+        		pLT = lastLoginTime.getTime();
+        	}
+        	this.setDefaultTargetUrl(STUDENT_DEFAULT_TARGET_PATH + "?pLT=" + pLT);                	
         }
         else if (userDetails instanceof TeacherUserDetails) {
 	   		this.setDefaultTargetUrl(TEACHER_DEFAULT_TARGET_PATH);

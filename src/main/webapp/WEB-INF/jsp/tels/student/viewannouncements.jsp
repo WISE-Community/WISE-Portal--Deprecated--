@@ -47,11 +47,11 @@ var getNewAnnouncements = function(dialog){
 <%@ include file="./studentHeader.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<a href="index.html?showNewAnnouncements=false">Student Home Page</a>
+<a href="index.html?showNewAnnouncements=false"><b>Go to Student Home Page</b></a>
 
 <c:forEach var="run" items="${runs}">
 
-<div id="studentAnnouncementHeader">Student Announcements for <i>${run.sdsOffering.name}</i></div>
+<div id="studentAnnouncementHeader">Student Announcements for <i>${run.name}</i></div>
 
 <div id="existingAnnouncements">
 	<c:choose>
@@ -59,11 +59,9 @@ var getNewAnnouncements = function(dialog){
 			<c:forEach var="announcement" items="${run.announcements}">
 			    <c:choose>
 			    <c:when test="${user.userDetails.lastLoginTime < announcement.timestamp || user.userDetails.lastLoginTime == null}">
-			        <!--  new announcement, make it stand out Matt: please add css-->
-    				<div class="newAnnouncement">New Announcement!</div>
     				
     				<table id="announcementTable">
-    					<tr>
+    					<tr class='newAnnouncement'>
     						<td class="col1">${announcement.title}</td>
     						<td class="col2"><fmt:formatDate value="${announcement.timestamp}" type="both" dateStyle="short" timeStyle="short" /></td>
     						<td class="col3">${announcement.announcement}</td>
@@ -71,9 +69,8 @@ var getNewAnnouncements = function(dialog){
     				</table>
    			    </c:when>
    			    <c:otherwise>
-   			    <div class="existingAnnouncements">Existing Announcements</div>
 				<table id="announcementTable">
-    					<tr>
+    					<tr class='existingAnnouncement'>
     						<td class="col1">${announcement.title}</td>
     						<td class="col2"><fmt:formatDate value="${announcement.timestamp}" type="both" dateStyle="short" timeStyle="short" /></td>
     						<td class="col3">${announcement.announcement}</td>
@@ -92,7 +89,7 @@ var getNewAnnouncements = function(dialog){
 
 <br/>
 <br/>
-<a href="index.html?showNewAnnouncements=false">Student Home Page</a>
+<a href="index.html?showNewAnnouncements=false"><b>Go to Student Home Page</b></a>
 
 </div>
 
