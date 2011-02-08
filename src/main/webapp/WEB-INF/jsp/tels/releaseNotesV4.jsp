@@ -15,10 +15,19 @@ WISE4 Roadmap is <a href="http://code.google.com/p/wise4/wiki/WISE4Roadmap">here
 <div>Not yet released. Scheduled to be released in February 2011</div>
 
 <h4>Major additions/changes</h4>
+<ul>
+<li>Idea Manager</li>
+<li>Explanation Builder</li>
+<li>GradingTool: load latest & load all modes</li>
+<li>Hints</li>
+</ul>
 
 <h4>Minor additions/changes</h4>
 <ul>
-<li>admin tool enhancements: http://code.google.com/p/wise4/issues/detail?id=103</li>
+<li>Bug fix: new announcements from teacher will force show for students on next login http://code.google.com/p/wise4/issues/detail?id=119</li>
+<li>Admin tool enhancements: http://code.google.com/p/wise4/issues/detail?id=103</li>
+<li>Fixed student VLE navigation scrollbar</li>
+<li>Compatibility checker page for school IT administrators</li>
 </ul>
 
 <h3>Version 4.0 Release Notes</h3>
