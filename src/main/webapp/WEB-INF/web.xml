@@ -107,7 +107,7 @@
             org.springframework.security.ui.session.HttpSessionEventPublisher
         </listener-class>
     </listener>
-
+    
     <!-- project specific startup listeners go here -->
     <!-- you can add your own listeners by adding the property startup.listeners in your settings.xml -->
     ${startup.listeners}
@@ -160,5 +160,10 @@
         Objects going into the session better be serializable!
     -->
     <distributable/>
+
+    <session-config>
+        <session-timeout>20</session-timeout>
+	</session-config>
+
 
 </web-app>
