@@ -390,6 +390,9 @@ public class InformationController extends AbstractController{
 			//get the grading type (step or team)
 			String gradingType = request.getParameter("gradingType");
 			
+			//get the boolean whether to get revisions
+			String getRevisions = request.getParameter("getRevisions");
+			
 			//get the url for the run info
 			String getRunInfoUrl = portalVLEControllerUrl + "&action=getRunInfo";
 			
@@ -452,6 +455,7 @@ public class InformationController extends AbstractController{
 				config.put("getRunInfoUrl", getRunInfoUrl);
 				config.put("postMaxScoreUrl", postMaxScoreUrl);
 				config.put("gradingType", gradingType);
+				config.put("getRevisions", getRevisions);
 				config.put("getPeerReviewUrl", getPeerReviewUrl);
 				config.put("getJournalDataUrl", getJournalDataUrl);
 				config.put("postJournalDataUrl", postJournalDataUrl);

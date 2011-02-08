@@ -220,8 +220,8 @@
 					        	</sec:accesscontrollist>
 					        </li>
 					        <li><a href="editrun.html?runId=${run.id}" target="_top">Edit Run Info</a></li>
-							<li><a href="../grading/gradework.html?runId=${run.id}&gradingType=step" target="_top"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
-   	                        <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=team" target="_top"><spring:message code="teacher.run.myprojectruns.17"/></a></li>				    	
+							<li><spring:message code="teacher.run.myprojectruns.16"/> (<spring:message code="teacher.run.myprojectruns.41"/>:<a href="../grading/gradework.html?runId=${run.id}&gradingType=step&getRevisions=false" target="_top"><spring:message code="teacher.run.myprojectruns.43"/></a>|<a href="../grading/gradework.html?runId=${run.id}&gradingType=step&getRevisions=true" target="_top"><spring:message code="teacher.run.myprojectruns.42"/></a>)</li>
+   	                        <li><spring:message code="teacher.run.myprojectruns.17"/> (<spring:message code="teacher.run.myprojectruns.41"/>:<a href="../grading/gradework.html?runId=${run.id}&gradingType=team&getRevisions=false" target="_top"><spring:message code="teacher.run.myprojectruns.43"/></a>|<a href="../grading/gradework.html?runId=${run.id}&gradingType=team&getRevisions=true" target="_top"><spring:message code="teacher.run.myprojectruns.42"/></a>)</li>				    	
 		                    <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=team" target="_top">Scores Summary</a></li>
 					               </c:otherwise>
 					           </c:choose>
@@ -337,8 +337,8 @@
 					    <ul id="actionList1">
 					
 					        <li><a href="../../previewproject.html?projectId=${run.project.id}&versionId=${run.versionId}" target="_blank">View the Project</a></li>
-					        <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=step" target="_top"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
-   	                        <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=team" target="_top"><spring:message code="teacher.run.myprojectruns.17"/></a></li>		
+					        <li><spring:message code="teacher.run.myprojectruns.16"/> (<spring:message code="teacher.run.myprojectruns.41"/>:<a href="../grading/gradework.html?runId=${run.id}&gradingType=step&getRevisions=false" target="_top"><spring:message code="teacher.run.myprojectruns.43"/></a>|<a href="../grading/gradework.html?runId=${run.id}&gradingType=step&getRevisions=true" target="_top"><spring:message code="teacher.run.myprojectruns.42"/></a>)</li>
+   	                        <li><spring:message code="teacher.run.myprojectruns.17"/> (<spring:message code="teacher.run.myprojectruns.41"/>:<a href="../grading/gradework.html?runId=${run.id}&gradingType=team&getRevisions=false" target="_top"><spring:message code="teacher.run.myprojectruns.43"/></a>|<a href="../grading/gradework.html?runId=${run.id}&gradingType=team&getRevisions=true" target="_top"><spring:message code="teacher.run.myprojectruns.42"/></a>)</li>		
 		                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
 					    	  <li><a href="#" onclick="javascript:popup('manage/startRun.html?runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />')">Restore to <i>My Current Project Runs</i> Tab</a></li>
 					    	</sec:accesscontrollist>							

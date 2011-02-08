@@ -20,13 +20,13 @@
 
 #column1 {
 	float:left;
-	width:258px;
+	width:240px;
 	}
 
 #column2 {
 	float:left;
 	margin-left: 10px;
-	width:690px;
+	width:700px;
 	}
 
 .panelStyleStatus {

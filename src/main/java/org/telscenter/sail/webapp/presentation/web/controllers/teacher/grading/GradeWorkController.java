@@ -72,6 +72,9 @@ public class GradeWorkController extends AbstractController {
 		//get the grading type (step or team)
 		String gradingType = request.getParameter("gradingType");
 		
+		//get the boolean whether to get revisions
+		String getRevisions = request.getParameter("getRevisions");
+		
 		String action = request.getParameter("action");
 		if(action != null) {
 			if(action.equals("postMaxScore")) {
@@ -92,7 +95,7 @@ public class GradeWorkController extends AbstractController {
 					String portalurl = ControllerUtil.getBaseUrlString(request);
 	
 			    	String getGradeWorkUrl = portalurl + "/vlewrapper/vle/gradework.html";
-					String getGradingConfigUrl = portalurl + "/webapp/request/info.html?action=getVLEConfig&runId=" + run.getId().toString() + "&gradingType=" + gradingType + "&requester=grading";
+					String getGradingConfigUrl = portalurl + "/webapp/request/info.html?action=getVLEConfig&runId=" + run.getId().toString() + "&gradingType=" + gradingType + "&requester=grading&getRevisions=" + getRevisions;
 					
 					ModelAndView modelAndView = new ModelAndView();
 					modelAndView.addObject(RUN_ID, runId);
