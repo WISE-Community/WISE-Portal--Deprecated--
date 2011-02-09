@@ -104,20 +104,22 @@ public class ViewAllUsersController extends AbstractController{
 
 			ArrayList<Object> loggedInStudent = new ArrayList<Object>();
 			ArrayList<String> loggedInTeacherUsernames = new ArrayList<String>();
-			for (String sessionId : allLoggedInUsers.keySet()) {
-				User loggedInUser = allLoggedInUsers.get(sessionId);
-				if (loggedInUser.getUserDetails() instanceof StudentUserDetails) {
-					Object[] loggedInStudentArray=new Object[2];
-					loggedInStudentArray[0] = loggedInUser.getUserDetails().getUsername();
-					// since this is a student, look in the studentToRuns session variable and see if this student is running
-					// any projects
-					if (studentsToRuns != null && studentsToRuns.containsKey(sessionId)) {
-						Run run = studentsToRuns.get(sessionId);
-						loggedInStudentArray[1] = run;		
+			if (allLoggedInUsers != null) {
+				for (String sessionId : allLoggedInUsers.keySet()) {
+					User loggedInUser = allLoggedInUsers.get(sessionId);
+					if (loggedInUser.getUserDetails() instanceof StudentUserDetails) {
+						Object[] loggedInStudentArray=new Object[2];
+						loggedInStudentArray[0] = loggedInUser.getUserDetails().getUsername();
+						// since this is a student, look in the studentToRuns session variable and see if this student is running
+						// any projects
+						if (studentsToRuns != null && studentsToRuns.containsKey(sessionId)) {
+							Run run = studentsToRuns.get(sessionId);
+							loggedInStudentArray[1] = run;		
+						}
+						loggedInStudent.add(loggedInStudentArray);
+					} else {
+						loggedInTeacherUsernames.add(loggedInUser.getUserDetails().getUsername());					
 					}
-					loggedInStudent.add(loggedInStudentArray);
-				} else {
-					loggedInTeacherUsernames.add(loggedInUser.getUserDetails().getUsername());					
 				}
 			}
 			modelAndView.addObject(LOGGED_IN_STUDENT_USERNAMES, loggedInStudent);
