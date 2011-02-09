@@ -193,7 +193,7 @@ public class StartProjectController extends AbstractController {
 	 * @param request current request
 	 * @param run run that the logged in user is running
 	 */
-	public void notifyServletSession(HttpServletRequest request, Run run) {
+	public static void notifyServletSession(HttpServletRequest request, Run run) {
 		HttpSession session = request.getSession();
 
 		// add new session in a allLoggedInUsers servletcontext HashMap variable

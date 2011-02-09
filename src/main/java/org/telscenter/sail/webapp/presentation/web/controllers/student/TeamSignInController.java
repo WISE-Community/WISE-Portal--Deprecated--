@@ -154,6 +154,7 @@ public class TeamSignInController extends SimpleFormController {
 		launchProjectParameters.setWorkgroup((WISEWorkgroup) workgroup);
 		launchProjectParameters.setHttpRestTransport(this.httpRestTransport);
 		launchProjectParameters.setHttpServletRequest(request);
+		StartProjectController.notifyServletSession(request, run);
 		modelAndView = (ModelAndView) projectService.launchProject(launchProjectParameters);
 		modelAndView.addObject("closeokay", true);
 		
