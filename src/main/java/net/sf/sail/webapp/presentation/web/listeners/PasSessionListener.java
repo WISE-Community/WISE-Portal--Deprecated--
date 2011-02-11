@@ -54,8 +54,11 @@ public class PasSessionListener implements HttpSessionListener {
 	public void sessionDestroyed(HttpSessionEvent event) {
 		HttpSession session = event.getSession();
 		String sessionId = session.getId();
-		((HashMap<String, User>) session.getServletContext()
-				.getAttribute(ALL_LOGGED_IN_USERS)).remove(sessionId);
+		
+		HashMap<String, User> allLoggedInUsers = ((HashMap<String, User>) session.getServletContext().getAttribute(ALL_LOGGED_IN_USERS));
+		if (allLoggedInUsers != null) {
+			allLoggedInUsers.remove(sessionId);
+		}
 		
 		HashMap<String, User> studentsToRuns = ((HashMap<String, User>) session.getServletContext().getAttribute("studentsToRuns"));
 		if (studentsToRuns != null) {
