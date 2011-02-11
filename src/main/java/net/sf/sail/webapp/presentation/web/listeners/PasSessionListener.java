@@ -57,9 +57,11 @@ public class PasSessionListener implements HttpSessionListener {
 		((HashMap<String, User>) session.getServletContext()
 				.getAttribute(ALL_LOGGED_IN_USERS)).remove(sessionId);
 		
-		((HashMap<String, User>) session.getServletContext()
-				.getAttribute("studentsToRuns")).remove(sessionId);
-		
+		HashMap<String, User> studentsToRuns = ((HashMap<String, User>) session.getServletContext().getAttribute("studentsToRuns"));
+		if (studentsToRuns != null) {
+			studentsToRuns.remove(sessionId);
+		}
+				
 		// also remove this user from any opened projects, if they opened
 		// any project using the authoring tool.
 		HashMap<String, ArrayList<String>> openedProjectToSessions = 
