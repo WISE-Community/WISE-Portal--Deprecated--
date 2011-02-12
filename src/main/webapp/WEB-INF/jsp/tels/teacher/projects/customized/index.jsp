@@ -59,7 +59,6 @@
 			false, callback);
 	};
 </script>
-</head>
 
         <!-- Page-specific script -->
 
@@ -462,18 +461,6 @@
 
 <script type="text/javascript">
 
-function populateCheckboxes(){
-	<c:forEach var='project' items='${currentOwnedProjectsList}'>
-		if('${project.public}'=='true'){
-			document.getElementById('public_${project.id}').checked = true;
-		};
-	</c:forEach>
-	<c:forEach var='project' items='${sharedProjectsList}'>
-		if('${project.public}'=='true'){
-			document.getElementById('public_${project.id}').checked = true;
-		};
-	</c:forEach>	
-};
 
 function changePublic(id){
 	var callback = {
@@ -510,7 +497,9 @@ function minifyProject(id){
     
 </script>
 
-<body class="yui-skin-sam" onload='populateCheckboxes()'> 
+</head>
+
+<body class="yui-skin-sam" onload=''> 
 
 <div id="centeredDiv">
 
