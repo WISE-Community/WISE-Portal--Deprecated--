@@ -12,7 +12,7 @@
 List of current, open issues can be found <a href="http://code.google.com/p/wise4/issues/list">here</a>.<br/>
 WISE4 Roadmap is <a href="http://code.google.com/p/wise4/wiki/WISE4Roadmap">here</a>.
 <h3>Version 4.1 Release Notes</h3>
-<div>Not yet released. Scheduled to be released in February 2011</div>
+<div>Release date: February 11, 2011. Announcement: <a href="https://groups.google.com/forum/#!topic/wise4-dev/ENNeXon_TBw">https://groups.google.com/forum/#!topic/wise4-dev/ENNeXon_TBw</a></div>
 
 <h4>Major additions/changes</h4>
 <ul>
@@ -24,8 +24,8 @@ WISE4 Roadmap is <a href="http://code.google.com/p/wise4/wiki/WISE4Roadmap">here
 
 <h4>Minor additions/changes</h4>
 <ul>
-<li>Bug fix: new announcements from teacher will force show for students on next login http://code.google.com/p/wise4/issues/detail?id=119</li>
-<li>Admin tool enhancements: http://code.google.com/p/wise4/issues/detail?id=103</li>
+<li>Bug fix: new announcements from teacher will force show for students on next login <a href="http://code.google.com/p/wise4/issues/detail?id=119">http://code.google.com/p/wise4/issues/detail?id=119</a></li>
+<li>Admin tool enhancements: <a href="http://code.google.com/p/wise4/issues/detail?id=103">http://code.google.com/p/wise4/issues/detail?id=103</a></li>
 <li>Fixed student VLE navigation scrollbar</li>
 <li>Compatibility checker page for school IT administrators</li>
 </ul>
