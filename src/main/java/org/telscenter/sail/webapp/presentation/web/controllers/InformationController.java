@@ -440,7 +440,10 @@ public class InformationController extends AbstractController{
 	    	
 	    	//get the url to post idea basket data
 	    	String postIdeaBasketUrl = portalurl + "/webapp/bridge/request.html?type=ideaBasket&runId=" + run.getId().toString();
-	    	
+
+	    	//get the url to get idea basket data
+	    	String studentAssetManagerUrl = portalurl + "/webapp/bridge/request.html?type=studentAssetManager&runId=" + run.getId().toString();
+
 			/* Set the post level if specified in the run */
 			Integer postLevel = run.getPostLevel();
 	    	
@@ -464,6 +467,8 @@ public class InformationController extends AbstractController{
 				config.put("postPremadeCommentsUrl", postPremadeCommentsUrl);
 				config.put("getIdeaBasketUrl", getIdeaBasketUrl);
 				config.put("postIdeaBasketUrl", postIdeaBasketUrl);
+				config.put("studentAssetManagerUrl", studentAssetManagerUrl);
+				config.put("runInfo", run.getInfo());
 				if(postLevel!=null){
 					config.put("postLevel", postLevel);
 				};

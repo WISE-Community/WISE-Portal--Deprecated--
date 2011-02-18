@@ -170,7 +170,7 @@ public class AuthorProjectController extends AbstractController {
 					CredentialManager.setRequestCredentials(request, user);
 					servletContext.getRequestDispatcher("/vle/" + forward + ".html").forward(request, response);
 					
-					if(command.equals("updateFile")) {
+					if("updateFile".equals(command)) {
 						//we have updated a file in a project so we will update the project edited timestamp
 						
 						/*

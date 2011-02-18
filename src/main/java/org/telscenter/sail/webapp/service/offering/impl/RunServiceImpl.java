@@ -585,4 +585,26 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
 	}
+
+	/**
+	 * @throws ObjectNotFoundException 
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#setIdeaManagerEnabled(java.lang.Long, boolean)
+	 */
+	@Transactional
+	public void setIdeaManagerEnabled(Long runId, boolean isEnabled) throws ObjectNotFoundException {
+		Run run = this.retrieveById(runId);
+		run.setIdeaManagerEnabled(isEnabled);
+		this.runDao.save(run);
+	}
+
+	/**
+	 * @throws ObjectNotFoundException 
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#setStudentAssetUploaderEnabled(java.lang.Long, boolean)
+	 */
+	@Transactional
+	public void setStudentAssetUploaderEnabled(Long runId, boolean isEnabled) throws ObjectNotFoundException {
+		Run run = this.retrieveById(runId);
+		run.setStudentAssetUploaderEnabled(isEnabled);
+		this.runDao.save(run);
+	}
 }

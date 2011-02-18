@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
@@ -71,6 +72,7 @@ public class BridgeController extends AbstractController {
 
 	private WISEWorkgroupService workgroupService;
 	private RunService runService;
+	private Properties portalProperties;
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -221,6 +223,8 @@ public class BridgeController extends AbstractController {
 				//TODO: need to check user permissions
 				return true;
 			} else if(type.equals("ideaBasket")) {
+				return true;
+			} else if(type.equals("studentAssetManager")) {
 				return true;
 			} else {
 				// this should never happen
@@ -389,6 +393,8 @@ public class BridgeController extends AbstractController {
 			requestDispatcher.forward(request, response);
 		} else if(type.equals("ideaBasket")) {
 			handleIdeaBasket(request, response);
+		} else if(type.equals("studentAssetManager")) {
+			handleStudentAssetManager(request, response);
 		}
 		return null;
 	}
@@ -416,6 +422,8 @@ public class BridgeController extends AbstractController {
 			requestDispatcher.forward(request, response);
 		} else if(type.equals("ideaBasket")) {
 			handleIdeaBasket(request, response);
+		} else if(type.equals("studentAssetManager")) {
+			handleStudentAssetManager(request, response);
 		}
 		return null;
 	}
@@ -458,6 +466,44 @@ public class BridgeController extends AbstractController {
 				RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/ideaBasket.html");
 				requestDispatcher.forward(request, response);				
 			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void handleStudentAssetManager(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ServletContext servletContext2 = this.getServletContext();
+		ServletContext vlewrappercontext = servletContext2.getContext("/vlewrapper");
+		User user = ControllerUtil.getSignedInUser();
+		String studentuploads_base_dir = portalProperties.getProperty("studentuploads_base_dir");
+		
+		try {
+			//get the run
+			String runId = request.getParameter("runId");
+			Run run = runService.retrieveById(new Long(runId));
+			
+			//get the project id
+			Project project = run.getProject();
+			Serializable projectId = project.getId();
+			
+			//set the project id into the request so the vlewrapper controller has access to it
+			request.setAttribute("projectId", projectId + "");
+
+			//get the workgroup id
+			List<Workgroup> workgroupListByOfferingAndUser = workgroupService.getWorkgroupListByOfferingAndUser(run, user);
+			Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
+			Long workgroupId = workgroup.getId();
+
+			//set the workgroup id into the request so the vlewrapper controller has access to it
+			request.setAttribute("dirName", workgroupId + "");
+			if (studentuploads_base_dir != null) {
+				request.setAttribute("path", studentuploads_base_dir);
+			}
+			//forward the request to the vlewrapper controller
+			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/vle/studentassetmanager.html");
+			requestDispatcher.forward(request, response);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (ObjectNotFoundException e) {
@@ -518,4 +564,12 @@ public class BridgeController extends AbstractController {
 	public void setRunService(RunService runService) {
 		this.runService = runService;
 	}
+	
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
+	}
+
 }

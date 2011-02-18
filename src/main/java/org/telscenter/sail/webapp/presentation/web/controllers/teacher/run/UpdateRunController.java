@@ -53,6 +53,14 @@ public class UpdateRunController extends AbstractController {
 			String name = request.getParameter("name");
 			this.runService.addPeriodToRun(Long.parseLong(runId), name);
 			response.getWriter().write("success");
+		} else if (command.equals("enableIdeaManager")) {
+			boolean isEnabled = Boolean.parseBoolean(request.getParameter("isEnabled"));
+			this.runService.setIdeaManagerEnabled(Long.parseLong(runId), isEnabled);
+			response.getWriter().write("success");
+		} else if (command.equals("enableStudentAssetUploader")) {
+			boolean isEnabled = Boolean.parseBoolean(request.getParameter("isEnabled"));
+			this.runService.setStudentAssetUploaderEnabled(Long.parseLong(runId), isEnabled);
+			response.getWriter().write("success");
 		}
 		
 		return null;

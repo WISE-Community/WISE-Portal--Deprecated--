@@ -47,6 +47,8 @@ import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 import org.telscenter.sail.webapp.domain.run.RunStatus;
+import org.telscenter.sail.webapp.presentation.util.json.JSONException;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 
 import net.sf.sail.webapp.domain.OfferingVisitor;
 import net.sf.sail.webapp.domain.User;
@@ -553,5 +555,70 @@ public class RunImpl extends OfferingImpl implements Run {
 	 */
 	public void setVersionId(String versionId) {
 		this.versionId = versionId;
+	}
+
+	public boolean isIdeaManagerEnabled() {
+		String runInfoStr = this.getInfo();
+		if (runInfoStr != null && runInfoStr != null) {
+			try {
+				JSONObject runInfo = new JSONObject(runInfoStr);
+				if (runInfo.has("isIdeaManagerEnabled")) {
+					return runInfo.getBoolean("isIdeaManagerEnabled");
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return false;
+	}
+
+	public boolean isStudentAssetUploaderEnabled() {
+		String runInfoStr = this.getInfo();
+		if (runInfoStr != null && runInfoStr != null) {
+			try {
+				JSONObject runInfo = new JSONObject(runInfoStr);
+				if (runInfo.has("isStudentAssetUploaderEnabled")) {
+					return runInfo.getBoolean("isStudentAssetUploaderEnabled");
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return false;
+	}
+
+	public void setIdeaManagerEnabled(boolean isIdeaManagerEnabled) {
+		String runInfoStr = this.getInfo();
+		JSONObject runInfo = null;
+		try {
+			if (runInfoStr != null && runInfoStr != null) {
+				runInfo = new JSONObject(runInfoStr);
+			} else {
+				runInfo = new JSONObject();
+			}
+			runInfo.put("isIdeaManagerEnabled", isIdeaManagerEnabled);
+			this.setInfo(runInfo.toString());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void setStudentAssetUploaderEnabled(
+			boolean isStudentAssetUploaderEnabled) {
+		String runInfoStr = this.getInfo();
+		JSONObject runInfo = null;
+		try {
+			if (runInfoStr != null && runInfoStr != null) {
+				runInfo = new JSONObject(runInfoStr);
+			} else {
+				runInfo = new JSONObject();
+			}
+			runInfo.put("isStudentAssetUploaderEnabled", isStudentAssetUploaderEnabled);
+			this.setInfo(runInfo.toString());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 }

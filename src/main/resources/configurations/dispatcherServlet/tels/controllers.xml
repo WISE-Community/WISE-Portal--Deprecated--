@@ -1454,6 +1454,7 @@
     	class="org.telscenter.sail.webapp.presentation.web.controllers.BridgeController">
     	<property name="workgroupService" ref="wiseWorkgroupService"/>
     	<property name="runService" ref="runService" />
+		<property name="portalProperties" ref="portalproperties" />
     </bean>
     
     <bean id="credentialManager"

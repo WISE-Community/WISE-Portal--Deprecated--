@@ -263,6 +263,22 @@ public interface RunService extends OfferingService {
     public void setInfo(Long runId, String isPaused, String showNodeId) throws Exception;
     
     /**
+     * Sets whether idea manager is enabled for this run or not.
+     * @param runId
+     * @param isEnabled
+     * @throws ObjectNotFoundException 
+     */
+    public void setIdeaManagerEnabled(Long runId, boolean isEnabled) throws ObjectNotFoundException;
+
+    /**
+     * Sets whether student asset uploader is enabled for this run or not.
+     * @param runId
+     * @param isEnabled
+     * @throws ObjectNotFoundException 
+     */
+    public void setStudentAssetUploaderEnabled(Long runId, boolean isEnabled) throws ObjectNotFoundException;
+    
+    /**
      * Given a <code>Long</code> runId, changes the archiveReminderTime to be 30 days
      * from today.
      * 

@@ -224,12 +224,36 @@ public interface Run extends Offering {
 	 * @return the isPaused
 	 */
 	public String getInfo();
-
+	
 	/**
 	 * @param isPaused the isPaused to set
 	 */
 	public void setInfo(String info);
 
+	/**
+	 * Sets whether or not student asset uploading is enabled for this run.
+	 * @return
+	 */
+	public void setStudentAssetUploaderEnabled(boolean isStudentAssetUploaderEnabled);
+
+	/**
+	 * Returns whether or not student asset uploading is enabled for this run.
+	 * @return
+	 */
+	public boolean isStudentAssetUploaderEnabled();
+
+	/**
+	 * Sets whether or not idea manager is enabled for this run.
+	 * @return
+	 */
+	public void setIdeaManagerEnabled(boolean isIdeaManagerEnabled);
+
+	/**
+	 * Returns whether or not idea manager is enabled for this run.
+	 * @return
+	 */
+	public boolean isIdeaManagerEnabled();
+	
 	/**
 	 * @return <code>Integer</code> maxWorkgroupSize
 	 */

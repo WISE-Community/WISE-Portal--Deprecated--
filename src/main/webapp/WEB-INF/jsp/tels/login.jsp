@@ -44,7 +44,7 @@
 
 </head>
 
-<body>
+<body onload="document.getElementById('j_username').focus();">
 
 <div id="centeredDiv">
 

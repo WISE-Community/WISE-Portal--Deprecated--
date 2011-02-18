@@ -45,7 +45,7 @@
 	}
 
 	function updateSuccess(){
-		writeMessage('Successfully updated run title on server!');
+		writeMessage('Successfully updated on server!');
 	}
 
 	function updateFailure(){
@@ -58,14 +58,42 @@
 		$('#existingPeriodsList').append('<li>Period Name: ' + val);
 		writeMessage('Period successfully added to run!');
 	}
+
+	$(document).ready(function() {		
+		$(".runInfoOption").bind("click", function() {
+			var runId = $("#runId").html();
+			var infoOptionName = this.id;
+			var isEnabled = this.checked;
+
+			$.ajax({type:'POST', url:'updaterun.html', data:'command='+infoOptionName+'&runId=' + runId + '&isEnabled=' + isEnabled, error:updateFailure, success:updateSuccess});
+		});
+	});
 </script>
 </head>
 <body>
 <div id="mainDiv">
-	<div id="editRunHeadDiv" class="editRunBlock">Edit Run</div>
+	<div id="editRunHeadDiv" class="editRunBlock">Edit Run (Run ID: <span id='runId'>${run.id}</span>)</div>
 	<div id='errorMsgDiv'></div>
 	<div id="editRunTitleDiv" class="editRunBlock">
-		Run Title: <input id="editRunTitleInput" type="text" size="10" value="<c:out value='${run.name}' />"/><input type="button" value="update title" onclick="updateRunTitle('${run.id}')"/>
+		Run Title: <input id="editRunTitleInput" type="text" size="50" value="<c:out value='${run.name}' />"/><input type="button" value="update title" onclick="updateRunTitle('${run.id}')"/>
+	</div>
+	<div id='runInfo' style='margin-top:20px; margin-bottom:20px'>
+		<c:choose>
+			<c:when test="${run.ideaManagerEnabled}">
+				<input id='enableIdeaManager' class='runInfoOption' type="checkbox" checked="checked" ></input>Enable Idea Manager<br/>
+			</c:when>
+			<c:otherwise>
+				<input id='enableIdeaManager' class='runInfoOption' type="checkbox" ></input>Enable Idea Manager<br/>
+			</c:otherwise>
+		</c:choose>
+		<c:choose>
+			<c:when test="${run.studentAssetUploaderEnabled}">
+				<input id='enableStudentAssetUploader' class='runInfoOption' type="checkbox" checked="checked"></input>Enable Student File Uploader
+			</c:when>
+			<c:otherwise>
+				<input id='enableStudentAssetUploader' class='runInfoOption' type="checkbox"></input>Enable Student File Uploader
+			</c:otherwise>
+		</c:choose>
 	</div>
 	<div id="editRunPeriodsDiv" class="editRunBlock">
 		<div id="editRunPeriodsHeadDiv">Periods:</div>
