@@ -358,6 +358,7 @@ public class InformationController extends AbstractController{
 		
 		String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
 		String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
+		String studentUploadsBaseWWW = portalProperties.getProperty("studentuploads_base_www");
 		
 		String polishedProjectUrl = null;
 		String rawProjectUrl = null;
@@ -538,6 +539,7 @@ public class InformationController extends AbstractController{
 			config.put("getContentUrl", getContentUrl);
 			config.put("getProjectPath", getProjectPath);
 			config.put("getContentBaseUrl", getContentBaseUrl);
+			config.put("getStudentUploadsBaseUrl", studentUploadsBaseWWW);
 			config.put("theme", "WISE");
 			config.put("enableAudio", false);
 			config.put("runInfoRequestInterval", GET_RUNINFO_REQUEST_INTERVAL);
