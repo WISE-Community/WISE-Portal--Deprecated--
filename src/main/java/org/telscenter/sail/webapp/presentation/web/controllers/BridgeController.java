@@ -395,6 +395,8 @@ public class BridgeController extends AbstractController {
 			handleIdeaBasket(request, response);
 		} else if(type.equals("studentAssetManager")) {
 			handleStudentAssetManager(request, response);
+		} else if(type.equals("viewStudentAssets")) {
+			handleViewStudentAssets(request, response);
 		}
 		return null;
 	}
@@ -424,6 +426,8 @@ public class BridgeController extends AbstractController {
 			handleIdeaBasket(request, response);
 		} else if(type.equals("studentAssetManager")) {
 			handleStudentAssetManager(request, response);
+		} else if(type.equals("viewStudentAssets")) {
+			handleViewStudentAssets(request, response);
 		}
 		return null;
 	}
@@ -466,6 +470,45 @@ public class BridgeController extends AbstractController {
 				RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/ideaBasket.html");
 				requestDispatcher.forward(request, response);				
 			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void handleViewStudentAssets(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		ServletContext servletContext2 = this.getServletContext();
+		ServletContext vlewrappercontext = servletContext2.getContext("/vlewrapper");
+		User user = ControllerUtil.getSignedInUser();
+		String studentuploads_base_dir = portalProperties.getProperty("studentuploads_base_dir");
+		
+		try {
+			//get the run
+			String runId = request.getParameter("runId");
+			Run run = runService.retrieveById(new Long(runId));
+			
+			//get the project id
+			Project project = run.getProject();
+			Serializable projectId = project.getId();
+			
+			//set the project id into the request so the vlewrapper controller has access to it
+			request.setAttribute("projectId", projectId + "");
+
+			//set the workgroup id into the request so the vlewrapper controller has access to it
+			if (studentuploads_base_dir != null) {
+				request.setAttribute("path", studentuploads_base_dir);
+			}
+			
+			// workgroups is a ":" separated string of workgroups
+			String workgroups = request.getParameter("workgroups");
+			
+			request.setAttribute("dirName", workgroups);
+			
+			//forward the request to the vlewrapper controller
+			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/vle/studentassetmanager.html");
+			requestDispatcher.forward(request, response);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (ObjectNotFoundException e) {

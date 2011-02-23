@@ -11,6 +11,23 @@
 <a href="/webapp/index.html">Go back to homepage</a><br/>
 List of current, open issues can be found <a href="http://code.google.com/p/wise4/issues/list">here</a>.<br/>
 WISE4 Roadmap is <a href="http://code.google.com/p/wise4/wiki/WISE4Roadmap">here</a>.
+
+<!--  
+<h3>Version 4.2 Release Notes</h3>
+<div>Release date: March XX, 2011. Announcement: <a href="https://groups.google.com/forum/#!topic/wise4-dev/ENNeXon_TBw">https://groups.google.com/forum/#!topic/wise4-dev/ENNeXon_TBw</a></div>
+
+<h4>Major additions/changes</h4>
+<ul>
+<li>Student File Uploader</li>
+<li>Import student file to step</li>
+</ul>
+
+<h4>Minor additions/changes</h4>
+<ul>
+<li>IdeaManager and StudentFileUploader configurable via authoring tool and run edit page.</li>
+</ul>
+-->
+
 <h3>Version 4.1 Release Notes</h3>
 <div>Release date: February 11, 2011. Announcement: <a href="https://groups.google.com/forum/#!topic/wise4-dev/ENNeXon_TBw">https://groups.google.com/forum/#!topic/wise4-dev/ENNeXon_TBw</a></div>
 
