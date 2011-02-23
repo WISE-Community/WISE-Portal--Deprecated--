@@ -10,7 +10,8 @@
 
 <%@ include file="styles.jsp"%>
 
-<script type="text/javascript" src=".././javascript/tels/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src=".././javascript/tels/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src=".././javascript/tels/jquery-ui-1.8.9/js/jquery-ui-1.8.9.custom.min.js"></script>
 <script type="text/javascript" src=".././javascript/tels/jquerycookie.js"></script>
 <script type="text/javascript" src=".././javascript/tels/browserdetect.js"></script>
 <script type="text/javascript" src=".././javascript/tels/checkCompatibility.js"></script>
@@ -28,7 +29,25 @@
 if ($.cookie("hasBeenAlertedBrowserCompatibility") != "true") {
 	alertBrowserCompatibility();
 }
-$.cookie("hasBeenAlertedBrowserCompatibility","true");           
+$.cookie("hasBeenAlertedBrowserCompatibility","true");    
+
+$(document).ready(function() {
+	$("#addprojectLink").bind("click", function() {
+		var addProjectDialogHtml = '<div style="display:none" id="addProjectDialog">'+
+		'<iframe id="addProjectFrame" src="addproject.html" width="100%" height="100%" FRAMEBORDER="0" allowTransparency="false" scrolling="no"> </iframe>'+			
+		'</div>';
+		if ($("#addProjectDialog").length == 0) {
+			$("#centeredDiv").append(addProjectDialogHtml);	
+		}
+		$("#addProjectDialog").dialog({
+			position:["center","top"],
+			modal:true,
+			resizeable:true,
+			width:550,
+			height:400,
+		});
+	})
+});
 </script>
 
 <script language="JavaScript">
@@ -58,64 +77,12 @@ $.cookie("hasBeenAlertedBrowserCompatibility","true");
 	
 		var oRun =new runObject(null);
 		
-		
-		
-	//add project dialog ----------------------------------
-
-    // Define various event handlers for Dialog
-
-	var handleCancel = function() {
-		this.cancel();
-		document.getElementById('addProjectFrame').src=' ';
-		//reload the page
-		//window.location.reload();
-	};
-
-	// Instantiate the Dialog
-	var addProjectDialog = new YAHOO.widget.Dialog("addProjectDialog", 
-			{ width : "720px",
-			  fixedcenter : true,
-			  visible : false, 
-			  iframe : true,
-			  //ie7 modal problem
-			  //modal:false,
-			  constraintoviewport : true,
-			  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
-			  buttons : [ {text:"CANCEL", handler:handleCancel,isDefault:true } ]
-			 } );
-	
-	
-    addProjectDialog.render();
-    
-    var btns2 = YAHOO.util.Dom.getElementsByClassName("addprojectLink", "a");
-         
-    YAHOO.util.Event.on(btns2, "click", function(e, panel) {
-                	YAHOO.log('RUNG id ' + this.id);
-                	document.getElementById('addProjectFrame').src='addproject.html' 
-                	addProjectDialog.show();
-    }, addProjectDialog);
-    
    	//add new announcements dialog ----------------------------------
 
     // Define various event handlers for Dialog
 	var handleCancel = function() {
 		this.cancel();
 	};
-    
-    // Instantiate the Dialog
-//	var newAnnouncementsDialog = new YAHOO.widget.Dialog("newAnnouncementsDialog", 
-//																{ width : "800px",
-//																  height : "800px",
-//																  fixedcenter : true,																  
-//																  visible : true, 
-//																  modal : true,
-//																  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
-//																  buttons : [ 
-//																			  {text:"Close", handler:handleCancel,isDefault:true } ]
-//																 } );
-	
-	
-//    newAnnouncementsDialog.render();
     
     var checkNewAnnouncements = function(dialog){
     	var newAnnouncement = false;
@@ -341,14 +308,9 @@ YAHOO.util.Event.onDOMReady(init);
 		<a href="#"
 		onmouseover="swapImage('studentaddproject','../<spring:theme code="student_add_project_roll" />');"
 		onmouseout="swapImage('studentaddproject','../<spring:theme code="student_add_project" />');"
-		class="addprojectLink"> <img id="studentaddproject"
+		class="addprojectLink" id="addprojectLink"> <img id="studentaddproject"
 		src="../<spring:theme code="student_add_project" />" /> </a>
 	</li>
-<!--
-	<li>
-		<a href="addproject.html">Add Project</a>
-	</li>
-	-->
 		
 	<!-- note: to make the change to student password into AJAX, type in class="changepasswordLink" -->	
 	
@@ -639,23 +601,6 @@ If you want to save work to an archived project run, ask your teacher to change 
  
  <!-- BEGIN DEFINITION OF FRAMES USED FOR AJAX  -->
   
-<!-- this creates the add project dialog with iframe -->
-<div id="addProjectDialog">
-<div class="hd"><spring:message code="student.index.44"/></div>
-<div class="bd">
-<h3>Instructions</h3>
-<ol>
-<li>Enter the Access Code in the blank space below.</li>
-<li>Press TAB on your keyboard or click the link <b>Show Periods</b>.</li>
-<li>Select your class period, then click the <b>Add Project</b> button.</li>
-</ol>
-
-<iframe id="addProjectFrame" src="" width="100%" height="240px" FRAMEBORDER="0"
-	allowTransparency="false" scrolling="no"> </iframe>
-	
-</div>
-</div>
-
 <!-- this creates the change period team iframe -->
 <div id="changePeriodTeamDialog">
 <div class="hd"><spring:message code="student.index.45"/>/div>

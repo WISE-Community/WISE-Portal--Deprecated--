@@ -105,7 +105,7 @@ function setup() {
 
 </head>
 
-<body onload="setup();" style="background-color:transparent;">
+<body onload="setup();">
 <!-- Support for Spring errors object -->
 <spring:bind path="addProjectParameters.*">
   <c:forEach var="error" items="${status.errorMessages}">
@@ -115,7 +115,15 @@ function setup() {
   </c:forEach>
 </spring:bind>
 
-<div id="centeredDiv" style="background-color:transparent;">
+<div id="centeredDiv" >
+		<div class="hd"><spring:message code="student.index.44"/></div>
+		<div class="bd">
+		<h3>Instructions</h3>
+		<ol>
+		<li>Enter the Access Code in the blank space below.</li>
+		<li>Press TAB on your keyboard or click the link <b>Show Periods</b>.</li>
+		<li>Select your class period, then click the <b>Add Project</b> button.</li>
+		</ol>
 
 <div id="popUpWindow1">
 

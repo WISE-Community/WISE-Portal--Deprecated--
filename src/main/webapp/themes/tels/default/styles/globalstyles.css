@@ -343,3 +343,7 @@ form {margin:0px; padding:0px;}
 	text-align:left;
 	color:blue
 }
+
+.ui-dialog {
+	background:white;
+}
