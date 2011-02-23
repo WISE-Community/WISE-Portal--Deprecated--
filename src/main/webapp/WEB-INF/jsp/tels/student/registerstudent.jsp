@@ -30,27 +30,24 @@
 <link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
 <script src="../javascript/tels/general.js" type="text/javascript" > </script>
-<!-- <script src="../javascript/tels/effects.js" type="text/javascript" > </script>
-<script src="../javascript/tels/scriptaculous.js" type="text/javascript" ></script> -->
+<script src="../javascript/tels/jquery-1.4.2.min.js" type="text/javascript" > </script>
 
 <!-- Dependency -->
+<!--  
 <script src="http://yui.yahooapis.com/2.8.0r4/build/yahoo/yahoo-min.js"></script>
-<!-- Used for Custom Events and event listener bindings -->
 <script src="http://yui.yahooapis.com/2.8.0r4/build/event/event-min.js"></script>
 <script src="http://yui.yahooapis.com/2.8.0r4/build/connection/connection_core-min.js"></script>
-
+-->
 
 <title><spring:message code="student.signup.title" /></title>
 <script type="text/javascript">
 function findPeriods() {
-	var callback =
-		{
-		  success: function(o) {
+	  var successCallback = function(o) {
   			var periodSelect = document.getElementById("runCode_part2");
 			periodSelect.innerHTML = "";
 			// o.responseText can be either "not found" (when runcode doesn't point to an existing run
 		  	// or "1,2,3,4,5,...", a comma-separated values of period names
-		  	var responseText = o.responseText;
+		  	var responseText = o;
 		  	if (responseText == "not found" || responseText.length < 2) {
 		  		alert("The Access Code is invalid. Please talk with your teacher");
 		  	} else {
@@ -72,15 +69,17 @@ function findPeriods() {
 		  		periodSelect.disabled = false;
 		  		document.getElementById("createAccountLink").onclick = createAccount;
 		  	}
-		  },
-		  failure: function(o) {
+		  };
+		  var failureCallback = function(o) {
 			  alert('failure');
-		  },
-		  argument: []
-		}
+		  };
 	var runcode = document.getElementById("runCode_part1").value;
 	if (runcode != null && runcode != "") {
-		var transaction = YAHOO.util.Connect.asyncRequest('GET', "/webapp/runinfo.html?runcode=" + runcode, callback, null); 
+		$.ajax({
+			url:"/webapp/runinfo.html?runcode=" + runcode,
+			success:successCallback,
+			error:failureCallback
+		});
 	} else {
 		alert("Please enter an access code. Get this from your teacher.");
 	}
