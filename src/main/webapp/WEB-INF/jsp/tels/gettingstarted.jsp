@@ -35,7 +35,7 @@ compatibility with WISE4: <a href="/webapp/check.html">WISE4 Compatibility Test<
 <h3>Registration</h3>
 
 <ol>
-<li>Navigate to the new WISE 4 website: <a href="http://wise4.telscenter.org">http://wise4.telscenter.org</a></li>
+<li>Navigate to the new WISE 4 website: <a href="http://wise4.berkeley.edu">http://wise4.berkeley.edu</a></li>
 
 <li>Select &quot;Create WISE Account&quot;</li>
 

@@ -550,11 +550,21 @@ public class AuthorProjectController extends AbstractController {
 				pMeta.setTechReqs((String) techreqs);
 			}
 			
+			Object tools = this.getJSONFieldValue(metadata, "tools");
+			if(tools != null){
+				pMeta.setTools((String) tools);
+			}
+			
 			Object lessonplan = this.getJSONFieldValue(metadata, "lessonplan");
 			if(lessonplan != null){
 				pMeta.setLessonPlan((String) lessonplan);
 			}
-			
+
+			Object standards = this.getJSONFieldValue(metadata, "standards");
+			if(standards != null){
+				pMeta.setStandards((String) standards);
+			}
+
 			Object totaltime = this.getJSONFieldValue(metadata, "totaltime");
 			if(totaltime != null && !((String) totaltime).equals("")){
 				pMeta.setTotalTime((String) totaltime);

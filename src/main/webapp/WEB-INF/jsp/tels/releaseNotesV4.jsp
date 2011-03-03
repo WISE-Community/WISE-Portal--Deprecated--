@@ -14,17 +14,18 @@ WISE4 Roadmap is <a href="http://code.google.com/p/wise4/wiki/WISE4Roadmap">here
 
 <!--  
 <h3>Version 4.2 Release Notes</h3>
-<div>Release date: March XX, 2011. Announcement: <a href="https://groups.google.com/forum/#!topic/wise4-dev/ENNeXon_TBw">https://groups.google.com/forum/#!topic/wise4-dev/ENNeXon_TBw</a></div>
+<div>Release date: March XX, 2011. Announcement: LINK TO ANNOUNCEMENT</div>
 
 <h4>Major additions/changes</h4>
 <ul>
 <li>Student File Uploader</li>
-<li>Import student file to step</li>
+<li>Import student file to step [svgdraw]</li>
 </ul>
 
 <h4>Minor additions/changes</h4>
 <ul>
 <li>IdeaManager and StudentFileUploader configurable via authoring tool and run edit page.</li>
+<li>Removed remotely-hosted YUI dependencies.</li>
 </ul>
 -->
 

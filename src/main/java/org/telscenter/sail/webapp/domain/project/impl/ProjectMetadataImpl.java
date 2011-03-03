@@ -77,10 +77,16 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	
 	@Transient
 	public final static String COLUMN_NAME_TECH_REQS = "tech_reqs";
-	
+
+	@Transient
+	public final static String COLUMN_NAME_TOOLS = "tools";
+
 	@Transient
 	public final static String COLUMN_NAME_LESSON_PLAN = "lesson_plan";
 	
+	@Transient
+	public final static String COLUMN_NAME_STANDARDS = "standards";
+
 	@Transient
 	public final static String COLUMN_NAME_KEYWORDS = "keywords";
 	
@@ -137,10 +143,16 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	
 	@Column(name = COLUMN_NAME_TECH_REQS)
 	private String techReqs;
-	
-	@Column(name = COLUMN_NAME_LESSON_PLAN)
-	private String lessonPlan;
-	
+
+	@Column(name = COLUMN_NAME_TOOLS)
+	private String tools;
+
+	@Column(name = COLUMN_NAME_LESSON_PLAN, length = 32768)
+	private String lessonPlan;  // text (blob) 2^15
+
+	@Column(name = COLUMN_NAME_STANDARDS, length = 32768)
+	private String standards;  // text (blob) 2^15
+
 	@Column(name = COLUMN_NAME_KEYWORDS)
 	private String keywords;
 	
@@ -220,6 +232,14 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 		this.techReqs = techReqs;
 	}
 
+	public String getTools() {
+		return tools;
+	}
+
+	public void setTools(String tools) {
+		this.tools = tools;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -272,6 +292,20 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	 */
 	public void setLessonPlan(String lessonPlan) {
 		this.lessonPlan = lessonPlan;
+	}
+
+	/**
+	 * @return the standards
+	 */
+	public String getStandards() {
+		return standards;
+	}
+
+	/**
+	 * @param standards the standards to set
+	 */
+	public void setStandards(String standards) {
+		this.standards = standards;
 	}
 
 	/**
@@ -491,6 +525,19 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 			}
 		}
 		
+		//check that the tools exists and is not null
+		if(metadataJSON.has("tools") && !metadataJSON.isNull("tools")) {
+			try {
+				JSONObject tools = metadataJSON.getJSONObject("tools");
+				if(tools.equals("null")) {
+					tools = new JSONObject();
+				}
+				setTools(tools.toString());
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}		
+		
 		//check that the lesson plan exists and is not null
 		if(metadataJSON.has("lessonPlan") && !metadataJSON.isNull("lessonPlan")) {
 			try {
@@ -504,6 +551,19 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 			}
 		}
 
+		//check that the standards exists and is not null
+		if(metadataJSON.has("standards") && !metadataJSON.isNull("standards")) {
+			try {
+				String standards = metadataJSON.getString("standards");
+				if(standards.equals("null")) {
+					standards = "";
+				}
+				setStandards(standards);		
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		//check that the keywords exists and is not null
 		if(metadataJSON.has("keywords") && !metadataJSON.isNull("keywords")) {
 			try {
@@ -627,6 +687,24 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 				//override the existing techReqs string with this empty JSON object
 				metadata.put("techReqs", new JSONObject());
 			}
+			/*
+			 * we will retrieve the tools JSON string and replace it with a JSON Object
+			 * so that the client does not need to parse the JSON string
+			 */
+			String toolsString = metadata.getString("tools");
+			
+			//check if the field is null or "null"
+			if(toolsString != null && toolsString != "null") {
+				//create the JSON object
+				JSONObject toolsJSON = new JSONObject(toolsString);
+				
+				//override the existing techReqs string with this JSON object
+				metadata.put("tools", toolsJSON);	
+			} else {
+				//override the existing techReqs string with this empty JSON object
+				metadata.put("tools", new JSONObject());
+			}
+			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

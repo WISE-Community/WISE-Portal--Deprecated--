@@ -136,17 +136,37 @@ public interface ProjectMetadata{
 	 * @param <code>String</code> the tech reqs to set
 	 */
 	public void setTechReqs(String reqs);
+
+	/**
+	 * @return <code>String</code> the tools to get
+	 */
+	public String getTools();
 	
+	/**
+	 * @param <code>String</code> the tools to set
+	 */
+	public void setTools(String tools);
+
 	/**
 	 * @return <code>String</code> the lesson plan
 	 */
 	public String getLessonPlan();
 	
 	/**
+	 * @param <code>String</code> standards
+	 */
+	public void setStandards(String standards);
+
+	/**
+	 * @return <code>String</code> the lesson plan
+	 */
+	public String getStandards();
+	
+	/**
 	 * @param <code>String</code> lessonPlan
 	 */
 	public void setLessonPlan(String lessonPlan);
-	
+
 	/**
 	 * @param <code>String</code> keywords
 	 */

@@ -80,9 +80,8 @@
 <div id="projectInfoTabs" class="yui-navset">
     <ul class="yui-nav" >
         <li style="margin-left:4px;"><a href="#tab1"><em><spring:message code="teacher.pro.projinfo.2"/></em></a></li>
-        <li style="margin-left:4px;"><a href="#tab3"><em>Lesson Plan & Learning Goals</em></a></li>
-		<li style="margin-left:4px;"><a href="#tab2"><em>Teacher Step-By-Step Guide</em></a></li>
-        <li style="margin-left:4px;"><a href="#tab4"><em><spring:message code="teacher.pro.projinfo.5"/></em></a></li>
+        <li style="margin-left:4px;"><a href="#tab2"><em>Lesson Plan & Learning Goals</em></a></li>
+        <li style="margin-left:4px;"><a href="#tab3"><em><spring:message code="teacher.pro.projinfo.5"/></em></a></li>
     </ul>            
     <div class="yui-content">
         <div id="tab1">
@@ -174,13 +173,28 @@
         
         <div id="tab2">
             
-            <div id="projectInfoProjectTitle">${project.curnit.sdsCurnit.name}</div>
+            <div id="projectInfoProjectTitle">${project.name}</div>
             
-            <div id="teacherGuideIntro">The Teacher Guide offers feedback per each Step of the project, including any technical or classroom requirements for the step, 
-            common misconceptions/mistakes students may encounter in the step, and suggestions for making the step more effective with students.</div>
+            <div style="margin-top:30px; font-weight:bold">Lesson Plan</div>
+
+            <div id="teacherGuideIntro">The Lesson Plan offers feedback on technical or classroom requirements for the step, 
+            common misconceptions/mistakes students may encounter in the step, and suggestions for making the project more effective with students.</div>
             
-            <div id="editInfoLink"><a href="#">edit teacher guide</a></div>
-              
+			            
+			<div id="projectLessonPlan" style="padding:25px">${project.metadata.lessonPlan}</div>
+
+            <div style="margin-top:30px; font-weight:bold">Learning Goals and Standards</div>
+			
+			<div id="teacherGuideIntro">This section describes all curriculum standards covered by the project, the
+            overall learning goals of the project, and the learning goals of each main Activity in the project.</div>
+
+			<div id="projectStandards" style="padding:25px">${project.metadata.standards}</div>
+
+			<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
+				<div id="editInfoLink"><a href="../../author/authorproject.html?projectId=${project.id}">Edit Lesson Plan & Learning Goals</a></div>
+			</sec:accesscontrollist>
+			
+			<!--                
             <table id="teacherGuideTable">
             	<tr class="rowTwo">
             		<td class="column1">step</td>
@@ -200,56 +214,33 @@ Aliquip suscipit sit amet vero, enim duis minim in, ut duis minim tation. </td>
             		<td>[sample feedback goes here</td>
 				</tr>
 			</table>
-			
+			-->			
         </div>
         
         <div id="tab3">
-           
-		<div id="projectInfoProjectTitle">${project.curnit.sdsCurnit.name}</div>
-		<div id="teacherGuideIntro">This section describes all curriculum standards covered by the project, the
-            overall learning goals of the project, and the learning goals of each main Activity in the project.</div>
-        
-        <div id="editInfoLink"><a href="#">edit learning goals</a></div> 
-                    
-        <div id="teacherGuideIntro" style="font-weight:bold; color:#FF0000;">Content follows here...</div>
+            <div id="projectInfoProjectTitle">${project.name}</div>
             
-        </div>
-        
-        <div id="tab4">
-            
-            <div id="projectInfoProjectTitle">${project.curnit.sdsCurnit.name}</div>
-            
-            <div id="teacherGuideIntro">The following people contribute to this WISE project:</div>
-            
-            <div id="editInfoLink"><a href="#">edit credits information</a></div>
-            
+            <div id="teacherGuideIntro">The following people contributed to this WISE project:</div>
+
             <table id="projectCreditsTable">
-            <tr>
-            	<td class="col1">Project Last Edited On:</td>
-            	<td>last revised data value</td>
-            </tr>
-            <tr> 
-            	<td class="col1">Original Author:</td>
-            	<td>data value</td>
-			</tr>
-			<tr>
-				<td class="col1">Current Author:</td>
-				<td>data value</td>
-			</tr>
-			<tr>
-			<td class="col1">Contributors:</td>
-			<td>
-				<ul>
-					<li>data value</li>
-					<li>data value</li>
-					<li>data value</li>
-					<li>data value</li>
-					<li>data value</li>
-					<li>data value</li>
-				</ul>
-			</td>
-			</tr>
+	            <tr>
+    	        	<td class="col1">Project Last Edited On:</td>
+    	        	<td><fmt:formatDate value="${project.metadata.lastEdited}" type="both" dateStyle="short" timeStyle="short" /></td>
+            	</tr>
+            	<tr> 
+            		<td class="col1">Contact</td>
+            		<td>${project.metadata.contact}</td>
+				</tr>
+				<tr>
+					<td class="col1">Contributors:</td>
+            		<td>${project.metadata.author}</td>
+				</tr>
 			</table>
+
+			<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
+            	<div id="editInfoLink"><a href="../../author/authorproject.html?projectId=${project.id}">edit credits information</a></div>
+			</sec:accesscontrollist>
+			
         </div>
     </div>
 </div>
