@@ -31,6 +31,7 @@ var callback =
 }
 
 var sUrl = "vle.html?getRunManager=true&runId=${runId}";
+var contentUrl = "${contentUrl}";
 
 function RunManager() {
 	this.pollInterval = 10000;

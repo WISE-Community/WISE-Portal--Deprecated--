@@ -23,11 +23,13 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.security.acls.domain.BasePermission;
@@ -58,7 +60,9 @@ public class GradeWorkController extends AbstractController {
 	private GradingService gradingService;
 	
 	private RunService runService;
-
+	
+	Properties portalProperties;
+	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -97,11 +101,16 @@ public class GradeWorkController extends AbstractController {
 			    	String getGradeWorkUrl = portalurl + "/vlewrapper/vle/gradework.html";
 					String getGradingConfigUrl = portalurl + "/webapp/request/info.html?action=getVLEConfig&runId=" + run.getId().toString() + "&gradingType=" + gradingType + "&requester=grading&getRevisions=" + getRevisions;
 					
+					String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
+					String rawProjectUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+					String contentUrl = curriculumBaseWWW + rawProjectUrl;
+					
 					ModelAndView modelAndView = new ModelAndView();
 					modelAndView.addObject(RUN_ID, runId);
 					modelAndView.addObject("run", run);
 					modelAndView.addObject("getGradeWorkUrl", getGradeWorkUrl);
 					modelAndView.addObject("getGradingConfigUrl", getGradingConfigUrl);
+					modelAndView.addObject("contentUrl", contentUrl);
 					
 					//set the permission variable so that we can access it in the .jsp
 					if(this.runService.hasRunPermission(run, user, BasePermission.WRITE)) {
@@ -262,5 +271,12 @@ public class GradeWorkController extends AbstractController {
 	 */
 	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+	
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
 	}
 }

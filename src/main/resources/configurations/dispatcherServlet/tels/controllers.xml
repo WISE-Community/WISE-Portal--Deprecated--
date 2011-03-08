@@ -208,6 +208,7 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeWorkController">
 		<property name="runService" ref="runService" />
 		<property name="gradingService" ref="gradingService" />
+	    <property name="portalProperties" ref="portalproperties"/>
 	</bean>
 	
 	<bean id="gradeOverviewController"
@@ -322,6 +323,7 @@
 	<bean id="studentVLEController" 
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StudentVLEController">
 	    <property name="runService" ref="runService" />
+	    <property name="portalProperties" ref="portalproperties"/>
 	</bean>
 
 	<bean id="previewLDProjectController" 

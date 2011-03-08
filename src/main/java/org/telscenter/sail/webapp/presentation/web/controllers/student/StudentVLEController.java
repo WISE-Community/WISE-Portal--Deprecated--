@@ -23,11 +23,13 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -46,6 +48,8 @@ import org.telscenter.sail.webapp.service.offering.RunService;
 public class StudentVLEController extends AbstractController {
 
 	private RunService runService;
+	
+	Properties portalProperties;
 	
 	protected final static String CURRENT_STUDENTRUNINFO_LIST_KEY = "current_run_list";
 
@@ -184,11 +188,17 @@ public class StudentVLEController extends AbstractController {
 		} else {
 			vleConfigUrl += "&requester=run";
 		}
+		
+		//get the path to the project file
+		String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
+		String rawProjectUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+		String contentUrl = curriculumBaseWWW + rawProjectUrl;
 
 		ModelAndView modelAndView = new ModelAndView();
     	modelAndView.addObject("run", run);
     	modelAndView.addObject("vleurl",vleurl);
     	modelAndView.addObject("vleConfigUrl", vleConfigUrl);
+    	modelAndView.addObject("contentUrl", contentUrl);
 		return modelAndView;
 	}
 	
@@ -199,5 +209,11 @@ public class StudentVLEController extends AbstractController {
 	public void setRunService(RunService runService) {
 		this.runService = runService;
 	}
-
+	
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
+	}
 }

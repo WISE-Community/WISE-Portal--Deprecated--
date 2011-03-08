@@ -51,7 +51,7 @@
 <script type="text/javascript" src="../../javascript/tels/superfish.js"></script>
 
 <script type="text/javascript">
-    
+var contentUrl = "${contentUrl}";
             // initialise plugins
             jQuery(function(){
                 jQuery('ul.sf-menu').superfish();
