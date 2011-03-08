@@ -138,6 +138,10 @@
 												<td>${project.metadata.techDetailsString}</td>
 											</tr>
 											<tr>
+												<th>Lesson Plan:</th>
+												<td>${project.metadata.lessonPlan}</td>
+											</tr>
+											<tr>
 												<th>Created On:</th>
 												<td class="keywords"><fmt:formatDate value="${project.dateCreated}" type="both" dateStyle="short" timeStyle="short" /></td>
 											</tr>
