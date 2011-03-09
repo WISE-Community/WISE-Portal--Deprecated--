@@ -329,6 +329,7 @@
 	<bean id="previewLDProjectController" 
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.PreviewLDProjectController">
 	    <property name="projectService" ref="projectService"/>
+	    <property name="portalProperties" ref="portalproperties"/>
 	</bean>
 	
 	<bean id="informationController"

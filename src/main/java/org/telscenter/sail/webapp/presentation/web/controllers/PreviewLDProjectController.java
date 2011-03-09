@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -75,11 +76,18 @@ public class PreviewLDProjectController extends AbstractController {
 					vleConfigUrl += "&versionId=" + versionId;
 				}
 				
+				//get the path to the project json file
+				String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
+				String rawProjectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+				String contentUrl = curriculumBaseWWW + rawProjectUrl;
+				
 				String vleurl = portalurl + "/vlewrapper/vle/vle.html";
 		
 				ModelAndView modelAndView = new ModelAndView();
 		    	modelAndView.addObject("vleurl",vleurl);
 		    	modelAndView.addObject("vleConfigUrl", vleConfigUrl);
+		    	modelAndView.addObject("contentUrl", contentUrl);
+		    	
 				return modelAndView;
 			} else {
 				return new ModelAndView(new RedirectView("../accessdenied.html"));
