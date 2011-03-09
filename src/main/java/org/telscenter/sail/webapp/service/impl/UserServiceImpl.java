@@ -32,6 +32,7 @@ public class UserServiceImpl extends
 
 	private Properties emaillisteners = null;
 
+	private Properties portalProperties;
 	
 	/**
 	 * @throws DuplicateUsernameException 
@@ -143,7 +144,12 @@ public class UserServiceImpl extends
 		     * On exception sending the email, ignore.
 		     */
 			private void sendEmail() {
-				
+
+				String sendEmailEnabledStr = portalProperties.getProperty("send_email_enabled");
+				Boolean sendEmailEnabled = Boolean.valueOf(sendEmailEnabledStr);
+				if (!sendEmailEnabled) {
+					return;
+				}
 				TeacherUserDetails newUserDetails = 
 					(TeacherUserDetails) newUser.getUserDetails();
 				String userUsername = newUserDetails.getUsername();
@@ -152,6 +158,7 @@ public class UserServiceImpl extends
 				String[] recipients = {userEmailAddress, emaillisteners.getProperty("uber_admin")};
 				
 				String subject = "Welcome to WISE4!";	
+				String portalbaseurl = portalProperties.getProperty("portal_baseurl");
 				String message =
 					"Your username is: " + userUsername + "\n\n" +					
 					"Welcome to our new WISE4 learning environment. Our research over the past many " +
@@ -159,7 +166,7 @@ public class UserServiceImpl extends
 					"projects. We are still actively developing WISE4 so you may notice some teacher support " +
 					"links that are not yet available. These will not limit your use of the program with students. " +
 					"The following resource link will be of help to you: \"Teacher Information Sheet\" at " +
-					"http://wise4.telscenter.org/webapp/pages/gettingstarted.html. Be sure to let us know if you " +
+					portalbaseurl + "/pages/gettingstarted.html. Be sure to let us know if you " +
 					"have any problems or questions.\n\n" +
 					"WISE Team";					
 
@@ -189,6 +196,13 @@ public class UserServiceImpl extends
 		 */
 		public void setJavaMail(IMailFacade javaMail) {
 			this.javaMail = javaMail;
+		}
+
+		/**
+		 * @param portalProperties the portalProperties to set
+		 */
+		public void setPortalProperties(Properties portalProperties) {
+			this.portalProperties = portalProperties;
 		}
 }
 
