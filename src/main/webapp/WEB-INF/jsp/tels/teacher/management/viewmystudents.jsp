@@ -465,8 +465,8 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 		    	<li class="periodHeaderStart"><spring:message code="teacher.manage.viewstudents.3"/>&nbsp;<span class="manageDataStyle">${fn:length(viewmystudentsperiod.period.members)}</span></li>
 		    	<li class="periodHeaderStart"><spring:message code="teacher.manage.viewstudents.4"/>&nbsp;<span class="manageDataStyle">${fn:length(viewmystudentsperiod.workgroups)}</span></li>
 		    	<li class="periodHeaderStart""><spring:message code="teacher.manage.viewstudents.5"/>&nbsp;<span class="manageDataStyle">${viewmystudentsperiod.run.runcode}-${viewmystudentsperiod.period.name}</span></li>
-		    	<li class="viewStudentsLink"><a href="#" onclick="javascript:createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});"><spring:message code="teacher.manage.viewstudents.6"/></a></li>
-		     	<li class="viewStudentsLink"><a href="#" onclick="javascript:popup640('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}&runId=${viewmystudentsperiod.run.id}');"><spring:message code="teacher.manage.viewstudents.7"/></a></li>
+		    	<li class="viewStudentsLink"><a onclick="javascript:createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});"><spring:message code="teacher.manage.viewstudents.6"/></a></li>
+		     	<li class="viewStudentsLink"><a onclick="javascript:popup640('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}&runId=${viewmystudentsperiod.run.id}');"><spring:message code="teacher.manage.viewstudents.7"/></a></li>
 		       	<li style="display:none;" class="viewStudentsLink"><a href="#" onclick="javascript:popup('#');"><spring:message code="teacher.manage.viewstudents.8"/></a></li>
 		    </ul>
 		  	

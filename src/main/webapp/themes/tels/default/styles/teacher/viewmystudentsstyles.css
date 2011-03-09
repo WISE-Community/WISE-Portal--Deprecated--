@@ -65,7 +65,7 @@ table {
 	margin: 0 0px 0 25px;
 	}
 
-#periodHeaderBar a:link, #periodHeaderBar a:visited {
+#periodHeaderBar a:link, #periodHeaderBar a:visited, .viewStudentsLink a {
 	font-size:.8em;
 	font-weight:bold;
 	border-top:1px solid #666666;
