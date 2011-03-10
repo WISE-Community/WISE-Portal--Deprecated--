@@ -458,13 +458,17 @@ public class BridgeController extends AbstractController {
 				//set the project id into the request so the vlewrapper controller has access to it
 				request.setAttribute("projectId", projectId + "");
 
-				//get the workgroup id
-				List<Workgroup> workgroupListByOfferingAndUser = workgroupService.getWorkgroupListByOfferingAndUser(run, user);
-				Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
-				Long workgroupId = workgroup.getId();
+				// if admin is requesting all baskets, there is no need to get the workgroupId.
+				if (!user.isAdmin()) {
 
-				//set the workgroup id into the request so the vlewrapper controller has access to it
-				request.setAttribute("workgroupId", workgroupId + "");
+					//get the workgroup id
+					List<Workgroup> workgroupListByOfferingAndUser = workgroupService.getWorkgroupListByOfferingAndUser(run, user);
+					Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
+					Long workgroupId = workgroup.getId();
+
+					//set the workgroup id into the request so the vlewrapper controller has access to it
+					request.setAttribute("workgroupId", workgroupId + "");
+				}
 				
 				//forward the request to the vlewrapper controller
 				RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/ideaBasket.html");
