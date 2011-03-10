@@ -24,6 +24,11 @@ WISE4 is the fourth generation, open-source, community supported Web-based Inqui
 and a user/project management system (portal) using other proven open source projects like jQuery, Hibernate, and SpringFramework. We are committed to providing the best
 open source inquiry-based online learning environment. You can find the project homepage here: <a href="http://code.google.com/p/wise4/">WISE4 project homepage</a>.
 
+<h3>Clearing browser cache</h3>
+Some problems in WISE4 can be caused by outdated cache, which can be solved by clearing the it.
+Follow instructions on this page:
+<a target=_blank href="http://www.wikihow.com/Clear-Your-Browser's-Cache">How to clear your cache (opens in new tab)</a>
+
 <h3>Contact Us</h3>
 We have a group for WISE4 developers and server administrators where you can post feedback and questions here: 
 <a href="https://groups.google.com/forum/#!forum/wise4-dev">WISE4 developer group</a>. 

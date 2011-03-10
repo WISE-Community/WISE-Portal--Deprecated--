@@ -140,9 +140,12 @@ We recommend that you go through the project and select a few steps that you thi
 
 <h4>The WISE 4 web site won't load on my web browser.  What do I do?</h4>
 
-Confirm that your are using the Firefox web browser, with Javascript set to on in the preferences panel.   WISE4 does not currently work with Internet Explorer.
+Confirm that your are using the Firefox web browser, with Javascript set to on in the preferences panel.   WISE4 does not currently fully work with Internet Explorer.
 Click the following link to run an automated script that will test your computer's
-compatibility with WISE4: <a href="/webapp/check.html">WISE4 Compatibility Test</a>
+compatibility with WISE4: <a href="/webapp/check.html">WISE4 Compatibility Test</a><br/><br/>
+
+You might also need to clear your cache if you see the browser freezing up. Follow instructions on this page:
+<a target=_blank href="http://www.wikihow.com/Clear-Your-Browser's-Cache">How to clear your cache (opens in new tab)</a>
 
 <h4>Can I run my WISE 2.0 projects in the new WISE 4.0 format?</h4>
 <ul>
@@ -159,6 +162,7 @@ We strongly recommend one computer for each two students. We know from research 
     <li>If you do not remember your Username or password click the Lost Username or Password link and follow the instructions.  Note that your Username does not include a space between first and last name (unlike WISE 2). </li>
     <li>You will also want to turn off any firewall software that may be blocking your access to the site.</li>
 </ul>
+
 <h4>Who do I contact when I have a problem I can't solve?</h4>
 
 The Contact WISE link under the Quick Links on the WISE4 Homepage will send an email to the WISE technology group at UC Berkeley. Be sure to include as much information as you can about the problem. We will respond as quickly as we can.
