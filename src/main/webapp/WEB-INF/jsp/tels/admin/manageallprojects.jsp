@@ -35,6 +35,24 @@
 </script>
 
 </head>
+<script type="text/javascript">
+$(document).ready(function() {
+  $(".isCurrent_select").bind("change",
+		  function() {
+	        var projectId = this.id.substr(this.id.lastIndexOf("_")+1);
+	        $(this).find(":selected").each(function() {
+	    	        var isCurrent = $(this).val();
+	    	    	$.ajax(
+	    	    	    	{type:'POST', 
+	    		    	    	url:'manageallprojects.html', 
+	    		    	    	data:'attr=isCurrent&projectId=' + projectId + '&val=' + isCurrent, 
+	    		    	    	error:function(){alert('error: please talk to wise administrator.');}, 
+	    		    	    	success:function(){}
+	    	    	    	});
+	        });
+  });
+});
+</script>
 <body>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -56,18 +74,36 @@
 		<th> Project Title </th>
 		<th> Project Id</th>
 		<th> IsCurrent?</th>
+		<!-- 
 		<th> familytag</th>
+		 -->
 		<th> Tags </th>
+		<th> Actions </th>
+		<!--
 		<th> Edit Project with Authoring tool</th>
 		<th> Edit Project Metadata</th>		
 		<th> Other Actions </th>				
+		-->
 	</tr>
 	<c:forEach var="project" items="${internal_project_list}">
 	<tr>
 		<td>${project.name}</td>
 		<td>${project.id }</td>
-		<td>${project.current }</td>
-		<td>${project.familytag} (${project.projectType})</td>
+<!-- 		<td>${project.current }</td>   -->
+	    <td>Is Public:
+	    	<select class="isCurrent_select" id="isCurrent_select_${project.id}">
+	    		<c:choose>
+	    			<c:when test="${project.current}">
+				    	<option value="true" selected="selected">YES</option>
+	    				<option value="false">NO</option>
+	    			</c:when>
+	    			<c:otherwise>
+				    	<option value="true">YES</option>
+	    				<option value="false" selected="selected">NO</option>
+	    			</c:otherwise>
+	    		</c:choose>
+	    	</select></td>
+		<!-- <td>${project.familytag} (${project.projectType})</td>   -->
 		<td>
 			<div class="existingTagsDiv">
 				<div>Existing Tags</div>
@@ -90,6 +126,14 @@
 				<div><input id="createTagInput_${project.id}" type="text"/><input type="button" value="create" onclick="createTag('${project.id}')"/></div>
 			</div>
 		</td>
+		<td>
+		<a href="../author/authorproject.html?projectId=${project.id}">Edit Project (Authoring tool)</a>&nbsp;|&nbsp;
+<!-- 	<a href="editproject.html?projectId=${project.id}">Edit Project Metadata</a>&nbsp;|&nbsp;		 -->	
+		<a href="../previewproject.html?projectId=${project.id}">Preview</a>&nbsp;|&nbsp;
+		<a href="../teacher/projects/customized/shareproject.html?projectId=${project.id}">Manage Ownership/Shared Teachers</a>&nbsp;|&nbsp;
+		<a href="project/exportproject.html?projectId=${project.id}">Export project as Zip</a>&nbsp;|&nbsp;
+		</td>		
+		<!-- 
 		<td><a href="../author/authorproject.html?projectId=${project.id}">Edit Project (Authoring tool)</a></td>		
 		<td><a href="editproject.html?projectId=${project.id}">Edit Project Metadata</a></td>
 		<td>
@@ -99,6 +143,7 @@
 		        <li><a href="project/exportproject.html?projectId=${project.id}">Export project as Zip</a></li>
 		    </ul>
 		</td>		
+		 -->
 	</tr>
 	</c:forEach>
 </table>

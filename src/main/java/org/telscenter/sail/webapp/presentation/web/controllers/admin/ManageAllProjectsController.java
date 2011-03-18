@@ -27,8 +27,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.project.ExternalProjectService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
@@ -55,14 +59,41 @@ public class ManageAllProjectsController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		// separate calls to project services to get internal and external projects
-   		List<Project> internalProjectList = projectService.getAdminProjectList();
-   		List<Project> externalProjectList = externalProjectService.getProjectList();
+		if (request.getMethod().equals("GET")) {
+			// separate calls to project services to get internal and external projects
+			List<Project> internalProjectList = projectService.getAdminProjectList();
+			List<Project> externalProjectList = externalProjectService.getProjectList();
 
-   		ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
-   		modelAndView.addObject(INTERNAL_PROJECT_LIST_PARAM_NAME, internalProjectList);
-   		modelAndView.addObject(EXTERNAL_PROJECT_LIST_PARAM_NAME, externalProjectList);
-    	return modelAndView;
+			ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
+			modelAndView.addObject(INTERNAL_PROJECT_LIST_PARAM_NAME, internalProjectList);
+			modelAndView.addObject(EXTERNAL_PROJECT_LIST_PARAM_NAME, externalProjectList);
+			return modelAndView;
+		} else {
+			// posting changes to project
+			ModelAndView mav = new ModelAndView();
+			try {
+				String projectIdStr = request.getParameter("projectId");
+				Long projectId = new Long(projectIdStr);
+				Project project = projectService.getById(projectId);
+				String attr = request.getParameter("attr");
+				if (attr.equals("isCurrent")) {
+					project.setCurrent(Boolean.valueOf(request.getParameter("val")));
+				} else if (attr.equals("familyTag")) {
+					project.setFamilytag(FamilyTag.valueOf(request.getParameter("val")));
+				}
+				User user = ControllerUtil.getSignedInUser();
+				if (user.isAdmin()) {
+					projectService.updateProject(project, user);
+					mav.addObject("msg", "success");
+				} else {
+					mav.addObject("msg", "error: permission denied");
+				}
+				return mav;
+			} catch (Exception e) {
+				mav.addObject("msg", "error");
+				return mav;
+			}
+		}
 	}
 	
 	/**
