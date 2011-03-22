@@ -547,7 +547,7 @@ public class InformationController extends AbstractController{
 			config.put("enableAudio", false);
 			config.put("runInfoRequestInterval", GET_RUNINFO_REQUEST_INTERVAL);
 			config.put("sessionTimeoutInterval", request.getSession().getMaxInactiveInterval() * 1000);			// add sessiontimeout interval, in milleseconds
-			config.put("sessionTimeoutCheckInterval", request.getSession().getMaxInactiveInterval() * 1000 / 5); // how often session should be checked
+			config.put("sessionTimeoutCheckInterval", 60000); // how often session should be checked...check every minute (1 min=60sec=60000 milliseconds)
 			
 			if(runId==null){
 				config.put("runId", "");
