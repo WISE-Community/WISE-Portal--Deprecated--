@@ -71,8 +71,8 @@ $(document).ready(function() {
 <h4>Internal Projects (Projects that can be run completely within the portal without the aid of outside portals)</h4>
 <table id="adminManageProjectsTable">
 	<tr>
-		<th> Project Title </th>
 		<th> Project Id</th>
+		<th> Project Title </th>
 		<th> IsCurrent?</th>
 		<!-- 
 		<th> familytag</th>
@@ -87,8 +87,8 @@ $(document).ready(function() {
 	</tr>
 	<c:forEach var="project" items="${internal_project_list}">
 	<tr>
+		<td>${project.id}</td>
 		<td>${project.name}</td>
-		<td>${project.id }</td>
 <!-- 		<td>${project.current }</td>   -->
 	    <td>Is Public:
 	    	<select class="isCurrent_select" id="isCurrent_select_${project.id}">
