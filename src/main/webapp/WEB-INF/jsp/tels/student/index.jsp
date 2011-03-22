@@ -521,7 +521,7 @@ If you want to save work to an archived project run, ask your teacher to change 
 							<tr id="projectMainRow">
 								<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.35"/></td>
 								<td id="studentCurrentTitleCell">
-									<div id="studentTitleText">${studentRunInfo.run.sdsOffering.name}</div></td>
+									<div id="studentTitleText">${studentRunInfo.run.name}</div></td>
 								<td rowspan="5" style="width:27%; padding:2px;">
 									  	<ul id="studentActionList">
 											<li><c:choose>
@@ -586,7 +586,7 @@ If you want to save work to an archived project run, ask your teacher to change 
 							</tr>
 							<tr>
 								<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.42"/></td>
-								<td>NEED DATA: Project Run End Date</td>
+								<td><fmt:formatDate value="${studentRunInfo.run.endtime}" type="date" dateStyle="short" /></td>
 							</tr>
 					</table>
 				</c:forEach>
