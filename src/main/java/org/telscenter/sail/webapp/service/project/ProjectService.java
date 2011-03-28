@@ -159,6 +159,13 @@ public interface ProjectService {
     @Secured( {"ROLE_TEACHER"} )
     @Transactional()
 	public void addSharedTeacherToProject(AddSharedTeacherParameters addSharedTeacherParameters) throws ObjectNotFoundException;
+
+    /**
+     * Removes shared user from project. if user or project does not exist, ignore.
+     */
+    @Secured( {"ROLE_TEACHER"} )
+    @Transactional()
+	public void removeSharedTeacherFromProject(String username, Project project) throws ObjectNotFoundException;
 	
 	/**
 	 * Creates a new <code>Project</code>

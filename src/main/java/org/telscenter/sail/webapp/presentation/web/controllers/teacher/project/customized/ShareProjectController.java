@@ -172,18 +172,24 @@ public class ShareProjectController extends SimpleFormController {
     			}
     		}
     		try {
-    			boolean newSharedOwner = false;
-    			if (!params.getProject().getSharedowners().contains(retrievedUser)) {
-    				newSharedOwner = true;
-    			}
-    			projectService.addSharedTeacherToProject(params);
-    			Project project = projectService.getById(params.getProject().getId());
-    			// only send email if this is a new shared owner
-    			if (newSharedOwner) {
-    				ShareProjectEmailService emailService = 
-    					new ShareProjectEmailService(signedInUser, retrievedUser, project);
-    				Thread thread = new Thread(emailService);
-    				thread.start();
+        		// first check if we're removing a shared teacher
+    			String removeUserFromProject = request.getParameter("removeUserFromProject");
+    			if (removeUserFromProject != null && Boolean.valueOf(removeUserFromProject)) {
+    				projectService.removeSharedTeacherFromProject(params.getSharedOwnerUsername(), params.getProject());
+    			} else {  // we're adding a new shared teacher or changing her permissions
+    				boolean newSharedOwner = false;
+    				if (!params.getProject().getSharedowners().contains(retrievedUser)) {
+    					newSharedOwner = true;
+    				}
+    				projectService.addSharedTeacherToProject(params);
+    				Project project = projectService.getById(params.getProject().getId());
+    				// only send email if this is a new shared owner
+    				if (newSharedOwner) {
+    					ShareProjectEmailService emailService = 
+    						new ShareProjectEmailService(signedInUser, retrievedUser, project);
+    					Thread thread = new Thread(emailService);
+    					thread.start();
+    				}
     			}
     		} catch (ObjectNotFoundException e) {
     			modelAndView = new ModelAndView(new RedirectView(getFormView()));

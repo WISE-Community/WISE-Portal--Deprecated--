@@ -309,6 +309,27 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	}
 	
 	/**
+	 * @throws ObjectNotFoundException 
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#removeSharedTeacherFromRun(java.lang.String, java.lang.Long)
+	 */
+	public void removeSharedTeacherFromRun(String username, Long runId) throws ObjectNotFoundException {
+		Run run = this.retrieveById(runId);
+		User user = userDao.retrieveByUsername(username);
+		if (run == null || user == null) {
+			return;
+		}
+		
+		if (run.getSharedowners().contains(user)) {
+			run.getSharedowners().remove(user);
+			this.runDao.save(run);
+			List<Permission> permissions = this.aclService.getPermissions(run, user);
+			for (Permission permission : permissions) {
+				this.aclService.removePermission(run, permission, user);
+			}
+		}
+	}
+	
+	/**
 	 * @see org.telscenter.sail.webapp.service.offering.RunService#getSharedTeacherRole(org.telscenter.sail.webapp.domain.Run, net.sf.sail.webapp.domain.User)
 	 */
 	public String getSharedTeacherRole(Run run, User user) {

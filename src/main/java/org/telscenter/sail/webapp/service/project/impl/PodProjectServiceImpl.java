@@ -748,4 +748,10 @@ public class PodProjectServiceImpl implements ProjectService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public void removeSharedTeacherFromProject(String username, Project project)
+			throws ObjectNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
 }

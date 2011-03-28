@@ -35,7 +35,7 @@ compatibility with WISE4: <a href="/webapp/check.html">WISE4 Compatibility Test<
 <h3>Registration</h3>
 
 <ol>
-<li>Navigate to the new WISE 4 website: <a href="http://wise4.berkeley.edu">http://wise4.berkeley.edu</a></li>
+<li>Navigate to the <a href="/">new WISE 4 website</a></li>
 
 <li>Select &quot;Create WISE Account&quot;</li>
 
@@ -44,7 +44,7 @@ compatibility with WISE4: <a href="/webapp/check.html">WISE4 Compatibility Test<
 <li>Fill in the form (and make sure to write down/remember your
 password)</li>
 
-<li>Note that WISE teacher usernames no longer have a space between
+<li>Note that WISE teacher usernames does not have a space between
 first and last name in WISE 4 (KathySmith, for example)</li>
 
 </ol>

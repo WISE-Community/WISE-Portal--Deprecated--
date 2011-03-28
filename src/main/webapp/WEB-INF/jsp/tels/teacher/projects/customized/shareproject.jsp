@@ -224,35 +224,45 @@ function findStringsContaining(what, all_array) {
 		</c:when>
 		<c:otherwise>
 			<c:forEach var="sharedowner" items="${project.sharedowners}">
-				<form:form method="post" id="${sharedowner.userDetails.username}"
-					commandName="${sharedowner.userDetails.username}" autocomplete='off'>
-					<form:hidden path="sharedOwnerUsername" />
 					<tr>
 						<td>${sharedowner.userDetails.username}</td>
 						<td align="left">		
-						<form:radiobutton path="permission"
-							onclick="javscript:this.form.submit();" value="ROLE_READ_PROJECT" />Can Run the project<br />
-						<form:radiobutton path="permission"
-							onclick="javscript:this.form.submit();" value="ROLE_WRITE_PROJECT" />Can Run + Edit the project<br />
-						<sec:authorize ifAllGranted="ROLE_USER">
-						   <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+						<form:form method="post" id="${sharedowner.userDetails.username}"
+							commandName="${sharedowner.userDetails.username}" autocomplete='off'>
+							<form:hidden path="sharedOwnerUsername" />
+						
 							<form:radiobutton path="permission"
-								onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" />Can Run + Edit + Share the project<br />
-							</sec:authorize>
-						   <sec:authorize ifNotGranted="ROLE_ADMINISTRATOR">
-								<sec:accesscontrollist domainObject="${project}" hasPermission="16">												
-							        <form:radiobutton path="permission"
-								        onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" />Can Run + Edit + Share the project<br />								
-								</sec:accesscontrollist>					
-							</sec:authorize>							
-					    </sec:authorize>									
+								onclick="javscript:this.form.submit();" value="ROLE_READ_PROJECT" />Can Run the project<br />
+							<form:radiobutton path="permission"
+								onclick="javscript:this.form.submit();" value="ROLE_WRITE_PROJECT" />Can Run + Edit the project<br />
+							<sec:authorize ifAllGranted="ROLE_USER">
+							   <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+								<form:radiobutton path="permission"
+									onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" />Can Run + Edit + Share the project<br />
+								</sec:authorize>
+							   <sec:authorize ifNotGranted="ROLE_ADMINISTRATOR">
+									<sec:accesscontrollist domainObject="${project}" hasPermission="16">												
+							        	<form:radiobutton path="permission"
+								    	    onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" />Can Run + Edit + Share the project<br />								
+									</sec:accesscontrollist>					
+								</sec:authorize>							
+					    	</sec:authorize>
+					    </form:form>					    									
 						</td>
-						<td><!-- <a href='#' onclick="return confirm('Proceed with removing this shared teacher?');">Remove this User</a> -->
+						<td>
+							<form:form method="post" id="${sharedowner.userDetails.username}" commandName="${sharedowner.userDetails.username}" autocomplete='off'>
+            					<form:hidden path="sharedOwnerUsername" />
+            					<input type="hidden" name="removeUserFromProject" value="true"></input>
+								<input type="submit" value="Remove this User" onclick="if (confirm('Are you sure you want to remove this shared teacher?')) {this.form.submit();};"></input>
+			    			</form:form>	
+			    	<!--  
 						<a href='#'
 							onclick="alert('Remove Shared Teacher is not yet implemented.');"><spring:message
-							code="teacher.run.shareprojectrun.16" /></a></td>
+							code="teacher.run.shareprojectrun.16" /></a>
+							-->
+					</td>
+							
 					</tr>
-				</form:form>
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>

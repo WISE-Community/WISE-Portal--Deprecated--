@@ -179,7 +179,15 @@ public interface RunService extends OfferingService {
     @Secured( {"ROLE_TEACHER"} )
     @Transactional()
 	public void addSharedTeacherToRun(AddSharedTeacherParameters addSharedTeacherParameters) throws ObjectNotFoundException;
-    
+
+    /**
+     * Removes specified teacher user from specified run. If user or run does not exist, ignore.
+     * @param addSharedTeacherParameters
+     */
+    @Secured( {"ROLE_TEACHER"} )
+    @Transactional()
+	public void removeSharedTeacherFromRun(String username, Long runId) throws ObjectNotFoundException;
+
     /**
      * Returns the permission that the specified user has on the specified run
      * 

@@ -180,26 +180,32 @@ public class ShareProjectRunController extends SimpleFormController {
 	    	return modelAndView;
     	} else {
     	try {
-    		boolean newSharedOwner = false;
-			if (!params.getRun().getSharedowners().contains(retrievedUser)) {
-				newSharedOwner = true;
-			}
-			runService.addSharedTeacherToRun(params);
-			
-			// make a workgroup for this shared teacher for this run
-			String sharedOwnerUsername = params.getSharedOwnerUsername();
-			User sharedOwner = userService.retrieveUserByUsername(sharedOwnerUsername);
-			Set<User> sharedOwners = new HashSet<User>();
-			sharedOwners.add(sharedOwner);
-			workgroupService.createWISEWorkgroup("teacher", sharedOwners, params.getRun(), null);			
-			// only send email if this is a new shared owner
-			if (newSharedOwner) {
-				User sharer = ControllerUtil.getSignedInUser();
-				
-				ProjectRunEmailService emailService = new ProjectRunEmailService(sharer, retrievedUser,  params.getRun());
-				Thread thread = new Thread(emailService);
-				thread.start();
-			}
+    		// first check if we're removing a shared teacher
+    		String removeUserFromRun = request.getParameter("removeUserFromRun");
+    		if (removeUserFromRun != null && Boolean.valueOf(removeUserFromRun)) {
+    			runService.removeSharedTeacherFromRun(params.getSharedOwnerUsername(), params.getRun().getId());
+    		} else {  // we're adding a new shared teacher or changing her permissions
+    			boolean newSharedOwner = false;
+    			if (!params.getRun().getSharedowners().contains(retrievedUser)) {
+    				newSharedOwner = true;
+    			}
+    			runService.addSharedTeacherToRun(params);
+
+    			// make a workgroup for this shared teacher for this run
+    			String sharedOwnerUsername = params.getSharedOwnerUsername();
+    			User sharedOwner = userService.retrieveUserByUsername(sharedOwnerUsername);
+    			Set<User> sharedOwners = new HashSet<User>();
+    			sharedOwners.add(sharedOwner);
+    			workgroupService.createWISEWorkgroup("teacher", sharedOwners, params.getRun(), null);			
+    			// only send email if this is a new shared owner
+    			if (newSharedOwner) {
+    				User sharer = ControllerUtil.getSignedInUser();
+
+    				ProjectRunEmailService emailService = new ProjectRunEmailService(sharer, retrievedUser,  params.getRun());
+    				Thread thread = new Thread(emailService);
+    				thread.start();
+    			}
+    		}
 		} catch (ObjectNotFoundException e) {
 			modelAndView = new ModelAndView(new RedirectView(getFormView()));
 	    	modelAndView.addObject(RUNID_PARAM_NAME, params.getRun().getId());

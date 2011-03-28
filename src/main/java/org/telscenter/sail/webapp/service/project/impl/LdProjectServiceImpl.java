@@ -142,6 +142,22 @@ public class LdProjectServiceImpl implements ProjectService {
 			this.aclService.addPermission(project, BasePermission.ADMINISTRATION, user);
 		}
 	}
+	
+	public void removeSharedTeacherFromProject(String username, Project project) throws ObjectNotFoundException {
+		User user = userService.retrieveUserByUsername(username);
+		if (project == null || user == null) {
+			return;
+		}
+		
+		if (project.getSharedowners().contains(user)) {
+			project.getSharedowners().remove(user);
+			this.projectDao.save(project);
+			List<Permission> permissions = this.aclService.getPermissions(project, user);
+			for (Permission permission : permissions) {
+				this.aclService.removePermission(project, permission, user);
+			}
+		}
+	}
 
 	public ModelAndView authorProject(AuthorProjectParameters params)
 			throws Exception {

@@ -491,4 +491,10 @@ public class RooloProjectServiceImpl implements ProjectService{
 		return null;
 	}
 
+	public void removeSharedTeacherFromProject(String username, Project project)
+			throws ObjectNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -212,6 +212,16 @@ public class ProjectServiceImpl implements ProjectService {
 		projectService.addSharedTeacherToProject(addSharedTeacherParameters);
 	}
 	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#removeSharedTeacherFromProject(java.lang.String, java.lang.Long)
+	 */
+	public void removeSharedTeacherFromProject(String username, Project project) throws ObjectNotFoundException {
+		ProjectService projectService = projectServiceFactory.getProjectService(project);
+		projectService.removeSharedTeacherFromProject(username, project);
+
+	}
+
+	
 	public String getSharedTeacherRole(Project project, User user) {
 		ProjectService projectService = projectServiceFactory.getProjectService(project);
 		return projectService.getSharedTeacherRole(project, user);
