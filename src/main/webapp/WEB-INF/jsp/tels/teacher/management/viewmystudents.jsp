@@ -493,10 +493,12 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 										<td>Click the "Create a New Team" button to create an empty team box. Click/drag 1-3 student names into the
 										box. Click SAVE.</td>
 								</tr>
+								<!-- 
 								<tr>
 										<th>Exporting a Team's Work to PDF</th>
 										<td>Click the "Create PDF file" link within a particular team box.</td>
 								</tr>
+								 -->
 						</table>
 
 						</div>	
@@ -532,7 +534,7 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
               <div class="workarea" id="div_${workgroupInPeriod.id}">
 			    <ul id="ul_${viewmystudentsperiod.period.id}_workgroup_${workgroupInPeriod.id}" class="draglist">  
 			      <li class="workgroupHeader">TEAM ${workgroupInPeriod.id}
-			        <a class="createPdfLink" href="${workgroupInPeriod.workPDFUrl}"><spring:message code="teacher.manage.viewstudents.18"/></a>
+			        <!-- <a class="createPdfLink" href="${workgroupInPeriod.workPDFUrl}"><spring:message code="teacher.manage.viewstudents.18"/></a>   -->
 			      </li>
 			      
 			      <c:forEach var="workgroupMember" items="${workgroupInPeriod.members}">
