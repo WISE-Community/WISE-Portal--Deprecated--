@@ -52,7 +52,7 @@ teacherUsernames = teacherUsernames.sort();
 function updateInputBox(text) {
 	document.getElementById("sharedOwnerUsernameInput").value=text;
 }
-function autocomplete(username) {
+function populatePossibilities(username) {
 	var matchedUsernameUL = document.getElementById("matchedUsernames");
 	matchedUsernameUL.innerHTML = "";
 	if (username.length > 0) {
@@ -75,6 +75,11 @@ function findStringsContaining(what, all_array) {
 		}
 	}	
 	return resultArray;
+}
+
+// when remove user is clicked, confirm with user
+function removeSharedUserClicked() {
+  return confirm('Are you sure you want to remove this shared teacher?');
 }
 </script>
 
@@ -253,7 +258,7 @@ function findStringsContaining(what, all_array) {
 							<form:form method="post" id="${sharedowner.userDetails.username}" commandName="${sharedowner.userDetails.username}" autocomplete='off'>
             					<form:hidden path="sharedOwnerUsername" />
             					<input type="hidden" name="removeUserFromProject" value="true"></input>
-								<input type="submit" value="Remove this User" onclick="if (confirm('Are you sure you want to remove this shared teacher?')) {this.form.submit();};"></input>
+								<input type="submit" value="Remove this User" onclick="return removeSharedUserClicked();"></input>
 			    			</form:form>	
 			    	<!--  
 						<a href='#'
@@ -271,7 +276,7 @@ function findStringsContaining(what, all_array) {
 		<td id="sharingSearchBox" colspan=3>
 			<div id="sharingSearchBoxHelp"><spring:message code="teacher.pro.custom.sharepro.12"/></div>
 				<form:form method="post" commandName="addSharedTeacherParameters" autocomplete='off'>
-					<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="autocomplete(this.value)" size="25"/>
+					<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="populatePossibilities(this.value)" size="25"/>
 					<input type="submit" value="<spring:message code="teacher.pro.custom.sharepro.13"/>"></input>
 				</form:form>
 				<ul id="matchedUsernames">

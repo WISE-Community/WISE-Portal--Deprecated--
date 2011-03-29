@@ -55,13 +55,14 @@ teacherUsernames = teacherUsernames.sort();
 function updateInputBox(text) {
 	document.getElementById("sharedOwnerUsernameInput").value=text;
 }
-function autocomplete(username) {
+
+function populatePossibilities(username) {
 	var matchedUsernameUL = document.getElementById("matchedUsernames");
 	matchedUsernameUL.innerHTML = "";
 	if (username.length > 0) {
 		var resultArray = findStringsContaining(username, teacherUsernames);
 		for (k=0; k < resultArray.length; k++) {
-			var matchedUsernameLI = document.createElement("<li>");
+			var matchedUsernameLI = document.createElement("li");
 			matchedUsernameLI.innerHTML = "<a onclick='updateInputBox(\""+resultArray[k]+"\")'>" + resultArray[k] + "</a>";
 			matchedUsernameUL.appendChild(matchedUsernameLI);
 		}
@@ -78,6 +79,11 @@ function findStringsContaining(what, all_array) {
 		}
 	}	
 	return resultArray;
+}
+
+//when remove user is clicked, confirm with user
+function removeSharedUserClicked() {
+  return confirm('Are you sure you want to remove this shared teacher?');
 }
 </script>
 
@@ -171,7 +177,7 @@ function findStringsContaining(what, all_array) {
 				<td><form:form method="post" id="${sharedowner.userDetails.username}" commandName="${sharedowner.userDetails.username}" autocomplete='off'>
             		<form:hidden path="sharedOwnerUsername" />
             		<input type="hidden" name="removeUserFromRun" value="true"></input>
-					<input type="submit" value="Remove this User" onclick="if (confirm('Are you sure you want to remove this shared teacher?')) {this.form.submit();};"></input>
+					<input type="submit" value="Remove this User" onclick="return removeSharedUserClicked();"></input>
 			    	</form:form>			        
 				    <!-- <a href='#' onclick="alert('Remove Shared Teacher is not yet implemented.');"><spring:message code="teacher.run.shareprojectrun.16"/></a> -->
 				</td>
@@ -185,7 +191,7 @@ function findStringsContaining(what, all_array) {
 			<p>Click the matching Username from the search results, then click <i>Save</i>.</p> 
 			</div>
 			    <form:form method="post" commandName="addSharedTeacherParameters" autocomplete='off'>
-					<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="autocomplete(this.value)" size="30"/>
+					<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="populatePossibilities(this.value)" size="30"/>
 				    <input type="submit" value="Save" />
 				</form:form>
 				<ul id="matchedUsernames">
