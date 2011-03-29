@@ -121,7 +121,13 @@ public class InformationController extends AbstractController{
 			response.getWriter().write(userInfo.toString());
 			return;
 		}
-		
+
+		// otherwise, make sure that the user is logged in
+		// check if user is logged in
+		if (ControllerUtil.getSignedInUser() == null) {
+			response.sendRedirect("/webapp/login.html");
+			return;
+		}
 		String runId = request.getParameter("runId");
 		Run run = this.runService.retrieveById(Long.parseLong(runId));
 		
