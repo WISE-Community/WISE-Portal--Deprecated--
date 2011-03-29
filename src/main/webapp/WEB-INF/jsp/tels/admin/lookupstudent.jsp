@@ -50,8 +50,8 @@
 	
 	<form:label path="lookupCriteria">  that  </form:label>
 	<form:select path="lookupCriteria" id="lookupCriteria">
-		<form:option value="=">MATCHES</form:option>
 		<form:option value="like">CONTAINS</form:option>
+		<form:option value="=">MATCHES</form:option>
 	</form:select>
 	
 	<form:input path="lookupData" id="lookupData"/>
