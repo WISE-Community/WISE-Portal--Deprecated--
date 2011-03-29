@@ -71,8 +71,9 @@ public class ProjectInfoController extends AbstractController {
 		telslibrary.add("library");
 
 		if(project != null){
-			if(this.projectService.canAuthorProject(project, user)
-			||	project.hasTags(telslibrary)){
+			if(this.projectService.canReadProject(project, user)
+				|| this.projectService.canAuthorProject(project, user)
+				||	project.hasTags(telslibrary)){
 				ModelAndView modelAndView = new ModelAndView();
 				modelAndView.addObject(PROJECT_PARAM_NAME, project);
 				modelAndView.addObject(USAGE, this.runService.getProjectUsage((Long)project.getId()));

@@ -93,8 +93,12 @@
 									<ul>
 										<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
 										<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Project Run</a></li>
-										<li><a href="../../author/authorproject.html?projectId=${project.id}">Edit/Author</a></li>
-										<li><a href="customized/shareproject.html?projectId=${project.id}">Share</a>
+										<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
+											<li><a href="../../author/authorproject.html?projectId=${project.id}">Edit/Author</a></li>
+										</sec:accesscontrollist>
+										<sec:accesscontrollist domainObject="${project}" hasPermission="16">
+											<li><a href="customized/shareproject.html?projectId=${project.id}">Share</a>
+										</sec:accesscontrollist>										
 										<!-- input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
 									</ul>
 							</tr>
