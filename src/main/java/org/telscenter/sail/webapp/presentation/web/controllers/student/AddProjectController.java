@@ -57,7 +57,7 @@ public class AddProjectController extends SimpleFormController {
      *      org.springframework.validation.BindException)
      */
     @Override
-    protected ModelAndView onSubmit(HttpServletRequest request,
+    protected synchronized ModelAndView onSubmit(HttpServletRequest request,
             HttpServletResponse response, Object command, BindException errors)
             throws Exception {
 		User user = ControllerUtil.getSignedInUser();
