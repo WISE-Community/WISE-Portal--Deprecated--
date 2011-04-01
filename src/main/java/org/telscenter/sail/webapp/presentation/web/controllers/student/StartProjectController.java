@@ -78,7 +78,7 @@ public class StartProjectController extends AbstractController {
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request,
+	protected synchronized ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		 User user = ControllerUtil.getSignedInUser();
 
@@ -132,7 +132,7 @@ public class StartProjectController extends AbstractController {
 				workgroup = workgroupService.createWISEWorkgroup(name, members, run, period);
 				
 				/* update run statistics */
-				this.runService.updateRunStatistics(run);
+				this.runService.updateRunStatistics(run.getId());
 				
 				LaunchProjectParameters launchProjectParameters = new LaunchProjectParameters();
 				launchProjectParameters.setRun(run);
@@ -154,7 +154,7 @@ public class StartProjectController extends AbstractController {
 			workgroup = (WISEWorkgroup) workgroups.get(0);
 			if (workgroup.getMembers().size() == 1) {
 				/* update run statistics */
-				this.runService.updateRunStatistics(run);
+				this.runService.updateRunStatistics(run.getId());
 				
 				// if the student is already in a workgroup and she is the only member,
 				// launch the project

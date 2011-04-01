@@ -558,20 +558,27 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	 * @see org.telscenter.sail.webapp.service.offering.RunService#updateRunStatistics(org.telscenter.sail.webapp.domain.Run)
 	 */
 	@Transactional()
-	public void updateRunStatistics(Run run){
-		/* set the current time as the last time this run was run */
-		run.setLastRun(Calendar.getInstance().getTime());
+	public void updateRunStatistics(Long runId){
 		
-		/* increment the number of times this run has been run, if 
-		 * the run has not yet been run, the times run will be null */
-		if(run.getTimesRun()==null){
-			run.setTimesRun(1);
-		} else {
-			run.setTimesRun(run.getTimesRun() + 1);
+		try {
+			Run run = retrieveById(runId);
+			
+			/* set the current time as the last time this run was run */
+			run.setLastRun(Calendar.getInstance().getTime());
+			
+			/* increment the number of times this run has been run, if 
+			 * the run has not yet been run, the times run will be null */
+			if(run.getTimesRun()==null){
+				run.setTimesRun(1);
+			} else {
+				run.setTimesRun(run.getTimesRun() + 1);
+			}
+			
+			/* save changes */
+			this.runDao.save(run);
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
 		}
-		
-		/* save changes */
-		this.runDao.save(run);
 	}
 
 	/**

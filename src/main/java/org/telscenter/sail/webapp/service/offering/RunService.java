@@ -347,7 +347,7 @@ public interface RunService extends OfferingService {
      * 
      * @param Run - the run whose statistics should be updated.
      */
-    public void updateRunStatistics(Run run);
+    public void updateRunStatistics(Long runId);
     
     /**
      * Update the name of the run with the given <code>Long</code> to that of

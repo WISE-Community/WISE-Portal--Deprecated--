@@ -88,7 +88,7 @@ public class TeamSignInController extends SimpleFormController {
 	 *      org.springframework.validation.BindException)
 	 */
 	@Override
-	protected ModelAndView onSubmit(HttpServletRequest request,
+	protected synchronized ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {
 
@@ -147,7 +147,7 @@ public class TeamSignInController extends SimpleFormController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		/* update run statistics */
-		this.runService.updateRunStatistics(run);
+		this.runService.updateRunStatistics(run.getId());
 		
 		LaunchProjectParameters launchProjectParameters = new LaunchProjectParameters();
 		launchProjectParameters.setRun(run);
