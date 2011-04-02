@@ -110,7 +110,8 @@
 	<div id="teamSelectHeader"><span style="color:#0000CC;"><sec:authentication property="principal.username" /></span> <spring:message code="student.teamsignin.1"/></div>
 	<div id="teamSelectHeader"><spring:message code="student.teamsignin.2"/></div>
 
-	<form:form method="post" action="teamsignin.html" commandName="teamSignInForm" id="teamSignInForm" autocomplete='off'>
+	<c:set var="runId" value='<%= request.getParameter("runId") %>' />
+	<form:form method="post" action="teamsignin.html?runId=${runId}" commandName="teamSignInForm" id="teamSignInForm" autocomplete='off'>
 			<table id="multiUserSignIn" border="0" cellspacing="0" cellpadding="2">
 		  		<tr id="multiUserSeparatorRow">
 					<td colspan=3"></td>
