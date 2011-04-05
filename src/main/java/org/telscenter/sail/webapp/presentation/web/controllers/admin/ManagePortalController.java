@@ -25,10 +25,16 @@ package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.portal.Portal;
+import org.telscenter.sail.webapp.domain.project.FamilyTag;
+import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.portal.PortalService;
 
 /**
@@ -37,8 +43,10 @@ import org.telscenter.sail.webapp.service.portal.PortalService;
  * @author hirokiterashima
  * @version $Id$
  */
-public class ManagePortalController extends SimpleFormController {
+public class ManagePortalController extends AbstractController {
 	
+	private static final String VIEW_NAME = "admin/portal/manageportal";
+
 	private static final String PORTAL_ID_PARAM = "portalId";
 
 	private static final String PORTAL_PARAM = "portal";
@@ -46,45 +54,43 @@ public class ManagePortalController extends SimpleFormController {
 	private PortalService portalService;
 	
 	/**
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#showForm(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.springframework.validation.BindException)
+	 * @override @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response, BindException bindException) throws Exception {
-		ModelAndView modelAndView = super.showForm(request, response, bindException);
+	protected ModelAndView handleRequestInternal(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		String portalId = request.getParameter(PORTAL_ID_PARAM);
 		if (portalId == null) {
-			portalId = "1";
+			portalId = "0";
 		}
-		
-		Portal portal = null;
-		portal = portalService.getById(portalId);
-		modelAndView.addObject(PORTAL_PARAM, portal);
-		return modelAndView;
-	}
-	/**
-	 * @see org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject(javax.servlet.http.HttpServletRequest)
-	 */
-	@Override
-	protected Object formBackingObject(HttpServletRequest request) throws Exception {
-		String portalId = request.getParameter(PORTAL_ID_PARAM);
-		if (portalId == null) {
-			portalId = "1";
+
+		Portal portal = portalService.getById(Long.valueOf(portalId));
+
+		if (request.getMethod().equals("GET")) {
+			ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
+			modelAndView.addObject(PORTAL_PARAM, portal);
+			return modelAndView;		
+		} else {
+			// handle posting changes to project
+			ModelAndView mav = new ModelAndView();
+			try {
+				String attr = request.getParameter("attr");
+				if (attr.equals("isLoginAllowed")) {
+					portal.setLoginAllowed(Boolean.valueOf(request.getParameter("val")));
+					portalService.updatePortal(portal);
+					mav.addObject("msg", "success");
+				} else {
+					mav.addObject("msg", "error: permission denied");
+				}
+				return mav;
+			} catch (Exception e) {
+				e.printStackTrace();
+				mav.addObject("msg", "error");
+				return mav;
+			}
 		}
-		
-		Portal portal = null;
-		portal = portalService.getById(portalId);
-		return portal;
 	}
 	
-	/**
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.validation.BindException)
-	 */
-	@Override
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
-		return null;
-	}
 	
 	/**
 	 * @param portalService the portalService to set

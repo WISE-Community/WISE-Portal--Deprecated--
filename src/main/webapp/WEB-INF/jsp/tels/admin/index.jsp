@@ -88,7 +88,7 @@
 
 <div class="adminTitle">Portal Management</div>
 	<div style="margin:0 0 0 25px;">
-		<h5><a href="portal/manageportal.html">Configure Portal Settings (Beta)</a></h5>
+		<h5><a href="portal/manageportal.html">Configure Portal Settings</a></h5>
 	</div>
 
 <div class="adminTitle">External Project Service (Beta)</div>

@@ -346,6 +346,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `portal` WRITE;
 /*!40000 ALTER TABLE `portal` DISABLE KEYS */;
+INSERT INTO portal (id,settings,OPTLOCK) VALUES (0,"{\"isLoginAllowed\":true}",0);
 /*!40000 ALTER TABLE `portal` ENABLE KEYS */;
 UNLOCK TABLES;
 

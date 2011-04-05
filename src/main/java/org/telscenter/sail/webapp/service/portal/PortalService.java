@@ -32,9 +32,14 @@ import org.telscenter.sail.webapp.domain.portal.Portal;
  * Service to allow presentation tier objects to work
  * with the Portal domain.
  * @author hirokiterashima
- * @version $Id:$
+ * @version $Id$
  */
 public interface PortalService {
 	
 	public Portal getById(Serializable id) throws ObjectNotFoundException;
+	
+	/**
+	 * Updates specified portal
+	 */
+	public void updatePortal(Portal portal);
 }

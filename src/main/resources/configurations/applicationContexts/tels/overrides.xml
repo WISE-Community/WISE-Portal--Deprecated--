@@ -93,6 +93,7 @@
         <property name="defaultTargetUrl" value="/teacherindex.html" />
         <property name="filterProcessesUrl" value="/j_acegi_security_check" />
         <property name="userDetailsService" ref="userDetailsService" />
+	    <property name="portalService" ref="portalService" />
     </bean>
 
     <bean id="filterInvocationInterceptor"

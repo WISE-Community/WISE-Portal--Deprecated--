@@ -26,13 +26,14 @@ import java.io.Serializable;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.portal.PortalDao;
 import org.telscenter.sail.webapp.domain.portal.Portal;
 import org.telscenter.sail.webapp.service.portal.PortalService;
 
 /**
  * @author hirokiterashima
- * @version $Id:$
+ * @version $Id$
  */
 public class PortalServiceImpl implements PortalService {
 
@@ -51,5 +52,13 @@ public class PortalServiceImpl implements PortalService {
 	 */
 	public void setPortalDao(PortalDao<Portal> portalDao) {
 		this.portalDao = portalDao;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.portal.PortalService#updatePortal(org.telscenter.sail.webapp.domain.portal.Portal)
+	 */
+	@Transactional()
+	public void updatePortal(Portal portal) {
+		this.portalDao.save(portal);
 	}
 }

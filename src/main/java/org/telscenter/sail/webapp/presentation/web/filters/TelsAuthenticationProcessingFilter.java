@@ -28,6 +28,7 @@ import java.util.Date;
 
 import javax.servlet.ServletException;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.presentation.web.filters.PasAuthenticationProcessingFilter;
 import net.sf.sail.webapp.service.authentication.AuthorityNotFoundException;
 
@@ -38,7 +39,9 @@ import org.springframework.util.StringUtils;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
+import org.telscenter.sail.webapp.domain.portal.Portal;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
+import org.telscenter.sail.webapp.service.portal.PortalService;
 
 /**
  * Custom AuthenticationProcessingFilter that subclasses Acegi Security. This
@@ -56,8 +59,11 @@ public class TelsAuthenticationProcessingFilter extends
 	public static final String TEACHER_DEFAULT_TARGET_PATH = "/teacher/index.html";
 	public static final String ADMIN_DEFAULT_TARGET_PATH = "/admin/index.html";
 	public static final String RESEARCHER_DEFAULT_TARGET_PATH = "/teacher/index.html";
+	public static final String LOGOUT_PATH = "pages/wiselogout.html";
 
 	private UserDetailsService userDetailsService;
+	
+	private PortalService portalService;
 	
 	
 	/**
@@ -72,6 +78,7 @@ public class TelsAuthenticationProcessingFilter extends
 			Authentication authResult) throws IOException, ServletException {
 		
         UserDetails userDetails = (UserDetails) authResult.getPrincipal();
+        boolean userIsAdmin = false;
         if (userDetails instanceof StudentUserDetails) {        	
         	// pLT= previous login time (not this time, but last time)
         	Date lastLoginTime = ((StudentUserDetails) userDetails).getLastLoginTime();
@@ -108,10 +115,21 @@ public class TelsAuthenticationProcessingFilter extends
         	for (int i = 0; i < authorities.length; i++) {
         		if (adminAuth.equals(authorities[i])) {
         			this.setDefaultTargetUrl(ADMIN_DEFAULT_TARGET_PATH);
+        			userIsAdmin = true;
         		}
         	}
         }
         
+        // if user is not admin and login is disallowed, redirect user to logout page
+        try {
+			Portal portal = portalService.getById(0);
+			if (!userIsAdmin && !portal.isLoginAllowed()) {
+		        	response.sendRedirect(LOGOUT_PATH);
+		        	return;
+		    }
+        } catch (ObjectNotFoundException e) {
+		}  
+      
         /* redirect if specified in the login request */
    		String redirectUrl = request.getParameter("redirect");
    		if(StringUtils.hasText(redirectUrl)){
@@ -137,6 +155,13 @@ public class TelsAuthenticationProcessingFilter extends
 	 */
 	public void setUserDetailsService(UserDetailsService userDetailsService) {
 		this.userDetailsService = userDetailsService;
+	}
+
+	/**
+	 * @param portalService the portalService to set
+	 */
+	public void setPortalService(PortalService portalService) {
+		this.portalService = portalService;
 	}		
 
 }

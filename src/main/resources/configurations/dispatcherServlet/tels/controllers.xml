@@ -1442,9 +1442,6 @@
     <bean id="managePortalController"
          class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ManagePortalController">
          <property name="portalService" ref="portalService" />
-     	<property name="commandName" value="portal"/>
-    	<property name="commandClass"
-    		value="org.telscenter.sail.webapp.domain.portal.impl.PortalImpl"/>
     </bean>	
     
     <bean id="messageController"

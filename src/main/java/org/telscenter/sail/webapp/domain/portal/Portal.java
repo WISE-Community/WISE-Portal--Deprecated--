@@ -85,6 +85,28 @@ public interface Portal extends Persistable {
 	public void setComments(String comments);
 
 	/**
+	 * @return the settings
+	 */
+	public String getSettings();
+	
+	/**
+	 * @param settings the settings to set
+	 */
+	public void setSettings(String settings);
+	
+	/**
+	 * can users log into this portal at this time?
+	 * @return
+	 */
+	public boolean isLoginAllowed();
+	
+	/**
+	 * can users log into this portal at this time?
+	 * @param loginAllowed
+	 */
+	public void setLoginAllowed(boolean loginAllowed);
+	
+	/**
 	 * @return the address
 	 */
 	public String getAddress();

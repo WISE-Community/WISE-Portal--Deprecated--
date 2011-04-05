@@ -34,6 +34,8 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import org.telscenter.sail.webapp.domain.portal.Portal;
+import org.telscenter.sail.webapp.presentation.util.json.JSONException;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 
 /**
  * TELS Portal implementation.
@@ -71,6 +73,9 @@ public class PortalImpl implements Portal {
 	private static final String COLUMN_NAME_COMMENTS = "comments";
 
 	@Transient
+	private static final String COLUMN_NAME_SETTINGS = "settings";
+	
+	@Transient
 	private static final String COLUMN_NAME_GOOGLE_MAP_KEY = "google_map_key";
 
 	@Column(name = COLUMN_NAME_PORTAL_NAME)
@@ -90,6 +95,9 @@ public class PortalImpl implements Portal {
 	
 	@Column(name = COLUMN_NAME_COMMENTS)
 	private String comments;
+	
+	@Column(name = COLUMN_NAME_SETTINGS, length = 32768)
+	private String settings;  // text (blob) 2^15
 	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -177,6 +185,44 @@ public class PortalImpl implements Portal {
 		this.comments = comments;
 	}
 
+	/**
+	 * @return the settings
+	 */
+	public String getSettings() {
+		return settings;
+	}
+
+	/**
+	 * @param settings the settings to set
+	 */
+	public void setSettings(String settings) {
+		this.settings = settings;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.portal.Portal#isLoginAllowed()
+	 */
+	public boolean isLoginAllowed() {
+		try {
+			JSONObject settings = new JSONObject(getSettings());
+			return settings.getBoolean("isLoginAllowed");
+		} catch (JSONException e) {
+		}		
+		return true;  // allow login by default if there was an exception
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.domain.portal.Portal#setLoginAllowed(boolean)
+	 */
+	public void setLoginAllowed(boolean loginAllowed) {
+		try {
+			JSONObject settings = new JSONObject(getSettings());
+			settings.put("isLoginAllowed", loginAllowed);
+			this.setSettings(settings.toString());
+		} catch (JSONException e) {
+		}		
+	}
+	
 	/**
 	 * @return the address
 	 */
