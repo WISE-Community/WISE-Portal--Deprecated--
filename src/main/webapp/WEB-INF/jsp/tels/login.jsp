@@ -63,7 +63,7 @@
 	<form id="home" method="post" action="j_acegi_security_check" autocomplete="off">
 		<div id="signinForm">
 			<div>
-				<label for="username"><spring:message code="login.failed11"/><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60" /></label>
+				<label for="username"><spring:message code="login.failed11"/><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60" <c:if test="${userName != ''}">value="${userName}"</c:if> /></label>
 			</div>
 			<div>
 				<label for="password"><spring:message code="login.failed12"/><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30" /></label>

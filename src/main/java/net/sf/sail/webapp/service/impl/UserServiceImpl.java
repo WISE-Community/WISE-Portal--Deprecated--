@@ -271,4 +271,26 @@ public class UserServiceImpl implements UserService {
 	public List<User> retrieveByField(String field, String type, Object term, String classVar){
 		return this.userDao.retrieveByField(field, type, term, classVar);
 	}
+	
+    /**
+     * Given an array of fields and an array of values and classVar, retrieves a list
+     * of Users
+     * @param fields an array of field names
+     * @param values an array of values, the index of a value must line up with
+     * the index in the field array
+     * 
+     * e.g.
+     * fields[0] = "firstname"
+     * fields[1] = "lastname"
+     * 
+     * values[0] = "Spongebob"
+     * values[1] = "Squarepants"
+     * 
+     * @param classVar 'studentUserDetails' or 'teacherUserDetails'
+     * @return a list of Users that have matching values for the given fields
+     */
+	@Transactional()
+	public List<User> retrieveByFields(String[] fields, String[] types, String classVar){
+		return this.userDao.retrieveByFields(fields, types, classVar);
+	}
 }

@@ -1497,4 +1497,9 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.ProjectMetadataController">
 		<property name="projectService" ref="projectService"/>
 	</bean>
+	
+	<bean id="checkForExistingAccountController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.CheckForExistingAccountController">
+		<property name="userService" ref="userService" />
+	</bean>
 </beans>

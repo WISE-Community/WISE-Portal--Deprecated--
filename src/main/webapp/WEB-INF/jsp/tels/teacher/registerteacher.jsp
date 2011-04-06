@@ -27,11 +27,11 @@
 
 <link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-  
-<script src="../javascript/tels/general.js" type="text/javascript" ></script>
-<script src="../javascript/tels/prototype.js" type="text/javascript" ></script>
-<script src="../javascript/tels/scriptaculous.js" type="text/javascript" ></script>
-<script src="../javascript/effects.js" type="text/javascript" ></script>
+
+<script src="../javascript/tels/general.js" type="text/javascript" ></script>  
+<script src="../javascript/tels/jquery-1.4.2.min.js" type="text/javascript" > </script>
+<script src="../javascript/tels/jquery-ui-1.8.9/js/jquery-ui-1.8.9.custom.min.js" type="text/javascript" > </script>
+<link rel="stylesheet" type="text/css" href="../javascript/tels/jquery-ui-1.8.9/css/ui-lightness/jquery-ui-1.8.9.custom.css" />
 
 <script type="text/javascript">
 			function checkIfLegalAcknowledged (form, id) {
@@ -65,7 +65,112 @@ function MM_swapImage() { //v3.0
   var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
    if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
 }
- 
+
+/**
+ * Check if there is an account with matching first name and
+ * last name already. If there are matching accounts we will 
+ * ask the teacher whether one of these existing accounts is
+ * theirs to try to reduce duplicate accounts. If none of these accounts
+ * is theirs they have the option of creating the new account. If
+ * there are no matching accounts we will create the new account.
+ */
+function checkForExistingAccountsAndCreateAccount() {
+	if(checkForExistingAccounts()) {
+		//accounts exist, ask teacher if these accounts are theirs
+
+		//get the JSON array of existing accounts
+		var existingAccountsString = $('#existingAccounts').html();
+
+		//create a JSON array object
+		var existingAccountsArray = JSON.parse(existingAccountsString);
+
+		//the message to display at the top of the popup
+		var existingAccountsHtml = "<p><spring:message code='teacher.registerteacher.31'/></p>";
+
+		//loop through all the existing accounts
+		for(var x=0; x<existingAccountsArray.length; x++) {
+			//get a user name
+			var userName = existingAccountsArray[x];
+			
+			if(existingAccountsHtml != "") {
+				//add line breaks between user names
+				existingAccountsHtml += "<br><br>";
+			}
+
+			//make the user name a link to the login page that will pre-populate the user name field
+			existingAccountsHtml += "<a href='../login.html?userName=" + userName + "'>";
+			existingAccountsHtml += userName;
+			existingAccountsHtml += "</a>";
+		}
+
+		existingAccountsHtml += "<br><br><p>------------------------------------------------------------</p><br>";
+
+		//add the button that will create a brand new account if none of the existing accounts belongs to the user
+		existingAccountsHtml += "<a id='createBrandNewAccountButton' onclick='createAccount()' class='createAccountButton'><spring:message code='teacher.registerteacher.32'/></a>";
+
+		//add the html to the div
+		$('#existingAccountsDialog').html(existingAccountsHtml);
+
+		//display the popup
+		$('#existingAccountsDialog').dialog({title: "<spring:message code='teacher.registerteacher.33'/>", width:500, height:500});
+	} else {
+		//we did not find any accounts that have matching fields so we will create a new account
+		createAccount();
+	}
+}
+
+/**
+ * Make a sync request for any existing teacher accounts with the same
+ * first name and last name
+ */
+function checkForExistingAccounts() {
+	//get the first name and last name from the form
+	var firstName = $('#teacherFirstName').val();
+	var lastName = $('#teacherLastName').val();
+
+	var data = {
+		accountType:'teacher',
+		firstName:firstName,
+		lastName:lastName
+	};
+
+	//make the request for matching accounts
+	$.ajax({
+		url:'../checkforexistingaccount.html',
+		data:data,
+		success:function(response) {
+			if(response != null) {
+				//set the response into a hidden div so we can access it later
+				$('#existingAccounts').html(response);
+			}
+		},
+		async:false
+	});
+
+	var existingAccounts = false;
+	
+	if($('#existingAccounts').html() != '' && $('#existingAccounts').html() != '[]') {
+		//there are existing accounts that match
+		existingAccounts = true;
+	}
+
+	return existingAccounts;
+}
+
+/**
+ * Submit the form to create the account
+ */
+function createAccount() {
+	$('#teacherRegForm').submit();
+}
+
+/**
+ * Toggle show/hide of the curriculum box
+ */
+function showSubjects() {
+	$('#curriculumSubjectsBox').toggle();
+}
+
 </script>
 
 <title><spring:message code="teacher.signup.title" /></title>
@@ -122,18 +227,12 @@ function MM_swapImage() { //v3.0
 	<dd><form:input path="userDetails.state" id="teacherState" size="25" maxlength="50" tabindex="5"/>
     	<span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span>  
     	<div id="autocomplete_choices_state" class="autocomplete" ></div>
-		<script type="text/javascript">  
-			new Ajax.Autocompleter('state', 'autocomplete_choices_state', 'states.html', {paramName: 'sofar'}); 	   		
-		</script>  
     </dd>
                 
     <dt><label for="country" id="country1"><spring:message code="signup.country" /></label></dt>
 	<dd><form:input path="userDetails.country" id="teacherCountry" size="25" maxlength="50" tabindex="6"/> 
     <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> 
     <div id="autocomplete_choices_country" class="autocomplete" ></div>
-		<script type="text/javascript">  
-	new Ajax.Autocompleter('country', 'autocomplete_choices_country', 'countries.html', {paramName: 'sofar'}); 	   		
-		</script>
     </dd>
             
     <dt>    <label for="schoolname" id="schoolname1"><spring:message code="signup.schoolname" /></label></dt>
@@ -151,8 +250,8 @@ function MM_swapImage() { //v3.0
     <dt><label for="curriculumsubjects" id="curriculumsubjects1"><spring:message code="signup.curriculumsubjects" /></label> 
 </dt>
 	<dd>
-     
-    <a href="javascript:Effect.toggle('curriculumSubjectsBox','appear')"><spring:message code="teacher.registerteacher.6"/></a> 
+    
+    <a onclick="showSubjects()" style="cursor:pointer;color:blue;text-decoration:underline"><spring:message code="teacher.registerteacher.6"/></a> 
    
    	<div id="curriculumSubjectsBox" style="display:none;"> 
           	<p><strong><spring:message code="teacher.registerteacher.7"/></strong></p>
@@ -214,18 +313,16 @@ function MM_swapImage() { //v3.0
       </dl>
                
  	  <div id="regButtons">
- 	    <input type="image" id="save" src="../<spring:theme code="register_save" />" 
-    onmouseover="swapImage('save','../<spring:theme code="register_save_roll" />')" 
-    onmouseout="swapImage('save','../<spring:theme code="register_save" />')"
-    />
-    <a href="../index.html"><input type="image" id="cancel" src="../<spring:theme code="register_cancel" />" 
-    onmouseover="swapImage('cancel','../<spring:theme code="register_cancel_roll" />')" 
-    onmouseout="swapImage('cancel','../<spring:theme code="register_cancel" />')"
-    /> </a>	  </div>
+ 	  	<a id="createAccountLink" class="createAccountButton" onclick="checkForExistingAccountsAndCreateAccount()"><spring:message code="teacher.registerteacher.34"/></a>
+ 	  	<a class="createAccountButton" href="../index.html"><spring:message code="teacher.registerteacher.35"/></a>
+	  </div>
            
 </form:form>
 
 </div> 
+
+<div id="existingAccounts" style="display:none"></div>
+<div id="existingAccountsDialog" style="display:none"></div>
 
 </div>   <!--End of the CenteredDiv -->
 

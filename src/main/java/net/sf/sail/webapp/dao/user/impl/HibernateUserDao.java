@@ -18,6 +18,7 @@
 package net.sf.sail.webapp.dao.user.impl;
 
 import java.util.List;
+import java.util.Vector;
 
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.dao.user.UserDao;
@@ -128,4 +129,59 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
     		+ StringUtils.right(string, string.length() - 1);
     }
 
+    /**
+     * Get all the Users that have fields with the given matching values
+     * @param fields an array of field names
+     * e.g.
+     * 'firstname'
+     * 'lastname'
+     * 'birthmonth'
+     * 'birthday'
+     * 
+     * @param values an array of values, the index of a value must line up with
+     * the index in the field array
+     * e.g.
+     * fields[0] = "firstname"
+     * fields[1] = "lastname"
+     * 
+     * values[0] = "Spongebob"
+     * values[1] = "Squarepants"
+     * 
+     * @param classVar 'studentUserDetails' or 'teacherUserDetails'
+     * @return a list of Users that have matching values for the given fields
+     */
+    @SuppressWarnings("unchecked")
+    public List<User> retrieveByFields(String[] fields, String[] values, String classVar) {
+    	Vector<Object> objectValues = new Vector<Object>();
+    	
+    	StringBuffer query = new StringBuffer();
+    	
+    	//make the beginning of the query
+    	query.append("select user from UserImpl user, " + capitalizeFirst(classVar) + " " + classVar + " where ");
+    	query.append("user.userDetails.id=" + classVar + ".id");
+    	
+    	//loop through all the fields so we can add more constraints to the 'where' clause
+    	for(int x=0; x<fields.length; x++) {
+    		query.append(" and ");
+    		
+    		if(fields[x] != null && (fields[x].equals("birthmonth") || fields[x].equals("birthday"))) {
+    			//field is a birth month or birth day so we need to use a special function call
+    			if(fields[x].equals("birthmonth")) {
+    				query.append("month(" + classVar + ".birthday)=?");
+    			} else if(fields[x].equals("birthday")) {
+    				query.append("day(" + classVar + ".birthday)=?");    				
+    			}
+    			
+    			//number values must be Integer objects in the array we pass to the find() below
+    			objectValues.add(Integer.parseInt(values[x]));
+    		} else {
+    			//add the constraint
+    			query.append(classVar + "." + fields[x] + "=?");
+    			objectValues.add(values[x]);
+    		}
+    	}
+    	
+    	//run the query and return the results
+    	return this.getHibernateTemplate().find(query.toString(), objectValues.toArray());
+    }
 }

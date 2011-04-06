@@ -31,6 +31,8 @@
 
 <script src="../javascript/tels/general.js" type="text/javascript" > </script>
 <script src="../javascript/tels/jquery-1.4.2.min.js" type="text/javascript" > </script>
+<script src="../javascript/tels/jquery-ui-1.8.9/js/jquery-ui-1.8.9.custom.min.js" type="text/javascript" > </script>
+<link rel="stylesheet" type="text/css" href="../javascript/tels/jquery-ui-1.8.9/css/ui-lightness/jquery-ui-1.8.9.custom.css" />
 
 <!-- Dependency -->
 <!--  
@@ -67,7 +69,7 @@ function findPeriods() {
 			  		}
 		  		}
 		  		periodSelect.disabled = false;
-		  		document.getElementById("createAccountLink").onclick = createAccount;
+		  		document.getElementById("createAccountLink").onclick = checkForExistingAccountsAndCreateAccount;
 		  	}
 		  };
 		  var failureCallback = function(o) {
@@ -83,6 +85,100 @@ function findPeriods() {
 	} else {
 		alert("Please enter an access code. Get this from your teacher.");
 	}
+}
+
+/**
+ * Check if there is an account with matching first name, last name,
+ * birth month, and birth day already. If there are matching accounts
+ * we will ask the student whether one of these existing accounts is
+ * theirs to try to reduce duplicate accounts. If none of these accounts
+ * is theirs they have the option of creating the new account. If
+ * there are no matching accounts we will create the new account.
+ */
+function checkForExistingAccountsAndCreateAccount() {
+	if(checkForExistingAccounts()) {
+		//accounts exist, ask student if these accounts are theirs
+
+		//get the JSON array of existing accounts
+		var existingAccountsString = $('#existingAccounts').html();
+
+		//create a JSON array object
+		var existingAccountsArray = JSON.parse(existingAccountsString);
+
+		//the message to display at the top of the popup
+		var existingAccountsHtml = "<p><spring:message code='student.registerstudent.23'/></p>";
+
+		//loop through all the existing accounts
+		for(var x=0; x<existingAccountsArray.length; x++) {
+			//get a user name
+			var userName = existingAccountsArray[x];
+			
+			if(existingAccountsHtml != "") {
+				//add line breaks between user names
+				existingAccountsHtml += "<br><br>";
+			}
+
+			//make the user name a link to the login page that will pre-populate the user name field
+			existingAccountsHtml += "<a href='../login.html?userName=" + userName + "'>";
+			existingAccountsHtml += userName;
+			existingAccountsHtml += "</a>";
+		}
+
+		existingAccountsHtml += "<br><br><p>------------------------------------------------------------</p><br>";
+
+		//add the button that will create a brand new account if none of the existing accounts belongs to the user
+		existingAccountsHtml += "<a id='createBrandNewAccountButton' onclick='createAccount()' class='createAccountButton'><spring:message code='student.registerstudent.24'/></a>";
+
+		//add the html to the div
+		$('#existingAccountsDialog').html(existingAccountsHtml);
+
+		//display the popup
+		$('#existingAccountsDialog').dialog({title: "<spring:message code='student.registerstudent.25'/>",width:500, height:500});
+	} else {
+		//account does not exist, create the account
+		createAccount();
+	}
+}
+
+/**
+ * Make a sync request for any existing teacher accounts with the same
+ * first name and last name
+ */
+function checkForExistingAccounts() {
+	//get the first name, last name, birth month, and birth day from the form
+	var firstName = $('#firstname').val();
+	var lastName = $('#lastname').val();
+	var birthMonth = $('#birthmonth').val();
+	var birthDay = $('#birthdate').val();
+
+	var data = {
+		accountType:'student',
+		firstName:firstName,
+		lastName:lastName,
+		birthMonth:birthMonth,
+		birthDay:birthDay
+	};
+
+	//make the request for matching accounts
+	$.ajax({
+		url:'../checkforexistingaccount.html',
+		data:data,
+		success:function(response) {
+			if(response != null) {
+				$('#existingAccounts').html(response);
+			}
+		},
+		async:false
+	});
+
+	var existingAccounts = false;
+	
+	if($('#existingAccounts').html() != '' && $('#existingAccounts').html() != '[]') {
+		//there are existing accounts that match
+		existingAccounts = true;
+	}
+
+	return existingAccounts;
 }
 
 function createAccount() {
@@ -244,13 +340,15 @@ document.getElementById('firstname').focus();
   
 	<div id="regButtonsStudent">
  				
-	    <a id="createAccountLink" onclick="createAccount()">Create Account</a>
-	    <a href="../index.html">Cancel</a>	
+	    <a id="createAccountLink" onclick="checkForExistingAccountsAndCreateAccount()"><spring:message code="student.registerstudent.26"/></a>
+	    <a href="../index.html"><spring:message code="student.registerstudent.27"/></a>	
 
 		</div>  
  
  </form:form>
- 
+
+<div id="existingAccounts" style="display:none"></div>
+<div id="existingAccountsDialog" style="display:none"></div>
 </div>
 
 </div>  <!-- /* End of the CenteredDiv */-->

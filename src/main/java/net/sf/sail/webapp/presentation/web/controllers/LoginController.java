@@ -41,6 +41,10 @@ public class LoginController extends AbstractController {
       HttpServletResponse response) throws Exception {
     String failed = request.getParameter("failed");
     String redirectUrl = request.getParameter("redirect");
+    
+    //get the user name that we will use to pre-populate the Username field
+    String userName = request.getParameter("userName");
+    
     ModelAndView modelAndView = new ModelAndView();
     if (StringUtils.hasText(failed)) {
       modelAndView.addObject("failed", Boolean.TRUE);
@@ -48,6 +52,11 @@ public class LoginController extends AbstractController {
     
     if(StringUtils.hasText(redirectUrl)){
     	modelAndView.addObject("redirect",redirectUrl);
+    }
+    
+    if(userName != null) {
+    	//make the userName available to the jsp page
+    	modelAndView.addObject("userName", userName);
     }
     return modelAndView;
   }

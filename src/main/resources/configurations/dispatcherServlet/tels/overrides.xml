@@ -106,6 +106,7 @@
     		    /vle/preview.html=previewLDProjectController
     		    /contactwisegeneral.html=contactWiseController
     		    /contactwiseproject.html=contactWiseProjectController
+    		    /checkforexistingaccount.html=checkForExistingAccountController
     		    /student/index.html=studentIndexController
     		    /student/vle/vle.html=studentVLEController
     		    /student/vle/studentdata.html=studentDataController
