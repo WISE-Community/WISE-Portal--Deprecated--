@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Loading Sample PAS Project to Virtual Learning Environment</title>
+<title>WISE4</title>
 
 	<script type="text/javascript">
 		function notifyFatal(type,args,obj){
