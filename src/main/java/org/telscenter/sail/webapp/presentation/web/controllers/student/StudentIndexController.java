@@ -136,8 +136,14 @@ public class StudentIndexController extends AbstractController {
 				Date lastLoginTime = ((StudentUserDetails) user.getUserDetails()).getLastLoginTime();
 				if (request.getParameter("pLT") != null) {
 					Calendar cal = Calendar.getInstance();
-					cal.setTimeInMillis(new Long(request.getParameter("pLT")));
-					lastLoginTime = cal.getTime();
+					try {
+						Long previousLoginTime = new Long(request.getParameter("pLT"));
+						cal.setTimeInMillis(previousLoginTime);
+						lastLoginTime = cal.getTime();
+					} catch (NumberFormatException nfe) {
+						// if there was an exception parsing previous last login time, such as user appending pLT=1302049863000\, assume this is the lasttimelogging in
+						lastLoginTime = cal.getTime();
+					}
 				}
 				for (Announcement announcement : run.getAnnouncements()) {
 					if (lastLoginTime == null ||
