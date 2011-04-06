@@ -39,6 +39,7 @@ import net.sf.sail.webapp.service.UserService;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.StudentUserAlreadyAssociatedWithRunException;
 import org.telscenter.sail.webapp.domain.impl.Projectcode;
@@ -167,9 +168,33 @@ public class TeamSignInController extends SimpleFormController {
 
 		TeamSignInForm form = new TeamSignInForm();
 		form.setUsername1(user.getUserDetails().getUsername());
-		form.setRunId(Long.valueOf(request.getParameter("runId")));
-
+		try {
+			form.setRunId(Long.valueOf(request.getParameter("runId")));
+		} catch (NumberFormatException e) {
+			// do nothing.
+		}
 		return form;
+	}
+	
+	@Override
+	protected final ModelAndView showForm(HttpServletRequest request,
+            HttpServletResponse response,
+            BindException errors)
+     throws Exception {
+		// check to see if the logged-in user is associated with the runId or not before showing the sign in form.
+		try {
+			Long runId = Long.valueOf(request.getParameter("runId"));
+			Run run = runService.retrieveById(runId);
+			User signedInUser = ControllerUtil.getSignedInUser();
+			if (run.isStudentAssociatedToThisRun(signedInUser)) {
+				return super.showForm(request, response, errors);			
+			} else {
+				return new ModelAndView(new RedirectView("index.html"));
+			}
+		} catch (NumberFormatException nfe) {
+			// if there was an error (e.g. runId=abc or no runId specified, redirect to student homepage.
+			return new ModelAndView(new RedirectView("index.html"));			
+		}		
 	}
 
 	/**
