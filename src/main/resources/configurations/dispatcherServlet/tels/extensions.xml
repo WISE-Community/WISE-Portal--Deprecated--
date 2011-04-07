@@ -42,6 +42,10 @@
     	<property name="validator" ref="teacherAccountFormValidator" />
     	<property name="formView" value="teacher/registerteacher" />
     	<property name="successView" value="teacher/registerTeacherConfirm" />
+        <property name="javaMail" ref="javaMail"/>
+		<property name="emaillisteners" ref="emaillisteners" />			
+		<property name="portalProperties" ref="portalproperties" />        
+		<property name="messageSource" ref="messageSource" />      	
     </bean>
 <!--  
     <bean id="createRooloOtmlModuleParameters"

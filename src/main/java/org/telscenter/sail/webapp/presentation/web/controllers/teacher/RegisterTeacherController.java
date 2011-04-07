@@ -24,15 +24,20 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.mail.IMailFacade;
 import net.sf.sail.webapp.presentation.web.controllers.SignupController;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
+import org.springframework.context.MessageSource;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.authentication.Curriculumsubjects;
@@ -51,7 +56,15 @@ public class RegisterTeacherController extends SignupController {
 	protected static final String USERNAME_KEY = "username";
 	
 	protected static final String DISPLAYNAME_KEY = "displayname";
-	
+
+	private IMailFacade javaMail = null;
+
+	private Properties emaillisteners = null;
+
+	private Properties portalProperties;
+
+	private MessageSource messageSource;
+
 	public RegisterTeacherController() {
 		setValidateOnBinding(false);
 	}
@@ -104,7 +117,11 @@ public class RegisterTeacherController extends SignupController {
 				try {
 					userDetails.setDisplayname(userDetails.getFirstname() + " " + userDetails.getLastname());
 					userDetails.setEmailValid(true);
-					this.userService.createUser(userDetails);
+					User createdUser = this.userService.createUser(userDetails);
+					// send email to new teacher
+					NewAccountEmailService newAccountEmailService = new NewAccountEmailService(createdUser,request.getLocale());
+					Thread thread = new Thread(newAccountEmailService);
+					thread.start();
 				}
 				catch (DuplicateUsernameException e) {
 					errors.rejectValue("username", "error.duplicate-username",
@@ -160,5 +177,83 @@ public class RegisterTeacherController extends SignupController {
 
 	}
 	
+	// new thread that sends email to new teacher
+	class NewAccountEmailService implements Runnable {
+
+		private User newUser;
+		private Locale locale;
+
+		public NewAccountEmailService(User newUser, Locale locale) {
+			this.newUser = newUser;
+			this.locale = locale;
+		}
+
+		public void run() {
+			this.sendEmail();
+		}
+
+		/**
+		 * Sends a welcome email to the new user with WISE4 resources
+		 * On exception sending the email, ignore.
+		 */
+		private void sendEmail() {
+
+			String sendEmailEnabledStr = portalProperties.getProperty("send_email_enabled");
+			Boolean sendEmailEnabled = Boolean.valueOf(sendEmailEnabledStr);
+			if (!sendEmailEnabled) {
+				return;
+			}
+			TeacherUserDetails newUserDetails = 
+				(TeacherUserDetails) newUser.getUserDetails();
+			String userUsername = newUserDetails.getUsername();
+			String userEmailAddress = newUserDetails.getEmailAddress();
+
+			String[] recipients = {userEmailAddress, emaillisteners.getProperty("uber_admin")};
+
+			String defaultSubject = messageSource.getMessage("welcome.new.teacher.subject", null, Locale.US);
+			String subject = messageSource.getMessage("welcome.new.teacher.subject", null, defaultSubject, this.locale);
+			String portalbaseurl = portalProperties.getProperty("portal_baseurl");
+			String gettingStartedUrl = portalbaseurl + "/pages/gettingstarted.html";
+			String defaultBody = messageSource.getMessage("welcome.new.teacher.body", new Object[] {userUsername,gettingStartedUrl}, Locale.US);
+			String message = messageSource.getMessage("welcome.new.teacher.body", new Object[] {userUsername,gettingStartedUrl}, defaultBody, this.locale);
+			String fromEmail = emaillisteners.getProperty("portalemailaddress");
+
+			try {
+				//sends the email to the recipients
+				javaMail.postMail(recipients, subject, message, fromEmail);
+			} catch (MessagingException e) {
+				// do nothing, no notification to uber_admin required.
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	/**
+	 * @param emaillisteners the emaillisteners to set
+	 */
+	public void setEmaillisteners(Properties emaillisteners) {
+		this.emaillisteners = emaillisteners;
+	}
+
+	/**
+	 * @param javaMail the javaMail to set
+	 */
+	public void setJavaMail(IMailFacade javaMail) {
+		this.javaMail = javaMail;
+	}
+
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
+	}
+
+	/**
+	 * @param messageSource the messageSource to set
+	 */
+	public void setMessageSource(MessageSource messageSource) {
+		this.messageSource = messageSource;
+	}
 
 }

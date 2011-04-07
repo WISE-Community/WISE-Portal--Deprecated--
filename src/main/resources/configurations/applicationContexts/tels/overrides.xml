@@ -43,10 +43,7 @@
         <property name="userDao" ref="userDao" />
         <property name="sdsUserDao" ref="sdsUserDao" />
         <property name="passwordEncoder" ref="passwordEncoder" />
-        <property name="saltSource" ref="systemSaltSource" />
-        <property name="javaMail" ref="javaMail"/>
-		<property name="emaillisteners" ref="emaillisteners" />			
-		<property name="portalProperties" ref="portalproperties" />        
+        <property name="saltSource" ref="systemSaltSource" />      
     </bean>
     
 	<bean id="curnitParameters"
