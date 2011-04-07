@@ -90,6 +90,9 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 
 	@Transient
 	private static final String COMUN_NAME_EMAILVALID = "isEmailValid";
+	
+	@Transient
+	private static final String COLUMN_NAME_HOW_HEAR = "howDidYouHearAboutUs";
 
     @Transient
     private static final long serialVersionUID = 1L;
@@ -132,6 +135,9 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	
     @Column(name = TeacherUserDetails.COMUN_NAME_EMAILVALID, nullable=false)
     private boolean emailValid;
+    
+    @Column(name = TeacherUserDetails.COLUMN_NAME_HOW_HEAR)
+    private String howDidYouHearAboutUs;
     
 	/**
 	 * @return the firstname
@@ -333,5 +339,21 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	 */
 	public void setEmailValid(boolean emailValid) {
 		this.emailValid = emailValid;
+	}
+	
+	/**
+	 * Get the how the teacher heard about us
+	 * @return
+	 */
+	public String getHowDidYouHearAboutUs() {
+		return howDidYouHearAboutUs;
+	}
+	
+	/**
+	 * Set how the teacher heard about us
+	 * @param howDidYouHearAboutUs
+	 */
+	public void setHowDidYouHearAboutUs(String howDidYouHearAboutUs) {
+		this.howDidYouHearAboutUs = howDidYouHearAboutUs;
 	}
 }

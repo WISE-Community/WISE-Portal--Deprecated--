@@ -91,3 +91,7 @@ INSERT INTO granted_authorities values (6, 'ROLE_RESEARCHER',0)
 ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `last_minified` DATETIME DEFAULT NULL AFTER `last_edited`;
 ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `max_scores` TEXT DEFAULT NULL AFTER `post_level`;
 ### 2010.09.24 END
+
+### 2011.04.07 BEGIN
+ALTER TABLE `sail_database`.`teacher_user_details` ADD COLUMN `howDidYouHearAboutUs` VARCHAR(255) DEFAULT NULL AFTER `isEmailValid`;
+### 2011.04.07 END

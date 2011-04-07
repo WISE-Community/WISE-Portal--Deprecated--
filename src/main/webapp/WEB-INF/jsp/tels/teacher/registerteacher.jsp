@@ -309,7 +309,11 @@ function showSubjects() {
 
 	  <dt><label for="repeatedPassword" id="repeatedPassword2"><spring:message code="signup.password.verify" /></label></dt>
 	  <dd><form:password path="repeatedPassword" id="repeatedPassword" size="25" maxlength="20" tabindex="12"/>  <span class="hint"><spring:message code="teacher.registerteacher.28"/><span class="hint-pointer"></span></span></dd>
-          
+      
+      <dt><label for="howDidYouHearAboutUs" id="howDidYouHearAboutUs2"><spring:message code="teacher.registerteacher.36"/></label></dt>
+	  <dd><form:input path="userDetails.howDidYouHearAboutUs" id="howDidYouHearAboutUs" size="25" maxlength="120" tabindex="13"/>  <span class="hint"><spring:message code="teacher.registerteacher.37"/><span class="hint-pointer"></span></span></dd>
+      
+      <div>&nbsp;</div> 
       </dl>
                
  	  <div id="regButtons">
