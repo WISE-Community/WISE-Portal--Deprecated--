@@ -77,7 +77,7 @@ public class RegisterStudentController extends SignupController {
 	@Transactional(rollbackFor = { 
 			DuplicateUsernameException.class, ObjectNotFoundException.class, 
 			PeriodNotFoundException.class })
-	protected ModelAndView onSubmit(HttpServletRequest request,
+	protected synchronized ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {
 		String domain =  "http://" + request.getServerName();

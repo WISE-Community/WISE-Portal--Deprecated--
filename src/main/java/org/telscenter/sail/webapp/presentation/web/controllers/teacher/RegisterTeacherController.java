@@ -84,7 +84,7 @@ public class RegisterTeacherController extends SignupController {
 	 *      org.springframework.validation.BindException)
 	 */
 	@Override
-	protected ModelAndView onSubmit(HttpServletRequest request,
+	protected synchronized ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {
 		String domain =  "http://" + request.getServerName();
