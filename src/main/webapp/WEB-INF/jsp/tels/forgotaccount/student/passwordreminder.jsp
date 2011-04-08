@@ -45,25 +45,29 @@
 
 <h1 id="lostTitleBar" class="blueText"><spring:message code="forgot.student.passremind.2"/></h1>
 
-<div id="studentpasswordremindersuggestion"> 
-	<ul>
-		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.4"/></li>
-		<li class="forgotPasswordInstructionText reminderHighlight"><spring:message code="forgot.student.passremind.5"/></li>
-		<li class="forgotPasswordInstructionText2">
-			<form:form id="username" name="retrievepassword" method="post" commandName="reminderParameters" autocomplete='off'>
-				<label style="font-weight:bold;" for="send_username"><spring:message code="login.username" /></label>
-	  			<input class="dataBoxStyle" type="text" name="username" id="userName" size="20" tabindex="1" />
-	 			
-				<!-- 			Special script pulls focus onto immediately preceding Input field-->
-	 			<script type="text/javascript">document.getElementById('userName').focus();
-				</script> 
-	
-				<input style="margin-left:20px; text-align:center;width:55px;" type="submit" id="next" name="_target1" value="<spring:message code="navigate.next" />" />
-			</form:form>
-		</li>
-	</ul>
-	<a id="forgotUsernameLink" href="enterprojectcode.html">I can't remember my Username</a>
-	<div id="forgotUsernameReminder">REMEMBER: your Username is your <b>FIRST</b> name, the <b>LETTER</b> of your last name, and your <b>BIRTHDAY</b> numbers.  Example: <b style="color:red;">JohnD0302</b> is the Username for John Doe with birthday on 3/02.</div>
+<div id="studentpasswordremindersuggestion">
+	<table style="border-collapse:separate;border-spacing:10px">
+		<tr><td><div class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.4"/></div></td></tr>
+		<tr><td><div class="forgotPasswordInstructionText reminderHighlight"><spring:message code="forgot.student.passremind.5"/></div></td></tr>
+		<tr><td>
+				<div class="forgotPasswordInstructionText2">
+					<form:form id="username" name="retrievepassword" method="post" commandName="reminderParameters" autocomplete='off'>
+						<label style="font-weight:bold;" for="send_username"><spring:message code="login.username" /></label>
+			  			<input class="dataBoxStyle" type="text" name="username" id="userName" size="20" tabindex="1" />
+			 			
+						<!-- 			Special script pulls focus onto immediately preceding Input field-->
+			 			<script type="text/javascript">document.getElementById('userName').focus();
+						</script> 
+			
+						<input style="margin-left:20px; text-align:center;width:55px;" type="submit" id="next" name="_target1" value="<spring:message code="navigate.next" />" />
+					</form:form>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<div id="forgotUsernameReminder"><spring:message code="forgot.student.passremind.15"/></div>
+	<br/>
+	<a id="forgotUsernameLink" href="searchforstudentusername.html"><spring:message code="forgot.student.passremind.16"/></a>
 </div>
 
 <div id="errorMessageFormat">

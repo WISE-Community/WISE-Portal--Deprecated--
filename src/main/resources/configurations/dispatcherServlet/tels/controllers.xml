@@ -1502,4 +1502,20 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.CheckForExistingAccountController">
 		<property name="userService" ref="userService" />
 	</bean>
+	
+	<bean id="searchForStudentUserNameController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.student.SearchForStudentUserNameController">
+		<property name="commandName" value="reminderParameters" />
+		<property name="validator" ref="searchForStudentUserNameValidator"/>
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.impl.ReminderParameters" />
+		<property name="formView"
+			value="forgotaccount/student/searchforstudentusername" />
+		<property name="successView"
+			value="forgotaccount/student/searchforstudentusernameresult" />
+		<property name="userService" ref="userService"/>
+	</bean>
+	
+	<bean id="searchForStudentUserNameValidator"
+		class="org.telscenter.sail.webapp.presentation.validators.SearchForStudentUserNameValidator" />
 </beans>

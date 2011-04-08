@@ -347,3 +347,28 @@ form {margin:0px; padding:0px;}
 .ui-dialog {
 	background:white;
 }
+
+.generalButton {
+ 	color:#000;
+ 	font-size:1.2em;
+	font-weight:bold;
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	padding:4px 15px;
+	margin:0 10px;
+	background-image: url(../images/WISE-Secondary-Banner-Gradient.png);
+	background-position: top;
+	text-decoration:none;
+  	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	cursor:pointer;
+}
+
+.generalButton:hover {
+ 	background-image:none;
+ 	background-color:#FFFF00;
+ 	cursor:pointer;
+}

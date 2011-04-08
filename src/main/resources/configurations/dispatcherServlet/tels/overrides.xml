@@ -230,6 +230,7 @@
 				/forgotaccount/student/password.html=forgotAccountStudentPasswordController
 	  			/forgotaccount/student/passwordreminder*.html=forgotAccountStudentPasswordReminderWizardController
 				/forgotaccount/student/enterprojectcode.html=forgotAccountStudentCheckProjectCodeController
+				/forgotaccount/student/searchforstudentusername.html=searchForStudentUserNameController
 				/**/changepassword.html=changeUserPasswordController
 				/teacher/management/viewmystudents.html=viewMyStudentsController
 				/teacher/management/batchstudentchangepassword.html=batchStudentChangePasswordController
