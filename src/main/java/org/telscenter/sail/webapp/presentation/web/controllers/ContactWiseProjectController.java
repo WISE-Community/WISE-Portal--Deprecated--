@@ -70,41 +70,50 @@ public class ContactWiseProjectController extends SimpleFormController {
 		String fromEmail = contactWISEProject.getEmail();
 		String[] cc = contactWISEProject.getMailCcs();
 
-		//get the run owner
+		//get the run id
 		Long runId = contactWISEProject.getRunId();
-		Run run = runService.retrieveById(runId);
-		Set<User> runOwners = run.getOwners();
 		
-		Iterator<User> runOwnersIterator = runOwners.iterator();
-		Vector<String> runOwnerEmailAddresses = new Vector<String>();
+		/*
+		 * if a student is submitting the contactwiseproject form, the runId will
+		 * be set. if a teacher is submitting the contactwiseproject form, the
+		 * runId will not be set. this is ok because the teacher is the run
+		 * owner and their email is already in the cc array
+		 */
+		if(runId != null) {
+			Run run = runService.retrieveById(runId);
+			Set<User> runOwners = run.getOwners();
+			
+			Iterator<User> runOwnersIterator = runOwners.iterator();
+			Vector<String> runOwnerEmailAddresses = new Vector<String>();
 
-		//loop through the run owners
-		while(runOwnersIterator.hasNext()) {
-			User runOwner = runOwnersIterator.next();
-			net.sf.sail.webapp.domain.authentication.MutableUserDetails userDetails = runOwner.getUserDetails();
-			
-			//get the run owner email address
-			String emailAddress = userDetails.getEmailAddress();
-			
-			if(emailAddress != null) {
-				runOwnerEmailAddresses.add(emailAddress);				
-			}
-		}
-		
-		if(!runOwnerEmailAddresses.isEmpty()) {
-			//we have run owner email addresses
-			
-			for(int x=0; x<cc.length; x++) {
-				//add the cc emails to the run owner emails to merge them
-				runOwnerEmailAddresses.add(cc[x]);			
+			//loop through the run owners
+			while(runOwnersIterator.hasNext()) {
+				User runOwner = runOwnersIterator.next();
+				net.sf.sail.webapp.domain.authentication.MutableUserDetails userDetails = runOwner.getUserDetails();
+				
+				//get the run owner email address
+				String emailAddress = userDetails.getEmailAddress();
+				
+				if(emailAddress != null) {
+					runOwnerEmailAddresses.add(emailAddress);				
+				}
 			}
 			
-			//create a new String array the same size as the runOwnerEmailAddresses
-			cc = new String[runOwnerEmailAddresses.size()];
-			
-			//put all the email addresses back into the cc array
-			for(int x=0; x<runOwnerEmailAddresses.size(); x++) {
-				cc[x] = runOwnerEmailAddresses.get(x);			
+			if(!runOwnerEmailAddresses.isEmpty()) {
+				//we have run owner email addresses
+				
+				for(int x=0; x<cc.length; x++) {
+					//add the cc emails to the run owner emails to merge them
+					runOwnerEmailAddresses.add(cc[x]);			
+				}
+				
+				//create a new String array the same size as the runOwnerEmailAddresses
+				cc = new String[runOwnerEmailAddresses.size()];
+				
+				//put all the email addresses back into the cc array
+				for(int x=0; x<runOwnerEmailAddresses.size(); x++) {
+					cc[x] = runOwnerEmailAddresses.get(x);			
+				}			
 			}			
 		}
 		
