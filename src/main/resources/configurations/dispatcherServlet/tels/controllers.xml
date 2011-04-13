@@ -557,7 +557,8 @@
     	<property name="successView" value="contactwiseconfirm" />
     	<property name="javaMail" ref="javaMail"/>
     	<property name="uiHTMLProperties" ref="uihtmlproperties"/>
-    	<property name="projectService" ref="projectService" />    	
+    	<property name="projectService" ref="projectService" />
+    	<property name="runService" ref="runService" />    	
 	</bean>	
 	
 	<bean id="contactWISEValidator"

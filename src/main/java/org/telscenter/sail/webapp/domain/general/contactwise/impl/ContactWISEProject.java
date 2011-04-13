@@ -47,7 +47,8 @@ public class ContactWISEProject extends ContactWISEGeneral {
 	
 	private Long projectId;
 	
-
+	private Long runId;
+	
 	public String getMailSubject() {
 		String subject = "[Contact WISE Project] " + issuetype + ": " + summary;
 		
@@ -95,5 +96,19 @@ public class ContactWISEProject extends ContactWISEGeneral {
 	 */
 	public void setProjectId(Long projectId) {
 		this.projectId = projectId;
+	}
+	
+	/**
+	 * @return the run id
+	 */
+	public Long getRunId() {
+		return runId;
+	}
+
+	/**
+	 * @param runId the run id
+	 */
+	public void setRunId(Long runId) {
+		this.runId = runId;
 	}
 }

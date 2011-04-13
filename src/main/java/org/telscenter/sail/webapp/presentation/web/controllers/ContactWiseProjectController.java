@@ -4,8 +4,11 @@
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,15 +20,15 @@ import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
-import org.telscenter.sail.webapp.domain.general.contactwise.ContactWISE;
 import org.telscenter.sail.webapp.domain.general.contactwise.IssueType;
 import org.telscenter.sail.webapp.domain.general.contactwise.OperatingSystem;
 import org.telscenter.sail.webapp.domain.general.contactwise.WebBrowser;
-import org.telscenter.sail.webapp.domain.general.contactwise.impl.ContactWISEGeneral;
 import org.telscenter.sail.webapp.domain.general.contactwise.impl.ContactWISEProject;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -39,6 +42,8 @@ public class ContactWiseProjectController extends SimpleFormController {
 	protected Properties uiHTMLProperties = null;
 	
 	private ProjectService projectService;
+	
+	private RunService runService;
 
 	/* change this to true if you are testing and do not want to send mail to
 	   the actual groups */
@@ -64,6 +69,44 @@ public class ContactWiseProjectController extends SimpleFormController {
 		String message = contactWISEProject.getMailMessage();
 		String fromEmail = contactWISEProject.getEmail();
 		String[] cc = contactWISEProject.getMailCcs();
+
+		//get the run owner
+		Long runId = contactWISEProject.getRunId();
+		Run run = runService.retrieveById(runId);
+		Set<User> runOwners = run.getOwners();
+		
+		Iterator<User> runOwnersIterator = runOwners.iterator();
+		Vector<String> runOwnerEmailAddresses = new Vector<String>();
+
+		//loop through the run owners
+		while(runOwnersIterator.hasNext()) {
+			User runOwner = runOwnersIterator.next();
+			net.sf.sail.webapp.domain.authentication.MutableUserDetails userDetails = runOwner.getUserDetails();
+			
+			//get the run owner email address
+			String emailAddress = userDetails.getEmailAddress();
+			
+			if(emailAddress != null) {
+				runOwnerEmailAddresses.add(emailAddress);				
+			}
+		}
+		
+		if(!runOwnerEmailAddresses.isEmpty()) {
+			//we have run owner email addresses
+			
+			for(int x=0; x<cc.length; x++) {
+				//add the cc emails to the run owner emails to merge them
+				runOwnerEmailAddresses.add(cc[x]);			
+			}
+			
+			//create a new String array the same size as the runOwnerEmailAddresses
+			cc = new String[runOwnerEmailAddresses.size()];
+			
+			//put all the email addresses back into the cc array
+			for(int x=0; x<runOwnerEmailAddresses.size(); x++) {
+				cc[x] = runOwnerEmailAddresses.get(x);			
+			}			
+		}
 		
 		if(DEBUG) {
 			cc = new String[1];
@@ -121,6 +164,13 @@ public class ContactWiseProjectController extends SimpleFormController {
 				contactWISEProject.setProjectId(Long.parseLong(
 						request.getParameter("projectId")));
 			}
+		}
+		
+		String runId = request.getParameter("runId");
+		
+		if(runId != null) {
+			//set the run id into the object so we can access it later
+			contactWISEProject.setRunId(new Long(runId));
 		}
 		
 		contactWISEProject.setIssuetype(IssueType.PROJECT_PROBLEMS);
@@ -183,5 +233,18 @@ public class ContactWiseProjectController extends SimpleFormController {
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
 	}
+
+	/**
+	 * @return the run service
+	 */
+	public RunService getRunService() {
+		return runService;
+	}
 	
+	/**
+	 * @param runService the run service to set
+	 */
+	public void setRunService(RunService runService) {
+		this.runService = runService;
+	}	
 }

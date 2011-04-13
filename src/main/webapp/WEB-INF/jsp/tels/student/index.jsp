@@ -438,7 +438,7 @@ YAHOO.util.Event.onDOMReady(init);
 											<li style="display:none;"><a style="letter-spacing:0px;" href="javascript:popup('changeperiodteam.html');"><spring:message code="student.index.19"/></a></li>
 											-->
 											<li><a href="viewannouncements.html?runId=${studentRunInfo.run.id}">View Announcements</a></li>
-											<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}"><spring:message code="student.index.20"/></a></li>
+											<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}&runId=${studentRunInfo.run.id}"><spring:message code="student.index.20"/></a></li>
 									 	</ul>
 							 	</td>
 							</tr>
