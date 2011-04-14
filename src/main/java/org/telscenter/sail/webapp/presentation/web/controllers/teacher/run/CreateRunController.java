@@ -64,8 +64,6 @@ import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
-import org.telscenter.sail.webapp.presentation.util.json.JSONException;
-import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
@@ -519,6 +517,7 @@ public class CreateRunController extends AbstractWizardFormController {
 			}
 			
 			projectID = runParameters.getProject().getId();
+			Long runID = run.getId();
 			
 			String[] recipients = {emaillisteners.getProperty("project_setup")};
 			
@@ -526,21 +525,20 @@ public class CreateRunController extends AbstractWizardFormController {
 			    + " (" + portalProperties.getProperty("portal.name") + ")";		
 			String message = uiHTMLProperties.getProperty("setuprun.confirmation.email.message") + "\n\n" +
 				
-			    "Portal name: " + portalProperties.getProperty("portal.name") + "\n" +
-				"Teacher Name: " + teacherName + "\n" +
-				"Teacher Username: " + teacherUserDetails.getUsername() + "\n" +
-				"Teacher Email: " + teacherEmail + "\n" +
-				"School Name: " + schoolName + "\n" +
-				"School Location: " + schoolCity + ", " + schoolState + "\n" + 
-				"School Periods: " + schoolPeriods + "\n" +
-				"Project codes: " + projectcodes.toString() + "\n" +
-				"Project Name: " + run.getProject().getProjectInfo().getName() + "\n" + 
-				"Project ID: "+ projectID + "\n" +
-				"Run Created: " + sdf.format(date) + "\n" + 
+				uiHTMLProperties.getProperty("setuprun.confirmation.email.portal_name") + ": " + portalProperties.getProperty("portal.name") + "\n" +
+			    uiHTMLProperties.getProperty("setuprun.confirmation.email.teacher_name") +": " + teacherName + "\n" +
+				uiHTMLProperties.getProperty("setuprun.confirmation.email.teacher_username") +": " + teacherUserDetails.getUsername() + "\n" +
+				uiHTMLProperties.getProperty("setuprun.confirmation.email.teacher_email") + ": " + teacherEmail + "\n" +
+				uiHTMLProperties.getProperty("setuprun.confirmation.email.school_name") +": " + schoolName + "\n" +
+				uiHTMLProperties.getProperty("setuprun.confirmation.email.school_location") + ": " + schoolCity + ", " + schoolState + "\n" + 
+				uiHTMLProperties.getProperty("setuprun.confirmation.email.school_periods") + ": " + schoolPeriods + "\n" +
+				uiHTMLProperties.getProperty("setuprun.confirmation.email.project_codes") + ": " + projectcodes.toString() + "\n" +
+				uiHTMLProperties.getProperty("setuprun.confirmation.email.project_name") + ": " + run.getProject().getProjectInfo().getName() + "\n" + 
+				uiHTMLProperties.getProperty("setuprun.confirmation.email.project_id") + ": "+ projectID + "\n" +
+				uiHTMLProperties.getProperty("setuprun.confirmation.email.run_id") + ": " + runID + "\n" +
+				uiHTMLProperties.getProperty("setuprun.confirmation.email.run_created") +  ": " + sdf.format(date) + "\n" + 
 
-				"\n\nThis does not guarantee that the project is actually going to " +
-				"be run in the classroom, only that the teacher has gone " + 
-				"through all the setup steps."; 
+				"\n\n" + uiHTMLProperties.getProperty("setuprun.confirmation.email.end_blurb");
 			
 			String fromEmail = teacherEmail;
 			
