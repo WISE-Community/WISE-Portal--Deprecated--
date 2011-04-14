@@ -5,6 +5,7 @@
 
 var BrowserDetect = {
 	init: function () {
+		this.language = (navigator.language) ? navigator.language : navigator.userLanguage;
 		this.browser = this.searchString(this.dataBrowser) || "An unknown browser";
 		this.version = this.searchVersion(navigator.userAgent)
 			|| this.searchVersion(navigator.appVersion)
