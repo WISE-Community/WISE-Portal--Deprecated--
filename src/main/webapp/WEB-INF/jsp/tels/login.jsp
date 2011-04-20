@@ -1,5 +1,8 @@
 
 <%@ include file="include.jsp"%>
+<%@ page import="net.tanesha.recaptcha.ReCaptcha" %>
+<%@ page import="net.tanesha.recaptcha.ReCaptchaFactory" %>
+
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -69,6 +72,23 @@
 				<label for="password"><spring:message code="login.failed12"/><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30" /></label>
 				</div>
 			</div>
+			<c:if test="${requireCaptcha && reCaptchaPublicKey != null && reCaptchaPrivateKey != null}">
+				<%
+					//get the captcha public and private key so we can make the captcha
+					String reCaptchaPublicKey = (String) request.getAttribute("reCaptchaPublicKey");
+					String reCaptchaPrivateKey = (String) request.getAttribute("reCaptchaPrivateKey");
+					
+					//create the captcha factory
+					ReCaptcha c = ReCaptchaFactory.newReCaptcha(reCaptchaPublicKey, reCaptchaPrivateKey, false);
+					
+					//make the html that will display the captcha
+					String reCaptchaHtml = c.createRecaptchaHtml(null, null);
+					
+					//output the captcha html to the page
+					out.print(reCaptchaHtml);
+				%>
+			</c:if>
+        
 			<input type='hidden' value='${redirect}' name='redirect'/>
 			
 			<div class="alignRight">

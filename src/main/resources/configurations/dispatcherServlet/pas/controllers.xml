@@ -56,6 +56,7 @@
 
 	<bean
 		class="net.sf.sail.webapp.presentation.web.controllers.LoginController">
+		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 
 	<bean

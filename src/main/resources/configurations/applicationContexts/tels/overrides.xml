@@ -91,6 +91,7 @@
         <property name="filterProcessesUrl" value="/j_acegi_security_check" />
         <property name="userDetailsService" ref="userDetailsService" />
 	    <property name="portalService" ref="portalService" />
+	    <property name="portalProperties" ref="portalproperties" />
     </bean>
 
     <bean id="filterInvocationInterceptor"

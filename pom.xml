@@ -239,7 +239,11 @@
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
-		</repository>		
+		</repository>	
+		<repository>
+        	<id>net.tanesha.recaptcha4j</id>
+        	<url>http://repo1.maven.org/maven2/</url>
+        </repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
@@ -587,6 +591,11 @@
             <artifactId>quartz</artifactId>
             <version>1.5.1</version>
         </dependency>    
+		<dependency>
+		    <groupId>net.tanesha.recaptcha4j</groupId>
+		    <artifactId>recaptcha4j</artifactId>
+		    <version>0.0.7</version>
+		</dependency>
 	</dependencies>
 	<reporting>
 		<plugins>

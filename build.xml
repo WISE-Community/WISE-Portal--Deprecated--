@@ -175,6 +175,10 @@
   <path id="lib.dwr">
 	    <path location="${M2_REPO}/org/directwebremoting/dwr/2.0.1/dwr-2.0.1.jar" />
   </path>
+	
+  <path id="lib.recaptcha">
+	    <path location="${M2_REPO}/net/tanesha/recaptcha4j/recaptcha4j/0.0.7/recaptcha4j-0.0.7.jar" />
+  </path>
     <path id="classes">
         <path location="${dir.build.classes}" />
     </path>
@@ -200,6 +204,7 @@
         <path refid="lib.sail" />
     	<path refid="lib.aspect" />
     	<path refid="lib.dwr" />
+    	<path refid="lib.recaptcha" />
         <path refid="classes" />
     </path>
 

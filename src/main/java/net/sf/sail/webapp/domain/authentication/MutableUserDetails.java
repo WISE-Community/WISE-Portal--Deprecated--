@@ -17,6 +17,8 @@
  */
 package net.sf.sail.webapp.domain.authentication;
 
+import java.util.Date;
+
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.userdetails.UserDetails;
 
@@ -106,4 +108,32 @@ public interface MutableUserDetails extends UserDetails, Persistable {
 	 */
 	public void setEnabled(boolean enabled);
 
+	/**
+	 * Get the recent failed login timestamp
+	 * @return
+	 */
+	public Date getRecentFailedLoginTime();
+	
+	/**
+	 * Set the recent failed login timestamp
+	 * @param recentFailedLoginTime
+	 */
+	public void setRecentFailedLoginTime(Date recentFailedLoginTime);
+	
+	/**
+	 * Get the number of recent failed login attempts
+	 * @return
+	 */
+	public Integer getNumberOfRecentFailedLoginAttempts();
+	
+	/**
+	 * Set the number of recent failed login attempts
+	 * @param numberOfFailedLoginAttempts
+	 */
+	public void setNumberOfRecentFailedLoginAttempts(Integer numberOfFailedLoginAttempts);
+	
+	/**
+	 * Increase the number of recent failed login attempts by 1
+	 */
+	public void incrementNumberOfRecentFailedLoginAttempts();
 }

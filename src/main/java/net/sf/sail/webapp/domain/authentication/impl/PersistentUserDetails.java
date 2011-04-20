@@ -18,6 +18,7 @@
 package net.sf.sail.webapp.domain.authentication.impl;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -77,6 +78,13 @@ public class PersistentUserDetails implements MutableUserDetails {
     public static final String COLUMN_NAME_EMAIL_ADDRESS = "email_address";
 
     @Transient
+    public static final String COLUMN_NAME_RECENT_FAILED_LOGIN = "recent_failed_login_time";
+
+    @Transient
+    public static final String COLUMN_NAME_RECENT_NUMBER_FAILED_LOGINS = "recent_number_of_failed_login_attempts";
+
+    
+    @Transient
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -114,6 +122,12 @@ public class PersistentUserDetails implements MutableUserDetails {
 
     @Column(name = "enabled", nullable = false)
     private Boolean enabled = Boolean.TRUE;
+    
+    @Column(name = PersistentUserDetails.COLUMN_NAME_RECENT_FAILED_LOGIN, nullable = true)
+    private Date recentFailedLoginTime = null;
+    
+    @Column(name = PersistentUserDetails.COLUMN_NAME_RECENT_NUMBER_FAILED_LOGINS, nullable = true)
+    private Integer numberOfRecentFailedLoginAttempts = 0;
 
     public Long getId() {
         return id;
@@ -336,5 +350,44 @@ public class PersistentUserDetails implements MutableUserDetails {
 	 */
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	/**
+	 * Get the recent failed login timestamp
+	 * @return
+	 */
+	public Date getRecentFailedLoginTime() {
+		return this.recentFailedLoginTime;
+	}
+	
+	/**
+	 * Set the recent failed login timestamp
+	 * @param recentFailedLoginTime
+	 */
+	public void setRecentFailedLoginTime(Date recentFailedLoginTime) {
+		this.recentFailedLoginTime = recentFailedLoginTime;
+	}
+	
+	/**
+	 * Get the number of recent failed login attempts
+	 * @return
+	 */
+	public Integer getNumberOfRecentFailedLoginAttempts() {
+		return this.numberOfRecentFailedLoginAttempts;
+	}
+
+	/**
+	 * Set the number of recent failed login attempts
+	 * @param numberOfFailedLoginAttempts
+	 */
+	public void setNumberOfRecentFailedLoginAttempts(Integer numberOfRecentFailedLoginAttempts) {
+		this.numberOfRecentFailedLoginAttempts = numberOfRecentFailedLoginAttempts;
+	}
+	
+	/**
+	 * Increase the number of recent failed login attempts by 1
+	 */
+	public void incrementNumberOfRecentFailedLoginAttempts() {
+		this.numberOfRecentFailedLoginAttempts++;
 	}
 }
