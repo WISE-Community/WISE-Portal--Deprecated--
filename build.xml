@@ -212,7 +212,7 @@
     <!-- ================================= 
           target: db.schema-export
          ================================= -->
-    <target name="db.schema-export" description="Generate the database schema from annotated persistent classes in the production code.">
+    <target name="db.schema-export" depends="_set.properties.jdbc" description="Generate the database schema from annotated persistent classes in the production code.">
         <property name="portal.config" value="tels"/>
 <!--
 	<antcall target="_mvn.recompile"/>
@@ -223,6 +223,7 @@
             <arg value="${dir.src.main.resources}/tels/wise4-createtables.sql" />
             <classpath refid="runtime.classpath" />
         </java>
+        <replace file="${dir.src.main.resources}/tels/wise4-createtables.sql" token="type=MyISAM" value="engine=MyISAM"/>
     </target>
     	
     <target name="db.schema-export-old" description="Generate the database schema from annotated persistent classes in the production code.">

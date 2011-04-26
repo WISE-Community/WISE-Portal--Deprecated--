@@ -4,7 +4,7 @@
         class varchar(255) not null unique,
         OPTLOCK integer,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table acl_entry (
         id bigint not null auto_increment,
@@ -18,7 +18,7 @@
         acl_object_identity bigint not null,
         primary key (id),
         unique (acl_object_identity, ace_order)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table acl_object_identity (
         id bigint not null auto_increment,
@@ -31,7 +31,7 @@
         parent_object bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table acl_sid (
         id bigint not null auto_increment,
@@ -40,7 +40,7 @@
         OPTLOCK integer,
         primary key (id),
         unique (sid, principal)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table annotationbundles (
         id bigint not null auto_increment,
@@ -48,7 +48,7 @@
         OPTLOCK integer,
         workgroup_fk bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table announcements (
         id bigint not null auto_increment,
@@ -56,7 +56,7 @@
         timestamp datetime not null,
         title varchar(255) not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table brainstormanswers (
         id bigint not null auto_increment,
@@ -64,34 +64,34 @@
         OPTLOCK integer,
         workgroups_fk bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table brainstormanswers_related_to_answertags (
         brainstormanswers_fk bigint not null,
         answer_tag_fk bigint not null,
         primary key (brainstormanswers_fk, answer_tag_fk),
         unique (answer_tag_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table brainstormanswers_related_to_brainstormcomments (
         brainstormanswers_fk bigint not null,
         brainstormcomments_fk bigint not null,
         primary key (brainstormanswers_fk, brainstormcomments_fk),
         unique (brainstormcomments_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table brainstormanswers_related_to_brainstormrevisions (
         brainstormanswers_fk bigint not null,
         brainstormrevisions_fk bigint not null,
         primary key (brainstormanswers_fk, brainstormrevisions_fk),
         unique (brainstormrevisions_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table brainstormanswers_related_to_workgroups (
         brainstormanswers_fk bigint not null,
         workgroups_fk bigint not null,
         primary key (brainstormanswers_fk, workgroups_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table brainstormanswertags (
         id bigint not null auto_increment,
@@ -100,7 +100,7 @@
         OPTLOCK integer,
         owner_workgroup_fk bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table brainstormcomments (
         id bigint not null auto_increment,
@@ -110,7 +110,7 @@
         OPTLOCK integer,
         workgroups_fk bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table brainstormpreparedanswers (
         id bigint not null auto_increment,
@@ -118,14 +118,14 @@
         displayname varchar(255),
         OPTLOCK integer,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table brainstormquestions (
         id bigint not null auto_increment,
         body text,
         OPTLOCK integer,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table brainstormrevisions (
         id bigint not null auto_increment,
@@ -134,7 +134,7 @@
         timestamp datetime not null,
         OPTLOCK integer,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table brainstorms (
         id bigint not null auto_increment,
@@ -152,27 +152,27 @@
         brainstormquestions_fk bigint,
         runs_fk bigint,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table brainstorms_related_to_brainstormanswers (
         brainstorms_fk bigint not null,
         brainstormanswers_fk bigint not null,
         primary key (brainstorms_fk, brainstormanswers_fk),
         unique (brainstormanswers_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table brainstorms_related_to_brainstormpreparedanswers (
         brainstorms_fk bigint not null,
         brainstormpreparedanswers_fk bigint not null,
         primary key (brainstorms_fk, brainstormpreparedanswers_fk),
         unique (brainstormpreparedanswers_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table brainstorms_related_to_workgroups (
         brainstorms_fk bigint not null,
         workgroups_fk bigint not null,
         primary key (brainstorms_fk, workgroups_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table curnits (
         id bigint not null auto_increment,
@@ -180,28 +180,28 @@
         OPTLOCK integer,
         sds_curnit_fk bigint unique,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table diyprojectcommunicators (
         diyportalhostname varchar(255),
         previewdiyprojectsuffix varchar(255),
         id bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table externalprojects (
         external_id bigint,
         id bigint not null,
         projectcommunicator_fk bigint,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table granted_authorities (
         id bigint not null auto_increment,
         authority varchar(255) not null unique,
         OPTLOCK integer,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table groups (
         id bigint not null auto_increment,
@@ -209,32 +209,32 @@
         OPTLOCK integer,
         parent_fk bigint,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table groups_related_to_users (
         group_fk bigint not null,
         user_fk bigint not null,
         primary key (group_fk, user_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table jaxbquestions (
         id bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table jnlps (
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_jnlp_fk bigint unique,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table message_recipient (
         id bigint not null auto_increment,
         isRead bit,
         recipient_fk bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table messages (
         id bigint not null auto_increment,
@@ -244,14 +244,14 @@
         originalMessage bigint,
         sender bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table messages_related_to_message_recipients (
         messages_fk bigint not null,
         recipients_fk bigint not null,
         primary key (messages_fk, recipients_fk),
         unique (recipients_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table modules (
         authors varchar(255),
@@ -263,13 +263,13 @@
         total_time bigint,
         id bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table modules_related_to_owners (
         module_fk bigint not null,
         owners_fk bigint not null,
         primary key (module_fk, owners_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table newsitem (
         id bigint not null auto_increment,
@@ -278,21 +278,21 @@
         title varchar(255) not null,
         owner bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table offerings (
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_offering_fk bigint unique,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table otmlmodules (
         otml longblob,
         retrieveotmlurl varchar(255),
         id bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table portal (
         id bigint not null auto_increment,
@@ -302,9 +302,10 @@
         sendmail_on_exception bit,
         portalname varchar(255),
         sendmail_properties tinyblob,
+        settings text,
         OPTLOCK integer,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table premadecommentlists (
         id bigint not null auto_increment,
@@ -312,7 +313,7 @@
         label varchar(255) not null,
         owner bigint,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table premadecomments (
         id bigint not null auto_increment,
@@ -320,13 +321,13 @@
         listposition bigint,
         owner bigint,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table premadecomments_related_to_premadecommentlists (
         premadecommentslist_fk bigint not null,
         premadecomments_fk bigint not null,
         primary key (premadecommentslist_fk, premadecomments_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table project_metadata (
         id bigint not null auto_increment,
@@ -352,7 +353,7 @@
         total_time varchar(255),
         version_id varchar(255),
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table projectcommunicators (
         id bigint not null auto_increment,
@@ -362,7 +363,7 @@
         longitude varchar(255),
         OPTLOCK integer,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table projects (
         id bigint not null auto_increment,
@@ -379,31 +380,31 @@
         metadata_fk bigint unique,
         run_fk bigint unique,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table projects_related_to_bookmarkers (
         projects_fk bigint not null,
         bookmarkers bigint not null,
         primary key (projects_fk, bookmarkers)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table projects_related_to_owners (
         projects_fk bigint not null,
         owners_fk bigint not null,
         primary key (projects_fk, owners_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table projects_related_to_shared_owners (
         projects_fk bigint not null,
         shared_owners_fk bigint not null,
         primary key (projects_fk, shared_owners_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table projects_related_to_tags (
         project_fk bigint not null,
         tag_fk bigint not null,
         primary key (project_fk, tag_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table runs (
         archive_reminder datetime not null,
@@ -422,33 +423,33 @@
         id bigint not null,
         project_fk bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table runs_related_to_announcements (
         runs_fk bigint not null,
         announcements_fk bigint not null,
         primary key (runs_fk, announcements_fk),
         unique (announcements_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table runs_related_to_groups (
         runs_fk bigint not null,
         groups_fk bigint not null,
         primary key (runs_fk, groups_fk),
         unique (groups_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table runs_related_to_owners (
         runs_fk bigint not null,
         owners_fk bigint not null,
         primary key (runs_fk, owners_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table runs_related_to_shared_owners (
         runs_fk bigint not null,
         shared_owners_fk bigint not null,
         primary key (runs_fk, shared_owners_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table sds_curnits (
         id bigint not null auto_increment,
@@ -457,7 +458,7 @@
         url varchar(255) not null,
         OPTLOCK integer,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table sds_jnlps (
         id bigint not null auto_increment,
@@ -466,7 +467,7 @@
         url varchar(255) not null,
         OPTLOCK integer,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table sds_offerings (
         id bigint not null auto_increment,
@@ -477,7 +478,7 @@
         sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table sds_users (
         id bigint not null auto_increment,
@@ -486,7 +487,7 @@
         user_id bigint not null unique,
         OPTLOCK integer,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table sds_workgroups (
         id bigint not null auto_increment,
@@ -496,13 +497,13 @@
         OPTLOCK integer,
         sds_offering_fk bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table sds_workgroups_related_to_sds_users (
         sds_workgroup_fk bigint not null,
         sds_user_fk bigint not null,
         primary key (sds_workgroup_fk, sds_user_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table student_user_details (
         accountanswer varchar(255) not null,
@@ -516,13 +517,13 @@
         signupdate datetime not null,
         id bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table tags (
         id bigint not null auto_increment,
         name varchar(255),
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table teacher_user_details (
         city varchar(255),
@@ -531,6 +532,7 @@
         displayname varchar(255),
         isEmailValid bit not null,
         firstname varchar(255) not null,
+        howDidYouHearAboutUs varchar(255),
         lastlogintime datetime,
         lastname varchar(255) not null,
         numberoflogins integer not null,
@@ -540,13 +542,13 @@
         state varchar(255),
         id bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table urlmodules (
         module_url varchar(255),
         id bigint not null,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table user_details (
         id bigint not null auto_increment,
@@ -555,17 +557,19 @@
         credentials_not_expired bit not null,
         email_address varchar(255),
         enabled bit not null,
+        recent_number_of_failed_login_attempts integer,
         password varchar(255) not null,
+        recent_failed_login_time datetime,
         username varchar(255) not null unique,
         OPTLOCK integer,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table user_details_related_to_roles (
         user_details_fk bigint not null,
         granted_authorities_fk bigint not null,
         primary key (user_details_fk, granted_authorities_fk)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table users (
         id bigint not null auto_increment,
@@ -573,7 +577,7 @@
         sds_user_fk bigint unique,
         user_details_fk bigint not null unique,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table wiseworkgroups (
         externalId bigint,
@@ -581,7 +585,7 @@
         id bigint not null,
         period bigint,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     create table workgroups (
         id bigint not null auto_increment,
@@ -590,7 +594,7 @@
         offering_fk bigint not null,
         sds_workgroup_fk bigint unique,
         primary key (id)
-    ) type=MyISAM;
+    ) engine=MyISAM;
 
     alter table acl_entry 
         add index FK5302D47DC9975936 (acl_object_identity), 
