@@ -52,16 +52,34 @@
         </property>
     </bean>
     
+    <bean name="hourlyAdminJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="org.telscenter.sail.webapp.domain.admin.HourlyAdminJob" />
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="runDao" value-ref="runDao" />
+                <entry key="userDao" value-ref="userDao" />
+                <entry key="portalStatisticsDao" value-ref="portalStatisticsDao" />              
+            </map>
+        </property>
+    </bean>
+    
     <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="adminJobDetail" />
         <!-- run every night at 11 PM -->
         <property name="cronExpression" value="0 0 23 * * ?" />
     </bean>
     
+    <bean id="hourlyCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="hourlyAdminJobDetail" />
+        <!-- run every night at 11 PM -->
+        <property name="cronExpression" value="0 0 * * * ?" />
+    </bean>
+    
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
                 <ref bean="cronTrigger" />
+                <ref bean="hourlyCronTrigger" />
             </list>
         </property>
     </bean>
@@ -342,6 +360,11 @@
 	
 	<bean id="portalDao"
 	    class="org.telscenter.sail.webapp.dao.portal.impl.HibernatePortalDao">
+	    <property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+    
+	<bean id="portalStatisticsDao"
+	    class="org.telscenter.sail.webapp.dao.portal.impl.HibernatePortalStatisticsDao">
 	    <property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 

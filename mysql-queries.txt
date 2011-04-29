@@ -95,3 +95,18 @@ ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `max_scores` TEXT DEFA
 ### 2011.04.07 BEGIN
 ALTER TABLE `sail_database`.`teacher_user_details` ADD COLUMN `howDidYouHearAboutUs` VARCHAR(255) DEFAULT NULL AFTER `isEmailValid`;
 ### 2011.04.07 END
+
+### 2011.04.29 BEGIN
+ALTER TABLE `sail_database`.`user_details` ADD COLUMN `recent_failed_login_time` DATETIME DEFAULT NULL AFTER `OPTLOCK`, ADD COLUMN `recent_number_of_failed_login_attempts` INT DEFAULT 0 AFTER `recent_failed_login_time`;
+CREATE TABLE  `sail_database`.`portal_statistics` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `timestamp` datetime DEFAULT NULL,
+  `totalNumberStudents` int(11) DEFAULT NULL,
+  `totalNumberStudentLogins` int(11) DEFAULT NULL,
+  `totalNumberTeachers` int(11) DEFAULT NULL,
+  `totalNumberTeacherLogins` int(11) DEFAULT NULL,
+  `totalNumberRuns` int(11) DEFAULT NULL,
+  `totalNumberProjectsRun` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+### 2011.04.29 END
