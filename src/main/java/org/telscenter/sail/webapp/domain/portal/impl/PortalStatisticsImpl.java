@@ -42,7 +42,10 @@ public class PortalStatisticsImpl implements PortalStatistics {
     @Column(name = "totalNumberTeacherLogins")
     private Long totalNumberTeacherLogins;
     
-    @Column(name = "totalNumberRuns")
+    @Column(name = "totalNumberProjects")
+    private Long totalNumberProjects;
+    
+	@Column(name = "totalNumberRuns")
     private Long totalNumberRuns;
     
     @Column(name = "totalNumberProjectsRun")
@@ -96,6 +99,14 @@ public class PortalStatisticsImpl implements PortalStatistics {
 		this.totalNumberTeacherLogins = totalNumberTeacherLogins;
 	}
 
+    public Long getTotalNumberProjects() {
+		return totalNumberProjects;
+	}
+
+	public void setTotalNumberProjects(Long totalNumberProjects) {
+		this.totalNumberProjects = totalNumberProjects;
+	}
+	
 	public Long getTotalNumberRuns() {
 		return totalNumberRuns;
 	}

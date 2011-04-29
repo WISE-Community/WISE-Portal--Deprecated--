@@ -26,6 +26,10 @@ public interface PortalStatistics extends Persistable {
 
 	public void setTotalNumberTeacherLogins(Long totalNumberTeacherLogins);
 
+    public Long getTotalNumberProjects();
+
+	public void setTotalNumberProjects(Long totalNumberProjects);
+	
 	public Long getTotalNumberRuns();
 
 	public void setTotalNumberRuns(Long totalNumberRuns);

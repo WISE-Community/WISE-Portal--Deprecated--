@@ -109,4 +109,6 @@ CREATE TABLE  `sail_database`.`portal_statistics` (
   `totalNumberProjectsRun` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+ALTER TABLE `sail_database`.`portal_statistics` ADD COLUMN `totalNumberProjects` INTEGER DEFAULT NULL AFTER `totalNumberTeacherLogins`;
 ### 2011.04.29 END

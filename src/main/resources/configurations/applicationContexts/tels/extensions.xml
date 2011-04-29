@@ -58,7 +58,8 @@
             <map>
                 <entry key="runDao" value-ref="runDao" />
                 <entry key="userDao" value-ref="userDao" />
-                <entry key="portalStatisticsDao" value-ref="portalStatisticsDao" />              
+                <entry key="projectDao" value-ref="projectDao" />
+                <entry key="portalStatisticsDao" value-ref="portalStatisticsDao" />
             </map>
         </property>
     </bean>

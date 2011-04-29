@@ -12,17 +12,21 @@ import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.dao.portal.PortalStatisticsDao;
+import org.telscenter.sail.webapp.dao.project.ProjectDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.domain.portal.PortalStatistics;
 import org.telscenter.sail.webapp.domain.portal.impl.PortalStatisticsImpl;
+import org.telscenter.sail.webapp.domain.project.Project;
 
 public class HourlyAdminJob extends QuartzJobBean {
 
 	private RunDao<Run> runDao;
 	
 	private UserDao<User> userDao;
+	
+	private ProjectDao<Project> projectDao;
 	
 	private PortalStatisticsDao<PortalStatistics> portalStatisticsDao;
 	
@@ -43,6 +47,8 @@ public class HourlyAdminJob extends QuartzJobBean {
 	 * query for the portal statistics and save a new row in the portalStatistics table
 	 */
 	private void gatherPortalStatistics() {
+		debugOutput("gatherPortalStatistics start");
+		
 		//get all the students
 		List<User> allStudents = userDao.retrieveByField(null, null, null, "studentUserDetails");
 		long totalNumberStudents = allStudents.size();
@@ -71,6 +77,11 @@ public class HourlyAdminJob extends QuartzJobBean {
 		}
 		debugOutput("Number of teacher logins: " + totalNumberTeacherLogins);
 		
+		//get the number of projects
+		List<Project> projectList = projectDao.getList();
+		long totalNumberProjects = projectList.size();
+		debugOutput("Number of projects: " + totalNumberProjects);
+		
 		//get the number of runs
 		List<Run> runList = runDao.getList();
 		long totalNumberRuns = runList.size();
@@ -95,11 +106,14 @@ public class HourlyAdminJob extends QuartzJobBean {
 		newPortalStatistics.setTotalNumberStudentLogins(totalNumberStudentLogins);
 		newPortalStatistics.setTotalNumberTeachers(totalNumberTeachers);
 		newPortalStatistics.setTotalNumberTeacherLogins(totalNumberTeacherLogins);
+		newPortalStatistics.setTotalNumberProjects(totalNumberProjects);
 		newPortalStatistics.setTotalNumberRuns(totalNumberRuns);
 		newPortalStatistics.setTotalNumberProjectsRun(totalNumberProjectsRun);
 		
 		//save the new portal statistics
 		portalStatisticsDao.save(newPortalStatistics);
+		
+		debugOutput("gatherPortalStatistics end");
 	}
 	
 	/**
@@ -124,6 +138,14 @@ public class HourlyAdminJob extends QuartzJobBean {
 	 */
 	public void setUserDao(UserDao<User> userDao) {
 		this.userDao = userDao;
+	}
+	
+	/**
+	 * 
+	 * @param projectDao the projectDao to set
+	 */
+	public void setProjectDao(ProjectDao<Project> projectDao) {
+		this.projectDao = projectDao;
 	}
 	
 	/**
