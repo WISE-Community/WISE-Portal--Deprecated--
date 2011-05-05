@@ -10,9 +10,11 @@
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/apache/jackrabbit/jackrabbit-jcr-rmi/1.5.0/jackrabbit-jcr-rmi-1.5.0.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
+    <!-- 
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/hibernate/hibernate-core/3.3.0.SP1/hibernate-core-3.3.0.SP1.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
+     -->
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
@@ -238,6 +240,11 @@
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/apache/jackrabbit/jackrabbit-ocm-nodemanagement/1.4/jackrabbit-ocm-nodemanagement-1.4.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
+    <!--  
+    <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/hibernate/hibernate-core/3.6.0.Final/hibernate-core-3.6.0.Final.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>    
+    -->
     <dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/hibernate/hibernate/3.2.6.ga/hibernate-3.2.6.ga.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>

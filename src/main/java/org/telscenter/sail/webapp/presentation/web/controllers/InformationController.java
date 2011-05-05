@@ -550,6 +550,7 @@ public class InformationController extends AbstractController{
 			config.put("getContentBaseUrl", getContentBaseUrl);
 			config.put("getStudentUploadsBaseUrl", studentUploadsBaseWWW);
 			config.put("theme", "WISE");
+			config.put("locale", request.getLocale());
 			config.put("enableAudio", false);
 			config.put("runInfoRequestInterval", GET_RUNINFO_REQUEST_INTERVAL);
 			config.put("sessionTimeoutInterval", request.getSession().getMaxInactiveInterval() * 1000);			// add sessiontimeout interval, in milleseconds

@@ -240,6 +240,11 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>	
+        <repository>
+          <id>JBoss</id>
+          <name>JBoss repository</name>
+          <url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
+        </repository>		
 		<repository>
         	<id>net.tanesha.recaptcha4j</id>
         	<url>http://repo1.maven.org/maven2/</url>
@@ -383,6 +388,13 @@
            <artifactId>hibernate-commons-annotations</artifactId>
            <version>3.1.0.GA</version>
        </dependency>
+       <!--
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>3.6.0.Final</version>
+		</dependency>
+		-->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate</artifactId>
