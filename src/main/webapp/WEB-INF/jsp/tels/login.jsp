@@ -84,6 +84,9 @@
 					//make the html that will display the captcha
 					String reCaptchaHtml = c.createRecaptchaHtml(null, null);
 					
+					//output the instructions for the captcha
+					out.print("<p>Enter the correct password above and then type the characters in the image below.</p>");
+					
 					//output the captcha html to the page
 					out.print(reCaptchaHtml);
 				%>
