@@ -51,6 +51,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.security.Authentication;
 import org.springframework.security.AuthenticationException;
 import org.springframework.security.GrantedAuthority;
+import org.springframework.security.ui.AbstractProcessingFilter;
+import org.springframework.security.ui.savedrequest.SavedRequest;
 import org.springframework.security.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -162,6 +164,19 @@ public class TelsAuthenticationProcessingFilter extends
 		ApplicationContext springContext = WebApplicationContextUtils.getWebApplicationContext(session.getServletContext());
 		UserService userService = (UserService) springContext.getBean("userService");
 		
+		//get the saved request, if any
+		SavedRequest savedRequest = (SavedRequest) session.getAttribute(AbstractProcessingFilter.SPRING_SECURITY_SAVED_REQUEST_KEY);
+		
+		if(savedRequest != null) {
+			//get whether the saved request was a POST or GET
+			String method = savedRequest.getMethod();
+			
+			if(method != null && method.equals("POST")) {
+				//request was a POST so we can ignore it by setting the saved request value to null
+				session.setAttribute(AbstractProcessingFilter.SPRING_SECURITY_SAVED_REQUEST_KEY, null);
+			}
+		}
+
    		//get the user
 		User user = userService.retrieveUser(userDetails);
 		session.setAttribute(User.CURRENT_USER_SESSION_KEY, user);
