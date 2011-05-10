@@ -61,6 +61,7 @@
 	<bean id="teamSignInFormValidator" 
 	    class="org.telscenter.sail.webapp.presentation.validators.student.TeamSignInFormValidator" >
 	    <property name="userService" ref="userService" />
+	    <property name="systemSaltSource" ref="systemSaltSource" />
 	</bean>
 
 	<bean id="lostTeacherValidator"
