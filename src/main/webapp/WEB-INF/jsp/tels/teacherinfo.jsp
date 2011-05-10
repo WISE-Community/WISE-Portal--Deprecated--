@@ -45,6 +45,10 @@
 		<td><c:out value="${userInfoMap['Display Name']}"/></td>
 	</tr>
 	<tr>
+		<th>Email Address</th>
+		<td><c:out value="${userInfoMap['Email']}"/></td>
+	</tr>
+	<tr>
 		<th>Signup Date</th>
 		<td><fmt:formatDate value="${userInfoMap['Sign Up Date']}" type="both" dateStyle="short" timeStyle="short"/></td>
 	</tr>

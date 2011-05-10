@@ -312,6 +312,7 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 		infoMap.put("Last Login", this.getLastLoginTime());
 		infoMap.put("Display Name", this.getDisplayname());
 		infoMap.put("Username", this.getUsername());
+		infoMap.put("Email", this.getEmailAddress());
 		return infoMap;
 	}
 	
