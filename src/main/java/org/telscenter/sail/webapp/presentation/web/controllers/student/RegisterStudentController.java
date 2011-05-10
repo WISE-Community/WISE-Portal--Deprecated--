@@ -27,6 +27,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -91,6 +93,27 @@ public class RegisterStudentController extends SignupController {
 	
 			if (accountForm.isNewAccount()) {
 				try {
+					//get the first name and last name
+					String firstName = userDetails.getFirstname();
+					String lastName = userDetails.getLastname();
+
+					//check if first name and last name only contain letters
+					Pattern pattern = Pattern.compile("[a-zA-Z]*");
+					Matcher firstNameMatcher = pattern.matcher(firstName);
+					Matcher lastNameMatcher = pattern.matcher(lastName);
+					
+					if(!firstNameMatcher.matches()) {
+						//first name contains non letter characters
+			    		errors.rejectValue("userDetails.firstname", "error.firstname-illegal-characters");
+			    		return showForm(request, response, errors);
+					}
+					
+					if(!lastNameMatcher.matches()) {
+						//last name contains non letter characters
+						errors.rejectValue("userDetails.lastname", "error.lastname-illegal-characters");
+			    		return showForm(request, response, errors);						
+					}
+					
 					User user = userService.createUser(userDetails);
 					Projectcode projectcode = new Projectcode(accountForm.getProjectCode());
 					studentService.addStudentToRun(user, projectcode);

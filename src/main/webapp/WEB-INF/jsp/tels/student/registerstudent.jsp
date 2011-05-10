@@ -184,7 +184,16 @@ function checkForExistingAccounts() {
 function createAccount() {
 	var runcode = document.getElementById("runCode_part1").value;
 	var period = document.getElementById("runCode_part2").value;
-	if (runcode == null || runcode == "") {
+	var firstname = document.getElementById("firstname").value;
+	var lastname = document.getElementById("lastname").value;
+	
+	if(!/^[a-zA-Z]*$/.test(firstname)) {
+		//first name contains characters that are not letters
+		alert('First Name can only contain letters');
+	} else if(!/^[a-zA-Z]*$/.test(lastname)) {
+		//last name contains characters that are not letters
+		alert('Last Name can only contain letters');
+	} else if (runcode == null || runcode == "") {
 		alert('Please enter project code');		
 			var periodSelect = document.getElementById("runCode_part2");
 			periodSelect.innerHTML = "";
