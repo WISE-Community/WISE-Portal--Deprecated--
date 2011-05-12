@@ -174,6 +174,11 @@ public class TelsAuthenticationProcessingFilter extends
 			if(method != null && method.equals("POST")) {
 				//request was a POST so we can ignore it by setting the saved request value to null
 				session.setAttribute(AbstractProcessingFilter.SPRING_SECURITY_SAVED_REQUEST_KEY, null);
+			} else if (method != null && method.equals("GET")) {
+				// if a teacher logs in and is going to student home page, redirect them to teacher home page
+				 if (userDetails instanceof TeacherUserDetails && savedRequest.getRequestURL().contains(STUDENT_DEFAULT_TARGET_PATH)) {
+					 session.setAttribute(AbstractProcessingFilter.SPRING_SECURITY_SAVED_REQUEST_KEY, null);					 
+				 }
 			}
 		}
 

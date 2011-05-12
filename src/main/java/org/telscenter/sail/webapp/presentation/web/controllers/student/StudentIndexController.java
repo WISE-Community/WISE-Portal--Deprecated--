@@ -132,7 +132,7 @@ public class StudentIndexController extends AbstractController {
 			}
 			
 			// check if there are new announcement for this run
-			if (user.getUserDetails() != null) {
+			if (user.getUserDetails() != null && user.getUserDetails() instanceof StudentUserDetails) {
 				Date lastLoginTime = ((StudentUserDetails) user.getUserDetails()).getLastLoginTime();
 				if (request.getParameter("pLT") != null) {
 					Calendar cal = Calendar.getInstance();
