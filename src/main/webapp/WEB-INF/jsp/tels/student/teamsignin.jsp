@@ -98,6 +98,14 @@
     }
 
     YAHOO.util.Event.on("runproject", "click", init);
+
+    /**
+     * Called when the student clicks on the "absent today" link
+     */
+    function teammateAbsent(teammateAbsentIndex) {
+        //clear the username from the form
+		document.getElementById("username" + teammateAbsentIndex).value = "";
+    }
 </script>
 
 <c:if test="${closeokay}">
@@ -136,7 +144,7 @@
 		        	<td class="errorMsgStyle"><form:errors path="password${teammate_index}" /></td>
 		        </tr>
 		        <tr class="multiUserAbsentRow">
-		        	<td><a href="#"><spring:message code="student.teamsignin.7"/></a></td>
+		        	<td><a href="#" onclick="teammateAbsent(${teammate_index})"><spring:message code="student.teamsignin.7"/></a></td>
 		        	<td></td>
 		        	<td></td>
 		        </tr>
