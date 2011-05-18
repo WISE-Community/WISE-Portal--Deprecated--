@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -164,15 +165,62 @@ public class TeamSignInController extends SimpleFormController {
 	
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
+		//get the signed in username
 		User user = ControllerUtil.getSignedInUser();
-
+		String signedInUsername = user.getUserDetails().getUsername();
+		
+		//get the form
 		TeamSignInForm form = new TeamSignInForm();
-		form.setUsername1(user.getUserDetails().getUsername());
+		Long runId = null;
+		
+		//set the signed in username
+		form.setUsername1(signedInUsername);
+		
 		try {
-			form.setRunId(Long.valueOf(request.getParameter("runId")));
+			//get the run id
+			String runIdString = request.getParameter("runId");
+			runId = Long.valueOf(runIdString);
 		} catch (NumberFormatException e) {
 			// do nothing.
 		}
+		
+		if(runId != null) {
+			//set the run id
+			form.setRunId(runId);
+			
+			//get the run
+			Run run = (Run) runService.getOffering(runId);
+			
+			//get the members in the workgroup
+			StudentRunInfo studentRunInfo = studentService.getStudentRunInfo(user, run);
+			Workgroup workgroup = studentRunInfo.getWorkgroup();
+			Set<User> members = workgroup.getMembers();
+
+			//counter for how many members we have so far
+			int currentNumMembers = 1;
+			
+			//loop through all the members
+			Iterator<User> membersIterator = members.iterator();
+			while(membersIterator.hasNext()) {
+				//get a member and their username
+				User member = membersIterator.next();
+				String username = member.getUserDetails().getUsername();
+				
+				//check that the username is not the one that is already signed in
+				if(username != null && !username.equals(signedInUsername)) {
+					if(currentNumMembers == 1) {
+						//set the username2
+						form.setUsername2(username);
+						currentNumMembers++;
+					} else if(currentNumMembers == 2) {
+						//set the username3
+						form.setUsername3(username);
+						currentNumMembers++;
+					}				
+				}
+			}			
+		}
+		
 		return form;
 	}
 	
