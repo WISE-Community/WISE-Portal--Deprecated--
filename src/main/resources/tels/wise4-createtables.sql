@@ -307,6 +307,19 @@
         primary key (id)
     ) engine=MyISAM;
 
+    create table portal_statistics (
+        id bigint not null auto_increment,
+        timestamp datetime,
+        totalNumberProjects bigint,
+        totalNumberProjectsRun bigint,
+        totalNumberRuns bigint,
+        totalNumberStudentLogins bigint,
+        totalNumberStudents bigint,
+        totalNumberTeacherLogins bigint,
+        totalNumberTeachers bigint,
+        primary key (id)
+    ) engine=MyISAM;
+
     create table premadecommentlists (
         id bigint not null auto_increment,
         global bit,

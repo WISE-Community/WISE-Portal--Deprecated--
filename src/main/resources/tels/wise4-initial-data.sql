@@ -563,7 +563,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `teacher_user_details` WRITE;
 /*!40000 ALTER TABLE `teacher_user_details` DISABLE KEYS */;
-INSERT INTO `teacher_user_details` VALUES ('Berkeley','USA','¬í\0ur\0[Ljava.lang.String;­ÒVçé{G\0\0xp\0\0\0t\0biology',NULL,'\0','ad',NULL,'min',0,3,'Berkeley','2010-10-25 15:41:31','CA',1),('Berkeley','USA','¬í\0ur\0[Ljava.lang.String;­ÒVçé{G\0\0xp\0\0\0t\0biology',NULL,'\0','preview',NULL,'user',0,3,'Berkeley','2010-10-25 15:41:31','CA',2);
+INSERT INTO `teacher_user_details` (city,country,curriculumsubjects,displayname,firstname,lastlogintime,lastname,numberoflogins,schoollevel,schoolname,signupdate,state,id) VALUES ('Berkeley','USA','¬í\0ur\0[Ljava.lang.String;­ÒVçé{G\0\0xp\0\0\0t\0biology','adminuser','ad',NULL,'min',0,3,'Berkeley','2010-10-25 15:41:31','CA',1),('Berkeley','USA','¬í\0ur\0[Ljava.lang.String;­ÒVçé{G\0\0xp\0\0\0t\0biology','previewuser','preview',NULL,'user',0,3,'Berkeley','2010-10-25 15:41:31','CA',2);
 /*!40000 ALTER TABLE `teacher_user_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -582,7 +582,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `user_details` WRITE;
 /*!40000 ALTER TABLE `user_details` DISABLE KEYS */;
-INSERT INTO `user_details` VALUES (1,'','','',NULL,'','24c002f26c14d8e087ade986531c7b5d','admin',0),(2,'','','',NULL,'','2ece21e1cf40509868e5a74a48d49a50','previewuser',0);
+INSERT INTO `user_details` (id, account_not_expired, account_not_locked, credentials_not_expired, email_address, enabled, password, username, OPTLOCK)  VALUES (1,'','','',NULL,'','24c002f26c14d8e087ade986531c7b5d','admin',0),(2,'','','',NULL,'','2ece21e1cf40509868e5a74a48d49a50','previewuser',0);
 /*!40000 ALTER TABLE `user_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
