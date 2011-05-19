@@ -524,6 +524,9 @@ public class InformationController extends AbstractController{
 		}
 		
 		try {
+			String parentProjectId = "";
+			String runName = "";
+			
 			if(projectIdStr == null) {
 				/*
 				 * look for the project id in the run if project id was not
@@ -532,17 +535,24 @@ public class InformationController extends AbstractController{
 				Run run = runService.retrieveById(new Long(runId));
 				
 				if(run != null) {
+					//get the run name
+					runName = run.getName();
+					
 					//get the project
 					Project project = run.getProject();
 					if(project != null) {
 						//get the project id as a string
 						projectIdStr = project.getId() + "";
+						
+						//get the parent project id as a string
+						parentProjectId = project.getParentProjectId() + "";
 					}
 				}
 			}
 			
 			config.put("mode", requester);
 			config.put("projectId", projectIdStr);
+			config.put("parentProjectId", parentProjectId);
 			config.put("projectMetaDataUrl", projectMetaDataUrl);
 			config.put("getUserInfoUrl", getUserInfoUrl);
 			config.put("getContentUrl", getContentUrl);
@@ -561,6 +571,8 @@ public class InformationController extends AbstractController{
 			} else {
 				config.put("runId", runId);
 			}
+			
+			config.put("runName", runName);
 			
 			// add userType {teacher, student, null}
 			User signedInUser = ControllerUtil.getSignedInUser();
