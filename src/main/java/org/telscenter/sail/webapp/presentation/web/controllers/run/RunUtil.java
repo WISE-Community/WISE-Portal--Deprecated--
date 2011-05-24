@@ -235,7 +235,12 @@ public class RunUtil {
 		try {
 			//get the date the run was created
 			Date startTime = run.getStarttime();
-			runInfo.put("startTime", startTime);
+			
+			if(startTime != null) {
+				runInfo.put("startTime", startTime.getTime());	
+			} else {
+				runInfo.put("startTime", JSONObject.NULL);
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -243,7 +248,12 @@ public class RunUtil {
 		try {
 			//get the date the run was archived or null if never archived
 			Date endTime = run.getEndtime();
-			runInfo.put("endTime", endTime);
+			
+			if(endTime != null) {
+				runInfo.put("endTime", endTime.getTime());
+			} else {
+				runInfo.put("endTime", JSONObject.NULL);
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
