@@ -97,5 +97,7 @@
         	class="org.telscenter.sail.webapp.domain.project.impl.TagImpl"/>
         <mapping
         	class="org.telscenter.sail.webapp.domain.portal.impl.PortalStatisticsImpl"/>
+		<mapping
+        	class="org.telscenter.sail.webapp.domain.attendance.impl.StudentAttendanceImpl"/>
     </session-factory>
 </hibernate-configuration>

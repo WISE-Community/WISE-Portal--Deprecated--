@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -47,7 +48,9 @@ import org.telscenter.sail.webapp.domain.impl.Projectcode;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
 import org.telscenter.sail.webapp.presentation.web.TeamSignInForm;
+import org.telscenter.sail.webapp.service.attendance.StudentAttendanceService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 import org.telscenter.sail.webapp.service.student.StudentService;
@@ -76,6 +79,8 @@ public class TeamSignInController extends SimpleFormController {
 	private ProjectService projectService;
 
 	private HttpRestTransport httpRestTransport;
+	
+	private StudentAttendanceService studentAttendanceService;
 
 	public TeamSignInController() {
 		setSessionForm(true);
@@ -93,7 +98,10 @@ public class TeamSignInController extends SimpleFormController {
 	protected synchronized ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {
-
+		//the arrays to store the user ids of the students that are present or absent
+		JSONArray presentUserIds = new JSONArray();
+		JSONArray absentUserIds = new JSONArray();
+		
 		TeamSignInForm teamSignInForm = (TeamSignInForm) command;
 		User user1 = userService.retrieveUserByUsername(teamSignInForm.getUsername1());
 		User user2 = userService.retrieveUserByUsername(teamSignInForm.getUsername2());
@@ -105,20 +113,45 @@ public class TeamSignInController extends SimpleFormController {
 		StudentRunInfo studentRunInfoUser1 = studentService.getStudentRunInfo(user1, run);
 		Projectcode projectcode = new Projectcode(run.getRuncode(), studentRunInfoUser1.getGroup().getName());
 
-		Set<User> members = new HashSet<User>();
+		//stores the members that are logged in
+		Set<User> membersLoggedIn = new HashSet<User>();
 		String workgroupname = "Workgroup for " + user1.getUserDetails().getUsername();
-		members.add(user1);
+		
+		//add the user that is already logged in
+		membersLoggedIn.add(user1);
+		
+		//add user1 to the users that are present
+		presentUserIds.put(user1.getId());
+		
+		/*
+		 * get the workgroups for this run for user1, they should
+		 * usually only be in 1 workgroup
+		 */
 		List<Workgroup> workgroups = workgroupService.getWorkgroupListByOfferingAndUser(run, user1);
 
+		//get the members in the workgroup
+		Set<User> membersInWorkgroup = new HashSet<User>();
+		
+		if(workgroups != null && workgroups.size() > 0) {
+			//get the members in the workgroup
+			membersInWorkgroup = workgroups.get(0).getMembers();
+		}
+		
 		if (user2 != null) {
 			try {
 				studentService.addStudentToRun(user2, projectcode);
 			} catch (StudentUserAlreadyAssociatedWithRunException e) {
 				// do nothing. it's okay if the student is already associated with this run.
 			}
-			members.add(user2);
+			
+			//add user2 to the members logged in
+			membersLoggedIn.add(user2);
+			
 			workgroupname += user2.getUserDetails().getUsername();
 			workgroups.addAll(workgroupService.getWorkgroupListByOfferingAndUser(run, user2));
+			
+			//add user2 to the users that are present
+			presentUserIds.put(user2.getId());
 		}
 		if (user3 != null) {
 			try {
@@ -126,26 +159,74 @@ public class TeamSignInController extends SimpleFormController {
 			} catch (StudentUserAlreadyAssociatedWithRunException e) {
 				// do nothing. it's okay if the student is already associated with this run.
 			}
-			members.add(user3);
+			
+			//add user3 to the members logged in
+			membersLoggedIn.add(user3);
+			
 			workgroupname += user3.getUserDetails().getUsername();
 			workgroups.addAll(workgroupService.getWorkgroupListByOfferingAndUser(run, user3));
+			
+			//add user3 to the users that are present
+			presentUserIds.put(user3.getId());
 		}
 
 		Workgroup workgroup = null;
 		Group period = run.getPeriodOfStudent(user1);
 		if (workgroups.size() == 0) {
-			workgroup = workgroupService.createWISEWorkgroup(workgroupname, members, run, period);
+			workgroup = workgroupService.createWISEWorkgroup(workgroupname, membersLoggedIn, run, period);
 		} else if (workgroups.size() == 1) {
 			workgroup = workgroups.get(0);
-			workgroupService.addMembers(workgroup, members);
+			workgroupService.addMembers(workgroup, membersLoggedIn);
 		} else {
 			// more than one user has created a workgroup for this run.
 			// TODO HT gather requirements and find out what should be done in this case
 			// for now, just choose one
 			workgroup = workgroups.get(0);
-			workgroupService.addMembers(workgroup, members);
+			workgroupService.addMembers(workgroup, membersLoggedIn);
 		}
-	    
+		
+		/*
+		 * loop through all the members that are in the workgroup to
+		 * see who is absent
+		 */
+		Iterator<User> membersInWorkgroupIter = membersInWorkgroup.iterator();
+		while(membersInWorkgroupIter.hasNext()) {
+			boolean memberLoggedIn = false;
+			
+			//get a user that is in the workgroup
+			User memberInWorkgroup = membersInWorkgroupIter.next();
+			
+			/*
+			 * check if the user has logged in and is present
+			 * by looping through all the user ids in presentUserIds
+			 * and seeing if the user id is in the presentUserIds
+			 * array
+			 */
+			for(int x=0; x<presentUserIds.length(); x++) {
+				//get a present user id
+				long presentUserId = presentUserIds.getLong(x);
+				
+				if(presentUserId == memberInWorkgroup.getId()) {
+					//the user id matches so this memberInWorkgroup is present
+					memberLoggedIn = true;
+					break;
+				}
+			}
+			
+			if(!memberLoggedIn) {
+				//the memberInWorkgroup is absent
+				absentUserIds.put(memberInWorkgroup.getId());
+			}
+		}
+		
+		//get the values to create the student attendance entry
+		Long workgroupId = workgroup.getId();
+		Long runId = run.getId();
+		Date loginTimestamp = new Date();
+		
+		//create a student attendance entry
+		this.studentAttendanceService.addStudentAttendanceEntry(workgroupId, runId, loginTimestamp, presentUserIds.toString(), absentUserIds.toString());
+		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		/* update run statistics */
@@ -193,32 +274,41 @@ public class TeamSignInController extends SimpleFormController {
 			
 			//get the members in the workgroup
 			StudentRunInfo studentRunInfo = studentService.getStudentRunInfo(user, run);
-			Workgroup workgroup = studentRunInfo.getWorkgroup();
-			Set<User> members = workgroup.getMembers();
-
-			//counter for how many members we have so far
-			int currentNumMembers = 1;
 			
-			//loop through all the members
-			Iterator<User> membersIterator = members.iterator();
-			while(membersIterator.hasNext()) {
-				//get a member and their username
-				User member = membersIterator.next();
-				String username = member.getUserDetails().getUsername();
+			/*
+			 * try to get the workgroup if it exists. if the student is running
+			 * the project for the first time, the workgroup will not exist
+			 */
+			Workgroup workgroup = studentRunInfo.getWorkgroup();
+			
+			if(workgroup != null) {
+				//get the members in the workgroup and pre-populate the username fields
+				Set<User> members = workgroup.getMembers();
+
+				//counter for how many members we have so far
+				int currentNumMembers = 1;
 				
-				//check that the username is not the one that is already signed in
-				if(username != null && !username.equals(signedInUsername)) {
-					if(currentNumMembers == 1) {
-						//set the username2
-						form.setUsername2(username);
-						currentNumMembers++;
-					} else if(currentNumMembers == 2) {
-						//set the username3
-						form.setUsername3(username);
-						currentNumMembers++;
-					}				
-				}
-			}			
+				//loop through all the members
+				Iterator<User> membersIterator = members.iterator();
+				while(membersIterator.hasNext()) {
+					//get a member and their username
+					User member = membersIterator.next();
+					String username = member.getUserDetails().getUsername();
+					
+					//check that the username is not the one that is already signed in
+					if(username != null && !username.equals(signedInUsername)) {
+						if(currentNumMembers == 1) {
+							//set the username2
+							form.setUsername2(username);
+							currentNumMembers++;
+						} else if(currentNumMembers == 2) {
+							//set the username3
+							form.setUsername3(username);
+							currentNumMembers++;
+						}				
+					}
+				}					
+			}
 		}
 		
 		return form;
@@ -285,5 +375,22 @@ public class TeamSignInController extends SimpleFormController {
 	 */
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public StudentAttendanceService getStudentAttendanceService() {
+		return studentAttendanceService;
+	}
+
+	/**
+	 * 
+	 * @param studentAttendanceService
+	 */
+	public void setStudentAttendanceService(
+			StudentAttendanceService studentAttendanceService) {
+		this.studentAttendanceService = studentAttendanceService;
 	}
 }

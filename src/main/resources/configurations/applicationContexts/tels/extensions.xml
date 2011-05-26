@@ -551,6 +551,16 @@
 		class="org.telscenter.sail.webapp.service.tag.impl.TagServiceImpl">
 		<property name="tagDao" ref="tagDao"/>	
 	</bean>
+	
+	<bean id="studentAttendanceDao" scope="prototype"
+		class="org.telscenter.sail.webapp.dao.attendance.impl.HibernateStudentAttendanceDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="studentAttendanceService"
+    	class="org.telscenter.sail.webapp.service.attendance.impl.StudentAttendanceServiceImpl">
+    	<property name="studentAttendanceDao" ref="studentAttendanceDao"/>
+    </bean>
 	    <!--      
     <bean id="rooloLORProject"
         class="org.telscenter.sail.webapp.domain.project.cmsImpl.RooloLORProjectImpl">

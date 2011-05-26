@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -36,16 +37,14 @@ import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
-import net.sf.sail.webapp.presentation.web.listeners.PasSessionListener;
-import net.sf.sail.webapp.service.UserService;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
+import org.telscenter.sail.webapp.service.attendance.StudentAttendanceService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
@@ -73,6 +72,8 @@ public class StartProjectController extends AbstractController {
 	private ProjectService projectService;
 	
 	private HttpRestTransport httpRestTransport;
+	
+	private StudentAttendanceService studentAttendanceService;
 	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -143,6 +144,15 @@ public class StartProjectController extends AbstractController {
 				// update servlet session
 				notifyServletSession(request, run);
 
+				//get the values for the student attendance
+				Long workgroupId = workgroup.getId();
+				JSONArray presentUserIds = new JSONArray();
+				JSONArray absentUserIds = new JSONArray();
+				presentUserIds.put(user.getId());
+				
+				//create a student attendance entry
+				addStudentAttendanceEntry(workgroupId, runId, presentUserIds, absentUserIds);
+				
 				return (ModelAndView) projectService.launchProject(launchProjectParameters);
 			} else {
 				// need to create a workgroup for this user, take them to create workgroup wizard
@@ -163,6 +173,15 @@ public class StartProjectController extends AbstractController {
 				launchProjectParameters.setWorkgroup(workgroup);
 				launchProjectParameters.setHttpRestTransport(this.httpRestTransport);
 				launchProjectParameters.setHttpServletRequest(request);
+				
+				//get the value for the student attendance
+				Long workgroupId = workgroup.getId();
+				JSONArray presentUserIds = new JSONArray();
+				JSONArray absentUserIds = new JSONArray();
+				presentUserIds.put(user.getId());
+				
+				//create a student attendance entry
+				addStudentAttendanceEntry(workgroupId, runId, presentUserIds, absentUserIds);
 				
 				// update servlet session
 				notifyServletSession(request, run);
@@ -205,6 +224,21 @@ public class StartProjectController extends AbstractController {
 		}
 		studentToRuns.put(sessionId, run);
 	}
+	
+	/**
+	 * Adds a student attendance entry to the db
+	 * @param workgroupId the id of the workgroup
+	 * @param runId the id of the run
+	 * @param presentUserIds the 
+	 * @param absentUserIds
+	 */
+	private void addStudentAttendanceEntry(Long workgroupId, Long runId, JSONArray presentUserIds, JSONArray absentUserIds) {
+		//get the current time
+		Date loginTimestamp = new Date();
+	    
+		//add a student attendance entry
+		this.studentAttendanceService.addStudentAttendanceEntry(workgroupId, runId, loginTimestamp, presentUserIds.toString(), absentUserIds.toString());
+	}
 
 	/**
 	 * @param runService the runService to set
@@ -232,5 +266,22 @@ public class StartProjectController extends AbstractController {
 	 */
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public StudentAttendanceService getStudentAttendanceService() {
+		return studentAttendanceService;
+	}
+
+	/**
+	 * 
+	 * @param studentAttendanceService
+	 */
+	public void setStudentAttendanceService(
+			StudentAttendanceService studentAttendanceService) {
+		this.studentAttendanceService = studentAttendanceService;
 	}
 }

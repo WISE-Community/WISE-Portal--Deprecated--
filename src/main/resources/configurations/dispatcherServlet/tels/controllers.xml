@@ -146,6 +146,7 @@
 	    <property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 		<property name="projectService" ref="projectService" />
+		<property name="studentAttendanceService" ref="studentAttendanceService" />
 	</bean>
 	
 	<bean id="previewprojectController"
@@ -184,6 +185,7 @@
 	    <property name="validator" ref="teamSignInFormValidator" />
     	<property name="formView" value="student/teamsignin" />
     	<property name="successView" value="student/teamsigninsuccess" />
+    	<property name="studentAttendanceService" ref="studentAttendanceService" />
 	</bean>
 	
 	<bean id="curriculumSubjectsController"

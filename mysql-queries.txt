@@ -112,3 +112,27 @@ CREATE TABLE  `sail_database`.`portal_statistics` (
 
 ALTER TABLE `sail_database`.`portal_statistics` ADD COLUMN `totalNumberProjects` INTEGER DEFAULT NULL AFTER `totalNumberTeacherLogins`;
 ### 2011.04.29 END
+
+### 2011.05.24 START
+CREATE  TABLE `sail_database`.`student_attendance` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT ,
+  `workgroupId` BIGINT NULL ,
+  `runId` BIGINT NULL ,
+  `loginTimestamp` DATETIME NULL ,
+  `presentUserIds` VARCHAR(255) NULL ,
+  `absentUserIds` VARCHAR(255) NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `workgroupId` (`workgroupId` ASC) ,
+  INDEX `runId` (`runId` ASC) ,
+  CONSTRAINT `workgroupId`
+    FOREIGN KEY (`workgroupId` )
+    REFERENCES `sail_database`.`wiseworkgroups` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `runId`
+    FOREIGN KEY (`runId` )
+    REFERENCES `sail_database`.`runs` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = MyISAM;
+### 2011.05.24 END
