@@ -2,10 +2,17 @@ package org.telscenter.sail.webapp.domain.attendance;
 
 import java.util.Date;
 
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
+
 import net.sf.sail.webapp.domain.Persistable;
 
 public interface StudentAttendance extends Persistable  {
 
+	/**
+	 * Get the JSONObject representation of this StudentAttendanceImpl object
+	 */
+	public JSONObject toJSONObject();
+	
 	public Long getWorkgroupId();
 
 	public void setWorkgroupId(Long workgroupId);

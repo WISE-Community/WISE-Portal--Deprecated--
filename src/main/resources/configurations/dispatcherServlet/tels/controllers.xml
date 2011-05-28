@@ -1459,6 +1459,7 @@
     	<property name="workgroupService" ref="wiseWorkgroupService"/>
     	<property name="runService" ref="runService" />
 		<property name="portalProperties" ref="portalproperties" />
+		<property name="studentAttendanceService" ref="studentAttendanceService" />
     </bean>
     
     <bean id="credentialManager"

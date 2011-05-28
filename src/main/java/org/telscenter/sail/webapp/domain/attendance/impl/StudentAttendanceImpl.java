@@ -11,6 +11,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.telscenter.sail.webapp.domain.attendance.StudentAttendance;
+import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
+import org.telscenter.sail.webapp.presentation.util.json.JSONException;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 
 @Entity
 @Table(name = StudentAttendanceImpl.DATA_STORE_NAME)
@@ -41,6 +44,18 @@ public class StudentAttendanceImpl implements StudentAttendance {
 	@Column(name = "absentUserIds")
 	private String absentUserIds;
 	
+	public StudentAttendanceImpl() {
+			
+	}
+
+	/**
+	 * Constructor the populates the fields
+	 * @param workgroupId
+	 * @param runId
+	 * @param loginTimestamp
+	 * @param presentUserIds
+	 * @param absentUserIds
+	 */
 	public StudentAttendanceImpl(Long workgroupId, Long runId, Date loginTimestamp, String presentUserIds, String absentUserIds) {
 		super();
 		setWorkgroupId(workgroupId);
@@ -48,6 +63,39 @@ public class StudentAttendanceImpl implements StudentAttendance {
 		setLoginTimestamp(loginTimestamp);
 		setPresentUserIds(presentUserIds);
 		setAbsentUserIds(absentUserIds);
+	}
+	
+	/**
+	 * Get the JSONObject representation of this StudentAttendanceImpl object
+	 * @see org.telscenter.sail.webapp.domain.attendance.StudentAttendance#toJSONObject()
+	 */
+	public JSONObject toJSONObject() {
+		JSONObject jsonObject = new JSONObject();
+		
+		try {
+			//set the ids
+			jsonObject.put("id", getId());
+			jsonObject.put("workgroupId", getWorkgroupId());
+			jsonObject.put("runId", getRunId());
+			
+			//get the login timestamp
+			Date loginTimestamp = getLoginTimestamp();
+			
+			if(loginTimestamp != null) {
+				//get the timestamp in milliseconds
+				jsonObject.put("loginTimestamp", loginTimestamp.getTime());				
+			} else {
+				jsonObject.put("loginTimestamp", JSONObject.NULL);
+			}
+			
+			//set the present and absent user ids
+			jsonObject.put("presentUserIds", new JSONArray(getPresentUserIds()));
+			jsonObject.put("absentUserIds", new JSONArray(getAbsentUserIds()));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return jsonObject;
 	}
 	
 	public Long getId() {

@@ -1,6 +1,7 @@
 package org.telscenter.sail.webapp.service.attendance.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.dao.attendance.StudentAttendanceDao;
@@ -20,6 +21,16 @@ public class StudentAttendanceServiceImpl implements StudentAttendanceService {
 	public void addStudentAttendanceEntry(Long workgroupId, Long runId, Date loginTimestamp, String presentUserIds, String absentUserIds) {
 		StudentAttendance studentAttendance = new StudentAttendanceImpl(workgroupId, runId, loginTimestamp, presentUserIds, absentUserIds);
 		studentAttendanceDao.save(studentAttendance);
+	}
+	
+	/**
+	 * Get the a list of StudentAttendance object that have the given runId
+	 * @param runId the id of the run we want StudentAttendance objects for
+	 * @see org.telscenter.sail.webapp.service.attendance.StudentAttendanceService#getStudentAttendanceByRunId(java.lang.Long)
+	 */
+	public List<StudentAttendance> getStudentAttendanceByRunId(Long runId) {
+		List<StudentAttendance> studentAttendanceList = studentAttendanceDao.getStudentAttendanceByRunId(runId);
+		return studentAttendanceList;
 	}
 	
 	/**

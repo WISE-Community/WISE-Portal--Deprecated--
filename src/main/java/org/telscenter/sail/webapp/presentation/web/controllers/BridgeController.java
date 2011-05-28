@@ -47,6 +47,7 @@ import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.attendance.StudentAttendance;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.domain.project.Project;
@@ -54,6 +55,7 @@ import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.presentation.web.controllers.run.RunUtil;
 import org.telscenter.sail.webapp.presentation.web.filters.TelsAuthenticationProcessingFilter;
+import org.telscenter.sail.webapp.service.attendance.StudentAttendanceService;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
@@ -73,6 +75,7 @@ public class BridgeController extends AbstractController {
 	private WISEWorkgroupService workgroupService;
 	private RunService runService;
 	private Properties portalProperties;
+	private StudentAttendanceService studentAttendanceService;
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -587,6 +590,31 @@ public class BridgeController extends AbstractController {
 		request.setAttribute("teacherUserInfo", teacherUserInfoJSONObject.toString());
 		request.setAttribute("sharedTeacherUserInfos", sharedTeacherUserInfosJSONArray.toString());
 		request.setAttribute("runInfo", runInfoJSONObject.toString());
+		
+		//get all the student attendance entries for this run
+		List<StudentAttendance> studentAttendanceList = studentAttendanceService.getStudentAttendanceByRunId(run.getId());
+		JSONArray studentAttendanceJSONArray = new JSONArray();
+		
+		/*
+		 * loop through all the student attendance entries so we can
+		 * create JSONObjects out of them to put in our studentAttendanceJSONArray
+		 */
+		for(int x=0; x<studentAttendanceList.size(); x++) {
+			//get a StudenAttendance object
+			StudentAttendance studentAttendance = studentAttendanceList.get(x);
+			
+			//get the JSONObject representation
+			JSONObject studentAttendanceJSONObj = studentAttendance.toJSONObject();
+			
+			//add it to our array
+			studentAttendanceJSONArray.put(studentAttendanceJSONObj);
+		}
+		
+		/*
+		 * set the student attendance array as an attribute so the vlewrapper
+		 * context can access this data
+		 */
+		request.setAttribute("studentAttendance", studentAttendanceJSONArray.toString());
 	}
 	
 
@@ -619,4 +647,20 @@ public class BridgeController extends AbstractController {
 		this.portalProperties = portalProperties;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	public StudentAttendanceService getStudentAttendanceService() {
+		return studentAttendanceService;
+	}
+
+	/**
+	 * 
+	 * @param studentAttendanceService
+	 */
+	public void setStudentAttendanceService(
+			StudentAttendanceService studentAttendanceService) {
+		this.studentAttendanceService = studentAttendanceService;
+	}
 }
