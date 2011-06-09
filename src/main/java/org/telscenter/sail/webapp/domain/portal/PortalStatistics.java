@@ -2,6 +2,8 @@ package org.telscenter.sail.webapp.domain.portal;
 
 import java.util.Date;
 
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
+
 import net.sf.sail.webapp.domain.Persistable;
 
 public interface PortalStatistics extends Persistable {
@@ -37,4 +39,6 @@ public interface PortalStatistics extends Persistable {
 	public Long getTotalNumberProjectsRun();
 
 	public void setTotalNumberProjectsRun(Long totalNumberProjectsRun);
+	
+	public JSONObject getJSONObject();
 }

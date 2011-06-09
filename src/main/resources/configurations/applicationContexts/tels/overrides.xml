@@ -114,6 +114,7 @@
                 /contactwiseproject.html=ROLE_ANONYMOUS,ROLE_USER
                 /contactwiseconfirm.html=ROLE_ANONYMOUS,ROLE_USER
                 /checkforexistingaccount.html=ROLE_ANONYMOUS,ROLE_USER
+                /getportalstatistics.html=ROLE_ANONYMOUS,ROLE_USER
                 /previewprojectlist.html=ROLE_ANONYMOUS,ROLE_USER
                 /previewproject.html=ROLE_ANONYMOUS,ROLE_USER
                 /credits.html=ROLE_ANONYMOUS,ROLE_USER

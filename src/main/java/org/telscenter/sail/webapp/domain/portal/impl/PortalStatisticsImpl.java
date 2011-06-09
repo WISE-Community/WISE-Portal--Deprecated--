@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.telscenter.sail.webapp.domain.portal.PortalStatistics;
+import org.telscenter.sail.webapp.presentation.util.json.JSONException;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 
 @Entity
 @Table(name = PortalStatisticsImpl.DATA_STORE_NAME)
@@ -121,5 +123,35 @@ public class PortalStatisticsImpl implements PortalStatistics {
 
 	public void setTotalNumberProjectsRun(Long totalNumberProjectsRun) {
 		this.totalNumberProjectsRun = totalNumberProjectsRun;
+	}
+	
+	/**
+	 * Get the JSONObject representation of this object
+	 */
+	public JSONObject getJSONObject() {
+		JSONObject jsonObject = new JSONObject();
+		
+		try {
+			Long timestampMilliseconds = null;
+			
+			if(timestamp != null) {
+				//get the timestamp in milliseconds
+				timestampMilliseconds = timestamp.getTime();	
+			}
+			
+			//set the fields
+			jsonObject.put("timestamp", timestampMilliseconds);
+			jsonObject.put("totalNumberStudents", totalNumberStudents);
+			jsonObject.put("totalNumberStudentLogins", totalNumberStudentLogins);
+			jsonObject.put("totalNumberTeachers", totalNumberTeachers);
+			jsonObject.put("totalNumberTeacherLogins", totalNumberTeacherLogins);
+			jsonObject.put("totalNumberProjects", totalNumberProjects);
+			jsonObject.put("totalNumberRuns", totalNumberRuns);
+			jsonObject.put("totalNumberProjectsRun", totalNumberProjectsRun);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return jsonObject;
 	}
 }

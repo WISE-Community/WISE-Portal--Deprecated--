@@ -368,7 +368,12 @@
 	    class="org.telscenter.sail.webapp.dao.portal.impl.HibernatePortalStatisticsDao">
 	    <property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-
+	
+	<bean id="portalStatisticsService"
+        class="org.telscenter.sail.webapp.service.portal.impl.PortalStatisticsServiceImpl">
+        <property name="portalStatisticsDao" ref="portalStatisticsDao" />
+    </bean>
+	
     <bean id="portalService"
     	class="org.telscenter.sail.webapp.service.portal.impl.PortalServiceImpl">
     	 <property name="portalDao" ref="portalDao" />
