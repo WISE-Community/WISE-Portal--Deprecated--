@@ -22,10 +22,11 @@
 <!-- $Id$ -->
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 
-<meta charset=utf-8"/>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
 	Remove this if you use the .htaccess -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
