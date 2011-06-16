@@ -55,15 +55,19 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
-    <!-- Localizable messages -->
     <bean id="messageSource"
-        class="org.springframework.context.support.ResourceBundleMessageSource">
+        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:messages/tels/ui-html" />
+		<property name="defaultEncoding" value="UTF-8"/>
+		<!--  
         <property name="basenames">
             <list>
-                <value>messages/tels/ui-html</value>
-                <value>messages/tels/ui-html_ja</value>
+                <value>classpath:messages/tels/ui-html</value>
+                <value>classpath:messages/tels/ui-html_ja</value>
+                <value>classpath:messages/tels/ui-html_zh_TW</value>
             </list>
         </property>
+        -->
     </bean>
     <!--  The real exceptions are logged to the tomcat/logs/catalina.out file. Look there if you've got a problem. -->
     <bean id="exceptionResolver"
