@@ -111,6 +111,7 @@
     		    /contactwisegeneral.html=contactWiseController
     		    /contactwiseproject.html=contactWiseProjectController
     		    /checkforexistingaccount.html=checkForExistingAccountController
+    		    /statistics.html=statisticsController
     		    /getportalstatistics.html=portalStatisticsController
     		    /student/index.html=studentIndexController
     		    /student/vle/vle.html=studentVLEController

@@ -1527,5 +1527,10 @@
 	<bean id="portalStatisticsController"
          class="org.telscenter.sail.webapp.presentation.web.controllers.PortalStatisticsController">
          <property name="portalStatisticsService" ref="portalStatisticsService" />
+    </bean>
+    
+    <bean id="statisticsController"
+         class="org.telscenter.sail.webapp.presentation.web.controllers.StatisticsController">
+         <property name="portalProperties" ref="portalproperties" />
     </bean>	
 </beans>
