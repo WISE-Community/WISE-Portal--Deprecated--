@@ -43,6 +43,7 @@
 <script type="text/javascript" src="../../javascript/tels/superfish.js"></script>
 
 <script type="text/javascript">
+        var doneClicked=false;
 
         // initialise plugins
         jQuery(function(){
@@ -109,11 +110,15 @@
     	// copies project and then create run with the new project
     	// returns true iff project was successfully copied.	
     	function createRun(pID, type, projectName, projectJSONFilename, srcProjectRootFolder, curriculumBaseDir) {
-    		var result = copy(pID, type, projectName, projectJSONFilename, srcProjectRootFolder, curriculumBaseDir);
-    		if (!result) {
-        		alert('There was an error creating the run. Please contact WISE.');
-    		}
-    		return result;
+        	// ensure that project doesn't get copied multiple times
+        	if (!doneClicked) {
+            	doneClicked=true;
+    			var result = copy(pID, type, projectName, projectJSONFilename, srcProjectRootFolder, curriculumBaseDir);
+    			if (!result) {
+        			alert('There was an error creating the run. Please contact WISE.');
+    			}
+    			return result;
+        	}
     	};
     	
     	// asynchronously copies project
