@@ -230,16 +230,20 @@ var annotationCountsComparisonTicks = [];
 function getPortalStatistics() {
 	$.ajax({
 		url:portal_baseurl + portalStatisticsPage,
-		success:getPortalStatisticsCallback
+		success:getPortalStatisticsCallback,
+		dataType:'json'
 	});
 }
 
 /**
  * Called after we recieve the portal statistics
+ * @param data a JSONArray containing the statistics
+ * @param textStatus
+ * @param jqXHR
  */
 function getPortalStatisticsCallback(data, textStatus, jqXHR) {
 	//get the statistics as a JSONArray
-	var portalStatisticsArray = $.parseJSON(data);
+	var portalStatisticsArray = data;
 
 	//parse the portal statistics
 	parsePortalStatistics(portalStatisticsArray);
@@ -361,16 +365,20 @@ function parsePortalStatistics(portalStatisticsArray) {
 function getVLEStatistics() {
 	$.ajax({
 		url:vlewrapper_baseurl + vleStatisticsPage,
-		success:getVLEStatisticsCallback
+		success:getVLEStatisticsCallback,
+		dataType:'json'
 	});
 }
 
 /*
  * Called after we receive the vle statistics
+ * @param data a JSONArray containing the statistics
+ * @param textStatus
+ * @param jqXHR
  */
 function getVLEStatisticsCallback(data, textStatus, jqXHR) {
 	//get the vle statistics as a JSONArray
-	var vleStatisticsArray = $.parseJSON(data);
+	var vleStatisticsArray = data;
 
 	//parse the vle statistics
 	parseVLEStatistics(vleStatisticsArray);
