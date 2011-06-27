@@ -224,6 +224,7 @@
    	                        <li><spring:message code="teacher.run.myprojectruns.17"/> (<spring:message code="teacher.run.myprojectruns.41"/>:<a href="../grading/gradework.html?runId=${run.id}&gradingType=team&getRevisions=false" target="_top"><spring:message code="teacher.run.myprojectruns.43"/></a>|<a href="../grading/gradework.html?runId=${run.id}&gradingType=team&getRevisions=true" target="_top"><spring:message code="teacher.run.myprojectruns.42"/></a>)</li>				    	
 		                    <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=team" target="_top">Scores Summary</a></li>
 		                    <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=monitor" target="_top">Classroom Monitor</a></li>
+		                    <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=export" target="_top">Researcher Tools</a></li>
 					               </c:otherwise>
 					           </c:choose>
 					    </ul>
