@@ -453,27 +453,24 @@ public class InformationController extends AbstractController{
 
 	    	String viewStudentAssetsUrl = portalurl + "/webapp/bridge/request.html?type=viewStudentAssets&runId=" + run.getId().toString();
 	    	
+	    	String getStudentListUrl = portalurl + "/webapp/teacher/management/studentlistexcel.html?runId=" + run.getId().toString();
+	    	
 			/* Set the post level if specified in the run */
 			Integer postLevel = run.getPostLevel();
 	    	
 	    	//put all the config params into the json object
 			try {
 				config.put("getFlagsUrl", getFlagsUrl);
-				config.put("postFlagsUrl", postFlagsUrl);
 				config.put("getAnnotationsUrl", getAnnotationsUrl);
 				config.put("postAnnotationsUrl", postAnnotationsUrl);
 				config.put("getStudentDataUrl", getStudentDataUrl);
 				config.put("postStudentDataUrl", postStudentDataUrl);
 				config.put("getRunInfoUrl", getRunInfoUrl);
-				config.put("postMaxScoreUrl", postMaxScoreUrl);
 				config.put("gradingType", gradingType);
 				config.put("getRevisions", getRevisions);
 				config.put("getPeerReviewUrl", getPeerReviewUrl);
 				config.put("getJournalDataUrl", getJournalDataUrl);
 				config.put("postJournalDataUrl", postJournalDataUrl);
-				config.put("getXLSExportUrl", getXLSExportUrl);
-				config.put("getPremadeCommentsUrl", getPremadeCommentsUrl);
-				config.put("postPremadeCommentsUrl", postPremadeCommentsUrl);
 				config.put("getIdeaBasketUrl", getIdeaBasketUrl);
 				config.put("postIdeaBasketUrl", postIdeaBasketUrl);
 				config.put("studentAssetManagerUrl", studentAssetManagerUrl);
@@ -482,6 +479,16 @@ public class InformationController extends AbstractController{
 				if(postLevel!=null){
 					config.put("postLevel", postLevel);
 				};
+				
+				//add the config fields specific to the teacher grading
+				if(requester != null && requester.equals("grading")) {
+					config.put("getPremadeCommentsUrl", getPremadeCommentsUrl);
+					config.put("postPremadeCommentsUrl", postPremadeCommentsUrl);
+					config.put("postFlagsUrl", postFlagsUrl);
+					config.put("postMaxScoreUrl", postMaxScoreUrl);
+					config.put("getXLSExportUrl", getXLSExportUrl);
+					config.put("getStudentListUrl", getStudentListUrl);
+				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
