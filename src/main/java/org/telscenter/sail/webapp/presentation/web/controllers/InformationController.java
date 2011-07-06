@@ -453,6 +453,9 @@ public class InformationController extends AbstractController{
 
 	    	String viewStudentAssetsUrl = portalurl + "/webapp/bridge/request.html?type=viewStudentAssets&runId=" + run.getId().toString();
 	    	
+	    	// url to authenticate with WISE XMPP
+	    	String wiseXMPPAuthenticateUrl = portalurl + "/webapp/bridge/request.html?type=xmppAuthenticate&runId=" + run.getId().toString();
+	    	
 	    	String getStudentListUrl = portalurl + "/webapp/teacher/management/studentlistexcel.html?runId=" + run.getId().toString();
 	    	
 			/* Set the post level if specified in the run */
@@ -475,7 +478,10 @@ public class InformationController extends AbstractController{
 				config.put("postIdeaBasketUrl", postIdeaBasketUrl);
 				config.put("studentAssetManagerUrl", studentAssetManagerUrl);
 				config.put("viewStudentAssetsUrl", viewStudentAssetsUrl);
+				config.put("wiseXMPPAuthenticateUrl", wiseXMPPAuthenticateUrl);
 				config.put("runInfo", run.getInfo());
+				config.put("isXMPPEnabled", true);  // make this run-specific setting
+				
 				if(postLevel!=null){
 					config.put("postLevel", postLevel);
 				};

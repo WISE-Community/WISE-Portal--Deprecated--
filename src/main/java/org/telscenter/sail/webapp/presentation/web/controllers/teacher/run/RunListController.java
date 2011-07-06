@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,6 +66,8 @@ public class RunListController extends AbstractController {
 
 	protected static final String GRADING_ENABLED = "GRADING_ENABLED";
 
+	private Properties portalProperties;
+	
 	private RunService runService;
 
 	private UserService userService;
@@ -76,6 +79,8 @@ public class RunListController extends AbstractController {
 	private HttpRestTransport httpRestTransport;
 	
 	private BrainstormService brainstormService;
+
+	protected final static String IS_XMPP_ENABLED = "isXMPPEnabled";
 
 	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
 
@@ -91,6 +96,7 @@ public class RunListController extends AbstractController {
 	
 	private static final String VIEW_NAME = "teacher/run/projectruntabs";
 
+
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse)
@@ -99,6 +105,14 @@ public class RunListController extends AbstractController {
 	protected ModelAndView handleRequestInternal(
 			HttpServletRequest servletRequest,
 			HttpServletResponse servletResponse) throws Exception {
+
+		boolean isXMPPEnabled = false;
+		
+	    String isXMPPEnabledStr = this.portalProperties.getProperty("isXMPPEnabled");
+	    if (isXMPPEnabledStr != null) {
+	    	isXMPPEnabled = Boolean.valueOf(isXMPPEnabledStr);
+	    }
+
 		
 		String gradingParam = servletRequest.getParameter(GRADING_ENABLED);
 		
@@ -154,6 +168,7 @@ public class RunListController extends AbstractController {
 		}
 
 		modelAndView.addObject(GRADING_PARAM, gradingParam);
+		modelAndView.addObject(IS_XMPP_ENABLED, isXMPPEnabled);
 		modelAndView.addObject(CURRENT_RUN_LIST_KEY, current_run_list);
 		modelAndView.addObject(ENDED_RUN_LIST_KEY, ended_run_list);
 		modelAndView.addObject("externalprojectruns", external_project_runs);
@@ -169,6 +184,13 @@ public class RunListController extends AbstractController {
 	@Required
 	public void setWorkgroupService(WorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
+	}
+
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
 	}
 
 	/**

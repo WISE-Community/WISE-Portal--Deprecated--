@@ -395,6 +395,7 @@
 
 	<bean id="myProjectRunsController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListController">
+		<property name="portalProperties" ref="portalproperties" />
 		<property name="runService" ref="runService" />
 		<property name="userService" ref="userService" />
 		<property name="projectService" ref="projectService" />
@@ -633,6 +634,8 @@
 		<property name="successView" value="forgotaccount/teacher/success" />
 		<property name="errorView" value="forgotaccount/teacher/error" />		
 		<property name="javaMail" ref="javaMail"/>
+        <property name="portalProperties" ref="portalproperties" />
+	    <property name="messageSource" ref="messageSource" />   
 	</bean>
 
 	<bean id="forgotAccountTeacherSuccessController"

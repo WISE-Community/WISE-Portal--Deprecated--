@@ -24,7 +24,9 @@ package org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.te
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +37,7 @@ import net.sf.sail.webapp.mail.JavaMailHelper;
 import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.context.MessageSource;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -52,6 +55,8 @@ public class ForgotAccountTeacherIndexController extends SimpleFormController {
 	private static final String USERNAME = "username";
 	protected UserService userService = null;
 	protected JavaMailHelper javaMail = null;
+	private Properties portalProperties;
+	private MessageSource messageSource;
 	
 	private String errorView = "/forgotaccount/teacher/error";
 
@@ -124,9 +129,24 @@ public class ForgotAccountTeacherIndexController extends SimpleFormController {
 			String generateRandomPassword = generateRandomPassword();
 			userService.updateUserPassword(user, generateRandomPassword);
 
+			String portalName = portalProperties.getProperty("portal.name");
+			
 			String userEmail = user.getUserDetails().getEmailAddress();
+			
+			String[] recipients = new String[]{userEmail};
+			
+			// get user Locale
+			Locale userLocale = request.getLocale();
+			
+			// subject looks like this: "Notification from WISE4@Berkeley: Password Changed"
+			String defaultSubject = messageSource.getMessage("forgot.teacher.email.subject", new Object[]{portalName}, Locale.US); 
+			String subject = messageSource.getMessage("forgot.teacher.email.subject", new Object[]{portalName}, defaultSubject, userLocale); 
+			String defaultBody = messageSource.getMessage("forgot.teacher.email.body", new Object[]{username,generateRandomPassword,portalName}, Locale.US);
+			String body = messageSource.getMessage("forgot.teacher.email.body", new Object[] {username,generateRandomPassword,portalName}, defaultBody, userLocale);				
+			
 			// send password in the email here
-			javaMail.postMail(new String[]{userEmail}, "[Tels Portal] Changed Password", "Hi,\n\nfor username: " + username + " Your new password is: "+ generateRandomPassword +"\n\n\n-TELS Technology Team", "telsportal@gmail.com");
+			javaMail.postMail(recipients, subject, body, userEmail);
+
 			
 			Map<String, String> model = new HashMap<String, String>();
 			model.put(EMAIL, userEmail);
@@ -181,6 +201,20 @@ public class ForgotAccountTeacherIndexController extends SimpleFormController {
 	 */
 	public void setErrorView(String errorView) {
 		this.errorView = errorView;
+	}
+
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
+	}
+
+	/**
+	 * @param messageSource the messageSource to set
+	 */
+	public void setMessageSource(MessageSource messageSource) {
+		this.messageSource = messageSource;
 	}
 
 }
