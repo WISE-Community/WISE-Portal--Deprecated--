@@ -24,6 +24,9 @@ package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -38,10 +41,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
+import net.sf.sail.webapp.dao.sds.impl.AbstractHttpRestCommand;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
+import net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.web.servlet.ModelAndView;
@@ -52,6 +60,7 @@ import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
+import org.telscenter.sail.webapp.presentation.util.json.JSONException;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.presentation.web.controllers.run.RunUtil;
 import org.telscenter.sail.webapp.presentation.web.filters.TelsAuthenticationProcessingFilter;
@@ -229,6 +238,8 @@ public class BridgeController extends AbstractController {
 				return true;
 			} else if(type.equals("studentAssetManager")) {
 				return true;
+			} else if(type.equals("xmppAuthenticate")) {
+				return true;
 			} else {
 				// this should never happen
 			}
@@ -329,6 +340,7 @@ public class BridgeController extends AbstractController {
 		String type = request.getParameter("type");
 		ServletContext servletContext2 = this.getServletContext();
 		ServletContext vlewrappercontext = servletContext2.getContext("/vlewrapper");
+		
 		User user = ControllerUtil.getSignedInUser();
 		CredentialManager.setRequestCredentials(request, user);
 		
@@ -400,6 +412,12 @@ public class BridgeController extends AbstractController {
 			handleStudentAssetManager(request, response);
 		} else if(type.equals("viewStudentAssets")) {
 			handleViewStudentAssets(request, response);
+		} else if (type.equals("xmppAuthenticate")) {
+			// check if this portal is xmpp enabled first
+			String isXMPPEnabled = portalProperties.getProperty("isXMPPEnabled");
+			if (isXMPPEnabled != null && Boolean.valueOf(isXMPPEnabled)) {
+				handleWISEXMPPAuthenticate(request,response);
+			}
 		}
 		return null;
 	}
@@ -523,6 +541,7 @@ public class BridgeController extends AbstractController {
 		}
 	}
 	
+	
 	private void handleStudentAssetManager(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext servletContext2 = this.getServletContext();
 		ServletContext vlewrappercontext = servletContext2.getContext("/vlewrapper");
@@ -559,7 +578,113 @@ public class BridgeController extends AbstractController {
 		} catch (ObjectNotFoundException e) {
 			e.printStackTrace();
 		}
+		
+		
 	}
+	
+
+	class XMPPCreateUserRestCommand extends AbstractHttpRestCommand {
+		String runId;
+		String workgroupId;
+		
+		/**
+		 * Create the MD5 hashed password for the xmpp ejabberd user
+		 * @param workgroupIdString
+		 * @param runIdString
+		 * @return
+		 */
+		private String generateUniqueIdMD5(String workgroupIdString, String runIdString) {
+			String passwordUnhashed = workgroupIdString + "-" + runIdString;
+			MessageDigest m = null;
+			try {
+				m = MessageDigest.getInstance("MD5");
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
+		    m.update(passwordUnhashed.getBytes(),0,passwordUnhashed.length());
+		    String uniqueIdMD5 = new BigInteger(1,m.digest()).toString(16);
+			return uniqueIdMD5;
+		}
+		
+		
+		public JSONObject run() {
+			String username = workgroupId;
+			String password = generateUniqueIdMD5(workgroupId,runId);
+			
+			//make the request to register the user in the ejabberd database
+			String bodyData = "register \"" + username + "\" \"localhost\" \"" + password + "\"";
+			HttpPostRequest httpPostRequestData = new HttpPostRequest(REQUEST_HEADERS_CONTENT, EMPTY_STRING_MAP,
+					bodyData, "/rest", HttpStatus.SC_OK);
+
+			try {
+				// try to create a user.  if user already exists, xmpp server will throw 500 internal error
+				// otherwise, it will return 200 OK. in either case, we've successfully created a user on xmpp.
+				this.transport.post(httpPostRequestData);
+			} catch (HttpStatusCodeException e) {
+				// this might mean that the user already exists on the xmpp server
+				//e.printStackTrace();
+			}
+
+			JSONObject xmppUserObject = new JSONObject();
+			
+			try {
+				//populate the xmppUserObject fields
+				xmppUserObject.put("xmppUsername", username);
+				xmppUserObject.put("xmppPassword", password);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			return xmppUserObject;
+		}
+		/**
+		 * @param runId the runId to set
+		 */
+		public void setRunId(String runId) {
+			this.runId = runId;
+		}
+		/**
+		 * @param workgroupId the workgroupId to set
+		 */
+		public void setWorkgroupId(String workgroupId) {
+			this.workgroupId = workgroupId;
+		}
+	}
+	
+	private void handleWISEXMPPAuthenticate(HttpServletRequest request, HttpServletResponse response) {
+		// connect to ejabberd via Connector.java, 
+		// find username/password for logged in user's workgroupId from ejabberd
+		// if not found, create a new user
+		// then return a json obj in the response that looks like this: {"xmppUsername":"abc","xmppPassword":"bla"}
+		String xmppServerBaseUrl = portalProperties.getProperty("xmppServerBaseUrl");
+		if (xmppServerBaseUrl == null) {
+			return;
+		}
+		
+		XMPPCreateUserRestCommand restCommand = new XMPPCreateUserRestCommand();
+		
+		//set fields for rest command
+		String runId = request.getParameter("runId");
+		String workgroupId = request.getParameter("workgroupId");
+		restCommand.setRunId(runId);
+		restCommand.setWorkgroupId(workgroupId);
+
+		//make the rest request
+		HttpRestTransportImpl restTransport = new HttpRestTransportImpl();
+		restTransport.setBaseUrl(xmppServerBaseUrl);		
+		restCommand.setTransport(restTransport);
+		
+		// xmppUserObject looks like this: {"xmppUsername":"abc","xmppPassword":"bla"}
+		JSONObject xmppUserObject = restCommand.run();
+		try {
+			//print the xmppUserObject to the response
+			response.getWriter().print(xmppUserObject.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	/**
 	 * Sets the classmate, teacher and shared teacher user infos
