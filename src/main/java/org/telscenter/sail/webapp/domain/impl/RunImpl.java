@@ -556,6 +556,22 @@ public class RunImpl extends OfferingImpl implements Run {
 	public void setVersionId(String versionId) {
 		this.versionId = versionId;
 	}
+	
+	public boolean isXMPPEnabled() {
+		String runInfoStr = this.getInfo();
+		if (runInfoStr != null && runInfoStr != null) {
+			try {
+				JSONObject runInfo = new JSONObject(runInfoStr);
+				if (runInfo.has("isXMPPEnabled")) {
+					return runInfo.getBoolean("isXMPPEnabled");
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return false;
+	}
 
 	public boolean isIdeaManagerEnabled() {
 		String runInfoStr = this.getInfo();

@@ -333,4 +333,10 @@ public interface Run extends Offering {
 	 * @param versionId the versionId to set
 	 */
 	public void setVersionId(String versionId);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isXMPPEnabled();
 }
