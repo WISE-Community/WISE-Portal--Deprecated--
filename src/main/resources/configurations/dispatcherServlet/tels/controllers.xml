@@ -697,6 +697,12 @@
 		<property name="httpRestTransport" ref="httpRestTransport" />
     	<property name="aclService" ref="aclServiceImpl" />
 	</bean>
+	
+	<bean id="listStudentNamesController"
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ListStudentNamesController">
+	    <property name="runService" ref="runService" />
+		<property name="workgroupService" ref="wiseWorkgroupService" />
+	</bean>
 
 	<bean id="classMonitorController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ClassMonitorController">
@@ -1499,6 +1505,10 @@
     <bean id="compatibilityCheckController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.CompatibilityCheckController">
 		<property name="projectService" ref="projectService"/>
+	</bean>
+	
+	<bean id="memoryMonitorController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.MemoryMonitorController">
 	</bean>
 	
 	<bean id="projectMetadataController"

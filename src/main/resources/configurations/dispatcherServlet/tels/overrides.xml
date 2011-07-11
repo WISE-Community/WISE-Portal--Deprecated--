@@ -217,7 +217,7 @@
     		    /teacher/management/submitworkgroupchanges.html=submitWorkgroupChangesController
     		    /studentinfo.html=infoController
     		    /teacher/management/studentlist.html=studentListController
-    		    /teacher/management/studentlistexcel.html=viewMyStudentsController
+    		    /teacher/management/studentlistexcel.html=listStudentNamesController
     		    <!--  /teacher/management/manageextrateachers.html=manageExtraTeachersController -->
     		    /teacher/management/addsharedteacher.html=addSharedTeacherController
     		    /teacher/help/overview.html=overviewHelpController
@@ -322,6 +322,7 @@
 				/errors/outsideerror.html=outsideErrorController
 				/authorize.html=credentialManager
 				/check.html=compatibilityCheckController
+				/memorymonitor.html=memoryMonitorController
 				/pages/*.html=urlFilenameViewController
     		</value>
     	</property>

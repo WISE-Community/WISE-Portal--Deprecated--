@@ -246,7 +246,7 @@
           <url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
         </repository>		
 		<repository>
-        	<id>net.tanesha.recaptcha4j</id>
+        	<id>repo1.maven.org</id>
         	<url>http://repo1.maven.org/maven2/</url>
         </repository>
 	</repositories>
@@ -607,6 +607,26 @@
 		    <groupId>net.tanesha.recaptcha4j</groupId>
 		    <artifactId>recaptcha4j</artifactId>
 		    <version>0.0.7</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.apache.xmlbeans</groupId>
+    		<artifactId>xmlbeans</artifactId>
+    		<version>2.4.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+    		<artifactId>poi</artifactId>
+    		<version>3.7</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+    		<artifactId>poi-ooxml</artifactId>
+    		<version>3.7</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.apache.poi</groupId>
+   			<artifactId>poi-ooxml-schemas</artifactId>
+    		<version>3.7</version>
 		</dependency>
 	</dependencies>
 	<reporting>

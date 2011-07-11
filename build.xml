@@ -179,6 +179,15 @@
   <path id="lib.recaptcha">
 	    <path location="${M2_REPO}/net/tanesha/recaptcha4j/recaptcha4j/0.0.7/recaptcha4j-0.0.7.jar" />
   </path>
+  <path id="lib.poi">
+  		<path location="${M2_REPO}/org/apache/poi/poi/3.7/poi-3.7.jar" />
+		<path location="${M2_REPO}/org/apache/poi/poi-ooxml/3.7/poi-ooxml-3.7.jar" />
+  		<path location="${M2_REPO}/org/apache/poi/poi-ooxml-schemas/3.7/poi-ooxml-schemas-3.7.jar" />
+  </path>
+
+    <path id="lib.xmlbeans">
+    	<path location="${M2_REPO}/org/apache/xmlbeans/xmlbeans/2.4.0/xmlbeans-2.4.0.jar" />
+    </path>
     <path id="classes">
         <path location="${dir.build.classes}" />
     </path>
@@ -205,6 +214,8 @@
     	<path refid="lib.aspect" />
     	<path refid="lib.dwr" />
     	<path refid="lib.recaptcha" />
+    	<path refid="lib.poi" />
+    	<path refid="lib.xmlbeans" />
         <path refid="classes" />
     </path>
 

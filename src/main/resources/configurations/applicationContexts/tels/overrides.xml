@@ -150,6 +150,7 @@
                 /request/info.html=ROLE_ANONYMOUS,ROLE_USER
                 /pages/*.html=ROLE_ANONYMOUS,ROLE_USER
                 /pages/**/*.html=ROLE_ANONYMOUS,ROLE_USER
+                /memorymonitor.html=ROLE_ADMINISTRATOR
                 /*.html=ROLE_USER
                 /**/*.html=ROLE_USER
             </value>
