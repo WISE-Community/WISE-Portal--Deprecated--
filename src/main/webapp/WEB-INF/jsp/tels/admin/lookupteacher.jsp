@@ -24,7 +24,7 @@
 
 </head>
 
-<body>
+<body onload="document.getElementById('lookupData').focus();">
 
 <%@ include file="adminheader.jsp"%>
 <h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>
