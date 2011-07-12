@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
-import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.group.Group;
-import net.sf.sail.webapp.domain.sds.SdsUser;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -24,6 +22,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
@@ -161,20 +160,21 @@ public class ListStudentNamesController extends AbstractController {
 				Long workgroupId = workgroup.getId();
 				Long wiseId = user.getId();
 				
-				//get the student user name
-				MutableUserDetails userDetails = user.getUserDetails();
-				String userName = userDetails.getUsername();
+				//get the user details
+				MutableUserDetails userDetails = (MutableUserDetails) user.getUserDetails();
 				
-				//get the student account so we can retrieve their name
-				SdsUser sdsUser = user.getSdsUser();
+				String userName = "";
 				String firstName = "";
 				String lastName = "";
 				String fullName = "";
 				
-				if(sdsUser != null) {
+				if(userDetails != null) {
+					//get the student username
+					userName = userDetails.getUsername();
+					
 					//get the student name
-					firstName = sdsUser.getFirstName();
-					lastName = sdsUser.getLastName();
+					firstName = userDetails.getFirstname();
+					lastName = userDetails.getLastname();
 					fullName = firstName + " " + lastName;					
 				}
 				
