@@ -360,6 +360,7 @@ public class InformationController extends AbstractController{
 		//String versionId = request.getParameter("versionId");
 		
 		String portalurl = ControllerUtil.getBaseUrlString(request);
+		String hostName = ControllerUtil.getHostNameFromUrl(portalurl);
 		String infourl = portalurl + "/webapp/request/info.html";
 		
 		String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
@@ -481,6 +482,7 @@ public class InformationController extends AbstractController{
 				config.put("wiseXMPPAuthenticateUrl", wiseXMPPAuthenticateUrl);
 				config.put("runInfo", run.getInfo());
 				config.put("isXMPPEnabled", true);  // make this run-specific setting
+				config.put("hostName", hostName);
 				
 				if(postLevel!=null){
 					config.put("postLevel", postLevel);

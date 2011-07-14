@@ -608,11 +608,18 @@ public class BridgeController extends AbstractController {
 		
 		
 		public JSONObject run() {
+			//get the username and password for the ejabberd account
 			String username = workgroupId;
 			String password = generateUniqueIdMD5(workgroupId,runId);
 			
+			//get the xmmp server base url e.g. http://wise4.berkeley.edu:5285
+			String xmppServerBaseUrl = portalProperties.getProperty("xmppServerBaseUrl");
+
+			//get the xmpp server host name e.g. wise4.berkeley.edu
+			String xmppServerHostName = ControllerUtil.getHostNameFromUrl(xmppServerBaseUrl);
+			
 			//make the request to register the user in the ejabberd database
-			String bodyData = "register \"" + username + "\" \"localhost\" \"" + password + "\"";
+			String bodyData = "register \"" + username + "\" \"" + xmppServerHostName + "\" \"" + password + "\"";
 			HttpPostRequest httpPostRequestData = new HttpPostRequest(REQUEST_HEADERS_CONTENT, EMPTY_STRING_MAP,
 					bodyData, "/rest", HttpStatus.SC_OK);
 
