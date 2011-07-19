@@ -119,6 +119,13 @@ public class GradeWorkController extends AbstractController {
 						modelAndView.addObject("permission", "read");
 					}
 					
+					// if user requests minified/unminified, set it here. Otherwise, default to minified=false.
+					if (request.getParameter("minified") != null) {
+						modelAndView.addObject("minified", request.getParameter("minified"));
+					} else {
+						modelAndView.addObject("minified", "false");
+					}
+					
 					return modelAndView;
 				} else {
 					return new ModelAndView(new RedirectView("../../accessdenied.html"));

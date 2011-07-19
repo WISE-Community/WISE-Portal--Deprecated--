@@ -26,10 +26,10 @@
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
         destroy-method="close">
-        <property name="driverClassName" value="${jdbc.driverClassName}" />
-        <property name="url" value="${jdbc.url}" />
-        <property name="username" value="${jdbc.username}" />
-        <property name="password" value="${jdbc.password}" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/sail_database" />
+        <property name="username" value="wise4user" />
+        <property name="password" value="wise4pass" />
         <property name="defaultAutoCommit" value="false" />
         <property name="initialSize" value="50" />
         <property name="maxActive" value="100" />
