@@ -5,7 +5,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
 <title><spring:message code="application.title" /></title>
 
 <%@ include file="styles.jsp"%>

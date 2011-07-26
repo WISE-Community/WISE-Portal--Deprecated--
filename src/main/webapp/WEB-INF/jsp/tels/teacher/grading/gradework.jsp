@@ -1,4 +1,12 @@
 <%@ include file="include.jsp"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+<html lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />  
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+
 <!-- 
  * Copyright (c) 2007 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
@@ -22,11 +30,6 @@
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
-<html lang="en">
-
-<head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />  
 <!--  
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/prototype.js"></script>

@@ -27,6 +27,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />  
+<meta http-equiv="X-UA-Compatible" content="chrome=1"/>
  
 <script type="text/javascript" src="/webapp/javascript/tels/prototype.js"></script>
 <script type="text/javascript" src="/webapp/javascript/tels/scriptaculous.js"></script>

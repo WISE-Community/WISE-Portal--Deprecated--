@@ -1,4 +1,14 @@
 <%@ include file="./include.jsp"%>
+
+<!-- $Id$ -->
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -16,13 +26,6 @@
   * License along with this library; if not, write to the Free Software
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
-
-<!-- $Id$ -->
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="en">
-<head>
-
 
 <%@ include file="./projects/styles.jsp"%>
 

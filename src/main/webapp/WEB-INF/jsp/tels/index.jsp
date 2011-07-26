@@ -1,6 +1,17 @@
 <%@ include file="include.jsp"%>
 
 <!-- $Id$ -->
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+	Remove this if you use the .htaccess -->
+<meta http-equiv="X-UA-Compatible" content="chrome=1"/>
+
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -18,18 +29,6 @@
   * License along with this library; if not, write to the Free Software
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
-
-<!-- $Id$ -->
-
-<!DOCTYPE html>
-<html>
-<head>
-
-<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
-	Remove this if you use the .htaccess -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
 <link href="<spring:theme code="globalstyles"/>" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="homepagestylesheet"/>" rel="stylesheet" type="text/css" />
