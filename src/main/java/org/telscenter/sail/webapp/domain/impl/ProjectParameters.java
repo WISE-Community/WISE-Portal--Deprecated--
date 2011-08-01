@@ -59,6 +59,8 @@ public class ProjectParameters implements Serializable {
 	
 	private ProjectMetadata metadata;
 	
+	private Long rootProjectId;
+	
 	
 	/**
 	 * @return the curnitId
@@ -153,5 +155,13 @@ public class ProjectParameters implements Serializable {
 
 	public Long getParentProjectId() {
 		return this.parentProjectId;
+	}
+
+	public void setRootProjectId(Long rootProjectId) {
+		this.rootProjectId = rootProjectId;
+	}
+
+	public Long getRootProjectId() {
+		return rootProjectId;
 	}
 }

@@ -1,234 +1,540 @@
+/* Project and run display styles */
+#copyDialog p {
+	font-size: 0.9em;
+    margin-bottom: 0.5em;
+}
+/*#myProjects_wrapper .top,*/ #myProjects_wrapper .bottom {
+	height:20px;  TODO: Fix this - should not need to set a height */
+}
 
+#myProjects_wrapper .datatables_length {
+	float:none;
+}
 
-/* NOTE: the min-height hack immediately below is a temporary measure, until we dynamically 
-resize the size of Projectruntabs.jsp when the user switches between Current or Archived tabs (MattFish Dec 2009) */
+.projectTable .tableHeaderMain {
+	display:none;
+}
 
-table, td, th {
-	border:1px solid;
+.projectTable {
+	border:0 none;
+	width: 100%;
+	border:none;
+}
+
+.projectTable .projectRow {
+	/*border-bottom:1px solid #999999;*/
+}
+
+.projectTable tr.even, .projectTable tr.odd {
+	background-color:#FFFFFF;
+}
+
+.dataTables_wrapper .bottom {
+	margin-top:.5em;
+}
+
+.sticky {
+	border: 6px solid #ffffff;
+	border-left-width:2px;
+	border-right-width:2px;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+	box-shadow: 0 2px 2px -2px #444444;
+	-moz-box-shadow: 0 2px 2px -2px #444444;
+	-webkit-box-shadow: 0 2px 2px -2px #444444;
+	/*background-color:#FFFFFF !important;*/
+}
+
+/*.projectBox {
+	padding:0 .5em;
+	position:relative;
+	border:1px solid #999;
+	margin:0 1em;
+	background-color:#F5F5F5;
+}*/
+
+.projectBox {
+	padding:0 .5em;
+	position:relative;
+	border: 1px solid #DDDDDD;
+    margin: 0.5em 0 1px;
+    display:block;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    box-shadow: 1px 1px 2px #444;
+    -webkit-box-shadow: 1px 1px 2px #444;
+    -moz-box-shadow: 1px 1px 2px #444;
+	background: #eeeeee; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #eeeeee 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#eeeeee)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#eeeeee 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#eeeeee 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#eeeeee 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, #ffffff 0%,#eeeeee 100%); /* W3C */
+}
+
+.projectBox.rootProject {
+	
+}
+
+.projectBox.childProject {
+	margin:0 .5em;
+	border-top-width: 0;
+	border-radius:0;
+	-moz-border-radius:0;
+	-webkit-border-radius:0;
+	background: #F9F9F9;
+	display:none;
+}
+
+.projectBox.noMatch {
+	background:#eeeeee !important;
+}
+
+.projectBox.noMatch div, .projectBox.noMatch a, .projectBox.noMatch span {
+	color:#999999 !important;
+}
+
+.projectBox .childDate {
+	color: #765936;
+}
+
+.projectBox.childProject ul.actions {
+	display:none;
+}
+
+.projectBox .setupRun {
+	font-weight:bold;
+}
+
+.projectBox.childProject .setupRun {
+	font-weight:normal;
+}
+
+.projectBox.childProject .projectSummary, .projectBox.childProject .detailsLinks {
+	display: none;
+}
+
+.projectBox .projectSummary {
+	padding-top:0;
+}
+
+.projectThumb {
+	float:left;
+}
+
+.projectThumb img {
+	height:75px;
+	width:75px;
+	border:1px solid #999999;
+	vertical-align:top;
+}
+
+.summaryInfo {
+	margin-left:85px;
+}
+
+.libraryIcon, .sharedIcon {
+	/*color:#FF8676;*/
+	color:#FF563F;
+	font-weight:bold;
+	margin-bottom:.5em;
+	min-height:1em;
+}
+
+.noMatch img {
+	opacity:.5;
+}
+
+.sharedIcon {
+	text-align:right;
+}
+
+.runTable .sharedIcon {
+	font-size: 0.9em;
+    margin: 0.25em 0 0;
+    text-align: left;
+}
+
+.details .sharedIcon {
+	text-align:left;
+}
+
+.libraryIcon img {
+	height:1em;
+	vertical-align: top;
+}
+
+.childProject .details {
+	display:block;
+}
+
+.details .sharedIcon {
+	font-size:.9em;
+	margin-bottom:0;
+	margin-top:.5em;
+}
+
+.sharedIcon img {
+	height: 1.2em;
+	vertical-align:top;
+}
+
+.projectSummary div.basicInfo {
+	margin:0 0 .5em;
+	color: #765936;
+	min-height:1em;
+}
+
+.projectSummary div.summaryText {
+	min-height:2em;
+}
+
+.projectOverviewTable tr.detailsLinks {
+	border-top: 1px solid #CCCCCC;
+    font-size: 0.9em;
+}
+
+.projectOverviewTable .details {
+	margin-top:.5em;
+	display:none;
+}
+
+.projectOverviewTable .details p {
+	font-size:.9em;
+}
+
+.projectOverviewTable span.truncated {
+	display:none;
+}
+
+.projectOverviewTable .lessonPlan {
+	display:none;
+}
+
+div.viewLesson {
+	font-weight:bold;
+	margin-top:.5em;
+	font-size:.9em;
+}
+
+.lessonPlan .panelHeader {
+	font-family: Arial,Helvetica,Tahoma,sans-serif;
+    font-size: 1em;
+    margin: 0;
+    padding-left: 0.25em;
+    padding-top: 0;
+}
+
+.lessonPlan .sectionHead {
+	border-bottom:0 none;
+	text-decoration: underline;
+	font-weight: normal;
+}
+
+.lessonPlan .sectionContent {
+	margin: 0 0.5em;
+	font-size:.9em;
+}
+
+.lessonPlan .basicInfo {
+	color: #765936;
+	margin-top: .5em;
+}
+
+.lessonPlan .lessonHelp {
+	display:none;
+}
+
+a.printLesson {
+	background: url("/webapp/themes/tels/default/images/print.png") no-repeat scroll left center transparent;
+    color: #00748F;
+    font-family: Arial,Helvetica,Tahoma,sans-serif;
+    font-size: 0.9em;
+    margin-right: 0.25em;
+    padding-left: 28px;
+}
+
+.runTable, .projectOverviewTable {
+	border-collapse:collapse;
+	width:100%;
+	border:1px solid #999999;
+	font-size:.85em;
+}
+
+.runTable td {
+	border:1px solid #999999;
+}
+	
+.runTitle, .projectTitle {
+	font-size:1em;
+	font-weight:bold;
+	margin: 0;
+	padding:0;
+}
+
+.projectTable .projectTitle {
+	padding-bottom:.5em;
+}
+
+/*.projectTitle {
+	color: #765936;
+}*/
+
+.projectOverviewTable, .projectOverviewTable tr {
+	border:0 none;
+}
+
+.projectOverviewTable td {
+	padding:.5em 0;
+}
+
+.projectOverviewTable tr {
+	margin:.5em 0;
+}
+
+.projectBox a.bookmark {
+	background: url("/webapp/themes/tels/default/images/star-empty.png") no-repeat scroll center center transparent;
+    display: inline-block;
+    height: 15px;
+    margin-bottom: -1px;
+    margin-right: 2px;
+    width: 16px;
+}
+
+.projectBox .bookmark.true {
+	background-image:url("/webapp/themes/tels/default/images/star-fill.png");
+}
+
+ul.actions {
+	border-left:0;
+	font-size:.9em;
+	text-align:right;
+	margin-top:.1em;
+}
+			
+ul.actions ul {
+	 margin:.75em 0 0 0;
+	 padding:0;
+}
+			
+ul.actions li {
+	display:inline;
+	list-style-type:none;
+}
+
+th.infoHead, td.projectInfo {
+	border:1px solid #CCCCCC;
+	padding:0.25em 0.5em;
+	font-size:.9em;
+	width:20%;
+}
+
+th.infoHead {
+	font-weight:bold;
+	/*background-color:#C3FDCF;*/
+}
+
+.runTitleTable, .projectDetails {
+	border-collapse:collapse;
+	border:0px;
+	color:#444444;
+	margin-top:.5em;
+	font-size:.9em;
+}
+
+.projectDetails {
+	font-size:.9em;
+}
+
+.runTitleTable th, .projectDetails th {
+	border:0px;
+	width:135px;
+	text-align:left;
+	vertical-align:top;
+}
+
+.projectDetails th {
+	width:120px;
+}
+
+.sharedTeacherMsg1 {
+	background-color: #FFE3DF;
+    border-left: 6px solid #FF8D7E;
+    color: #444444;
+    font-size: 0.8em;
+    margin-right: 0.5em;
+    margin-top: 0.25em;
+    padding: 0 0.4em;
+}
+
+div.sharedTeacherMsg1 {
+	font-size:1em;
+	margin-bottom:.5em;
+	margin-top:0;
+}
+
+.projectTable .sharedTeacherMsg1 {
+	display:inline-block;
+}
+
+.projectDetailsLink {
+	padding-right:.25em;
 }
 
 #currentrunWrapper {
 	background-color:#FFF;
-	min-height:480px;
+	/*min-height:480px;*/
 }
 
-#currentRuns {
-	background-color:#FFF;
-}
-
-#noRuns {
-	color:#336600;
-}
-
-#noRuns a {
-	border:1px solid transparent;
-}
-
-#noRuns a:hover {
-	background:#FFFF00;
-	border:1px solid #999;
-	
-}
-
-#subHeader {
-	margin:3px 0 8px 0 ;
+.subHeader {
+	margin:.25em 0 .5em;
 	font-size:.8em;
 	font-weight:bold;
 	color:#333;
+	text-align:left;
 }
 
-#runBox {
+.runBox {
 	padding:0;
 	margin:0;
-}
-
-#currentRunTable {
-	border-collapse:collapse;
-	margin:5px 0;
-	background:#FFF;
+	text-align:left;
 }
 
 .tableHeaderMain {
-	background:#99CC99;
-	color:#333;
-	font-size:.8em;
-	padding: 2px 0px 2px 10px;
-	text-align:left;
-	letter-spacing:1.5px;
-}
-
-.tableHeaderMain.archive {
-	background-color: brown;
-    border-color: #000000;
-    color: #FFFFFF;
-    font-size: 0.8em;
-    letter-spacing: 1.5px;
-    padding: 2px 0 2px 10px;
+	background-color: #DFFFE3;
+    font-weight: bold;
+    padding: 0.25em 0.5em;
     text-align: left;
 }
 
-#runTitleRow {
-	border-bottom:2px solid #666;
+.projectTable .tableHeaderMain {
+	font-size:.9em;
+	border: 1px solid #999999;
 }
 
-#titleCell {
-	padding: 5px 2px 5px 6px;
-	vertical-align:top;
-	}
+.tableHeaderMain.archive {
+	background-color: #FFE2DF;
+}
 
-#titleCell #titleCellLinkList{
-	margin:0px auto;
-	padding:0px;
+.titleCell {
+	padding: .5em;
+	vertical-align:top;
+}
+
+.titleCell .titleCellLinkList{
+	margin:0 auto;
+	padding:0;
 	}
 	
-#titleCell #titleCellLinkList li{
+.titleCell .titleCellLinkList li{
 	list-style-type:none;
-	margin:0px;
-	padding:0px;
-	}
+	margin:0;
+	padding:0;
+}
 	
-#runTitle {
-	font-size:1.0em;
+.runTitleTable .accesscode, .runTitleTable .archivedDate {
 	font-weight:bold;
-	margin: 0px 0px;
-	padding:0px;
-	letter-spacing:-.5px;
+	color:#FF563F;
 }
 
-#sharedTeacherMsg1 {
-	background-color:#ffb759;
-	border-left:6px solid #bf955f;
-	font-size:.75em;
-	padding: 1px 4px 1px 8px;
-	margin:4px 0 0 0px;
+.runTitleTable .accesscode {
+	font-size:1.1em;
 }
 
-#runTitleTable {
-	border-collapse:collapse;
-	border:0px;
-	font-size:.7em;
-	color:#000000;
-	margin:5px 0;
-}
-
-#runTitleTable th {
-	border:0px;
-	padding:1px 0;
-	width:150px;
-	text-align:left;
-	color:#666;
-	vertical-align:top;
-	
-	}
-	
-#runTitleTable .accesscodeClass {
-	font-weight:bold;
-	color:#660000;
-	font-size:110%;
-} 
-
-#runTitleTable td {
+.runTitleTable td {
 	border:0px;
 	padding:1px 0;
 	vertical-align:top;
-	}
+}
 
-#currentRunInfoTable {
-	border:0 none;
-	margin:0px;
-	padding:0px;
-	width:100%;
-	vertical-align:middle;
-		}
+.currentRunInfoTable {
+	border: 0 none;
+    font-size: .95em;
+    margin: 0.5em 0.25em;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.currentRunInfoTable td {
+	border:none;
+}
 	
-#currentRunInfoTable .tableInnerHeader {
-	background-color: #CCCCCC;
-    border-left: 0 none;
-    border-top: 0 none;
-    font-size: 0.7em;
+.currentRunInfoTable .tableInnerHeader {
+    border-bottom: 1px solid #CCCCCC;
     font-weight: bold;
-    padding: 2px 1px;
+    padding-bottom: 0.1em;
     text-align: center;
 }
 
-#currentRunInfoTable .tableInnerHeaderRight {
-	font-size:.7em;
-	font-weight:bold;
-	text-align:center;
-	padding: 2px 1px;
-	border-top:0px;
-	border-bottom:0px;
-	border-right:0px;
-	background-color:#CCCCCC;
-}
-
-#currentRunInfoTable .tableInnerData {
-	font-size:.7em;
+.currentRunInfoTable .tableInnerData {
+	font-size:100%;
 	text-align:center;
 	padding: 0px;
 	margin:0px;
+	vertical-align:middle;
 }
 
-#currentRunInfoTable .tableInnerDataRight {
+.currentRunInfoTable .tableInnerDataRight {
 	text-align:center;
-	padding: 0 0 2px 0px;
+	padding: 1px;
 	border-right:0px;
 	margin:0px;
 }
 
-#currentRunInfoTable .archivedNumberStudents {
-	font-size:.7em;
+.currentRunInfoTable .archivedNumberStudents {
 	text-align:center;
 	padding: 2px 1px;
 }
 
-#actionList1  {
-	float:left;
-	text-align:left;
-	margin:4px 0 4px 3px;
-	padding:0px;
-	}
-	
-#actionList2  {
-	float:left;
-	text-align:left;
-	margin:4px 0px 4px 0px;
-	padding:0px;
-	border-left:1px solid #CCC;
-	
-		}
-		
-#actionList3  {
-	text-align:left;
-	margin:4px 2px 4px 4px;
-	padding:0px;
-		}
+.actionList  {
+	border-bottom: 1px solid #CCCCCC;
+    font-size: 0.9em;
+    margin: 0.5em;
+    padding-bottom: 0.5em;
+    text-align: left;
+}
+
+.actionList2 {
+	border-bottom:0 none;
+	padding-bottom:0;
+}
 	
 	
-#actionList1 li, #actionList2 li, #actionList3 li  {
-	list-style-type:none;
-	line-height:100%;
-	font-size:0.7em;
-	margin:4px 2px 4px 4px;
-	}
+.actionList li {
+	line-height: 1.1em;
+    list-style-type: none;
+    margin: 0.25em;
+}
 	
-#actionList2 .qaBullet  {
+.actionList2 .qaBullet  {
 	margin:0 0 0 20px;
-	}
+}
 	
-	
-#currentRunTable a:link, #currentRunTable a:visited, #actionList a:link, #actionList a:visited {
+#gradingDialog, #shareDialog, #editRunDialog, #editAnnouncementsDialog {
+	padding:0;
+	overflow-y:hidden;
+}
+
+#shareDialog {
+	text-align:center;
+}
+
+/*.currentRunTable a:link, .currentRunTable a:visited, .actionList a:link, .actionList a:visited {
 	text-decoration:none;
 	color:#0033CC;
 	padding:1px 7px 1px 7px;
 }
 
-#currentRunTable a:hover, #actionList a:hover {
+.currentRunTable a:hover, .actionList a:hover {
 	color:#000066;
 	padding:0px 6px 0px 6px;
 	background-color:#ffff33;
 	border:1px solid #666666;
-}
+}*/
 
 
 
@@ -242,7 +548,6 @@ table, td, th {
 #largeHeader {
 	margin-top:30px;
 	font-size:2.1em;
-	letter-spacing:2px;
 	font-variant:small-caps;
 	text-align:center;
 }
@@ -291,7 +596,7 @@ table, td, th {
 	color:#CCC;
 	padding:4px 10px;
 	margin:0 8px;
-		}
+}
 
 #responseButtons input:hover {
 	background-color:#FFFF00;

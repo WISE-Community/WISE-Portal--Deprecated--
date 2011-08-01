@@ -497,4 +497,16 @@ public class RooloProjectServiceImpl implements ProjectService{
 		
 	}
 
+	public Project getProjectFull(Long projectId)
+			throws ObjectNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Long identifyRootProjectId(Project projectId)
+			throws ObjectNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -1,20 +1,25 @@
 <%@ include file="include.jsp"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+<!DOCTYPE html>
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
 
 <title>Edit Run</title>
 
-<script type="text/javascript" src="../.././javascript/tels/general.js"></script>
-<script type="text/javascript" src="../../javascript/tels/jquery-1.4.1.min.js"></script>
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
+
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
 <script type='text/javascript'>
+	var runUpdated = false;
+	
 	function updateRunTitle(runId){
+		$('#msgDiv').html('');
 		var val = $('#editRunTitleInput').val();
 		val = escape(val);
 
@@ -24,10 +29,11 @@
 			return;
 		}
 
-		$.ajax({type:'POST', url:'updaterun.html', data:'command=updateTitle&runId=' + runId + '&title=' + val, error:updateFailure, success:updateSuccess});
+		$.ajax({type:'POST', url:'updaterun.html', data:'command=updateTitle&runId=' + runId + '&title=' + val, error:updateFailure, success:updateTitleSuccess});
 	}
 
 	function updateRunPeriod(runId){
+		$('#msgDiv').html('');
 		var val=$('#editRunPeriodsInput').val();
 
 		/* validate user entered value */
@@ -40,12 +46,17 @@
 	}
 
 	function writeMessage(msg){
-		$('#errorMsgDiv').html(msg);
-		setTimeout(function(){$('#errorMsgDiv').html('')}, 10000);
+		$('#msgDiv').html(msg);
+		setTimeout(function(){$('#msgDiv').html('')}, 10000);
 	}
 
 	function updateSuccess(){
-		writeMessage('Successfully updated on server!');
+		writeMessage('Successfully updated run settings!');
+	}
+	
+	function updateTitleSuccess(){
+		runUpdated = true;
+		writeMessage('Successfully updated run title!');
 	}
 
 	function updateFailure(){
@@ -53,6 +64,7 @@
 	}
 
 	function updatePeriodSuccess(){
+		runUpdated = true;
 		var val = $('#editRunPeriodsInput').val();
 
 		$('#existingPeriodsList').append('<li>Period Name: ' + val);
@@ -61,6 +73,7 @@
 
 	$(document).ready(function() {		
 		$(".runInfoOption").bind("click", function() {
+			$('#msgDiv').html('');
 			var runId = $("#runId").html();
 			var infoOptionName = this.id;
 			var isEnabled = this.checked;
@@ -70,14 +83,14 @@
 	});
 </script>
 </head>
-<body>
-<div id="mainDiv">
-	<div id="editRunHeadDiv" class="editRunBlock">Edit Run (Run ID: <span id='runId'>${run.id}</span>)</div>
-	<div id='errorMsgDiv'></div>
-	<div id="editRunTitleDiv" class="editRunBlock">
-		Run Title: <input id="editRunTitleInput" type="text" size="50" value="<c:out value='${run.name}' />"/><input type="button" value="update title" onclick="updateRunTitle('${run.id}')"/>
+<body style="background:#FFFFFF;">
+<div class="dialogContent">
+	<div id="runId" style="display:none;">${run.id}</div>
+	<div id='msgDiv'></div>
+	<div id="editRunTitleDiv" class="dialogSection">
+		Run Title: <input id="editRunTitleInput" class="dialogTextInput" type="text" size="50" value="<c:out value='${run.name}' />"/><input type="button" value="Update Title" onclick="updateRunTitle('${run.id}')"/>
 	</div>
-	<div id='runInfo' style='margin-top:20px; margin-bottom:20px'>
+	<div id='runInfo' class="dialogSection">
 		<c:choose>
 			<c:when test="${run.ideaManagerEnabled}">
 				<input id='enableIdeaManager' class='runInfoOption' type="checkbox" checked="checked" ></input>Enable Idea Manager<br/>
@@ -95,19 +108,20 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
-	<div id="editRunPeriodsDiv" class="editRunBlock">
-		<div id="editRunPeriodsHeadDiv">Periods:</div>
+	<div class="sectionHead">Existing Class Periods</div>
+	<div id="editRunPeriodsDiv" class="dialogSection">
 		<div id="editRunPeriodsExistingPeriodsDiv">
-			Existing Periods:
 			<ul id="existingPeriodsList">
 				<c:forEach var="period" items="${run.periods}">
 					<li>Period Name: ${period.name}</li>
 				</c:forEach>
 			</ul>
 		</div>
+	</div>
+	<div class="sectionHead">Add a New Period:</div>
+	<div class="dialogSection">
 		<div id="editRunPeriodsAddPeriodDiv">
-			<div>Add a new period:</div>
-			<div>Enter period name (ex: for period 4, enter ONLY 4): <input id="editRunPeriodsInput" type="text" size="10"/><input type="button" value="add period" onclick="updateRunPeriod('${run.id}')"/></div>
+			<div>Enter period name (ex: for period 4, enter ONLY 4): <input id="editRunPeriodsInput" class="dialogTextInput" type="text" size="10"/><input type="button" value="Add Period" onclick="updateRunPeriod('${run.id}')"/></div>
 		</div>
 		<div class="buffer"></div>
 	</div>

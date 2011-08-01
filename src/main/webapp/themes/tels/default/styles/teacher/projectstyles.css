@@ -800,9 +800,14 @@ img#none{
 	width:100px;
 }
 
+ /* STYLES FOR EDIT RUN SETTINGS SCREEN */
 
+#existingPeriodsList li {
+	margin-left:1em;
+	color:#745A33;
+}
 
- /* STYLES FOR MY SHARED PERMISSIONS SCREEN */
+ /* STYLES FOR SHARED PERMISSIONS SCREEN */
 
 .sharedprojectHeadline1 {
 	font-variant:small-caps;
@@ -816,23 +821,30 @@ img#none{
 #sharedProjectPermissions {
 	border-collapse:collapse;
 	width:600px;
-	margin:6px auto;
-	border: 2px solid #000000;
+	margin:1em auto .5em;
+	border: 0 none;
 	text-align:center;
 }
 
-#sharedProjectPermissions th { 
-		font-size:.9em;
-		background-color:#CCCCCC;
-		border-bottom: 3px double #000000;
-		border-right:1px solid #000000;
-		padding: 5px;
-		}
+#sharedProjectPermissions th {
+    border-bottom: 2px solid #777777;
+    border-color: #FFFFFF #FFFFFF #777777;
+    color: #444444;
+    font-weight: bold;
+    padding: 5px;
+    text-align:center;
+}
 
 #sharedProjectPermissions td {
-		font-size:.9em;
-		border: 1px solid #000000;
-		padding:8px;
+	border:1px solid #DDDDDD;
+	text-align:center;
+	vertical-align: middle;
+	padding:5px;
+	font-size: 0.9em;
+}
+
+#sharedProjectPermissions td.user {
+	color:#745A33;
 }
 
 .sharedUserName {
@@ -843,46 +855,54 @@ img#none{
 	background-color:#666666; 
 	color:#FFFFFF;
 }
-	
-#sharingSearchBoxHelp {
-	font-size:.8em;
-	font-weight:bold;
-	margin:5px 0 7px 0;	
+
+#sharingSearchSelect {
+	text-align:center;
+	color:#585F0C;
 }
 
-#sharingSearchBoxHelp p{
-	font-size:1.1em;
-	margin-bottom:4px;
-	}
-
 #sharedOwnerUsernameInput {
-	margin-top:10px;
+	margin-top:.5em;
+	color:#444444;
 }
 
 #matchedUsernames {
-	margin:20px 0 0 -250x;
-	width:100%;
-	padding:0;
 }
 
 #matchedUsernames li {
 	list-style-type:none;
-	padding:2px 0;
+	margin:.25em 0;
 }
 
 #matchedUsernames a {
-	border:1px solid transparent;
-	padding:2px 4px;
-	
 }
 
 #matchedUsernames a:hover {
-	background-color:#FFFF00;
-	color:#333;
-	border:1px solid #999;
+	text-decoration:underline;
 }
 	
+/** Teacher Dialog Styles **/
+.dialogContent {
+	background:#FFFFFF;
+	padding:.5em;
+	font-size:.9em;
+	font-family: Arial,Helvetica,Tahoma,sans-serif;
+}
 
+.dialogSection {
+	padding:.5em;
+	line-height:1.25em;
+}
+
+.dialogTextInput {
+	margin-top:.5em;
+	color:#444444;
+}
+
+#msgDiv {
+	color:#FF563F;
+	margin:.5em;
+}
 
 
 	

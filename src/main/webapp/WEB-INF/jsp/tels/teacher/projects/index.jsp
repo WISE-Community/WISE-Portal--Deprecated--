@@ -1,97 +1,66 @@
-<%@ include file="../include.jsp" %>
+<%@ include file="../../include.jsp"%>
 
-<!--
-  * Copyright (c) 2006 Encore Research Group, University of Toronto
-  * 
-  * This library is free software; you can redistribute it and/or
-  * modify it under the terms of the GNU Lesser General Public
-  * License as published by the Free Software Foundation; either
-  * version 2.1 of the License, or (at your option) any later version.
-  *
-  * This library is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  * Lesser General Public License for more details.
-  *
-  * You should have received a copy of the GNU Lesser General Public
-  * License along with this library; if not, write to the Free Software
-  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
--->
-
-<!-- $Id: overview.jsp 997 2007-09-05 16:52:39Z archana $ -->
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="jquerycookiesource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 
-<script type="text/javascript" src="../.././javascript/tels/general.js"></script>
- 
-<title><spring:message code="teacher.pro.lib.index.1"/></title>
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="jquerystylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+
+<title><spring:message code="teacher.pro.index.1"/></title>
 
 <!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
 <!--[if lt IE 7]>
-<script defer type="text/javascript" src="../../javascript/tels/iefixes.js"></script>
+<script defer type="text/javascript" src="../javascript/tels/iefixes.js"></script>
 <![endif]-->
-
-<!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
-
-<link rel="stylesheet" type="text/css" href="../../themes/tels/default/styles/teacher/superfish.css" media="screen">
-<script type="text/javascript" src="../../javascript/tels/jquery-1.2.6.min.js"></script>
-<script type="text/javascript" src="../../javascript/tels/superfish.js"></script>
-
-<script type="text/javascript">
-    
-            // initialise plugins
-            jQuery(function(){
-                jQuery('ul.sf-menu').superfish();
-            });
-    
-</script>
 
 </head>
 
 <body>
 
-<div id="centeredDiv">
-
 <%@ include file="../headerteacher.jsp"%>
 
-<div id="navigationSubHeader2">Overview<span id="navigationSubHeader1">projects</span></div>
- 
-<div id="overviewContent"> 
+<div id="page">
+	<div class="pageContent">
+		<div class="contentPanel">
+			
+			<div class="panelHeader"><spring:message code="teacher.pro.index.1"/></div>
+			<div class="panelContent">
+				
+				<div class="sectionHead" style="padding-top:0;"><spring:message code="teacher.pro.index.2"/></div>
+				<div class="sectionContent">
+					<h5><a href="/webapp/teacher/projects/customized/index.html"><spring:message code="teacher.pro.index.8"/></a> - <spring:message code="teacher.pro.index.8A"/></h5>
+					<h5><a href="/webapp/author/authorproject.html"><spring:message code="teacher.pro.index.9"/></a> - <spring:message code="teacher.pro.index.9A"/></h5>
+					<h5><a href="/webapp/teacher/run/myprojectruns.html"><spring:message code="teacher.pro.index.7"/></a> - <spring:message code="teacher.pro.index.7A"/></h5>
+				</div>
+				
+				<div class="sectionHead"><spring:message code="teacher.pro.index.3"/></div>
+				<div class="sectionContent">
+					<h5><a class="inactive"><spring:message code="teacher.pro.index.4"/></a> - <spring:message code="teacher.pro.index.4A"/></h5> <!-- href="/webapp/teacher/projects/library/index.html" -->
+					<h5><a href="/webapp/teacher/projects/library/tels.html"><spring:message code="teacher.pro.index.5"/></a> - <spring:message code="teacher.pro.index.5A"/> <a href="http://telscenter.org" target="_blank"><spring:message code="teacher.pro.index.5B"/></a></h5>
+					<h5><a class="inactive"><spring:message code="teacher.pro.index.6"/></a> - <spring:message code="teacher.pro.index.6A"/> <a href="http://telscenter.org/projects/visual" target="_blank"><spring:message code="teacher.pro.index.6B"/></a></h5> <!-- href="/webapp/teacher/projects/library/visual.html" -->
+				</div>
+				
+				<div class="sectionContent" style="text-align:center; margin-top:1em;">
+					<div class="ui-state-highlight ui-corner-all" style="margin:0 auto; display:inline-block;"> 
+						<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+						<spring:message code="teacher.pro.index.10"/> &nbsp;<a href="languagetranslations.html"><spring:message code="teacher.pro.index.10A"/></a></p>
+					</div>
+				</div>
 
-	<table id="overview_choices" cellspacing="20">
-		<tr>
-			<td class="link"><a href="telsprojectlibrary.html"><spring:message code="teacher.pro.lib.index.3"/></a></td>
-			<td class="description">View a list of all TELS curriculum projects</td></tr>
-		<tr>
-			<td class="link"><a style="color:#999999;" href="">VISUAL Projects</a></td>
-			<td class="description">View a list of all VISUAL curriculum projects</td></tr>
-		<tr>
-			<td class="link"><a href="projectlibrary.html">Search the Project Library</a></td>
-			<td class="description"><spring:message code="teacher.pro.lib.index.4A"/></td></tr>
-		<tr>
-			<td class="link"><a style="color:#999999;" href="bookmarkedprojects.html"><spring:message code="teacher.pro.lib.index.7"/></a></td>
-			<td class="description"><spring:message code="teacher.pro.lib.index.8"/></td></tr>
-		<tr>
-			<td class="link"><a href="http://wise4.telscenter.org/webapp/author/authorproject.html">My Custom-Authored & Shared Projects</a></td>
-			<td class="description">Author your customized projects or projects shared with you. 
-					Use the WISE 4 Authoring Tool to edit these projects or create a new project.</td></tr>
-		<tr>
-			<td class="link"><a href="../run/myprojectruns.html">My Project Runs / Access Codes</a></td> 
-			<td class="description"><span style="color:#660000;">Shortcut to the Management area.</span><br/>View your active Project Runs and the Access Code for each run.</td></tr> 
-	</table>
-	
-</div>
+			</div>
+		</div>
+	</div>
+	<div style="clear: both;"></div>
+</div>    <!--End of page-->
 
-<h5 class="center"><spring:message code="teacher.pro.lib.index.11"/> &nbsp; <a href="languagetranslations.html"><spring:message code="teacher.pro.lib.index.12"/></a></h5>
-
-</div>    <!--End of CenteredDiv-->
+<%@ include file="../../footer.jsp"%>
 
 </body>
 </html>

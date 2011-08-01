@@ -10,21 +10,22 @@
      </a>
    </div>
 
-   <div id="usernameSignOutBoxHome">
+   <div class="accountBox">
      <sec:authorize ifAllGranted="ROLE_USER">
-	   <div id="usernameBannerHome"><sec:authentication property="principal.username" /></div>
-	   <div id="signOutBannerHome"><a id="styleOverRideSafari1" href="<c:url value="/j_spring_security_logout"/>"><spring:message code="log.out"/></a></div>
 	   <sec:authorize ifAllGranted="ROLE_STUDENT">
-	   	   <div id="signOutBannerHome"><a href="student/index.html"><spring:message code="header.student"/></a></div>
+	   	   <div class="student"><a href="student/index.html"><spring:message code="header.student"/></a></div>
 	   </sec:authorize>
 	   <sec:authorize ifAllGranted="ROLE_TEACHER">
-	   	   <span id="signOutBannerHome"><a href="teacher/index.html"><spring:message code="header.teacher"/></a></span>
+	   	   <div class="teacher"><a href="teacher/index.html"><spring:message code="header.teacher"/></a></div>
 	   </sec:authorize>
 	   <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
-	   	  <span id="signOutBannerHome"><a href="admin/index.html"><spring:message code="header.admin"/></a></span>
+	   	  <div class="admin"><a href="admin/index.html"><spring:message code="header.admin"/></a></div>
 	 	</sec:authorize>
+	 	 <sec:authorize ifAllGranted="ROLE_RESEARCHER">
+	   	  <div class="admin"><a href="admin/index.html"><spring:message code="header.researcher"/></a></div>
+	 	</sec:authorize>
+	   	 <div class="usernameBanner"><sec:authentication property="principal.username" /></div>
+	   	 <div class="signOutBanner"><a class="styleOverRideSafari1" href="<c:url value="/j_spring_security_logout"/>">(<spring:message code="log.out"/>)</a></div>
      </sec:authorize>
-
-
   </div>
 </div>

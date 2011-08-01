@@ -402,4 +402,12 @@ public interface ProjectService {
 	 * @return
 	 */
 	public List<Project> getProjectCopies(Long projectId);
+	
+	/**
+	 * Given a project, gets the project id for the project's root level project
+	 * @param project
+	 * @return project 
+	 * @throws ObjectNotFoundException 
+	 */
+	public Long identifyRootProjectId(Project project) throws ObjectNotFoundException;
 }

@@ -1,22 +1,23 @@
-<%@ include file="../include.jsp"%>
+<script type="text/javascript" src="<spring:theme code="superfishsource"/>"></script>
+<link rel="stylesheet" type="text/css" href="<spring:theme code="superfishstylesheet"/>" media="screen">
 
-<div id="bannerArea1">
-  <div>
-    <a href="index.html" onmouseout="MM_swapImgRestore()"
-	      onmouseover="MM_swapImage('WISE Main Logo','','../themes/tels/default/images/WISE-Logo-Large-v4.png',1)">
-       <img src="../themes/tels/default/images/WISE-Logo-Large-v4.png" alt="WISE Large Logo" border="0" id="WISE Main Logo" />
-     </a>
-   </div>
-
-
-<div id="usernameSignOutBoxTeacher">
-		<div id="usernameBannerTeacher"><sec:authentication property="principal.username" /> </div>
-		<div id="signOutBannerTeacher">
-		   <sec:authorize ifAllGranted="ROLE_TEACHER">
-	   		   <span id="signOutBannerHome"><a href="/webapp/teacher/index.html"><spring:message code="header.teacher"/></a></span>
-	   	   </sec:authorize>
-		   <a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="log.out"/></a>
-		</div> 
+<script type="text/javascript">
+	// initialise menu
+	$(function(){
+	    $('ul.sf-menu').superfish({
+	    	autoArrows:  false
+	    });
+	});
+</script>
+<div id="header">
+	<div id="bannerArea1" class="banner">
+		<a href="/webapp/index.html">
+	       <img src="<spring:theme code="wiselogonew"/>" alt="WISE Logo" border="0" id="wise-logo" />
+	     </a>
+		
+		<%@ include file="../accountmenu.jsp"%>
+	 	
+	 	<div class="locationName"><span><spring:message code="header.location.admin"/></span></div>
+	 		
 	</div>
-	
 </div>

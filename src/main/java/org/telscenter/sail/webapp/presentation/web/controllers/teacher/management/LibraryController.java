@@ -1,0 +1,305 @@
+/**
+ * 
+ */
+package org.telscenter.sail.webapp.presentation.web.controllers.teacher.management;
+
+//import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.service.UserService;
+
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.message.Message;
+import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.service.message.MessageService;
+import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.project.ProjectService;
+
+/**
+ * Controller for WISE library page
+ * @author Hiroki Terashima
+ * @author Jonathan Lim-Breitbart
+ */
+public class LibraryController extends AbstractController {
+	
+	private static final String UNREAD_MESSAGES = "unreadMessages";
+	
+	private ProjectService projectService;
+
+	private UserService userService;
+
+	private RunService runService;
+
+	private MessageService messageService;
+	
+	private Properties portalProperties;
+
+	/**
+	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	protected ModelAndView handleRequestInternal(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		ModelAndView modelAndView = new ModelAndView();
+		User user = ControllerUtil.getSignedInUser();
+		
+		// get library projects
+		Set<String> tagNames = new TreeSet<String>();
+		tagNames.add("library");
+		List<Project> libraryProjectsList = this.projectService.getProjectListByTagNames(tagNames);
+		
+		// get user's owned projects
+		List<Project> ownedProjectsList = this.projectService.getProjectList(user);
+		// for now, don't separate archived projects; TODO: re-implement if archiving is re-enabled
+		//List<Project> currentOwnedProjectsList = new ArrayList<Project>();
+		//List<Project> archivedOwnedProjectsList = new ArrayList<Project>();
+		
+		// get user's shared projects
+		List<Project> sharedProjectsList = this.projectService.getSharedProjectList(user);
+		sharedProjectsList.removeAll(ownedProjectsList);
+		// for now, don't separate archived projects; TODO: re-implement if archiving is re-enabled
+		//List<Project> currentSharedProjectsList = new ArrayList<Project>();
+		//List<Project> archivedSharedProjectsList = new ArrayList<Project>();
+		
+		// a set to hold the list of project ids in user's library
+		Set<Long> projectIds = new TreeSet<Long>();
+		
+		// set root project ids, remove duplicates
+		List<Project> ownedRemove = new ArrayList<Project>();
+		for (int i = 0; i < ownedProjectsList.size(); i++) {
+			Long rootId = this.projectService.identifyRootProjectId(ownedProjectsList.get(i));
+			ownedProjectsList.get(i).setRootProjectId(rootId);
+			Long id = (Long)ownedProjectsList.get(i).getId();
+			projectIds.add(id);
+			
+			// check if project is in WISE library
+			for (Project libProject : libraryProjectsList){
+				if (ownedProjectsList.get(i).getId() == libProject.getId()){
+					ownedRemove.add(ownedProjectsList.get(i));
+				}
+			}
+			//if (project.isCurrent()) {
+				//currentOwnedProjectsList.add(project);
+			//} else {
+				//archivedOwnedProjectsList.add(project);
+			//}
+		}
+		// if project is in WISE library, remove from owned projects list (avoid duplicates)
+		for (int i=0; i<ownedRemove.size(); i++){
+			ownedProjectsList.remove(ownedRemove.get(i));
+		}
+		
+		List<Project> sharedRemove = new ArrayList<Project>();
+		for (int a = 0; a < sharedProjectsList.size(); a++) {
+			Long rootId = this.projectService.identifyRootProjectId(sharedProjectsList.get(a));
+			sharedProjectsList.get(a).setRootProjectId(rootId);
+			Long id = (Long)sharedProjectsList.get(a).getId();
+			projectIds.add(id);
+			
+			// check if project is in WISE library
+			for (Project libProject : libraryProjectsList){
+				if (sharedProjectsList.get(a).getId() == libProject.getId()){
+					sharedRemove.add(sharedProjectsList.get(a));
+				}
+			}
+			//if (project.isCurrent()) {
+				//currentSharedProjectsList.add(project);
+			//} else {
+				//archivedSharedProjectsList.add(project);
+			//}
+		}
+		
+		// if project is in WISE library, remove from shared projects list (avoid duplicates)
+		for (int a=0; a<sharedRemove.size(); a++){
+			sharedProjectsList.remove(sharedRemove.get(a));
+		}
+		
+		for (int x = 0; x < libraryProjectsList.size(); x++) {
+			Long rootId = this.projectService.identifyRootProjectId(libraryProjectsList.get(x));
+			libraryProjectsList.get(x).setRootProjectId(rootId);
+			Long id = (Long)libraryProjectsList.get(x).getId();
+			projectIds.add(id);
+		}
+		
+		/* sort the project lists */
+		//this.projectService.sortProjectsByDateCreated(currentOwnedProjectsList);
+		//this.projectService.sortProjectsByDateCreated(archivedOwnedProjectsList);
+
+		//modelAndView.addObject("currentOwnedProjectsList", currentOwnedProjectsList);
+		//modelAndView.addObject("archivedOwnedProjectsList", archivedOwnedProjectsList);
+		
+		//this.projectService.sortProjectsByDateCreated(currentSharedProjectsList);
+		//this.projectService.sortProjectsByDateCreated(archivedSharedProjectsList);
+
+		//modelAndView.addObject("currentSharedProjectsList", currentSharedProjectsList);
+		//modelAndView.addObject("archivedSharedProjectsList", archivedSharedProjectsList);
+		
+		this.projectService.sortProjectsByDateCreated(ownedProjectsList);
+		this.projectService.sortProjectsByDateCreated(sharedProjectsList);
+		//this.projectService.sortProjectsByDateCreated(libraryProjectsList);
+
+		// send in owned, shared, library, bookmarked projects, and list of project ids
+		List<Project> bookmarkedProjectsList = this.projectService.getBookmarkerProjectList(user);
+		modelAndView.addObject("bookmarkedProjectsList", bookmarkedProjectsList);
+		modelAndView.addObject("ownedProjectsList", ownedProjectsList);
+		modelAndView.addObject("sharedProjectsList", sharedProjectsList);
+		modelAndView.addObject("libraryProjectsList", libraryProjectsList);
+		modelAndView.addObject("projectIds", projectIds);
+		modelAndView.addObject("sharedRemove", sharedRemove);
+		modelAndView.addObject("owenedRemove", ownedRemove);
+
+		//Map<Long, Integer> usageMap = new TreeMap<Long, Integer>();
+		Map<Long,String> urlMap = new TreeMap<Long,String>();
+		Map<Long,String> filenameMap = new TreeMap<Long,String>();
+
+		//a map to contain projectId to project name
+		Map<Long,String> projectNameMap = new TreeMap<Long,String>();
+
+		//a map to contain projectId to escaped project name
+		Map<Long,String> projectNameEscapedMap = new TreeMap<Long,String>();
+		
+		String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
+		for (Project p: ownedProjectsList) {
+			if (p.isCurrent()){
+				String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+
+				//get the project name and put it into the map
+				String projectName = p.getName();
+				projectNameMap.put((Long) p.getId(), projectName);
+
+				//replace ' with \' in the project name and put it into the map
+				projectName = projectName.replaceAll("\\'", "\\\\'");
+				projectNameEscapedMap.put((Long) p.getId(), projectName);
+
+				if(url != null && url != ""){
+					int ndx = url.lastIndexOf("/");
+					if(ndx == -1){
+						urlMap.put((Long) p.getId(), curriculumBaseDir);
+						filenameMap.put((Long) p.getId(), url);
+					} else {
+						urlMap.put((Long) p.getId(), curriculumBaseDir + "/" + url.substring(0, ndx));
+						filenameMap.put((Long) p.getId(), url.substring(ndx + 1, url.length()));
+					}
+				}
+				//usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
+			}
+		}
+
+		for (Project p: sharedProjectsList) {
+			if (p.isCurrent()){
+				String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+
+				//get the project name and put it into the map
+				String projectName = p.getName();
+				projectNameMap.put((Long) p.getId(), projectName);
+
+				//replace ' with \' in the project name and put it into the map
+				projectName = projectName.replaceAll("\\'", "\\\\'");
+				projectNameEscapedMap.put((Long) p.getId(), projectName);
+
+				if(url != null && url != ""){
+					int ndx = url.lastIndexOf("/");
+					if(ndx == -1){
+						urlMap.put((Long) p.getId(), curriculumBaseDir);
+						filenameMap.put((Long) p.getId(), url);
+					} else {
+						urlMap.put((Long) p.getId(), curriculumBaseDir + "/" + url.substring(0, ndx));
+						filenameMap.put((Long) p.getId(), url.substring(ndx + 1, url.length()));
+					}
+				}
+				//usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
+			}
+		}
+		
+		for (Project p: libraryProjectsList) {
+			if (p.isCurrent()){
+				String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+
+				//get the project name and put it into the map
+				String projectName = p.getName();
+				projectNameMap.put((Long) p.getId(), projectName);
+
+				//replace ' with \' in the project name and put it into the map
+				projectName = projectName.replaceAll("\\'", "\\\\'");
+				projectNameEscapedMap.put((Long) p.getId(), projectName);
+
+				if(url != null && url != ""){
+					int ndx = url.lastIndexOf("/");
+					if(ndx == -1){
+						urlMap.put((Long) p.getId(), curriculumBaseDir);
+						filenameMap.put((Long) p.getId(), url);
+					} else {
+						urlMap.put((Long) p.getId(), curriculumBaseDir + "/" + url.substring(0, ndx));
+						filenameMap.put((Long) p.getId(), url.substring(ndx + 1, url.length()));
+					}
+				}
+				//usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
+			}
+		}
+		
+		// retrieve all unread messages
+    	List<Message> unreadMessages = messageService.retrieveUnreadMessages(user);
+    	modelAndView.addObject(UNREAD_MESSAGES, unreadMessages);
+    	
+		//modelAndView.addObject("usageMap", usageMap);
+		modelAndView.addObject("urlMap", urlMap);
+		modelAndView.addObject("filenameMap", filenameMap);
+		modelAndView.addObject("curriculumBaseDir", curriculumBaseDir);
+		modelAndView.addObject("projectNameMap", projectNameMap);
+		modelAndView.addObject("projectNameEscapedMap", projectNameEscapedMap);
+		modelAndView.addObject("user", user);
+		return modelAndView;
+	}
+
+	/**
+	 * @param projectService the projectService to set
+	 */
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
+	}
+	/**
+	 * @param userService the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+	
+	/**
+	 * @param messageService the messageService to set
+	 */
+	public void setMessageService(MessageService messageService) {
+		this.messageService = messageService;
+	}
+
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
+	}
+
+	/**
+	 * @param runService the runService to set
+	 */
+	public void setRunService(RunService runService) {
+		this.runService = runService;
+	}
+	
+}

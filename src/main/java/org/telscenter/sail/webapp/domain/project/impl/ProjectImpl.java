@@ -197,6 +197,12 @@ public class ProjectImpl implements Project {
     @Column(name = ProjectImpl.COLUMN_NAME_PARENT_PROJECT_ID, nullable = true)
     private Long parentProjectId;
     
+    @Transient
+    private Project parentProject;
+    
+    @Transient
+    private Long rootProjectId;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	public Long id = null;
@@ -535,5 +541,13 @@ public class ProjectImpl implements Project {
 	 */
 	public void setParentProjectId(Long parentProjectId) {
 		this.parentProjectId = parentProjectId;
+	}
+
+	public Long getRootProjectId() {
+		return rootProjectId;
+	}
+
+	public void setRootProjectId(Long rootProjectId) {
+		this.rootProjectId = rootProjectId;
 	}
 }

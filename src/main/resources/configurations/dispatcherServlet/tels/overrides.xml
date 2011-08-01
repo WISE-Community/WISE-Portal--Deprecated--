@@ -212,7 +212,10 @@
     		    /teacher/management/exportsandreports.html=exportsAndReportsController
     		    /teacher/management/managemystudents.html=manageStudentsController
     		    /teacher/management/updatemyaccount.html=updateMyAccountController
+    		    /teacher/management/library.html=libraryController
     		    /teacher/management/changeteacherpasswordsuccess.html=changeTeacherPasswordSuccessController
+    		    /teacher/management/classroomruns.html=myClassroomRunsMainController
+    		    /teacher/management/projectruntabs.html=myClassroomRunsController
     		    <!--  /teacher/management/updateteacheraccount.html=updateTeacherAccountController-->
     		    /teacher/management/submitworkgroupchanges.html=submitWorkgroupChangesController
     		    /studentinfo.html=infoController

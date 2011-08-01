@@ -407,9 +407,22 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectService.getProjectListByTagNames(tagNames);
 	}
 	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectCopies(java.util.Set)
+	 */
 	@Transactional
 	public List<Project> getProjectCopies(Long projectId) {
 		ProjectService projectService = this.projectServiceFactory.getProjectService(ProjectType.LD);
 		return projectService.getProjectCopies(projectId);
+	}
+	
+	/**
+	 * @throws ObjectNotFoundException 
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#identifyRootProjectId(java.util.Set)
+	 */
+	@Transactional
+	public Long identifyRootProjectId(Project project) throws ObjectNotFoundException {
+		ProjectService projectService = this.projectServiceFactory.getProjectService(ProjectType.LD);
+		return projectService.identifyRootProjectId(project);
 	}
 }

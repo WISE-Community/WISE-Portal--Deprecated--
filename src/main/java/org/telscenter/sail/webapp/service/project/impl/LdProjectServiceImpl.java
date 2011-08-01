@@ -748,4 +748,18 @@ public class LdProjectServiceImpl implements ProjectService {
 	public List<Project> getProjectCopies(Long projectId) {
 		return this.projectDao.getProjectCopies(projectId);
 	}
+	
+	/**
+	 * @throws ObjectNotFoundException 
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#identifyRootProjectId(java.lang.Long)
+	 */
+	public Long identifyRootProjectId(Project project) throws ObjectNotFoundException {
+		Long parentProjectId = project.getParentProjectId();
+		if(parentProjectId == null || this.projectContainsTag((Long)project.getId(), "library")){
+			return (Long)project.getId();
+		} else {
+			Project parentProject = this.getById(parentProjectId);
+			return this.identifyRootProjectId(parentProject);
+		}
+	}
 }

@@ -1,37 +1,19 @@
-<%@ include file="../../include.jsp" %> 
+<%@ include file="../../include.jsp" %>
 
-<!--
-  * Copyright (c) 2006 Encore Research Group, University of Toronto
-  * 
-  * This library is free software; you can redistribute it and/or
-  * modify it under the terms of the GNU Lesser General Public
-  * License as published by the Free Software Foundation; either
-  * version 2.1 of the License, or (at your option) any later version.
-  *
-  * This library is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  * Lesser General Public License for more details.
-  *
-  * You should have received a copy of the GNU Lesser General Public
-  * License along with this library; if not, write to the Free Software
-  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
--->
-
-<!-- $Id: overview.jsp 997 2007-09-05 16:52:39Z archana $ -->
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+<!DOCTYPE html>
 
 <html lang="en">
-<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
 
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
-<link href="../../<spring:theme code="teacherrunstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="teacherrunstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
 
-<script type="text/javascript" src="../../.././javascript/tels/general.js"></script>
+<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
  
 <title><spring:message code="teacher.run.shareprojectrun.1"/></title>
 
@@ -87,123 +69,67 @@ function removeSharedUserClicked() {
 }
 </script>
 
-<!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
-
-<link rel="stylesheet" type="text/css" href="../../themes/tels/default/styles/teacher/superfish.css" media="screen">
-<script type="text/javascript" src="../../javascript/tels/jquery-1.2.6.min.js"></script>
-<script type="text/javascript" src="../../javascript/tels/superfish.js"></script>
-
-<script type="text/javascript">
-    
-            // initialise plugins
-            jQuery(function(){
-                jQuery('ul.sf-menu').superfish();
-            });
-    
-</script>
-
 </head>
 
-<body>
+<body style="background:#FFFFFF;">
 
-<div id="centeredDiv">
+<div class="dialogContent">		
 
-<%@ include file="../headerteacher.jsp"%>
-
-<div id="navigationSubHeader2">Sharing a Project Run<span id="navigationSubHeader1">Management: My Project Runs</span></div>
-
-
-<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE. -->
-
-<h2 id="titleBar" class="headerText"><spring:message code="teacher.run.shareprojectrun.2"/></h2> 
-				<c:out value="${message}" />
-
-<div class="sharedprojectHeadline1"><spring:message code="teacher.run.shareprojectrun.3"/></div>
-     
-				        <table id="runTitleTable">
-				      			<tr>
-				      				<td class="runTitleTableHeader"><spring:message code="teacher.run.shareprojectrun.4"/></td>
-				      				<td>${run.project.curnit.sdsCurnit.name}</td>
-				      			</tr>
-				      			<tr>
-				      				<td class="runTitleTableHeader"><spring:message code="teacher.run.shareprojectrun.5"/></td>
-				      				<td>${run.project.id}</td>
-				      			</tr>
-				      			<tr> 
-				      				<td class="runTitleTableHeader"><spring:message code="teacher.run.shareprojectrun.6"/></td>
-				      				<td>UC Berkeley library project</td>
-				      			</tr>
-				      			<tr>
-				      				<td class="runTitleTableHeader"><spring:message code="teacher.run.shareprojectrun.7"/></td>
-				      				<td><fmt:formatDate value="${run.starttime}" type="date" dateStyle="short" /></td>
-				      			</tr>
-						</table>
-				
-<div class="sharedprojectHeadline1"><spring:message code="teacher.run.shareprojectrun.8"/></div>			
-
-<table id="sharedProjectPermissions">
-
-	<tr>
-		<th><spring:message code="teacher.run.shareprojectrun.9"/></th>
-		<th><spring:message code="teacher.run.shareprojectrun.10"/>L</th> 
-		<th><spring:message code="teacher.run.shareprojectrun.11"/></th>
-	</tr>
-	<!--  display owners of the run -->
-	<c:choose>
-		<c:when test="${fn:length(run.owners) == 0}">
-		</c:when>
-		<c:otherwise>
-			<c:forEach var="owner" items="${run.owners}">
-				<tr>
-				    <td>${owner.userDetails.firstname} ${owner.userDetails.lastname}</td>
-					<td><spring:message code="teacher.run.shareprojectrun.12"/></td>
-					<td><spring:message code="teacher.run.shareprojectrun.13"/></td>
-			    </tr>
-			</c:forEach>
-		</c:otherwise>
-	</c:choose>
+	<div id="sharingSearchBoxHelp" class="dialogSection">
+		To share this project with another teacher, start typing their name below. Choose the matching Username from the search results and click 'Save'. 
+	</div>
+	<div id="sharingSearchSelect">
+		<form:form method="post" commandName="addSharedTeacherParameters" autocomplete='off'>
+			WISE User: <form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="populatePossibilities(this.value)" size="30"/>
+		    <input type="submit" value="Save" />
+		</form:form>
+		<ul id="matchedUsernames"></ul>
+	</div>
 	
-	<!--  display shared owners of the run -->
-	<c:forEach var="sharedowner" items="${run.sharedowners}">        
-		    <tr>
-		        <td>${sharedowner.userDetails.username}</td>
-			    <td align="left">
-			    	<form:form method="post" id="${sharedowner.userDetails.username}" commandName="${sharedowner.userDetails.username}" autocomplete='off'>
-            			<form:hidden path="sharedOwnerUsername" />
-			        	<form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_READ" /><spring:message code="teacher.run.shareprojectrun.14"/><br />
-			    	    <form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_GRADE" /><spring:message code="teacher.run.shareprojectrun.15"/>
-			    	</form:form>			        
-				</td>
-				<td><form:form method="post" id="${sharedowner.userDetails.username}" commandName="${sharedowner.userDetails.username}" autocomplete='off'>
-            		<form:hidden path="sharedOwnerUsername" />
-            		<input type="hidden" name="removeUserFromRun" value="true"></input>
-					<input type="submit" value="Remove this User" onclick="return removeSharedUserClicked();"></input>
-			    	</form:form>			        
-				    <!-- <a href='#' onclick="alert('Remove Shared Teacher is not yet implemented.');"><spring:message code="teacher.run.shareprojectrun.16"/></a> -->
-				</td>
-			</tr>
-	</c:forEach>
+	<table id="sharedProjectPermissions">
 	
-	<tr>
-		<td id="sharingSearchBox" colspan=3>
-			<div id="sharingSearchBoxHelp">
-			<p>To share this project with another person type in part of their name below.</p>
-			<p>Click the matching Username from the search results, then click <i>Save</i>.</p> 
-			</div>
-			    <form:form method="post" commandName="addSharedTeacherParameters" autocomplete='off'>
-					<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="populatePossibilities(this.value)" size="30"/>
-				    <input type="submit" value="Save" />
-				</form:form>
-				<ul id="matchedUsernames">
-				</ul>
-		</td>
-	</tr>
-
-</table> 
-
-<h5><a href="../run/myprojectruns.html"><spring:message code="teacher.run.shareprojectrun.18"/>&nbsp;<em><spring:message code="teacher.run.shareprojectrun.19"/></em></a></h5>
-
-</div>
+		<tr>
+			<th><spring:message code="teacher.run.shareprojectrun.9"/></th>
+			<th><spring:message code="teacher.run.shareprojectrun.10"/></th> 
+			<th><spring:message code="teacher.run.shareprojectrun.11"/></th>
+		</tr>
+		<!--  display owners of the run -->
+		<c:choose>
+			<c:when test="${fn:length(run.owners) == 0}">
+			</c:when>
+			<c:otherwise>
+				<c:forEach var="owner" items="${run.owners}">
+					<tr>
+					    <td class="user">${owner.userDetails.firstname} ${owner.userDetails.lastname}</td>
+						<td><spring:message code="teacher.run.shareprojectrun.12"/></td>
+						<td></td>
+				    </tr>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
+		
+		<!--  display shared owners of the run -->
+		<c:forEach var="sharedowner" items="${run.sharedowners}">        
+			    <tr>
+			        <td class="user">${sharedowner.userDetails.username}</td>
+				    <td align="left">
+				    	<form:form method="post" id="${sharedowner.userDetails.username}" commandName="${sharedowner.userDetails.username}" autocomplete='off'>
+	            			<form:hidden path="sharedOwnerUsername" />
+				        	<form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_READ" /><spring:message code="teacher.run.shareprojectrun.14"/><br />
+				    	    <form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_GRADE" /><spring:message code="teacher.run.shareprojectrun.15"/>
+				    	</form:form>			        
+					</td>
+					<td><form:form method="post" id="${sharedowner.userDetails.username}" commandName="${sharedowner.userDetails.username}" autocomplete='off'>
+	            		<form:hidden path="sharedOwnerUsername" />
+	            		<input type="hidden" name="removeUserFromRun" value="true"></input>
+						<input type="submit" value="Remove this User" onclick="return removeSharedUserClicked();"></input>
+				    	</form:form>			        
+					    <!-- <a href='#' onclick="alert('Remove Shared Teacher is not yet implemented.');"><spring:message code="teacher.run.shareprojectrun.16"/></a> -->
+					</td>
+				</tr>
+		</c:forEach>
+	
+	</table>
 </div>
 
 </body>

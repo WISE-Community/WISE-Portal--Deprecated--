@@ -10,6 +10,8 @@ function swapImage(id,link){
 
 function swapWelcomeMsg(index) {
 	$('.welcomeBullet').hide();
+	$('.welcomeLink').removeClass('active');
+	$('.welcomeLink:eq('+ index +')').addClass('active');
 	$('.welcomeBullet:eq('+ index +')').fadeIn('slow',function(){
 		$(this).removeAttr('filter');
 	});
@@ -91,7 +93,7 @@ addLoadEvent(prepareInputsForHints);
 
 // Added my MattFish to handle Rollover behavior on Home Page (index.html) //
 
-function MM_swapImgRestore() { //v3.0
+/*function MM_swapImgRestore() { //v3.0
   var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
 }
 function MM_preloadImages() { //v3.0
@@ -111,7 +113,7 @@ function MM_findObj(n, d) { //v4.01
 function MM_swapImage() { //v3.0
   var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
    if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
-}
+}*/
 
 // Added my MattFish to handle special Pop-Up Windows on Teacher Dashboard pages //
 

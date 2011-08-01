@@ -41,7 +41,7 @@
   .inplaceeditor-saving {background: url(<spring:theme code="wait"/>) bottom right no-repeat; }
 </style>
 
-<link rel="shortcut icon" href="./themes/tels/default/images/favicon_panda.ico" />
+<link rel="shortcut icon" href="<spring:theme code="favicon"/>" />
 
 <title>WISE 4.0 Sign In</title>
 
@@ -70,7 +70,6 @@
 			</div>
 			<div>
 				<label for="password"><spring:message code="login.failed12"/><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30" /></label>
-				</div>
 			</div>
 			<c:if test="${requireCaptcha && reCaptchaPublicKey != null && reCaptchaPrivateKey != null}">
 				<%
@@ -95,16 +94,15 @@
 			<input type='hidden' value='${redirect}' name='redirect'/>
 			
 			<div class="alignRight">
-				<input type="image" id="signInButton" img src="./themes/tels/default/images/SignIn.png"	width="100" height="27"
-					alt="Sign In Button" onmouseover="MM_swapImage('signInButton','','./themes/tels/default/images/SignInRoll.png',1)"
-				onmouseout="MM_swapImgRestore()" onclick="Effect.toggle('waiting', 'appear')" />
+				<input type="submit" id="signInButton" name="signInButton" class="wisebutton smallbutton" value="<spring:message code="signinbutton"/>"></input>
 			</div>
+		</div>
 	</form>
                          
         <ul id="signInLinkPosition">
-        		<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink"><spring:message code="login.failed13"/></a>  </li>
-        		<li><a href="signup.html" id="joinlink"><spring:message code="login.failed14"/></a></li>
-        		<li><a href="./index.html" id="joinlink"><spring:message code="login.failed15"/></a></li>
+       		<li><a href="forgotaccount/selectaccounttype.html" class="forgotlink"><spring:message code="login.failed13"/></a>  </li>
+       		<li><a href="signup.html" class="joinlink"><spring:message code="login.failed14"/></a></li>
+       		<li><a href="./index.html" class="joinlink"><spring:message code="login.failed15"/></a></li>
         </ul>
                                 
  </div>   <!--    End of boxTableSignIn  x-->               

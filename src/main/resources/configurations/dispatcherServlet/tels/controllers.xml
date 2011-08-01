@@ -110,6 +110,10 @@
 		<property name="runService" ref="runService" />
 		<property name="messageService" ref="messageService" />
 		<property name="userService" ref="userService" />
+		<property name="projectService" ref="projectService" />
+		<property name="brainstormService" ref="brainstormService" />
+		<property name="workgroupService" ref="wiseWorkgroupService" />
+		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
 
 	<bean id="registerController"
@@ -391,10 +395,37 @@
 	
 	<bean id="myProjectRunsMainController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.MyProjectRunsMainController">
+	    <property name="runService" ref="runService" />
+		<property name="userService" ref="userService" />
+		<property name="projectService" ref="projectService" />
+		<property name="brainstormService" ref="brainstormService" />
+		<property name="workgroupService" ref="wiseWorkgroupService" />
+		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
 
 	<bean id="myProjectRunsController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListController">
+		<property name="portalProperties" ref="portalproperties" />
+		<property name="runService" ref="runService" />
+		<property name="userService" ref="userService" />
+		<property name="projectService" ref="projectService" />
+		<property name="brainstormService" ref="brainstormService" />
+		<property name="workgroupService" ref="wiseWorkgroupService" />
+		<property name="httpRestTransport" ref="httpRestTransport" />
+	</bean>
+	
+	<bean id="myClassroomRunsMainController"
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.MyClassroomRunsMainController">
+	    <property name="runService" ref="runService" />
+		<property name="userService" ref="userService" />
+		<property name="projectService" ref="projectService" />
+		<property name="brainstormService" ref="brainstormService" />
+		<property name="workgroupService" ref="wiseWorkgroupService" />
+		<property name="httpRestTransport" ref="httpRestTransport" />
+	</bean>
+	
+	<bean id="myClassroomRunsController"
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ClassroomRunListController">
 		<property name="portalProperties" ref="portalproperties" />
 		<property name="runService" ref="runService" />
 		<property name="userService" ref="userService" />
@@ -751,6 +782,15 @@
     	<property name="userService" ref="userService"/>
     	<property name="successView" value="/teacher/management/changeworkgroupsuccess"/>
     	<property name="formView" value="/teacher/management/changeworkgroup"/>
+    </bean>
+    
+    <bean id="libraryController"
+        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.LibraryController">
+        <property name="projectService" ref="projectService" />
+        <property name="userService" ref="userService" />
+        <property name="runService" ref="runService" />
+        <property name="messageService" ref="messageService" />
+        <property name="portalProperties" ref="portalproperties" />
     </bean>
     
     <bean id="projectLibraryController"

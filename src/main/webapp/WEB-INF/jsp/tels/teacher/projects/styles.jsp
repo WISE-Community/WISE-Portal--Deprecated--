@@ -15,8 +15,7 @@
 <link rel="stylesheet" type="text/css" href="/webapp/javascript/tels/yui/editor/assets/skins/sam/editor.css"> 
 <link rel="stylesheet" type="text/css" href="/webapp/javascript/tels/yui/logger/assets/skins/sam/logger.css"> 
 <link rel="stylesheet" type="text/css" href="/webapp/javascript/tels/yui/tabview/assets/skins/sam/tabview.css"> 
-<link rel="stylesheet" type="text/css" href="/webapp/javascript/tels/yui/treeview/assets/skins/sam/treeview.css"> 
-<link href="/webapp/<spring:theme code="teachergradingstylesheet"/>" media="screen" rel="stylesheet" type="text/css" /> 
+<link rel="stylesheet" type="text/css" href="/webapp/javascript/tels/yui/treeview/assets/skins/sam/treeview.css">  
 
 <!--JavaScript source files for the entire YUI Library:--> 
  

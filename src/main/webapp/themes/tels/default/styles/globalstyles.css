@@ -48,14 +48,14 @@ table {border-collapse:collapse; border-spacing:0;}
 td {vertical-align:top;}
 
 body {
-	font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;	
+	/*font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;*/
+	font-family:Arial, Helvetica, Tahoma, sans-serif;
 	font-size: 100%;
-	text-align: center;
-	margin: 5px;
-	background-color:#FFFFFF;
-	overflow-y:scroll;  	/* This style allocates permanent area for a vertical scroll bar.  This keeps the top navigation buttons from moving around.  */
-	overflow-x:auto;  
-	}
+	text-align: left;
+	overflow:auto;
+	color: #444;
+	background:url("/webapp/themes/tels/default/images/body-bg.png") repeat-y scroll center top #555555;
+}
 	
 img {border: 0px;}
 
@@ -66,24 +66,209 @@ h4 {font-size:1.2em;}
 h5 {font-size:.9em; }
 h6 {font-size:.8em; }
 p  {font-size:.8em; line-height:150%;padding:0px; margin:0px;}
+
+a, a:visited {
+	color: #007391;
+    margin: 0;
+    text-decoration:none;
+    cursor:pointer;
+    outline:none;
+}
+
+a:hover {
+	text-decoration:underline;
+}
 	
 abbr, acronym {
 	cursor:help;
 	border-bottom: 1px dotted #666666;	
-	}
+}
 
-#bannerArea1 {
-	position:relative;
-	background-image:url(../images/WISE-Secondary-Banner-Gradient.png);
-	background-position: center top;
-	width: 100%;
-	height: 60px;
-	margin: 0px 0 10px 0;
-	padding:0px;
-	position:relative;
-	}
-	
-#bannerArea2 {
+input[type="submit"] {
+	border-radius: 3px 3px 3px 3px;
+	-moz-border-radius: 3px 3px 3px 3px;
+	-webkit-border-radius: 3px 3px 3px 3px;
+    background-color: #F4F4F4;
+    border: 1px solid #DDDDDD;
+    color: #444444;
+    font-size: 0.9em;
+    margin: .5em;
+    padding: 0.25em;
+}
+
+input[type="submit"].disabled {
+	color:#999999;
+}
+
+p.info {
+	font-size: 0.9em;
+    margin: 0.5em;
+}
+
+#pageWrapper {
+	background:url("/webapp/themes/tels/default/images/wrapper-bg.png") no-repeat scroll center top transparent;
+	margin:0 auto;
+	padding:.5em 0 0;
+	min-width:1025px;
+}
+
+#header, #footer {
+	/*background-color: #37467F;*/
+}
+
+#header {
+	background:url("/webapp/themes/tels/default/images/header-bg.png") no-repeat scroll center top transparent;
+}
+
+#footer {
+	background-color: #047492;
+    border-top: 6px solid #C6CE52;
+    margin: 0 auto;
+    max-width: 1160px;
+}
+
+#header .banner, #footer .banner {
+	height: 110px;
+    margin: 0 auto;
+    padding: 25px;
+    position: relative;
+    width: 980px;
+}
+
+#footer .banner {
+	padding: 10px 25px;
+}
+
+a#name {
+	display: block;
+    float: left;
+    height: 80px;
+    left: 8px;
+    position: relative;
+    text-indent: -9999px;
+    top: 6px;
+    width: 345px;
+}
+
+#page {
+	/*background-color: #FFF9EF;*/
+	padding:.5em 0;
+}
+
+#pageContent {
+	width:980px;
+	margin:0 auto;
+	padding:1em;
+}
+
+.contentPanel {
+	background-color:#FFFFFF;
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	box-shadow:2px 2px 4px #444444;
+	-webkit-box-shadow:2px 2px 4px #444444;
+	-moz-box-shadow:2px 2px 4px #444444;
+}
+
+.sidePanel {
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+    background-color: #FFFFFF;
+    border: 6px solid #FFFFFF;
+    box-shadow:2px 2px 4px #444444;
+	-webkit-box-shadow:2px 2px 4px #444444;
+	-moz-box-shadow:2px 2px 4px #444444;
+    margin-bottom: 1em;
+}
+
+.sidePanel .panelHeader {
+	border-radius: 4px 4px 0 0;
+	-webkit-border-radius: 4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0;
+    background-color: #C5CD61;
+    border-bottom: 1px solid #999999;
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0.3em 0.5em;
+}
+
+.sidePanel .panelContent {
+	-moz-border-radius: 0 0 4px 4px;
+    background-color: #745A34;
+    color: #F2F4D2;
+}
+
+.sidePanel .panelContent a {
+	color: #C5CD61;
+}
+
+.contentRight .panelHeader, .contentLeft .panelHeader {
+	/*background-color: #33487C;
+    border: 2px solid #33487C;*/
+}
+
+.contentRight .panelContent, .contentLeft .panelContent {
+	/*border: 2px solid #33487C;*/
+}
+
+.sidebarLeft {
+	float:left;
+	width:245px;
+}
+
+.sidebarRight {
+	float:right;
+	width:245px;
+}
+
+.contentRight {
+	margin-left: 260px;
+}
+
+.contentLeft {
+	margin-right: 260px;
+}
+
+.panelHeader {
+	border-bottom: 1px solid #D8C6B3;
+    color: #745A33;
+    font-family: Trebuchet MS;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0 0.75em;
+    padding: 0.5em 0 0.25em;
+}
+
+.panelContent {
+	padding:1em;
+}
+
+.contentPanel .panelContent {
+	min-height: 350px;
+}
+
+.sectionHead {
+	font-weight:bold;
+	font-size:1em;
+	padding:0.5em 0.5em 0.25em;
+	border-bottom:1px solid #999999;
+}
+
+.sectionContent {
+	margin:.5em;
+}
+
+.sectionContent h5 {
+	margin:.25em 0;
+}
+
+.inactive {
+	color:#555; 
+}
+
+/*#bannerArea2 {
 	position:relative;
 	background-image:url(../images/WISE-Secondary-Banner-Gradient65.png);
 	background-position: center top;
@@ -92,7 +277,7 @@ abbr, acronym {
 	margin: 5px 0 10px 0;
 	padding:0px;
 	position:relative;
-	}
+}
 
 #bannerArea1 #betaTag  {
 	position:absolute;
@@ -115,15 +300,242 @@ abbr, acronym {
 	letter-spacing:3px;
 	color:#FFE6C6;
 	opacity:50%;
+}*/
+
+/* STYLES HEADER ACCOUNT MENU AND LOG IN/USER INFO SECTIONS */
+
+#userInfoBlock {
+	height: 58px;
+    position: absolute;
+    left: 552px;
+    top: 25px;
+    min-width: 344px;
+}
+
+.userInfo div {
+	color:#FFFFFF;
+	font-size:.8em;
+	line-height:20px;
+}
+
+.userInfo a {
+	margin-right:.5em;
+}
+
+#userName {
+	font-size:.9em;
+}
+
+#userName span {
+	font-weight:bold
+}
+
+#signOut {
+	position:absolute;
+	top:0;
+	right:0;
+	margin-right: 0;
+}
+
+#adminTools, #researchTools {
+	position:absolute;
+	bottom:0;
+	right:0;
+	margin-right: 0;
+}
+
+#signinForm {
+	color: #FFFFFF;
+    font-size: 0.9em;
+    text-align: right;
+    float:left;
+}
+
+#signinForm label {
+	font-size:.9em;
+}
+		
+#signinForm input {
+    width: 160px;
+}
+
+#submitSignIn {
+	float: right;
+}
+
+#signInButton {
+    border-style: none;
+    padding: 0 0 4px;
+    margin: 0 0 3px 0;
+}
+
+#forgotLogin {
+    font-size: 0.7em;
+    width: 96px;
+    margin-left:4px;
+}
+
+#accountMenu {
+	bottom: 12px;
+    color: #047492;
+    display: block;
+    font-family: Tahoma;
+    font-size: 1em;
+    height: 44px;
+    left: 457px;
+    line-height: 100%;
+    position: absolute;
+    width: 516px;
+}
+
+#accountMenu.guest {
+	background:url("/webapp/themes/tels/default/images/accountBg-guest.png");
+}
+
+ul.welcome-menu {
+	line-height: 44px;
+    padding: 0 1em;
+    font-family: Trebuchet MS;
+}
+
+ul.welcome-menu li {
+	padding: 9px 10px;
+}
+
+a.signup {
+	font-weight: bold;
+    padding: 0 !important;
+    position: absolute;
+    right: 28px;
+    top: 9px;
+}
+
+/*.welcomeBox {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+    background: url(../images/accountBg.png) repeat-x center center;
+    line-height: 28px;
+    margin: 0;
+    padding:0 10px 0 7px;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
+    color:#EEEEEE;
+    font-size:.95em;
+}
+
+.welcomeBox div {
+	border-right: 1px solid #BF778E;
+    display: inline;
+    padding:0 7px 0 3px;
+    font-size:.75em;
+    vertical-align:middle;
+}
+
+.signOutBanner a {
+	border-right: 0 none !important;
+	font-weight:normal !important;
+}
+
+.usernameBanner > a {
+	font-size: 1em !important;
+	margin: .45em 0 !important;
+	padding:0 .5em !important;
+	cursor:pointer;
+	font-weight:bold;
+	max-width:15em;
+	min-width:3em;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+
+#accountMenu li.student:hover {
+	background:none !important;
+}
+
+#accountMenu li.student:hover a {
+	cursor:text !important;
+}
+
+.welcomeBox a, #welcomeBox a:visited {
+	color:#FFFFFF;
+	text-decoration:none;
+	height:30px !important;
+}
+
+.welcomeBox a:hover {
+	text-decoration:underline;
+}*/
+
+#pageTitle {
+	color: #F97F6E;
+    margin: -0.5em auto 0.25em;
+    width: 980px;
+}
+
+#pageTitle span {
+	font-family: Lucida Grande;
+    font-size: 1.4em;
+    padding-left: 0.5em;
+}
+
+.pageTitle {
+	font-family: Lucida Grande;
+	color: #F97F6E;
+	float: right;
+	font-size:.9em;
+	line-height:1.4em;
+}
+
+li.welcome:hover {
+	background:none !important;
+	padding-right: 0 !important;
+}
+
+li.welcome > a {
+	border-right: medium none !important;
+	display:inline-block !important;
+}
+
+/* This little trick solves a problem with Safari getting confused by a call for "c:url value="/j_spring_security_logout"/>" 
+.styleOverRideSafari1 {
+	color:#FFFF66;
+	font-size:.7em;
+	text-decoration:none; 
+	border-bottom: 1px solid #FFFF66;
+}*/
+					
+.popUpMenuDefault {
+	font-size:1.0em;
+	font-style:italic;
+}
+
+#overviewMessage {
+	font-size:1.0em; 
+	margin:0px;
+	padding: 0 0 12px 0;
 }
 
 #centeredDiv {
 		background-color:#FFFFFF;
-		width: 958px;
-		text-align:left;
+		min-width: 960px;
+		max-width:1280px;
+		height:100%;
 		padding: 0;
 		margin: 0 auto;
-		}
+		position:relative;
+		/*overflow:hidden;*/
+}
+
+#centeredDiv .content {
+	position:absolute;
+	left:0;
+	right:0;
+	top:70px;
+	bottom:30px;
+}
 
 #centeredDivDynamicFrame {
 		background-color:#FFFFFF;
@@ -156,181 +568,123 @@ abbr, acronym {
 form {margin:0px; padding:0px;}
 
 
+/* STYLES FOR THE PANEL LAYOUT METHOD   */	
 
-/* STYLES FOR PROJECT OVERVIEW PANEL, ACCESSED FROM MANY SECTIONS OF THE SITE   */	
-
-#projectOverviewTable {
-	border-collapse:collapse;
-	border-top:1px solid #333;
-	border-bottom:2px solid #333;
-	margin-bottom:15px;
-	text-align:left; 
-	}
-
-#projectOverviewTable th, #projectOverviewTable td  {
-	border:1px solid #333; 
-	font-size:.7em;
-	vertical-align:top;
+.panel {
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	-moz-box-shadow:1px 1px 2px #000;
+	-webkit-box-shadow:1px 1px 2px #000;
+	box-shadow:1px 1px 2px #000;
+    background-color: #FFFFFF;
+    background-position: center top;
+    background-repeat: repeat-x;
+    border: 1px solid #AAAAAA;
+    margin-bottom:1em;
 }
 
-#projectOverviewTable td {
-	padding:2px 8px;
-	border:1px solid #333; 
-	}
-	
-#projectOverviewTable #row2 th {
-	padding:1px 2px 1px 6px;
-	margin:0px;
-	color:#fff;
-	background-color:#999;
-	font-size:.65em;
-			}	
-		
-#projectOverviewTable #row2 th.archive {
-	color:#fff;
-	background-color:#FF0000;
-			}	
-			
-#projectOverviewTable a {
-	color:blue;
-	padding:1px 3px;
-	border:1px solid transparent;
-	text-decoration:none;
-			}	
-
-#projectOverviewTable a:hover {
-	background-color:#FFFF00;
-	border:1px solid #999;
-			}	
-
-#projectOverviewTable #titleCell {
-	border-right:0px;	
-	padding:3px 4px 5px 5px;
-	}
-			
-#projectOverviewTable #titleCell a {
-	font-size:1.8em;
-	letter-spacing:-.5px;
-		}		
-	
-#projectOverviewTable #titleCellUnlinked {
-	border-right:0px;	
-	padding:3px 5px 8px 5px;
-	font-size:1.1em;
-	font-weight:bold;
-	letter-spacing:-.5px;
-	color:#333;
-	}
-			
-#projectOverviewTable #sharedNamesContainer {
-	padding:8px;
-	margin:7px 10px 5px 3px;
-	background:#ffb759;
-	-moz-border-radius:2px;
-	-webkit-border-radius:2px;
-	border-radius:2px;
+.panelColor1 {
+	background-image:url(../images/Gradient_blue_320.png);
 }
 
-#projectOverviewTable #sharedNamesContainerOwned {
-	padding:8px;
-	margin:7px 10px 5px 3px;
-	background:#46587B;
-	color:#FFF;
-	-moz-border-radius:2px;
-	-webkit-border-radius:2px;
-	border-radius:2px;
+.panelColor2 {
+	background-image:url(../images/Gradient_blue_200.png);
 }
-
-#projectOverviewTable #sharedNamesContainerArchived {
-	padding:8px;
-	margin:7px 10px 5px 3px;
-	background-color:#FF0000;
-	color:#FFF;
-	font-weight:bold;
-	-moz-border-radius:2px;
-	-webkit-border-radius:2px;
-	border-radius:2px;
+	 		
+.panelColor3 {
+	background-image:url(../images/Gradient_blue_120.png);
 }
-
-
-#projectOverviewTable #sharedNames  {
-	display:inline;
-	font-weight:bold;
-}
-	
-	
-#projectOverviewTable .actions {
-	 border-left:0px;
-			}
-			
-#projectOverviewTable .actions ul {
-	 margin:7px 0 0 0px;
-	 padding:0;
-			}
-
-#projectOverviewTable .actions input {
-	 vertical-align:middle;
-	 position:relative;
-	 left:3px;
-	 top:-2px; 
-				}
-			
-#projectOverviewTable .actions li {
-	display:inline;
-	list-style-type:none;
-	margin-right:10px;
-	letter-spacing:-.5px;
-	
-			}		
-
-#projectOverviewTable #title4, #projectOverviewTable #title5 {
-	letter-spacing:-.5px; 
-			}	
-
-#projectOverviewTable #row4 #hideShowLink{
-	float:right;
-	font-size:85%;
-			}
-	
-#projectOverviewTable #row4 {
-	background-color:#FFDBAC;
-	background-color:#FFF;
-	background-image:url(../images/Gradient_tan320.png);
-	background-position: bottom;
-	
-			}	
-					
-#projectOverviewTable #row4 .summary{
-	padding-right:10px;
-	font-weight:bold;  
-			}	
-			
-#projectOverviewTable #row4 #detailsTable{
-	border-collapse:collapse;
-	text-align:left;
-	border:0;
-				}	
-	
-#projectOverviewTable #row4 #detailsTable th {
+	 		
+.panelColorNifty {
+	background-color:#0033FF;
 	color:#000;
-	background:transparent;
-	border:0px;
-	width:150px;
-	padding:4px 4px 4px 0;
-	vertical-align:top;
-	font-weight:normal;
-				}
-						
-#projectOverviewTable #row4 #detailsTable td {
-	border:0;
-	padding:4px 4px 4px 0;
-	vertical-align:top;
-	
-			}
-			
-#projectOverviewTable #row4 #detailsTable .keywords {
-	font-style:normal;
-			}
+}
+
+.panel .header {
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+	border-radius:5px 5px 0 0;
+	background:#000066 url(../images/panelBg.png) repeat-x center bottom;
+	color:#FFFFFF;
+	border: 1px solid #00033;
+    border-bottom: 1px solid #AAAAAA;
+    font-size: 0.9em;
+    font-weight: bold;
+    line-height: 20px;
+    margin: -1px -1px 10px -1px;
+    padding: 4px 10px;
+    text-align: left;
+}
+
+/* Styles for buttons */
+
+.wisebutton {
+	background-image: url("/webapp/themes/tels/default/images/wise4-buttons-new.png");
+    background-color:transparent;
+   	background-position: -3px -3px;
+    color: #FFFFFF !important;
+    cursor: pointer;
+    display: block;
+    font-family: Arial;
+    font-size: 0.75em;
+    font-weight: bold;
+    height: 33px;
+    line-height: 33px;
+    text-align: center;
+    text-decoration: none !important;
+    width: 145px;
+}
+
+.wisebutton:hover {
+	background-position: -3px -43px;*
+}
+
+.smallbutton {
+	background-position: -3px -83px;
+	width:100px;
+	height:27px;
+	line-height:27px;
+}
+
+.smallbutton:hover {
+	background-position: -3px -116px;
+}
+
+.smallbutton-wide {
+	background-position: -4px -269px;
+	width:119px;
+	height:27px;
+	line-height:27px;
+}
+
+.smallbutton-wide:hover {
+	background-position: -4px -302px;
+}
+
+.minibutton {
+	background-position: -3px -149px;
+	width:74px;
+	height:24px;
+	line-height:24px;
+	font-size:.7em;
+}
+
+.minibutton:hover {
+	background-position: -3px -179px;
+}
+
+.minibutton-wide {
+	background-position: -3px -209px;
+	width:114px;
+	height:24px;
+	line-height:24px;
+	font-size:.7em;
+}
+
+.minibutton-wide:hover {
+	background-position: -3px -239px;
+}
 			
 .checkCompatibilityWarning {
 	font-size:1.0em;
@@ -372,3 +726,93 @@ form {margin:0px; padding:0px;}
  	background-color:#FFFF00;
  	cursor:pointer;
 }
+
+/* FOOTER Styling   */
+#contentFooter {
+	display:block;
+	border: 0 none;
+    padding: 0;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.marginPushLeft{
+	margin-left:18px;
+}
+
+#footerText, #footerLogos {
+	float:left;
+}
+
+#footerLogos a {
+	text-decoration:none;
+}
+
+#footerLogos img {
+	display:inline;
+	border:0px;
+	margin: 5px 5px;
+}
+
+#footerText {
+	float: right;
+    font-size: 0.7em;
+    text-align: right;
+}
+
+#contentFooter div {
+	padding:10px 0;
+}
+
+#contentFooter ul {
+	list-style:none;
+	margin:8px 0 2px 0;
+	padding:0px;
+}
+
+#contentFooter li {
+	display:inline-block;
+	padding:0 8px 0 4px;
+	border-right: 1px solid #999999;
+}
+
+#contentFooter li.first {
+	padding-left:0;
+}
+	
+#contentFooter li.last {
+	border-right:none;
+	padding-right:0;
+}
+
+#footerNav2 {
+	padding-left:5px;
+	border-right-width: 1px;
+}
+
+#footerText p {
+	font-size:.9em;
+	padding:0px 2px;
+	margin:0px;
+	line-height:130%;
+}
+
+#contentFooter li a, #footer li a:visited, #footerText a, #footerText a:visited {
+	font-size:1.1em;
+	color:#0033CC;
+	text-decoration:none;
+	font-weight:bold;
+	margin:0;
+	padding:2px;
+}
+	
+#contentFooter li a:hover, #footerText a:hover {
+	text-decoration:underline;
+}
+	
+	
+.alignLeft 	{text-align:left;}
+.alignCenter {text-align:center;}
+.alignRight {text-align:right;}
+.width15 {width:15px;}
+.imgNoBorder {border:0px;}

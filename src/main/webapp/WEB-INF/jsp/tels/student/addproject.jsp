@@ -24,9 +24,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
     
-<script type="text/javascript" src=".././javascript/tels/general.js"></script>    
+<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>   
     
 <!-- Dependency -->
 <script src="http://yui.yahooapis.com/2.8.0r4/build/yahoo/yahoo-min.js"></script>
@@ -116,8 +116,6 @@ function setup() {
 </spring:bind>
 
 <div id="centeredDiv" >
-		<div class="hd"><spring:message code="student.index.44"/></div>
-		<div class="bd">
 		<h3>Instructions</h3>
 		<ol>
 		<li>Enter the Access Code in the blank space below.</li>

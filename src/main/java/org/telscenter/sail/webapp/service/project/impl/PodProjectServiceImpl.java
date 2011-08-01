@@ -754,4 +754,16 @@ public class PodProjectServiceImpl implements ProjectService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public Project getProjectFull(Long projectId)
+			throws ObjectNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Long identifyRootProjectId(Project projectId)
+			throws ObjectNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

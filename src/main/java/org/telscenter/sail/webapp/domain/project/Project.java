@@ -228,4 +228,8 @@ public interface Project extends Persistable {
 	public void setParentProjectId(Long parentProjectId);
 	
 	public Long getParentProjectId();
+	
+	public void setRootProjectId(Long rootProjectId);
+	
+	public Long getRootProjectId();
 }

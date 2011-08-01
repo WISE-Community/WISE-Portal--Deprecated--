@@ -123,44 +123,42 @@
 
 /* NORMAL CSS FOR THE NAVIGATION L2 BAR */
 
-#navigationSubHeader2 {
-	background-image: url(../images/Gradient_L2Bar.png);
-	background-repeat:repeat-x; 
-	background-position:top;
-	border:1px solid #CCC;
-	padding:2px 8px;
-	margin:-4px 0 15px 0px;
-	color:#333;
-	color:#19253D;
-	font-size:1em;
-	font-weight:bold;
-	letter-spacing:1px;
-	text-align:left;
-}
-
-#navigationSubHeader1 {
-	font-size:80%;
-	color:#666;
-	font-variant:small-caps;
-	font-weight:normal;
-	letter-spacing:0px;
-	margin-left:20px;
+.navigationSubHeader1 {
+	color: #555555;
+    float: right;
+    font-size: 0.9em;
+    font-variant: small-caps;
+    font-weight: bold;
+    letter-spacing: 0;
 }
 
 /* SETTING UP A RUN */
 
 #setUpRunBox {
-	height: 360px;
+	/*height: 360px;
 	border: 1px solid #666666;
 	margin: 15px auto 15px auto;
-	padding: 15px;
+	padding: 15px;*/
+}
+
+#setUpRunBox .summaryInfo {
+	margin-left:0;
+}
+
+#setUpRunBox .projectSummary {
+	margin:1em;
+	padding:.5em;
+}
+
+#setRunBox div.projectTitle {
+	color:#007391;
+}
+
+#setUpRunBox .projectSummary div {
+	margin: 0 0 .5em;
 }
 
 #reviewRunBox {
-	height: 360px;
-	border: 1px solid #666666;
-	margin: 15px auto 15px auto;
-	padding: 15px;
 }
 
 .cleaner {
@@ -185,15 +183,28 @@
 }
 
 #setupProjectTableContainer {
-	max-height:130px;
-	overflow:auto;
-	margin-left:25px;
-	border:1px solid #CCC;
+	margin: 1em;
 }
 
 #setupProjectTable {
 	border-collapse: collapse;
 	width:100%;
+}
+
+#setupProjectTable th {
+	text-align:center;
+	border:0 none;
+	border-bottom:2px solid #777777;
+	font-weight:bold;
+	font-size:.9em;
+	padding-bottom:.25em;
+}
+
+#setupProjectTable td {
+	border:1px solid #DDDDDD;
+	font-size:.9em;
+	padding:.25em;
+	vertical-align:middle;
 }
 
 #titleBarSetUpRun {
@@ -259,32 +270,26 @@
 }
 
 #periodBoxes {
-	font-size: .7em;
-	padding: 0 0 0 30px;
+	margin-left:1em;
 }
 
 #periodBoxes input {
-	vertical-align:-20%;
+	
 } 
 
 #periodBoxes label{
-	padding:2px;
-	}
+	margin-left:.5em;
+	font-size:.9em;
+}
 
 #periodBoxes label:hover {
-	background-color:#FFFF00;
-	
+	cursor:pointer;
 }
 	
 
 #manualperiodsinput {
 	font-size: 1.1em;
-	position: absolute;
-	margin: -58px 0 0 275px;
-	border-top: 1px solid #666666;
-	border-right: 1px solid #000000;
-	border-bottom: 1px solid #000000;
-	border-left: 1px solid #666666;
+	margin: 0 0 -.5em 0;
 }
 
 #manualperiodsinstructions {
@@ -305,12 +310,13 @@
 	border-collapse: collapse;
 	background-color: #CCFF99;
 	font-size: .8em;
-	width: 90%;
-	margin: 5px 15px 5px 15px;
+	margin: 5px auto;
+	width:auto;
 }
 
 #projectRunConfirmTable td {
 	vertical-align: text-top;
+	padding:.3em;
 }
 
 #projectRunConfirmTable .instructions {
@@ -330,8 +336,6 @@
 /* STUDENT ADD A PROJECT  */
 
 #popUpWindow1 {
-	width: 600px;
-	height: 140px;
 	background-image: url(../images/student/Gradient-ProjectMenu-Green-450.png);
 	background-position: center bottom;
 	background-repeat: repeat-x;
@@ -575,7 +579,7 @@
 	padding: 5px;
 }
 
-/* CONTACT WISE PAGES */
+/* CONTACT WISE PAGES 
 #pageTitle {
 	clear: both;
 	text-align: center;
@@ -682,7 +686,7 @@
 	padding: 2px;
 	margin: 15px auto 0 auto;
 	background-color: #CCCCFF;
-}
+}*/
 
 /* LOST USERNAME & PASSWORD PAGES  */
 #lostTitleBar {
@@ -816,14 +820,6 @@
 }
 
 /* ADMIN Styling  */
-.adminTitle {
-	font-size: 1.0em;
-	font-weight: bold;
-	background-color: #0000CC;
-	padding: .5px;
-	color: #FFFFFF;
-	margin: 15px 0 10px 0;
-}
 
 #adminManageRunsTable {
 	width: 100%;
@@ -1645,11 +1641,10 @@ background-color
 	
 #newMessageCountDiv, #archivedMessageCountDiv, #sentMessageCountDiv {
 	font-weight:bold;
-	margin-bottom:10px;
 }
 
 div.messageDiv {
-	margin-bottom:10px;
+	margin:.5em 0;
 }
 
 div.replyDiv {

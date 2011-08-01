@@ -1,54 +1,33 @@
-<%@ include file="include.jsp"%>
-<!--
-  * Copyright (c) 2006 Encore Research Group, University of Toronto
-  * 
-  * This library is free software; you can redistribute it and/or
-  * modify it under the terms of the GNU Lesser General Public
-  * License as published by the Free Software Foundation; either
-  * version 2.1 of the License, or (at your option) any later version.
-  *
-  * This library is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  * Lesser General Public License for more details.
-  *
-  * You should have received a copy of the GNU Lesser General Public
-  * License along with this library; if not, write to the Free Software
-  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
--->
+<%@ include file="../../../include.jsp"%>
 
 <!-- $Id: setupRun3.jsp 357 2007-05-03 00:49:48Z archana $ -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+<!DOCTYPE html>
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+    
+<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="jquerycookiesource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
+
+<script src="/webapp/javascript/tels/effects.js" type="text/javascript" ></script>
+<script src="/webapp/javascript/tels/prototype.js" type="text/javascript" ></script>
+<script src="/webapp/javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
 <%@ include file="../../grading/styles.jsp"%>
 
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-
-<script src="./javascript/tels/general.js" type="text/javascript" ></script>
-<script src="./javascript/tels/effects.js" type="text/javascript" ></script>
-<script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
-<script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
-
 <title><spring:message code="teacher.setup-project-run-step-four" /></title>
-
-<!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
-
-<link rel="stylesheet" type="text/css" href="../../themes/tels/default/styles/teacher/superfish.css" media="screen">
-<script type="text/javascript" src="../../javascript/tels/jquery-1.2.6.min.js"></script>
-<script type="text/javascript" src="../../javascript/tels/superfish.js"></script>
 
 <script type="text/javascript">
         var doneClicked=false;
-
-        // initialise plugins
-        jQuery(function(){
-            jQuery('ul.sf-menu').superfish();
-        });
 
     	//preload image if browser is not IE because animated gif will just freeze if user is using IE
     	if(navigator.appName != "Microsoft Internet Explorer") {
@@ -166,46 +145,60 @@
 </script>
 
 </head>
-<body class=" yui-skin-sam">
+<body>
 
-<div id="centeredDiv">
+<div id="pageWrapper">
 
-<%@ include file="../../headerteacher.jsp"%> 
-
-<div id="navigationSubHeader2">Project Run Setup<span id="navigationSubHeader1">projects</span></div> 
-
-<h1 id="titleBarSetUpRun" class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1>
-
-<div id="reviewRunBox">
-
-	<div id="stepNumber"><spring:message code="teacher.run.setup.32"/><span class="blueText">&nbsp;&nbsp;Review the Project Content and Learning Goals</span></div>
-
-	<h6 style="color:red;font-size:90%;margin:15px 0"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></h6>
-
-	<ol>
-	<li><h5>Please <a href="#" onclick="javascript:alert('Lesson Plan not available yet')"><spring:message code="teacher.run.setup.35"/></a>
-	&nbsp;<spring:message code="teacher.run.setup.36"/></h5></li>
-
-	<li><h5>We highly recommend that you 
-			<a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${projectId}"/></c:url>">
-			preview the project</a> before running it. 
-			Previewing a project allows you to walk through the learning experience from a student's perspective. </h5></li>
+	<%@ include file="../../../headermain.jsp"%>
 		
-	<li><h5>First time carrying out a WISE4 Project Run?  Click the <em>HELP</em> button above for more information about running projects and using the WISE4 tools. 
-This help area includes tips on setting up your classroom computers, having students register, managing student groups, grading student work, and more.</h5></li>
-	</ol>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	
+	<div id="page">
+			
+		<div id="pageContent">
+			
+			<div class="contentPanel">
+				<div class="panelHeader">
+					<spring:message code="teacher.setup-project-classroom-run" />
+					<span class="pageTitle"><spring:message code="header.location.teacher.management"/></span>
+				</div>
+				<div class="panelContent">
+					<div id="reviewRunBox">
+						<div id="stepNumber" class="sectionHead"><spring:message code="teacher.run.setup.32"/>&nbsp;Review the Project Content and Learning Goals</div>
+						<div class="sectionContent">
+	
+							<h5 style="color:red;"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></h5>
+	
+							<ol>
+								<li><h5>Please <a><spring:message code="teacher.run.setup.35"/></a>
+								&nbsp;<spring:message code="teacher.run.setup.36"/></h5></li>
+							
+								<li><h5>We highly recommend that you 
+										<a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${projectId}"/></c:url>">
+										preview the project</a> before running it. 
+										Previewing a project allows you to walk through the learning experience from a student's perspective. </h5></li>
+									
+								<li><h5>First time carrying out a WISE4 Project Run?  Click the <em>HELP</em> button above for more information about running projects and using the WISE4 tools. 
+									This help area includes tips on setting up your classroom computers, having students register, managing student groups, grading student work, and more.</h5></li>
+							</ol>
+	
+							<h5>To complete the creation of your Project Run click <em>DONE</em> below.</h5>
+						</div>
+					</div>
+	
+					<form method="post" class="center" onSubmit="return createRun('${projectId}','${projectType}','<c:out value="${projectName}" />','${projectJSONFilename}','${srcProjectRootFolder}','${curriculumBaseDir}')">
+						<input type="submit" name="_target3" value="<spring:message code="navigate.back" />" />
+						<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
+						<input type="submit" id="submit_form" name="_finish" value="<spring:message code="navigate.done" />" />
+						<input type="hidden" id="newProjectId" name="newProjectId" value="" />
+					</form>
+				</div>
+			</div>
+		</div>
+		<div style="clear: both;"></div>
+	</div>   <!-- End of page-->
 
-	<h5>To complete the creation of your Project Run click <em>DONE</em> below.</h5>
+	<%@ include file="../../../footer.jsp"%>
 </div>
-
-<form method="post" class="center" onSubmit="return createRun('${projectId}','${projectType}','<c:out value="${projectName}" />','${projectJSONFilename}','${srcProjectRootFolder}','${curriculumBaseDir}')">
-<input type="submit" name="_target3" value="<spring:message code="navigate.back" />" />
-<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
-<input type="submit" id="submit_form" name="_finish" value="<spring:message code="navigate.done" />" />
-<input type="hidden" id="newProjectId" name="newProjectId" value="" />
-</form>
-
-<div>
-
 </body>
 </html>

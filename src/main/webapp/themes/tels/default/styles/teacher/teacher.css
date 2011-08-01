@@ -17,17 +17,10 @@
  *
  * $Id:styles.css 266 2007-04-04 15:40:42Z cynick $
  */
-
-#column1 {
-	float:left;
-	width:240px;
-	}
-
-#column2 {
-	float:left;
-	margin-left: 10px;
-	width:700px;
-	}
+ 
+ table {
+ 	/*font-size:.8em;*/
+ }
 
 .panelStyleStatus {
 	margin-top:0px;
@@ -78,93 +71,83 @@
 }
 	
 #headerTeacherHome {
-	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-	text-align:left;
-	margin: 0px 0px 12px 0px;
-	padding: 3px 10px;
-	font-size: 1.0em;
-	font-weight:bold;
+	/*-moz-border-radius-topleft:5px;
+	-moz-border-radius-topright:5px;
+	-webkit-border-radius-topleft:5px;
+	-webkit-border-radius-topright:5px;
+	border-radius-topleft:5px;
+	border-radius-topright:5px;
+	background-color:#FFce8e;
 	background-image:url(../../images/teacher/teacherSubHeader.png);
-	-moz-border-radius-topleft:4px;
-	-moz-border-radius-topright:4px;
-	-webkit-border-radius-topleft:4px;
-	-webkit-border-radius-topright:4px;
-	border-radius-topleft:4px;
-	border-radius-topright:4px;
+	background-position: top;  
 	border-bottom:1px solid #999;
+	line-height:1.2em;
+	font-size:.9em;
+	font-weight:bold;
+	margin-bottom:10px;
+	padding:4px 10px;
+	text-align:left;*/
 }
 
-#teacherStatusTable	{  
-	border-collapse:collapse;
-	font-size:.7em;
-	margin: -4px 0px 6px 12px;
-		}
-
-#teacherStatusTable th  {
-	color:#336600;
-	width:110px;
-}
-
-#teacherStatusTable th, #teacherStatusTable td	{  
-	vertical-align:text-top;
-	text-align:left;
-	padding:0px;
-	}	
-
-#teacherMessageTable	{  
+#teacherQuickLinks, #teacherMessageTable	{  
 	border-collapse:collapse;
 	font-size:.8em;
-	margin: -6px 5px 0 5px;
-		}
+	width:100%;
+	table-layout: fixed;
+	color:#F2F4D2;
+}
+
+#teacherQuickLinks td, #teacherMessageTable td	{  
+	vertical-align:text-top;
+	text-align:left;
+	padding:0.25em 0;
+}
+
+#teacherQuickLinks tr:first-child td, #teacherMessageTable tr:first-child td {
+	padding-top:0;
+}
+
+#teacherQuickLinks tr:last-child td, #teacherMessageTable tr:last-child td {
+	padding-bottom:0;
+}
+
+.highlight  {
+	color:#F2F4D2;
+}
+
+.right  {
+	text-align:right !important;
+}
 	
 #teacherMessageTable td	{  
 	vertical-align:text-top;
-	letter-spacing:-.5px;
 	text-align:left;
-	}	
-		
-#teacherMessageTable ul	{  
-	padding:0 4px;
-	margin:0;
-	overflow:auto;
 }
 		
-#teacherMessageTable li	{  
-	padding:4px 4px 10px 0px;
+#teacherMessageTable li	{
 	list-style-type:none;
-			}
-
-#teacherMessageTable a  {
-	color:blue;
-	cursor:pointer;
-	text-decoration:none;
-	}
-
-#teacherMessageTable a:hover  {
-	background:#FFFF00;
-	color:#000;
+	margin: 0.5em 0;
 }
 
-#manageMessageContainer  {  
-	position:absolute;
-	left:8px;
-	bottom:10px;
-			}
+#teacherMessageTable li:last-child {
+	margin-bottom:0;
+}
 
-#manageMessageContainer a {  
-	color:blue;
-	font-size:.75em;
-	text-decoration:none;
-	padding:4px;
-			}
-			
-#manageMessageContainer a:hover {  
-	background:#FFFF00;
-			}
+.welcomeMsg {
+	margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+    font-weight:bold;
+}
 
-#newMessageCountDiv {
+.messageContainer  {
+	margin:.5em 0;
+	padding:.5em 0;
+	border-top:1px solid #9B7F5E;
+}
+
+#newMessageCount {
 	font-weight:bold;
-	margin-bottom:10px;
+	margin: .5em 0;
 }
 
 .messageDiv {
@@ -172,8 +155,11 @@
 
 .messageDisplayTable {
 	border-collapse:collapse;
-	margin:0 0 10px;
-	}
+	table-layout: fixed;
+    width: 100%;
+    font-size:1.1em;
+    color:#F2F4D2;
+}
 
 .messageDisplayTable th, .messageDisplayTable td {
 	font-size:.8em;
@@ -186,7 +172,6 @@
 }
 
 .messageDisplayTable th {
-	color:#666;
 	font-weight:normal;
 	width:55px;
 	letter-spacing:-1px; 
@@ -194,7 +179,17 @@
 
 .messageDisplayTable td.messageBody {
 	padding:2px 1px
-	}
+}
+
+.msgLink {
+	margin-top: 1em;
+}
+
+ul.reminders {
+	margin-top:.5em;
+	padding-top: .5em;
+	border-top: 1px solid #9B7F5E;
+}
 
 /* TOOL TIP STYLES */
 
@@ -252,6 +247,90 @@
 	margin:0;  
 }
 
+/* jQuey UI tab overrides for panel (run and project) tabs */
 
+.panelTabs {
+	background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    margin-top: -3.5em;
+    padding: 0;
+}
+
+.panelTabs ul.ui-tabs-nav {
+	background: none repeat scroll 0 0 transparent;
+	border: medium none;
+	font-weight: bold;
+	height: 2em;
+	line-height: 2em;
+	padding: 0;
+	margin-left: 13em;
+}
+
+.panelTabs ul.ui-tabs-nav li {
+	float:left;
+}
+
+.panelTabs ul.ui-tabs-nav li.ui-state-default {
+	background: none repeat scroll 0 0 transparent;
+	border: medium none;
+	margin: 0 0 0.4em;
+	padding: 0.4em 0;
+}
+
+.panelTabs ul.ui-tabs-nav li.ui-state-default a {
+	color: #585F0C;
+	font-weight: normal;
+	line-height: 1.4em;
+	margin: 0.25em .5em 0 .1em;
+	padding: .2em .4em;
+	font-size: .9em;
+}
+
+.contentRight .panelTabs ul.ui-tabs-nav li.ui-state-default a,
+.contentLeft .panelTabs ul.ui-tabs-nav li.ui-state-default a {
 	
+}
 
+.panelTabs ul.ui-tabs-nav li.ui-state-default a:hover {
+	text-decoration:underline;
+}
+
+.contentRight .panelTabs ul.ui-tabs-nav li.ui-state-default a:hover,
+.contentLeft .panelTabs ul.ui-tabs-nav li.ui-state-default a:hover {
+	text-decoration:none !important;
+}
+
+.panelTabs ul.ui-tabs-nav li.ui-tabs-selected {
+}
+
+.panelTabs ul.ui-tabs-nav li.ui-tabs-selected a {
+	background-color: #DADF8B;
+	color: #333;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	box-shadow: 0 0 2px #DADF8B;
+	-moz-box-shadow: 0 0 2px #DADF8B;
+	-webkit-box-shadow: 0 0 2px #DADF8B;
+	text-decoration: none !important;
+}
+
+.contentRight .panelTabs ul.ui-tabs-nav li.ui-tabs-selected a,
+.contentLeft .panelTabs ul.ui-tabs-nav li.ui-tabs-selected a {
+}
+
+.panelTabs ul.ui-tabs-nav li.ui-tabs-selected a:hover {
+	border-bottom-width:2px;
+}
+
+.panelTabs ul.ui-tabs-nav li a em {
+	font-weight: bold;
+    letter-spacing: 0;
+}
+
+.panelTabs div.ui-tabs-panel {
+	background-color: #FFFFFF;
+    margin-top: 1em;
+    padding: 0;
+    text-align:center;
+}
