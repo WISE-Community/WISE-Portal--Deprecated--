@@ -88,7 +88,7 @@
 	<div id="runId" style="display:none;">${run.id}</div>
 	<div id='msgDiv'></div>
 	<div id="editRunTitleDiv" class="dialogSection">
-		Run Title: <input id="editRunTitleInput" class="dialogTextInput" type="text" size="50" value="<c:out value='${run.name}' />"/><input type="button" value="Update Title" onclick="updateRunTitle('${run.id}')"/>
+		Run Title: <input id="editRunTitleInput" class="dialogTextInput" type="text" size="40" value="<c:out value='${run.name}' />"/><input type="button" value="Update Title" onclick="updateRunTitle('${run.id}')"/>
 	</div>
 	<div id='runInfo' class="dialogSection">
 		<c:choose>

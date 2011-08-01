@@ -160,7 +160,7 @@
 		var title = $(this).attr('title');
 		var runId = $(this).attr('id').replace('shareRun_','');
 		var path = "/webapp/teacher/run/shareprojectrun.html?runId=" + runId;
-		var div = $('#shareDialog').html('<iframe id="shareIfrm" width="100%" height="100%" style="overflow-y:hidden;"></iframe>');
+		var div = $('#shareDialog').html('<iframe id="shareIfrm" width="100%" height="100%"></iframe>');
 		$('body').css('overflow-y','hidden');
 		div.dialog({
 			modal: true,
@@ -181,7 +181,7 @@
 		var title = $(this).attr('title');
 		var runId = $(this).attr('id').replace('editRun_','');
 		var path = "/webapp/teacher/run/editrun.html?runId=" + runId;
-		var div = $('#editRunDialog').html('<iframe id="editIfrm" width="100%" height="100%" style="overflow-y:hidden;"></iframe>');
+		var div = $('#editRunDialog').html('<iframe id="editIfrm" width="100%" height="100%"></iframe>');
 		$('body').css('overflow-y','hidden');
 		div.dialog({
 			modal: true,
@@ -207,7 +207,7 @@
 		var title = $(this).attr('title');
 		var runId = $(this).attr('id').replace('editAnnouncements_','');
 		var path = "/webapp/teacher/run/announcement/manageannouncement.html?runId=" + runId;
-		var div = $('#editAnnouncementsDialog').html('<iframe id="announceIfrm" width="100%" height="100%" style="overflow-y:hidden;"></iframe>');
+		var div = $('#editAnnouncementsDialog').html('<iframe id="announceIfrm" width="100%" height="100%"></iframe>');
 		$('body').css('overflow-y','hidden');
 		div.dialog({
 			modal: true,

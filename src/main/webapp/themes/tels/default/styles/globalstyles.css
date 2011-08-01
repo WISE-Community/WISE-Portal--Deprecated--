@@ -84,7 +84,7 @@ abbr, acronym {
 	border-bottom: 1px dotted #666666;	
 }
 
-input[type="submit"] {
+input[type="submit"], input[type="text"], input[type="password"] {
 	border-radius: 3px 3px 3px 3px;
 	-moz-border-radius: 3px 3px 3px 3px;
 	-webkit-border-radius: 3px 3px 3px 3px;
@@ -92,7 +92,7 @@ input[type="submit"] {
     border: 1px solid #DDDDDD;
     color: #444444;
     font-size: 0.9em;
-    margin: .5em;
+    margin: .25em;
     padding: 0.25em;
 }
 
@@ -367,6 +367,7 @@ a#name {
     border-style: none;
     padding: 0 0 4px;
     margin: 0 0 3px 0;
+    background-color: transparent;
 }
 
 #forgotLogin {

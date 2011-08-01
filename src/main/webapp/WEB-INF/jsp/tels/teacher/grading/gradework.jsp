@@ -47,7 +47,7 @@ TODO: re-enable &minified=${minified}-->
 <c:if test="${fn:length(getGradeWorkUrl) > 0}">
 		<div>
 			<iframe id="topifrm" src="${getGradeWorkUrl}?loadScriptsIndividually&permission=${permission}" name="topifrm" scrolling="auto" width="100%"
-				height="100%" frameborder="0">Sorry, you cannot view this web page because your browser doesn't support iframes.</iframe>
+				height="100%" style="overflow-y:hidden;" frameborder="0">Sorry, you cannot view this web page because your browser doesn't support iframes.</iframe>
 		</div>
 </c:if>
 
