@@ -551,7 +551,7 @@
     create table teacher_user_details (
         city varchar(255),
         country varchar(255) not null,
-        curriculumsubjects tinyblob not null,
+        curriculumsubjects tinyblob,
         displayname varchar(255),
         isEmailValid bit not null,
         firstname varchar(255) not null,
@@ -632,12 +632,6 @@
         references acl_sid (id);
 
     alter table acl_object_identity 
-        add index FK2A2BB0099B5E7811 (owner_sid), 
-        add constraint FK2A2BB0099B5E7811 
-        foreign key (owner_sid) 
-        references acl_sid (id);
-
-    alter table acl_object_identity 
         add index FK2A2BB009BDC00DA1 (parent_object), 
         add constraint FK2A2BB009BDC00DA1 
         foreign key (parent_object) 
@@ -648,6 +642,12 @@
         add constraint FK2A2BB0092458F1A3 
         foreign key (object_id_class) 
         references acl_class (id);
+
+    alter table acl_object_identity 
+        add index FK2A2BB0099B5E7811 (owner_sid), 
+        add constraint FK2A2BB0099B5E7811 
+        foreign key (owner_sid) 
+        references acl_sid (id);
 
     alter table annotationbundles 
         add index FKAA5FD222F54443B2 (workgroup_fk), 
@@ -662,20 +662,14 @@
         references wiseworkgroups (id);
 
     alter table brainstormanswers_related_to_answertags 
-        add index FKB048F4EA2605B8EA (brainstormanswers_fk), 
-        add constraint FKB048F4EA2605B8EA 
-        foreign key (brainstormanswers_fk) 
-        references brainstormanswers (id);
-
-    alter table brainstormanswers_related_to_answertags 
         add index FKB048F4EA995F00FD (answer_tag_fk), 
         add constraint FKB048F4EA995F00FD 
         foreign key (answer_tag_fk) 
         references brainstormanswertags (id);
 
-    alter table brainstormanswers_related_to_brainstormcomments 
-        add index FKCF105FBA2605B8EA (brainstormanswers_fk), 
-        add constraint FKCF105FBA2605B8EA 
+    alter table brainstormanswers_related_to_answertags 
+        add index FKB048F4EA2605B8EA (brainstormanswers_fk), 
+        add constraint FKB048F4EA2605B8EA 
         foreign key (brainstormanswers_fk) 
         references brainstormanswers (id);
 
@@ -685,9 +679,9 @@
         foreign key (brainstormcomments_fk) 
         references brainstormcomments (id);
 
-    alter table brainstormanswers_related_to_brainstormrevisions 
-        add index FK8A39FAF22605B8EA (brainstormanswers_fk), 
-        add constraint FK8A39FAF22605B8EA 
+    alter table brainstormanswers_related_to_brainstormcomments 
+        add index FKCF105FBA2605B8EA (brainstormanswers_fk), 
+        add constraint FKCF105FBA2605B8EA 
         foreign key (brainstormanswers_fk) 
         references brainstormanswers (id);
 
@@ -696,6 +690,12 @@
         add constraint FK8A39FAF2AA8628E4 
         foreign key (brainstormrevisions_fk) 
         references brainstormrevisions (id);
+
+    alter table brainstormanswers_related_to_brainstormrevisions 
+        add index FK8A39FAF22605B8EA (brainstormanswers_fk), 
+        add constraint FK8A39FAF22605B8EA 
+        foreign key (brainstormanswers_fk) 
+        references brainstormanswers (id);
 
     alter table brainstormanswers_related_to_workgroups 
         add index FK6398E0382605B8EA (brainstormanswers_fk), 
@@ -788,16 +788,16 @@
         references projectcommunicators (id);
 
     alter table externalprojects 
-        add index FKD8238145CE9C471A (projectcommunicator_fk), 
-        add constraint FKD8238145CE9C471A 
-        foreign key (projectcommunicator_fk) 
-        references projectcommunicators (id);
-
-    alter table externalprojects 
         add index FKD8238145E48A3C0A (id), 
         add constraint FKD8238145E48A3C0A 
         foreign key (id) 
         references projects (id);
+
+    alter table externalprojects 
+        add index FKD8238145CE9C471A (projectcommunicator_fk), 
+        add constraint FKD8238145CE9C471A 
+        foreign key (projectcommunicator_fk) 
+        references projectcommunicators (id);
 
     alter table groups 
         add index FKB63DD9D4E696E7FF (parent_fk), 
@@ -806,16 +806,16 @@
         references groups (id);
 
     alter table groups_related_to_users 
-        add index FK3311F7E356CA53B6 (user_fk), 
-        add constraint FK3311F7E356CA53B6 
-        foreign key (user_fk) 
-        references users (id);
-
-    alter table groups_related_to_users 
         add index FK3311F7E3895EAE0A (group_fk), 
         add constraint FK3311F7E3895EAE0A 
         foreign key (group_fk) 
         references groups (id);
+
+    alter table groups_related_to_users 
+        add index FK3311F7E356CA53B6 (user_fk), 
+        add constraint FK3311F7E356CA53B6 
+        foreign key (user_fk) 
+        references users (id);
 
     alter table jaxbquestions 
         add index FK91A6B40C2C379613 (id), 
@@ -836,28 +836,28 @@
         references users (id);
 
     alter table messages 
-        add index FKE475014C895ABAC5 (originalMessage), 
-        add constraint FKE475014C895ABAC5 
-        foreign key (originalMessage) 
-        references messages (id);
-
-    alter table messages 
         add index FKE475014C298F8032 (sender), 
         add constraint FKE475014C298F8032 
         foreign key (sender) 
         references users (id);
 
-    alter table messages_related_to_message_recipients 
-        add index FKB9B5242FE9D3BAD4 (recipients_fk), 
-        add constraint FKB9B5242FE9D3BAD4 
-        foreign key (recipients_fk) 
-        references message_recipient (id);
+    alter table messages 
+        add index FKE475014C895ABAC5 (originalMessage), 
+        add constraint FKE475014C895ABAC5 
+        foreign key (originalMessage) 
+        references messages (id);
 
     alter table messages_related_to_message_recipients 
         add index FKB9B5242F9B0C1E47 (messages_fk), 
         add constraint FKB9B5242F9B0C1E47 
         foreign key (messages_fk) 
         references messages (id);
+
+    alter table messages_related_to_message_recipients 
+        add index FKB9B5242FE9D3BAD4 (recipients_fk), 
+        add constraint FKB9B5242FE9D3BAD4 
+        foreign key (recipients_fk) 
+        references message_recipient (id);
 
     alter table modules 
         add index FK492927875E6F3BA6 (id), 
@@ -866,16 +866,16 @@
         references curnits (id);
 
     alter table modules_related_to_owners 
-        add index FKE09C9860AA7F41 (owners_fk), 
-        add constraint FKE09C9860AA7F41 
-        foreign key (owners_fk) 
-        references users (id);
-
-    alter table modules_related_to_owners 
         add index FKE09C9839A4B723 (module_fk), 
         add constraint FKE09C9839A4B723 
         foreign key (module_fk) 
         references modules (id);
+
+    alter table modules_related_to_owners 
+        add index FKE09C9860AA7F41 (owners_fk), 
+        add constraint FKE09C9860AA7F41 
+        foreign key (owners_fk) 
+        references users (id);
 
     alter table newsitem 
         add index FK532D646665E358B0 (owner), 
@@ -920,12 +920,6 @@
         references premadecommentlists (id);
 
     alter table projects 
-        add index FKC479187A7F08E576 (curnit_fk), 
-        add constraint FKC479187A7F08E576 
-        foreign key (curnit_fk) 
-        references curnits (id);
-
-    alter table projects 
         add index FKC479187ABD6D05A5 (run_fk), 
         add constraint FKC479187ABD6D05A5 
         foreign key (run_fk) 
@@ -943,17 +937,23 @@
         foreign key (jnlp_fk) 
         references jnlps (id);
 
-    alter table projects_related_to_bookmarkers 
-        add index FK5AA350A5AC92FD99 (projects_fk), 
-        add constraint FK5AA350A5AC92FD99 
-        foreign key (projects_fk) 
-        references projects (id);
+    alter table projects 
+        add index FKC479187A7F08E576 (curnit_fk), 
+        add constraint FKC479187A7F08E576 
+        foreign key (curnit_fk) 
+        references curnits (id);
 
     alter table projects_related_to_bookmarkers 
         add index FK5AA350A531C3B66D (bookmarkers), 
         add constraint FK5AA350A531C3B66D 
         foreign key (bookmarkers) 
         references users (id);
+
+    alter table projects_related_to_bookmarkers 
+        add index FK5AA350A5AC92FD99 (projects_fk), 
+        add constraint FK5AA350A5AC92FD99 
+        foreign key (projects_fk) 
+        references projects (id);
 
     alter table projects_related_to_owners 
         add index FKDACF56CB60AA7F41 (owners_fk), 
@@ -980,20 +980,14 @@
         references projects (id);
 
     alter table projects_related_to_tags 
-        add index FK7A3DD5846F1ED29A (project_fk), 
-        add constraint FK7A3DD5846F1ED29A 
-        foreign key (project_fk) 
-        references projects (id);
-
-    alter table projects_related_to_tags 
         add index FK7A3DD584C525497A (tag_fk), 
         add constraint FK7A3DD584C525497A 
         foreign key (tag_fk) 
         references tags (id);
 
-    alter table runs 
-        add index FK3597486F1ED29A (project_fk), 
-        add constraint FK3597486F1ED29A 
+    alter table projects_related_to_tags 
+        add index FK7A3DD5846F1ED29A (project_fk), 
+        add constraint FK7A3DD5846F1ED29A 
         foreign key (project_fk) 
         references projects (id);
 
@@ -1002,6 +996,12 @@
         add constraint FK3597481834F8D3 
         foreign key (id) 
         references offerings (id);
+
+    alter table runs 
+        add index FK3597486F1ED29A (project_fk), 
+        add constraint FK3597486F1ED29A 
+        foreign key (project_fk) 
+        references projects (id);
 
     alter table runs_related_to_announcements 
         add index FKEDEF47F33BC1BEB5 (announcements_fk), 
@@ -1028,28 +1028,28 @@
         references groups (id);
 
     alter table runs_related_to_owners 
-        add index FK7AC2FE1960AA7F41 (owners_fk), 
-        add constraint FK7AC2FE1960AA7F41 
-        foreign key (owners_fk) 
-        references users (id);
-
-    alter table runs_related_to_owners 
         add index FK7AC2FE1950B193C8 (runs_fk), 
         add constraint FK7AC2FE1950B193C8 
         foreign key (runs_fk) 
         references runs (id);
 
-    alter table runs_related_to_shared_owners 
-        add index FKBD30D52150B193C8 (runs_fk), 
-        add constraint FKBD30D52150B193C8 
-        foreign key (runs_fk) 
-        references runs (id);
+    alter table runs_related_to_owners 
+        add index FK7AC2FE1960AA7F41 (owners_fk), 
+        add constraint FK7AC2FE1960AA7F41 
+        foreign key (owners_fk) 
+        references users (id);
 
     alter table runs_related_to_shared_owners 
         add index FKBD30D521DB63ABE7 (shared_owners_fk), 
         add constraint FKBD30D521DB63ABE7 
         foreign key (shared_owners_fk) 
         references users (id);
+
+    alter table runs_related_to_shared_owners 
+        add index FKBD30D52150B193C8 (runs_fk), 
+        add constraint FKBD30D52150B193C8 
+        foreign key (runs_fk) 
+        references runs (id);
 
     alter table sds_offerings 
         add index FK242EBD70A532A941 (sds_jnlp_fk), 
@@ -1124,16 +1124,22 @@
         references sds_users (id);
 
     alter table wiseworkgroups 
+        add index FKF16C83C9F309B437 (id), 
+        add constraint FKF16C83C9F309B437 
+        foreign key (id) 
+        references workgroups (id);
+
+    alter table wiseworkgroups 
         add index FKF16C83C93013AD46 (period), 
         add constraint FKF16C83C93013AD46 
         foreign key (period) 
         references groups (id);
 
-    alter table wiseworkgroups 
-        add index FKF16C83C9F309B437 (id), 
-        add constraint FKF16C83C9F309B437 
-        foreign key (id) 
-        references workgroups (id);
+    alter table workgroups 
+        add index FKEC8E5025895EAE0A (group_fk), 
+        add constraint FKEC8E5025895EAE0A 
+        foreign key (group_fk) 
+        references groups (id);
 
     alter table workgroups 
         add index FKEC8E50255AAC23E7 (sds_workgroup_fk), 
@@ -1146,9 +1152,3 @@
         add constraint FKEC8E502553AE0756 
         foreign key (offering_fk) 
         references offerings (id);
-
-    alter table workgroups 
-        add index FKEC8E5025895EAE0A (group_fk), 
-        add constraint FKEC8E5025895EAE0A 
-        foreign key (group_fk) 
-        references groups (id);

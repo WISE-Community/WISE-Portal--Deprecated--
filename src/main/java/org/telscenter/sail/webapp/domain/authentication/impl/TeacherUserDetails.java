@@ -118,7 +118,7 @@ public class TeacherUserDetails extends PersistentUserDetails implements
     @Column(name = TeacherUserDetails.COLUMN_NAME_SCHOOLNAME, nullable = false)
 	private String schoolname;
     
-    @Column(name = TeacherUserDetails.COLUMN_NAME_CURRICULUMSUBJECTS, nullable = false)
+    @Column(name = TeacherUserDetails.COLUMN_NAME_CURRICULUMSUBJECTS)
 	private String[] curriculumsubjects;
     
     @Column(name = TeacherUserDetails.COLUMN_NAME_SCHOOLLEVEL, nullable = false)

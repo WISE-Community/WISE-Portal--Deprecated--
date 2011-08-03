@@ -563,7 +563,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `teacher_user_details` WRITE;
 /*!40000 ALTER TABLE `teacher_user_details` DISABLE KEYS */;
-INSERT INTO `teacher_user_details` (city,country,curriculumsubjects,displayname,firstname,lastlogintime,lastname,numberoflogins,schoollevel,schoolname,signupdate,state,id) VALUES ('Berkeley','USA','¬í\0ur\0[Ljava.lang.String;­ÒVçé{G\0\0xp\0\0\0t\0biology','adminuser','ad',NULL,'min',0,3,'Berkeley','2010-10-25 15:41:31','CA',1),('Berkeley','USA','¬í\0ur\0[Ljava.lang.String;­ÒVçé{G\0\0xp\0\0\0t\0biology','previewuser','preview',NULL,'user',0,3,'Berkeley','2010-10-25 15:41:31','CA',2);
+INSERT INTO `teacher_user_details` (city,country,curriculumsubjects,displayname,firstname,lastlogintime,lastname,numberoflogins,schoollevel,schoolname,signupdate,state,id) VALUES ('Berkeley','USA',NULL,'adminuser','ad',NULL,'min',0,3,'Berkeley','2010-10-25 15:41:31','CA',1),('Berkeley','USA',NULL,'previewuser','preview',NULL,'user',0,3,'Berkeley','2010-10-25 15:41:31','CA',2);
 /*!40000 ALTER TABLE `teacher_user_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
