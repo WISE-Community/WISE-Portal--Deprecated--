@@ -65,6 +65,7 @@ import org.telscenter.sail.webapp.presentation.util.json.JSONException;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.presentation.web.controllers.CredentialManager;
 import org.telscenter.sail.webapp.presentation.web.controllers.TaggerController;
+import org.telscenter.sail.webapp.presentation.web.filters.TelsAuthenticationProcessingFilter;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
@@ -718,6 +719,7 @@ public class AuthorProjectController extends AbstractController {
 			config.put("username", username);
 			config.put("projectMetaDataUrl", projectMetaDataUrl);
 			config.put("vlewrapperBaseUrl", vlewrapperBaseUrl);
+			config.put("indexUrl", ControllerUtil.getPortalUrlString(request) + TelsAuthenticationProcessingFilter.TEACHER_DEFAULT_TARGET_PATH);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
