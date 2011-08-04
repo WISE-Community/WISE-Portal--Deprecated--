@@ -45,6 +45,7 @@ import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.dao.sds.impl.AbstractHttpRestCommand;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
@@ -402,7 +403,11 @@ public class BridgeController extends AbstractController {
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/peerreview.html");
 			requestDispatcher.forward(request, response);
 		} else if (type.equals("xlsexport")) {
+			//set the user info into the request object
 			setUserInfos(run, request);
+			
+			//set the project path into the request object
+			setProjectPath(run, request);
 			
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/getxls.html");
 			requestDispatcher.forward(request, response);
@@ -747,6 +752,20 @@ public class BridgeController extends AbstractController {
 		 * context can access this data
 		 */
 		request.setAttribute("studentAttendance", studentAttendanceJSONArray.toString());
+	}
+	
+	/**
+	 * Set the project path into the request as an attribute so that we can access
+	 * it in other controllers
+	 * @param run
+	 * @param request
+	 */
+	private void setProjectPath(Run run, HttpServletRequest request) {
+		String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
+		String rawProjectUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());		
+		String projectPath = curriculumBaseDir + rawProjectUrl;
+		
+		request.setAttribute("projectPath", projectPath);
 	}
 	
 

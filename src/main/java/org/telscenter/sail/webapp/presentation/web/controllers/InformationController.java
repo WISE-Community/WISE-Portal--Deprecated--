@@ -515,10 +515,7 @@ public class InformationController extends AbstractController{
 		
 		/* set the content url */
 		String getContentUrl = curriculumBaseWWW + polishedProjectUrl;
-		
-		/* set project path */
-		String getProjectPath = curriculumBaseDir + polishedProjectUrl;
-		
+
 		/* get location of last separator in url */
 		int lastIndexOfSlash = getContentUrl.lastIndexOf("/");
 		if(lastIndexOfSlash==-1){
@@ -571,7 +568,6 @@ public class InformationController extends AbstractController{
 			config.put("projectMetaDataUrl", projectMetaDataUrl);
 			config.put("getUserInfoUrl", getUserInfoUrl);
 			config.put("getContentUrl", getContentUrl);
-			config.put("getProjectPath", getProjectPath);
 			config.put("getContentBaseUrl", getContentBaseUrl);
 			config.put("getStudentUploadsBaseUrl", studentUploadsBaseWWW);
 			config.put("theme", "WISE");

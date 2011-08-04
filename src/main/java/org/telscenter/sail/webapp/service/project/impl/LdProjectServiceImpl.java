@@ -68,11 +68,7 @@ import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
-import org.telscenter.sail.webapp.domain.project.impl.TagImpl;
-import org.telscenter.sail.webapp.presentation.util.RetrieveFile;
 import org.telscenter.sail.webapp.presentation.util.http.Connector;
-import org.telscenter.sail.webapp.presentation.util.json.JSONException;
-import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
@@ -165,10 +161,8 @@ public class LdProjectServiceImpl implements ProjectService {
 		String vleAuthorUrl = portalUrl + "/vlewrapper/vle/author.html";
 		String portalAuthorUrl = portalUrl + "/webapp/author/authorproject.html";
 		String command = params.getHttpServletRequest().getParameter("param1");
-		String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("curriculumBaseDir", curriculumBaseDir);
 		mav.addObject("portalAuthorUrl", portalAuthorUrl);
 		mav.addObject("vleAuthorUrl", vleAuthorUrl);
 		
@@ -218,7 +212,16 @@ public class LdProjectServiceImpl implements ProjectService {
 					polishedProjectUrl = rawProjectUrl.replace(".project.json", ".project." + versionId + ".json");
 				}
 				*/
-				mav.addObject("projectId", polishedProjectUrl + "~" + project.getId() + "~" + title);
+				
+				//get the project attributes
+				String relativeProjectUrl = polishedProjectUrl;
+				String projectId = project.getId().toString();
+				String projectTitle = title;
+				
+				//put the project attributes into the model so it can be accessed in the .jsp page
+				mav.addObject("relativeProjectUrl", relativeProjectUrl);
+				mav.addObject("projectId", projectId);
+				mav.addObject("projectTitle", projectTitle);
 			} else {
 				return new ModelAndView(new RedirectView("/webapp/accessdenied.html"));
 			}

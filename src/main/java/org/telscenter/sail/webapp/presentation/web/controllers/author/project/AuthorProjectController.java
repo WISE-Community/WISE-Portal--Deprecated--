@@ -61,6 +61,7 @@ import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectMetadataImpl;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.presentation.util.Util;
+import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
 import org.telscenter.sail.webapp.presentation.util.json.JSONException;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.presentation.web.controllers.CredentialManager;
@@ -168,6 +169,9 @@ public class AuthorProjectController extends AbstractController {
 						request.setAttribute("parentProjectUrl", parentProjectUrl);
 					}
 					
+					//add any necessary attributes to the request object
+					addRequestAttributeForCommand(request, project, command, forward);
+					
 					CredentialManager.setRequestCredentials(request, user);
 					servletContext.getRequestDispatcher("/vle/" + forward + ".html").forward(request, response);
 					
@@ -258,6 +262,57 @@ public class AuthorProjectController extends AbstractController {
 		
 		return (ModelAndView) projectService.authorProject(params);
 	}
+	
+	/**
+	 * Add any necessary attributes to the request object
+	 * @param request the request object
+	 * @param project the project object
+	 * @param command the command e.g. "retrieveFile"
+	 * @param forward the service to forward to e.g. "filemanager"
+	 */
+	private void addRequestAttributeForCommand(HttpServletRequest request, Project project, String command, String forward) {
+		if("retrieveFile".equals(command)) {
+			//get the file name
+			String fileName = request.getParameter("fileName");
+			
+			//get the full file path
+			String filePath = getFilePath(project, fileName);
+			request.setAttribute("filePath", filePath);
+		} else if("createProject".equals(command)) {
+			//get the full curriculum base dir
+			String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
+			request.setAttribute("curriculumBaseDir", curriculumBaseDir);
+		} else if("createNode".equals(command)) {
+			//get the full project file path
+			String projectFilePath = getProjectFilePath(project);
+			request.setAttribute("projectFilePath", projectFilePath);
+		} else if("getProjectFile".equals(command)) {
+			//get the full project file path
+			String projectFilePath = getProjectFilePath(project);
+			request.setAttribute("filePath", projectFilePath);
+		} else if("copyProject".equals(command)) {
+			//get the full project folder path
+			String projectFolderPath = getProjectFolderPath(project);
+			request.setAttribute("projectFolderPath", projectFolderPath);
+			
+			//get the full curriculum base dir
+			String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
+			request.setAttribute("curriculumBaseDir", curriculumBaseDir);
+		} else if("updateFile".equals(command) ||
+				"copyNode".equals(command) ||
+				"createSequence".equals(command) ||
+				"createSequenceFromJSON".equals(command) ||
+				"updateAudioFiles".equals(command) ||
+				"createFile".equals(command) ||
+				"removeFile".equals(command)||
+				"assetList".equals(command) || 
+				"getSize".equals(command) || 
+				"assetmanager".equals(forward)) {
+			//get the full project folder path
+			String projectFolderPath = getProjectFolderPath(project);
+			request.setAttribute("projectFolderPath", projectFolderPath);
+		}
+	}
 
 	/**
 	 * Handles creating a project.
@@ -270,8 +325,16 @@ public class AuthorProjectController extends AbstractController {
 	private ModelAndView handleCreateProject(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = ControllerUtil.getSignedInUser();
 		if(this.hasAuthorPermissions(user)){
-			String path = request.getParameter("param1");
-			String name = request.getParameter("param2");
+			/*
+			 * get the relative path to the project
+			 * e.g.
+			 * /510/wise4.project.json
+			 */
+			String path = request.getParameter("projectPath");
+			
+			//get the name of the project
+			String name = request.getParameter("projectName");
+			
 			String parentProjectId = request.getParameter("parentProjectId");
 			Set<User> owners = new HashSet<User>();
 			owners.add(user);
@@ -323,7 +386,15 @@ public class AuthorProjectController extends AbstractController {
 	private ModelAndView handleNotifyProjectOpen(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = ControllerUtil.getSignedInUser();
 		if(this.hasAuthorPermissions(user)){
-			String projectPath = request.getParameter("param1");
+			
+			//get the project object
+			String projectId = request.getParameter("projectId");
+			Project project = projectService.getById(projectId);
+			
+			//get the full project path
+			String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
+			String rawProjectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+			String fullProjectPath = curriculumBaseDir + rawProjectUrl;
 			
 			HttpSession currentUserSession = request.getSession();
 			HashMap<String, ArrayList<String>> openedProjectsToSessions = 
@@ -334,10 +405,10 @@ public class AuthorProjectController extends AbstractController {
 				currentUserSession.getServletContext().setAttribute("openedProjectsToSessions", openedProjectsToSessions);
 			}
 			
-			if (openedProjectsToSessions.get(projectPath) == null) {
-				openedProjectsToSessions.put(projectPath, new ArrayList<String>());
+			if (openedProjectsToSessions.get(fullProjectPath) == null) {
+				openedProjectsToSessions.put(fullProjectPath, new ArrayList<String>());
 			}
-			ArrayList<String> sessions = openedProjectsToSessions.get(projectPath);  // sessions that are currently authoring this project
+			ArrayList<String> sessions = openedProjectsToSessions.get(fullProjectPath);  // sessions that are currently authoring this project
 			if (!sessions.contains(currentUserSession.getId())) {
 				sessions.add(currentUserSession.getId());
 			}
@@ -455,23 +526,48 @@ public class AuthorProjectController extends AbstractController {
 		allAuthorableProjects.addAll(projects);
 		allAuthorableProjects.addAll(sharedProjects);
 		
-		String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
-		String xmlList = "";
+		//an array to hold the information for the projects
+		JSONArray projectArray = new JSONArray();
+		
+		//loop through all the projects
 		for(Project project : allAuthorableProjects){
 			if(project.getProjectType()==ProjectType.LD &&
 					projectService.canAuthorProject(project, signedInUser)){
-				//String versionId = this.projectService.getActiveVersion(project);
+				/*
+				 * get the relative project url
+				 * e.g.
+				 * /235/wise4.project.json
+				 */
 				String rawProjectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-				String polishedProjectUrl = null;
 				
-				polishedProjectUrl = rawProjectUrl;
+				//get the title of the project
 				String title = project.getName();
-				xmlList += curriculumBaseDir + polishedProjectUrl + "~" + project.getId() + "~" + title + "|";
+				
+				if(rawProjectUrl != null) {
+					/*
+					 * get the project file name
+					 * e.g.
+					 * /wise4.project.json
+					 */
+					String projectFileName = rawProjectUrl.substring(rawProjectUrl.lastIndexOf("/"));
+					
+					/*
+					 * add the project file name, project id, and project title
+					 * to the JSONObject
+					 */
+					JSONObject projectDetails = new JSONObject();
+					projectDetails.put("id", project.getId());
+					projectDetails.put("path", projectFileName);
+					projectDetails.put("title", title);
+					
+					//add the JSONObject to our array
+					projectArray.put(projectDetails);
+				}
 			}
 		}
-		xmlList += "";
 		
-		response.getWriter().write(xmlList);
+		//return the JSONArray as a string
+		response.getWriter().write(projectArray.toString());
 		return null;
 	}
 	
@@ -874,6 +970,47 @@ public class AuthorProjectController extends AbstractController {
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * Get the full project file path
+	 * @param project the project object
+	 * @return the full project file path
+	 * e.g.
+	 * /Users/geoffreykwan/dev/apache-tomcat-5.5.27/webapps/curriculum/667/wise4.project.json
+	 */
+	private String getProjectFilePath(Project project) {
+		String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
+		String projectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+		String projectFilePath = curriculumBaseDir + projectUrl;
+		return projectFilePath;
+	}
+	
+	/**
+	 * Get the full file path given the project object and a file name
+	 * @param project the project object
+	 * @param fileName the file name
+	 * @return the full file path
+	 * e.g.
+	 * /Users/geoffreykwan/dev/apache-tomcat-5.5.27/webapps/curriculum/667/node_2.or
+	 */
+	private String getFilePath(Project project, String fileName) {
+		String projectFolderPath = getProjectFolderPath(project);
+		String filePath = projectFolderPath + fileName;
+		return filePath;
+	}
+	
+	/**
+	 * Get the full project folder path given the project object
+	 * @param project the project object
+	 * @return the full project folder path
+	 * e.g.
+	 * /Users/geoffreykwan/dev/apache-tomcat-5.5.27/webapps/curriculum/667
+	 */
+	private String getProjectFolderPath(Project project) {
+		String projectFilePath = getProjectFilePath(project);
+		String projectFolderPath = projectFilePath.substring(0, projectFilePath.lastIndexOf("/"));
+		return projectFolderPath;
 	}
 	
 	/**

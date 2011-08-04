@@ -64,8 +64,16 @@
 			}
 		});
 	};
-	   
-	function copy(pID, type, name, filename, url, base){
+
+	/**
+	 *
+	 * @param pId project id
+	 * @param type the project type e.g. "LD"
+	 * @param name the project name
+	 * @param fileName the project file name e.g. "/wise4.project.json"
+	 * @param relativeProjectFilePathUrl the relative project file path e.g. "/513/wise4.project.json" 
+	 */
+	function copy(pID, type, name, fileName, relativeProjectFilePathUrl){
 		var $copyDialog = '<div id="copyDialog"><p>Copying a project creates a duplicate of the current project ' +
 			'that you own and can customize using the authoring tool.</p>' +
 			'<p>The duplication process may take some time, so please be patient. Once the operation has completed, your new ' +
@@ -95,14 +103,25 @@
 						$.ajax({
 							type: 'post',
 							url: '/webapp/author/authorproject.html',
-							data: 'forward=filemanager&projectId=' + pID + '&command=copyProject&param1=' + url + '&param2=' + base,
+							data: 'forward=filemanager&projectId=' + pID + '&command=copyProject',
 							success: function(response){
-								var fullPath = response;
-								var portalPath = fullPath.substring(base.length, fullPath.length) + '/' + filename;
+								/*
+								 * response is the new project folder
+								 * e.g.
+								 * 513
+								 */
+								
+								/*
+								 * get the relative project file path for the new project
+								 * e.g.
+								 * /513/wise4.project.json
+								 */ 
+								var projectPath = '/' + response + fileName;
+								
 								$.ajax({
 									type: 'post',
 									url: '/webapp/author/authorproject.html',
-									data: 'command=createProject&parentProjectId='+pID+'&param1=' + portalPath + '&param2=' + escapedName,
+									data: 'command=createProject&parentProjectId='+pID+'&projectPath=' + projectPath + '&projectName=' + escapedName,
 									success: function(response){
 										var successText = '<p>Successfully copied ' + name + '!</p><p>Click OK to reload the Project Library.</p>';
 										processCopyResult(this,successText,true);
@@ -725,7 +744,7 @@
 												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
 													<li><a href="shareproject.html?projectId=${project.id}">Share</a>&nbsp;|</li>
 												</sec:accesscontrollist>
-												<li><a onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a>&nbsp;|</li>
+												<li><a onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" >Copy</a>&nbsp;|</li>
 												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
 													<li><a href="../../author/authorproject.html?projectId=${project.id}">Edit/Customize</a>&nbsp;|</li>
 												</sec:accesscontrollist>
@@ -925,7 +944,7 @@
 												<sec:accesscontrollist domainObject="${project}" hasPermission="16">
 													<li><a href="shareproject.html?projectId=${project.id}">Share</a>&nbsp;|</li>
 												</sec:accesscontrollist>
-												<li><a onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a>&nbsp;|</li>
+												<li><a onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" >Copy</a>&nbsp;|</li>
 												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
 													<li><a href="../../author/authorproject.html?projectId=${project.id}">Edit/Customize</a>&nbsp;|</li>
 												</sec:accesscontrollist>
@@ -1119,7 +1138,7 @@
 												<sec:accesscontrollist domainObject="${project}" hasPermission="16">
 													<li><a href="shareproject.html?projectId=${project.id}">Share</a>&nbsp;|</li>
 												</sec:accesscontrollist>
-												<li><a onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a>&nbsp;|</li>
+												<li><a onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" >Copy</a>&nbsp;|</li>
 												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
 													<li><a href="../../author/authorproject.html?projectId=${project.id}">Edit/Customize</a>&nbsp;|</li>
 												</sec:accesscontrollist>

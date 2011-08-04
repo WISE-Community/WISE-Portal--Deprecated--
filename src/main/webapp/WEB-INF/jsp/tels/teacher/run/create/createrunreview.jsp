@@ -18,10 +18,6 @@
 <script type="text/javascript" src="<spring:theme code="jquerycookiesource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 
-<script src="/webapp/javascript/tels/effects.js" type="text/javascript" ></script>
-<script src="/webapp/javascript/tels/prototype.js" type="text/javascript" ></script>
-<script src="/webapp/javascript/tels/scriptaculous.js" type="text/javascript" ></script>
-
 <%@ include file="../../grading/styles.jsp"%>
 
 <title><spring:message code="teacher.setup-project-run-step-four" /></title>
@@ -86,13 +82,20 @@
             //var conn = YAHOO.util.Connect.asyncRequest("GET", "assets/somedata.php?r=" + new Date().getTime(), callback);
         };
         
-    	// copies project and then create run with the new project
-    	// returns true iff project was successfully copied.	
-    	function createRun(pID, type, projectName, projectJSONFilename, srcProjectRootFolder, curriculumBaseDir) {
+    	/**
+		 * copies project and then create run with the new project
+		 * @param pId project id
+		 * @param type the project type e.g. "LD"
+		 * @param name the project name
+		 * @param fileName the project file name e.g. "/wise4.project.json"
+		 * @param relativeProjectFilePathUrl the relative project file path e.g. "/513/wise4.project.json"
+		 * @return true iff project was successfully copied. 
+		 */
+    	function createRun(pID, type, projectName, fileName, relativeProjectFilePathUrl) {
         	// ensure that project doesn't get copied multiple times
         	if (!doneClicked) {
             	doneClicked=true;
-    			var result = copy(pID, type, projectName, projectJSONFilename, srcProjectRootFolder, curriculumBaseDir);
+    			var result = copy(pID, type, projectName, fileName, relativeProjectFilePathUrl);
     			if (!result) {
         			alert('There was an error creating the run. Please contact WISE.');
     			}
@@ -100,8 +103,16 @@
         	}
     	};
     	
-    	// asynchronously copies project
-        function copy(pID, type, projectName, projectJSONFilename, srcProjectRootFolder, curriculumBaseDir){
+    	/**
+		 * asynchronously copies project
+		 * @param pId project id
+		 * @param type the project type e.g. "LD"
+		 * @param name the project name
+		 * @param fileName the project file name e.g. "/wise4.project.json"
+		 * @param relativeProjectFilePathUrl the relative project file path e.g. "/513/wise4.project.json"
+		 * @return true iff project was successfully copied. 
+		 */
+        function copy(pID, type, projectName, fileName, relativeProjectFilePathUrl){
         	projectName = escape(projectName);
             var isSuccess = false;
             var newProjectId = null;
@@ -111,17 +122,27 @@
    	   	   				url: '/webapp/author/authorproject.html',
    	   	   	   			async: false,
    	   	   	   			type:"POST",
-   	   	   	   			data:'forward=filemanager&projectId=' + pID + '&command=copyProject&param1=' + srcProjectRootFolder + '&param2=' + curriculumBaseDir,
+   	   	   	   			data:'forward=filemanager&projectId=' + pID + '&command=copyProject',
    	   	   	   			success: function(returnData){
-	   						var newProjectFullPath = returnData;
-   							var relativeProjectFilePath = newProjectFullPath.substring(curriculumBaseDir.length, newProjectFullPath.length) + '/' + projectJSONFilename;   // e.g. "/109/new.project.json"
-
+   							/*
+							 * returnData is the new project folder
+							 * e.g.
+							 * 513
+							 */
+							
+							/*
+							 * get the relative project file path for the new project
+							 * e.g.
+							 * /513/wise4.project.json
+							 */ 
+   							var projectPath = '/' + returnData + fileName;
+   							
    							//call to make the project on the portal with the new folder
    							$.ajax({
    	   							url:"/webapp/author/authorproject.html",
    	   							async:false,
    	   							type:"POST",
-   	   							data:'command=createProject&parentProjectId='+pID+'&param1=' + relativeProjectFilePath + '&param2=' + projectName,
+   	   							data:'command=createProject&parentProjectId='+pID+'&projectPath=' + projectPath + '&projectName=' + projectName,
    	   							success:function(returnData){
    	   								isSuccess = true;
    	   								newProjectId = returnData;
@@ -186,7 +207,7 @@
 						</div>
 					</div>
 	
-					<form method="post" class="center" onSubmit="return createRun('${projectId}','${projectType}','<c:out value="${projectName}" />','${projectJSONFilename}','${srcProjectRootFolder}','${curriculumBaseDir}')">
+					<form method="post" class="center" onSubmit="return createRun('${projectId}','${projectType}','<c:out value="${projectName}" />','${projectJSONFilename}','${srcProjectRootFolder}')">
 						<input type="submit" name="_target3" value="<spring:message code="navigate.back" />" />
 						<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 						<input type="submit" id="submit_form" name="_finish" value="<spring:message code="navigate.done" />" />

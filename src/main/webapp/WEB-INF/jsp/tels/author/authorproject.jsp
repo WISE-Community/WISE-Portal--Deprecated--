@@ -16,7 +16,7 @@ function notifyCleaningComplete(type,args,obj){
 function loaded(){
 	window.frames['authorfrm'].eventManager.subscribe('fatalError', notifyFatal);
 	window.frames['authorfrm'].eventManager.subscribe('notifyCleaningComplete', notifyCleaningComplete);
-	window.frames['authorfrm'].eventManager.fire('portalMode', ["${portalAuthorUrl}", "${curriculumBaseDir}", "${command}", "${projectId}"]);
+	window.frames['authorfrm'].eventManager.fire('portalMode', ["${portalAuthorUrl}", "${command}", "${relativeProjectUrl}", "${projectId}", "${projectTitle}"]);
 };
 </script>
 

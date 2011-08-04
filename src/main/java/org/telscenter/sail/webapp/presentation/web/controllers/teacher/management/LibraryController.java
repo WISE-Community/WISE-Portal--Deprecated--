@@ -189,13 +189,21 @@ public class LibraryController extends AbstractController {
 				projectNameEscapedMap.put((Long) p.getId(), projectName);
 
 				if(url != null && url != ""){
+					/*
+					 * add the project url to the map
+					 * e.g.
+					 * /253/wise4.project.json
+					 */
+					urlMap.put((Long) p.getId(), url);
+					
 					int ndx = url.lastIndexOf("/");
-					if(ndx == -1){
-						urlMap.put((Long) p.getId(), curriculumBaseDir);
-						filenameMap.put((Long) p.getId(), url);
-					} else {
-						urlMap.put((Long) p.getId(), curriculumBaseDir + "/" + url.substring(0, ndx));
-						filenameMap.put((Long) p.getId(), url.substring(ndx + 1, url.length()));
+					if(ndx != -1){
+						/*
+						 * add the project file name to the map
+						 * e.g.
+						 * /wise4.project.json
+						 */
+						filenameMap.put((Long) p.getId(), url.substring(ndx, url.length()));
 					}
 				}
 				//usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
@@ -215,13 +223,21 @@ public class LibraryController extends AbstractController {
 				projectNameEscapedMap.put((Long) p.getId(), projectName);
 
 				if(url != null && url != ""){
+					/*
+					 * add the project url to the map
+					 * e.g.
+					 * /253/wise4.project.json
+					 */
+					urlMap.put((Long) p.getId(), url);
+					
 					int ndx = url.lastIndexOf("/");
-					if(ndx == -1){
-						urlMap.put((Long) p.getId(), curriculumBaseDir);
-						filenameMap.put((Long) p.getId(), url);
-					} else {
-						urlMap.put((Long) p.getId(), curriculumBaseDir + "/" + url.substring(0, ndx));
-						filenameMap.put((Long) p.getId(), url.substring(ndx + 1, url.length()));
+					if(ndx != -1){
+						/*
+						 * add the project file name to the map
+						 * e.g.
+						 * /wise4.project.json
+						 */
+						filenameMap.put((Long) p.getId(), url.substring(ndx, url.length()));
 					}
 				}
 				//usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
@@ -241,13 +257,21 @@ public class LibraryController extends AbstractController {
 				projectNameEscapedMap.put((Long) p.getId(), projectName);
 
 				if(url != null && url != ""){
+					/*
+					 * add the project url to the map
+					 * e.g.
+					 * /253/wise4.project.json
+					 */
+					urlMap.put((Long) p.getId(), url);
+					
 					int ndx = url.lastIndexOf("/");
-					if(ndx == -1){
-						urlMap.put((Long) p.getId(), curriculumBaseDir);
-						filenameMap.put((Long) p.getId(), url);
-					} else {
-						urlMap.put((Long) p.getId(), curriculumBaseDir + "/" + url.substring(0, ndx));
-						filenameMap.put((Long) p.getId(), url.substring(ndx + 1, url.length()));
+					if(ndx != -1){
+						/*
+						 * add the project file name to the map
+						 * e.g.
+						 * /wise4.project.json
+						 */
+						filenameMap.put((Long) p.getId(), url.substring(ndx, url.length()));
 					}
 				}
 				//usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
