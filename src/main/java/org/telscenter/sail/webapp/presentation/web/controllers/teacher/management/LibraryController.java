@@ -39,6 +39,9 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
 public class LibraryController extends AbstractController {
 	
 	private static final String UNREAD_MESSAGES = "unreadMessages";
+
+	// path to project thumb image relative to project folder
+	private static final String PROJECT_THUMB_PATH = "/assets/project_thumb.png";
 	
 	private ProjectService projectService;
 
@@ -167,6 +170,7 @@ public class LibraryController extends AbstractController {
 
 		//Map<Long, Integer> usageMap = new TreeMap<Long, Integer>();
 		Map<Long,String> urlMap = new TreeMap<Long,String>();
+		Map<Long,String> projectThumbMap = new TreeMap<Long,String>();  // maps projectId to url where its thumbnail can be found
 		Map<Long,String> filenameMap = new TreeMap<Long,String>();
 
 		//a map to contain projectId to project name
@@ -176,6 +180,7 @@ public class LibraryController extends AbstractController {
 		Map<Long,String> projectNameEscapedMap = new TreeMap<Long,String>();
 		
 		String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
+		String curriculumBaseWWW = this.portalProperties.getProperty("curriculum_base_www");
 		for (Project p: ownedProjectsList) {
 			if (p.isCurrent()){
 				String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
@@ -198,6 +203,14 @@ public class LibraryController extends AbstractController {
 					
 					int ndx = url.lastIndexOf("/");
 					if(ndx != -1){
+						/*
+						 * add project thumb url to projectThumbMap. for now this is the same (/assets/project_thumb.png)
+						 * for all projects but this could be overwritten in the future
+						 * e.g.
+						 * /253/assets/projectThumb.png
+						 */
+						projectThumbMap.put((Long) p.getId(), curriculumBaseWWW + url.substring(0, ndx) + PROJECT_THUMB_PATH);
+
 						/*
 						 * add the project file name to the map
 						 * e.g.
@@ -233,6 +246,14 @@ public class LibraryController extends AbstractController {
 					int ndx = url.lastIndexOf("/");
 					if(ndx != -1){
 						/*
+						 * add project thumb url to projectThumbMap. for now this is the same (/assets/project_thumb.png)
+						 * for all projects but this could be overwritten in the future
+						 * e.g.
+						 * /253/assets/projectThumb.png
+						 */
+						projectThumbMap.put((Long) p.getId(), curriculumBaseWWW + url.substring(0, ndx) + PROJECT_THUMB_PATH);
+
+						/*
 						 * add the project file name to the map
 						 * e.g.
 						 * /wise4.project.json
@@ -263,9 +284,19 @@ public class LibraryController extends AbstractController {
 					 * /253/wise4.project.json
 					 */
 					urlMap.put((Long) p.getId(), url);
+									
 					
 					int ndx = url.lastIndexOf("/");
+															
 					if(ndx != -1){
+						/*
+						 * add project thumb url to projectThumbMap. for now this is the same (/assets/project_thumb.png)
+						 * for all projects but this could be overwritten in the future
+						 * e.g.
+						 * /253/assets/projectThumb.png
+						 */
+						projectThumbMap.put((Long) p.getId(), curriculumBaseWWW + url.substring(0, ndx) + PROJECT_THUMB_PATH);
+						
 						/*
 						 * add the project file name to the map
 						 * e.g.
@@ -284,8 +315,10 @@ public class LibraryController extends AbstractController {
     	
 		//modelAndView.addObject("usageMap", usageMap);
 		modelAndView.addObject("urlMap", urlMap);
+		modelAndView.addObject("projectThumbMap", projectThumbMap);
 		modelAndView.addObject("filenameMap", filenameMap);
 		modelAndView.addObject("curriculumBaseDir", curriculumBaseDir);
+		modelAndView.addObject("curriculumBaseWWW", curriculumBaseWWW);
 		modelAndView.addObject("projectNameMap", projectNameMap);
 		modelAndView.addObject("projectNameEscapedMap", projectNameEscapedMap);
 		modelAndView.addObject("user", user);

@@ -666,6 +666,27 @@
 				$('#myProjects_wrapper .dataTables_info').text(totalProjects + ' <spring:message code="teacher.run.myprojectruns.datatables.16"/>');
 			}
 		};
+
+		// load thumbnails for each project
+		$(".projectThumb").each(
+				function() {
+					var thumbUrl = $(this).attr("thumbUrl");
+					// check if thumbUrl exists
+					$.ajax({
+						url:thumbUrl,
+						context:this,
+						statusCode: {
+							200:function() {
+					  		    // found, use it
+								$(this).html("<img src='"+$(this).attr("thumbUrl")+"' alt='thumb'></img>");
+							},
+							404:function() {
+							    // not found, leave alone
+								//$(this).html("<img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></img>");
+							}
+						}
+					});
+				});
 	});
 </script>
 
@@ -756,7 +777,7 @@
 									</tr>
 									<tr>
 										<td colspan="5" class="projectSummary">
-											<div class="projectThumb"><img src="/webapp/themes/tels/default/images/projectThumb.png" alt="thumb" /></div>
+											<div class="projectThumb" thumbUrl="${projectThumbMap[project.id]}"><img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></div>
 											<div class="summaryInfo">
 												<div class="basicInfo">
 													<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
@@ -956,7 +977,7 @@
 									</tr>
 									<tr>
 										<td colspan="5" class="projectSummary">
-											<div class="projectThumb"><img src="/webapp/themes/tels/default/images/projectThumb.png" alt="thumb" /></div>
+											<div class="projectThumb" thumbUrl="${projectThumbMap[project.id]}"><img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></div>
 											<div class="summaryInfo">
 												<div class="sharedIcon">
 												<c:if test="${fn:length(project.sharedowners) > 0}">
@@ -1151,7 +1172,7 @@
 									
 									<tr>
 										<td colspan="5" class="projectSummary">
-											<div class="projectThumb"><img src="/webapp/themes/tels/default/images/projectThumb.png" alt="thumb" /></div>
+											<div class="projectThumb" thumbUrl="${projectThumbMap[project.id]}"><img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></div>
 											<div class="summaryInfo">
 												<c:if test="${fn:length(project.sharedowners) > 0}">
 													<div class="sharedIcon" style="float:right;">
