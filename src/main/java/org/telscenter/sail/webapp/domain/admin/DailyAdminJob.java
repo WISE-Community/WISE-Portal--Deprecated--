@@ -20,7 +20,7 @@ import org.telscenter.sail.webapp.domain.portal.PortalStatistics;
 import org.telscenter.sail.webapp.domain.portal.impl.PortalStatisticsImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
 
-public class HourlyAdminJob extends QuartzJobBean {
+public class DailyAdminJob extends QuartzJobBean {
 
 	private RunDao<Run> runDao;
 	

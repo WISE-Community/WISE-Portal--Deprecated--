@@ -291,15 +291,9 @@ function parsePortalStatistics(portalStatisticsArray) {
 		var month = date.getMonth() + 1;
 		var year = date.getFullYear();
 
-		if(isFirstDayOfMonth(day) && isFirstHourOfDay(hour)) {
+		if(isLastDayOfMonth(day, month) && isLastHourOfDay(hour)) {
 			/*
-			 * the date is the first hour of first day of month
-			 * so we will remember this statistics entry
-			 */
-			monthStartEntry = portalStatisticsEntry;
-		} else if(isLastDayOfMonth(day, month) && isLastHourOfDay(hour)) {
-			/*
-			 * the date is the last hour of last day of month
+			 * the date is the last hour of the last day of the month
 			 * so we will remember this statistics entry
 			 */
 			monthEndEntry = portalStatisticsEntry;
@@ -349,8 +343,10 @@ function parsePortalStatistics(portalStatisticsArray) {
 			totalNumberRunsMonthlyArray.push([index, totalNumberRunsForMonth]);
 			totalNumberProjectsRunMonthlyArray.push([index, totalNumberProjectsRunForMonth]);
 
-			//clear the start and end entries
-			monthStartEntry = null;
+			//remember the end entry because that will be our new start entry
+			monthStartEntry = monthEndEntry;
+
+			//clear the end entry
 			monthEndEntry = null;
 		}
 	}
@@ -603,176 +599,327 @@ function doneParsingStatistics(context) {
  * @param graphId the id of the graph
  */
 function showGraph(graphId) {
+	//boolean values to determine what type of graph it is
+	var lineGraph = false;
+	var barGraph = false;
+	
 	//the array that we will use to plot the data
 	var graphData = [];
 
 	//the object that will hold the parameters for plotting the graph 
 	var graphParams = {};
 
+	var graphColor = "green";
+
 	//set the graph title
 	setGraphTitle(graphIdToTitles[graphId]);
 
 	if(graphId == 'totalNumberStudentsOverTime') {
+		graphData = {
+				data:totalNumberStudentsArray,
+				color:graphColor
+			};
 		graphParams = {
-			xaxis:{mode:"time"}
+			xaxis:{mode:"time"},
+			grid:{hoverable:true}
 		};
-		graphData = totalNumberStudentsArray;
+		lineGraph = true;
 	} else if(graphId == 'totalNumberStudentLoginsOverTime') {
+		graphData = {
+				data:totalNumberStudentLoginsArray,
+				color:graphColor
+			};
 		graphParams = {
-			xaxis:{mode:"time"}
+			xaxis:{mode:"time"},
+			grid:{hoverable:true}
 		};
-		graphData = totalNumberStudentLoginsArray;
+		lineGraph = true;
 	} else if(graphId == 'totalNumberTeachersOverTime') {
+		graphData = {
+				data:totalNumberTeachersArray,
+				color:graphColor
+			};
 		graphParams = {
-			xaxis:{mode:"time"}
+			xaxis:{mode:"time"},
+			grid:{hoverable:true}
 		};
-		graphData = totalNumberTeachersArray;
+		lineGraph = true;
 	} else if(graphId == 'totalNumberTeacherLoginsOverTime') {
+		graphData = {
+				data:totalNumberTeacherLoginsArray,
+				color:graphColor
+			};
 		graphParams = {
-			xaxis:{mode:"time"}
+			xaxis:{mode:"time"},
+			grid:{hoverable:true}
 		};
-		graphData = totalNumberTeacherLoginsArray;
+		lineGraph = true;
 	} else if(graphId == 'totalNumberProjectsOverTime') {
+		graphData = {
+				data:totalNumberProjectsArray,
+				color:graphColor
+			};
 		graphParams = {
-			xaxis:{mode:"time"}
+			xaxis:{mode:"time"},
+			grid:{hoverable:true}
 		};
-		graphData = totalNumberProjectsArray;
+		lineGraph = true;
 	} else if(graphId == 'totalNumberRunsOverTime') {
+		graphData = {
+				data:totalNumberRunsArray,
+				color:graphColor
+			};
 		graphParams = {
-			xaxis:{mode:"time"}
+			xaxis:{mode:"time"},
+			grid:{hoverable:true}
 		};
-		graphData = totalNumberRunsArray;
+		lineGraph = true;
 	} else if(graphId == 'totalNumberTimesRunProjectClickedOverTime') {
+		graphData = {
+				data:totalNumberProjectsRunArray,
+				color:graphColor
+			};
 		graphParams = {
-			xaxis:{mode:"time"}
+			xaxis:{mode:"time"},
+			grid:{hoverable:true}
 		};
-		graphData = totalNumberProjectsRunArray;
+		lineGraph = true;
 	} else if(graphId == 'totalNumberStudentsPerMonth') {
-		var data = {
-        	data: totalNumberStudentsMonthlyArray,
+		graphData = {
+        	data:totalNumberStudentsMonthlyArray,
         	label:'Counts',
-        	bars: {show: true, align:'center', barWidth:0.3}
+        	bars:{show: true, align:'center', barWidth:0.3},
+    		color:graphColor
         };
-		
 		graphParams = {
-			xaxis:{ticks:monthlyLabelArray}
+			xaxis:{ticks:monthlyLabelArray},
+			grid:{hoverable:true}
 		};
-		graphData = data;
+		barGraph = true;
 	} else if(graphId == 'totalNumberStudentLoginsPerMonth') {
-		var data = {
-        	data: totalNumberStudentLoginsMonthlyArray,
-            bars: {show: true, align:'center', barWidth:0.3}
+		graphData = {
+        	data:totalNumberStudentLoginsMonthlyArray,
+            bars:{show: true, align:'center', barWidth:0.3},
+    		color:graphColor
         };
-		
 		graphParams = {
-			xaxis:{ticks:monthlyLabelArray}
+			xaxis:{ticks:monthlyLabelArray},
+			grid:{hoverable:true}
 		};
-		graphData = data;
+		barGraph = true;
 	} else if(graphId == 'totalNumberTeachersPerMonth') {
-		var data = {
-        	data: totalNumberTeachersMonthlyArray,
-        	bars: {show: true, align:'center', barWidth:0.3}
+		graphData = {
+        	data:totalNumberTeachersMonthlyArray,
+        	bars:{show: true, align:'center', barWidth:0.3},
+    		color:graphColor
         };
-		
 		graphParams = {
-			xaxis:{ticks:monthlyLabelArray}
+			xaxis:{ticks:monthlyLabelArray},
+			grid:{hoverable:true}
 		};
-		graphData = data;
+		barGraph = true;
 	} else if(graphId == 'totalNumberTeacherLoginsPerMonth') {
-		var data = {
+		graphData = {
         	data: totalNumberTeacherLoginsMonthlyArray,
-        	bars: {show: true, align:'center', barWidth:0.3}
+        	bars: {show: true, align:'center', barWidth:0.3},
+    		color:graphColor
         };
-		
 		graphParams = {
-			xaxis:{ticks:monthlyLabelArray}
+			xaxis:{ticks:monthlyLabelArray},
+			grid:{hoverable:true}
 		};
-		graphData = data;
+		barGraph = true;
 	} else if(graphId == 'totalNumberProjectsPerMonth') {
-		var data = {
+		graphData = {
         	data: totalNumberProjectsMonthlyArray,
-        	bars: {show: true, align:'center', barWidth:0.3}
+        	bars: {show: true, align:'center', barWidth:0.3},
+    		color:graphColor
         };
-		
 		graphParams = {
-			xaxis:{ticks:monthlyLabelArray}
+			xaxis:{ticks:monthlyLabelArray},
+			grid:{hoverable:true}
 		};
-		graphData = data;
+		barGraph = true;
 	} else if(graphId == 'totalNumberRunsPerMonth') {
-		var data = {
+		graphData = {
         	data: totalNumberRunsMonthlyArray,
-        	bars: {show: true, align:'center', barWidth:0.3}
+        	bars: {show: true, align:'center', barWidth:0.3},
+    		color:graphColor
        	};
-		
 		graphParams = {
-			xaxis:{ticks:monthlyLabelArray}
+			xaxis:{ticks:monthlyLabelArray},
+			grid:{hoverable:true}
 		};
-		graphData = data;
+		barGraph = true;
 	} else if(graphId == 'totalNumberTimesRunProjectClickedPerMonth') {
-		var data = {
+		graphData = {
 	       	data: totalNumberProjectsRunMonthlyArray,
-	       	bars: {show: true, align:'center', barWidth:0.3}
+	       	bars: {show: true, align:'center', barWidth:0.3},
+    		color:graphColor
 	    };
-			
 		graphParams = {
-			xaxis:{ticks:monthlyLabelArray}
+			xaxis:{ticks:monthlyLabelArray},
+			grid:{hoverable:true}
 		};
-		graphData = data;
+		barGraph = true;
 	}else if(graphId == 'totalNumberStepWorksOverTime') {
+		graphData = {
+				data:totalStepWorkCountArray,
+				color:graphColor
+			};
 		graphParams = {
-			xaxis:{mode:"time"}
+			xaxis:{mode:"time"},
+			grid:{hoverable:true}
 		};
-		graphData = totalStepWorkCountArray;
+		lineGraph = true;
 	} else if(graphId == 'totalNumberStepsOverTime') {
+		graphData = {
+				data:totalNodeCountArray,
+				color:graphColor
+			};
 		graphParams = {
-			xaxis:{mode:"time"}
+			xaxis:{mode:"time"},
+			grid:{hoverable:true}
 		};
-		graphData = totalNodeCountArray;
+		lineGraph = true;
 	} else if(graphId == 'totalNumberAnnotationsOverTime') {
+		graphData = {
+				data:totalAnnotationCountArray,
+				color:graphColor
+			};
 		graphParams = {
-			xaxis:{mode:"time"}
+			xaxis:{mode:"time"},
+			grid:{hoverable:true}
 		};
-		graphData = totalAnnotationCountArray;
+		lineGraph = true;
 	} else if(graphId == 'totalNumberHintViewsOverTime') {
+		graphData = {
+				data:totalHintViewCountArray,
+				color:graphColor
+			};
 		graphParams = {
-			xaxis:{mode:"time"}
+			xaxis:{mode:"time"},
+			grid:{hoverable:true}
 		};
-		graphData = totalHintViewCountArray;
+		lineGraph = true;
 	} else if(graphId == 'totalNumberStepTypesComparison') {
-		var data = {
+		graphData = {
         	data: nodeTypeCountsComparison,
         	label:'Counts',
-        	bars: {show: true, align:'center', barWidth:0.3}
+        	bars: {show: true, align:'center', barWidth:0.3},
+    		color:graphColor
        	};
-		
-		var graphParams = {
-			xaxis:{ticks:nodeTypeCountsComparisonTicks}
+		graphParams = {
+			xaxis:{ticks:nodeTypeCountsComparisonTicks},
+			grid:{hoverable:true}
 		};
-		graphData = data;
+		barGraph = true;
 	} else if(graphId == 'totalNumberStepWorkStepTypesComparison') {
-		var data = {
+		graphData = {
         	data: stepWorkNodeTypesCountsComparison,
-        	bars: {show: true, align:'center', barWidth:0.3}
+        	bars: {show: true, align:'center', barWidth:0.3},
+    		color:graphColor
         };
-		
-		var graphParams = {
-			xaxis:{ticks:stepWorkNodeTypesCountsComparisonTicks}
+		graphParams = {
+			xaxis:{ticks:stepWorkNodeTypesCountsComparisonTicks},
+			grid:{hoverable:true}
 		};
-		graphData = data;
+		barGraph = true;
 	} else if(graphId == 'totalNumberAnnotationTypesComparison') {
-		var data = {
+		graphData = {
         	data: annotationCountsComparison,
-        	bars: {show: true, align:'center', barWidth:0.3}
+        	bars: {show: true, align:'center', barWidth:0.3},
+    		color:graphColor
         };
-		
-		var graphParams = {
-			xaxis:{ticks:annotationCountsComparisonTicks}
+		graphParams = {
+			xaxis:{ticks:annotationCountsComparisonTicks},
+			grid:{hoverable:true}
 		};
-		graphData = data;
+		barGraph = true;
 	}
 
 	//plot the graph
 	$.plot($("#graphDiv"), [graphData], graphParams);
+
+	//show the tooltip
+    function showTooltip(x, y, contents) {
+        $('<div id="tooltip">' + contents + '</div>').css( {
+            position: 'absolute',
+            display: 'none',
+            top: y + 5,
+            left: x + 5,
+            border: '1px solid #fdd',
+            padding: '2px',
+            'background-color': '#fee',
+            opacity: 0.80
+        }).appendTo("body").fadeIn(200);
+    }
+
+    var previousPoint = null;
+
+    //unbind any previous plothover bind events
+    $("#graphDiv").unbind("plothover");
+
+    //when the cursor hovers over a point on the graph, we will show the tooltip
+    $("#graphDiv").bind("plothover", function (event, pos, item) {
+        $("#x").text(pos.x.toFixed(2));
+        $("#y").text(pos.y.toFixed(2));
+
+        if (item) {
+            //cursor is hovering over a data point so we will show the tooltip
+            if (previousPoint != item.dataIndex) {
+                previousPoint = item.dataIndex;
+                
+                $("#tooltip").remove();
+                var x = item.datapoint[0].toFixed(2);
+                var y = item.datapoint[1].toFixed(2);
+
+				x = parseInt(x);
+				y = parseInt(y);
+				
+                var text = "";
+                
+				if(lineGraph) {
+					//we are on a line graph
+					
+					//get the date
+					var date = new Date(x);
+					var month = date.getMonth() + 1;
+					var monthName = monthNames[month];
+					var day = date.getDate();
+					var year = date.getFullYear();
+
+					/*
+					 * display the date and the count value
+					 * e.g.
+					 * (Oct 25, 2011 = 1239)
+					 */
+					text = "(" + monthName + " " + day + ", " + year + " = " + y + ")";
+				} else if(barGraph) {
+					//we are on a bar graph
+					
+					//get the name of the data bar
+					var barName = item.series.xaxis.ticks[x].label;
+
+					//remove any <br> from the name
+					barName = barName.replace(/<br>/g, "");
+
+					/*
+					 * display the bar name and the count value
+					 * e.g.
+					 * (OpenResponse = 12382)
+					 */
+					text = "(" + barName + " = " + y + ")";
+				}
+                
+                showTooltip(item.pageX, item.pageY, text);
+            }
+        } else {
+            //cursor is not hovering over a data point so we will not show the tooltip
+            $("#tooltip").remove();
+            previousPoint = null;            
+        }
+    });
 }
 
 /**

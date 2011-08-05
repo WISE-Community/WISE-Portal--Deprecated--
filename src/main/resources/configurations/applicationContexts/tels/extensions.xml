@@ -52,8 +52,8 @@
         </property>
     </bean>
     
-    <bean name="hourlyAdminJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
-        <property name="jobClass" value="org.telscenter.sail.webapp.domain.admin.HourlyAdminJob" />
+    <bean name="daiyAdminJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="org.telscenter.sail.webapp.domain.admin.DailyAdminJob" />
         <property name="jobDataAsMap">
             <map>
                 <entry key="runDao" value-ref="runDao" />
@@ -70,17 +70,17 @@
         <property name="cronExpression" value="0 0 23 * * ?" />
     </bean>
     
-    <bean id="hourlyCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-        <property name="jobDetail" ref="hourlyAdminJobDetail" />
+    <bean id="dailyCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="daiyAdminJobDetail" />
         <!-- run every night at 11 PM -->
-        <property name="cronExpression" value="0 0 * * * ?" />
+        <property name="cronExpression" value="0 0 23 * * ?" />
     </bean>
     
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
                 <ref bean="cronTrigger" />
-                <ref bean="hourlyCronTrigger" />
+                <ref bean="dailyCronTrigger" />
             </list>
         </property>
     </bean>
