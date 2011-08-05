@@ -87,7 +87,7 @@
 		 * @param pId project id
 		 * @param type the project type e.g. "LD"
 		 * @param name the project name
-		 * @param fileName the project file name e.g. "/wise4.project.json"
+		 * @param fileName the project file name e.g. "wise4.project.json"
 		 * @param relativeProjectFilePathUrl the relative project file path e.g. "/513/wise4.project.json"
 		 * @return true iff project was successfully copied. 
 		 */
@@ -108,7 +108,7 @@
 		 * @param pId project id
 		 * @param type the project type e.g. "LD"
 		 * @param name the project name
-		 * @param fileName the project file name e.g. "/wise4.project.json"
+		 * @param fileName the project file name e.g. "wise4.project.json"
 		 * @param relativeProjectFilePathUrl the relative project file path e.g. "/513/wise4.project.json"
 		 * @return true iff project was successfully copied. 
 		 */
@@ -135,7 +135,7 @@
 							 * e.g.
 							 * /513/wise4.project.json
 							 */ 
-   							var projectPath = '/' + returnData + fileName;
+   							var projectPath = '/' + returnData + '/' + fileName;
    							
    							//call to make the project on the portal with the new folder
    							$.ajax({
