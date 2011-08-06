@@ -142,6 +142,11 @@ public class ExportProjectController extends AbstractController {
 		File[] files = folder.listFiles();
 		for (File file : files) {
 			if (file.isDirectory()) {
+				// add folder to zip
+				String name = file.getAbsolutePath().substring(baseName.length());
+				ZipEntry zipEntry = new ZipEntry(name+"/");
+				zip.putNextEntry(zipEntry);
+				zip.closeEntry();
 				addFolderToZip(file, zip, baseName);
 			} else {
 				String name = file.getAbsolutePath().substring(baseName.length());

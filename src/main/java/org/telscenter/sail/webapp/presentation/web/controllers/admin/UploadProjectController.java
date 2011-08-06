@@ -125,13 +125,13 @@ public class UploadProjectController extends SimpleFormController {
 
 				if(entry.isDirectory()) {
 					// Assume directories are stored parents first then children.
-					System.err.println("Extracting directory: " + entry.getName());
+					System.out.println("Extracting directory: " + entry.getName());
 					// This is not robust, just for demonstration purposes.
 					(new File(entry.getName().replace(filename, newFileFullDir))).mkdir();
 					continue;
 				}
 
-				System.err.println("Extracting file: " + entry.getName() );
+				System.out.println("Extracting file: " + entry.getName() );
 				copyInputStream(zipFile.getInputStream(entry),
 						new BufferedOutputStream(new FileOutputStream(entry.getName().replace(filename, newFileFullDir))));
 			}
