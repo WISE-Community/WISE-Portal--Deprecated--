@@ -169,6 +169,31 @@
 			});
 		};
 	};
+
+	// load thumbnails for each project by looking for curriculum_folder/assets/project_thumb.png (makes a ajax GET request)
+	// If found (returns 200 status), it will replace the default image with the fetched image.
+	// If not found (returns 400 status), it will do nothing, and the default image will be used.
+	function loadProjectThumbnails() {		
+		$(".projectThumb").each(
+				function() {
+					var thumbUrl = $(this).attr("thumbUrl");
+					// check if thumbUrl exists
+					$.ajax({
+						url:thumbUrl,
+						context:this,
+						statusCode: {
+							200:function() {
+					  		    // found, use it
+								$(this).html("<img src='"+$(this).attr("thumbUrl")+"' alt='thumb'></img>");
+							},
+							404:function() {
+							    // not found, leave alone
+								//$(this).html("<img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></img>");
+							}
+						}
+					});
+				});
+	};
 	
 	$(document).ready(function() {
 		
@@ -327,6 +352,9 @@
 					var id = $(this).attr('id').replace('projectBox_','');
 					toggleDetails(id,false);
 				});
+
+				// load project thumbnails
+				loadProjectThumbnails();
 			},
 			"sDom":'<"top"lip<"clear">>rt<"bottom"ip<"clear">><"clear">'
 			//"sDom":'<"top"lip<"clear">>rt<"bottom"ip><"clear">'
@@ -666,27 +694,9 @@
 				$('#myProjects_wrapper .dataTables_info').text(totalProjects + ' <spring:message code="teacher.run.myprojectruns.datatables.16"/>');
 			}
 		};
-
-		// load thumbnails for each project
-		$(".projectThumb").each(
-				function() {
-					var thumbUrl = $(this).attr("thumbUrl");
-					// check if thumbUrl exists
-					$.ajax({
-						url:thumbUrl,
-						context:this,
-						statusCode: {
-							200:function() {
-					  		    // found, use it
-								$(this).html("<img src='"+$(this).attr("thumbUrl")+"' alt='thumb'></img>");
-							},
-							404:function() {
-							    // not found, leave alone
-								//$(this).html("<img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></img>");
-							}
-						}
-					});
-				});
+		
+		// load project thumbnails		
+		loadProjectThumbnails();
 	});
 </script>
 
