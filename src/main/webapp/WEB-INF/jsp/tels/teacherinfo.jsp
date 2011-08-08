@@ -77,6 +77,10 @@
 		<td><span style="text-transform:lowercase;"><c:out value="${userInfoMap['Curriculum Subjects']}"/></td>
 	</tr>
 	<tr>
+		<th>How did you hear about us</th>
+		<td><span style="text-transform:lowercase;"><c:out value="${userInfoMap['How did you hear about us']}"/></td>
+	</tr>
+	<tr>
 		<th>Number of logins</th>
 		<td><c:out value="${userInfoMap['Number of Logins']}"/></td>
 	</tr>
