@@ -54,8 +54,6 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
 public class ExportProjectController extends AbstractController {
 
 	private ProjectService projectService;
-	
-	private CurnitService curnitService;
 
 	private Properties portalProperties;
 
@@ -102,39 +100,6 @@ public class ExportProjectController extends AbstractController {
 		addFolderToZip(zipFolder, out, baseName);
 		
 		out.close();
-
-		
-		/*
-		try {
-			BufferedInputStream origin = null;
-			ZipOutputStream out = new ZipOutputStream(new 
-					BufferedOutputStream(outputStream));
-			out.setMethod(ZipOutputStream.STORED);  // do not compress files
-			byte data[] = new byte[BUFFER];
-			// get a list of files from project json dir
-			File f = new File(projectJSONDir);
-			String files[] = f.list();
-
-			for (int i=0; i<files.length; i++) {
-				System.out.println("Adding: "+files[i]);
-				FileInputStream fi = new 
-				FileInputStream(projectJSONDir + sep + files[i]);
-				origin = new 
-				BufferedInputStream(fi, BUFFER);
-				ZipEntry entry = new ZipEntry(files[i]);
-				out.putNextEntry(entry);
-				int count;
-				while((count = origin.read(data, 0, 
-						BUFFER)) != -1) {
-					out.write(data, 0, count);
-				}
-				origin.close();
-			}
-			out.close();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		*/
 		return null;
 	}
 
@@ -149,8 +114,9 @@ public class ExportProjectController extends AbstractController {
 				zip.closeEntry();
 				addFolderToZip(file, zip, baseName);
 			} else {
+				// it's a file.				
 				String name = file.getAbsolutePath().substring(baseName.length());
-				ZipEntry zipEntry = new ZipEntry(name);
+				ZipEntry zipEntry = new ZipEntry(updateFilename(name));
 				zip.putNextEntry(zipEntry);
 				IOUtils.copy(new FileInputStream(file), zip);
 				zip.closeEntry();
@@ -158,29 +124,31 @@ public class ExportProjectController extends AbstractController {
 		}
 	}
 
-	private void cleanUp(InputStream in) throws Exception
-	{
-		in.close();
+	/**
+	 * Given old filename, returns new, updated filename corresponding with new standards
+	 * e.g. "Global Warming.project.json"->"wise4.project.json"
+	 * "Global Warming.project-min.json"->wise4.project-min.json"
+	 * @param oldFilename
+	 * @return newFilename
+	 */
+	private static String updateFilename(String oldFilename) {
+		int lastIndexOfSlash = oldFilename.lastIndexOf("/");
+		String prepend = oldFilename.substring(0, lastIndexOfSlash);
+		if (oldFilename.endsWith(".project.json")) {
+			return prepend+"/wise4.project.json";
+		} else if (oldFilename.endsWith(".project-min.json")) {
+			return prepend+"/wise4.project-min.json";
+		} else if (oldFilename.endsWith(".project-meta.json")) {
+			return prepend+"/wise4.project-meta.json";
+		}
+		return oldFilename;
 	}
-
-	private void cleanUp(OutputStream out) throws Exception
-	{
-		out.flush();
-		out.close();
-	}
-
+	
 	/**
 	 * @param projectService the projectService to set
 	 */
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
-	}
-
-	/**
-	 * @param curnitService the curnitService to set
-	 */
-	public void setCurnitService(CurnitService curnitService) {
-		this.curnitService = curnitService;
 	}
 
 	/**

@@ -1106,7 +1106,6 @@
 	<bean id="exportProjectController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ExportProjectController">
         <property name="projectService" ref="projectService" />
-        <property name="curnitService" ref="curnitService" />
 		<property name="portalProperties" ref="portalproperties" />		
 	</bean>
     <bean id="uploadProjectController"

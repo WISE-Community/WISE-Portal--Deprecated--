@@ -7,7 +7,7 @@
 
 <script type="text/javascript" src="../../javascript/tels/general.js"></script>
     
-<title>Edit Project Page</title>
+<title>Upload Project Page</title>
 
 </head>
 <body>
