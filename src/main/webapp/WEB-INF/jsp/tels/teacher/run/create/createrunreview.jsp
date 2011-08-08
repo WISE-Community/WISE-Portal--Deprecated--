@@ -123,6 +123,7 @@
    	   	   	   			async: false,
    	   	   	   			type:"POST",
    	   	   	   			data:'forward=filemanager&projectId=' + pID + '&command=copyProject',
+   	   	   	   			dataType:'text',
    	   	   	   			success: function(returnData){
    							/*
 							 * returnData is the new project folder
@@ -143,6 +144,7 @@
    	   							async:false,
    	   							type:"POST",
    	   							data:'command=createProject&parentProjectId='+pID+'&projectPath=' + projectPath + '&projectName=' + projectName,
+   	   							dataType:'text',
    	   							success:function(returnData){
    	   								isSuccess = true;
    	   								newProjectId = returnData;
