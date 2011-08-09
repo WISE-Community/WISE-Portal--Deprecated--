@@ -29,14 +29,26 @@
 
 <body>
 
-<div id="banner">
-<h1><spring:message code="banner.heading" /></h1>
-</div>
-
-<div style="position:relative;left:350px;">
-The application has encountered an error which prevents it from proceeding.<br/><br/>
-The staff has been informed about this problem.<br/> <br/>
-Please return to your previous page.
+<div id="pageWrapper">
+	
+	<div id="page">
+		
+		<div id="pageContent" style="min-height:400px;">
+			<div id="headerSmall">
+				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+			</div>
+			
+			<div class="infoContent">
+				<div class="infoContentBox">
+					<div class="errorMsgNoBg">
+						<p>We're sorry, but WISE has encountered an error which prevents it from proceeding.</p>
+						<p>The staff has been informed about this problem.</p>
+					</div>
+				</div>
+				<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>
+			</div>
+		</div>
+	</div>
 </div>
 
 </body>

@@ -18,73 +18,61 @@
 -->
 
 <!-- $Id: login.jsp 341 2007-04-26 22:58:44Z hiroki $ -->
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />    
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-   
-<script type="text/javascript" src="../../javascript/tels/general.js"></script>	
-<script type="text/javascript" src="../../javascript/tels/effects.js"></script>	
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" /> 
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
 <title>Password Reminder Step 2</title>
 </head>
 
 <body>
 
-<div id="centeredDiv">
-    	
-<%@ include file="headermain.jsp"%>
+<div id="pageWrapper">
+	
+	<div id="page">
+		
+		<div id="pageContent" style="min-height:400px;">
+			<div id="headerSmall">
+				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+			</div>
+			
+			<div class="infoContent">
+				<div class="panelHeader"><spring:message code="forgot.student.passremind.2"/></div>
+				<div class="infoContentBox">
+					<div><spring:message code="forgot.student.passremind.6"/></div>
+					<div><spring:message code="forgot.student.passremind.7"/>, ${username}. <spring:message code="forgot.student.passremind.8"/></div>
+					<form id="submittedAccountAnswer" method="post" commandName="reminderParameters" autocomplete='off'>
+						<div>Question: <spring:message code="accountquestions.${accountQuestion}"/></div>
+						<div class="forgotPasswordInstructionText3">
+							<label for="send_accountanswer">Answer:</label>
+							<input type="text" name="submittedAccountAnswer" id="submittedAnswer"  class="dataBoxStyle"
+						  			style="width: 250px;" tabindex="1" />
+						  	
+				 			<script type="text/javascript">document.getElementById('submittedAnswer').focus();
+				 			</script>
+						  	
+						  	<input style="margin-left:20px; text-align:center;width:55px;" type="submit" name="_target2" value="<spring:message code="navigate.next" />">
+						</div>
+					</form>
 
-<div style="text-align:center;">   
-<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
-
-<h1 id="lostTitleBar" class="blueText"><spring:message code="forgot.student.passremind.2"/></h1>
-
-<div id="studentpasswordremindersuggestion"> 
-	<ul>
-		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.6"/></li>
-		<li class="forgotPasswordInstructionText reminderHighlight"><spring:message code="forgot.student.passremind.7"/>, ${username},</li>
-		<li class="forgotPasswordInstructionText2"><spring:message code="forgot.student.passremind.8"/></li>
-		<form id="submittedAccountAnswer" method="post" commandName="reminderParameters" autocomplete='off'>
-		<li class="forgotPasswordInstructionText3">Question: <spring:message code="accountquestions.${accountQuestion}"/></li>
-		<li class="forgotPasswordInstructionText3">
-			<label for="send_accountanswer">Answer:</label>
-			<input type="text" name="submittedAccountAnswer" id="submittedAnswer"  class="dataBoxStyle"
-		  			style="width: 250px;" tabindex="1" />
-		  	
- 			<script type="text/javascript">document.getElementById('submittedAnswer').focus();
- 			</script>
-		  	
-		  	<input style="margin-left:20px; text-align:center;width:55px;" type="submit" name="_target2" value="<spring:message code="navigate.next" />">
-		</li>
-		</form>
-	</ul>
-</div>
-
-<div id="errorMessageFormat">
-		<!-- Support for Spring errors object -->
-		<spring:bind path="reminderParameters.*">
-		  <c:forEach var="error" items="${status.errorMessages}">
-		    <b>
-		      <br /><c:out value="${error}"/>
-		    </b>
-		  </c:forEach>
-		</spring:bind>
-</div>
-
-<a href="../../index.html"> 
-		<img id="return" src="../../<spring:theme code="return_to_homepage" />"
-		onmouseover="swapImage('return', '../../<spring:theme code="return_to_homepage_roll" />');"
-		onmouseout="swapImage('return', '../../<spring:theme code="return_to_homepage" />');" />
-</a>
-
-</div>
+					<div class="errorMsgNoBg">
+							<!-- Support for Spring errors object -->
+							<spring:bind path="reminderParameters.*">
+							  <c:forEach var="error" items="${status.errorMessages}">
+							    <p><c:out value="${error}"/></p>
+							  </c:forEach>
+							</spring:bind>
+					</div>
+				</div>
+				<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>
+			</div>
+		</div>
+	</div>
 </div>
 
 </body>

@@ -175,24 +175,24 @@
 	// If not found (returns 400 status), it will do nothing, and the default image will be used.
 	function loadProjectThumbnails() {		
 		$(".projectThumb").each(
-				function() {
-					var thumbUrl = $(this).attr("thumbUrl");
-					// check if thumbUrl exists
-					$.ajax({
-						url:thumbUrl,
-						context:this,
-						statusCode: {
-							200:function() {
-					  		    // found, use it
-								$(this).html("<img src='"+$(this).attr("thumbUrl")+"' alt='thumb'></img>");
-							},
-							404:function() {
-							    // not found, leave alone
-								//$(this).html("<img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></img>");
-							}
+			function() {
+				var thumbUrl = $(this).attr("thumbUrl");
+				// check if thumbUrl exists
+				$.ajax({
+					url:thumbUrl,
+					context:this,
+					statusCode: {
+						200:function() {
+				  		    // found, use it
+							$(this).html("<img src='"+$(this).attr("thumbUrl")+"' alt='thumb'></img>");
+						},
+						404:function() {
+						    // not found, leave alone
+							//$(this).html("<img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></img>");
 						}
-					});
+					}
 				});
+			});
 	};
 	
 	$(document).ready(function() {

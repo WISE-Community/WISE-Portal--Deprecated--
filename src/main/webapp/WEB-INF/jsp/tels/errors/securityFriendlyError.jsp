@@ -19,27 +19,37 @@
 
 <!-- $Id$ -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
+<!DOCTYPE html>
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
 <title><spring:message code="access.denied" /> <spring:message code="title.separator" /> <spring:message code="application.title" /></title>
 </head>
 
 <body>
 
-<div id="columns">
-<div id="left">
-</div>
-
-<div id="right">
-<spring:message code="error.security.message" />
-</div>
-
+<div id="pageWrapper">
+	
+	<div id="page">
+		
+		<div id="pageContent" style="min-height:400px;">
+			<div id="headerSmall">
+				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+			</div>
+			
+			<div class="infoContent">
+				<div class="infoContentBox">
+					<div class="errorMsgNoBg">
+						<p><spring:message code="error.security.message" /></p>
+					</div>
+				</div>
+				<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>
+			</div>
+		</div>
+	</div>
 </div>
 
 </body>

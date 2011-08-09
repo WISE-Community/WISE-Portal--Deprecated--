@@ -32,9 +32,6 @@
 	position: relative;
 	width:500px; 
 	font-size: .9em;
-	border: 1px solid #333333;
-	background-color:#FFCE8E;
-	padding:15px 10px;
 	margin: 0 auto;
 }
 
@@ -77,11 +74,8 @@
 #teacherRegForm dl {
 	text-align:left;
 	position: relative;
-	width:410px; 
-	font-size: .9em; 
-	border: 1px solid #333333;
-	background-color:#FFCE8E;
-	padding:5px 0px;
+	width:420px; 
+	font-size: .9em;
 	margin: 0 auto;
 }
 
@@ -90,7 +84,7 @@
 	width: 160px;
 	text-align: left;
 	margin-top:2px;
-	padding-top: 4px;
+	padding-top: 8px;
 	padding-right: 0px;
 	padding-bottom: 3px;
 	padding-left: 14px;
@@ -164,18 +158,15 @@ CREATE before they click the Show Class Periods buttons  */
 .hint {
   display:none;
   position: absolute;
-  right: -215px;
+  right: -150px;
   width: 175px;
-  margin-top: -4px;
-  border: 1px solid #c93;
+  margin-top: -2px;
   padding: 10px 12px;
   color:#FFFFFF;
   font-size: 1em;
-  font-weight: bold;
   line-height:130%;
   word-spacing:1px;
-  border: 1px solid #003399;
-  background: #0099FF url(../images/hint-pointer.gif) no-repeat -100px -100px;
+  background: #4e94a2;
 }
 
 .hint .hint-pointer {
@@ -184,7 +175,7 @@ CREATE before they click the Show Class Periods buttons  */
     top: 5px;
     width: 10px;
     height: 19px;
-    background:url(../images/hint-pointer.gif) left top no-repeat;
+    background:url("../images/hint-pointer.png") left top no-repeat;
 }
 
 .blueText {
@@ -300,22 +291,28 @@ CREATE before they click the Show Class Periods buttons  */
 	}
 
 #curriculumSubjectsBox{
-	font-size:.9em;
-	width:260px;
-	min-height:366px;
-	position:absolute;
-	top:-1px;
-	left:415px;
-	border:3px double #666666;
+	width: 260px;
+	position: absolute;
+	top: 50px;
+	left: 400px;
 	line-height: 110%;
-	background-color:#CCCCCC;
+	background-color: #4E94A2;
 	margin: 0px;
-	padding: 4px;
-	}
+	padding: 1em;
+	color: #FFF;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+}
+
+#curriculumSubjectsBox div {
+	margin-top:.5em;
+}
 	
 #textCurriculumBox {
 	font-size:.9em;
-	}
+	color:#fff;
+}
 	
 
 	

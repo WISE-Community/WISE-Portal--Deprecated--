@@ -18,17 +18,13 @@
 -->
 
 <!-- $Id: login.jsp 341 2007-04-26 22:58:44Z hiroki $ -->
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />    
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-
-<script type="text/javascript" src="../../javascript/general.js"></script>	
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />    
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
 <title><spring:message code="student.enterprojectcode.1"/></title>
 
@@ -36,68 +32,64 @@
 
 <body>
 
-<div id="centeredDiv">
-    	
-<%@ include file="headermain.jsp"%>
-
-<div style="text-align:center;">    
-<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
-
-<h1 id="lostTitleBar" class="blueText"><spring:message code="student.enterprojectcode.2"/></h1>
-  
-  	<br /> 
-
-		<h2><spring:message code="searchforstudentusername.7"/></h2>
-		
-		<table width="100%" style="border-collapse:separate;border-spacing:10px">
-			<tr>
-				<td align="right" width="50%"><spring:message code="signup.firstname"/></td>
-				<td align="left" width="50%"><input type="text" size=25 value="${firstName}" disabled /></td>
-			</tr>
-			<tr>
-				<td align="right" width="50%"><spring:message code="signup.lastname"/></td>
-				<td align="left" width="50%"><input type="text" size=25 value="${lastName}" disabled /></td>
-			</tr>
-			<tr>
-				<td align="right" width="50%"><spring:message code="searchforstudentusername.2"/></td>
-				<td align="left" width="50%"><input type="text" size=5 value="${birthMonth}" disabled /></td>
-			</tr>
-			<tr>
-				<td align="right" width="50%"><spring:message code="searchforstudentusername.3"/></td>
-				<td align="left" width="50%"><input type="text" size=5 value="${birthDay}" disabled /></td>
-			</tr>
-		</table>
-
-		<br/>
-		
-		<c:choose>
-			<c:when test="${fn:length(users) == 0}">
-				<h4><spring:message code="searchforstudentusername.4"/></h4>
-			</c:when>
-			<c:when test="${fn:length(users) == 1}">
-				<h4><spring:message code="searchforstudentusername.5"/></h4>
-			</c:when>
-			<c:when test="${fn:length(users) > 1}">
-				<h4><spring:message code="searchforstudentusername.6"/></h4>
-			</c:when>
-		</c:choose>
-		
-		<br/>
+<div id="pageWrapper">
 	
-	  	<c:forEach var="user" items="${users}">
-    		<a href="../../login.html?userName=${user.userDetails.username}">${user.userDetails.username}</a>
-    		<br/><br/>
-  		</c:forEach>
-	
-		<br/><br/>
-		<a href="../../index.html"> 
-		<img id="return" src="../../<spring:theme code="return_to_homepage" />"
-		onmouseover="swapImage('return', '../../<spring:theme code="return_to_homepage_roll" />');"
-		onmouseout="swapImage('return', '../../<spring:theme code="return_to_homepage" />');" /></a>
-	
+	<div id="page">
+		
+		<div id="pageContent" style="min-height:400px;">
+			<div id="headerSmall">
+				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+			</div>
+			
+			<div class="infoContent">
+				<div class="panelHeader"><spring:message code="student.enterprojectcode.2"/></div>
+				<div class="infoContentBox">
+					<div><spring:message code="searchforstudentusername.7"/>:</div>
+	  				<div>
+	  					<table width="100%" style="border-collapse:separate;border-spacing:10px">
+							<tr>
+								<td align="right" width="50%"><spring:message code="signup.firstname"/></td>
+								<td align="left" width="50%"><input type="text" size=25 value="${firstName}" disabled /></td>
+							</tr>
+							<tr>
+								<td align="right" width="50%"><spring:message code="signup.lastname"/></td>
+								<td align="left" width="50%"><input type="text" size=25 value="${lastName}" disabled /></td>
+							</tr>
+							<tr>
+								<td align="right" width="50%"><spring:message code="searchforstudentusername.2"/></td>
+								<td align="left" width="50%"><input type="text" size=5 value="${birthMonth}" disabled /></td>
+							</tr>
+							<tr>
+								<td align="right" width="50%"><spring:message code="searchforstudentusername.3"/></td>
+								<td align="left" width="50%"><input type="text" size=5 value="${birthDay}" disabled /></td>
+							</tr>
+						</table>
+	  				</div>
+	  				<div>
+	  					<c:choose>
+							<c:when test="${fn:length(users) == 0}">
+								<div class="errorMsgNoBg"><p><spring:message code="searchforstudentusername.4"/></p></div>
+								<div><a href="searchforstudentusername.html" title="WISE Home"><spring:message code="lostpassword.teacher.try-again"/></a></div>
+							</c:when>
+							<c:when test="${fn:length(users) == 1}">
+								<div class="errorMsgNoBg"><p><spring:message code="searchforstudentusername.5"/></p></div>
+							</c:when>
+							<c:when test="${fn:length(users) > 1}">
+								<div class="errorMsgNoBg"><p><spring:message code="searchforstudentusername.6"/></p></div>
+							</c:when>
+						</c:choose>
+	  				</div>
+					<div>
+						<c:forEach var="user" items="${users}">
+				    		<p><a href="/webapp/login.html?userName=${user.userDetails.username}">${user.userDetails.username}</a></p>
+				  		</c:forEach>
+					</div>
+				</div>
+				<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>
+			</div>
+		</div>
+	</div>
 </div>
-
-</div>   <!--END OF CENTERED DIV-->
 
 </body>
 </html>

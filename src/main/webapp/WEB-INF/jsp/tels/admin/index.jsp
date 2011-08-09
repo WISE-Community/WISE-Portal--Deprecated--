@@ -25,9 +25,26 @@
 <script type='text/javascript' src='/webapp/dwr/interface/ChangePasswordParametersValidatorJS.js'></script>
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
 
-<script>
-//alert('hi');
-//alert(ChangePasswordParametersValidatorJS.test('hi'))
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script type="text/javascript">
+	
+	
+	//set unread message count and last login time in session (used in page headers)
+	//if(!$.cookie("unreadMessages")){
+		//$.cookie("unreadMessages","<c:out value="${fn:length(unreadMessages)}" />");
+	//}
+	
+	//if(!$.cookie("lastLoginTime")){
+		<c:choose>
+			<c:when test="${userDetails.lastLoginTime == null}">
+				var lastLogin = "<spring:message code="teacher.index.5" />";
+			</c:when>
+			<c:otherwise>
+				var lastLogin = "<fmt:formatDate value="${userDetails.lastLoginTime}" type="both" dateStyle="medium" timeStyle="short" />";
+			</c:otherwise>
+		</c:choose>
+		//$.cookie("lastLoginTime",lastLogin);
+	//}
 </script>
 
 </head>
@@ -36,8 +53,6 @@
 <div id="pageWrapper">
 
 	<%@ include file="../headermain.jsp"%>
-		
-	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
 	<div id="page">
 			

@@ -18,17 +18,13 @@
 -->
 
 <!-- $Id: login.jsp 341 2007-04-26 22:58:44Z hiroki $ -->
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />    
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-
-<script type="text/javascript" src="../../javascript/general.js"></script>	
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" /> 
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />	
 
 <title><spring:message code="student.enterprojectcode.1"/></title>
 
@@ -36,77 +32,73 @@
 
 <body>
 
-<div id="centeredDiv">
-    	
-<%@ include file="headermain.jsp"%>
-
-<div style="text-align:center;">    
-<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
-
-<h1 id="lostTitleBar" class="blueText"><spring:message code="student.enterprojectcode.2"/></h1>
-  
-  	<br /> 
-	<h2><spring:message code="student.enterprojectcode.3"/></h2>
-
-	<h5><spring:message code="searchforstudentusername.1"/></h5>
+<div id="pageWrapper">
 	
-	<br />  
-	<div id="errorMessageFormat">
-			<!-- Support for Spring errors object -->
-			<spring:bind path="reminderParameters.*">
-			  	<c:forEach var="error" items="${status.errorMessages}">
-			    	<b><br /><c:out value="${error}"/></b>
-				  </c:forEach>
-			</spring:bind>
+	<div id="page">
+		
+		<div id="pageContent" style="min-height:400px;">
+			<div id="headerSmall">
+				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+			</div>
+			
+			<div class="infoContent">
+				<div class="panelHeader"><spring:message code="student.enterprojectcode.2"/></div>
+				<div class="infoContentBox">
+					<div><spring:message code="student.enterprojectcode.3"/></div>
+					<div class="instructions"><spring:message code="searchforstudentusername.1"/></div>
+					<div>
+						<form:form name="projectCode" method="post" commandName="reminderParameters" autocomplete='off'>
+							<table width="100%" style="border-collapse:separate;border-spacing:10px">
+								<tr>
+									<td align="right"><label id="firstNameLabel" for="firstName"><spring:message code="signup.firstname"/></label></td>
+									<td align="left"><form:input path="firstName" id="firstName" tabindex="1"/></td>	
+								</tr>
+								<tr>
+									<td align="right"><label id="lastNameLabel" for="lastName"><spring:message code="signup.lastname"/></label></td>
+									<td align="left"><form:input path="lastName" id="lastName" tabindex="2" /></td>
+								</tr>
+								<tr>
+									<td align="right"><label for="birthMonth"><spring:message code="searchforstudentusername.2"/></label></td>
+									<td align="left">
+										<form:select path="birthMonth" id="birthMonth" tabindex="3">
+										<c:forEach var="month" begin="1" end="12" step="1">
+											<option value="${month}">
+												<spring:message code="birthmonths.${month}" />
+											</option>
+										</c:forEach>
+									    </form:select>
+									</td>
+								</tr>
+								<tr>
+									<td align="right"><label for="birthDay"><spring:message code="searchforstudentusername.3"/></label></td>
+									<td align="left">
+										<form:select path="birthDay" id="birthDay" tabindex="4">
+											 <c:forEach var="date" begin="1" end="31" step="1">
+												  <option value="${date}">
+												  		<spring:message code="birthdates.${date}" />
+											  	  </option>
+										  </c:forEach>
+									    </form:select>
+									</td>
+								</tr>
+								<tr><td colspan=2 align="center"><input type="submit" value="Search" tabindex="5" /></td></tr>
+					 		</table>
+						</form:form>
+					</div>
+					<div class="errorMsgNoBg">
+						<!-- Support for Spring errors object -->
+						<spring:bind path="reminderParameters.*">
+						  	<c:forEach var="error" items="${status.errorMessages}">
+						    	<p><c:out value="${error}"/></p>
+							  </c:forEach>
+						</spring:bind>
+					</div>
+				</div>
+				<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>
+			</div>
+		</div>
 	</div>
-	
-	<form:form name="projectCode" method="post" commandName="reminderParameters" autocomplete='off'>
-		<table width="100%" style="border-collapse:separate;border-spacing:10px">
-			<tr>
-				<td align="right"><label id="firstNameLabel" for="firstName"><spring:message code="signup.firstname"/></label></td>
-				<td align="left"><form:input path="firstName" id="firstName" tabindex="1"/></td>	
-			</tr>
-			<tr>
-				<td align="right"><label id="lastNameLabel" for="lastName"><spring:message code="signup.lastname"/></label></td>
-				<td align="left"><form:input path="lastName" id="lastName" tabindex="2" /></td>
-			</tr>
-			<tr>
-				<td align="right"><label for="birthMonth"><spring:message code="searchforstudentusername.2"/></label></td>
-				<td align="left">
-					<form:select path="birthMonth" id="birthMonth" tabindex="3">
-					<c:forEach var="month" begin="1" end="12" step="1">
-						<option value="${month}">
-							<spring:message code="birthmonths.${month}" />
-						</option>
-					</c:forEach>
-				    </form:select>
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><label for="birthDay"><spring:message code="searchforstudentusername.3"/></label></td>
-				<td align="left">
-					<form:select path="birthDay" id="birthDay" tabindex="4">
-						 <c:forEach var="date" begin="1" end="31" step="1">
-							  <option value="${date}">
-							  		<spring:message code="birthdates.${date}" />
-						  	  </option>
-					  </c:forEach>
-				    </form:select>
-				</td>
-			</tr>
-			<tr><td colspan=2 align="center"><input type="submit" value="Search" tabindex="5" class="generalButton" /></td></tr>
- 		</table>
-		</form:form>
-	
-		<br/><br/><br/><br/><br/><br/><br/>
-		<a href="../../index.html"> 
-		<img id="return" src="../../<spring:theme code="return_to_homepage" />"
-		onmouseover="swapImage('return', '../../<spring:theme code="return_to_homepage_roll" />');"
-		onmouseout="swapImage('return', '../../<spring:theme code="return_to_homepage" />');" /></a>
-	
 </div>
-
-</div>   <!--END OF CENTERED DIV-->
 
 </body>
 </html>

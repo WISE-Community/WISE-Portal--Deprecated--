@@ -34,13 +34,16 @@
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 
 <script type="text/javascript" src="<spring:theme code="jqueryuisource"/>"></script>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript">
     // only alert user about browser comptibility issue once.
     if ($.cookie("hasBeenAlertedBrowserCompatibility") != "true") {
     	alertBrowserCompatibility();
     }
 	$.cookie("hasBeenAlertedBrowserCompatibility","true");
+	
+	// set unread message count and last login time in session (used in page headers)
+	$.cookie("unreadMessages","<c:out value="${fn:length(unreadMessages)}" />", {path:"/"});
 	
 </script>
 
@@ -146,8 +149,6 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 <div id="pageWrapper">
 
 	<%@ include file="../headermain.jsp"%>
-		
-	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
 	<div id="page">
 		

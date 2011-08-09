@@ -20,26 +20,19 @@
 
 <!-- $Id: registerstudent.jsp 989 2007-08-30 01:15:54Z MattFish $ -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+<!DOCTYPE html>
 <html xml:lang="en" lang="en">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="jquerystylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
-<script src="../javascript/tels/general.js" type="text/javascript" > </script>
-<script src="../javascript/tels/jquery-1.4.2.min.js" type="text/javascript" > </script>
-<script src="../javascript/tels/jquery-ui-1.8.9/js/jquery-ui-1.8.9.custom.min.js" type="text/javascript" > </script>
-<link rel="stylesheet" type="text/css" href="../javascript/tels/jquery-ui-1.8.9/css/ui-lightness/jquery-ui-1.8.9.custom.css" />
-
-<!-- Dependency -->
-<!--  
-<script src="http://yui.yahooapis.com/2.8.0r4/build/yahoo/yahoo-min.js"></script>
-<script src="http://yui.yahooapis.com/2.8.0r4/build/event/event-min.js"></script>
-<script src="http://yui.yahooapis.com/2.8.0r4/build/connection/connection_core-min.js"></script>
--->
+<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="jqueryuisource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 
 <title><spring:message code="student.signup.title" /></title>
 <script type="text/javascript">
@@ -220,148 +213,149 @@ function setup() {
 </head>
 
 <body>
-
-<div id="centeredDiv">
-
-<%@ include file="header.jsp"%>
-
-<div style="text-align:center;">   
-<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
-
-<h1 id="registrationTitle" class="blueText"><spring:message code="student.registerstudent.1"/></h1>
-
-<div id="subtitleStudentReg"><spring:message code="student.registerstudent.2"/> <br/><spring:message code="student.registerstudent.3"/></div>
+<%@ page buffer="64kb" %>
+<div id="pageWrapper">
+	
+	<div id="page">
+		
+		<div id="pageContent" style="min-height:400px;">
+			<div id="headerSmall">
+				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+			</div>
+			
+			<div class="infoContent">
+				<div class="panelHeader"><spring:message code="student.registerstudent.1"/></div>
+				<div class="infoContentBox">
+					<div><spring:message code="student.registerstudent.2"/>, <spring:message code="student.registerstudent.3"/></div>
       
-<!-- Support for Spring errors object -->
-<div id="regErrorMessages">
-<spring:bind path="studentAccountForm.*">
-  <c:forEach var="error" items="${status.errorMessages}">
-        <br /><c:out value="${error}"/>
-    </c:forEach>
-</spring:bind>
+					<!-- Support for Spring errors object -->
+					<div class="errorMsgNoBg">
+						<spring:bind path="studentAccountForm.*">
+						  <c:forEach var="error" items="${status.errorMessages}">
+						        <br /><c:out value="${error}"/>
+						    </c:forEach>
+						</spring:bind>
+					</div>
+
+					<form:form id="studentRegForm" commandName="studentAccountForm" method="post" action="registerstudent.html" autocomplete='off'>
+					  
+					  <dl>
+					  	<dt><label for="studentFirstName"><spring:message code="student.registerstudent.4"/></label></dt>	    
+					  	  	<dd><form:input path="userDetails.firstname" id="firstname" size="25" maxlength="25" tabindex="1"/>
+						    <form:errors path="userDetails.firstname" />
+					    	<span class="hint">Use only letters for your first name.  No hyphens, apostrophes, or other punctuation.<span class="hint-pointer"></span></span> 
+					   		</dd>
+					
+						<!--This unusually placed script gets the cursor into the First Name field immediately on page load  (MattFish)-->
+						<script type="text/javascript">
+							document.getElementById('firstname').focus();
+						</script>
+					
+					  	<dt><label for="studentLastName">Last Name:</label></dt>
+						<dd><form:input path="userDetails.lastname" id="lastname" size="25" maxlength="25" tabindex="2"/>
+						    <form:errors path="userDetails.lastname" />
+					    	<span class="hint">Use only letters for your last name.  No hyphens, apostrophes, or other punctuation.<span class="hint-pointer"></span></span> 
+					   		</dd>
+					            
+					  	<dt><label for="studentGender"><spring:message code="student.registerstudent.8"/></label></dt>
+						<dd><form:select path="userDetails.gender" id="gender" tabindex="3">       
+					          <c:forEach items="${genders}" var="genderchoice">
+					            <form:option value="${genderchoice}">
+					            	<spring:message code="genders.${genderchoice}" />
+					            </form:option>
+					          </c:forEach>
+					      	</form:select> 
+					        <span class="hint">Select a choice.<span class="hint-pointer"></span></span> 
+					    	</dd>
+					            
+					    <dt><label for="studentBirthMonth"><spring:message code="student.registerstudent.10"/></label></dt>
+						<dd><form:select path="birthmonth" id="birthmonth" tabindex="4">
+							<form:errors path="birthmonth" />
+							<c:forEach var="month" begin="1" end="12" step="1">
+								<form:option value="${month}">
+									<spring:message code="birthmonths.${month}" />
+								</form:option>
+							</c:forEach>
+						    </form:select>
+					        <span class="hint"><spring:message code="student.registerstudent.11"/><span class="hint-pointer"></span></span> 
+					    	</dd>
+					        
+						  <dt><label for="studentBirthDate"><spring:message code="student.registerstudent.12"/></label></dt>
+						  <dd><form:select path="birthdate" id="birthdate" tabindex="5">
+						      <form:errors path="birthdate" />
+								 <c:forEach var="date" begin="1" end="31" step="1">
+									  <form:option value="${date}">
+									  		<spring:message code="birthdates.${date}" />
+								  	  </form:option>
+							  </c:forEach>
+						    </form:select> 	
+					         </dd>
+					                   
+						  <dt><label for="studentPassword">Type a Password:</label></dt>
+						  <dd><form:password path="userDetails.password" id="password" size="25" maxlength="25" tabindex="6"/>
+					<!--      		<form:errors path="userDetails.password"/> -->
+					      		<span class="hint">Your password can have up to 18 letters or numbers. Create a password that you can remember!<span class="hint-pointer"></span></span> 
+					            </dd>
+					
+						  <dt><label for="studentPasswordRepeat">Type Password Again:</label></dt>
+						  <dd><form:password path="repeatedPassword" id="repeatedPassword" size="25" maxlength="25" tabindex="7"/> 
+					            <form:errors path="repeatedPassword" />      	  
+						        <span class="hint">Type your password in again.<span class="hint-pointer"></span></span>
+					            </dd>
+					      
+						  <dt><label for="reminderQuestion">Security Question:</label></dt>
+						  <dd><form:select path="userDetails.accountQuestion" id="accountQuestion" tabindex="8" >  
+					            <form:errors path="userDetails.accountQuestion" />
+					        	<c:forEach items="${accountQuestions}" var="questionchoice">
+					            <form:option value="${questionchoice}">
+					            	<spring:message code="accountquestions.${questionchoice}"/>
+					             </form:option>
+					          </c:forEach>
+					        </form:select>
+					        
+					         <span class="hint">Select a question from the list then answer it below.<br/><br/>
+								If you forget your password, WISE will ask you this Security question so you can reset your password.<span class="hint-pointer"></span></span>
+							</dd>
+					
+						  <dt><label for="reminderAnswer" id="reminderAnswer">Answer for Security Q:</label></dt>
+						  <dd><form:input path="userDetails.accountAnswer" id="accountAnswer" size="25" maxlength="25" tabindex="9"/>
+						      <span class="hint">Answer the Security question here.<span class="hint-pointer"></span></span>			
+					          </dd>
+					
+							<dt><label for="runCode_part1" id="runCode_part1_label">Access Code:</label></dt>
+						  <dd><form:input path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="10"/>
+					       	  <form:errors path="runCode_part1" />
+					          <span class="hint">Get this code from your teacher and enter it.  Then click the <i>Show Class Periods</i> button and select your class period.<span class="hint-pointer"></span></span></dd>
+					
+							<dt><label for="runCode_part1" id="runCode_part1_label"></label></dt>
+						  <dd ><a style="font-weight:1.1em;" onclick="findPeriods();">Show Class Periods</a></dd>
+					
+					
+					      <dt><label for="runCode_part2" id="runCode_part2_label">Class Period:</label></dt>
+						  <dd><form:select path="runCode_part2" id="runCode_part2" tabindex="11" disabled="true">
+						  							   </form:select>
+					       	  <form:errors path="runCode_part2" />
+					          <span class="hint">Select your period from the list.<span class="hint-pointer"></span></span></dd>
+					      
+						  <form:hidden path="projectCode" id="projectCode"/>
+					               
+						 </dl>
+					      
+					      
+					  	<div style="margin-top:1em;">
+					 	  	<a style="margin-bottom:1em;" class="wisebutton" onclick="checkForExistingAccountsAndCreateAccount()"><spring:message code="student.registerstudent.26"/></a>
+					 	  	<a href="/webapp/index.html"><spring:message code="student.registerstudent.27"/></a>
+						 </div> 
+					 
+					 </form:form>
+
+					<div id="existingAccounts" style="display:none"></div>
+					<div id="existingAccountsDialog" style="display:none"></div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-
-<form:form id="studentRegForm" commandName="studentAccountForm" method="post" action="registerstudent.html" autocomplete='off'>
-  
-  <dl>
-  	<dt><label for="studentFirstName"><spring:message code="student.registerstudent.4"/></label></dt>	    
-  	  	<dd><form:input path="userDetails.firstname" id="firstname" size="25" maxlength="25" tabindex="1"/>
-	    <form:errors path="userDetails.firstname" />
-    	<span class="hint">Use only letters for your first name.  No hyphens, apostrophes, or other punctuation.<span class="hint-pointer"></span></span> 
-   		</dd>
-
-<!--This unusually placed script gets the cursor into the First Name field immediately on page load  (MattFish)-->
-<script type="text/javascript">
-document.getElementById('firstname').focus();
-</script>
-
-  	<dt><label for="studentLastName">Last Name:</label></dt>
-	<dd><form:input path="userDetails.lastname" id="lastname" size="25" maxlength="25" tabindex="2"/>
-	    <form:errors path="userDetails.lastname" />
-    	<span class="hint">Use only letters for your last name.  No hyphens, apostrophes, or other punctuation.<span class="hint-pointer"></span></span> 
-   		</dd>
-            
-  	<dt><label for="studentGender"><spring:message code="student.registerstudent.8"/></label></dt>
-	<dd><form:select path="userDetails.gender" id="gender" tabindex="3">       
-          <c:forEach items="${genders}" var="genderchoice">
-            <form:option value="${genderchoice}">
-            	<spring:message code="genders.${genderchoice}" />
-            </form:option>
-          </c:forEach>
-      	</form:select> 
-        <span class="hint">Select a choice.<span class="hint-pointer"></span></span> 
-    	</dd>
-            
-    <dt><label for="studentBirthMonth"><spring:message code="student.registerstudent.10"/></label></dt>
-	<dd><form:select path="birthmonth" id="birthmonth" tabindex="4">
-		<form:errors path="birthmonth" />
-		<c:forEach var="month" begin="1" end="12" step="1">
-			<form:option value="${month}">
-				<spring:message code="birthmonths.${month}" />
-			</form:option>
-		</c:forEach>
-	    </form:select>
-        <span class="hint"><spring:message code="student.registerstudent.11"/><span class="hint-pointer"></span></span> 
-    	</dd>
-        
-	  <dt><label for="studentBirthDate"><spring:message code="student.registerstudent.12"/></label></dt>
-	  <dd><form:select path="birthdate" id="birthdate" tabindex="5">
-	      <form:errors path="birthdate" />
-			 <c:forEach var="date" begin="1" end="31" step="1">
-				  <form:option value="${date}">
-				  		<spring:message code="birthdates.${date}" />
-			  	  </form:option>
-		  </c:forEach>
-	    </form:select> 	
-         </dd>
-                   
-	  <dt><label for="studentPassword">Type a Password:</label></dt>
-	  <dd><form:password path="userDetails.password" id="password" size="25" maxlength="25" tabindex="6"/>
-<!--      		<form:errors path="userDetails.password"/> -->
-      		<span class="hint">Your password can have up to 18 letters or numbers. Create a password that you can remember!<span class="hint-pointer"></span></span> 
-            </dd>
-
-	  <dt><label for="studentPasswordRepeat">Type Password Again:</label></dt>
-	  <dd><form:password path="repeatedPassword" id="repeatedPassword" size="25" maxlength="25" tabindex="7"/> 
-            <form:errors path="repeatedPassword" />      	  
-	        <span class="hint">Type your password in again.<span class="hint-pointer"></span></span>
-            </dd>
-      
-	  <dt><label for="reminderQuestion">Security Question:</label></dt>
-	  <dd><form:select path="userDetails.accountQuestion" id="accountQuestion" tabindex="8" >  
-            <form:errors path="userDetails.accountQuestion" />
-        	<c:forEach items="${accountQuestions}" var="questionchoice">
-            <form:option value="${questionchoice}">
-            	<spring:message code="accountquestions.${questionchoice}"/>
-             </form:option>
-          </c:forEach>
-        </form:select>
-        
-         <span class="hint">Select a question from the list then answer it below.<br/><br/>
-			If you forget your password, WISE will ask you this Security question so you can reset your password.<span class="hint-pointer"></span></span>
-		</dd>
-
-	  <dt><label for="reminderAnswer" id="reminderAnswer">Answer for Security Q:</label></dt>
-	  <dd><form:input path="userDetails.accountAnswer" id="accountAnswer" size="25" maxlength="25" tabindex="9"/>
-	      <span class="hint">Answer the Security question here.<span class="hint-pointer"></span></span>			
-          </dd>
-
-<dt><label for="runCode_part1" id="runCode_part1_label">Access Code:</label></dt>
-	  <dd><form:input path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="10"/>
-       	  <form:errors path="runCode_part1" />
-          <span class="hint">Get this code from your teacher and enter it.  Then click the <i>Show Class Periods</i> button and select your class period.<span class="hint-pointer"></span></span></dd>
-
-		<dt><label for="runCode_part1" id="runCode_part1_label"></label></dt>
-	  <dd ><a onclick="findPeriods();" class="periodLink">Show Class Periods</a></dd>
-
-
-      <dt><label for="runCode_part2" id="runCode_part2_label">Class Period:</label></dt>
-	  <dd><form:select path="runCode_part2" id="runCode_part2" tabindex="11" disabled="true">
-	  							   </form:select>
-       	  <form:errors path="runCode_part2" />
-          <span class="hint">Select your period from the list.<span class="hint-pointer"></span></span></dd>
-      
-	  <form:hidden path="projectCode" id="projectCode"/>
-               
-	 </dl>
-      
-      
-  
-	<div id="regButtonsStudent">
- 				
-	    <a id="createAccountLink" onclick="checkForExistingAccountsAndCreateAccount()"><spring:message code="student.registerstudent.26"/></a>
-	    <a href="../index.html"><spring:message code="student.registerstudent.27"/></a>	
-
-		</div>  
- 
- </form:form>
-
-<div id="existingAccounts" style="display:none"></div>
-<div id="existingAccountsDialog" style="display:none"></div>
-</div>
-
-</div>  <!-- /* End of the CenteredDiv */-->
-
 </body>
 
 </html>

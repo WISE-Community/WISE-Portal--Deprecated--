@@ -19,51 +19,42 @@
 
 <!-- $Id: $ -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+<!DOCTYPE html>
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />    
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-   
-<script type="text/javascript" src="../../javascript/tels/general.js"></script>	
-<script type="text/javascript" src="../../javascript/tels/effects.js"></script>	
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 
 <title><spring:message code="forgot.teacher.success.1"/></title>
 </head>
 
 <body>
 
-<div id="centeredDiv">
-    	
-<%@ include file="headermain.jsp"%>
-
-<div style="text-align:center;">   
-<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
-
-<h1 id="lostTitleBar" class="blueText"><spring:message code="forgot.teacher.success.2"/></h1>
-
-<h1><spring:message code="forgot.teacher.success.8"/></h1>
-
-<div id="studentpasswordremindersuggestion"> 
-	<ul>
-		<li class="forgotPasswordInstructionText3"><spring:message code="forgot.teacher.success.9"/> ${email}. 
-<spring:message code="forgot.teacher.success.10"/></li>
-		<li class="forgotPasswordInstructionText"><spring:message code="forgot.teacher.success.11"/> <a href="#" onclick="displayNotAvailable('This page is not available yet');"
-><spring:message code="forgot.teacher.success.12"/></a></li>
-	</ul>
+<div id="pageWrapper">
 	
-</div>
-
-<a href="../../index.html"> 
-		<img id="return" src="../../<spring:theme code="return_to_homepage" />"
-		onmouseover="swapImage('return', '../../<spring:theme code="return_to_homepage_roll" />');"
-		onmouseout="swapImage('return', '../../<spring:theme code="return_to_homepage" />');" /></a>
-
-</div>
+	<div id="page">
+		
+		<div id="pageContent" style="min-height:400px;">
+			<div id="headerSmall">
+				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+			</div>
+			
+			<div class="infoContent">
+				<div class="panelHeader"><spring:message code="forgot.teacher.success.2"/></div>
+				<div class="infoContentBox">
+					<div>
+						<spring:message code="forgot.teacher.success.9"/> ${email}.
+					</div>
+					<div>
+						<spring:message code="forgot.teacher.success.11"/> <a href="/webapp/contactwisegeneral.html"> <spring:message code="forgot.teacher.success.12"/></a>
+					</div>
+				</div>
+				<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>
+			</div>
+		</div>
+	</div>
 </div>
 
 </body>

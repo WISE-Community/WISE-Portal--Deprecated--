@@ -1,6 +1,6 @@
 <div id="header">
 	<div id="bannerArea1" class="banner">
-		<a id="name" href="/webapp/">WISE
+		<a id="name" href="/webapp/" title="WISE Homepage">WISE
 			<!-- <img src="<spring:theme code="wiselogonew"/>" alt="WISE Logo" border="0" id="wise-logo" />  -->
 		</a>
 		

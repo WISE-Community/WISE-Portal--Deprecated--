@@ -19,7 +19,7 @@
 
 <!-- $Id$ -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
+<!DOCTYPE html>
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -32,14 +32,26 @@
 
 <body>
 
-<div id="banner">
-<h1><spring:message code="banner.heading" /></h1>
-</div>
-
-<div style="position:relative;left:350px;">
-The server has encountered an error.<br /><br />
-The staff has been informed about this problem.<br /> <br />
-Please return to your previous page.
+<div id="pageWrapper">
+	
+	<div id="page">
+		
+		<div id="pageContent" style="min-height:400px;">
+			<div id="headerSmall">
+				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+			</div>
+			
+			<div class="infoContent">
+				<div class="infoContentBox">
+					<div class="errorMsgNoBg">
+						<p>We're sorry, but the server has encountered an error.</p>
+						<p>The staff has been informed about this problem.</p>
+					</div>
+				</div>
+				<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>
+			</div>
+		</div>
+	</div>
 </div>
 
 </body>

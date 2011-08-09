@@ -17,60 +17,51 @@
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+<!DOCTYPE html>
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-<link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
   
 <title><spring:message code="signup.title" /></title>
 
-<script type="text/javascript" src=".././javascript/pas/utils.js"></script>
-<script type="text/javascript" src=".././javascript/tels/general.js"></script>
+<script type="text/javascript" src="<spring:theme code="utilssource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 </head>
 
-<body>
-
-<div id="centeredDiv">
-
-<%@ include file="headermain.jsp"%>
-
-<div style="text-align:center;">
-<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
-
-<h1 id="registrationTitle" class="blueText"><spring:message code="teacher.registerteacher.1"/></h1>
-
-<div id="subtitleConfirm">
-			<h4><spring:message code="teacher.registerconfirm.1"/></h4>
-			<h4><spring:message code="teacher.registerconfirm.2"/>&nbsp;<span><input disabled id="usernameConfirm" name="username" value="${username}"/></span></h4>
+<div id="pageWrapper">
+	
+	<div id="page">
+		
+		<div id="pageContent" style="min-height:400px;">
+			<div id="headerSmall">
+				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+			</div>
 			
-			<ul>
-		    <li><spring:message code="teacher.registerconfirm.3"/></li>
-		    <li><spring:message code="teacher.registerconfirm.4"/></li>
-		    <li><spring:message code="teacher.registerconfirm.5"/></li>
-			</ul>
-			
-			<h5><spring:message code="teacher.registerconfirm.9"/><input disabled id="userClassnameConfirm" name="" value="${displayname}"/><a href="management/updatemyaccountinfo.html" style="margin-left:10px;"><spring:message code="teacher.registerconfirm.10"/></a></h5>
-			
+			<div class="infoContent">
+				<div class="panelHeader"><spring:message code="teacher.registerteacher.1"/></div>
+				<div class="infoContentBox">
+					<div>
+						<h4><spring:message code="teacher.registerconfirm.1"/></h4>
+						<h4><spring:message code="teacher.registerconfirm.2"/>&nbsp;<span><input disabled id="usernameConfirm" name="username" value="${username}"/></span></h4>
+						
+						<div><spring:message code="teacher.registerconfirm.3"/></div>
+					    <div><spring:message code="teacher.registerconfirm.4"/></div>
+					    <div><spring:message code="teacher.registerconfirm.5"/></div>
+						
+						<div><spring:message code="teacher.registerconfirm.9"/><input disabled id="userClassnameConfirm" name="" value="${displayname}" class="wisebutton"/><a href="management/updatemyaccountinfo.html" style="margin-left:10px;"><spring:message code="teacher.registerconfirm.10"/></a></div>
+								
+					</div>
+	  				<div><a href="/webapp/index.html" class="wisebutton"><spring:message code="selectaccounttype.5"/></a></div>
+	
+					<div><spring:message code="teacher.registerconfirm.6"/>&nbsp;<em><spring:message code="teacher.registerconfirm.7"/></em> <spring:message code="teacher.registerconfirm.8"/></div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-
-<div class="center">
-  <a href="../index.html" 
-    onmouseout="MM_swapImgRestore()" 
-    onmouseover="MM_swapImage('Return to Home Page','','../themes/tels/default/images/Go-To-Home-Page-Roll.png',1)">
-    <img src="../themes/tels/default/images/Go-To-Home-Page.png" alt="Go to Home Page & Sign In" width="161" height="52"  
-    id="Return to Home Page" /></a>
- </div>
-
-<div id="buttonText1">
-	<spring:message code="teacher.registerconfirm.6"/>&nbsp;<em><spring:message code="teacher.registerconfirm.7"/></em> <spring:message code="teacher.registerconfirm.8"/>
-</div>
-
-</div>
-</div>  <!-- /* End of the CenteredDiv */-->
 
 </body>
 

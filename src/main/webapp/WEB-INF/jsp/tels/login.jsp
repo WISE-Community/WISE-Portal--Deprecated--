@@ -30,12 +30,6 @@
 <meta name="description" content="login for portal"/>
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-
-<!--  <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
-<script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
-<script src="./javascript/tels/general.js" type="text/javascript" ></script>
-<script src="./javascript/tels/rotator.js" type="text/javascript" ></script> -->
 
 <style type="text/css" media="screen">
   .inplaceeditor-saving {background: url(<spring:theme code="wait"/>) bottom right no-repeat; }
@@ -43,74 +37,76 @@
 
 <link rel="shortcut icon" href="<spring:theme code="favicon"/>" />
 
-<title>WISE 4.0 Sign In</title>
+<title>Sign In to WISE4</title>
 
 </head>
 
 <body onload="document.getElementById('j_username').focus();">
 
-<div id="centeredDiv">
-
-<%@ include file="headermain.jsp"%>
-
-<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
-
-<div id="errorMsg">
-<c:if test="${failed}">
-  <p><spring:message code="login.failed" /></p>
-</c:if>
-</div>
-
- <div style="margin:25px auto 0 auto;" id="boxTableSignInFailedLogin" class="panelColor2 panel">
-    <div class="header"><spring:message code="login.failed10"/></div>
-	<form id="home" method="post" action="j_acegi_security_check" autocomplete="off">
-		<div id="signinForm">
-			<div>
-				<label for="username"><spring:message code="login.failed11"/><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60" <c:if test="${userName != ''}">value="${userName}"</c:if> /></label>
-			</div>
-			<div>
-				<label for="password"><spring:message code="login.failed12"/><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30" /></label>
-			</div>
-			<c:if test="${requireCaptcha && reCaptchaPublicKey != null && reCaptchaPrivateKey != null}">
-				<%
-					//get the captcha public and private key so we can make the captcha
-					String reCaptchaPublicKey = (String) request.getAttribute("reCaptchaPublicKey");
-					String reCaptchaPrivateKey = (String) request.getAttribute("reCaptchaPrivateKey");
-					
-					//create the captcha factory
-					ReCaptcha c = ReCaptchaFactory.newReCaptcha(reCaptchaPublicKey, reCaptchaPrivateKey, false);
-					
-					//make the html that will display the captcha
-					String reCaptchaHtml = c.createRecaptchaHtml(null, null);
-					
-					//output the instructions for the captcha
-					out.print("<p>Enter the correct password above and then type the characters in the image below.</p>");
-					
-					//output the captcha html to the page
-					out.print(reCaptchaHtml);
-				%>
-			</c:if>
-        
-			<input type='hidden' value='${redirect}' name='redirect'/>
+<div id="pageWrapper">
+	
+	<div id="page">
+		
+		<div id="pageContent" style="min-height:400px;">
 			
-			<div class="alignRight">
-				<input type="submit" id="signInButton" name="signInButton" class="wisebutton smallbutton" value="<spring:message code="signinbutton"/>"></input>
-			</div>
+			<div id="boxTableSignInFailedLogin" class="loginPanel">
+				<a id="name" href="/webapp/" title="WISE Homepage">WISE</a>
+				<div style="padding:134px 60px 0;">
+					<form id="home" method="post" action="j_acegi_security_check" autocomplete="off">
+						<div id="signinForm">
+							<div>
+								<label for="username"><spring:message code="login.failed11"/><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60" <c:if test="${userName != ''}">value="${userName}"</c:if> /></label>
+							</div>
+							<div>
+								<label for="password"><spring:message code="login.failed12"/><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30" /></label>
+							</div>
+							<c:if test="${requireCaptcha && reCaptchaPublicKey != null && reCaptchaPrivateKey != null}">
+								<%
+									//get the captcha public and private key so we can make the captcha
+									String reCaptchaPublicKey = (String) request.getAttribute("reCaptchaPublicKey");
+									String reCaptchaPrivateKey = (String) request.getAttribute("reCaptchaPrivateKey");
+									
+									//create the captcha factory
+									ReCaptcha c = ReCaptchaFactory.newReCaptcha(reCaptchaPublicKey, reCaptchaPrivateKey, false);
+									
+									//make the html that will display the captcha
+									String reCaptchaHtml = c.createRecaptchaHtml(null, null);
+									
+									//output the instructions for the captcha
+									out.print("<p>Enter the correct password above and then type the characters in the image below.</p>");
+									
+									//output the captcha html to the page
+									out.print(reCaptchaHtml);
+								%>
+							</c:if>
+				        
+							<input type='hidden' value='${redirect}' name='redirect'/>
+						</div>
+						<div class="alignRight" style="float: right; margin: 16px 10px;">
+							<input type="submit" id="signInButton" name="signInButton" class="wisebutton smallbutton" value="<spring:message code="signinbutton"/>"></input>
+						</div>
+						<div style="clear:both;"></div>
+					</form>
+			    	<div id="forgotLogin">   
+				        <ul id="signInLinkPosition">
+				       		<li><a href="forgotaccount/selectaccounttype.html" class="forgotlink"><spring:message code="login.failed13"/></a>  </li>
+				       		<li><a href="signup.html" class="joinlink"><spring:message code="login.failed14"/></a></li>
+				       		<li><a href="./index.html" class="joinlink"><spring:message code="login.failed15"/></a></li>
+				        </ul>
+			 		</div>
+			 	</div>               
+			</div>   <!--    End of boxTableSignIn  x-->     
+ 
+			<div class="errorMsg">
+				<c:if test="${failed}">
+				  <p><spring:message code="login.failed" /></p>
+				</c:if>
+			</div>          
+		
 		</div>
-	</form>
-                         
-        <ul id="signInLinkPosition">
-       		<li><a href="forgotaccount/selectaccounttype.html" class="forgotlink"><spring:message code="login.failed13"/></a>  </li>
-       		<li><a href="signup.html" class="joinlink"><spring:message code="login.failed14"/></a></li>
-       		<li><a href="./index.html" class="joinlink"><spring:message code="login.failed15"/></a></li>
-        </ul>
-                                
- </div>   <!--    End of boxTableSignIn  x-->               
 
+	</div>
 </div>
-
-</div>   <!-- end of centered div-->
-
 
 </body>
 </html>

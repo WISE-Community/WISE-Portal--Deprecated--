@@ -18,50 +18,40 @@
 -->
 
 <!-- $Id: login.jsp 341 2007-04-26 22:58:44Z hiroki $ -->
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="studentforgotstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />    
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-   
-<script type="text/javascript" src="../../javascript/tels/general.js"></script>	
-<script type="text/javascript" src="../../javascript/tels/effects.js"></script>	
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />    
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
 <title>Password Reminder Step 3</title>
 </head>
 
 <body>
 
-<div id="centeredDiv">
-    	
-<%@ include file="headermain.jsp"%>
-
-<div style="text-align:center;">   
-<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
-
-<h1 id="lostTitleBar" class="blueText"><spring:message code="forgot.student.passremind.2"/></h1>
-
-<div id="studentpasswordremindersuggestion"> 
-	<ul>
-		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.12"/>&nbsp;<em class="reminderHighlight">${username}</em></li>
-		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.13"/></li>
-		<li class="forgotPasswordInstructionText2"><spring:message code="forgot.student.passremind.14"/></li>
-	</ul>
+<div id="pageWrapper">
+	
+	<div id="page">
+		
+		<div id="pageContent" style="min-height:400px;">
+			<div id="headerSmall">
+				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+			</div>
+			
+			<div class="infoContent">
+				<div class="panelHeader"><spring:message code="forgot.student.passremind.2"/></div>
+				<div class="infoContentBox">
+					<div><spring:message code="forgot.student.passremind.12"/>&nbsp;<span style="font-weight:bold;">${username}.</span></div>
+					<div class="errorMsgNoBg"><p><spring:message code="forgot.student.passremind.13"/></p></div>
+					<div><spring:message code="forgot.student.passremind.14"/></div>
+				</div>
+				<a href="/webapp/signin.html" class="wisebutton" style="margin-top:.25em;"><spring:message code="login.submit"/></a>
+			</div>
+		</div>
+	</div>
 </div>
-
-<a href="../../index.html"> 
-		<img id="return" src="../../<spring:theme code="return_to_homepage" />"
-		onmouseover="swapImage('return', '../../<spring:theme code="return_to_homepage_roll" />');"
-		onmouseout="swapImage('return', '../../<spring:theme code="return_to_homepage" />');" />
-</a>
-
-</div>
-</div>
-
 </body>
 </html>

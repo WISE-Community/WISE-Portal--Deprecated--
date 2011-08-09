@@ -48,8 +48,6 @@ public class LibraryController extends AbstractController {
 	private UserService userService;
 
 	private RunService runService;
-
-	private MessageService messageService;
 	
 	private Properties portalProperties;
 
@@ -295,7 +293,8 @@ public class LibraryController extends AbstractController {
 						 * e.g.
 						 * /253/assets/projectThumb.png
 						 */
-						projectThumbMap.put((Long) p.getId(), curriculumBaseWWW + url.substring(0, ndx) + PROJECT_THUMB_PATH);
+						String projectThumbPath = curriculumBaseWWW + url.substring(0, ndx) + PROJECT_THUMB_PATH;
+						projectThumbMap.put((Long) p.getId(), projectThumbPath);
 						
 						/*
 						 * add the project file name to the map
@@ -308,10 +307,6 @@ public class LibraryController extends AbstractController {
 				//usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
 			}
 		}
-		
-		// retrieve all unread messages
-    	List<Message> unreadMessages = messageService.retrieveUnreadMessages(user);
-    	modelAndView.addObject(UNREAD_MESSAGES, unreadMessages);
     	
 		//modelAndView.addObject("usageMap", usageMap);
 		modelAndView.addObject("urlMap", urlMap);
@@ -331,18 +326,12 @@ public class LibraryController extends AbstractController {
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
 	}
+	
 	/**
 	 * @param userService the userService to set
 	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
-	}
-	
-	/**
-	 * @param messageService the messageService to set
-	 */
-	public void setMessageService(MessageService messageService) {
-		this.messageService = messageService;
 	}
 
 	/**

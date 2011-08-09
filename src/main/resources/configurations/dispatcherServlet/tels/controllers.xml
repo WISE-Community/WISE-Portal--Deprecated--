@@ -134,6 +134,8 @@
 	<bean id="indexController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.IndexController">
 		<property name="newsItemService" ref="newsItemService"/>
+		<property name="projectService" ref="projectService" />
+		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 
 	<bean id="creditsController"
@@ -789,7 +791,6 @@
         <property name="projectService" ref="projectService" />
         <property name="userService" ref="userService" />
         <property name="runService" ref="runService" />
-        <property name="messageService" ref="messageService" />
         <property name="portalProperties" ref="portalproperties" />
     </bean>
     

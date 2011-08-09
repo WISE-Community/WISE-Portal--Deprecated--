@@ -84,6 +84,10 @@ abbr, acronym {
 	border-bottom: 1px dotted #666666;	
 }
 
+.center {
+	text-align:center;
+}
+
 input[type="submit"], input[type="text"], input[type="password"] {
 	border-radius: 3px 3px 3px 3px;
 	-moz-border-radius: 3px 3px 3px 3px;
@@ -120,11 +124,19 @@ p.info {
 	background:url("/webapp/themes/tels/default/images/header-bg.png") no-repeat scroll center top transparent;
 }
 
+#headerSmall {
+	background:url("/webapp/themes/tels/default/images/wise-logo-new.png") no-repeat scroll center top transparent;
+	width:500px;
+	height:145px;
+	margin: 0 auto;
+}
+
 #footer {
-	background-color: #047492;
+	background-color: #4D93A1;
     border-top: 6px solid #C6CE52;
     margin: 0 auto;
     max-width: 1160px;
+    color:#DCF2EA;
 }
 
 #header .banner, #footer .banner {
@@ -137,6 +149,7 @@ p.info {
 
 #footer .banner {
 	padding: 10px 25px;
+	height:auto;
 }
 
 a#name {
@@ -150,6 +163,43 @@ a#name {
     width: 345px;
 }
 
+#headerSmall a#name {
+	width: 500px;
+	height: 145px;
+	left: 0;
+	top: 0;
+}
+
+.loginPanel a#name {
+	height: 80px;
+	left: 50px;
+	position: absolute;
+	top: 25px;
+	width: 400px;
+}
+
+.errorMsg p {
+	width: 600px;
+	text-align: center;
+	margin: .5em auto;
+	font-size:1em;
+	color: #ff563f;
+	padding: .5em;
+	background-color: #fdf9eb;
+	background-color: rgba(255, 255, 255, .7);
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+}
+
+.errorMsgNoBg p {
+	text-align: center;
+	margin: .5em auto;
+	font-size:1em;
+	color: #ff563f;
+	padding: .5em;
+}
+
 #page {
 	/*background-color: #FFF9EF;*/
 	padding:.5em 0;
@@ -159,6 +209,42 @@ a#name {
 	width:980px;
 	margin:0 auto;
 	padding:1em;
+}
+
+.infoContent {
+	padding: 1em;
+	margin: 1em auto;
+	text-align: center;
+	width: 600px;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	box-shadow:2px 2px 4px #444444;
+	-webkit-box-shadow:2px 2px 4px #444444;
+	-moz-box-shadow:2px 2px 4px #444444;
+	background-color: #FFFFFF;
+}
+
+.infoContentBox {
+	margin-bottom:.5em;
+	padding:.25em;
+}
+
+.infoContentBox div, .infoContentBox h4 {
+	margin-bottom:.5em;
+}
+
+.infoContentBox h4 {
+	color:#745a33;
+}
+
+.infoContent .instructions {
+	font-size:.8em;
+	color:#745a33;
+}
+
+.infoContent td {
+	vertical-align:middle;
 }
 
 .contentPanel {
@@ -241,6 +327,12 @@ a#name {
     padding: 0.5em 0 0.25em;
 }
 
+.infoContent .panelHeader {
+	margin: 0 0 .5em;
+	padding: 0 0 .25em 0;
+	color: #F97F6E;
+}
+
 .panelContent {
 	padding:1em;
 }
@@ -302,7 +394,15 @@ a#name {
 	opacity:50%;
 }*/
 
-/* STYLES HEADER ACCOUNT MENU AND LOG IN/USER INFO SECTIONS */
+/* STYLES HEADER ACCOUNT MENU, LOG IN/USER INFO SECTIONS, SIGN UP PAGES */
+
+.loginPanel {
+	width:500px;
+	height:300px;
+	background:url('/webapp/themes/tels/default/images/home/login-header.png') no-repeat center center;
+	margin:0 auto;
+	position:relative;
+}
 
 #userInfoBlock {
 	height: 58px;
@@ -351,11 +451,15 @@ a#name {
     float:left;
 }
 
+.loginPanel #signinForm {
+	font-size: 1em;
+}
+
 #signinForm label {
 	font-size:.9em;
 }
 		
-#signinForm input {
+#signinForm input[type="text"], #signinForm input[type="password"] {
     width: 160px;
 }
 
@@ -374,6 +478,13 @@ a#name {
     font-size: 0.7em;
     width: 96px;
     margin-left:4px;
+}
+
+.loginPanel #forgotLogin {
+	width: 100%;
+	text-align: center;
+	font-size: .9em;
+	margin-top: 6px;
 }
 
 #accountMenu {
@@ -641,6 +752,10 @@ form {margin:0px; padding:0px;}
 	background-position: -3px -43px;*
 }
 
+.infoContent .wisebutton {
+	margin: 0 auto;
+}
+
 .smallbutton {
 	background-position: -3px -83px;
 	width:100px;
@@ -734,15 +849,14 @@ form {margin:0px; padding:0px;}
 	border: 0 none;
     padding: 0;
     width: 100%;
-    margin-bottom: 10px;
 }
 
 .marginPushLeft{
 	margin-left:18px;
 }
 
-#footerText, #footerLogos {
-	float:left;
+#footerLogos {
+	float:right;
 }
 
 #footerLogos a {
@@ -756,9 +870,9 @@ form {margin:0px; padding:0px;}
 }
 
 #footerText {
-	float: right;
+	float: left;
     font-size: 0.7em;
-    text-align: right;
+    width:500px;
 }
 
 #contentFooter div {
@@ -767,14 +881,13 @@ form {margin:0px; padding:0px;}
 
 #contentFooter ul {
 	list-style:none;
-	margin:8px 0 2px 0;
-	padding:0px;
+	padding:0;
 }
 
 #contentFooter li {
 	display:inline-block;
-	padding:0 8px 0 4px;
-	border-right: 1px solid #999999;
+	padding:0 .5em 0 .2em;
+	border-right: 1px solid #ccc;
 }
 
 #contentFooter li.first {
@@ -792,15 +905,15 @@ form {margin:0px; padding:0px;}
 }
 
 #footerText p {
-	font-size:.9em;
-	padding:0px 2px;
-	margin:0px;
+	font-size:.95em;
+	padding:0px 3px;
+	margin-top:2px;
 	line-height:130%;
 }
 
 #contentFooter li a, #footer li a:visited, #footerText a, #footerText a:visited {
 	font-size:1.1em;
-	color:#0033CC;
+	color:#FFFFFF;
 	text-decoration:none;
 	font-weight:bold;
 	margin:0;

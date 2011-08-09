@@ -19,27 +19,38 @@
 
 <!-- $Id: login.jsp 341 2007-04-26 22:58:44Z hiroki $ -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+<!DOCTYPE html>
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="teacherforgotstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-
-<script type="text/javascript" src="../../javascript/general.js"></script>	
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />	
 <title><spring:message code="forgot.teacher.error.1"/></title>
 </head>
 
 <body>
 
-<h2 id="heading"><spring:message code="forgot.teacher.error.2"/></h2>
-<h2 id="heading2"><spring:message code="forgot.teacher.error.3"/></h2>
-
-<div id="forgot2"> 
- <ul id="forgotList2">
-	<li> <b>${email}${username}</b>, <spring:message code="forgot.teacher.error.4"/></li>
- </ul>
+<div id="pageWrapper">
+	
+	<div id="page">
+		
+		<div id="pageContent" style="min-height:400px;">
+			<div id="headerSmall">
+				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+			</div>
+			
+			<div class="infoContent">
+				<div class="panelHeader"><spring:message code="forgot.teacher.error.2"/></div>
+				<div class="infoContentBox">
+					<div class="errorMsgNoBg"> 
+						<p><span style="font-weight:bold;">${email}${username}:</span> <spring:message code="forgot.teacher.error.4"/></p>
+					</div>
+					<div><a href="index.html"><spring:message code="lostpassword.teacher.try-again"/></a></div>
+				</div>
+				<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>
+			</div>
+		</div>
+	</div>
 </div>
  
 </body>
