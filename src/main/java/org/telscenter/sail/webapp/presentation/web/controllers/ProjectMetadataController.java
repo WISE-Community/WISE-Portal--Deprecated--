@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.NotAuthorizedException;
 
@@ -65,6 +66,25 @@ public class ProjectMetadataController extends AbstractController {
 							metadataJSONObj.put("parentProjectId", JSONObject.NULL);	
 						} else {
 							metadataJSONObj.put("parentProjectId", parentProjectId);							
+						}
+						
+						/*
+						 * get the relative project url
+						 * e.g.
+						 * /135/wise4.project.json
+						 */
+						String projectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+						
+						if(projectUrl != null) {
+							/*
+							 * get the project folder
+							 * e.g.
+							 * /135 
+							 */
+							String projectFolder = projectUrl.substring(0, projectUrl.lastIndexOf("/"));
+							
+							//put the project folder into the meta data JSON
+							metadataJSONObj.put("projectFolder", projectFolder);
 						}
 						
 						response.getWriter().write(metadataJSONObj.toString());
