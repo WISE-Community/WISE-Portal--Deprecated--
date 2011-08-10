@@ -104,6 +104,7 @@
 							type: 'post',
 							url: '/webapp/author/authorproject.html',
 							data: 'forward=filemanager&projectId=' + pID + '&command=copyProject',
+							dataType:'text',
 							success: function(response){
 								/*
 								 * response is the new project folder
@@ -122,6 +123,7 @@
 									type: 'post',
 									url: '/webapp/author/authorproject.html',
 									data: 'command=createProject&parentProjectId='+pID+'&projectPath=' + projectPath + '&projectName=' + escapedName,
+									dataType:'text',
 									success: function(response){
 										var successText = '<p>Successfully copied ' + name + '!</p><p>Click OK to reload the Project Library.</p>';
 										processCopyResult(this,successText,true);
