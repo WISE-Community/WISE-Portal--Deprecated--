@@ -20,13 +20,14 @@
 			</div>
 			<div id="footerText">
 				<ul>
-					<li class="first"><a href="/webapp/"><spring:message code="footer.link5" /></a></li>
-					<li class="first"><a href="/webapp/signup.html"><spring:message code="footer.link1" /></a></li>
-					<li class="footerNav2"><a href="/webapp/pages/gettingstarted.html"><spring:message code="footer.link6" /></a></li>
-					<li class="footerNav2"><a href="/webapp/pages/teacherfaq.html"><spring:message code="footer.link7" /></a></li>
-					<li class="footerNav2 last"><a href="/webapp/contactwisegeneral.html"><spring:message code="footer.link2" /></a></li>
-					<!-- <li class="footerNav2"><a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="footer.link3" /></a></li> -->
-					<!-- <li class="footerNav2 last"><a href="credits.html"><spring:message code="footer.link4" /></a></li> -->
+					<li class="first"><a href="/webapp/index.html"><spring:message code="footer.link5" /></a></li>
+					<li><a href="/webapp/signup.html"><spring:message code="footer.link1" /></a></li>
+					<li><a href="/webapp/pages/features.html"><spring:message code="footer.link6" /></a></li>
+					<li><a href="/webapp/pages/teacher-tools.html"><spring:message code="footer.link7" /></a></li>
+					<li><a href="/webapp/pages/wise-advantage.html"><spring:message code="footer.link8" /></a></li>
+					<li class="last"><a href="/webapp/contactwisegeneral.html"><spring:message code="footer.link2" /></a></li>
+					<!-- <li><a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="footer.link3" /></a></li> -->
+					<!-- <li class="last"><a href="credits.html"><spring:message code="footer.link4" /></a></li> -->
 				</ul>
 	
 				<p><spring:message code="footer.legal1" /></p>

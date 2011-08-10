@@ -15,6 +15,7 @@
 <link href="<spring:theme code="globalstyles"/>" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="homepagestylesheet"/>" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="jqueryjscrollpane.css"/>" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="jquerystylesheet"/>" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="nivoslider.css"/>" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="nivoslider-wise.css"/>" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="tinycarousel.css"/>" rel="stylesheet" type="text/css" />
@@ -43,6 +44,29 @@
 		$('.tinycarousel').tinycarousel({ axis: 'y', pager: true, duration:500 });
 		
 		loadProjectThumbnails();
+		
+		// Set up view project details click action for each project id link
+		$('a.projectDetail').live('click',function(){
+			var title = $(this).attr('title');
+			var projectId = $(this).attr('id').replace('projectDetail_','');
+			var path = "/webapp/teacher/projects/projectinfo.html?projectId=" + projectId;
+			var div = $('#projectDetailDialog').html('<iframe id="projectIfrm" width="100%" height="100%"></iframe>');
+			$('body').css('overflow-y','hidden');
+			div.dialog({
+				modal: true,
+				width: '800',
+				height: '400',
+				title: title,
+				position: 'center',
+				close: function(){ $(this).html(''); $('body').css('overflow-y','auto'); },
+				buttons: {
+					Close: function(){
+						$(this).dialog('close');
+					}
+				}
+			});
+			$("#projectDetailDialog > #projectIfrm").attr('src',path);
+		});
 	});
 	
 	$(window).load(function() {
@@ -147,7 +171,7 @@
 					</div>
 				</div>
 				<div id="news">
-					<div class="panelHead"><spring:message code="home.latestnewslabel" /><a class="panelLink" title="News Archive">more news +</a></div>
+					<div class="panelHead"><spring:message code="home.latestnewslabel" /><!-- <a class="panelLink" title="News Archive">more news +</a> --></div>
 					<div id="newsContent">
 						<c:forEach var="newsItem" items="${newsItems}">
 							<p class="newsTitle">${newsItem.title}<span class="newsDate"><fmt:formatDate value="${newsItem.date}" type="date" dateStyle="medium" /></span></p>
@@ -166,7 +190,7 @@
 				<div id="features">
 					<div id="featureHeader" class="feature"><span class="featureContent">WISE Features</span></div>
 					<div id="featuresContent">
-						<p><a href="/webapp/pages/learning-environment.html">Learning Environment +</a></p>
+						<p><a href="/webapp/pages/features.html">Learning Environment +</a></p>
 						<p><a href="/webapp/pages/teacher-tools.html">Teacher Tools +</a></p>
 						<p><a href="/webapp/pages/gettingstarted.html">Getting Started +</a></p>
 						<p id="checkCompatibility"><a href="/webapp/check.html">Check Compatibility +</a></p>
@@ -189,7 +213,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a href="">More Details +</a><a href="">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -216,7 +240,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a href="">More Details +</a><a href="">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -243,7 +267,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a href="">More Details +</a><a href="">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -270,7 +294,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a href="">More Details +</a><a href="">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -297,7 +321,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a href="">More Details +</a><a href="">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -324,7 +348,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a href="">More Details +</a><a href="">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -344,7 +368,7 @@
 			</div>
 			
 			<div class="showcase">
-				<a id="wiseAdvantage" href="" class="panelSection">
+				<a id="wiseAdvantage" href="/webapp/pages/wise-advantage.html" class="panelSection">
 					<div class="panelHead"><span>The WISE Advantage</span><span class="panelLink">+</span></div>
 					<div class="panelContent"><img src="/webapp/themes/tels/default/images/home/wise-in-classroom.png" alt="WISE in Classroom" /></div>
 				</a>
@@ -368,175 +392,10 @@
 				<div id="openSourceContent">WISE software is free to use and open source. Visit <a href="http://wise4.org" target="_blank">http://wise4.org</a> to learn about partnership opportuniies.</div>
 			</div>
 	
-			<!--<div id="contentTop">
-				 <div id="boxWelcome" class="panelColor1 panel">
-					<div class="header"><spring:message code="welcometowise" /></div>
-				
-					<div id="parastyleTable">
-				
-						<ul id="welcomeTextLinks">
-								<li><a class="welcomeLink active"><spring:message code="whatiswise" /></a></li>
-								<li><a class="welcomeLink"><spring:message code="curriculumbased" /></a></li>
-								<li><a class="welcomeLink"><spring:message code="inquiryprojects" /></a></li>
-								<li><a class="welcomeLink"><spring:message code="studentengagement" /></a></li>
-								<li><a class="welcomeLink"><spring:message code="interactivemodels" /></a></li>
-								<li><a class="welcomeLink"><spring:message code="onlinegrading" /></a></li>
-								<li><a class="welcomeLink"><spring:message code="freeandopensource" /></a></li>
-						</ul>
-					
-						<p class="smallText"><spring:message code="clickabovefordetails" /></p>
-				
-					</div>
-					
-					<div id="welcomeBulletContainer">
-						<div class="welcomeBullet" style="">
-							<div class="welcomeBulletHeader"><spring:message code="whatiswiseheader" /></div>
-							<p><spring:message code="whatiswisebullet" /></p><br/>
-							<p><spring:message code="whatiswisebullet2" htmlEscape="yes" /></p>
-						</div>
-						
-						<div class="welcomeBullet" style="display: none;">
-							<div class="welcomeBulletHeader"><spring:message code="curriculumbasedheader" /></div>
-							<p><spring:message code="curriculumbasedbullet" /></p>
-						</div>
-				
-						<div class="welcomeBullet" style="display: none;">
-							<div class="welcomeBulletHeader"><spring:message code="inquiryprojectsheader" /></div>
-							<p><spring:message code="inquiryprojectsbullet" /></p>
-						</div>
-				
-						<div class="welcomeBullet" style="display: none;">
-							<div class="welcomeBulletHeader"><spring:message code="studentengagementheader" /></div>
-							<p><spring:message code="studentengagementbullet" /></p>
-						</div>
-				
-						<div class="welcomeBullet" style="display: none;">
-							<div class="welcomeBulletHeader"><spring:message code="interactivemodelsheader" /></div>
-							<p><spring:message code="interactivemodelsbullet" /></p>
-						</div>
-				
-						<div class="welcomeBullet" style="display: none;">
-							<div class="welcomeBulletHeader"><spring:message code="teachertoolsheader" /></div>
-							<p><spring:message code="teachertoolsbullet" /></p>
-						</div>
-				
-						<div class="welcomeBullet" style="display: none;">
-							<div class="welcomeBulletHeader"><spring:message code="freeandopensourceheader" /></div>
-							<p><spring:message code="freeandopensourcebullet" /></p>
-						</div>
-					</div>
-				
-					<ul id="welcomeButtons">
-						<li><a href="signup.html" class="wisebutton" title="<spring:message code="createaccounttitle"/>"><spring:message code="createaccountlink"/></a></li>
-						<li><a href="previewprojectlist.html" class="wisebutton" title="<spring:message code="instantpreviewtitle"/>"><spring:message code="instantpreviewlink"/></a></li>
-						<li><a href="wiseoverview.html" class="wisebutton" title="<spring:message code="animatedoverviewtitle"/>"><spring:message code="animatedoverviewlink"/></a></li>
-						<li><a href="./contactwisegeneral.html" class="wisebutton" title="<spring:message code="contacttitle"/>"><spring:message code="contactlink"/></a></li>
-						<li><a href="./check.html" class="wisebutton" title="<spring:message code="checkcompatibilitytitle"/>"><spring:message code="checkcompatibilitylink"/></a></li>
-					</ul>
-				</div>  -->
-				<!--    End of Welcome Box-->
-			
-				<!-- <div id="signInHome">
-					<div id="signInSub1" class="panelColor2 panel signinSub">
-						<div class="header"><spring:message code="signinheader" /></div>
-			
-						<form id="home" method="post" action="j_acegi_security_check" autocomplete="off">
-							<div id="signinForm">
-								<div>
-									<label for="username"><spring:message code="username" /><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60" /></label>
-								</div>
-								<div>
-									<label for="password"><spring:message code="password" /><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30" /></label>
-								</div>
-								<input type="submit" id="signInButton" name="signInButton" class="wisebutton smallbutton" value="<spring:message code="signinbutton"/>"></input>
-							</div>
-						</form>
-			
-						<ul id="signInLinkPosition">
-							<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink"><spring:message code="forgotaccountinfo" /></a></li>
-							<li><a href="signup.html" id="joinlink"><spring:message code="createanewwiseaccount" /></a></li>
-						</ul>
-					</div>
-			
-					<div id="signInSub2" class="panelColor3 panel signinSub">
-						<div class="header"><spring:message code="researchdevelop1" /></div>
-						<div id="researcherText">
-							<p><spring:message code="researchdevelop2" />
-							<a href="/webapp/pages/gettingstarted.html" target="_blank"><spring:message code="researchdevelopGettingStartedGuide" /></a>
-							<spring:message code="researchdevelop3" /></p>
-						</div>
-					</div>
-				</div>
-			</div> -->
-			<!--  End contentTop -->
-
-			<!-- <div id="contentBottom">
-				<div id="boxWiseInAction"  class="bottomPanel first">
-					<div class="panelColor1 panel">
-						<div class="header"><spring:message code="home.wiseinactionlabel" /></div>
-			
-						<div class="alignCenter"><img id="rotator" src="./themes/tels/default/images/wiseInAction/AirBag.jpg" style="height:228px;" /></div>
-			
-						<div id="actionNavTable" class="alignCenter">
-							<img src="./themes/tels/default/images/wiseInAction/Arrow_Previous.png" class="dynamicImage" id="actionPrevTable"
-								onmouseover="this.style.cursor='pointer';" onmousedown="this.style.cursor='pointer';"
-								onmouseup="this.style.cursor='pointer';" onmouseout="this.style.cursor='default';"
-								onclick="counter=proceedToPreviousImage(counter); changeText('actionImgLinkTable',counter);" />
-			
-						<span id="actionImgLinkTable">1&nbsp;<spring:message code="home.wiseinactioncounter" />&nbsp;10</span>
-							<img id="actionNextTable" src="./themes/tels/default/images/wiseInAction/Arrow_Next.png"
-								onmouseover="this.style.cursor='pointer';" onmousedown="this.style.cursor='pointer';"
-								onmouseup="this.style.cursor='pointer';" onmouseout="this.style.cursor='default';"
-								onclick="counter=proceedToNextImage(counter); changeText('actionImgLinkTable',counter);" />
-						</div>
-					</div>
-				</div> -->
-				<!--    End of boxWISEInAction  -->
-		
-				<!-- <div id="boxTestimonials"  class="bottomPanel">
-					<div class="panelColor1 panel">
-						<div class="header"><spring:message code="home.testimonialslabel" /></div>
-						<div class="alignCenter"><img class="dataBoxStyle" id="rotatorT"
-								src="./themes/tels/default/images/testimonial_1.png" style="height:226px;" /></div>
-			
-						<div id="testimonialsNavTable" class="alignCenter">
-							<img id="test_prev" class="dynamicImage"
-								src="./themes/tels/default/images/wiseInAction/Arrow_Previous.png" onmouseover="this.style.cursor='pointer';"
-								onclick="counter_T=proceedToPreviousImage_T(counter_T); changeText_T('testimonialsImgLinkTable',counter_T);"
-								onmousedown="this.style.cursor='pointer';" onmouseup="this.style.cursor='pointer';"
-								onmouseout="this.style.cursor='default';" />
-							<span id="testimonialsImgLinkTable">1 <spring:message code="home.testimonialscounter" /> 5</span>
-							<img id="test_next" class="dynamicImage"
-								src="./themes/tels/default/images/wiseInAction/Arrow_Next.png" onmouseover="this.style.cursor='pointer';"
-								onmousedown="this.style.cursor='pointer';" onmouseup="this.style.cursor='pointer';"
-								onmouseout="this.style.cursor='default';"
-								onclick="counter_T=proceedToNextImage_T(counter_T); changeText_T('testimonialsImgLinkTable',counter_T);" />
-						</div>
-					</div>
-				</div> -->
-				<!--    End of boxTestimonials  -->
-		
-				<!-- <div id="boxLatestNews" class="bottomPanel last">
-					<div class="panelColor1 panel">
-						<div class="header"><spring:message code="home.latestnewslabel" /></div>
-						<div id="newsContent">
-							<div id="newsContentHeader">${newsItem.title}</div>${newsItem.news}
-						</div>
-			
-						<div class="alignCenter">
-							<a id="newsArchive" href="./newsarchive.html" class="wisebutton minibutton" title="<spring:message code="home.newsarchive"/>"><spring:message code="home.newsarchive"/></a>
-						</div>
-					</div>
-				</div> -->
-				<!--    End of boxLatestNews  
-			</div>-->
-			<!--  End of contentBottom -->
-		</div>
-	</div> <!-- End of page -->
-	
 	<%@ include file="footer.jsp"%>
 
 </div>
+<div id="projectDetailDialog" style="overflow:hidden;" class="dialog"></div>
 </body>
 
 </html>

@@ -15,7 +15,6 @@
 <link href="<spring:theme code="jquerystylesheet"/>" rel="stylesheet" type="text/css" />
 
 <script src="<spring:theme code="jquerysource"/>" type="text/javascript"></script>
-<script src="<spring:theme code="jqueryuisource"/>" type="text/javascript"></script>
 
 <link rel="shortcut icon" href="<spring:theme code="favicon"/>" />
 

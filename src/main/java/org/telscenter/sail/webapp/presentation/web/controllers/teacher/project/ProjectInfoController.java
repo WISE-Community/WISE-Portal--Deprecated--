@@ -75,14 +75,14 @@ public class ProjectInfoController extends AbstractController {
 			HttpServletResponse response) throws Exception {
 		String projectIdStr = request.getParameter(PROJECTID_PARAM_NAME);
 		Project project = projectService.getById(projectIdStr);
-		User user = ControllerUtil.getSignedInUser();
+		//User user = ControllerUtil.getSignedInUser();
 		Set<String> telslibrary = new TreeSet<String>();
 		telslibrary.add("library");
 
 		if(project != null){
-			if(this.projectService.canReadProject(project, user)
-				|| this.projectService.canAuthorProject(project, user)
-				||	project.hasTags(telslibrary)){
+			//if(this.projectService.canReadProject(project, user)
+				//|| this.projectService.canAuthorProject(project, user)
+				//||	project.hasTags(telslibrary)){
 				ModelAndView modelAndView = new ModelAndView();
 				modelAndView.addObject(PROJECT_PARAM_NAME, project);
 				modelAndView.addObject(USAGE, this.runService.getProjectUsage((Long)project.getId()));
@@ -104,9 +104,9 @@ public class ProjectInfoController extends AbstractController {
 				}
 				
 				return modelAndView;
-			} else {
-				return new ModelAndView(new RedirectView("../../accessdenied.html"));
-			}
+			//} else {
+				//return new ModelAndView(new RedirectView("../../accessdenied.html"));
+			//}
 		} else {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Cannot determine project to retrieve info for.");
 			return null;
