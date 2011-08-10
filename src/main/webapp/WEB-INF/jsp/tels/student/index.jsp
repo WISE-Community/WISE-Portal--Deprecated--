@@ -8,8 +8,6 @@
 <meta http-equiv="X-UA-Compatible" content="chrome=1" />
 <title><spring:message code="application.title" /></title>
 
-<%@ include file="styles.jsp"%>
-
 <script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="jqueryuisource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="jquerycookiesource"/>"></script>
@@ -19,11 +17,6 @@
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 
 <link href="<spring:theme code="jquerystylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<style>
-.yui-panel-container select {
-              _visibility: inherit;
-}
-</style>
 
 <script type="text/javascript">
 // only alert user about browser comptibility issue once.
@@ -33,6 +26,7 @@ if ($.cookie("hasBeenAlertedBrowserCompatibility") != "true") {
 $.cookie("hasBeenAlertedBrowserCompatibility","true");    
 
 $(document).ready(function() {
+	// create add project dialog
 	$("#addprojectLink").bind("click", function() {
 		var addProjectDialogHtml = '<div style="display:none" id="addProjectDialog">'+
 		'<iframe id="addProjectFrame" src="addproject.html" width="100%" height="99%" frameborder="0" allowTransparency="false"> </iframe>'+			
@@ -48,7 +42,30 @@ $(document).ready(function() {
 			height:400,
 			title: '<spring:message code="student.index.44"/>'
 		});
-	})
+
+	});
+
+	// create change password dialog
+	$("#changePasswordLink").bind("click", function() {
+		var changePasswordDialogHtml = '<div style="display:none" id="changePasswordDialog">'+
+		'<iframe id="changePasswordFrame" src="changestudentpassword.html" width="100%" height="99%" frameborder="0" allowTransparency="false"> </iframe>'+			
+		'</div>';
+		if ($("#changePasswordDialog").length == 0) {
+			$("#centeredDiv").append(changePasswordDialogHtml);	
+		}
+		$("#changePasswordDialog").dialog({
+			position:["center","center"],
+			modal:true,
+			resizable:false,
+			width:600,
+			height:400,
+			title: 'Change Password'
+		});
+
+	});
+
+	// make tabs for current/archived runs
+    $("#tabSystem").tabs();		
 });
 </script>
 
@@ -63,170 +80,6 @@ $(document).ready(function() {
   	   document.getElementById(linkID).style.color='#666666';
   	}
 </script>
-
-<script>
-
-	function init() {
-	    //create logger
-	  //  var myContainer = document.body.appendChild(document.createElement("div")); 
-	//	var myLogReader = new YAHOO.widget.LogReader(myContainer);
-	 
-   		var tabView = new YAHOO.widget.TabView('tabSystem');
-
-		function runObject(id){
-				this.runId=id;
-		}
-	
-		var oRun =new runObject(null);
-		
-   	//add new announcements dialog ----------------------------------
-
-    // Define various event handlers for Dialog
-	var handleCancel = function() {
-		this.cancel();
-	};
-    
-    var checkNewAnnouncements = function(dialog){
-    	var newAnnouncement = false;
-    	var announcementHTML = "";
-    	<c:forEach var="runInfo" items="${current_run_list}">
-    		<c:forEach var="announcement" items="${runInfo.run.announcements}">
-    			<c:if test="${user.userDetails.lastLoginTime < announcement.timestamp || user.userDetails.lastLoginTime == null}">
-    				newAnnouncement = true;
-    				announcementHTML = announcementHTML + "<tr><td align='center'><h3>${announcement.title} (posted on:" + "${announcement.timestamp})</h3>" + "${announcement.announcement}<br><br></td></tr>";
-   			</c:if>
-    		</c:forEach>
-    	</c:forEach>
-    	
-    	if(newAnnouncement){
-    		document.href="viewannouncements.html";
-    	};
-    };
-    
-    //YAHOO.util.Event.onDOMReady(getNewAnnouncements(newAnnouncementsDialog));
-    //checkNewAnnouncements();
-    
-    	//Change Period or Team PopUp dialog ----------------------------------
-
-    // Define various event handlers for Dialog
-
-	var handleCancel = function() {
-		this.cancel();
-		document.getElementById('changePeriodTeamFrame').src=' ';
-		//reload the page
-		//window.location.reload();
-	};
-
-	// Instantiate the Dialog
-	var changePeriodTeamDialog = new YAHOO.widget.Dialog("changePeriodTeamDialog", 
-		{ width : "700px",
-		//  height : "70%",
-		  fixedcenter : true,
-		  visible : false, 
-		  iframe : true,
-		  //ie7 modal problem
-		  //modal:false,
-		  constraintoviewport : true,
-		  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
-		  buttons : [ 
-					  {text:"Close", handler:handleCancel,isDefault:true } ]
-		 } );
-	
-	
-    changePeriodTeamDialog.render();
-    
-    var btns2 = YAHOO.util.Dom.getElementsByClassName("changePeriodTeamLink", "a");
-         
-    YAHOO.util.Event.on(btns2, "click", function(e, panel) {
-                	YAHOO.log('RUNG id ' + this.id);
-                	document.getElementById('changePeriodTeamFrame').src='changeperiodteam.html' 
-                	changePeriodTeamDialog.show();
-    }, changePeriodTeamDialog);
-    
-    
-    
-     //change password dialog  -----------------
-      
-    var handleClosePassword = function() {
-		this.cancel();
-		document.getElementById('changePasswordFrame').src=' ';
-		//reload the page
-		//window.location.reload();
-	};
-	
-	// Instantiate the Dialog
-	var changePasswordDialog = new YAHOO.widget.Dialog("changePasswordDialog", 
-		{ width : "700px",
-		  // height : "300px",
-		  fixedcenter : true,
-		  visible : false, 
-		  iframe : true,
-		  //ie7 modal problem
-		  //modal:false,
-		  constraintoviewport : true,
-		  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
-		  buttons : [ 
-					  { text:"Close", handler:handleClosePassword,isDefault:true } ]
-		 } );
-	
-	
-	// Render the Dialog
-	changePasswordDialog.render();
-
-    
-    var btns2 = YAHOO.util.Dom.getElementsByClassName("changepasswordLink", "a");
-				
-	YAHOO.log('btns2 ' + btns2);
-         
-    YAHOO.util.Event.on(btns2, "click", function(e, panel) {
-                	YAHOO.log('RUNG id ' + this.id);                	
-                	document.getElementById('changePasswordFrame').src='changestudentpassword.html';
-                	changePasswordDialog.show();
-    }, changePasswordDialog);
-    
-    //run Project dialog -----------------------
-    
-    var handleCloseRun = function() {
-		this.cancel();
-		document.getElementById('runProjectFrame').src=' ';
-		//reload the page
-		//window.location.reload();
-	};
-	
-	// Instantiate the Dialog
-	var runProjectDialog = new YAHOO.widget.Dialog("runProjectDialog", 
-		{ width : "700px",
-		//  height : "70%",
-		  fixedcenter : true,
-		  visible : false, 
-		  iframe : true,
-		  //ie7 modal problem
-		  //modal:false,
-		  constraintoviewport : true,
-		  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
-		  buttons : [ 
-					  { text:"Close", handler:handleCloseRun,isDefault:true } ]
-		 } );
-	
-	// Render the Dialog
-	runProjectDialog.render();
-
-    
-    var btns2 = YAHOO.util.Dom.getElementsByClassName("runProjectLink", "a");
-				
-	YAHOO.log('btns2 ' + btns2);
-         
-    YAHOO.util.Event.on(btns2, "click", function(e, panel) {
-                	YAHOO.log('RUNG id ' + this.id);
-                	document.getElementById('runProjectFrame').src='selectteam.html?runId=' + this.id;
-                	runProjectDialog.show();
-    }, runProjectDialog);
-
-}
-
-YAHOO.util.Event.onDOMReady(init);
-</script>
-
 
 <!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
 <!--[if lt IE 7]>
@@ -253,15 +106,6 @@ YAHOO.util.Event.onDOMReady(init);
 </style>
 <![endif]-->
 
-<script src=".././javascript/tels/classAnim.js" type="text/javascript" > </script>
-<script>  YAHOO.util.Event.onAvailable("TestClassAnim", function(){ var anim = new 
-		  YAHOO.mozmonkey.ClassAnim("TestClassAnim"); var start = 0; 
-		  YAHOO.util.Event.addListener("TestClassAnim", "mouseover", function(){ anim.addClass("classAnimHover"); }); 
-		  YAHOO.util.Event.addListener("TestClassAnim", "mouseout", function(){ anim.removeClass("classAnimHover"); }); 
-		  YAHOO.util.Event.addListener("TestClassAnim", "click", function(){ if(start == 0){ start = 1; anim.addClass("classAnim2"); } else{ start = 0; anim.removeClass("classAnim2"); } }); 
-		  }); 
-		  </script>
-
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="studenthomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
@@ -269,13 +113,13 @@ YAHOO.util.Event.onDOMReady(init);
 
 </head>
 
-<body class="yui-skin-sam">
+<body>
 
 <div id="centeredDiv">
 
 	<%@ include file="./studentHeader.jsp"%>
-	
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	
 	<%@page import="java.util.*" %>
 	
 	<div id="columnButtons">
@@ -315,16 +159,15 @@ YAHOO.util.Event.onDOMReady(init);
 			</li>
 				
 			<!-- note: to make the change to student password into AJAX, type in class="changepasswordLink" -->	
-			
+<!-- 			
 			<li><a href="#"
 		        onclick=""	
 				onmouseover="swapImage('studentopenjournal','<spring:theme code="student_open_journal_roll" />');"
 				onmouseout="swapImage('studentopenjournal','<spring:theme code="student_open_journal" />');"	>
 				<img id="studentopenjournal" src="<spring:theme code="student_open_journal" />"
 				style="border: 0px;" /> </a></li>
-				
-			<li><a href="#"
-		        onclick="javascript:popup640('changestudentpassword.html');"	
+ -->				
+			<li><a id="changePasswordLink" href="#"		        	
 				onmouseover="swapImage('studentchangepwd','<spring:theme code="student_change_password_roll" />');"
 				onmouseout="swapImage('studentchangepwd','<spring:theme code="student_change_password" />');"
 				> <img
@@ -388,245 +231,207 @@ YAHOO.util.Event.onDOMReady(init);
 
 		<div id="columnLabel"><spring:message code="student.index.13"/></div>
 	
-		<div id="tabSystem" class="yui-navset">
-	   		<ul style="font-size:.8em;" class="yui-nav">
-	        	<li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em><spring:message code="student.index.14"/></em></a></li>
-	        	<li><a href="#archivedRuns"><em><spring:message code="student.index.15"/></em></a></li>
+		<div id="tabSystem">
+	   		<ul style='height:40px'>   <!-- HT says: I don't know why but if I don't set height, the ul's height is much larger than it should be. -->
+	        	<li><a href="#currentRuns"><spring:message code="student.index.14"/></a></li>
+	        	<li><a href="#archivedRuns"><spring:message code="student.index.15"/></a></li>
 	    	</ul>            
-	    	<div class="yui-content" style="background-color:#FFFFFF;">
-				<div id="currentRuns">
-					<c:choose>
-					<c:when test="${fn:length(current_run_list) > 0}" >
-				
-					<c:forEach var="studentRunInfo"  items="${current_run_list}">
-						
-						<table id="currentRunTable" >
-				
-							<tr id="projectMainRow">
-								<td class="studentTableLeftHeaderCurrent"><spring:message code="student.index.16"/></td>
-								<td>
-									<div id="studentTitleText">${studentRunInfo.run.name}</div>
-								</td>
-								<td rowspan="5" style="width:30%; padding:2px;">
-									<ul id="studentActionList">   
-											
-										<c:choose>
-											<c:when test="${studentRunInfo.workgroup == null}">
-												<li class="startProject"><a href='startproject.html?runId=${studentRunInfo.run.id}' id='${studentRunInfo.run.id}' ><spring:message code="student.index.17"/></a></li>
-											</c:when>
-											<c:otherwise>
-												<c:choose>
-													<c:when test="${fn:length(studentRunInfo.workgroup.members) == 1}">
-														<li class="startProject"><a href="startproject.html?runId=${studentRunInfo.run.id}" 
-															id='${studentRunInfo.run.id}' onclick="javascript:invalidateLink('${studentRunInfo.run.id}');"><spring:message code="student.index.17"/></a></li>
-													</c:when>
-													<c:otherwise>
-														<li class="startProject"><a href='teamsignin.html?runId=${studentRunInfo.run.id}';  
-															id='${studentRunInfo.run.id}' class=""><spring:message code="student.index.17"/></a></li>
-													</c:otherwise>														
-												</c:choose>
-												<!--  
-												<c:if test="${not empty studentRunInfo.run.brainstorms}" >
-				            						<c:forEach var="brainstorm" items="${studentRunInfo.run.brainstorms}">
-				                						<li><a href="brainstorm/studentbrainstorm.html?brainstormId=${brainstorm.id}">View Q&amp;A Discussion</a></li>
-				            						</c:forEach>
-				    							</c:if>	
-				    							-->
-											</c:otherwise>
-										</c:choose>
-										<!--  
-										<li><a href="${studentRunInfo.workgroup.workPDFUrl}"><spring:message code="student.index.18"/></a></li>
-										<li style="display:none;"><a style="letter-spacing:0px;" href="javascript:popup('changeperiodteam.html');"><spring:message code="student.index.19"/></a></li>
-										-->
-										<li><a href="viewannouncements.html?runId=${studentRunInfo.run.id}">View Announcements</a></li>
-										<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}"><spring:message code="student.index.20"/></a></li>
-									</ul>
-							 	</td>
-							</tr>
-							<tr>
-								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent">Access Code</td>
-								<td id="secondaryRowTightFormat" >${studentRunInfo.run.runcode}-${studentRunInfo.group.name}</td>
-						  	</tr>	
-							<tr>
-								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent"><spring:message code="student.index.22"/></td>
-								<td id="secondaryRowTightFormat" >
+			<div id="currentRuns">
+				<c:choose>
+				<c:when test="${fn:length(current_run_list) > 0}" >
+			
+				<c:forEach var="studentRunInfo"  items="${current_run_list}">
+					
+					<table id="currentRunTable" >
+			
+						<tr id="projectMainRow">
+							<td class="studentTableLeftHeaderCurrent"><spring:message code="student.index.16"/></td>
+							<td>
+								<div id="studentTitleText">${studentRunInfo.run.name}</div>
+							</td>
+							<td rowspan="5" style="width:30%; padding:2px;">
+								<ul id="studentActionList">   
+										
 									<c:choose>
-									<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
-										<c:forEach var="member" items="${studentRunInfo.run.owners}">
-											${member.userDetails.displayname}
-										</c:forEach>
-									</c:when>
-									<c:otherwise>
-										<spring:message code="student.index.23"/>
-									</c:otherwise>	
-						      		</c:choose>
-								</td>
-								</tr>
-							<tr>
-								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent"><spring:message code="student.index.24"/></td>
-								<td id="secondaryRowTightFormat" >${studentRunInfo.group.name} <span id="periodMessage">(to change period or team ask your teacher for help)</span></td>
-						  	
-						  	</tr>
-							<tr>
-								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent"><spring:message code="student.index.25"/></td>
-								<td id="secondaryRowTightFormat" >
-									<c:choose>
-									<c:when test="${studentRunInfo.workgroup != null}" >
-										<c:forEach var="member" varStatus="membersStatus" items="${studentRunInfo.workgroup.members}">
-										${member.userDetails.username}
-								 		   <c:if test="${membersStatus.last=='false'}">
-					     					&
-					    				</c:if> 
-										</c:forEach>
-									</c:when>
-									<c:otherwise>
-										<div class="teamNotRegisteredMessage"><spring:message code="student.index.26"/></div>  
-									</c:otherwise>	
-						      		</c:choose>
-								</td>
+										<c:when test="${studentRunInfo.workgroup == null}">
+											<li class="startProject"><a href='startproject.html?runId=${studentRunInfo.run.id}' id='${studentRunInfo.run.id}' ><spring:message code="student.index.17"/></a></li>
+										</c:when>
+										<c:otherwise>
+											<c:choose>
+												<c:when test="${fn:length(studentRunInfo.workgroup.members) == 1}">
+													<li class="startProject"><a href="startproject.html?runId=${studentRunInfo.run.id}" 
+														id='${studentRunInfo.run.id}' onclick="javascript:invalidateLink('${studentRunInfo.run.id}');"><spring:message code="student.index.17"/></a></li>
+												</c:when>
+												<c:otherwise>
+													<li class="startProject"><a href='teamsignin.html?runId=${studentRunInfo.run.id}';  
+														id='${studentRunInfo.run.id}' class=""><spring:message code="student.index.17"/></a></li>
+												</c:otherwise>														
+											</c:choose>
+											<!--  
+											<c:if test="${not empty studentRunInfo.run.brainstorms}" >
+			            						<c:forEach var="brainstorm" items="${studentRunInfo.run.brainstorms}">
+			                						<li><a href="brainstorm/studentbrainstorm.html?brainstormId=${brainstorm.id}">View Q&amp;A Discussion</a></li>
+			            						</c:forEach>
+			    							</c:if>	
+			    							-->
+										</c:otherwise>
+									</c:choose>
+									<li><a href="viewannouncements.html?runId=${studentRunInfo.run.id}">View Announcements</a></li>
+									<li><a href="../contactwiseproject.html?projectId=${studentRunInfo.run.project.id}"><spring:message code="student.index.20"/></a></li>
+								</ul>
+						 	</td>
+						</tr>
+						<tr>
+							<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent">Access Code</td>
+							<td id="secondaryRowTightFormat" >${studentRunInfo.run.runcode}-${studentRunInfo.group.name}</td>
+					  	</tr>	
+						<tr>
+							<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent"><spring:message code="student.index.22"/></td>
+							<td id="secondaryRowTightFormat" >
+								<c:choose>
+								<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
+									<c:forEach var="member" items="${studentRunInfo.run.owners}">
+										${member.userDetails.displayname}
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<spring:message code="student.index.23"/>
+								</c:otherwise>	
+					      		</c:choose>
+							</td>
 							</tr>
-						</table>	
-					</c:forEach>
-					</c:when>
-					<c:otherwise>
-						<spring:message code="student.index.27"/>			    
-					</c:otherwise>
-					</c:choose>
-					<div id="firstUseBox">
-						<div id="firstUseHeader"><spring:message code="student.index.28"/></div>
-						<div id="instructionsArea">
-							<h6><spring:message code="student.index.29"/></h6>
-							<ol>
-								<li><spring:message code="student.index.30A"/></li>
-								<li><spring:message code="student.index.30C"/></li>
-								<li><spring:message code="student.index.31"/></li>
-								<li><spring:message code="student.index.32"/></li>
-							</ol>
-						</div>
+						<tr>
+							<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent"><spring:message code="student.index.24"/></td>
+							<td id="secondaryRowTightFormat" >${studentRunInfo.group.name} <span id="periodMessage">(to change period or team ask your teacher for help)</span></td>
+					  	
+					  	</tr>
+						<tr>
+							<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent"><spring:message code="student.index.25"/></td>
+							<td id="secondaryRowTightFormat" >
+								<c:choose>
+								<c:when test="${studentRunInfo.workgroup != null}" >
+									<c:forEach var="member" varStatus="membersStatus" items="${studentRunInfo.workgroup.members}">
+									${member.userDetails.username}
+							 		   <c:if test="${membersStatus.last=='false'}">
+				     					&
+				    				</c:if> 
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<div class="teamNotRegisteredMessage"><spring:message code="student.index.26"/></div>  
+								</c:otherwise>	
+					      		</c:choose>
+							</td>
+						</tr>
+					</table>	
+				</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<spring:message code="student.index.27"/>			    
+				</c:otherwise>
+				</c:choose>
+				<div id="firstUseBox">
+					<div id="firstUseHeader"><spring:message code="student.index.28"/></div>
+					<div id="instructionsArea">
+						<h6><spring:message code="student.index.29"/></h6>
+						<ol>
+							<li><spring:message code="student.index.30A"/></li>
+							<li><spring:message code="student.index.30C"/></li>
+							<li><spring:message code="student.index.31"/></li>
+							<li><spring:message code="student.index.32"/></li>
+						</ol>
 					</div>
 				</div>
-				<div id="archivedRuns">
-					<div id="archivedAdvisory">NOTICE: Archived Project Runs can be run and viewed. But any changes you make to an Archived Project Run will not be saved. 
-	If you want to save work to an archived project run, ask your teacher to change its status back to "Current Project Run".</div> 
-	
-					<c:choose>
-					<c:when test="${fn:length(ended_run_list) > 0}" >
-					<c:forEach var="studentRunInfo"  items="${ended_run_list}">
-						<table id="currentRunTable" >
-			
-							<tr id="projectMainRow">
-								<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.35"/></td>
-								<td id="studentCurrentTitleCell">
-									<div id="studentTitleText">${studentRunInfo.run.name}</div></td>
-								<td rowspan="5" style="width:27%; padding:2px;">
-								  	<ul id="studentActionList">
-										<li><c:choose>
-											<c:when test="${studentRunInfo.workgroup == null}">
-												<a href="#" id='${studentRunInfo.run.id}' class="runProjectLink"><spring:message code="student.index.36"/></a>
-											</c:when>
-											<c:otherwise>
-												<c:choose>
-													<c:when
-														test="${fn:length(studentRunInfo.workgroup.members) == 1}">
-														<a href="${studentRunInfo.startProjectUrl}"
-															id='${studentRunInfo.run.id}' class=""><spring:message code="student.index.36"/></a>
-													</c:when>
-													<c:otherwise>
-														<a href='teamsignin.html?runId=${studentRunInfo.run.id}'
-															id='${studentRunInfo.run.id}' class=""><spring:message code="student.index.36"/></a>
-													</c:otherwise>
-												</c:choose>
-											</c:otherwise>
-										</c:choose></li>
-									</ul>
-							 	</td>
-							</tr>	
-							<tr>
-								<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.37"/></td>
-								<td>
-									<c:choose>
-									<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
-										<c:forEach var="member" items="${studentRunInfo.run.owners}">	
-											${member.userDetails.displayname}
-										</c:forEach>
-									</c:when>
-									<c:otherwise>
-										<spring:message code="student.index.38"/>			    
-									</c:otherwise>	
-						      		</c:choose>
-								</td>
-								</tr>
-							<tr>
-								<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.39"/></td>
-								<td>${studentRunInfo.group.name}</td>
-						  	
-						  	</tr>
-							<tr>
-								<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.40"/></td>
-								<td>
-									<c:choose>
-									<c:when test="${studentRunInfo.workgroup != null}" >
-										<c:forEach var="member" varStatus="membersStatus" items="${studentRunInfo.workgroup.members}">
-										${member.userDetails.username}
-								 		   <c:if test="${membersStatus.last=='false'}">
-					     					&
-					    				</c:if> 
-										</c:forEach>
-									</c:when>
-									<c:otherwise>
-										<spring:message code="student.index.41"/>			    
-									</c:otherwise>	
-						      		</c:choose>
-								</td>
+			</div>  <!--  closes <div id='currentRuns'> -->
+			<div id="archivedRuns">
+				<div id="archivedAdvisory">NOTICE: Archived Project Runs can be run and viewed. But any changes you make to an Archived Project Run will not be saved. 
+If you want to save work to an archived project run, ask your teacher to change its status back to "Current Project Run".</div> 
+
+				<c:choose>
+				<c:when test="${fn:length(ended_run_list) > 0}" >
+				<c:forEach var="studentRunInfo"  items="${ended_run_list}">
+					<table id="currentRunTable" >
+		
+						<tr id="projectMainRow">
+							<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.35"/></td>
+							<td id="studentCurrentTitleCell">
+								<div id="studentTitleText">${studentRunInfo.run.name}</div></td>
+							<td rowspan="5" style="width:27%; padding:2px;">
+							  	<ul id="studentActionList">
+									<li><c:choose>
+										<c:when test="${studentRunInfo.workgroup == null}">
+											<a href="#" id='${studentRunInfo.run.id}' class="runProjectLink"><spring:message code="student.index.36"/></a>
+										</c:when>
+										<c:otherwise>
+											<c:choose>
+												<c:when
+													test="${fn:length(studentRunInfo.workgroup.members) == 1}">
+													<a href="${studentRunInfo.startProjectUrl}"
+														id='${studentRunInfo.run.id}' class=""><spring:message code="student.index.36"/></a>
+												</c:when>
+												<c:otherwise>
+													<a href='teamsignin.html?runId=${studentRunInfo.run.id}'
+														id='${studentRunInfo.run.id}' class=""><spring:message code="student.index.36"/></a>
+												</c:otherwise>
+											</c:choose>
+										</c:otherwise>
+									</c:choose></li>
+								</ul>
+						 	</td>
+						</tr>	
+						<tr>
+							<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.37"/></td>
+							<td>
+								<c:choose>
+								<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
+									<c:forEach var="member" items="${studentRunInfo.run.owners}">	
+										${member.userDetails.displayname}
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<spring:message code="student.index.38"/>			    
+								</c:otherwise>	
+					      		</c:choose>
+							</td>
 							</tr>
-							<tr>
-								<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.42"/></td>
-								<td><fmt:formatDate value="${studentRunInfo.run.endtime}" type="date" dateStyle="short" /></td>
-							</tr>
-						</table>
-					</c:forEach>
-					</c:when>
-					<c:otherwise>
-							<spring:message code="student.index.43"/>	    
-					</c:otherwise>
-					</c:choose>
-				</div>
-			</div>
-		</div>
+						<tr>
+							<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.39"/></td>
+							<td>${studentRunInfo.group.name}</td>
+					  	
+					  	</tr>
+						<tr>
+							<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.40"/></td>
+							<td>
+								<c:choose>
+								<c:when test="${studentRunInfo.workgroup != null}" >
+									<c:forEach var="member" varStatus="membersStatus" items="${studentRunInfo.workgroup.members}">
+									${member.userDetails.username}
+							 		   <c:if test="${membersStatus.last=='false'}">
+				     					&
+				    				</c:if> 
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<spring:message code="student.index.41"/>			    
+								</c:otherwise>	
+					      		</c:choose>
+							</td>
+						</tr>
+						<tr>
+							<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.42"/></td>
+							<td><fmt:formatDate value="${studentRunInfo.run.endtime}" type="date" dateStyle="short" /></td>
+						</tr>
+					</table>
+				</c:forEach>
+				</c:when>
+				<c:otherwise>
+						<spring:message code="student.index.43"/>	    
+				</c:otherwise>
+				</c:choose>
+			</div>  <!--  closes <div id='archivedRuns'> -->
+		</div>   <!--  closes <div id='tabSystems'> -->
 	</div>   <!--end of columnProjects, floated to left-->
  </div> <!-- end of centeredDiv -->
- 
- <!-- BEGIN DEFINITION OF FRAMES USED FOR AJAX  -->
-  
-<!-- this creates the change period team iframe -->
-<div id="changePeriodTeamDialog">
-<div class="hd"><spring:message code="student.index.45"/></div>
-<div class="bd">
-
-<iframe id="changePeriodTeamFrame" src="" width="100%" FRAMEBORDER="0"
-	allowTransparency="false" scrolling="no"> </iframe>
-	
-</div>
-</div>
-
-
-<!-- creates change password -->
-<div id="changePasswordDialog">
-	<div class="hd"><spring:message code="student.index.46"/></div>
-	<div class="bd">
-		<iframe id="changePasswordFrame" src=" " width="100%" height="250px" FRAMEBORDER="0"
-			allowTransparency="false" scrolling="no"> </iframe>
-	</div>
-</div>
-
-<!-- this creates the select team dialog with iframe -->
-<div id="runProjectDialog">
-	<div class="hd"><spring:message code="student.index.47"/></div>
-	<div class="bd" align="left">
-		<iframe id="runProjectFrame" src=" " width="100%" height="400px" FRAMEBORDER="0"
-			allowTransparency="false" scrolling="no"> </iframe>
-	</div>
-</div>
 
 </body>
 </html>

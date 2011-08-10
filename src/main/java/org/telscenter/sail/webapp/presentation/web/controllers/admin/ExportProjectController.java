@@ -22,14 +22,10 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -39,7 +35,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
-import net.sf.sail.webapp.service.curnit.CurnitService;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.web.servlet.ModelAndView;
@@ -79,7 +74,7 @@ public class ExportProjectController extends AbstractController {
 		
 		response.setContentType("application/zip");
 		response.addHeader("Content-Disposition", "attachment;filename=\"" + foldername+".zip" + "\"");
-		//response.setHeader("filename", foldername+".zip");
+
 		// zip the folder and write to outputstream		
 		ServletOutputStream outputStream = response.getOutputStream();
 
@@ -140,7 +135,7 @@ public class ExportProjectController extends AbstractController {
 			return prepend+"/wise4.project-min.json";
 		} else if (oldFilename.endsWith(".project-meta.json")) {
 			return prepend+"/wise4.project-meta.json";
-		}
+		} 
 		return oldFilename;
 	}
 	
