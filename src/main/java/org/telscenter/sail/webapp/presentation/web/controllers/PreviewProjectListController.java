@@ -24,11 +24,16 @@ package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -46,6 +51,11 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
 public class PreviewProjectListController extends AbstractController {
 
 	private ProjectService projectService;
+	
+	// path to project thumb image relative to project folder
+	private static final String PROJECT_THUMB_PATH = "/assets/project_thumb.png";
+	
+	private Properties portalProperties;
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -63,8 +73,32 @@ public class PreviewProjectListController extends AbstractController {
 			 if (p.isCurrent())
 				 currentProjectList.add(p);
 		 }
+		 
+		 Map<Long,String> projectThumbMap = new TreeMap<Long,String>();  // maps projectId to url where its thumbnail can be found
+		 String curriculumBaseWWW = this.portalProperties.getProperty("curriculum_base_www");
+			for (Project p: currentProjectList) {
+				if (p.isCurrent()){
+					String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+
+					if(url != null && url != ""){
+						
+						int ndx = url.lastIndexOf("/");
+						if(ndx != -1){
+							/*
+							 * add project thumb url to projectThumbMap. for now this is the same (/assets/project_thumb.png)
+							 * for all projects but this could be overwritten in the future
+							 * e.g.
+							 * /253/assets/projectThumb.png
+							 */
+							projectThumbMap.put((Long) p.getId(), curriculumBaseWWW + url.substring(0, ndx) + PROJECT_THUMB_PATH);
+						}
+					}
+				}
+			}
+			
 		 ModelAndView modelAndView = new ModelAndView();
 	     modelAndView.addObject("projectList", currentProjectList);
+	     modelAndView.addObject("projectThumbMap", projectThumbMap);
 		 return modelAndView;
 	}
 
@@ -73,5 +107,12 @@ public class PreviewProjectListController extends AbstractController {
 	 */
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
+	}
+	
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
 	}
 }

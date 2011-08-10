@@ -19,247 +19,120 @@
 
 <!-- $Id$ -->
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
-<%@ include file="styles.jsp"%>
 
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="jquerystylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="teacherhomepagestylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
-<script type="text/javascript" src="../.././javascript/tels/general.js"></script>
-
-<!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
-
-<link rel="stylesheet" type="text/css" href="../../themes/tels/default/styles/teacher/superfish.css" media="screen">
-<script type="text/javascript" src="../../javascript/tels/jquery-1.2.6.min.js"></script>
-<script type="text/javascript" src="../../javascript/tels/superfish.js"></script>
-
-<script type="text/javascript">
-    
-            // initialise plugins
-            jQuery(function(){
-                jQuery('ul.sf-menu').superfish();
-            });
-    
-</script>
-
-<script type="text/javascript">
-
-	/**
-	 * Toggles the summary div
-	 */
-	function toggleDetails(){
-		var searchDiv = document.getElementById('toggleProjectSummaryCurrent');
-		if(searchDiv.style.display=='none'){
-			searchDiv.style.display = 'block';
-		} else {
-			searchDiv.style.display = 'none';
-		};
-	};
-</script>
+<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="jquerycookiesource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="jqueryuisource"/>"></script>
 
 
 <title><spring:message code="teacher.pro.projinfo.1"/></title>
 
+<script type="text/javascript">
+	$(document).ready(function(){
+		// load project thumbnails		
+		loadProjectThumbnails();
+		
+		$('#viewLesson_' + ${project.id}).click(function(){
+			$('#lessonPlan_' + ${project.id}).slideToggle();
+		});
+	});
+	
+	// load thumbnails for each project by looking for curriculum_folder/assets/project_thumb.png (makes a ajax GET request)
+	// If found (returns 200 status), it will replace the default image with the fetched image.
+	// If not found (returns 400 status), it will do nothing, and the default image will be used.
+	function loadProjectThumbnails() {		
+		$(".projectThumb").each(
+			function() {
+				var thumbUrl = $(this).attr("thumbUrl");
+				// check if thumbUrl exists
+				$.ajax({
+					url:thumbUrl,
+					context:this,
+					statusCode: {
+						200:function() {
+				  		    // found, use it
+							$(this).html("<img src='"+$(this).attr("thumbUrl")+"' alt='thumb'></img>");
+						},
+						404:function() {
+						    // not found, leave alone
+							//$(this).html("<img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></img>");
+						}
+					}
+				});
+			});
+	};
+</script>
+
 </head>
 
-<body class="yui-skin-sam">
-
-<div id="centeredDiv">
-
-<%@ include file="../headerteacher.jsp"%> 
-
+<body style="background:#FFFFFF;">
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<h2 id="titleBar" class="headerText"><spring:message code="teacher.pro.projinfo.1"/></h2> 
-
-<!--<div id="projectInfoInstructions">Click any tab below for more information.</div>-->
-
-<div id="projectInfoTabs" class="yui-navset">
-    <ul class="yui-nav" >
-        <li style="margin-left:4px;"><a href="#tab1"><em><spring:message code="teacher.pro.projinfo.2"/></em></a></li>
-        <li style="margin-left:4px;"><a href="#tab2"><em>Lesson Plan & Learning Goals</em></a></li>
-        <li style="margin-left:4px;"><a href="#tab3"><em><spring:message code="teacher.pro.projinfo.5"/></em></a></li>
-    </ul>            
-    <div class="yui-content">
-        <div id="tab1">
-  			<br/>
-            <table id="projectOverviewTable">
-							<tr id="row1">
-							<td id="titleCellUnlinked" colspan="3">${project.name}</td>
-							<td class="actions" colspan="7"> 
-									<ul>
-										<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
-										<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Project Run</a></li>
-										<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
-											<li><a href="../../author/authorproject.html?projectId=${project.id}">Edit/Author</a></li>
-										</sec:accesscontrollist>
-										<sec:accesscontrollist domainObject="${project}" hasPermission="16">
-											<li><a href="customized/shareproject.html?projectId=${project.id}">Share</a>
-										</sec:accesscontrollist>										
-										<!-- input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
-									</ul>
-							</tr>
-							<tr id="row2">
-								<th id="title1" style="width:60px;">Project ID</th>
-								<th id="title2" style="width:90px;">Project Family</th>
-								<th id="title3" style="width:280px;" >Subject</th>
-								<th id="title4" style="width:70px;">Grade Level</th>
-								<th id="title5" style="width:105px;">Total Hours</th>
-								<th id="title6" style="width:110px;">Computer Hours</th>
-								<th id="title7" style="width:72px;">Language</th>
-								<th id="title9" style="width:60px;">Usage</th>
-							</tr>
-							<tr id="row3">
-								<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
-								<td class="dataCell libraryProjectSmallText">${project.familytag}</td>       		   
-								<td class="dataCell libraryProjectSmallText">${project.metadata.subject}</td>
-								<td class="dataCell">${project.metadata.gradeRange}</td>              
-								<td class="dataCell">${project.metadata.totalTime}</td>              
-								<td class="dataCell">${project.metadata.compTime}</td> 
-								<td class="dataCell">${project.metadata.language}</td>
-								<td class="dataCell">${usageMap[project.id]}</td>
-							</tr>
-							<tr id="row4">  
-								<td colspan="9">
-									<a id="hideShowLink" href="#" onclick="toggleDetails()">Hide/Show project details</a>
-									<div id="toggleAllCurrent">
-									<div id="toggleProjectSummaryCurrent">
-										<table id="detailsTable">
-											<tr>
-												<th>Summary:</th>
-												<td class="summary">${project.metadata.summary}</td>
-											</tr>
-											<tr>
-												<th>Keywords:</th>
-												<td class="keywords">${project.metadata.keywords}</td>
-											</tr>
-
-											<tr>
-												<th>Tech Details:</th>
-												<td>${project.metadata.techDetailsString}</td>
-											</tr>
-											<tr>
-												<th>Lesson Plan:</th>
-												<td>${project.metadata.lessonPlan}</td>
-											</tr>
-											<tr>
-												<th>Created On:</th>
-												<td class="keywords"><fmt:formatDate value="${project.dateCreated}" type="both" dateStyle="short" timeStyle="short" /></td>
-											</tr>
-											<!-- 
-											<tr> 
-												<th>Original Author:</th>
-												<td>[Name goes here]</td>
-											</tr>
-											-->
-											<tr>
-												<th>Contact Info:</th>
-												<td>${project.metadata.contact}</td>
-											</tr>
-											<tr>
-												<th>Copy of Project ID:</th>
-												<c:choose>
-											  		<c:when test="${project.parentProjectId != null}">
-											    		<td><a href='/webapp/teacher/projects/projectinfo.html?projectId=${project.parentProjectId}'>${project.parentProjectId}</a></td>
-											  		</c:when>
-											  		<c:otherwise>
-											    		<td>N/A</td>
-											  		</c:otherwise>
-											 	</c:choose>
-											</tr>
-										</table>
-									</div>
-									</div>
-								</td>
-							</tr>
-						</table>
-	         
-	    </div>       <!--	    End of Tab 1 content-->
-        
-        <div id="tab2">
-            
-            <div id="projectInfoProjectTitle">${project.name}</div>
-            
-            <div style="margin-top:30px; font-weight:bold">Lesson Plan</div>
-
-            <div id="teacherGuideIntro">The Lesson Plan offers feedback on technical or classroom requirements for the step, 
-            common misconceptions/mistakes students may encounter in the step, and suggestions for making the project more effective with students.</div>
-            
-			            
-			<div id="projectLessonPlan" style="padding:25px">${project.metadata.lessonPlan}</div>
-
-            <div style="margin-top:30px; font-weight:bold">Learning Goals and Standards</div>
-			
-			<div id="teacherGuideIntro">This section describes all curriculum standards covered by the project, the
-            overall learning goals of the project, and the learning goals of each main Activity in the project.</div>
-
-			<div id="projectStandards" style="padding:25px">${project.metadata.standards}</div>
-
-			<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
-				<div id="editInfoLink"><a href="../../author/authorproject.html?projectId=${project.id}">Edit Lesson Plan & Learning Goals</a></div>
-			</sec:accesscontrollist>
-			
-			<!--                
-            <table id="teacherGuideTable">
-            	<tr class="rowTwo">
-            		<td class="column1">step</td>
-            		<td>feedback</td>
-            	</tr>
-            	<tr>
-            		<td>[Activity X, Step Y]</td>
-            		<td>[sample feedback goes here <br/>Aliquip dolore lobortis blandit esse suscipit duis magna vel odio dolore ipsum ut at magna iusto et ex ex. Eros illum, luptatum, ea nulla, in nostrud eu consectetuer augue accumsan feugiat qui iusto consequat duis vel nulla. Consequat duis, vero elit suscipit, at in feugait dignissim vero zzril blandit, eum lorem, feugiat erat feugait ut vel nonummy zzril accumsan velit dolor in accumsan.
-Aliquip suscipit sit amet vero, enim duis minim in, ut duis minim tation. </td>
-				</tr>
-				<tr>
-            		<td>[Activity X, Step Y]</td>
-            		<td>[sample feedback goes here</td>
-				</tr>
-				<tr>
-            		<td>[Activity X, Step Y]</td>
-            		<td>[sample feedback goes here</td>
-				</tr>
-			</table>
-			-->			
-        </div>
-        
-        <div id="tab3">
-            <div id="projectInfoProjectTitle">${project.name}</div>
-            
-            <div id="teacherGuideIntro">The following people contributed to this WISE project:</div>
-
-            <table id="projectCreditsTable">
-	            <tr>
-    	        	<td class="col1">Project Last Edited On:</td>
-    	        	<td><fmt:formatDate value="${project.metadata.lastEdited}" type="both" dateStyle="short" timeStyle="short" /></td>
-            	</tr>
-            	<tr> 
-            		<td class="col1">Contact</td>
-            		<td>${project.metadata.contact}</td>
-				</tr>
-				<tr>
-					<td class="col1">Contributors:</td>
-            		<td>${project.metadata.author}</td>
-				</tr>
-			</table>
-
-			<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
-            	<div id="editInfoLink"><a href="../../author/authorproject.html?projectId=${project.id}">edit credits information</a></div>
-			</sec:accesscontrollist>
-			
-        </div>
-    </div>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<div class="projectSummary">
+	<div class="projectInfoDisplay">
+		<div class="panelHeader">${project.name} (ID: ${project.id})
+			<span style="float:right;"><a href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" target="_blank">Preview</a></span>
+		</div>
+		<div class="projectThumb" thumbUrl="${projectThumbPath}"><img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></div>
+		<div class="summaryInfo">
+			<div class="basicInfo">
+				<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
+				<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}">Grades ${project.metadata.gradeRange} | </c:if>
+				<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">Duration: ${project.metadata.totalTime} | </c:if>
+				<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
+				<div style="float:right;">Created: <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></div>
+			</div>
+			<div id="summaryText_${project.id}" class="summaryText">
+				<span style="font-weight:bold;">Summary:</span> ${project.metadata.summary}
+			</div>
+			<div class="details" id="details_${project.id}">
+				<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;">Tags:</span> ${project.metadata.keywords}</p></c:if>
+				<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;">Tech Requirements:</span> ${project.metadata.techDetailsString}</p></c:if>
+				<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;">Computer Time:</span> ${project.metadata.compTime}</p></c:if>
+				<c:if test="${project.metadata.contact != null && project.metadata.contact != ''}"><p><span style="font-weight:bold;">Contact Info:</span> ${project.metadata.contact}</p></c:if>
+				<c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;">Contributors:</span> ${project.metadata.author}</p></c:if>
+				<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
+				<c:if test="${lastEdited == null || lastEdited == ''}">
+					<c:set var="lastEdited" value="${project.dateCreated}" />
+				</c:if>
+				<p><span style="font-weight:bold;">Last Updated:</span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
+				<c:if test="${project.parentProjectId != null}">
+					<p><span style="font-weight:bold"><spring:message code="teacher.run.myprojectruns.40"/></span> ${project.parentProjectId}</p>
+				</c:if>
+				<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
+					(project.metadata.standards != null && project.metadata.standards != '')}">
+					<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="Review Teaching Tips and Content Standards for this project">Teaching Tips & Standards</a></div>
+					<div class="lessonPlan" style="display:none;" id="lessonPlan_${project.id}" title="Teaching Tips & Content Standards">
+						<c:if test="${project.metadata.lessonPlan != null && project.metadata.lessonPlan != ''}">
+							<div class="sectionHead">Teaching Tips</div>
+							<div class="lessonHelp">(Outlines technical or classroom requirements for the project's activities, 
+								common misconceptions/mistakes students may encounter, as well as suggestions for maximizing the project's effectiveness and student learning.)
+							</div><!-- TODO: remove this, convert to global info/help rollover popup -->
+							<div class="sectionContent">${project.metadata.lessonPlan}</div>
+						</c:if>
+						<c:if test="${project.metadata.standards != null && project.metadata.standards != ''}">
+							<div class="sectionHead">Learning Goals and Standards</div>
+							<div class="lessonHelp">(Outlines the curriculum standards covered by the project, the
+	     											project's overall learning goals, and the goals of each activity in the project.)
+							</div><!-- TODO: remove this, convert to global info/help rollover popup -->
+							<div class="sectionContent">${project.metadata.standards}</div>
+						</c:if>
+					</div>
+				</c:if>
+			</div>
+		</div>
+	</div>
 </div>
-  
-	
-</div>
-
-<script type="text/javascript">
-    var tabView = new YAHOO.widget.TabView('projectInfoTabs');
-    tabView.set('activeIndex', 0);
-</script>
 
 </body>
 </html>

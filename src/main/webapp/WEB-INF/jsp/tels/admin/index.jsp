@@ -27,8 +27,7 @@
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript">
-	
-	
+
 	//set unread message count and last login time in session (used in page headers)
 	//if(!$.cookie("unreadMessages")){
 		//$.cookie("unreadMessages","<c:out value="${fn:length(unreadMessages)}" />");

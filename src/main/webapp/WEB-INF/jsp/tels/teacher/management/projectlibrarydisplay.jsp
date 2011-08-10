@@ -278,6 +278,29 @@
 			}
 		});
 		
+		// Set up view project details click action for each project id link
+		$('a.projectDetail').live('click',function(){
+			var title = $(this).attr('title');
+			var projectId = $(this).attr('id').replace('projectDetail_','');
+			var path = "/webapp/teacher/projects/projectinfo.html?projectId=" + projectId;
+			var div = $('#projectDetailDialog').html('<iframe id="projectIfrm" width="100%" height="100%"></iframe>');
+			$('body').css('overflow-y','hidden');
+			div.dialog({
+				modal: true,
+				width: '800',
+				height: '400',
+				title: title,
+				position: 'center',
+				close: function(){ $(this).html(''); $('body').css('overflow-y','auto'); },
+				buttons: {
+					Close: function(){
+						$(this).dialog('close');
+					}
+				}
+			});
+			$("#projectDetailDialog > #projectIfrm").attr('src',path);
+		});
+		
 		// Set up view lesson plan click action for each project
 		$('a.viewLesson').live('click',function(){
 			var id = $(this).attr('id').replace('viewLesson_','');
@@ -764,7 +787,7 @@
 													<c:set var="bookmarked" value="true" />
 												</c:if>
 											</c:forEach>
-											<a id="bookmark_${project.id}" class="bookmark ${bookmarked}" title="Add/remove as favorites"></a>
+											<a id="bookmark_${project.id}" class="bookmark ${bookmarked}" title="Add/remove as favorite"></a>
 											<a class="projectTitle" id="project_${project.id}">${projectName}</a>
 											<span>(ID: ${project.id})</span>
 										</td>
@@ -775,11 +798,11 @@
 											<ul class="actions">
 												<li><a style="font-weight:bold;" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" target="_blank">Preview</a>&nbsp;|</li>
 												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
-													<li><a href="shareproject.html?projectId=${project.id}">Share</a>&nbsp;|</li>
+													<li><a href="/webapp/teacher/projects/customized/shareproject.html?projectId=${project.id}">Share</a>&nbsp;|</li>
 												</sec:accesscontrollist>
 												<li><a onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" >Copy</a>&nbsp;|</li>
 												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
-													<li><a href="../../author/authorproject.html?projectId=${project.id}">Edit/Customize</a>&nbsp;|</li>
+													<li><a href="/webapp/author/authorproject.html?projectId=${project.id}">Edit/Customize</a>&nbsp;|</li>
 												</sec:accesscontrollist>
 												<!-- <li><a style="color:#666;">Archive</a>
 												<input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
@@ -825,12 +848,12 @@
 													</c:if>
 													<p><span style="font-weight:bold;">Last Updated:</span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
 													<c:if test="${project.parentProjectId != null}">
-														<p><span style="font-weight:bold"><spring:message code="teacher.run.myprojectruns.40"/></span> <a href=''>${project.parentProjectId}</a></p> <!-- TODO: show popup for parent project on click -->
+														<p><span style="font-weight:bold"><spring:message code="teacher.run.myprojectruns.40"/></span> <a id="projectDetail_${project.parentProjectId}" class="projectDetail" title="Project Details">${project.parentProjectId}</a></p>
 													</c:if>
 													<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
 														(project.metadata.standards != null && project.metadata.standards != '')}">
-														<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="Review Lesson Plan and Content Standards for this project">See Lesson Plan</a></div>
-														<div class="lessonPlan" id="lessonPlan_${project.id}" title="Lesson Plan & Learning Goals">
+														<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="Review Teaching Tips and Content Standards for this project">Teaching Tips & Standards</a></div>
+														<div class="lessonPlan" id="lessonPlan_${project.id}" title="Teaching Tips & Content Standards">
 															<div class="panelHeader">${project.name} (ID: ${project.id})
 																<span style="float:right;"><a class="printLesson" id="printLesson_${project.id}">Print</a></span>
 															</div>
@@ -842,7 +865,7 @@
 																	<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
 																	<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;">Tech Requirements:</span> ${project.metadata.techDetailsString}</p></c:if>
 																</div>
-																<div class="sectionHead">Lesson Plan</div>
+																<div class="sectionHead">Teaching Tips</div>
 																<div class="lessonHelp">(Outlines technical or classroom requirements for the project's activities, 
 																	common misconceptions/mistakes students may encounter, as well as suggestions for maximizing the project's effectiveness and student learning.)
 																</div><!-- TODO: remove this, convert to global info/help rollover popup -->
@@ -975,11 +998,11 @@
 											<ul class="actions">
 												<li><a style="font-weight:bold;" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" target="_blank">Preview</a>&nbsp;|</li>
 												<sec:accesscontrollist domainObject="${project}" hasPermission="16">
-													<li><a href="shareproject.html?projectId=${project.id}">Share</a>&nbsp;|</li>
+													<li><a href="/webapp/teacher/projects/customized/shareproject.html?projectId=${project.id}">Share</a>&nbsp;|</li>
 												</sec:accesscontrollist>
 												<li><a onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" >Copy</a>&nbsp;|</li>
 												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
-													<li><a href="../../author/authorproject.html?projectId=${project.id}">Edit/Customize</a>&nbsp;|</li>
+													<li><a href="/webapp/author/authorproject.html?projectId=${project.id}">Edit/Customize</a>&nbsp;|</li>
 												</sec:accesscontrollist>
 												<!-- <li><a style="color:#666;">Archive</a>
 												<input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
@@ -1035,12 +1058,12 @@
 													</c:if>
 													<p><span style="font-weight:bold;">Last Updated:</span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
 													<c:if test="${project.parentProjectId != null}">
-														<p><span style="font-weight:bold"><spring:message code="teacher.run.myprojectruns.40"/></span> <a href=''>${project.parentProjectId}</a></p> <!-- TODO: show popup for parent project on click?? -->
+														<p><span style="font-weight:bold"><spring:message code="teacher.run.myprojectruns.40"/></span> <a id="projectDetail_${project.parentProjectId}" class="projectDetail" title="Project Details">${project.parentProjectId}</a></p>
 													</c:if>
 													<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
 														(project.metadata.standards != null && project.metadata.standards != '')}">
-														<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="Review Lesson Plan and Content Standards for this project">See Lesson Plan</a></div>
-														<div class="lessonPlan" id="lessonPlan_${project.id}" title="Lesson Plan & Learning Goals">
+														<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="Review Teaching Tips and Content Standards for this project">Teaching Tips & Standards</a></div>
+														<div class="lessonPlan" id="lessonPlan_${project.id}" title="Teaching Tips & Content Standards">
 															<div class="panelHeader">${project.name} (ID: ${project.id})
 																<span style="float:right;"><a class="printLesson" id="printLesson_${project.id}">Print</a></span>
 															</div>
@@ -1052,7 +1075,7 @@
 																	<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
 																	<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;">Tech Requirements:</span> ${project.metadata.techDetailsString}</p></c:if>
 																</div>
-																<div class="sectionHead">Lesson Plan</div>
+																<div class="sectionHead">Teaching Tips</div>
 																<div class="lessonHelp">(Outlines technical or classroom requirements for the project's activities, 
 																	common misconceptions/mistakes students may encounter, as well as suggestions for maximizing the project's effectiveness and student learning.)
 																</div><!-- TODO: remove this, convert to global info/help rollover popup -->
@@ -1169,11 +1192,11 @@
 											<ul class="actions">
 												<li><a style="font-weight:bold;" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" target="_blank">Preview</a>&nbsp;|</li>
 												<sec:accesscontrollist domainObject="${project}" hasPermission="16">
-													<li><a href="shareproject.html?projectId=${project.id}">Share</a>&nbsp;|</li>
+													<li><a href="/webapp/teacher/projects/customized/shareproject.html?projectId=${project.id}">Share</a>&nbsp;|</li>
 												</sec:accesscontrollist>
 												<li><a onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" >Copy</a>&nbsp;|</li>
 												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
-													<li><a href="../../author/authorproject.html?projectId=${project.id}">Edit/Customize</a>&nbsp;|</li>
+													<li><a href="/webapp/author/authorproject.html?projectId=${project.id}">Edit/Customize</a>&nbsp;|</li>
 												</sec:accesscontrollist>
 												<!-- <li><a style="color:#666;">Archive</a>
 												<input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
@@ -1232,8 +1255,8 @@
 													<p><span style="font-weight:bold;">Last Updated:</span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
 													<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
 														(project.metadata.standards != null && project.metadata.standards != '')}">
-														<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="Review Lesson Plan and Content Standards for this project">See Lesson Plan</a></div>
-														<div class="lessonPlan" id="lessonPlan_${project.id}" title="Lesson Plan & Learning Goals">
+														<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="Review Teaching Tips and Content Standards for this project">Teaching Tips & Standards</a></div>
+														<div class="lessonPlan" id="lessonPlan_${project.id}" title="Teaching Tips & Content Standards">
 															<div class="panelHeader">${project.name} (ID: ${project.id})
 																<span style="float:right;"><a class="printLesson" id="printLesson_${project.id}">Print</a></span>
 															</div>
@@ -1245,7 +1268,7 @@
 																	<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
 																	<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;">Tech Requirements:</span> ${project.metadata.techDetailsString}</p></c:if>
 																</div>
-																<div class="sectionHead">Lesson Plan</div>
+																<div class="sectionHead">Teaching Tips</div>
 																<div class="lessonHelp">(Outlines technical or classroom requirements for the project's activities, 
 																	common misconceptions/mistakes students may encounter, as well as suggestions for maximizing the project's effectiveness and student learning.)
 																</div><!-- TODO: remove this, convert to global info/help rollover popup -->
@@ -1295,3 +1318,5 @@
 		
 	</tbody>
 </table>
+
+<div id="projectDetailDialog" style="overflow:hidden;" class="dialog"></div>

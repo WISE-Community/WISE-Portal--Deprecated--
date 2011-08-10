@@ -68,13 +68,13 @@
 					}
 				 ],
 				"aFilterOpts": [
-					{
+					/*{
 						"identifier": "<spring:message code="teacher.run.myprojectruns.58D"/>", "label": "<spring:message code="teacher.run.myprojectruns.filter.1a"/>", "column": 6,
 						"options": [
 							{"query": "owned", "display": "<spring:message code="teacher.run.myprojectruns.filter.1b"/>"},
 							{"query": "shared", "display": "<spring:message code="teacher.run.myprojectruns.filter.1c"/>"}
 						]
-					},
+					},*/
 					{
 						"identifier": "<spring:message code="teacher.run.myprojectruns.58C"/>", "label": "<spring:message code="teacher.run.myprojectruns.filter.2a"/>", "column": 5,
 						"options": [
@@ -225,6 +225,33 @@
 		$("#editAnnouncementsDialog > #announceIfrm").attr('src',path);
 	});
 	
+	// Set up view project details click action for each project id link
+	$('a.projectDetail, a.projectInfo').live('click',function(){
+		var title = $(this).attr('title');
+		if($(this).hasClass('projectDetail')){
+			var projectId = $(this).attr('id').replace('projectDetail_','');
+		} else if($(this).hasClass('projectInfo')){
+			var projectId = $(this).attr('id').replace('projectInfo_','');
+		}
+		var path = "/webapp/teacher/projects/projectinfo.html?projectId=" + projectId;
+		var div = $('#projectDetailDialog').html('<iframe id="projectIfrm" width="100%" height="100%"></iframe>');
+		$('body').css('overflow-y','hidden');
+		div.dialog({
+			modal: true,
+			width: '800',
+			height: '400',
+			title: title,
+			position: 'center',
+			close: function(){ $(this).html(''); $('body').css('overflow-y','auto'); },
+			buttons: {
+				Close: function(){
+					$(this).dialog('close');
+				}
+			}
+		});
+		$("#projectDetailDialog > #projectIfrm").attr('src',path);
+	});
+	
  </script>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -234,13 +261,10 @@
     <ul>
     	<li><a href="#currentRuns"><spring:message code="teacher.run.myprojectruns.1A"/>  (${fn:length(current_run_list)})</a></li>
     	<li><a href="#archivedRuns"><spring:message code="teacher.run.myprojectruns.1B"/>  (${fn:length(ended_run_list)})</a></li>
-    </ul>            
+    </ul>       
     <!-- <div class="yui-content" id="currentrunWrapper"> -->
     <div id="currentRuns">
-       	<div class="ui-state-highlight ui-corner-all" style="margin:0 auto 0.5em;"> 
-			<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-			<spring:message code="teacher.run.myprojectruns.2" /></p>
-		</div>
+		<p class="info"><spring:message code="teacher.run.myprojectruns.2" /></p>
 		
 		<c:choose>
 			<c:when test="${fn:length(current_run_list) > 0}">
@@ -308,12 +332,12 @@
 							      			<!-- </tr>  -->
 											<tr>
 							      				<th><spring:message code="teacher.run.myprojectruns.11A"/></th>
-							      				<td><a href='/webapp/teacher/projects/projectinfo.html?projectId=${run.project.id}'>${run.project.id}</a></td>
+							      				<td><a id="projectDetail_${run.project.id}" class="projectDetail" title="Project Details">${run.project.id}</a></td>
 							      			</tr>
 							      			<tr>
 							      				<c:if test="${run.project.parentProjectId != null}">
 							      				<th><spring:message code="teacher.run.myprojectruns.40"/></th>
-												<td><a href='/webapp/teacher/projects/projectinfo.html?projectId=${run.project.parentProjectId}'>${run.project.parentProjectId}</a></td>
+												<td><a id="projectDetail_${run.project.parentProjectId}" class="projectDetail" title="Project Details">${run.project.parentProjectId}</a></td>
 												</c:if>
 							      			</tr>
 							      			<tr>
@@ -361,7 +385,7 @@
 											    <ul class="actionList">
 											        <li>
 											        	<spring:message code="teacher.run.myprojectruns.46"/>&nbsp;<a href="/webapp/previewproject.html?projectId=${run.project.id}" target="_blank"><spring:message code="teacher.run.myprojectruns.46A"/></a>
-										    			|&nbsp;<a href="/webapp/teacher/projects/projectinfo.html?projectId=${run.project.id}" target="_top"><spring:message code="teacher.run.myprojectruns.46B"/></a>
+										    			|&nbsp;<a id="projectInfo_${run.project.id}" class="projectInfo" title="Project Details"><spring:message code="teacher.run.myprojectruns.46B"/></a>
 											        	<sec:accesscontrollist domainObject="${run.project}" hasPermission="16">
 											        		|&nbsp;<a onclick="if(confirm('<spring:message code="teacher.run.myprojectruns.47"/>')){window.top.location='/webapp/author/authorproject.html?projectId=${run.project.id}&versionId=${run.versionId}';} return true;"><spring:message code="teacher.run.myprojectruns.46C"/></a>
 											        	</sec:accesscontrollist>
@@ -386,7 +410,7 @@
 								    	
 								    	<c:set var="isExternalProject" value="0"/>
 								    	<sec:accesscontrollist domainObject="${run}" hasPermission="16">
-								      		<li><a id="editAnnouncements_${run.id}" class="editAnnouncements" title="Manage Announcements: ${run.name} (Run ID ${run.id})" ><spring:message code="teacher.run.myprojectruns.50"/></a></li>
+								      		<!-- <li><a id="editAnnouncements_${run.id}" class="editAnnouncements" title="Manage Announcements: ${run.name} (Run ID ${run.id})" ><spring:message code="teacher.run.myprojectruns.50"/></a></li> -->
 								        </sec:accesscontrollist>			    	
 								    	<!-- 
 								    	<li><a href="../run/brainstorm/createbrainstorm.html?runId=${run.id}" target="_top">Create Q&A Discussion</a></li>
@@ -427,10 +451,7 @@
 	</div><!-- end current runs tab -->
 
 	<div id="archivedRuns">
-		<div class="ui-state-highlight ui-corner-all" style="margin:0 auto 0.5em;"> 
-			<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-			<spring:message code="teacher.run.myprojectruns.54"/></p>
-		</div>
+		<p class="info"><spring:message code="teacher.run.myprojectruns.54"/></p>
 		
 		<c:choose>
 			<c:when test="${fn:length(ended_run_list) > 0}">
@@ -502,12 +523,12 @@
 							      			<!-- </tr>  -->
 											<tr>
 							      				<th><spring:message code="teacher.run.myprojectruns.11A"/></th>
-							      				<td><a href='/webapp/teacher/projects/projectinfo.html?projectId=${run.project.id}'>${run.project.id}</a></td>
+							      				<td><a id="projectDetail_${run.project.id}" class="projectDetail" title="Project Details">${run.project.id}</a></td>
 							      			</tr>
 							      			<tr>
 							      				<c:if test="${run.project.parentProjectId != null}">
 							      				<th><spring:message code="teacher.run.myprojectruns.40"/></th>
-												<td><a href='/webapp/teacher/projects/projectinfo.html?projectId=${run.project.parentProjectId}'>${run.project.parentProjectId}</a></td>
+												<td><a id="projectDetail_${run.project.parentProjectId}" class="projectDetail" title="Project Details">${run.project.parentProjectId}</a></td>
 												</c:if>
 							      			</tr>
 										</table>
@@ -568,3 +589,4 @@
 <div id="shareDialog" class="dialog"></div>
 <div id="editRunDialog" class="dialog"></div>
 <div id="editAnnouncementsDialog" class="dialog"></div>
+<div id="projectDetailDialog" style="overflow:hidden;" class="dialog"></div>

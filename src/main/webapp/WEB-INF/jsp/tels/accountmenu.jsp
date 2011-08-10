@@ -23,7 +23,7 @@
 				$.cookie("lastLoginTime",lastLogin, {path:"/"});
 			</c:otherwise>
 		</c:choose>
-		if($.cookie("lastLoginTime") != null && typeof $.cookie("lastLoginTime") == "string"){
+		if($.cookie("lastLoginTime") != null && $.cookie("lastLoginTime") != "" && typeof $.cookie("lastLoginTime") == "string"){
 			$('#lastLogin').text($.cookie("lastLoginTime"));
 		}
 	});
@@ -68,7 +68,7 @@
 		<sec:authorize ifNotGranted="ROLE_STUDENT">
 			<div>
 				<a href="/webapp/teacher/management/updatemyaccount.html"><spring:message code="teacher.index.44" /></a>
-				<a href="/webapp/message.html?action=index" ><spring:message code="menu.messages"/><span id="unreadMsg"></span></a>
+				<!-- <a href="/webapp/message.html?action=index" ><spring:message code="menu.messages"/><span id="unreadMsg"></span></a>  -->
 			</div>
 		</sec:authorize>
 		<sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
@@ -86,14 +86,9 @@
 		<div id="accountMenu">
 			<ul class="sf-menu">
 				<sec:authorize ifNotGranted="ROLE_STUDENT">
-					<!-- <li class="level1"><a href="/webapp/teacher/projects/index.html"><spring:message code="menu.projects"/></a>
-						<ul>
-							<li><a href="/webapp/teacher/projects/customized/index.html"><spring:message code="menu.myprojects"/><br/><span style="font-size:90%;"><spring:message code="menu.myprojects.sub"/></span></a></li>
-							<li><a href="/webapp/teacher/projects/library/tels.html"><spring:message code="menu.library"/></a></li>
-							<li><a href="/webapp/author/authorproject.html"><spring:message code="menu.authoring"/></a></li>
-						</ul>
-					</li>  -->
-					<li class="level1 menu1"><a href="/webapp/teacher/help/overview.html"><spring:message code="menu.help"/></a> 
+					<li class="level1 menu1">
+						<!-- <a href="/webapp/teacher/help/overview.html"><spring:message code="menu.help"/></a>  -->
+						<a><spring:message code="menu.help"/></a> 
 						<ul>	
 							<li><a href="/webapp/pages/gettingstarted.html" target="_blank"><spring:message code="menu.quickstart"/></a></li>
 							<li><a href="/webapp/pages/teacherfaq.html" target="_blank"><spring:message code="menu.faq"/></a></li>
@@ -104,28 +99,20 @@
 						</ul>
 					</li>
 					
-					<li class="level1 menu2"><a href="/webapp/teacher/management/overview.html"><spring:message code="menu.management"/></a>
+					<li class="level1 menu2">
+						<!-- <a href="/webapp/teacher/management/overview.html"><spring:message code="menu.management"/></a> -->
+						<a><spring:message code="menu.management"/></a>
 					    <ul>
-				            <li><a href="#"><spring:message code="menu.setuprun"/></a></li>
-				            <li><a href="/webapp/teacher/management/classroomruns.html"><spring:message code="menu.runs"/></a></li>
+				            <!-- <li><a href="#"><spring:message code="menu.setuprun"/></a></li>  -->
 				            <li><a href="/webapp/teacher/management/library.html"><spring:message code="menu.library"/></a></li>
-				            <li><a href="/webapp/teacher/management/projectPickerManagement.html"><spring:message code="menu.managestudents"/></a></li>
+				            <li><a href="/webapp/teacher/management/classroomruns.html"><spring:message code="menu.runs"/></a></li>
+				            <!-- <li><a href="/webapp/teacher/management/projectPickerManagement.html"><spring:message code="menu.managestudents"/></a></li> -->
 							<li><a href="/webapp/author/authorproject.html"><spring:message code="menu.authoring"/></a></li>
 				        </ul>
 						</li>
 					<li class="level1 menu3"><a href="/webapp/teacher/index.html" ><spring:message code="menu.teacher"/></a></li>
 					
 				</sec:authorize>
-				<!-- <li class="level1 align-right usernameBanner <sec:authorize ifAllGranted="ROLE_STUDENT">student</sec:authorize>"><a><sec:authentication property="principal.username" /></a>
-					<sec:authorize ifNotGranted="ROLE_STUDENT">
-					<ul>
-						<li><a href="/webapp/teacher/management/updatemyaccount.html" ><spring:message code="menu.myaccount"/></a></li>
-						<li><a href="/webapp/message.html?action=index" ><spring:message code="menu.messages"/></a></li>
-					</ul>
-					</sec:authorize>
-				</li>  
-				
-				<li class="level1 signOutBanner"><a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="log.out"/></a></li> -->
 	   	</ul>
 	   </div>
 	</sec:authorize>

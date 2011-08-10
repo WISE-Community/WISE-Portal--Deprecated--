@@ -252,7 +252,7 @@ ul.reminders {
 .panelTabs {
 	background: none repeat scroll 0 0 transparent;
     border: medium none;
-    margin-top: -3.5em;
+    margin-top: -3.3em;
     padding: 0;
 }
 
@@ -273,15 +273,13 @@ ul.reminders {
 .panelTabs ul.ui-tabs-nav li.ui-state-default {
 	background: none repeat scroll 0 0 transparent;
 	border: medium none;
-	margin: -0.4em 0 0.4em;
-	padding: 0 0 0.4em 0;
 }
 
 .panelTabs ul.ui-tabs-nav li.ui-state-default a {
 	color: #585F0C;
 	font-weight: normal;
 	line-height: 1.4em;
-	margin: 0.25em .5em 0 .1em;
+	margin: 0.25em 0 0;
 	padding: .2em .4em;
 	font-size: .9em;
 }

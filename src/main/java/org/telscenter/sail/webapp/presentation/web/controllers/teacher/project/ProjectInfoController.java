@@ -22,13 +22,17 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.project;
 
+import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -53,10 +57,15 @@ public class ProjectInfoController extends AbstractController {
 	protected static final String PROJECT_PARAM_NAME = "project";
 	
 	protected static final String USAGE = "usage";
+	
+	// path to project thumb image relative to project folder
+	private static final String PROJECT_THUMB_PATH = "/assets/project_thumb.png";
 
 	private ProjectService projectService;
 	
 	private RunService runService;
+	
+	private Properties portalProperties;
 	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -77,6 +86,23 @@ public class ProjectInfoController extends AbstractController {
 				ModelAndView modelAndView = new ModelAndView();
 				modelAndView.addObject(PROJECT_PARAM_NAME, project);
 				modelAndView.addObject(USAGE, this.runService.getProjectUsage((Long)project.getId()));
+				
+				String curriculumBaseWWW = this.portalProperties.getProperty("curriculum_base_www");
+				String url = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+				if(url != null && url != ""){
+					int ndx = url.lastIndexOf("/");
+					if(ndx != -1){
+						/*
+						 * add project thumb url to projectThumbMap. for now this is the same (/assets/project_thumb.png)
+						 * for all projects but this could be overwritten in the future
+						 * e.g.
+						 * /253/assets/projectThumb.png
+						 */
+						String projectThumbPath = curriculumBaseWWW + url.substring(0, ndx) + PROJECT_THUMB_PATH;
+						modelAndView.addObject("projectThumbPath", projectThumbPath);
+					}
+				}
+				
 				return modelAndView;
 			} else {
 				return new ModelAndView(new RedirectView("../../accessdenied.html"));
@@ -101,4 +127,10 @@ public class ProjectInfoController extends AbstractController {
 		this.runService = runService;
 	}
 
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
+	}
 }

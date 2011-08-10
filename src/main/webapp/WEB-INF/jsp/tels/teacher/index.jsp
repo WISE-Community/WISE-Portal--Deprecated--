@@ -161,13 +161,13 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 				
 						<table id="teacherQuickLinks">
 							<tr>
-								<td><a href="#"><spring:message code="menu.setuprun"/></a></td>
-							</tr>
-							<tr>
-								<td><a href="/webapp/teacher/management/classroomruns.html"><spring:message code="menu.runs"/></a></td>
+								<td><a href="/webapp/pages/gettingstarted.html" target="_blank"><spring:message code="menu.quickstart"/></a></td>
 							</tr>
 							<tr>
 								<td><a href="/webapp/teacher/management/library.html"><spring:message code="menu.library"/></a></td>
+							</tr>
+							<tr>
+								<td><a href="/webapp/teacher/management/classroomruns.html"><spring:message code="menu.runs"/></a></td>
 							</tr>
 						</table>
 					</div>
@@ -231,10 +231,7 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 										</c:otherwise>
 									</c:choose>
 								</div>
-									<!-- <c:if test="${not user.userDetails.emailValid}">
-									   <div id="invalidEmailDiv" style="color:red;"><spring:message code="teacher.index.45" /></div>
-									</c:if> -->
-								<div class="messageContainer">
+								<!-- <div class="messageContainer">
 									<c:choose>
 										<c:when test="${fn:length(unreadMessages) == 1}">
 											<div id="newMessageCount"><spring:message code="teacher.index.50" />  <c:out value="${fn:length(unreadMessages)}" /> <spring:message code="teacher.index.50B" /></div>
@@ -258,12 +255,12 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 											<div class="msgConfirm" id="message_confirm_div_${message.id}"></div>
 											</div>
 										</c:forEach>
-									</c:if>
+									</c:if> 
 									
 									<div class="msgLink">
 										<a href="/webapp/message.html?action=index"><spring:message code="teacher.index.52" /></a>
 									</div> 
-								</div>
+								</div> -->
 								<ul class="reminders">
 									<c:forEach var="run" items="${current_run_list1}">
 										<sec:accesscontrollist domainObject="${run}" hasPermission="16">

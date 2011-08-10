@@ -20,115 +20,71 @@
 
 <!-- $Id: overview.jsp 997 2007-09-05 16:52:39Z archana $ -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
 
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src="../.././javascript/tels/general.js"></script>
- 
-<link rel="stylesheet" type="text/css" href="../../themes/tels/default/styles/teacher/superfish.css" media="screen">
-<script type="text/javascript" src="../../javascript/tels/jquery-1.2.6.min.js"></script>
-<script type="text/javascript" src="../../javascript/tels/superfish.js"></script>
-
-<script type="text/javascript">
-    
-            // initialise plugins
-            jQuery(function(){
-                jQuery('ul.sf-menu').superfish();
-            });
-    
-</script>
+<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
 
 <title><spring:message code="teacher.manage.account.1"/></title>
 </head>
 
 <body>
 
-<div id="centeredDiv">
+<div id="pageWrapper">
 
-<%@ include file="../headerteacher.jsp"%>
-
-<div id="navigationSubHeader2">Update My Account<span id="navigationSubHeader1">management</span></div>
-
- 
-<div id="overviewContent"> 
-
-<div id="overviewHeader"><spring:message code="teacher.manage.account.3"/></div>
+	<%@ include file="../headerteacher.jsp"%>
 	
-<div id="errorMessageFormat">
-	<!-- Support for Spring errors object -->
-	<spring:bind path="changeStudentPasswordParameters.*">
-  		<c:forEach var="error" items="${status.errorMessages}">
-   			 <br /><c:out value="${error}"/>
-   		</c:forEach>
-	</spring:bind>
-</div>
-
-<div id="popUpWindowTeacherPassword">
-
-	<div id="teacherchangepasswordbox">
-		<table cellpadding="8" border="1" style="margin:5px;">
-			<tr>
-			<form:form method="post" action="changestudentpassword.html" commandName="changeStudentPasswordParameters" id="changestudentpassword" autocomplete='off'>
-			<td><label for="changestudentpassword"><spring:message code="changepassword.password1" /></label></td>
-	      	<td><form:password path="passwd1" id="teacherchangePasswordField"/></td>
-			</tr>
-			<tr>
-			<td><label for="changestudentpassword"><spring:message code="changepassword.password2" /></label></td>
-			<td><form:password path="passwd2" id="teacherchangePasswordField"/></td>
-			</tr>
-		</table>
-				
-	    <div id="teacherPasswordButtons">
-	    
-			    <input type="image" id="teachersave" src="../../<spring:theme code="register_save" />" 
-			    onmouseover="swapImage('teachersave','../../<spring:theme code="register_save_roll" />')" 
-			    onmouseout="swapImage('teachersave','../../<spring:theme code="register_save" />')"/>
-			    
-			    <a href="updatemyaccount.html" >
-			    <input type="image" id="teachercancel" src="../../<spring:theme code="register_cancel" />" 
-			    onmouseover="swapImage('teachercancel','../../<spring:theme code="register_cancel_roll" />')" 
-			    onmouseout="swapImage('teachercancel','../../<spring:theme code="register_cancel" />')"
-			    /> </a>
-	    </div>
+	<div id="page">
+		
+		<div id="pageContent">
+		
+			<div class="infoContent">
+				<div class="panelHeader"><spring:message code="teacher.manage.account.3"/></div>
+				<div class="infoContentBox">
 	
-		</form:form>
-	 	
- 	</div>
- 	
-</div>	<!--end of popUpWindowTeacherPassword div-->
-
+					<div class="errorMsgNoBg">
+						<!-- Support for Spring errors object -->
+						<spring:bind path="changeStudentPasswordParameters.*">
+					  		<c:forEach var="error" items="${status.errorMessages}">
+					   			 <p><c:out value="${error}"/></p>
+					   		</c:forEach>
+						</spring:bind>
+					</div>
+	
+					<div>
+						<form:form method="post" action="changestudentpassword.html" commandName="changeStudentPasswordParameters" id="changestudentpassword" autocomplete='off'>
+						<table style="margin:0 auto;">
+							<tr>
+							<td><label for="changestudentpassword"><spring:message code="changepassword.password1" /></label></td>
+					      	<td><form:password path="passwd1" /></td>
+							</tr>
+							<tr>
+							<td><label for="changestudentpassword"><spring:message code="changepassword.password2" /></label></td>
+							<td><form:password path="passwd2" /></td>
+							</tr>
+						</table>
+								
+					    <div><input type="submit" value="Save Changes"/></div>
+						<div><a href="updatemyaccount.html"><spring:message code="teacher.registerteacher.35"/></a></div>
+					
+						</form:form>
+					 	
+				 	</div>
+ 				</div>
+			</div>
+		</div>
+		<div style="clear: both;"></div>
+	</div>   <!-- End of page-->
+	
+	<%@ include file="../../footer.jsp"%>
 </div>
-
-
-
-</div>    <!--End of CenteredDiv-->
-
+	
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

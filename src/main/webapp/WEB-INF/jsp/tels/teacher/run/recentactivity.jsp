@@ -106,6 +106,33 @@
 		});
 		$("#editAnnouncementsDialog > #announceIfrm").attr('src',path);
 	});
+	
+	// Set up view project details click action for each project id link
+	$('a.projectDetail, a.projectInfo').live('click',function(){
+		var title = $(this).attr('title');
+		if($(this).hasClass('projectDetail')){
+			var projectId = $(this).attr('id').replace('projectDetail_','');
+		} else if($(this).hasClass('projectInfo')){
+			var projectId = $(this).attr('id').replace('projectInfo_','');
+		}
+		var path = "/webapp/teacher/projects/projectinfo.html?projectId=" + projectId;
+		var div = $('#projectDetailDialog').html('<iframe id="projectIfrm" width="100%" height="100%"></iframe>');
+		$('body').css('overflow-y','hidden');
+		div.dialog({
+			modal: true,
+			width: '800',
+			height: '400',
+			title: title,
+			position: 'center',
+			close: function(){ $(this).html(''); $('body').css('overflow-y','auto'); },
+			buttons: {
+				Close: function(){
+					$(this).dialog('close');
+				}
+			}
+		});
+		$("#projectDetailDialog > #projectIfrm").attr('src',path);
+	});
 
 </script>
 
@@ -114,6 +141,7 @@
 
 <c:choose>
 			<c:when test="${fn:length(current_run_list) > 0}">
+				<p class="info">Your most recent classroom runs are shown below. To see all your project runs, go to the <a href="/webapp/teacher/management/classroomruns.html">Grade & Manage Classroom Runs</a> page.</p>
 				<div class="runBox">
 					
 					<table id="currentRunTable" class="runTable" border="1" cellpadding="0" cellspacing="0">
@@ -178,12 +206,12 @@
 							      			<!-- </tr>  -->
 											<tr>
 							      				<th><spring:message code="teacher.run.myprojectruns.11A"/></th>
-							      				<td><a href='/webapp/teacher/projects/projectinfo.html?projectId=${run.project.id}'>${run.project.id}</a></td>
+							      				<td><a id="projectDetail_${run.project.id}" class="projectDetail" title="Project Details">${run.project.id}</a></td>
 							      			</tr>
 							      			<tr>
 							      				<c:if test="${run.project.parentProjectId != null}">
 							      				<th><spring:message code="teacher.run.myprojectruns.40"/></th>
-												<td><a href='/webapp/teacher/projects/projectinfo.html?projectId=${run.project.parentProjectId}'>${run.project.parentProjectId}</a></td>
+												<td><a id="projectDetail_${run.project.parentProjectId}" class="projectDetail" title="Project Details">${run.project.parentProjectId}</a></td>
 												</c:if>
 							      			</tr>
 							      			<tr>
@@ -231,7 +259,7 @@
 											    <ul class="actionList">
 											        <li>
 											        	<spring:message code="teacher.run.myprojectruns.46"/>&nbsp;<a href="/webapp/previewproject.html?projectId=${run.project.id}" target="_blank"><spring:message code="teacher.run.myprojectruns.46A"/></a>
-										    			|&nbsp;<a href="/webapp/teacher/projects/projectinfo.html?projectId=${run.project.id}" target="_top"><spring:message code="teacher.run.myprojectruns.46B"/></a>
+										    			|&nbsp;<a id="projectInfo_${run.project.id}" class="projectInfo" title="Project Details"><spring:message code="teacher.run.myprojectruns.46B"/></a></a>
 											        	<sec:accesscontrollist domainObject="${run.project}" hasPermission="16">
 											        		|&nbsp;<a onclick="if(confirm('<spring:message code="teacher.run.myprojectruns.47"/>')){window.top.location='/webapp/author/authorproject.html?projectId=${run.project.id}&versionId=${run.versionId}';} return true;"><spring:message code="teacher.run.myprojectruns.46C"/></a>
 											        	</sec:accesscontrollist>
@@ -256,7 +284,7 @@
 								    	
 								    	<c:set var="isExternalProject" value="0"/>
 								    	<sec:accesscontrollist domainObject="${run}" hasPermission="16">
-								      		<li><a id="editAnnouncements_${run.id}" class="editAnnouncements" title="Manage Announcements: ${run.name} (Run ID ${run.id})" ><spring:message code="teacher.run.myprojectruns.50"/></a></li>
+								      		<!-- <li><a id="editAnnouncements_${run.id}" class="editAnnouncements" title="Manage Announcements: ${run.name} (Run ID ${run.id})" ><spring:message code="teacher.run.myprojectruns.50"/></a></li> -->
 								        </sec:accesscontrollist>			    	
 								    	<!-- 
 								    	<li><a href="../run/brainstorm/createbrainstorm.html?runId=${run.id}" target="_top">Create Q&A Discussion</a></li>
@@ -299,3 +327,4 @@
 <div id="shareDialog" class="dialog"></div>
 <div id="editRunDialog" class="dialog"></div>
 <div id="editAnnouncementsDialog" class="dialog"></div>
+<div id="projectDetailDialog" style="overflow:hidden;" class="dialog"></div>

@@ -3,8 +3,13 @@
 	font-size: 0.9em;
     margin-bottom: 0.5em;
 }
-/*#myProjects_wrapper .top,*/ #myProjects_wrapper .bottom {
-	height:20px;  TODO: Fix this - should not need to set a height */
+
+#myProjects_wrapper .bottom {
+	height:20px;  /*TODO: Fix this - should not need to set a height */
+}
+
+#libraryTable_wrapper .bottom, #libraryTable_wrapper .top {
+	height:20px; /*TODO: Fix this - should not need to set a height */
 }
 
 #myProjects_wrapper .datatables_length {
@@ -347,6 +352,28 @@ th.infoHead {
 }
 
 .projectDetails {
+	font-size:.9em;
+}
+
+.projectInfoDisplay {
+	padding:0 .25em;
+}
+
+.projectInfoDisplay .panelHeader {
+	font-size: 1em;
+	margin: 0 0 .75em 0;
+	padding-top: .25em;
+}
+
+.projectInfoDisplay .summaryInfo {
+	font-size:.9em;
+}
+
+.projectInfoDisplay .summaryText {
+	margin-bottom: .5em;
+}
+
+.projectInfoDisplay .details p {
 	font-size:.9em;
 }
 

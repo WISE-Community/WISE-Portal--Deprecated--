@@ -165,6 +165,7 @@
 	<bean id="previewprojectlistController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.PreviewProjectListController">
 		<property name="projectService" ref="projectService" />
+		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 
 	<bean id="authorProjectController"
@@ -937,6 +938,7 @@
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.ProjectInfoController">
 	    <property name="projectService" ref="projectService" />
 	    <property name="runService" ref="runService"/>
+	    <property name="portalProperties" ref="portalproperties" />
 	</bean>
 	
 	<bean id="addNewsItemController"

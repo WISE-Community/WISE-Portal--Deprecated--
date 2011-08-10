@@ -162,7 +162,7 @@
 			</div>
 			
 			<div class="showcase">
-				<div id="projectHeader" class="feature"><span class="featureContent">WISE Projects</span><a class="projectsLink" href="" title="WISE Project Library">Browse WISE Curricula +</a></div>
+				<div id="projectHeader" class="feature"><span class="featureContent">WISE Projects</span><a class="projectsLink" href="/webapp/previewprojectlist.html" title="WISE Project Library">Browse WISE Curricula +</a></div>
 				<div id="features">
 					<div id="featureHeader" class="feature"><span class="featureContent">WISE Features</span></div>
 					<div id="featuresContent">
