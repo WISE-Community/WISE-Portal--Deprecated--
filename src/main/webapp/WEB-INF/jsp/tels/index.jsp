@@ -213,7 +213,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -240,7 +240,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -267,7 +267,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -294,7 +294,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -321,7 +321,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -348,7 +348,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -372,11 +372,11 @@
 					<div class="panelHead"><span>The WISE Advantage</span><span class="panelLink">+</span></div>
 					<div class="panelContent"><img src="/webapp/themes/tels/default/images/home/wise-in-classroom.png" alt="WISE in Classroom" /></div>
 				</a>
-				<a id="wiseInAction" href="" class="panelSection">
+				<a id="wiseInAction" href="/webapp/pages/wise-in-action.html" class="panelSection">
 					<div class="panelHead"><span>WISE In Action</span><span class="panelLink">+</span></div>
 					<div class="panelContent"><img src="/webapp/themes/tels/default/images/home/wise-teaching.png" alt="WISE Students & Teacher" /></div>
 				</a>
-				<a id="researchTech" href="" class="panelSection">
+				<a id="researchTech" href="/webapp/pages/research-tech.html" class="panelSection">
 					<div class="panelHead"><span>Research & Technology</span><span class="panelLink">+</span></div>
 					<div class="panelContent"><img src="/webapp/themes/tels/default/images/home/wise-research.png" alt="WISE Research" /></div>
 				</a>
@@ -391,9 +391,9 @@
 				</div>
 				<div id="openSourceContent">WISE software is free to use and open source. Visit <a href="http://wise4.org" target="_blank">http://wise4.org</a> to learn about partnership opportuniies.</div>
 			</div>
-	
+		</div>
+	</div>
 	<%@ include file="footer.jsp"%>
-
 </div>
 <div id="projectDetailDialog" style="overflow:hidden;" class="dialog"></div>
 </body>

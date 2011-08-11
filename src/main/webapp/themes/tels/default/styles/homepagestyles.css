@@ -124,6 +124,10 @@ a.projectsLink {
 	font-family: "Trebuchet MS", "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;
 }
 
+#newsContent a {
+	color:#FFFFFF;
+}
+
 p.newsTitle {
 	font-size:.95em;
 }

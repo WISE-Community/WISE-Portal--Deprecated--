@@ -40,14 +40,12 @@ table tr, table td {
 }
 
 #columnButtons {
-	float:left;
+	float: left;
 	width: 245px;
-	margin:0px 0 0 0 ;
-	background-color:#FFE6C6;
-	border-top: 1px solid #666666;
-	border-right: 1px solid #000000;
-	border-bottom: 1px solid #000000;
-	border-left: 1px solid #666666;
+	margin: 0px 0 0 0;
+	background-color: white;
+	border-radius: 6px;
+	border: 1px solid #DDD;
 }
 
 #list1 {
@@ -136,14 +134,14 @@ table tr, table td {
 	}
 
 #columnLabel {
-	background-color:#FFCE8E;
-	color:#000;
-	font-size:1.1em;
-	letter-spacing:3px;
-	text-align:left;
-	padding: 5px 5px 5px 8px;
-	margin: 10px 0 15px 0;
-	border:1px solid #666;	
+	color: #4E94A2;
+font-size: 1.1em;
+letter-spacing: 3px;
+text-align: left;
+padding: 5px 5px 5px 8px;
+margin: 2px 0 15px 0;
+font-family: Trebuchet MS;
+font-weight: bold;	
 }
 
 #currentRunTable{

@@ -90,8 +90,8 @@
 						<!-- <a href="/webapp/teacher/help/overview.html"><spring:message code="menu.help"/></a>  -->
 						<a><spring:message code="menu.help"/></a> 
 						<ul>	
-							<li><a href="/webapp/pages/gettingstarted.html" target="_blank"><spring:message code="menu.quickstart"/></a></li>
-							<li><a href="/webapp/pages/teacherfaq.html" target="_blank"><spring:message code="menu.faq"/></a></li>
+							<li><a href="/webapp/pages/gettingstarted.html"><spring:message code="menu.quickstart"/></a></li>
+							<li><a href="/webapp/pages/teacherfaq.html"><spring:message code="menu.faq"/></a></li>
 							<!--  
 				            <li><a href="#" style="color:#999;">Search the Help Guide</a></li>
 				            -->

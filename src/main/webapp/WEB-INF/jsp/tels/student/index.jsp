@@ -1,6 +1,6 @@
 <%@ include file="../include.jsp"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
+<!DOCTYPE html>
 <html xml:lang="en" lang="en">
 
 <head>
@@ -17,6 +17,8 @@
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 
 <link href="<spring:theme code="jquerystylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="studenthomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
 // only alert user about browser comptibility issue once.
@@ -69,7 +71,7 @@ $(document).ready(function() {
 });
 </script>
 
-<script language="JavaScript">
+<script type="text/javascript">
 	function popup(URL) {
   	window.open(URL, 'SelectTeam', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=850,height=600,left = 570,top = 300');}
   	
@@ -106,18 +108,23 @@ $(document).ready(function() {
 </style>
 <![endif]-->
 
-<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="<spring:theme code="studenthomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
-
 <link rel="shortcut icon" href="../themes/tels/default/images/favicon_panda.ico" />
 
 </head>
 
 <body>
 
-<div id="centeredDiv">
+<div id="pageWrapper">
 
-	<%@ include file="./studentHeader.jsp"%>
+	<%@ include file="../headermain.jsp"%>
+	
+	<div id="page">
+		
+		<div id="pageContent">
+
+<div id="centeredDiv">
+	
+
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
 	<%@page import="java.util.*" %>
@@ -432,6 +439,9 @@ If you want to save work to an archived project run, ask your teacher to change 
 		</div>   <!--  closes <div id='tabSystems'> -->
 	</div>   <!--end of columnProjects, floated to left-->
  </div> <!-- end of centeredDiv -->
+ </div>
+ </div>
+ </div>
 
 </body>
 </html>

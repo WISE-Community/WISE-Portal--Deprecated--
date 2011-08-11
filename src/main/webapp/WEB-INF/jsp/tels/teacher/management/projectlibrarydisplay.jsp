@@ -321,6 +321,27 @@
 			});
 		});
 		
+		// setup share project run dialog
+		$('.shareProject').live('click',function(){
+			var title = $(this).attr('title');
+			var projectId = $(this).attr('id').replace('shareProject_','');
+			var path = "/webapp/teacher/projects/customized/shareproject.html?projectId=" + projectId;
+			var div = $('#shareDialog').html('<iframe id="shareIfrm" width="100%" height="100%"></iframe>');
+			$('body').css('overflow-y','hidden');
+			div.dialog({
+				modal: true,
+				width: '650',
+				height: $(window).height() - 100,
+				title: title,
+				position: 'center',
+				close: function(){ $(this).html(''); $('body').css('overflow-y','auto'); },
+				buttons: {
+					Close: function(){$(this).dialog('close');}
+				}
+			});
+			$("#shareDialog > #shareIfrm").attr('src',path);
+		});
+		
 		otable = $('#myProjects').dataTable({
 			"sPaginationType": "full_numbers",
 			"iDisplayLength": 10,
@@ -798,7 +819,7 @@
 											<ul class="actions">
 												<li><a style="font-weight:bold;" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" target="_blank">Preview</a>&nbsp;|</li>
 												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
-													<li><a href="/webapp/teacher/projects/customized/shareproject.html?projectId=${project.id}">Share</a>&nbsp;|</li>
+													<li><a id="shareProject_${project.id}" class="shareProject" title="Sharing Permissions: ${project.name} (ID ${project.id})">Share</a>&nbsp;|</li>
 												</sec:accesscontrollist>
 												<li><a onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" >Copy</a>&nbsp;|</li>
 												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
@@ -998,7 +1019,7 @@
 											<ul class="actions">
 												<li><a style="font-weight:bold;" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" target="_blank">Preview</a>&nbsp;|</li>
 												<sec:accesscontrollist domainObject="${project}" hasPermission="16">
-													<li><a href="/webapp/teacher/projects/customized/shareproject.html?projectId=${project.id}">Share</a>&nbsp;|</li>
+													<li><a id="shareProject_${project.id}" class="shareProject" title="Sharing Permissions: ${project.name} (ID ${project.id})">Share</a&nbsp;|</li>
 												</sec:accesscontrollist>
 												<li><a onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" >Copy</a>&nbsp;|</li>
 												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
@@ -1192,7 +1213,7 @@
 											<ul class="actions">
 												<li><a style="font-weight:bold;" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" target="_blank">Preview</a>&nbsp;|</li>
 												<sec:accesscontrollist domainObject="${project}" hasPermission="16">
-													<li><a href="/webapp/teacher/projects/customized/shareproject.html?projectId=${project.id}">Share</a>&nbsp;|</li>
+													<li><a id="shareProject_${project.id}" class="shareProject" title="Sharing Permissions: ${project.name} (ID ${project.id})">Share</a&nbsp;|</li>
 												</sec:accesscontrollist>
 												<li><a onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" >Copy</a>&nbsp;|</li>
 												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
@@ -1320,3 +1341,4 @@
 </table>
 
 <div id="projectDetailDialog" style="overflow:hidden;" class="dialog"></div>
+<div id="shareDialog" class="dialog"></div>

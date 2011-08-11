@@ -1,10 +1,10 @@
 <%@ include file="include.jsp"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
+<!DOCTYPE html>
 <html lang="en">
 
-<link href="../../<spring:theme code="yui-fonts-min-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="yui-container-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="yui-fonts-min-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="yui-container-stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
 
 <title><spring:message code="viewmystudents.message" /></title>
@@ -12,6 +12,7 @@
 <!-- FOR LATER REFACTOR <script src="../../../javascript/tels/custom-yui/changegroupdnd.js" type="text/javascript"> </script> -->
 <head>
 <%@ include file="../grading/styles.jsp"%>
+<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
 <script type="text/javascript" src="../.././javascript/tels/yui/yahoo/yahoo.js"></script>
 <script type="text/javascript" src="../.././javascript/tels/yui/event/event.js"></script>  
 <script type="text/javascript" src="../.././javascript/tels/yui/connection/connection.js"></script> 
@@ -397,189 +398,190 @@ Event.onDOMReady(YAHOO.example.DDApp.init, YAHOO.example.DDApp, true);
 //-->
 </script>
 
-<!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
-
-<link rel="stylesheet" type="text/css" href="../../themes/tels/default/styles/teacher/superfish.css" media="screen">
-<script type="text/javascript" src="../../javascript/tels/jquery-1.2.6.min.js"></script>
-<script type="text/javascript" src="../../javascript/tels/superfish.js"></script>
-
-<script type="text/javascript">
-    
-            // initialise plugins
-            jQuery(function(){
-                jQuery('ul.sf-menu').superfish();
-            });
-    
-</script>
-
-<link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
-<link href="../../<spring:theme code="viewmystudentsstylesheet"/>" media="screen" rel="stylesheet" type="text/css" /><link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="viewmystudentsstylesheet"/>" media="screen" rel="stylesheet" type="text/css" /><link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
 </head>
 
 <body class="yui-skin-sam">
 
-<div id="centeredDiv">
+<div id="pageWrapper">
 
-<%@ include file="../headerteacher.jsp"%>
+	<%@ include file="../headerteacher.jsp"%>
+	
+	<div id="page">
+			
+		<div id="pageContent">
+			
+			<div class="contentPanel">
+			
+				<div class="panelHeader">
+					Manage Students
+					<span class="pageTitle"><spring:message code="header.location.teacher.management"/></span>
+				</div>
+				
+				<div class="panelContent">
 
-<div id="navigationSubHeader2">Manage Students<span id="navigationSubHeader1">management</span></div>
+				<table id="projectTitleBox" border=0>
+					<tr>
+						<th>${project_name}</th>
+						<td>(Project ID: ${project_id})</td>
+					</tr>
+				</table>
 
-<table id="projectTitleBox" border=0>
-	<tr>
-		<th>${project_name}</th>
-		<td>(Project ID: ${project_id})</td>
-	</tr>
-</table>
-
-<div id="printLink">
-	<img src="../../themes/tels/default/images/printer.png" width="16" height="16" alt="Printer Icon" />
-    <a id="printLinkText" href="studentlist.html?runId=${run.id}"><spring:message code="teacher.manage.viewstudents.20"/></a>
-</div>
-
-<div id="exportToExelLink">
-	<img src="../../themes/tels/default/images/printer.png" width="16" height="16" alt="Printer Icon" />
-    <a id="printLinkText" href="studentlistexcel.html?runId=${run.id}"><spring:message code="teacher.manage.viewstudents.22"/></a>
-</div>
+				<div id="printLink">
+					<img src="../../themes/tels/default/images/printer.png" width="16" height="16" alt="Printer Icon" />
+				    <a id="printLinkText" href="studentlist.html?runId=${run.id}"><spring:message code="teacher.manage.viewstudents.20"/></a>
+				</div>
+				
+				<div id="exportToExelLink">
+					<img src="../../themes/tels/default/images/printer.png" width="16" height="16" alt="Printer Icon" />
+				    <a id="printLinkText" href="studentlistexcel.html?runId=${run.id}"><spring:message code="teacher.manage.viewstudents.22"/></a>
+				</div>
 
 
-<div id="tabSystem" class="yui-navset">
-<ul class="yui-nav" style="font-size:.8em;"> 
-	<c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">
-		<li style="padding-right:3px; padding-top:0px; margin-top:0px;"><a href="${viewmystudentsperiod.period.name}"><em>Period ${viewmystudentsperiod.period.name}</em></a></li>
-	</c:forEach>
-</ul>
-<div class="yui-content" style="background-color:#FFFFFF;">
-
-  <c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">
-	<div><c:choose>
-		<c:when test="${fn:length(viewmystudentsperiod.period.members) == 0}">
-   		    <!--  there is NO student in this period  -->
-				<spring:message code="teacher.manage.viewstudents.2"/>
-			</c:when>
-		<c:otherwise>
-		    <!--  there are students in this period  -->
-		    <ul id="periodHeaderBar">
-		    	<li class="periodHeaderStart"><spring:message code="teacher.manage.viewstudents.3"/>&nbsp;<span class="manageDataStyle">${fn:length(viewmystudentsperiod.period.members)}</span></li>
-		    	<li class="periodHeaderStart"><spring:message code="teacher.manage.viewstudents.4"/>&nbsp;<span class="manageDataStyle">${fn:length(viewmystudentsperiod.workgroups)}</span></li>
-		    	<li class="periodHeaderStart""><spring:message code="teacher.manage.viewstudents.5"/>&nbsp;<span class="manageDataStyle">${viewmystudentsperiod.run.runcode}-${viewmystudentsperiod.period.name}</span></li>
-		    	<li class="viewStudentsLink"><a onclick="javascript:createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});"><spring:message code="teacher.manage.viewstudents.6"/></a></li>
-		     	<li class="viewStudentsLink"><a onclick="javascript:popup640('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}&runId=${viewmystudentsperiod.run.id}');"><spring:message code="teacher.manage.viewstudents.7"/></a></li>
-		       	<li style="display:none;" class="viewStudentsLink"><a href="#" onclick="javascript:popup('#');"><spring:message code="teacher.manage.viewstudents.8"/></a></li>
-		    </ul>
-		  	
-		  <div href="#" id="instructionsBar" onclick="toggle_visibility('viewStudentsInstructions');">Help <span class="subText">&nbsp;&nbsp;Click here to show/hide instructions</span></div>
-		 
-			<div style="display:none;" id="viewStudentsInstructions">
-						<table>
-								<tr>
-										<th>Create New Teams:</th>
-										<td>Click the "Create a New Team" button to create an empty team box. Click/drag 1-3 student names into the
-										box. Click SAVE.</td>
-								</tr>
-								<tr>
-										<th>Remove a Student</th>
-										<td>Click the "</td>
-								</tr>
-								<tr>
-										<th>Moving Unassigned Students:</th>
-										<td>Click/drag unassigned students from one box to another. Click SAVE CHANGES.</td>
-								</tr>
-
-								<tr>
-										<th>Moving Students already in a Team:</th>
-										<td>Click the "Create a New Team" button to create an empty team box. Click/drag 1-3 student names into the
-										box. Click SAVE.</td>
-								</tr>
-								<!-- 
-								<tr>
-										<th>Exporting a Team's Work to PDF</th>
-										<td>Click the "Create PDF file" link within a particular team box.</td>
-								</tr>
-								 -->
-						</table>
-
-						</div>	
-		<table id="manageStudentsTable">
-			<tr>
-			<td>
-			<div class="workarea" id="groupless_div_${viewmystudentsperiod.period.id}">
-			  <ul id="ul_${viewmystudentsperiod.period.id}_groupless" class="draglist">
-			    <li class="grouplessHeader"><spring:message code="teacher.manage.viewstudents.17"/></li>
-
-                <c:forEach var="mem" items="${viewmystudentsperiod.grouplessStudents}">
-			      <li class="grouplesslist" id="li_${mem.id}_groupless">
-			      
-			         <span id="userNameWithinView">${mem.userDetails.firstname} ${mem.userDetails.lastname}</span>
-    			     <span id="userLinksBar">
-    			     <a class="userLinks" onclick="javascript:popupSpecial('../../studentinfo.html?userName=${mem.userDetails.username}');" href="#" >Info</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentperiod.html?userId=${mem.id}&runId=${viewmystudentsperiod.run.id}&projectCode=${viewmystudentsperiod.period.name}');">Period</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popupSpecial('removestudentfromrun.html?runId=${viewmystudentsperiod.run.id}&userId=${mem.id}');">Remove</a>
-    			     </span>
-    			  </li>
-			    </c:forEach>
-  			  </ul>
+				<div id="tabSystem" class="yui-navset">
+				<ul class="yui-nav" style="font-size:.8em;"> 
+					<c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">
+						<li style="padding-right:3px; padding-top:0px; margin-top:0px;"><a href="${viewmystudentsperiod.period.name}"><em>Period ${viewmystudentsperiod.period.name}</em></a></li>
+					</c:forEach>
+				</ul>
+				<div class="yui-content" style="background-color:#FFFFFF;">
+				
+				  <c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">
+					<div><c:choose>
+						<c:when test="${fn:length(viewmystudentsperiod.period.members) == 0}">
+				   		    <!--  there is NO student in this period  -->
+								<spring:message code="teacher.manage.viewstudents.2"/>
+							</c:when>
+						<c:otherwise>
+						    <!--  there are students in this period  -->
+						    <ul id="periodHeaderBar">
+						    	<li class="periodHeaderStart"><spring:message code="teacher.manage.viewstudents.3"/>&nbsp;<span class="manageDataStyle">${fn:length(viewmystudentsperiod.period.members)}</span></li>
+						    	<li class="periodHeaderStart"><spring:message code="teacher.manage.viewstudents.4"/>&nbsp;<span class="manageDataStyle">${fn:length(viewmystudentsperiod.workgroups)}</span></li>
+						    	<li class="periodHeaderStart""><spring:message code="teacher.manage.viewstudents.5"/>&nbsp;<span class="manageDataStyle">${viewmystudentsperiod.run.runcode}-${viewmystudentsperiod.period.name}</span></li>
+						    	<li class="viewStudentsLink"><a onclick="javascript:createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});"><spring:message code="teacher.manage.viewstudents.6"/></a></li>
+						     	<li class="viewStudentsLink"><a onclick="javascript:popup640('batchstudentchangepassword.html?groupId=${viewmystudentsperiod.period.id}&runId=${viewmystudentsperiod.run.id}');"><spring:message code="teacher.manage.viewstudents.7"/></a></li>
+						       	<li style="display:none;" class="viewStudentsLink"><a href="#" onclick="javascript:popup('#');"><spring:message code="teacher.manage.viewstudents.8"/></a></li>
+						    </ul>
+						  	
+						  <div href="#" id="instructionsBar" onclick="toggle_visibility('viewStudentsInstructions');">Help <span class="subText">&nbsp;&nbsp;Click here to show/hide instructions</span></div>
+						 
+							<div style="display:none;" id="viewStudentsInstructions">
+										<table>
+												<tr>
+														<th>Create New Teams:</th>
+														<td>Click the "Create a New Team" button to create an empty team box. Click/drag 1-3 student names into the
+														box. Click SAVE.</td>
+												</tr>
+												<tr>
+														<th>Remove a Student</th>
+														<td>Click the "</td>
+												</tr>
+												<tr>
+														<th>Moving Unassigned Students:</th>
+														<td>Click/drag unassigned students from one box to another. Click SAVE CHANGES.</td>
+												</tr>
+				
+												<tr>
+														<th>Moving Students already in a Team:</th>
+														<td>Click the "Create a New Team" button to create an empty team box. Click/drag 1-3 student names into the
+														box. Click SAVE.</td>
+												</tr>
+												<!-- 
+												<tr>
+														<th>Exporting a Team's Work to PDF</th>
+														<td>Click the "Create PDF file" link within a particular team box.</td>
+												</tr>
+												 -->
+										</table>
+				
+										</div>	
+						<table id="manageStudentsTable">
+							<tr>
+							<td>
+							<div class="workarea" id="groupless_div_${viewmystudentsperiod.period.id}">
+							  <ul id="ul_${viewmystudentsperiod.period.id}_groupless" class="draglist">
+							    <li class="grouplessHeader"><spring:message code="teacher.manage.viewstudents.17"/></li>
+				
+				                <c:forEach var="mem" items="${viewmystudentsperiod.grouplessStudents}">
+							      <li class="grouplesslist" id="li_${mem.id}_groupless">
+							      
+							         <span id="userNameWithinView">${mem.userDetails.firstname} ${mem.userDetails.lastname}</span>
+				    			     <span id="userLinksBar">
+				    			     <a class="userLinks" onclick="javascript:popupSpecial('../../studentinfo.html?userName=${mem.userDetails.username}');" href="#" >Info</a>
+				    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${mem.userDetails.username}');">Password</a>
+				    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentperiod.html?userId=${mem.id}&runId=${viewmystudentsperiod.run.id}&projectCode=${viewmystudentsperiod.period.name}');">Period</a>
+				    			     <a class="userLinks" href="#" onclick="javascript:popupSpecial('removestudentfromrun.html?runId=${viewmystudentsperiod.run.id}&userId=${mem.id}');">Remove</a>
+				    			     </span>
+				    			  </li>
+							    </c:forEach>
+				  			  </ul>
+							</div>
+							</td>
+							<td>
+							<div id="div_for_new_workgroups_${viewmystudentsperiod.period.id}"></div>
+							</td>
+							</tr>
+							<tr>
+				            <c:forEach var="workgroupInPeriod" varStatus="workgroupVarStatus" items="${viewmystudentsperiod.workgroups}" >
+				                <td>
+				              <div class="workarea" id="div_${workgroupInPeriod.id}">
+							    <ul id="ul_${viewmystudentsperiod.period.id}_workgroup_${workgroupInPeriod.id}" class="draglist">  
+							      <li class="workgroupHeader">TEAM ${workgroupInPeriod.id}
+							        <!-- <a class="createPdfLink" href="${workgroupInPeriod.workPDFUrl}"><spring:message code="teacher.manage.viewstudents.18"/></a>   -->
+							      </li>
+							      
+							      <c:forEach var="workgroupMember" items="${workgroupInPeriod.members}">
+							      
+							        <li class="workgrouplist" id="li_${workgroupMember.id}_${workgroupInPeriod.id}">
+							         <span id="userNameWithinView">${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname} (${workgroupMember.userDetails.username})</span>
+				    			     <span id="userLinksBar">
+				    			     <a class="userLinks" onclick="javascript:popupSpecial('../../studentinfo.html?userName=${workgroupMember.userDetails.username}');" href="#" >Info</a>
+				    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Password</a>
+				    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentperiod.html?userId=${workgroupMember.id}&runId=${viewmystudentsperiod.run.id}&projectCode=${viewmystudentsperiod.period.name}');">Period</a>
+				       			     <a class="userLinks" href="#" onclick="javascript:popup640('removestudentfromrun.html?runId=${viewmystudentsperiod.run.id}&userId=${workgroupMember.id}');">Remove</a>
+				    			     </span>
+							        </li>
+							      </c:forEach>
+							    </ul>
+							   </div>
+				                 </td>                
+				                <c:choose>
+				                    <c:when test="${workgroupVarStatus.index % 2 == 1}" >
+				                      </tr><tr>
+				                    </c:when>
+				                    <c:otherwise>
+				                    </c:otherwise>
+				              </c:choose>
+				            </c:forEach>
+				            </tr>
+				            </table>
+				            
+				         <div id="saveBar">
+				         		<input type="button" class="saveButton" id="saveButton_${viewmystudentsperiod.period.id}" 
+				            	value="<spring:message code="teacher.manage.viewstudents.19"/>" />
+				          </div> 
+				     
+						</c:otherwise>
+					</c:choose>
+					
+					
+					</div>
+				    </c:forEach>
+				</div>
+				
+				</div>
 			</div>
-			</td>
-			<td>
-			<div id="div_for_new_workgroups_${viewmystudentsperiod.period.id}"></div>
-			</td>
-			</tr>
-			<tr>
-            <c:forEach var="workgroupInPeriod" varStatus="workgroupVarStatus" items="${viewmystudentsperiod.workgroups}" >
-                <td>
-              <div class="workarea" id="div_${workgroupInPeriod.id}">
-			    <ul id="ul_${viewmystudentsperiod.period.id}_workgroup_${workgroupInPeriod.id}" class="draglist">  
-			      <li class="workgroupHeader">TEAM ${workgroupInPeriod.id}
-			        <!-- <a class="createPdfLink" href="${workgroupInPeriod.workPDFUrl}"><spring:message code="teacher.manage.viewstudents.18"/></a>   -->
-			      </li>
-			      
-			      <c:forEach var="workgroupMember" items="${workgroupInPeriod.members}">
-			      
-			        <li class="workgrouplist" id="li_${workgroupMember.id}_${workgroupInPeriod.id}">
-			         <span id="userNameWithinView">${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname} (${workgroupMember.userDetails.username})</span>
-    			     <span id="userLinksBar">
-    			     <a class="userLinks" onclick="javascript:popupSpecial('../../studentinfo.html?userName=${workgroupMember.userDetails.username}');" href="#" >Info</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentpassword.html?userName=${workgroupMember.userDetails.username}');">Password</a>
-    			     <a class="userLinks" href="#" onclick="javascript:popup640('changestudentperiod.html?userId=${workgroupMember.id}&runId=${viewmystudentsperiod.run.id}&projectCode=${viewmystudentsperiod.period.name}');">Period</a>
-       			     <a class="userLinks" href="#" onclick="javascript:popup640('removestudentfromrun.html?runId=${viewmystudentsperiod.run.id}&userId=${workgroupMember.id}');">Remove</a>
-    			     </span>
-			        </li>
-			      </c:forEach>
-			    </ul>
-			   </div>
-                 </td>                
-                <c:choose>
-                    <c:when test="${workgroupVarStatus.index % 2 == 1}" >
-                      </tr><tr>
-                    </c:when>
-                    <c:otherwise>
-                    </c:otherwise>
-              </c:choose>
-            </c:forEach>
-            </tr>
-            </table>
-            
-         <div id="saveBar">
-         		<input type="button" class="saveButton" id="saveButton_${viewmystudentsperiod.period.id}" 
-            	value="<spring:message code="teacher.manage.viewstudents.19"/>" />
-          </div> 
-     
-		</c:otherwise>
-	</c:choose>
-	
-	
+		</div>
 	</div>
-    </c:forEach>
+<div style="clear: both;"></div>
+	</div>   <!-- End of page -->
+	
+	<%@ include file="../../footer.jsp"%>
 </div>
-
-</div> 
-
-
-</div>     <!--End of Centered Div-->
 
 <!-- 
 // THE DEBUGGING CONSOLE...UNCOMMENT TO DISPLAY

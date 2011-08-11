@@ -364,7 +364,7 @@ a#name {
 
 .sectionContent ol {
 	font-size:.9em;
-	list-style-type:octal;
+	list-style-type:decimal;
 }
 
 .sectionContent li {
@@ -898,13 +898,20 @@ form {margin:0px; padding:0px;}
 	color: #745A33;
 }
 
-.featuresShowcase .featureContent ul {
-	list-style-type:disc;
+.featuresShowcase .featureContent ul, .featuresShowcase .featureContent ol {
 	margin:.5em 1.5em;
 	font-size:.9em;
 }
 
-.featuresShowcase .featureContent ul li {
+.featuresShowcase .featureContent ul {
+	list-style-type:disc;
+}
+
+.featuresShowcase .featureContent ol {
+	list-style-type:decimal;
+}
+
+.featuresShowcase .featureContent ul li, .featuresShowcase .featureContent ol li {
 	margin: 0 1em .5em;
 	line-height:1.3em;
 }
