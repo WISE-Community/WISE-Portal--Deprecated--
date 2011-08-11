@@ -776,6 +776,7 @@ form {margin:0px; padding:0px;}
     text-align: center;
     text-decoration: none !important;
     width: 145px;
+    border:0 none;
 }
 
 .wisebutton:hover {

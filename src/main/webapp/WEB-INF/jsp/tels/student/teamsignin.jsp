@@ -157,9 +157,7 @@
 	<div><a href="../forgotaccount/student/index.html" id="forgotlink"><spring:message code="student.teamsignin.8"/></a>  </div>
 	
 	 <div id="finalRunProjectButton" onclick="setTimeout('self.close()', 15000);">
- 	    <input type="image" name=_finish" value="Run Project" id="runproject" src="../<spring:theme code="run_project" />" 
-    		onmouseover="swapImage('runproject','../<spring:theme code="run_project_roll" />')" 
-    		onmouseout="swapImage('runproject','../<spring:theme code="run_project" />')" />
+ 	    <input type="button" class="wisebutton" name=_finish" value="Run Project" id="runproject" />
 	</div>
 					
 	</form:form>

@@ -577,6 +577,12 @@
 
 #finalRunProjectButton {
 	padding: 5px;
+	text-align:center;
+}
+
+#finalRunProjectButton input[type="button"] {
+	margin: 0 auto;
+	font-size: 1em;
 }
 
 /* CONTACT WISE PAGES 
