@@ -32,7 +32,7 @@
 
 <sec:authorize ifNotGranted="ROLE_USER">
 	<div id="userInfoBlock">
-		<form id="home" method="post" action="j_acegi_security_check" autocomplete="off">
+		<form id="home" method="post" action="/webapp/j_acegi_security_check" autocomplete="off">
 			<div id="signinForm">
 				<div>
 					<label for="username"><spring:message code="username" /></label><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60" />
