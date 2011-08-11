@@ -66,11 +66,15 @@ public class PreviewProjectListController extends AbstractController {
 		 Set<String> tagNames = new TreeSet<String>();
 		 tagNames.add("library");
 		 List<Project> projectList = this.projectService.getProjectListByTagNames(tagNames);
+		 
+		// filter out research (pre/post tests, initial ideas, reflection projects, etc.) from public library
+		Set<String> researchTags = new TreeSet<String>();
+		researchTags.add("research");
 
 		 // List<Project> projectList = this.projectService.getProjectListByTag(FamilyTag.TELS);
 		 List<Project> currentProjectList = new ArrayList<Project>();
 		 for (Project p: projectList) {
-			 if (p.isCurrent())
+			 if (p.isCurrent() && !p.hasTags(researchTags))
 				 currentProjectList.add(p);
 		 }
 		 
