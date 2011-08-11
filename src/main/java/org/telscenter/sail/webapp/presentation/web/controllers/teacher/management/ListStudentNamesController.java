@@ -154,10 +154,13 @@ public class ListStudentNamesController extends AbstractController {
 				
 				//get the workgroup the student is in
 				List<Workgroup> workgroupListByOfferingAndUser = workgroupService.getWorkgroupListByOfferingAndUser(run, user);
-				Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
-				
 				//get the workgroup id and wise id
-				Long workgroupId = workgroup.getId();
+				Long workgroupId = null;
+				if (workgroupListByOfferingAndUser.size() > 0) {
+					Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
+					workgroupId = workgroup.getId();
+				}
+				
 				Long wiseId = user.getId();
 				
 				//get the user details
@@ -196,7 +199,11 @@ public class ListStudentNamesController extends AbstractController {
 				columnCounter++;
 				
 				//insert the other values for this student
-				studentDataRow.createCell(columnCounter++).setCellValue(workgroupId);
+				if (workgroupId == null) {
+					studentDataRow.createCell(columnCounter++).setCellValue("N/A");
+				} else {
+					studentDataRow.createCell(columnCounter++).setCellValue(workgroupId);					
+				}
 				studentDataRow.createCell(columnCounter++).setCellValue(wiseId);
 				studentDataRow.createCell(columnCounter++).setCellValue(userName);
 				studentDataRow.createCell(columnCounter++).setCellValue(fullName);
