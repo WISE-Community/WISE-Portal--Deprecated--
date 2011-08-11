@@ -92,6 +92,7 @@ public class IndexController extends AbstractController {
 		// get library projects
 		Set<String> tagNames = new TreeSet<String>();
 		tagNames.add("library");
+		tagNames.add("public");
 		List<Project> libraryProjectsList = this.projectService.getProjectListByTagNames(tagNames);
 		
 		// divide library projects by subject area
@@ -102,26 +103,20 @@ public class IndexController extends AbstractController {
 		List<Project> chemProjects = new ArrayList<Project>();
 		List<Project> physProjects = new ArrayList<Project>();
 		
-		// filter out research (pre/post tests, initial ideas, reflection projects, etc.) from public library
-		Set<String> researchTags = new TreeSet<String>();
-		researchTags.add("research");
-		
 		for (Project p: libraryProjectsList) {
-			if(!p.hasTags(researchTags)){
-				String subject = p.getMetadata().getSubject();
-				if (subject.equals("Earth Science")){
-					esProjects.add(p);
-				} else if (subject.equals("Life Science")){
-					lsProjects.add(p);
-				} else if (subject.equals("Physical Science")){
-					psProjects.add(p);
-				} else if (subject.equals("Biology")){
-					bioProjects.add(p);
-				} else if (subject.equals("Chemistry")){
-					chemProjects.add(p);
-				} else if (subject.equals("Physics")){
-					physProjects.add(p);
-				}
+			String subject = p.getMetadata().getSubject();
+			if (subject.equals("Earth Science")){
+				esProjects.add(p);
+			} else if (subject.equals("Life Science")){
+				lsProjects.add(p);
+			} else if (subject.equals("Physical Science")){
+				psProjects.add(p);
+			} else if (subject.equals("Biology")){
+				bioProjects.add(p);
+			} else if (subject.equals("Chemistry")){
+				chemProjects.add(p);
+			} else if (subject.equals("Physics")){
+				physProjects.add(p);
 			}
 		}
 		

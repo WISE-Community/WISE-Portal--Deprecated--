@@ -65,16 +65,13 @@ public class PreviewProjectListController extends AbstractController {
 			HttpServletResponse response) throws Exception {
 		 Set<String> tagNames = new TreeSet<String>();
 		 tagNames.add("library");
+		 tagNames.add("public");
 		 List<Project> projectList = this.projectService.getProjectListByTagNames(tagNames);
-		 
-		// filter out research (pre/post tests, initial ideas, reflection projects, etc.) from public library
-		Set<String> researchTags = new TreeSet<String>();
-		researchTags.add("research");
 
 		 // List<Project> projectList = this.projectService.getProjectListByTag(FamilyTag.TELS);
 		 List<Project> currentProjectList = new ArrayList<Project>();
 		 for (Project p: projectList) {
-			 if (p.isCurrent() && !p.hasTags(researchTags))
+			 if (p.isCurrent())
 				 currentProjectList.add(p);
 		 }
 		 

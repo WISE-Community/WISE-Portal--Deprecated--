@@ -68,20 +68,20 @@
 					}
 				 ],
 				"aFilterOpts": [
-					/*{
+					{
 						"identifier": "<spring:message code="teacher.run.myprojectruns.58D"/>", "label": "<spring:message code="teacher.run.myprojectruns.filter.1a"/>", "column": 6,
 						"options": [
 							{"query": "owned", "display": "<spring:message code="teacher.run.myprojectruns.filter.1b"/>"},
 							{"query": "shared", "display": "<spring:message code="teacher.run.myprojectruns.filter.1c"/>"}
 						]
-					},*/
-					{
+					}
+					/*{
 						"identifier": "<spring:message code="teacher.run.myprojectruns.58C"/>", "label": "<spring:message code="teacher.run.myprojectruns.filter.2a"/>", "column": 5,
 						"options": [
 							{"query": "custom", "display": "<spring:message code="teacher.run.myprojectruns.filter.2b"/>"},
 							{"query": "library", "display": "<spring:message code="teacher.run.myprojectruns.filter.2c"/>"}
 						]
-					}
+					}*/
 				],
 				"bScroll": false
 			});
