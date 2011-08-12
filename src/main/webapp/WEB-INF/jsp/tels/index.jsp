@@ -389,7 +389,7 @@
 				<div id="openSourceHeader" class="feature">
 					<span class="featureContent">WISE Open Source Partnerships</span>
 				</div>
-				<div id="openSourceContent">WISE software is free to use and open source. Visit <a href="http://wise4.org" target="_blank">http://wise4.org</a> to learn about partnership opportuniies.</div>
+				<div id="openSourceContent">WISE software is free to use and open source. Visit <a href="http://wise4.org" target="_blank">http://wise4.org</a> to learn about partnership opportunities.</div>
 			</div>
 		</div>
 	</div>

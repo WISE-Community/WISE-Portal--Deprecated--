@@ -712,44 +712,52 @@ function DetectFlashVer(reqMajorVer, reqMinorVer, reqRevision)
 
 /**
  * Check if user is behind a firewall that prevents them from viewing certain resources
- * like .swf, .jar, etc
+ * like .swf, .jar, etc. 
+ * Note: Chrome and Safari seems to add extra to the response length so we need to 
+ * check for >=.
  */
 function checkContentFiltering() {
 	// test loading of swf file
 	$.ajax({ 
 		url: "flash/tels/WISE_Slideshow.swf", 
-		context: document.body, 
-		complete:function(XMLHttpRequest, textStatus) {
+		context: document.body})
+		.success(function(data, textStatus, jqXHR) {
 			var contentFilterSwfRequirementSatisfied=false;
-			if (XMLHttpRequest.status == '200' 
-					&& XMLHttpRequest.responseText != ''
-					&& XMLHttpRequest.responseText.length == 1998213) {
+			if (jqXHR.status == '200' 
+					&& jqXHR.responseText != ''
+					&& jqXHR.responseText.length >= 1998213) {
 				contentFilterSwfRequirementSatisfied = true;
 			} else {
 				contentFilterSwfRequirementSatisfied = false;
 			}
 			var requirementSatisfiedIcon = getRequirementSatisfiedIcon(contentFilterSwfRequirementSatisfied);				
+			document.getElementById('contentFilterSwfRequirementSatisfied').innerHTML = requirementSatisfiedIcon;		
+		})
+		.error(function(jqXHR,textStatus,exception) {
+			var requirementSatisfiedIcon = getRequirementSatisfiedIcon(false);				
 			document.getElementById('contentFilterSwfRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
-		}
-	});
+		});	
 
 	// test loading of jar file
-	$.ajax({ 
+	var jqxhr = $.ajax({ 
 		url: "library/jar/commons-logging-1.1.jar", 
-		context: document.body, 
-		complete:function(XMLHttpRequest, textStatus) {
+		context: document.body})
+		.success(function(data, textStatus, jqXHR) {			
 			var contentFilterRequirementSatisfied=false;
-			if (XMLHttpRequest.status == '200' 
-					&& XMLHttpRequest.responseText != ''
-					&& XMLHttpRequest.responseText.length == 49828) {
+			if (jqXHR.status == '200' 
+					&& jqXHR.responseText != ''
+					&& jqXHR.responseText.length >= 49828) {
 				contentFilterRequirementSatisfied = true;
 			} else {
 				contentFilterRequirementSatisfied = false;
 			}
 			var requirementSatisfiedIcon = getRequirementSatisfiedIcon(contentFilterRequirementSatisfied);				
+			document.getElementById('contentFilterJarRequirementSatisfied').innerHTML = requirementSatisfiedIcon;		
+		})
+		.error(function(jqXHR,textStatus,exception) {
+			var requirementSatisfiedIcon = getRequirementSatisfiedIcon(false);				
 			document.getElementById('contentFilterJarRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
-		}
-	});
+		});
 
 };
 
