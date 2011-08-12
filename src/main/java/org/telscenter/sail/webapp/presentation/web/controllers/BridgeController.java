@@ -528,7 +528,7 @@ public class BridgeController extends AbstractController {
 
 			//set the workgroup id into the request so the vlewrapper controller has access to it
 			if (studentuploads_base_dir != null) {
-				request.setAttribute("path", studentuploads_base_dir);
+				request.setAttribute("studentuploads_base_dir", studentuploads_base_dir);
 			}
 			
 			// workgroups is a ":" separated string of workgroups
@@ -573,7 +573,7 @@ public class BridgeController extends AbstractController {
 			//set the workgroup id into the request so the vlewrapper controller has access to it
 			request.setAttribute("dirName", workgroupId + "");
 			if (studentuploads_base_dir != null) {
-				request.setAttribute("path", studentuploads_base_dir);
+				request.setAttribute("studentuploads_base_dir", studentuploads_base_dir);
 			}
 			//forward the request to the vlewrapper controller
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/vle/studentassetmanager.html");
