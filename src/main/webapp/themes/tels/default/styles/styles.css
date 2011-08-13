@@ -576,13 +576,16 @@
 }
 
 #finalRunProjectButton {
-	padding: 5px;
+	margin:1em;
 	text-align:center;
 }
 
-#finalRunProjectButton input[type="button"] {
+#finalRunProjectButton input {
 	margin: 0 auto;
 	font-size: 1em;
+	background-color: transparent;
+	border:0 none;
+	padding:0;
 }
 
 /* CONTACT WISE PAGES 
