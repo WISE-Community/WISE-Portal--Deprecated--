@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.Collections;
 import java.util.Comparator;
@@ -81,7 +82,9 @@ public class TeacherIndexController extends AbstractController {
 	private MessageService messageService;
 
 	private UserService userService;
-	
+
+	private Properties portalProperties;
+
 	private ProjectService projectService;
 
 	private WorkgroupService workgroupService;
@@ -90,6 +93,8 @@ public class TeacherIndexController extends AbstractController {
 	
 	private BrainstormService brainstormService;
 	
+	protected final static String IS_XMPP_ENABLED = "isXMPPEnabled";
+
 	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
 
 	protected final static String CURRENT_RUN_LIST_KEY = "current_run_list";
@@ -118,6 +123,13 @@ public class TeacherIndexController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		
+		boolean isXMPPEnabled = false;
+		
+	    String isXMPPEnabledStr = this.portalProperties.getProperty("isXMPPEnabled");
+	    if (isXMPPEnabledStr != null) {
+	    	isXMPPEnabled = Boolean.valueOf(isXMPPEnabledStr);
+	    }
 		
 		String gradingParam = request.getParameter(GRADING_ENABLED);
 		
@@ -197,6 +209,7 @@ public class TeacherIndexController extends AbstractController {
 		modelAndView.addObject(CURRENT_RUN_LIST_KEY2, current_run_list1);
     	modelAndView.addObject(CURRENT_DATE, null);
     	modelAndView.addObject(GRADING_PARAM, gradingParam);
+		modelAndView.addObject(IS_XMPP_ENABLED, isXMPPEnabled);
 		
 		//modelAndView.addObject(ENDED_RUN_LIST_KEY, ended_run_list);
 		modelAndView.addObject("externalprojectruns", external_project_runs);
@@ -220,6 +233,12 @@ public class TeacherIndexController extends AbstractController {
 	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
 	}
 	/**
 	 * @param messageService the messageService to set

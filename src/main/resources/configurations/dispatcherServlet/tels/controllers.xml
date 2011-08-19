@@ -114,6 +114,7 @@
 		<property name="brainstormService" ref="brainstormService" />
 		<property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
+		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 
 	<bean id="registerController"
@@ -425,6 +426,7 @@
 		<property name="brainstormService" ref="brainstormService" />
 		<property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
+		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 	
 	<bean id="myClassroomRunsController"

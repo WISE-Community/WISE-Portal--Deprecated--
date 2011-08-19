@@ -816,6 +816,14 @@ public class AuthorProjectController extends AbstractController {
 			config.put("projectMetaDataUrl", projectMetaDataUrl);
 			config.put("vlewrapperBaseUrl", vlewrapperBaseUrl);
 			config.put("indexUrl", ControllerUtil.getPortalUrlString(request) + TelsAuthenticationProcessingFilter.TEACHER_DEFAULT_TARGET_PATH);
+			int maxInactiveInterval = request.getSession().getMaxInactiveInterval() * 1000;
+			config.put("sessionTimeoutInterval", maxInactiveInterval);			// add sessiontimeout interval, in milleseconds
+			int sessionTimeoutCheckInterval = maxInactiveInterval / 20;         // check 20 times during the session.
+			if (sessionTimeoutCheckInterval > 60000) {
+				// session should be checked at least every 60 seconds.
+				sessionTimeoutCheckInterval = 60000;
+			}
+			config.put("sessionTimeoutCheckInterval", sessionTimeoutCheckInterval); // how often session should be checked...check every minute (1 min=60sec=60000 milliseconds)
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
