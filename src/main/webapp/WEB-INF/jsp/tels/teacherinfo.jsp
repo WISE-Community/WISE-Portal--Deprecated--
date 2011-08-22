@@ -91,6 +91,6 @@
 </table>
 <br>
 
-<a href="#" onclick="javascript:window.close()"><spring:message code="teacher.manage.changeworkgroup.5"/></a>
+<a href="#" onclick="javascript:window.close()"><spring:message code="teacher.manage.changeworkgroup.5" /></a>
 </body>
 </html>

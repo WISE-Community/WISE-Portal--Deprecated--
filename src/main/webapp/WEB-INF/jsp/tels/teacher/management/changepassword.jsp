@@ -71,8 +71,8 @@
 							</tr>
 						</table>
 								
-					    <div><input type="submit" value="Save Changes"/></div>
-						<div><a href="updatemyaccount.html"><spring:message code="teacher.registerteacher.35"/></a></div>
+					    <div><input type="submit" value="<spring:message code="wise.save-changes"/>"/></div>
+						<div><a href="updatemyaccount.html"><spring:message code="navigate.cancel"/></a></div>
 					
 						</form:form>
 					 	

@@ -79,123 +79,32 @@ function findStringsContaining(what, all_array) {
 
 // when remove user is clicked, confirm with user
 function removeSharedUserClicked() {
-  return confirm('Are you sure you want to remove this shared teacher?');
+  return confirm('<spring:message code="teacher.pro.custom.sharepro.18"/>');
 }
 </script>
 
-<!--USED TO SHOW/HIDE A DIV ELEMENT-->
-<script type="text/javascript">
-
-	function toggleProjectSummaryCurrent(){
-		var searchDiv = document.getElementById('toggleProjectSummaryCurrent');
-		if(searchDiv.style.display=='none'){
-			searchDiv.style.display = 'block';
-		} else {
-			searchDiv.style.display = 'none';
-		};
-	};
-</script>
-
 </head>
-
-<body>
 
 <body style="background:#FFFFFF;">
 
 <div class="dialogContent">		
 
-
-	<div id="navigationSubHeader2" class="dialogSection">Sharing a Project<span id="navigationSubHeader1">projects</span></div> 
+	<div id="sharingSearchBoxHelp" class="dialogSection"><spring:message code="teacher.pro.custom.sharepro.12"/></div>
 	
-	<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE. -->
-	
-	<h2 id="titleBar" class="headerText"><spring:message code="teacher.pro.custom.sharepro.2"/></h2> 
-	
-	<div class="sharedprojectHeadline1"><spring:message code="teacher.pro.custom.sharepro.3"/></div>
-	
-	<table id="projectOverviewTable">
-								<tr id="row1">
-								<td id="titleCell" colspan="3">
-										<a href="projectinfo.html?projectId=${project.id}">${project.name}</a>
-										<c:if test="${fn:length(project.sharedowners) > 0}">
-											<div id="sharedNamesContainer">
-												This project is shared with:
-												<div id="sharedNames">
-													<c:forEach var="sharedowner" items="${project.sharedowners}">
-													  <c:out value="${sharedowner.userDetails.firstname}"/>
-													  <c:out value="${sharedowner.userDetails.lastname}"/>
-													  <c:out value=",  "/>
-													</c:forEach>
-													</c:if>
-												</div>
-											</div>
-								</td>
-								<td class="actions" colspan="6"> 
-										<ul>									
-										</ul>
-								</tr>
-								<tr id="row2">
-									<th id="title1" style="width:60px;">Project ID</th>
-									<th id="title1" style="width:90px;">Project Family</th>
-									<th id="title2" style="width:292px;" >Subject(s)</th>
-									<th id="title3" style="width:100px;">Grades</th>
-									<th id="title4" style="width:110px;">Total Time (hrs)</th>
-									<th id="title5" style="width:110px;">Computer Time (hrs)</th>
-									<th id="title6" style="width:92px;">Language</th>
-									<th id="title7" style="width:90px;">Usage</th>
-								</tr>
-								<tr id="row3">
-									<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
-									<td class="dataCell libraryProjectSmallText">${project.familytag}</td>       		   
-									<td class="dataCell libraryProjectSmallText">${project.metadata.subject}</td>
-									<td class="dataCell">${project.metadata.gradeRange}</td>              
-									<td class="dataCell">${project.metadata.totalTime}</td>              
-									<td class="dataCell">${project.metadata.compTime}</td> 
-									<td class="dataCell">[English]</td> 
-									<td class="dataCell">${usageMap[project.id]} runs</td>
-						
-								</tr>
-								<tr id="row4">  
-									<td colspan="8">
-										<a id="hideShowLink" href="#" onclick="toggleProjectSummaryCurrent()">Hide/Show project details</a>
-										<div id="toggleAllCurrent">
-										<div id="toggleProjectSummaryCurrent" style="display:none;">
-											<table id="detailsTable">
-												<tr>
-													<th>Created On:</th>
-													<td class="keywords">${project.dateCreated }</td>
-												</tr>
-												<tr>
-													<th>Summary:</th>
-													<td class="summary">${project.metadata.summary}</td>
-												</tr>
-												<tr>
-													<th>Keywords:</th>
-													<td class="keywords">[List of comma-separated keywords go here]</td>
-												</tr>
-						<tr>
-													<th>Original Author:</th>
-													<td>[Name goes here]</td>
-												</tr>
-												<tr>
-													<th>Tech Needs:</th>
-													<td>[Tech Requirements go here]</td>
-												</tr>
-											</table>
-										</div>
-										</div>
-									</td>
-								</tr>
-							</table>
-					
-	<div class="sharedprojectHeadline1"><spring:message code="teacher.pro.custom.sharepro.4"/></div>			
+	<div id="sharingSearchSelect">
+		<form:form method="post" commandName="addSharedTeacherParameters" autocomplete='off'>
+			<spring:message code="teacher.pro.custom.sharepro.17"/> <form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="populatePossibilities(this.value)" size="25"/>
+			<input type="submit" value="<spring:message code="teacher.pro.custom.sharepro.13"/>"></input>
+		</form:form>
+		<ul id="matchedUsernames"></ul>
+	</div>	
 	
 	<table id="sharedProjectPermissions">
 	
 		<tr>
 			<th><spring:message code="teacher.pro.custom.sharepro.5"/></th>
 			<th><spring:message code="teacher.pro.custom.sharepro.6"/></th> 
-			<th>Actions</th> 
+			<th><spring:message code="teacher.pro.custom.sharepro.16"/></th> 
 		</tr>
 		<tr>
 			<c:choose>
@@ -205,6 +114,7 @@ function removeSharedUserClicked() {
 					<c:forEach var="owner" items="${project.owners }">
 						<td class="sharedUserName">${owner.userDetails.username}</td>
 						<td><spring:message code="teacher.pro.custom.sharepro.7"/></td>
+						<td></td>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
@@ -223,18 +133,18 @@ function removeSharedUserClicked() {
 								<form:hidden path="sharedOwnerUsername" />
 							
 								<form:radiobutton path="permission"
-									onclick="javscript:this.form.submit();" value="ROLE_READ_PROJECT" />Can Run the project<br />
+									onclick="javscript:this.form.submit();" value="ROLE_READ_PROJECT" /><spring:message code="teacher.pro.custom.sharepro.8"/><br />
 								<form:radiobutton path="permission"
-									onclick="javscript:this.form.submit();" value="ROLE_WRITE_PROJECT" />Can Run + Edit the project<br />
+									onclick="javscript:this.form.submit();" value="ROLE_WRITE_PROJECT" /><spring:message code="teacher.pro.custom.sharepro.9"/><br />
 								<sec:authorize ifAllGranted="ROLE_USER">
 								   <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
 									<form:radiobutton path="permission"
-										onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" />Can Run + Edit + Share the project<br />
+										onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" /><spring:message code="teacher.pro.custom.sharepro.10"/><br />
 									</sec:authorize>
 								   <sec:authorize ifNotGranted="ROLE_ADMINISTRATOR">
 										<sec:accesscontrollist domainObject="${project}" hasPermission="16">												
 								        	<form:radiobutton path="permission"
-									    	    onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" />Can Run + Edit + Share the project<br />								
+									    	    onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" /><spring:message code="teacher.pro.custom.sharepro.10"/><br />								
 										</sec:accesscontrollist>					
 									</sec:authorize>							
 						    	</sec:authorize>
@@ -245,35 +155,15 @@ function removeSharedUserClicked() {
 	            					<form:hidden path="sharedOwnerUsername" />
 	            					<input type="hidden" name="removeUserFromProject" value="true"></input>
 									<input type="submit" value="Remove this User" onclick="return removeSharedUserClicked();"></input>
-				    			</form:form>	
-				    	<!--  
-							<a href='#'
-								onclick="alert('Remove Shared Teacher is not yet implemented.');"><spring:message
-								code="teacher.run.shareprojectrun.16" /></a>
-								-->
+				    			</form:form>
 						</td>
 								
 						</tr>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
-		
-		<tr>
-			<td id="sharingSearchBox" colspan=3>
-				<div id="sharingSearchBoxHelp"><spring:message code="teacher.pro.custom.sharepro.12"/></div>
-					<form:form method="post" commandName="addSharedTeacherParameters" autocomplete='off'>
-						<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="populatePossibilities(this.value)" size="25"/>
-						<input type="submit" value="<spring:message code="teacher.pro.custom.sharepro.13"/>"></input>
-					</form:form>
-					<ul id="matchedUsernames">
-					</ul>
-			</td>
-		</tr>
 	
 	</table> 
-	
-	<h5><a href="../customized/index.html#actionsCurrent"><spring:message code="teacher.pro.custom.sharepro.14"/><em>My Projects</em></a></h5>
-</div>
 </div>
 
 <c:if test="${not empty message}">

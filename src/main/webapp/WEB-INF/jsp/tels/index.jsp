@@ -51,14 +51,12 @@
 			var projectId = $(this).attr('id').replace('projectDetail_','');
 			var path = "/webapp/teacher/projects/projectinfo.html?projectId=" + projectId;
 			var div = $('#projectDetailDialog').html('<iframe id="projectIfrm" width="100%" height="100%"></iframe>');
-			$('body').css('overflow-y','hidden');
 			div.dialog({
-				modal: true,
 				width: '800',
 				height: '400',
 				title: title,
 				position: 'center',
-				close: function(){ $(this).html(''); $('body').css('overflow-y','auto'); },
+				close: function(){ $(this).html(''); },
 				buttons: {
 					Close: function(){
 						$(this).dialog('close');

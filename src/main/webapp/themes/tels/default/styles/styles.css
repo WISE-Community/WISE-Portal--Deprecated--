@@ -148,6 +148,7 @@
 #setUpRunBox .projectSummary {
 	margin:1em;
 	padding:.5em;
+	font-size:1.2em;
 }
 
 #setRunBox div.projectTitle {
@@ -279,7 +280,6 @@
 
 #periodBoxes label{
 	margin-left:.5em;
-	font-size:.9em;
 }
 
 #periodBoxes label:hover {
@@ -308,9 +308,8 @@
 
 #projectRunConfirmTable {
 	border-collapse: collapse;
-	background-color: #CCFF99;
-	font-size: .8em;
-	margin: 5px auto;
+	font-size: .9em;
+	margin: .5em auto;
 	width:auto;
 }
 

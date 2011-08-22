@@ -1,6 +1,6 @@
 <%@ include file="include.jsp"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
+<!DOCTYPE html>
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -11,11 +11,14 @@
 <title><spring:message code="application.title" /></title>
 </head>
 
-<body>
+<body style="background:#fff;">
 
-<h2><spring:message code="changepassword.passwordchanged" /></h2>
+<div class="dialogContent">
 
-<div><a href="/webapp/teacher/index.html" >Return to Teacher Dashboard</a></div>
+	<div class="dialogSection">
+		<div class="errorMsgNoBg"><p><spring:message code="changepassword.passwordchanged" /></p></div>
+	</div>
+</div>
 
 </body>
 </html>

@@ -225,6 +225,29 @@
 		$("#editAnnouncementsDialog > #announceIfrm").attr('src',path);
 	});
 	
+	// setup manage students dialog
+	$('.manageStudents').live('click',function(){
+		var title = $(this).attr('title');
+		var params = $(this).attr('id').replace('manageStudents_','');
+		var path = "/webapp/teacher/management/viewmystudents.html?" + params;
+		var div = $('#manageStudentsDialog').html('<iframe id="manageStudentsIfrm" width="100%" height="100%"></iframe>');
+		$('body').css('overflow-y','hidden');
+		div.dialog({
+			modal: true,
+			width: $(window).width() - 32,
+			height: $(window).height() - 32,
+			title: title,
+			position: 'center',
+			close: function(){ $(this).html(''); $('body').css('overflow-y','auto'); },
+			buttons: {
+				Close: function(){
+					$(this).dialog('close');
+				}
+			}
+		});
+		$("#manageStudentsDialog > #manageStudentsIfrm").attr('src',path);
+	});
+	
 	// Set up view project details click action for each project id link
 	$('a.projectDetail, a.projectInfo').live('click',function(){
 		var title = $(this).attr('title');
@@ -361,7 +384,8 @@
 							              <td style="width:20%;" class="tableInnerData">${period.name}</td>
 							              <td style="display:none;"  style="width:45%;" class="tableInnerData">${run.runcode}</td>
 							              <td style="width:35%;" class="tableInnerDataRight">
-							                <a href="/webapp/teacher/management/viewmystudents.html?runId=${run.id}&periodName=${period.name}" target="_top">${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.myprojectruns.10"/></a></td>
+							              	<a class="manageStudents" title="Manage Students: ${run.name} (Run ID ${run.id})" id="runId=${run.id}&periodName=${period.name}">${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.myprojectruns.10"/></a>
+							              </td>
 							            </tr>
 							          </c:forEach>
 							        </table>
@@ -589,4 +613,5 @@
 <div id="shareDialog" class="dialog"></div>
 <div id="editRunDialog" class="dialog"></div>
 <div id="editAnnouncementsDialog" class="dialog"></div>
+<div id="manageStudentsDialog" style="overflow:hidden;" class="dialog"></div>
 <div id="projectDetailDialog" style="overflow:hidden;" class="dialog"></div>

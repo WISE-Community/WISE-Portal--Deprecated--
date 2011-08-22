@@ -65,7 +65,7 @@ function findStringsContaining(what, all_array) {
 
 //when remove user is clicked, confirm with user
 function removeSharedUserClicked() {
-  return confirm('Are you sure you want to remove this shared teacher?');
+  return confirm('<spring:message code="teacher.run.shareprojectrun.21"/>');
 }
 </script>
 
@@ -75,12 +75,10 @@ function removeSharedUserClicked() {
 
 <div class="dialogContent">		
 
-	<div id="sharingSearchBoxHelp" class="dialogSection">
-		To share this project with another teacher, start typing their name below. Choose the matching Username from the search results and click 'Save'. 
-	</div>
+	<div id="sharingSearchBoxHelp" class="dialogSection"><spring:message code="teacher.run.shareprojectrun.17"/></div>
 	<div id="sharingSearchSelect">
 		<form:form method="post" commandName="addSharedTeacherParameters" autocomplete='off'>
-			WISE User: <form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="populatePossibilities(this.value)" size="30"/>
+			<spring:message code="teacher.run.shareprojectrun.20"/> <form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="populatePossibilities(this.value)" size="30"/>
 		    <input type="submit" value="Save" />
 		</form:form>
 		<ul id="matchedUsernames"></ul>

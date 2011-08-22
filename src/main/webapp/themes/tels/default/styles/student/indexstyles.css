@@ -72,9 +72,9 @@ table tr, table td {
 }
 
 #list2 {
-		padding:12px 10px;
-		margin:0px;
-		line-height:160%;
+	margin:0;
+	line-height:160%;
+	width:100%;
 }
 
 #list2 dt {
@@ -144,10 +144,14 @@ font-family: Trebuchet MS;
 font-weight: bold;	
 }
 
+#tabSystem {
+	margin-top:-1em;
+}
+
 #currentRunTable{
 	width:100%;
-	margin-top:10px;
-	margin-bottom:4px;
+	margin-top:.5em;
+	margin-bottom:.5em;
 	border:1px solid black;
 	padding:0px;
 	} 
@@ -230,14 +234,19 @@ font-weight: bold;
 #studentActionList li {
 	list-style-type:none;
 	padding:3px 4px;
-	}
+	text-align:center;
+}
 
 #studentActionList li.startProject {
 	list-style-type:none;
 	font-size:160%;
-	}
+}
+
+#studentActionList li a {
+	margin:0 auto;
+}
 	
-#studentActionList a:link, #studentActionList a:visited {
+/* #studentActionList a:link, #studentActionList a:visited {
 	display:block;
 	text-decoration:none;
 	font-size:1.1em;
@@ -256,7 +265,7 @@ font-weight: bold;
 	color:#000066;
 	background-color:#ffff33;
 	border:1px solid #666666;
-}
+}*/
 
 #periodMessage {
 	margin-left:5px;

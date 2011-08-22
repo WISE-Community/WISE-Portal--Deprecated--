@@ -8,6 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="chrome=1" />
 
+<link href="<spring:theme code="jquerystylesheet"/>" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
@@ -15,7 +16,7 @@
 <link href="<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
     
 <script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
-<script type="text/javascript" src="<spring:theme code="jquerycookiesource"/>"></script>
+<script src="<spring:theme code="jqueryuisource"/>" type="text/javascript"></script>
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 
 <%@ include file="../../grading/styles.jsp"%>
@@ -165,6 +166,29 @@
    				YAHOO.util.Connect.asyncRequest('GET', 'copyproject.html?projectId=' + pID, callback);
    			};
     	};
+    	
+    	
+    	
+   	// Set up view project details click action for each project id link
+	$('a.projectDetail').live('click',function(){
+		var title = $(this).attr('title');
+		var projectId = $(this).attr('id').replace('projectDetail_','');
+		var path = "/webapp/teacher/projects/projectinfo.html?projectId=" + projectId;
+		var div = $('#projectDetailDialog').html('<iframe id="projectIfrm" width="100%" height="100%"></iframe>');
+		div.dialog({
+			width: '800',
+			height: '400',
+			title: title,
+			position: 'center',
+			close: function(){ $(this).html(''); },
+			buttons: {
+				Close: function(){
+					$(this).dialog('close');
+				}
+			}
+		});
+		$("#projectDetailDialog > #projectIfrm").attr('src',path);
+	});
 </script>
 
 </head>
@@ -187,25 +211,21 @@
 				</div>
 				<div class="panelContent">
 					<div id="reviewRunBox">
-						<div id="stepNumber" class="sectionHead"><spring:message code="teacher.run.setup.32"/>&nbsp;Review the Project Content and Learning Goals</div>
+						<div id="stepNumber" class="sectionHead"><spring:message code="teacher.run.setup.32"/>&nbsp;<spring:message code="teacher.run.setup.33"/></div>
 						<div class="sectionContent">
 	
 							<h5 style="color:red;"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></h5>
 	
 							<ol>
-								<li><h5>Please <a><spring:message code="teacher.run.setup.35"/></a>
-								&nbsp;<spring:message code="teacher.run.setup.36"/></h5></li>
+								<li><spring:message code="teacher.run.setup.34"/> <a id="projectDetail_${projectId}" class="projectDetail" title="Project Details"><spring:message code="teacher.run.setup.35"/></a>&nbsp;<spring:message code="teacher.run.setup.36"/></li>
 							
-								<li><h5>We highly recommend that you 
-										<a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${projectId}"/></c:url>">
-										preview the project</a> before running it. 
-										Previewing a project allows you to walk through the learning experience from a student's perspective. </h5></li>
+								<li><spring:message code="teacher.run.setup.52"/> <a href="<c:url value="/previewproject.html"><c:param name="projectId" value="${projectId}"/></c:url>" target="_blank">
+										<spring:message code="teacher.run.setup.53"/></a> <spring:message code="teacher.run.setup.54"/></li>
 									
-								<li><h5>First time carrying out a WISE4 Project Run?  Click the <em>HELP</em> button above for more information about running projects and using the WISE4 tools. 
-									This help area includes tips on setting up your classroom computers, having students register, managing student groups, grading student work, and more.</h5></li>
+								<li><spring:message code="teacher.run.setup.55"/></li>
 							</ol>
 	
-							<h5>To complete the creation of your Project Run click <em>DONE</em> below.</h5>
+							<h5><spring:message code="teacher.run.setup.45"/></h5>
 						</div>
 					</div>
 	
@@ -219,6 +239,7 @@
 			</div>
 		</div>
 		<div style="clear: both;"></div>
+		<div id="projectDetailDialog" style="overflow:hidden;" class="dialog"></div>
 	</div>   <!-- End of page-->
 
 	<%@ include file="../../../footer.jsp"%>

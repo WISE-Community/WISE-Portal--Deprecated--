@@ -48,13 +48,15 @@
 				<div class="infoContentBox">
 					<div>
 						<h4><spring:message code="student.registerstudentconfirm.2"/></h4>
-						<h4><spring:message code="student.registerstudentconfirm.3"/> <span id="usernameConfirm">${username}</span></h4>
-						<div style="color:red;">WRITE DOWN your Username and Password!</div>
-					    <div>REMEMBER: your Username is your <span style="font-weight:bold;">FIRST</span> name, the <span style="font-weight:bold;">FIRST LETTER</span> of your last name, and your <span style="font-weight:bold;">BIRTHDAY</span> numbers.</div>
-					    <div>Example: <span style="font-weight:bold;">JohnD0322</span> is the Username for John Doe with birthday on 3/22.</div>
+						<h4><spring:message code="student.registerstudentconfirm.3"/> <span class="usernameDisplay">${username}</span></h4>
+						<div style="color:#ff563f;"><spring:message code="student.registerstudentconfirm.4"/></div>
+					    <div class="instructions"><spring:message code="student.registerstudentconfirm.7"/></div>
+					    <div class="instructions"><spring:message code="student.registerstudentconfirm.5"/></div>
 					</div>
-					<div><spring:message code="student.registerstudentconfirm.9"/> <a href="/webapp/login.html" class="wisebutton"><spring:message code="student.registerstudentconfirm.10"/></a></div>
-					<div><spring:message code="student.registerstudentconfirm.8"/><a href="registerstudent.html" class="wisebutton"><spring:message code="student.registerstudentconfirm.11"/></a></div>
+					<div><spring:message code="student.registerstudentconfirm.8"/></div>
+					<div><a href="registerstudent.html" class="wisebutton"><spring:message code="student.registerstudentconfirm.12"/></a></div>
+					<div><spring:message code="student.registerstudentconfirm.9"/></div>
+					<div><a href="/webapp/login.html" class="wisebutton"><spring:message code="student.registerstudentconfirm.10"/></a></div>
 				</div>
 			</div>
 		</div>

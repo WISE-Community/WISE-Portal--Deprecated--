@@ -51,7 +51,7 @@
 	<h2><spring:message code="changepassword.passwordchanged" /></h2>
 
 	<div>
-		<a href="updatemyaccount.html">Return to <em>Update My Account</em></a>
+		<a href="updatemyaccount.html"><spring:message code="changepassword.return" /></a>
 	</div>
 	
 <br/>

@@ -62,7 +62,7 @@
 													<tr>
 														<th><spring:message code="teacher.run.setup.17"/></th>
 														<th><spring:message code="teacher.run.setup.18"/></th>
-														<th>Run ID</th>
+														<th><spring:message code="teacher.run.setup.19"/></th>
 														<th><spring:message code="teacher.run.setup.20"/></th>
 														<th><spring:message code="teacher.run.setup.21"/></th>
 													</tr>

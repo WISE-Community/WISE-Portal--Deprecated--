@@ -100,13 +100,23 @@ input[type="submit"], input[type="text"], input[type="password"] {
     padding: 0.25em;
 }
 
+input[type="submit"] {
+	cursor:pointer;
+}
+
 input[type="submit"].disabled {
 	color:#999999;
 }
 
 p.info {
 	font-size: 0.9em;
-    margin: 0 .5em 0.5em;
+    margin: 0 0.5em 0.5em;
+    color: #745A33;
+}
+
+.panelTabs p.info {
+	margin:.5em .5em;
+	text-align:center;
 }
 
 .valigner {
@@ -248,7 +258,7 @@ a#name {
 	color:#745a33;
 }
 
-.infoContent .instructions {
+.infoContent .instructions, .panelContent .instructions {
 	font-size:.8em;
 	color:#745a33;
 }
@@ -298,6 +308,19 @@ a#name {
 
 .sidePanel .panelContent a {
 	color: #C5CD61;
+}
+
+.sidePanel .panelContent .sideContent {
+	font-size:.8em;
+	border-bottom: 1px solid #9B7F5E;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.sidePanel .panelContent .sideContent:last-child {
+	border-bottom:0 none;
+	margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .contentRight .panelHeader, .contentLeft .panelHeader {

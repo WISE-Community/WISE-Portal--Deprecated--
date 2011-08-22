@@ -75,7 +75,7 @@
 			<a id="adminTools" class="wisebutton smallbutton-wide" href="/webapp/admin/index.html" ><spring:message code="menu.admin"/></a>
 		</sec:authorize>
 		<sec:authorize ifAllGranted="ROLE_RESEARCHER">
-			<a id="researchTools" class="wisebutton smallbutton-wide" href="/webapp/researcher/index.html" ><spring:message code="menu.researcher"/></a>
+			<a id="researchTools" class="wisebutton smallbutton-wide" href="/webapp/admin/index.html" ><spring:message code="menu.researcher"/></a>
 		</sec:authorize>
 		<sec:authorize ifAllGranted="ROLE_STUDENT">
 			<a id="researchTools" class="wisebutton smallbutton-wide" href="/webapp/student/index.html" ><spring:message code="menu.student"/></a>

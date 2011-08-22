@@ -45,18 +45,16 @@
 				<div class="infoContentBox">
 					<div>
 						<h4><spring:message code="teacher.registerconfirm.1"/></h4>
-						<h4><spring:message code="teacher.registerconfirm.2"/>&nbsp;<span><input disabled id="usernameConfirm" name="username" value="${username}"/></span></h4>
+						<h4><spring:message code="teacher.registerconfirm.2"/>&nbsp;<span class="usernameDisplay">${username}</span></h4>
 						
 						<div><spring:message code="teacher.registerconfirm.3"/></div>
-					    <div><spring:message code="teacher.registerconfirm.4"/></div>
-					    <div><spring:message code="teacher.registerconfirm.5"/></div>
+					    <div class="instructions"><spring:message code="teacher.registerconfirm.4"/> <spring:message code="teacher.registerconfirm.5"/></div>
 						
-						<div><spring:message code="teacher.registerconfirm.9"/><input disabled id="userClassnameConfirm" name="" value="${displayname}" class="wisebutton"/><a href="management/updatemyaccountinfo.html" style="margin-left:10px;"><spring:message code="teacher.registerconfirm.10"/></a></div>
+						<br /><div><spring:message code="teacher.registerconfirm.9"/></div>
+						<div><span class="usernameDisplay">${displayname}</span> <a href="management/updatemyaccountinfo.html"><spring:message code="teacher.registerconfirm.10"/></a></div>
 								
 					</div>
-	  				<div><a href="/webapp/index.html" class="wisebutton"><spring:message code="selectaccounttype.5"/></a></div>
-	
-					<div><spring:message code="teacher.registerconfirm.6"/>&nbsp;<em><spring:message code="teacher.registerconfirm.7"/></em> <spring:message code="teacher.registerconfirm.8"/></div>
+	  				<br /><div><a href="/webapp/login.html" class="wisebutton"><spring:message code="teacher.registerconfirm.7"/></a></div>
 				</div>
 			</div>
 		</div>

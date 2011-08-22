@@ -64,26 +64,34 @@ function prepareInputsForHints() {
   var inputs = document.getElementsByTagName("input");
   for (var i=0; i<inputs.length; i++){
     inputs[i].onfocus = function () {
-    	if (this.parentNode.getElementsByTagName("span").length > 0) {
-    		this.parentNode.getElementsByTagName("span")[0].style.display = "inline";
+    	if (this.parentNode.getElementsByClassName("hint").length > 0) {
+    		var hint = this.parentNode.getElementsByClassName("hint")[0];
+    		var xpos = $(this).offset().left + $(this).width() + 15 + 'px';
+    		var ypos = $(this).offset().top + 'px';
+    		$(hint).css({'display':'block','left':xpos,'top':ypos});
+    		//this.parentNode.getElementsByTagName("span")[0].style.display = "inline";
     	}
     }
     inputs[i].onblur = function () {
-    	if (this.parentNode.getElementsByTagName("span").length > 0) {
-    		this.parentNode.getElementsByTagName("span")[0].style.display = "none";
+    	if (this.parentNode.getElementsByClassName("hint").length > 0) {
+    		this.parentNode.getElementsByClassName("hint")[0].style.display = "none";
     	}
     }
   }
   var selects = document.getElementsByTagName("select");
   for (var k=0; k<selects.length; k++){
     selects[k].onfocus = function () {
-    	if (this.parentNode.getElementsByTagName("span").length > 0) {
-    		this.parentNode.getElementsByTagName("span")[0].style.display = "inline";
+    	if (this.parentNode.getElementsByClassName("hint").length > 0) {
+    		var hint = this.parentNode.getElementsByClassName("hint")[0];
+    		var xpos = $(this).offset().left + $(this).width() + 35 + 'px';
+    		var ypos = $(this).offset().top + 'px';
+    		$(hint).css({'display':'block','left':xpos,'top':ypos});
+    		//this.parentNode.getElementsByTagName("span")[0].style.display = "inline";
     	}
     }
     selects[k].onblur = function () {
-    	if (this.parentNode.getElementsByTagName("span").length > 0) {
-    		this.parentNode.getElementsByTagName("span")[0].style.display = "none";
+    	if (this.parentNode.getElementsByClassName("hint").length > 0) {
+    		this.parentNode.getElementsByClassName("hint")[0].style.display = "none";
     	}
     }
   }

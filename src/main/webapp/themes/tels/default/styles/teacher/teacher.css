@@ -248,8 +248,11 @@ ul.reminders {
 }
 
 /* jQuey UI tab overrides for panel (run and project) tabs */
-
 .panelTabs {
+	margin-top:-1em;
+}
+
+/* .panelTabs {
 	background: none repeat scroll 0 0 transparent;
     border: medium none;
     margin-top: -3.3em;
@@ -331,4 +334,4 @@ ul.reminders {
     margin-top: 1em;
     padding: 0;
     text-align:center;
-}
+} */

@@ -146,8 +146,16 @@ function createAccount() {
  * Toggle show/hide of the curriculum box
  */
 function showSubjects() {
-	$('#curriculumSubjectsBox').toggle();
+	var posx = $('#toggleSubjects').offset().left + $('#toggleSubjects').width() + 30 + 'px';
+	var posy = $('#toggleSubjects').offset().top - $('#curriculumSubjectsBox').height()*.75;
+	$('#curriculumSubjectsBox').css({'top':posy,"left":posx}).fadeToggle();
 }
+
+$(document).ready(function(){
+	$('#closeSubjects').click(function(){
+		$('#curriculumSubjectsBox').fadeOut();
+	});
+});
 
 </script>
 
@@ -181,117 +189,136 @@ function showSubjects() {
 					</div>
 					
 					<form:form method="post" action="registerteacher.html" commandName="teacherAccountForm" id="teacherRegForm" autocomplete='off'>  
-					  <dl>
-					  	<dt><label for="firstname" id="firstname1"><spring:message code="signup.firstname" /></label></dt>
-					    <dd><form:input path="userDetails.firstname" id="teacherFirstName" size="25" maxlength="25" tabindex="1"/><span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> </dd>
-						<script type="text/javascript">
-							document.getElementById('teacherFirstName').focus();
-						</script>
+					  <table class="regTable">
+					  	<tr>
+					  		<td><label for="firstname" id="firstname1"><spring:message code="signup.firstname" /></label></td>
+					    	<td><form:input path="userDetails.firstname" id="teacherFirstName" size="25" maxlength="25" tabindex="1"/><span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> </td>
+					    </tr>
 					       
-					  	<dt><label for="lastname" id="lastname1"><spring:message code="signup.lastname"/></label></dt>
-						<dd><form:input path="userDetails.lastname" id="teacherLastName" size="25" maxlength="25" tabindex="2"/> <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> </dd>
+					  	<tr>
+					  		<td><label for="lastname" id="lastname1"><spring:message code="signup.lastname"/></label></td>
+							<td><form:input path="userDetails.lastname" id="teacherLastName" size="25" maxlength="25" tabindex="2"/> <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> </td>
+						</tr>
 					
-					    <dt><label for="emailAddress" id="emailAddress1"><spring:message code="signup.emailAddress" /></label></dt>
-						<dd><form:input path="userDetails.emailAddress" id="teacherEmail" size="25" maxlength="40" tabindex="3"/> <span class="hint"><spring:message code="teacher.registerteacher.5"/> <span class="hint-pointer"></span></span></dd>
+					    <tr>
+					    	<td><label for="emailAddress" id="emailAddress1"><spring:message code="signup.emailAddress" /></label></td>
+							<td><form:input path="userDetails.emailAddress" id="teacherEmail" size="25" maxlength="40" tabindex="3"/> <span class="hint"><spring:message code="teacher.registerteacher.5"/> <span class="hint-pointer"></span></span></td>
+						</tr>
 					            
-					    <dt><label for="city" id="city1"><spring:message code="signup.city" /></label> </dt>
-						<dd><form:input path="userDetails.city" id="teacherCity" size="25" maxlength="50" tabindex="4"/>
-					    <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span>  </dd>
+					    <tr>
+					    	<td><label for="city" id="city1"><spring:message code="signup.city" /></label> </td>
+							<td><form:input path="userDetails.city" id="teacherCity" size="25" maxlength="50" tabindex="4"/>
+					    		<span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span></td>
+					    </tr>
 					           
-					    <dt><label for="state" id="state1" ><spring:message code="signup.state" /></label> </dt>
-						<dd><form:input path="userDetails.state" id="teacherState" size="25" maxlength="50" tabindex="5"/>
-					    	<span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span>  
-					    	<div id="autocomplete_choices_state" class="autocomplete" ></div>
-					    </dd>
+					    <tr>
+					    	<td><label for="state" id="state1" ><spring:message code="signup.state" /></label> </td>
+							<td><form:input path="userDetails.state" id="teacherState" size="25" maxlength="50" tabindex="5"/>
+						    	<span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span>  
+						    	<!-- <div id="autocomplete_choices_state" class="autocomplete" ></div></td>  -->
+						</tr>
 					                
-					    <dt><label for="country" id="country1"><spring:message code="signup.country" /></label></dt>
-						<dd><form:input path="userDetails.country" id="teacherCountry" size="25" maxlength="50" tabindex="6"/> 
-					    <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> 
-					    <div id="autocomplete_choices_country" class="autocomplete" ></div>
-					    </dd>
+					    <tr>
+					    	<td><label for="country" id="country1"><spring:message code="signup.country" /></label></td>
+							<td><form:input path="userDetails.country" id="teacherCountry" size="25" maxlength="50" tabindex="6"/> 
+							    <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> 
+							    <!-- <div id="autocomplete_choices_country" class="autocomplete" ></div></td> -->
+						</tr>
 					            
-					    <dt>    <label for="schoolname" id="schoolname1"><spring:message code="signup.schoolname" /></label></dt>
-						<dd><form:input path="userDetails.schoolname" id="teacherSchool" size="25" maxlength="50" tabindex="7"/>      <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> </dd>
+					    <tr>
+					    	<td><label for="schoolname" id="schoolname1"><spring:message code="signup.schoolname" /></label></td>
+							<td><form:input path="userDetails.schoolname" id="teacherSchool" size="25" maxlength="50" tabindex="7"/><span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> </td>
+						</tr>
 					    
-					    <dt><label for="schoollevel" id="schoollevel1"><spring:message code="signup.schoollevel" /></label> </dt>
-						<dd> 
-					    		<form:select path="userDetails.schoollevel" id="schoollevel" onfocus="Effect.toggle('showSchoolLevelInfo','appear');" onblur="Effect.toggle('showSchoolLevelInfo','appear');">           
-					    		<c:forEach items="${schoollevels}" var="schoollevel">
-					            <form:option value="${schoollevel}"><spring:message code="signup.schoollevels.${schoollevel}" /></form:option>
-					          </c:forEach>
-					        </form:select>
-					        <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> </dd>
+					    <tr>
+					    	<td><label for="schoollevel" id="schoollevel1"><spring:message code="signup.schoollevel" /></label></td>
+							<td>
+								<form:select path="userDetails.schoollevel" id="schoollevel" onfocus="Effect.toggle('showSchoolLevelInfo','appear');" onblur="Effect.toggle('showSchoolLevelInfo','appear');">           
+						    		<c:forEach items="${schoollevels}" var="schoollevel">
+						            	<form:option value="${schoollevel}"><spring:message code="signup.schoollevels.${schoollevel}" /></form:option>
+						          	</c:forEach>
+					        	</form:select>
+					        	<span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span></td>
+					    </tr>
 					                 
-					    <dt><label for="curriculumsubjects" id="curriculumsubjects1"><spring:message code="signup.curriculumsubjects" /></label> 
-						</dt>
-						<dd style="padding-top:10px;">
-						    <a onclick="showSubjects()"><spring:message code="teacher.registerteacher.6"/></a> 
-						   
-						   	<div id="curriculumSubjectsBox" style="display:none;"> 
-						          <div style="font-weight:bold;"><spring:message code="teacher.registerteacher.7"/></div>
-								  <div><spring:message code="teacher.registerteacher.8"/></div>
-								  
-						          <table id="textCurriculumBox">
-						          <tr>
-						          <td class="width166"><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects1" value="Biology"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.9"/></td>
-						          <td class="width122"><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects2" value="APBiology"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.10"/></td>
-						          </tr>
-						          <tr>
-						          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects3" value="EnvironmentalScience"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.11"/></td>
-								  <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects4" value="Chemistry"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.12"/></td>
-						          </tr>
-						          <tr>
-						          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects5" value="APChemistry"/><input type="hidden"  value="on"/><spring:message code="teacher.registerteacher.13"/></td>
-						          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects6" value="Astronomy"/><input type="hidden"  value="on"/><spring:message code="teacher.registerteacher.14"/></td>
-						          </tr>
-						          <tr>
-						          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects7" value="Physics"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.15"/></td>
-						          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects8" value="APPhysics"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.16"/></td>
-						          </tr>
-						          <tr>
-						          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects9" value="Anatomy"/><input type="hidden"  value="on"/><spring:message code="teacher.registerteacher.17"/></td>
-						          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects10" value="EarthScience"/><input type="hidden"  value="on"/><spring:message code="teacher.registerteacher.18"/></td>
-						          </tr>
-						          <tr>
-						          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects11" value="Biotechnology"/><input type="hidden"  value="on"/><spring:message code="teacher.registerteacher.19"/></td>
-						          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects12" value="Geology"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.20"/></td>
-								  </tr>
-						          <tr>
-						          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects14" value="AdvancedIntScience"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.21"/></td>
-						          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects13" value="IntegratedScience"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.22"/></td>
-						
-						          </tr>
-						          <tr>
-						          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects15" value="Other"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.23"/></td>
-						          <td></td>
-						          </tr>
-						          </table>
-						          
-								 <div><spring:message code="teacher.registerteacher.24"/></div>
-						     </div>
-						 </dd>
-						 <br />
-					     <dt style="padding-top:2px;" id="layoutForLegal"><label for="legalAcknowledged" id="legalAcknowledged1"><spring:message code="signup.legalAcknowledged" /></label></dt>
-						 <dd id="termsOfUse">
-						     <form:checkbox path="legalAcknowledged" id="legalAcknowledged"/> 
-					     	 <spring:message code="teacher.registerteacher.25"/>&nbsp;<a href="termsofuse.html" onClick="return popupSpecial(this, 'terms')"><spring:message code="teacher.registerteacher.26"/></a>
-					     </dd>
-					     <br />
-					     <dt><label for="password" id="password1"><spring:message code="signup.password" /></label>
-						 </dt>
-						 <dd><form:password path="userDetails.password" id="password" size="25" maxlength="20" tabindex="11"/> <span class="hint"><spring:message code="teacher.registerteacher.27"/><span class="hint-pointer"></span></span> </dd>
+					    <tr>
+					    	<td><label for="curriculumsubjects" id="curriculumsubjects1"><spring:message code="signup.curriculumsubjects" /></label></td>
+							<td style="position:relative;">
+							    <a onclick="showSubjects();" id="toggleSubjects"><spring:message code="teacher.registerteacher.6"/></a> 
+							   
+							   	<div id="curriculumSubjectsBox" style="display:none;"> 
+							          <div style="font-weight:bold;"><spring:message code="teacher.registerteacher.7"/></div>
+									  <div><spring:message code="teacher.registerteacher.8"/></div>
+									  
+							          <table id="textCurriculumBox">
+							          <tr>
+							          <td class="width166"><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects1" value="Biology"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.9"/></td>
+							          <td class="width122"><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects2" value="APBiology"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.10"/></td>
+							          </tr>
+							          <tr>
+							          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects3" value="EnvironmentalScience"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.11"/></td>
+									  <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects4" value="Chemistry"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.12"/></td>
+							          </tr>
+							          <tr>
+							          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects5" value="APChemistry"/><input type="hidden"  value="on"/><spring:message code="teacher.registerteacher.13"/></td>
+							          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects6" value="Astronomy"/><input type="hidden"  value="on"/><spring:message code="teacher.registerteacher.14"/></td>
+							          </tr>
+							          <tr>
+							          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects7" value="Physics"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.15"/></td>
+							          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects8" value="APPhysics"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.16"/></td>
+							          </tr>
+							          <tr>
+							          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects9" value="Anatomy"/><input type="hidden"  value="on"/><spring:message code="teacher.registerteacher.17"/></td>
+							          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects10" value="EarthScience"/><input type="hidden"  value="on"/><spring:message code="teacher.registerteacher.18"/></td>
+							          </tr>
+							          <tr>
+							          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects11" value="Biotechnology"/><input type="hidden"  value="on"/><spring:message code="teacher.registerteacher.19"/></td>
+							          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects12" value="Geology"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.20"/></td>
+									  </tr>
+							          <tr>
+							          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects14" value="AdvancedIntScience"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.21"/></td>
+							          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects13" value="IntegratedScience"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.22"/></td>
+							
+							          </tr>
+							          <tr>
+							          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects15" value="Other"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.23"/></td>
+							          <td></td>
+							          </tr>
+							          </table>
+							          
+									 <div><spring:message code="teacher.registerteacher.24"/><a id="closeSubjects">Close</a></div>
+							     </div>
+						 	</td>
+						 </tr>
+						 
+					     <tr style="padding-top:2px;" id="layoutForLegal">
+					     	<td><label for="legalAcknowledged" id="legalAcknowledged1"><spring:message code="signup.legalAcknowledged" /></label></td>
+							<td id="termsOfUse">
+							     <form:checkbox path="legalAcknowledged" id="legalAcknowledged"/> 
+						     	 <spring:message code="teacher.registerteacher.25"/>&nbsp;<a href="termsofuse.html" onClick="return popupSpecial(this, 'terms')"><spring:message code="teacher.registerteacher.26"/></a>
+						    </td>
+						 </tr>
+						 
+					     <tr>
+					     	<td><label for="password" id="password1"><spring:message code="signup.password" /></label></td>
+						 	<td><form:password path="userDetails.password" id="password" size="25" maxlength="20" tabindex="11"/> <span class="hint"><spring:message code="teacher.registerteacher.27"/><span class="hint-pointer"></span></span></td>
+						 </tr>
 					
-						 <dt><label for="repeatedPassword" id="repeatedPassword2"><spring:message code="signup.password.verify" /></label></dt>
-						 <dd><form:password path="repeatedPassword" id="repeatedPassword" size="25" maxlength="20" tabindex="12"/>  <span class="hint"><spring:message code="teacher.registerteacher.28"/><span class="hint-pointer"></span></span></dd>
+						 <tr>
+						 	<td><label for="repeatedPassword" id="repeatedPassword2"><spring:message code="signup.password.verify" /></label></td>
+						 	<td><form:password path="repeatedPassword" id="repeatedPassword" size="25" maxlength="20" tabindex="12"/>  <span class="hint"><spring:message code="teacher.registerteacher.28"/><span class="hint-pointer"></span></span></td>
+						 </tr>
 					      
-					     <dt><label for="howDidYouHearAboutUs" id="howDidYouHearAboutUs2"><spring:message code="teacher.registerteacher.36"/></label></dt>
-						 <dd><form:input path="userDetails.howDidYouHearAboutUs" id="howDidYouHearAboutUs" size="25" maxlength="120" tabindex="13"/>  <span class="hint"><spring:message code="teacher.registerteacher.37"/><span class="hint-pointer"></span></span></dd>
-					     </dl>
+					     <tr>
+					     	<td><label for="howDidYouHearAboutUs" id="howDidYouHearAboutUs2"><spring:message code="teacher.registerteacher.36"/></label></td>
+						 	<td><form:input path="userDetails.howDidYouHearAboutUs" id="howDidYouHearAboutUs" size="25" maxlength="120" tabindex="13"/>  <span class="hint"><spring:message code="teacher.registerteacher.37"/><span class="hint-pointer"></span></span></td>
+					     </tr>
+					</table>
                
-					 	 <div id="regButtons">
-					 	  	<a style="margin-bottom:1em;" id="createAccountLink" class="wisebutton" onclick="checkForExistingAccountsAndCreateAccount()"><spring:message code="teacher.registerteacher.34"/></a>
-					 	  	<a href="/webapp/index.html"><spring:message code="teacher.registerteacher.35"/></a>
-						 </div>
+				 	 <div id="regButtons">
+				 	  	<a style="margin-bottom:1em;" id="createAccountLink" class="wisebutton" onclick="checkForExistingAccountsAndCreateAccount()"><spring:message code="teacher.registerteacher.34"/></a>
+				 	  	<a href="/webapp/index.html"><spring:message code="teacher.registerteacher.35"/></a>
+					 </div>
 					</form:form>
 					<div id="existingAccounts" style="display:none"></div>
 					<div id="existingAccountsDialog" style="display:none"></div>

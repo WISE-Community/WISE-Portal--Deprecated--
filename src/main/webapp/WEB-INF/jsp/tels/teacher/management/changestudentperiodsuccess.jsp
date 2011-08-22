@@ -27,7 +27,7 @@ function refreshParent(){
 
 <h2><spring:message code="teacher.manage.changeperiod.6"/></h2>
 
-<div><a href="#" onclick="javascript:window.close()"><spring:message code="teacher.manage.changeworkgroup.5"/></div>
+<div><a onclick="javascript:window.close()"><spring:message code="teacher.manage.changeworkgroup.5"/></a></div>
 
 </div>
 

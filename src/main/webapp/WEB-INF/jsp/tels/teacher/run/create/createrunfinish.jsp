@@ -39,57 +39,45 @@
 					<spring:message code="teacher.setup-project-classroom-run" />
 					<span class="pageTitle"><spring:message code="header.location.teacher.management"/></span>
 				</div>
+				
+				<div class="panelContent">
 
-				<div id="setUpRunBoxConfirm">
-					<div id="stepNumber" class="sectionHead"><spring:message code="teacher.run.setup.48"/></div>
-					<div class="sectionContent">
-	
-						<h5><spring:message code="teacher.run.setup.49"/>&nbsp;<a href="/webapp/teacher/management/classroomruns.html">My Classroom Runs</a>&nbsp;<spring:message code="teacher.run.setup.51"/></h5>
+					<div>
+						<div class="sectionHead"><spring:message code="teacher.run.setup.48"/></div>
+						<div class="sectionContent">
 		
-						<table id="projectRunConfirmTable" border="1" cellpadding="5" cellspacing="0" >
-							<tr>
-								<td style="width:14%;"><spring:message code="setuprun.confirmation.run.title" /></td>
-								<td style="width:40%;"><strong><c:out value="${run.project.name}" /></strong></td>
-								<td class="instructions" style="width:46%;"></td>
-							</tr>
-							<tr>
-								<td style="width:14%;">Project ID:</td>
-								<td style="width:40%;"><strong><c:out value="${run.project.id}" /></strong></td>
-								<td class="instructions"  style="width:46%;">Every source project has a unique ID number.</td>
-							</tr>
-							<tr>
-								<td><spring:message code="setuprun.confirmation.run.createdtime" /></td>
-								<td><strong><c:out value="${run.starttime}" /></strong></td>
-								<td class="instructions" ></td>
-							</tr>
-							<tr>
-								<td>Project Run ID:</td>
-								<td><strong><c:out value="${run.id}" /></strong></td>
-								<td class="instructions" >Each of your project runs also has a unique ID number.</td>
-							</tr>
-							<tr>
-								<td>Access Code:</td>
-								<td>
-							    	<strong><c:out value="${run.runcode}" /></strong>
-							    	&nbsp;<spring:message code="setuprun.confirmation.run.projectcodes.foryourstudentsinperiod" />
-									<c:forEach var="period" items="${run.periods}">
-							    		<c:out value="${period.name}" /><c:out value="," />
-							  		</c:forEach>
-							    	<br />
-							    </td>
-							    <td class="instructions" >
-							    	Each Project Run has an individual Access Code that you give to your students.<br/><br/>
-							    	Note: Students will manually specify their class period after entering this Access Code.<br/><br/>
-							    </td>
-							</tr>
-						</table>
+							<h5><spring:message code="teacher.run.setup.49"/>&nbsp;<a href="/webapp/teacher/management/classroomruns.html"><spring:message code="menu.runs"/></a>&nbsp;<spring:message code="teacher.run.setup.51"/></h5>
+			
+							<table id="projectRunConfirmTable">
+								<tr>
+									<td style="font-weight:bold;"><spring:message code="setuprun.confirmation.run.title" /></td>
+									<td><c:out value="${run.project.name}" /></td>
+								</tr>
+								<tr>
+									<td style="font-weight:bold;"><spring:message code="setuprun.confirmation.run.projectid" /></td>
+									<td><c:out value="${run.project.id}" /> <span class="instructions"><spring:message code="setuprun.confirmation.aboutprojectids.text" /></span></td>
+								</tr>
+								<tr>
+									<td style="font-weight:bold;"><spring:message code="setuprun.confirmation.run.runid" /></td>
+									<td><strong><c:out value="${run.id}" /></strong> <span class="instructions"><spring:message code="setuprun.confirmation.aboutrunids.text" /></span></td>
+								</tr>
+								<tr>
+									<td style="font-weight:bold;"><spring:message code="setuprun.confirmation.run.createdtime" /></td>
+									<td><strong><c:out value="${run.starttime}" /></strong></td>
+								</tr>
+								<tr>
+									<td style="font-weight:bold; width:170px;"><spring:message code="setuprun.confirmation.run.projectcodes" /></td>
+									<td style="color: #FF563F;">
+								    	<div style="font-weight:bold; font-size:1.25em; margin-top:0;"><c:out value="${run.runcode}" /></div>
+								    	<span><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></span>
+								    </td>
+								</tr>
+							</table>
+						</div>
 					</div>
-				</div>
-				<div id="gotoMyRunsButton" class="center">
-					<a href="/webapp/teacher/management/classroomruns.html"  	
-						onmouseout="MM_swapImgRestore()" 
-						onmouseover="MM_swapImage('projectRuns','','../../themes/tels/default/images/teacher/Go-to-My-Proj-Runs-Roll.png',1)">
-						<img src="../../themes/tels/default/images/teacher/Go-to-My-Proj-Runs.png" alt="My Project Runs" id="projectRuns" /> </a>
+					<div style="margin-top:1em;">
+						<a class="wisebutton" style="margin:0 auto;" href="/webapp/teacher/management/classroomruns.html"><spring:message code="setuprun.confirmation.myprojectruns"/></a>
+					</div>
 				</div>
 			</div>
 		</div>

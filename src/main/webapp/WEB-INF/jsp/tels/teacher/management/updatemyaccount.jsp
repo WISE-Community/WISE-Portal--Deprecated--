@@ -47,10 +47,10 @@
 			
 			<div class="contentPanel">
 			
-				<div class="panelHeader">Update My Account</div>
+				<div class="panelHeader"><spring:message code="teacher.manage.overview.15" /></div>
 				
 				<div class="panelContent">
-					<div class="sectionHead">Account Information</div>
+					<div class="sectionHead"><spring:message code="teacher.manage.overview.20" /></div>
 					<div class="sectionContent"> 
 						<h5><a href="changepassword.html"><spring:message code="teacher.manage.account.3"/></a> - <spring:message code="teacher.manage.account.4"/></h5>
 						<h5><a href="updatemyaccountinfo.html"><spring:message code="teacher.manage.account.5"/></a> - <spring:message code="teacher.manage.account.6"/></h5>

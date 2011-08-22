@@ -102,47 +102,20 @@
 	padding-left:2px;
 }
 
+.regTable {
+	width:500px;
+	margin:0 auto;
+}
+
+.regTable tr td {
+	width:250px;
+	height:2em;
+}
+
 #regButtons {
   clear: both;
   text-align:center;
   margin-top:20px;
-}
-
-/* The following styles were added as we've moved away from image-rollovers on the student reg page as it was causing a conflict with the code used if a student tries to 
-CREATE before they click the Show Class Periods buttons  */
-
-#regButtonsStudent {
-  clear: both;
-  text-align:center;
-  margin-top:20px;
-}
-
-#regButtonsStudent a {
- 	color:#000;
- 	font-size:1.2em;
-	font-weight:bold;
-	border-top:1px solid #666666;
-	border-right:1px solid black;
-	border-bottom:1px solid black;
-	border-left:1px solid #666666;
-	padding:4px 15px;
-	margin:0 10px;
-	background-image: url(../images/WISE-Secondary-Banner-Gradient.png);
-	background-position: top;
-	text-decoration:none;
-  	-moz-border-radius:8px;
-	-webkit-border-radius:8px;
-	border-radius:8px;	
-}
-
-#regButtonsStudent a:hover {
- 	background-image:none;
- 	background-color:#FFFF00;
- 	cursor:pointer;
-}
-	
-#regButtonsUpdate {
-  margin-top:25px;
 }
 	
 #genderFieldDefault {color:#0099FF;}
@@ -153,20 +126,21 @@ CREATE before they click the Show Class Periods buttons  */
 .buttonStyle1 {
 	clear: both;
 	padding: 15px 6px 15px 10px;
-		}
+}
 
 .hint {
   display:none;
   position: absolute;
-  right: -150px;
+  /*right: -180px;
   width: 175px;
-  margin-top: -2px;
+  margin-top: -2px;*/
   padding: 10px 12px;
   color:#FFFFFF;
   font-size: 1em;
   line-height:130%;
   word-spacing:1px;
   background: #4e94a2;
+  width:200px;
 }
 
 .hint .hint-pointer {
@@ -213,6 +187,12 @@ CREATE before they click the Show Class Periods buttons  */
 	font-size:1.0em;
 	color:#FF0000;
 	font-weight:bold;
+}
+
+.usernameDisplay {
+	color: #FF563F;
+    font-size: 1.25em;
+    font-weight: bold;
 }
 
 
@@ -293,16 +273,16 @@ CREATE before they click the Show Class Periods buttons  */
 #curriculumSubjectsBox{
 	width: 260px;
 	position: absolute;
-	top: 50px;
-	left: 400px;
+	display:none;
 	line-height: 110%;
 	background-color: #4E94A2;
 	margin: 0px;
-	padding: 1em;
+	padding: .5em 1em;
 	color: #FFF;
 	border-radius: 6px;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
+	font-size:.9em;
 }
 
 #curriculumSubjectsBox div {
@@ -313,8 +293,16 @@ CREATE before they click the Show Class Periods buttons  */
 	font-size:.9em;
 	color:#fff;
 }
-	
 
+#textCurriculumBox tr td {
+	height:1em;
+}
+	
+#closeSubjects {
+	color:#c9e2d9;
+	float:right;
+	margin-top:.25em;
+}
 	
 /* FOR TEACHER USAGE AGREEMENT PAGE */
 

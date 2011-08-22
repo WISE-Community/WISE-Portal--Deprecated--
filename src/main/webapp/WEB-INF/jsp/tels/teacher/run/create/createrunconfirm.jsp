@@ -191,7 +191,7 @@
 							<h5><spring:message code="teacher.run.setup.7"/>&nbsp;<spring:message code="teacher.run.setup.8"/></h5>
 							<h5>
 								<div class="projectSummary projectBox">
-									<div class="projectTitle">${project.name} (ID: ${project.id})</div> <!-- TODO: Add library icon and tag if library project, shared info -->
+									<div class="projectTitle">${project.name} (ID: ${project.id})</div> <!-- TODO: Add thumb, library icon and tag if library project, shared info -->
 									<div class="summaryInfo">
 										<div class="basicInfo">
 											<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
