@@ -34,7 +34,7 @@ $(document).ready(function() {
 		'<iframe id="addProjectFrame" src="addproject.html" width="100%" height="99%" frameborder="0" allowTransparency="false"> </iframe>'+			
 		'</div>';
 		if ($("#addProjectDialog").length == 0) {
-			$("#centeredDiv").append(addProjectDialogHtml);	
+			$("#page").append(addProjectDialogHtml);	
 		}
 		$("#addProjectDialog").dialog({
 			position:["center","center"],
@@ -53,7 +53,7 @@ $(document).ready(function() {
 		'<iframe id="changePasswordFrame" src="changestudentpassword.html" width="100%" height="99%" allowTransparency="false"> </iframe>'+			
 		'</div>';
 		if ($("#changePasswordDialog").length == 0) {
-			$("#centeredDiv").append(changePasswordDialogHtml);	
+			$("#page").append(changePasswordDialogHtml);	
 		}
 		$("#changePasswordDialog").dialog({
 			modal:true,
@@ -171,9 +171,8 @@ $(document).ready(function() {
 								style="border: 0px;" /> </a></li>
 				 -->				
 							<li><a id="changePasswordLink" onmouseover="swapImage('studentchangepwd','<spring:theme code="student_change_password_roll" />');"
-								onmouseout="swapImage('studentchangepwd','<spring:theme code="student_change_password" />');"
-								> <img
-								id="studentchangepwd"
+								onmouseout="swapImage('studentchangepwd','<spring:theme code="student_change_password" />');"> 
+								<img id="studentchangepwd"
 								src="<spring:theme code="student_change_password" />"
 								style="border: 0px;" /> </a></li>
 								
