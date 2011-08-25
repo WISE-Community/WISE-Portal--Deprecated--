@@ -69,6 +69,10 @@ public class ListStudentNamesController extends AbstractController {
 		//get the meta data for the project
 		Long projectId = (Long) project.getId();
 		Long parentProjectId = project.getParentProjectId();
+		String parentProjectIdStr = "N/A";
+		if (parentProjectId != null) {
+			parentProjectIdStr = parentProjectId.toString();
+		}
 		String projectName = project.getName();
 		String runName = run.getName();
 		Date startTime = run.getStarttime();
@@ -108,7 +112,7 @@ public class ListStudentNamesController extends AbstractController {
 		HSSFRow metaDataRow = mainSheet.createRow(rowCounter++);
 		metaDataRow.createCell(columnCounter++).setCellValue(teacherUserName);
 		metaDataRow.createCell(columnCounter++).setCellValue(projectId);
-		metaDataRow.createCell(columnCounter++).setCellValue(parentProjectId);
+		metaDataRow.createCell(columnCounter++).setCellValue(parentProjectIdStr);
 		metaDataRow.createCell(columnCounter++).setCellValue(projectName);
 		metaDataRow.createCell(columnCounter++).setCellValue(runId);
 		metaDataRow.createCell(columnCounter++).setCellValue(runName);
