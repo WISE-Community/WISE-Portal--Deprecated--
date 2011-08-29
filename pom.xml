@@ -335,54 +335,7 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.13</version>
-		</dependency>
-<!--  		
-		
-		<dependency>
-			<groupId>org.telscenter.external.org.acegisecurity</groupId>
-			<artifactId>acegi-security</artifactId>
-			<version>1.0.4-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.acegisecurity</groupId>
-			<artifactId>acegi-security-tiger</artifactId>
-			<version>1.0.4</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring-aop</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring-mock</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring-remoting</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring-web</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring-jdbc</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring-support</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring-ldap</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
--->		
+		</dependency>	
 		<dependency>
            <groupId>org.hibernate</groupId>
            <artifactId>hibernate-commons-annotations</artifactId>
