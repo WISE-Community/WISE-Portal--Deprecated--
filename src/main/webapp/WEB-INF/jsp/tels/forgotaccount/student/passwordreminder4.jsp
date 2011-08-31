@@ -48,7 +48,7 @@
 					<div class="errorMsgNoBg"><p><spring:message code="forgot.student.passremind.13"/></p></div>
 					<div><spring:message code="forgot.student.passremind.14"/></div>
 				</div>
-				<a href="/webapp/signin.html" class="wisebutton" style="margin-top:.25em;"><spring:message code="login.submit"/></a>
+				<a href="/webapp/login.html" class="wisebutton" style="margin-top:.25em;"><spring:message code="login.submit"/></a>
 			</div>
 		</div>
 	</div>
