@@ -161,14 +161,13 @@
 		var runId = $(this).attr('id').replace('shareRun_','');
 		var path = "/webapp/teacher/run/shareprojectrun.html?runId=" + runId;
 		var div = $('#shareDialog').html('<iframe id="shareIfrm" width="100%" height="100%"></iframe>');
-		$('body').css('overflow-y','hidden');
 		div.dialog({
 			modal: true,
 			width: '650',
 			height: $(window).height() - 100,
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); $('body').css('overflow-y','auto'); },
+			close: function(){ $(this).html(''); },
 			buttons: {
 				Close: function(){$(this).dialog('close');}
 			}
@@ -182,14 +181,13 @@
 		var runId = $(this).attr('id').replace('editRun_','');
 		var path = "/webapp/teacher/run/editrun.html?runId=" + runId;
 		var div = $('#editRunDialog').html('<iframe id="editIfrm" width="100%" height="100%"></iframe>');
-		$('body').css('overflow-y','hidden');
 		div.dialog({
 			modal: true,
 			width: '600',
 			height: '400',
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); $('body').css('overflow-y','auto'); },
+			close: function(){ $(this).html(''); },
 			buttons: {
 				Close: function(){
 					if(document.getElementById('editIfrm').contentWindow['runUpdated']){
@@ -208,14 +206,13 @@
 		var runId = $(this).attr('id').replace('editAnnouncements_','');
 		var path = "/webapp/teacher/run/announcement/manageannouncement.html?runId=" + runId;
 		var div = $('#editAnnouncementsDialog').html('<iframe id="announceIfrm" width="100%" height="100%"></iframe>');
-		$('body').css('overflow-y','hidden');
 		div.dialog({
 			modal: true,
 			width: '600',
 			height: '400',
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); $('body').css('overflow-y','auto'); },
+			close: function(){ $(this).html(''); },
 			buttons: {
 				Close: function(){
 					$(this).dialog('close');
@@ -258,14 +255,13 @@
 		}
 		var path = "/webapp/teacher/projects/projectinfo.html?projectId=" + projectId;
 		var div = $('#projectDetailDialog').html('<iframe id="projectIfrm" width="100%" height="100%"></iframe>');
-		$('body').css('overflow-y','hidden');
 		div.dialog({
 			modal: true,
 			width: '800',
 			height: '400',
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); $('body').css('overflow-y','auto'); },
+			close: function(){ $(this).html(''); },
 			buttons: {
 				Close: function(){
 					$(this).dialog('close');

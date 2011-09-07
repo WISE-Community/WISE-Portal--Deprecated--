@@ -43,14 +43,13 @@
 		var runId = $(this).attr('id').replace('shareRun_','');
 		var path = "/webapp/teacher/run/shareprojectrun.html?runId=" + runId;
 		var div = $('#shareDialog').html('<iframe id="shareIfrm" width="100%" height="100%"></iframe>');
-		$('body').css('overflow-y','hidden');
 		div.dialog({
 			modal: true,
 			width: '650',
 			height: $(window).height() - 100,
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); $('body').css('overflow-y','auto'); },
+			close: function(){ $(this).html(''); },
 			buttons: {
 				Close: function(){$(this).dialog('close');}
 			}
@@ -64,14 +63,13 @@
 		var runId = $(this).attr('id').replace('editRun_','');
 		var path = "/webapp/teacher/run/editrun.html?runId=" + runId;
 		var div = $('#editRunDialog').html('<iframe id="editIfrm" width="100%" height="100%"></iframe>');
-		$('body').css('overflow-y','hidden');
 		div.dialog({
 			modal: true,
 			width: '600',
 			height: '400',
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); $('body').css('overflow-y','auto'); },
+			close: function(){ $(this).html(''); },
 			buttons: {
 				Close: function(){
 					if(document.getElementById('editIfrm').contentWindow['runUpdated']){
@@ -90,14 +88,13 @@
 		var runId = $(this).attr('id').replace('editAnnouncements_','');
 		var path = "/webapp/teacher/run/announcement/manageannouncement.html?runId=" + runId;
 		var div = $('#editAnnouncementsDialog').html('<iframe id="announceIfrm" width="100%" height="100%"></iframe>');
-		$('body').css('overflow-y','hidden');
 		div.dialog({
 			modal: true,
 			width: '600',
 			height: '400',
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); $('body').css('overflow-y','auto'); },
+			close: function(){ $(this).html(''); },
 			buttons: {
 				Close: function(){
 					$(this).dialog('close');
@@ -164,10 +161,14 @@
 
 <c:choose>
 			<c:when test="${fn:length(current_run_list) > 0}">
-				<p class="info">Your most recent classroom runs are shown below. To see all your project runs, go to the <a href="/webapp/teacher/management/classroomruns.html">Grade & Manage Classroom Runs</a> page.</p>
+				<spring:htmlEscape defaultHtmlEscape="false">
+            	<spring:escapeBody htmlEscape="false">
+					<p class="info"><spring:message code="teacher.index.53"/></p>
+				</spring:escapeBody>
+				</spring:htmlEscape>
 				<div class="runBox">
 					
-					<table id="currentRunTable" class="runTable" border="1" cellpadding="0" cellspacing="0">
+					<table id="currentRunTable" class="runTable">
 						<thead>
 						    <tr>
 						       <th style="width:250px;"class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.3"/></th>

@@ -148,31 +148,32 @@ font-weight: bold;
 	margin-top:-1em;
 }
 
-#currentRunTable{
+.runTable{
 	width:100%;
 	margin-top:.5em;
 	margin-bottom:.5em;
-	border:1px solid black;
+	border:1px solid #999999;
 	padding:0px;
-	} 
+} 
 	
-#currentRunTable td {
-	border:1px solid #333333;
+.runTable td {
+	border:1px solid #999999;
 	font-size:.8em;
 	vertical-align:middle;
-		} 
+	padding:.25em .5em;
+} 
 		
 #secondaryRowTightFormat {
 	padding:2px 5px;
-	} 
+} 
 	
-#projectMainRow{
+.projectMainRow{
 	border: 1px solid black;
 	margin:0px;
 	padding:0px;
 }
 
-#blankRow {
+.blankRow {
 	padding:4px;
 	border-left:0px;
 	border-right:0px;
@@ -180,8 +181,7 @@ font-weight: bold;
 
 .studentTableLeftHeaderCurrent {
 	width:15%;
-	padding: 0px 5px;
-	background-color:#FFce8e;	
+	font-weight:bold;	
 	}
 	
 .studentTableLeftHeaderArchive {
@@ -209,21 +209,20 @@ font-weight: bold;
 	width:100%;
 	margin:0px;
 	padding:0px;
-	}
+}
 
 /* #tableStudentProjectData tr, #tableStudentProjectData td  {
 	margin:0px;
 	padding:3px 5px;
 	}    */
 	
-#studentTitleText {
+.studentTitleText {
 	font-weight:bold;
 	font-size:1.3em;
-	padding:2px 5px;
+	color:#007391;
 }
 
-#studentActionList  {
-	font-family: "Gill Sans", Helvetica, Arial, "Lucida Grande", "Lucida San Unicode";
+.studentActionList  {
 	list-style-type:none;
 	text-align:center;
 	vertical-align:top;
@@ -231,18 +230,18 @@ font-weight: bold;
 	padding:0px;
 	}
 	
-#studentActionList li {
+.studentActionList li {
 	list-style-type:none;
 	padding:3px 4px;
 	text-align:center;
 }
 
-#studentActionList li.startProject {
+.studentActionList li.startProject {
 	list-style-type:none;
 	font-size:160%;
 }
 
-#studentActionList li a {
+.studentActionList li a {
 	margin:0 auto;
 }
 	
@@ -267,7 +266,7 @@ font-weight: bold;
 	border:1px solid #666666;
 }*/
 
-#periodMessage {
+.periodMessage {
 	margin-left:5px;
 	font-size:80%;
 	color:#000;
@@ -276,7 +275,7 @@ font-weight: bold;
 
 .teamNotRegisteredMessage {
 	font-weight:bold;
-	color:#0000CC;
+	color:#ff563f;
 }
 
 #firstUseBox{

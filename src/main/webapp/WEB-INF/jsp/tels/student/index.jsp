@@ -156,42 +156,18 @@ $(document).ready(function() {
 				
 						<div id="optionButtons" class="sideContent">
 							<ul>
-							<li>
-								<a onmouseover="swapImage('studentaddproject','<spring:theme code="student_add_project_roll" />');"
-								onmouseout="swapImage('studentaddproject','<spring:theme code="student_add_project" />');"
-								class="addprojectLink" id="addprojectLink"> <img id="studentaddproject"
-								src="<spring:theme code="student_add_project" />" /> </a>
-							</li>
-				<!-- 			
-							<li><a href="#"
-						        onclick=""	
-								onmouseover="swapImage('studentopenjournal','<spring:theme code="student_open_journal_roll" />');"
-								onmouseout="swapImage('studentopenjournal','<spring:theme code="student_open_journal" />');"	>
-								<img id="studentopenjournal" src="<spring:theme code="student_open_journal" />"
-								style="border: 0px;" /> </a></li>
-				 -->				
-							<li><a id="changePasswordLink" onmouseover="swapImage('studentchangepwd','<spring:theme code="student_change_password_roll" />');"
-								onmouseout="swapImage('studentchangepwd','<spring:theme code="student_change_password" />');"> 
-								<img id="studentchangepwd"
-								src="<spring:theme code="student_change_password" />"
-								style="border: 0px;" /> </a></li>
-								
-							<li><a href="<c:url value="/j_spring_security_logout"/>"
-								onmouseover="swapImage('studentsignout','<spring:theme code="student_sign_out_roll" />');"
-								onmouseout="swapImage('studentsignout','<spring:theme code="student_sign_out" />');"> 
-								<img id="studentsignout" src="<spring:theme code="student_sign_out" />"
-								style="border: 0px;" /> </a></li>
-										
-							<!-- <li><a onmouseover="swapImage('studentchangelang','<spring:theme code="student_change_lang_roll" />');"
-								onmouseout="swapImage('studentchangelang','<spring:theme code="student_change_lang" />');"
-								onclick="javascript:alert('This page is not available yet')"> <img
-								id="studentchangelang"
-								src="<spring:theme code="student_change_lang" />"
-								style="border: 0px;" /> </a></li> -->
-						
+								<li>
+									<a id="addprojectLink" class="wisebutton altbutton"><spring:theme code="student.index.50" /></a>
+								</li>		
+								<li>
+									<a id="changePasswordLink"><spring:theme code="student.index.51" /></a>
+								</li>
+								<li>
+									<a href="<c:url value="/j_spring_security_logout"/>" id="studentsignout"><spring:theme code="log.out" /></a>
+								</li>
 							</ul>
 						</div>
-						<div class="sideContent">	
+						<div class="sideContent">
 							<table id="list2">
 								<tr>
 									<td style="width:90px;"><spring:message code="student.index.6"/></td>
@@ -224,9 +200,13 @@ $(document).ready(function() {
 					
 						<div class="sideContent">
 						
-							<div style="text-align:center;margin-top:5px"><img src="../themes/tels/default/images/WISE-Logo-Small-1.png" alt="WISE Small Logo" /></div>
-						
-							<div id="displayAsEnglish">WISE &amp; Amanda the Panda <br/>All rights reserved. &#169; 1998-2010</div>
+							<div style="text-align:center; margin-top:5px"><img src="/webapp/themes/tels/default/images/wise-logo-new-sm.png" alt="WISE" /></div>
+							
+							<spring:htmlEscape defaultHtmlEscape="false">
+            				<spring:escapeBody htmlEscape="false">
+								<div id="displayAsEnglish"><spring:message code="student.index.48"/></div>
+							</spring:escapeBody>
+							</spring:htmlEscape>
 						
 							<div style="display:none;" id="displayAsEnglish"><a href="#"><spring:message code="student.index.12"/></a></div>
 							
@@ -239,7 +219,7 @@ $(document).ready(function() {
 			<div class="panelHeader"><spring:message code="student.index.13"/></div>
 			<div class="panelContent">
 				<div id="tabSystem" class="panelTabs">
-			   		<ul style='height:2em;'>   <!-- HT says: I don't know why but if I don't set height, the ul's height is much larger than it should be. -->
+			   		<ul style='height:1.9em;'>   <!-- HT says: I don't know why but if I don't set height, the ul's height is much larger than it should be. -->
 			        	<li><a href="#currentRuns"><spring:message code="student.index.14"/></a></li>
 			        	<li><a href="#archivedRuns"><spring:message code="student.index.15"/></a></li>
 			    	</ul>            
@@ -249,15 +229,15 @@ $(document).ready(function() {
 					
 						<c:forEach var="studentRunInfo"  items="${current_run_list}">
 							
-							<table id="currentRunTable" >
+							<table class="runTable" >
 					
-								<tr id="projectMainRow">
+								<tr class="projectMainRow">
 									<td class="studentTableLeftHeaderCurrent"><spring:message code="student.index.16"/></td>
 									<td>
-										<div id="studentTitleText">${studentRunInfo.run.name}</div>
+										<div class="studentTitleText">${studentRunInfo.run.name}</div>
 									</td>
 									<td rowspan="5" style="width:30%; padding:2px;">
-										<ul id="studentActionList">   
+										<ul class="studentActionList">   
 												
 											<c:choose>
 												<c:when test="${studentRunInfo.workgroup == null}">
@@ -289,12 +269,12 @@ $(document).ready(function() {
 								 	</td>
 								</tr>
 								<tr>
-									<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent">Access Code</td>
-									<td id="secondaryRowTightFormat" >${studentRunInfo.run.runcode}<!-- -${studentRunInfo.group.name} --></td>
+									<td class="studentTableLeftHeaderCurrent">Access Code</td>
+									<td>${studentRunInfo.run.runcode}<!-- -${studentRunInfo.group.name} --></td>
 							  	</tr>	
 								<tr>
-									<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent"><spring:message code="student.index.22"/></td>
-									<td id="secondaryRowTightFormat" >
+									<td class="studentTableLeftHeaderCurrent"><spring:message code="student.index.22"/></td>
+									<td>
 										<c:choose>
 										<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
 											<c:forEach var="member" items="${studentRunInfo.run.owners}">
@@ -308,13 +288,13 @@ $(document).ready(function() {
 									</td>
 									</tr>
 								<tr>
-									<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent"><spring:message code="student.index.24"/></td>
-									<td id="secondaryRowTightFormat" >${studentRunInfo.group.name} <span id="periodMessage">(to change period or team ask your teacher for help)</span></td>
+									<td class="studentTableLeftHeaderCurrent"><spring:message code="student.index.24"/></td>
+									<td >${studentRunInfo.group.name} <span id="periodMessage">(to change period or team ask your teacher for help)</span></td>
 							  	
 							  	</tr>
 								<tr>
-									<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent"><spring:message code="student.index.25"/></td>
-									<td id="secondaryRowTightFormat" >
+									<td class="studentTableLeftHeaderCurrent"><spring:message code="student.index.25"/></td>
+									<td>
 										<c:choose>
 										<c:when test="${studentRunInfo.workgroup != null}" >
 											<c:forEach var="member" varStatus="membersStatus" items="${studentRunInfo.workgroup.members}">
@@ -351,20 +331,19 @@ $(document).ready(function() {
 						</div>  -->
 					</div>  <!--  closes <div id='currentRuns'> -->
 					<div id="archivedRuns">
-						<div id="archivedAdvisory">NOTICE: Archived Project Runs can be run and viewed. But any changes you make to an Archived Project Run will not be saved. 
-		If you want to save work to an archived project run, ask your teacher to change its status back to "Current Project Run".</div> 
+						<p class="info"><spring:message code="student.index.49"/></p> 
 		
 						<c:choose>
 						<c:when test="${fn:length(ended_run_list) > 0}" >
 						<c:forEach var="studentRunInfo"  items="${ended_run_list}">
-							<table id="currentRunTable" >
+							<table class="runTable" >
 				
-								<tr id="projectMainRow">
+								<tr class="projectMainRow">
 									<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.35"/></td>
-									<td id="studentCurrentTitleCell">
-										<div id="studentTitleText">${studentRunInfo.run.name}</div></td>
+									<td class="studentCurrentTitleCell">
+										<div class="studentTitleText">${studentRunInfo.run.name}</div></td>
 									<td rowspan="5" style="width:27%; padding:2px;">
-									  	<ul id="studentActionList">
+									  	<ul class="studentActionList">
 											<li><c:choose>
 												<c:when test="${studentRunInfo.workgroup == null}">
 													<a href="#" id='${studentRunInfo.run.id}' class="runProjectLink"><spring:message code="student.index.36"/></a>

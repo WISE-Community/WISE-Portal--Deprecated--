@@ -62,7 +62,7 @@
 		<div id="userName">
 			<span>Welcome, <sec:authentication property="principal.firstname" /> <sec:authentication property="principal.lastname" />!</span>
 		</div>
-		<div>
+		<div<sec:authorize ifAllGranted="ROLE_STUDENT"> style="margin-top:1.25em;"</sec:authorize>>
 			<spring:message code="teacher.index.4" /> <span id="lastLogin"></span>
 		</div>
 		<sec:authorize ifNotGranted="ROLE_STUDENT">

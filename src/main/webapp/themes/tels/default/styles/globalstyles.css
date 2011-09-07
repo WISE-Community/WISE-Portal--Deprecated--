@@ -855,6 +855,15 @@ form {margin:0px; padding:0px;}
 .minibutton-wide:hover {
 	background-position: -3px -239px;
 }
+
+.altbutton {
+	background-position: -3px -335px;
+	color:#745a33;
+}
+
+.altbutton {
+	background-position: -3px -368px;
+}
 			
 .checkCompatibilityWarning {
 	font-size:1.0em;
