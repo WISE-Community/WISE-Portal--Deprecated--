@@ -270,6 +270,10 @@ a.printLesson {
 	font-size:.85em;
 }
 
+.runTable {
+	margin-top:.5em;
+}
+
 .runTable td {
 	border:1px solid #999999;
 }

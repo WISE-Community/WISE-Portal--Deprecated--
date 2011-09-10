@@ -121,7 +121,7 @@
 	<div class="sectionHead">Add a New Period:</div>
 	<div class="dialogSection">
 		<div id="editRunPeriodsAddPeriodDiv">
-			<div>Enter period name (ex: for period 4, enter ONLY 4): <input id="editRunPeriodsInput" class="dialogTextInput" type="text" size="10"/><input type="button" value="Add Period" onclick="updateRunPeriod('${run.id}')"/></div>
+			<div>Enter period name (e.g. for period 4, enter ONLY 4): <input id="editRunPeriodsInput" class="dialogTextInput" type="text" size="10"/><input type="button" value="Add Period" onclick="updateRunPeriod('${run.id}')"/></div>
 		</div>
 		<div class="buffer"></div>
 	</div>

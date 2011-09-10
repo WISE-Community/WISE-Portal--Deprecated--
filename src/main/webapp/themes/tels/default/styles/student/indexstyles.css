@@ -106,7 +106,7 @@ table tr, table td {
 }
 
 #optionButtons ul{ 
-	margin:0 0 18px 6px;
+	margin:0;
 	padding:0;
 }
 
@@ -115,6 +115,15 @@ table tr, table td {
 	list-style-type:none;
 	padding:0;
 	margin:0 0 5px 0;
+}
+
+#optionButtons li a {
+	margin: 0 auto;
+	font-size:1em;	
+}
+
+#optionButtons li a.altbutton-small {
+	font-size:.75em;
 }
 
 #displayAsEnglish {
@@ -154,7 +163,7 @@ font-weight: bold;
 	margin-bottom:.5em;
 	border:1px solid #999999;
 	padding:0px;
-} 
+}
 	
 .runTable td {
 	border:1px solid #999999;
@@ -179,17 +188,10 @@ font-weight: bold;
 	border-right:0px;
 }
 
-.studentTableLeftHeaderCurrent {
+.runTable td.rowLabel {
 	width:15%;
-	font-weight:bold;	
-	}
-	
-.studentTableLeftHeaderArchive {
-	width:12%;
-	padding: 0px 5px;
-	border-right:1px solid #666666;
-	background-color:#FF9999;
-	}
+	font-weight:bold;
+}
 
 #archivedAdvisory {
 	background-color:#993333;
@@ -220,6 +222,10 @@ font-weight: bold;
 	font-weight:bold;
 	font-size:1.3em;
 	color:#007391;
+}
+
+#archivedRuns .studentTitleText {
+	color: #F47F6E;
 }
 
 .studentActionList  {

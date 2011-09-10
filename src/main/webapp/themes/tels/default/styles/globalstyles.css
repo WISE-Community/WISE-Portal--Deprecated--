@@ -67,7 +67,7 @@ h5 {font-size:.9em; }
 h6 {font-size:.8em; }
 p  {font-size:.8em; line-height:150%;padding:0px; margin:0px;}
 
-a, a:visited {
+a {
 	color: #007391;
     margin: 0;
     text-decoration:none;
@@ -858,13 +858,24 @@ form {margin:0px; padding:0px;}
 
 .altbutton {
 	background-position: -3px -335px;
-	color:#745a33;
 }
 
-.altbutton {
-	background-position: -3px -368px;
+.altbutton:hover {
+	background-position: -3px -375px;
 }
-			
+
+.altbutton-small {
+	background-position: -3px -414px;
+	width:114px;
+	height:24px;
+	line-height:24px;
+	font-size:.7em;
+}
+
+.altbutton-small:hover {
+	background-position: -3px -444px;
+}
+
 .checkCompatibilityWarning {
 	font-size:1.0em;
 	text-align:left;
@@ -965,10 +976,19 @@ form {margin:0px; padding:0px;}
 	border: 0 none;
     padding: 0;
     width: 100%;
+    font-size:.7em;
 }
 
-.marginPushLeft{
-	margin-left:18px;
+#contentFooter div {
+	margin:.5em 0;
+}
+
+#footerLinks {
+	margin-bottom:0;
+}
+
+#footerLinks #wiseLinks {
+	float:left;
 }
 
 #footerLogos {
@@ -976,23 +996,23 @@ form {margin:0px; padding:0px;}
 }
 
 #footerLogos a {
-	text-decoration:none;
+	text-decoration:none !important;
 }
 
 #footerLogos img {
 	display:inline;
-	border:0px;
-	margin: 5px 5px;
+	border:0;
+	margin: .5em;
 }
 
 #footerText {
 	float: left;
-    font-size: 0.7em;
-    width:500px;
+    width:400px;
 }
 
-#contentFooter div {
-	padding:10px 0;
+#wiseOpenSource {
+	float:right;
+	margin:0;
 }
 
 #contentFooter ul {
@@ -1021,22 +1041,20 @@ form {margin:0px; padding:0px;}
 }
 
 #footerText p {
-	font-size:.95em;
-	padding:0px 3px;
-	margin-top:2px;
+	margin:.75em 0;
 	line-height:130%;
+	font-size:1em;
 }
 
-#contentFooter li a, #footer li a:visited, #footerText a, #footerText a:visited {
+#contentFooter a {
 	font-size:1.1em;
 	color:#FFFFFF;
 	text-decoration:none;
 	font-weight:bold;
 	margin:0;
-	padding:2px;
 }
 	
-#contentFooter li a:hover, #footerText a:hover {
+#contentFooter a:hover {
 	text-decoration:underline;
 }
 	

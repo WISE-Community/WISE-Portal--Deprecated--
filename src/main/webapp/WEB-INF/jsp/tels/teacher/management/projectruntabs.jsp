@@ -30,7 +30,8 @@
 			},
 			"fnDrawCallback": function( oSettings ){
 				// automatically scroll to top on page change
-				var targetOffset = $('.runTable').offset().top - 10;
+				var tableID = $(this).attr('id');
+				var targetOffset = $('#' + tableID).offset().top - 14;
 				if ($(window).scrollTop() > targetOffset){
 					$('html,body').scrollTop(targetOffset);
 				}
@@ -113,7 +114,7 @@
 		};
 		
 		// Make top header scroll with page
-		/*var $stickyEl = $('.dataTables_wrapper .top'),
+		var $stickyEl = $('.dataTables_wrapper .top'),
 			elTop = $stickyEl.offset().top,
 			width = $stickyEl.width();
 		$(window).scroll(function() {
@@ -125,7 +126,7 @@
 	            $stickyEl.removeClass('sticky');
 	        	$stickyEl.css('width','auto');
 	        }
-	    });*/
+	    });
 	});
 	
 	function popup(URL, title) {

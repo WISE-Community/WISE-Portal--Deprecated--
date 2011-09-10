@@ -30,7 +30,7 @@ $.cookie("hasBeenAlertedBrowserCompatibility","true");
 $(document).ready(function() {
 	// create add project dialog
 	$("#addprojectLink").bind("click", function() {
-		var addProjectDialogHtml = '<div style="display:none" id="addProjectDialog">'+
+		var addProjectDialogHtml = '<div style="display:none; overflow-y:hidden;" id="addProjectDialog">'+
 		'<iframe id="addProjectFrame" src="addproject.html" width="100%" height="99%" frameborder="0" allowTransparency="false"> </iframe>'+			
 		'</div>';
 		if ($("#addProjectDialog").length == 0) {
@@ -41,8 +41,11 @@ $(document).ready(function() {
 			modal:true,
 			resizable:false,
 			width:600,
-			height:400,
-			title: '<spring:message code="student.index.44"/>'
+			height:425,
+			title: '<spring:message code="student.index.44"/>',
+			buttons: {
+				Cancel: function(){ $(this).dialog('destroy'); }
+			}
 		});
 
 	});
@@ -157,13 +160,13 @@ $(document).ready(function() {
 						<div id="optionButtons" class="sideContent">
 							<ul>
 								<li>
-									<a id="addprojectLink" class="wisebutton altbutton"><spring:theme code="student.index.50" /></a>
-								</li>		
-								<li>
-									<a id="changePasswordLink"><spring:theme code="student.index.51" /></a>
+									<a id="addprojectLink" class="wisebutton altbutton"><spring:message code="student.index.50" /></a>
 								</li>
 								<li>
-									<a href="<c:url value="/j_spring_security_logout"/>" id="studentsignout"><spring:theme code="log.out" /></a>
+									<a id="changePasswordLink" class="wisebutton altbutton-small"><spring:message code="student.index.51" /></a>
+								</li>
+								<li>
+									<a class="wisebutton altbutton-small" href="<c:url value="/j_spring_security_logout"/>" id="studentsignout"><spring:message code="log.out" /></a>
 								</li>
 							</ul>
 						</div>
@@ -200,7 +203,7 @@ $(document).ready(function() {
 					
 						<div class="sideContent">
 						
-							<div style="text-align:center; margin-top:5px"><img src="/webapp/themes/tels/default/images/wise-logo-new-sm.png" alt="WISE" /></div>
+							<div style="text-align:center; margin-top:5px"><img src="/webapp/themes/tels/default/images/wise4-logo-new-sm.png" alt="WISE" /></div>
 							
 							<spring:htmlEscape defaultHtmlEscape="false">
             				<spring:escapeBody htmlEscape="false">
@@ -232,7 +235,7 @@ $(document).ready(function() {
 							<table class="runTable" >
 					
 								<tr class="projectMainRow">
-									<td class="studentTableLeftHeaderCurrent"><spring:message code="student.index.16"/></td>
+									<td class="rowLabel"><spring:message code="student.index.16"/></td>
 									<td>
 										<div class="studentTitleText">${studentRunInfo.run.name}</div>
 									</td>
@@ -269,11 +272,11 @@ $(document).ready(function() {
 								 	</td>
 								</tr>
 								<tr>
-									<td class="studentTableLeftHeaderCurrent">Access Code</td>
+									<td class="rowLabel">Access Code</td>
 									<td>${studentRunInfo.run.runcode}<!-- -${studentRunInfo.group.name} --></td>
 							  	</tr>	
 								<tr>
-									<td class="studentTableLeftHeaderCurrent"><spring:message code="student.index.22"/></td>
+									<td class="rowLabel"><spring:message code="student.index.22"/></td>
 									<td>
 										<c:choose>
 										<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
@@ -288,12 +291,12 @@ $(document).ready(function() {
 									</td>
 									</tr>
 								<tr>
-									<td class="studentTableLeftHeaderCurrent"><spring:message code="student.index.24"/></td>
+									<td class="rowLabel"><spring:message code="student.index.24"/></td>
 									<td >${studentRunInfo.group.name} <span id="periodMessage">(to change period or team ask your teacher for help)</span></td>
 							  	
 							  	</tr>
 								<tr>
-									<td class="studentTableLeftHeaderCurrent"><spring:message code="student.index.25"/></td>
+									<td class="rowLabel"><spring:message code="student.index.25"/></td>
 									<td>
 										<c:choose>
 										<c:when test="${studentRunInfo.workgroup != null}" >
@@ -339,34 +342,19 @@ $(document).ready(function() {
 							<table class="runTable" >
 				
 								<tr class="projectMainRow">
-									<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.35"/></td>
+									<td class="rowLabel"><spring:message code="student.index.35"/></td>
 									<td class="studentCurrentTitleCell">
 										<div class="studentTitleText">${studentRunInfo.run.name}</div></td>
 									<td rowspan="5" style="width:27%; padding:2px;">
 									  	<ul class="studentActionList">
-											<li><c:choose>
-												<c:when test="${studentRunInfo.workgroup == null}">
-													<a href="#" id='${studentRunInfo.run.id}' class="runProjectLink"><spring:message code="student.index.36"/></a>
-												</c:when>
-												<c:otherwise>
-													<c:choose>
-														<c:when
-															test="${fn:length(studentRunInfo.workgroup.members) == 1}">
-															<a href="${studentRunInfo.startProjectUrl}"
-																id='${studentRunInfo.run.id}' class=""><spring:message code="student.index.36"/></a>
-														</c:when>
-														<c:otherwise>
-															<a href='teamsignin.html?runId=${studentRunInfo.run.id}'
-																id='${studentRunInfo.run.id}' class=""><spring:message code="student.index.36"/></a>
-														</c:otherwise>
-													</c:choose>
-												</c:otherwise>
-											</c:choose></li>
+											<li class="startProject">
+												<a href="startproject.html?runId=${studentRunInfo.run.id}" class="wisebutton"><spring:message code="student.index.36"/></a>
+											</li>
 										</ul>
 								 	</td>
 								</tr>	
 								<tr>
-									<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.37"/></td>
+									<td class="rowLabel"><spring:message code="student.index.37"/></td>
 									<td>
 										<c:choose>
 										<c:when test="${fn:length(studentRunInfo.run.owners) > 0}" >
@@ -381,12 +369,12 @@ $(document).ready(function() {
 									</td>
 									</tr>
 								<tr>
-									<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.39"/></td>
+									<td class="rowLabel"><spring:message code="student.index.39"/></td>
 									<td>${studentRunInfo.group.name}</td>
 							  	
 							  	</tr>
 								<tr>
-									<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.40"/></td>
+									<td class="rowLabel"><spring:message code="student.index.40"/></td>
 									<td>
 										<c:choose>
 										<c:when test="${studentRunInfo.workgroup != null}" >
@@ -404,8 +392,8 @@ $(document).ready(function() {
 									</td>
 								</tr>
 								<tr>
-									<td class="studentTableLeftHeaderArchive"><spring:message code="student.index.42"/></td>
-									<td><fmt:formatDate value="${studentRunInfo.run.endtime}" type="date" dateStyle="short" /></td>
+									<td class="rowLabel"><spring:message code="student.index.42"/></td>
+									<td><fmt:formatDate value="${studentRunInfo.run.endtime}" type="date" dateStyle="medium" /></td>
 								</tr>
 							</table>
 						</c:forEach>

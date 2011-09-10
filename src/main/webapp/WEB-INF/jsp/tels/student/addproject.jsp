@@ -1,30 +1,12 @@
-<%@ include file="../include.jsp"%>
-<!--
-  * Copyright (c) 2006 Encore Research Group, University of Toronto
-  * 
-  * This library is free software; you can redistribute it and/or
-  * modify it under the terms of the GNU Lesser General Public
-  * License as published by the Free Software Foundation; either
-  * version 2.1 of the License, or (at your option) any later version.
-  *
-  * This library is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  * Lesser General Public License for more details.
-  *
-  * You should have received a copy of the GNU Lesser General Public
-  * License along with this library; if not, write to the Free Software
-  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
--->
+<%@ include file="include.jsp"%>
 
-<!-- $Id$ -->
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
+<!DOCTYPE html>
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
     
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>   
     
@@ -90,7 +72,7 @@ function save() {
 		projectCode.value = runcode + "-" + period;
 		document.getElementById("addproject").submit();		
 	} else {
-		alert('invalid project code. Please talk to your teacher');
+		alert('Invalid access code. Please talk to your teacher');
 	}
 }
 
@@ -105,55 +87,45 @@ function setup() {
 
 </head>
 
-<body onload="setup();">
-<!-- Support for Spring errors object -->
-<spring:bind path="addProjectParameters.*">
-  <c:forEach var="error" items="${status.errorMessages}">
-    <div id="errorMessageFormat">
-      	<c:out value="${error}"/>
-    </div>
-  </c:forEach>
-</spring:bind>
-
-<div id="centeredDiv" >
-		<h3>Instructions</h3>
-		<ol>
-		<li>Enter the Access Code in the blank space below.</li>
-		<li>Press TAB on your keyboard or click the link <b>Show Periods</b>.</li>
-		<li>Select your class period, then click the <b>Add Project</b> button.</li>
+<body style="background:#FFFFFF" onload="setup();">
+<div class="dialogContent">
+	<div class="dialogSection">
+		<div class="sectionHead">Instructions</div>
+		<ol id="addProjectInstructions">
+			<li>Enter the Access Code your teacher gave you</li>
+			<li>Press TAB on your keyboard or click 'Show Periods'</li>
+			<li>Select your class period, then click 'Add Project'</li>
 		</ol>
-
-<div id="popUpWindow1">
-
-<form:form method="post" action="addproject.html" commandName="addProjectParameters" id="addproject" autocomplete='off'>
-
-  <div>
-      <label for="runCode_part1" id="runCode_part1_label">Access Code:</label>
-	  <form:input onblur="findPeriods();" path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="1"/>
-
-			<!--This unusually placed script gets the cursor into the First Name field immediately on page load.  
-				It must appear immediately after the Input field in question  (MattFish)
-				<script type="text/javascript">
-				document.getElementById('runCode_part1').focus();
-				</script>-->
-
-	  <a href="#" onclick="findPeriods();" class="viewPeriodsLink">CLICK TO SHOW PERIODS (after entering access code)</a>
-	 
-      <label for="runCode_part2" id="runCode_part2_label">Period:</label>
-	  <form:select path="runCode_part2" id="runCode_part2" tabindex="2" disabled="true"></form:select>
-      
-      <form:hidden path="projectcode" id="projectcode"/>
-     
-      <div id="addButtonContainer"><a id="addButton" onclick="save();">Add Project</a></div>
-     <!--  
-   	 <input id="addProjectButton" onclick="save()" type="image" src="../<spring:theme code="student_add_this_project" />" 
-    	onmouseover="swapImage('addProjectButton','../<spring:theme code="student_add_this_project_roll" />');" 
-    	onmouseout="swapImage('addProjectButton','../<spring:theme code="student_add_this_project"/>');" />
-   -->
-   </div>
-</form:form>
-
-</div>
+		
+		<div class="dialogSection formSection" id="addProjectForm">
+		
+			<!-- Support for Spring errors object -->
+			<div class="errorMsgNoBg">
+				<spring:bind path="addProjectParameters.*">
+				  <c:forEach var="error" items="${status.errorMessages}">
+				    <p><c:out value="${error}"/></p>
+				  </c:forEach>
+				</spring:bind>
+			</div>
+			<form:form method="post" commandName="addProjectParameters" id="addproject" autocomplete='off'>
+			<div>
+		    	<label for="runCode_part1" id="runCode_part1_label">Access Code:</label>
+				<form:input onblur="findPeriods();" path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="1"/>
+			</div>
+			<div>
+				<a onclick="findPeriods();">SHOW PERIODS (after entering access code)</a>
+			</div>
+			<div>
+				<label for="runCode_part2" id="runCode_part2_label">Choose Period:</label>
+				<form:select path="runCode_part2" id="runCode_part2" tabindex="2" disabled="true"></form:select>
+			</div>
+		      
+		      <form:hidden path="projectcode" id="projectcode"/>
+		     
+		    <div><input type="submit" onclick="save();" value="Add Project" /></div>
+			</form:form>
+		</div>
+	</div>
 </div>
 </body>
 </html>

@@ -332,7 +332,21 @@
 
 /* STYLES FOR POP-UP WINDOWS  */
 
+.dialogSection.formSection {
+	text-align:center;
+	margin-top:1em;
+}
+
+.dialogSection.formSection div {
+	margin:.5em 0;
+}
+
 /* STUDENT ADD A PROJECT  */
+
+ol#addProjectInstructions li {
+	margin:.5em 2em;
+	list-style-type:decimal;
+}
 
 #popUpWindow1 {
 	background-image: url(../images/student/Gradient-ProjectMenu-Green-450.png);
@@ -345,63 +359,6 @@
 	margin: 15px 20px 20px 15px;
 	padding: 15px;
 }
-
-#addproject label {
-}
-
-#addproject input {
-	position:absolute;
-	left:150px;
-	vertical-align:middle;
-	}
-
-#addproject a {
-	display:block;
-	margin: 10px 0 10px 110px;
-	color:blue;
-	padding:2px;	
-	font-size:90%;
-	cursor:pointer;
-}
-
-#addproject a:hover {
-	background-color:#FFFF00;	
-}
-
-#addproject #addButton{
- 	display:inline;
- 	color:#000;
- 	font-size:1em;
-	font-weight:bold;
-	border:1px solid #666;
-	padding:6px 15px 4px 15px;
-	margin:0;
-	background-image: url(../images/WISE-Secondary-Banner-Gradient.png);
-	background-position: top;
-	text-decoration:none;
-  	-moz-border-radius:8px;
-	-webkit-border-radius:8px;
-	border-radius:8px;	
-}
-
-#addButtonContainer {
-	margin: 30px 0 0 110px;
-}
-
-#addproject #addButton:hover {
- 	background-image:none;
- 	background-color:#FFFF00;
- 	cursor:pointer;
-}
-
-
-#addproject select {
-	position:absolute;
-	left:150px;
-	width:180px;
-	vertical-align:middle;
-}
-
 
 #studentchangepasswordbox {
 	text-align: left;

@@ -25,16 +25,17 @@
 
 <div class="dialogContent">
 
-	<div id="teacherchangepasswordbox">
+	<div class="dialogSection formSection">
 		<form:form method="post" action="changestudentpassword.html" commandName="changeStudentPasswordParameters" id="changestudentpassword" autocomplete='off'>
 			
-		<dl>
-			<dt><label for="changestudentpassword"><spring:message code="changepassword.password1" /></label></dt>
-	      	<dd><form:password path="passwd1" /></dd>
-	
-			<dt><label for="changestudentpassword"><spring:message code="changepassword.password2" /></label></dt>
-			<dd><form:password path="passwd2" /></dd>
-		</dl>
+		<div>
+			<label for="changestudentpassword"><spring:message code="changepassword.password1" /></label>
+	      	<form:password path="passwd1" />
+		</div>
+		<div>
+			<label for="changestudentpassword"><spring:message code="changepassword.password2" /></label>
+			<form:password path="passwd2" />
+		</div>
 		
 		<!-- Support for Spring errors object -->
 		<div class="errorMsgNoBg">
@@ -45,7 +46,7 @@
 			</spring:bind>
 		</div>
 		
-		<div id="teacherPasswordButtons">
+		<div>
 		    <input type="submit" id="teachersave" value="<spring:message code="wise.save-changes"/>" />
     	</div>
 	
