@@ -8,8 +8,8 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp/WEB-INF"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
+<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
     <dependent-module archiveName="activation-1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/javax/activation/activation/1.1/activation-1.1.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
