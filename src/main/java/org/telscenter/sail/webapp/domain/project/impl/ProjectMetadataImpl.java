@@ -620,12 +620,12 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 				//get the JSON object for the tech reqs
 				JSONObject techReqsJSON = new JSONObject(techReqs);
 				
-				if (techReqsJSON.has("java") && techReqsJSON.getBoolean("java")) {
+				if (techReqsJSON.has("java") && techReqsJSON.getString("java").equals("checked")) {
 					//java is required
 					techReqsAndDetailsStringBuf.append("Java");
 				}
 				
-				if (techReqsJSON.has("flash") && techReqsJSON.getBoolean("flash")) {
+				if (techReqsJSON.has("flash") && techReqsJSON.getString("flash").equals("checked")) {
 					if(techReqsAndDetailsStringBuf.length() != 0) {
 						//add a comma to separate the previous text
 						techReqsAndDetailsStringBuf.append(", ");
@@ -635,7 +635,7 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 					techReqsAndDetailsStringBuf.append("Flash");
 				}
 				
-				if (techReqsJSON.has("quickTime") && techReqsJSON.getBoolean("quickTime")) {
+				if (techReqsJSON.has("quickTime") && techReqsJSON.getString("quickTime").equals("checked")) {
 					if(techReqsAndDetailsStringBuf.length() != 0) {
 						//add a comma to separate the previous text
 						techReqsAndDetailsStringBuf.append(", ");
