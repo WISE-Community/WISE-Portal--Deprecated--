@@ -52,7 +52,7 @@
 		<ul class="welcome-menu">
 			<li><spring:message code="header.welcome"/> <spring:message code="header.signup1"/> <spring:message code="header.signup2"/> <spring:message code="header.signup3"/></li>
 		</ul>
-		<a href="signup.html" class="wisebutton signup" title="<spring:message code="createaccounttitle"/>"><spring:message code="createaccountlink"/></a>
+		<a id="createAccountButton" href="signup.html" class="wisebutton signup" title="<spring:message code="createaccounttitle"/>"><spring:message code="createaccountlink"/></a>
 	</div>
 </sec:authorize>
 
@@ -121,7 +121,7 @@
 		<ul class="welcome-menu">
 			<li><spring:message code="header.welcome"/> <spring:message code="header.signup1"/> <spring:message code="header.signup2"/> <spring:message code="header.signup3"/></li>
 		</ul>
-		<a href="signup.html" class="wisebutton signup" title="<spring:message code="createaccounttitle"/>"><spring:message code="createaccountlink"/></a>
+		<a id="createAccountButton" href="signup.html" class="wisebutton signup" title="<spring:message code="createaccounttitle"/>"><spring:message code="createaccountlink"/></a>
 	</div>
 	</sec:authorize>
 </sec:authorize>
