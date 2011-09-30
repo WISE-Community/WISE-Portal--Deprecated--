@@ -597,6 +597,7 @@
 								        <ul class="actionList">
 					 	                    <li><span style="font-weight:bold;"><spring:message code="teacher.run.myprojectruns.59"/>:</span> <a class="grading" title="Grading & Feedback: ${run.name} (Run ID: ${run.id})" id="runId=${run.id}&gradingType=step&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (Run ID: ${run.id})"  id="runId=${run.id}&gradingType=step&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
 							  	            <li><span style="font-weight:bold;"><spring:message code="teacher.run.myprojectruns.60"/>:</span> <a class="grading" title="Grading & Feedback: ${run.name} (Run ID: ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (Run ID: ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>		
+											<li><a class="researchTools" title="Researcher Tools: ${run.name} (Run ID ${run.id})" id="runId=${run.id}&gradingType=export">Researcher Tools</a></li>
 					                    </ul>
 					                    <ul class="actionList actionList2">
 					                    	<sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
