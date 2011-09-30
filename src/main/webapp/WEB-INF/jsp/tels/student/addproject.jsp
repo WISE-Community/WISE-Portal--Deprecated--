@@ -30,10 +30,10 @@ function findPeriods() {
 		  	// or "1,2,3,4,5,...", a comma-separated values of period names
 		  	var responseText = o.responseText;
 		  	if (responseText == "not found" || responseText.length < 2) {
-		  		alert("The Access Code is invalid. Please ask your teacher for help.");
+		  		alert("<spring:message code="student.addproject.7" />");
 		  	} else {
   				var op = document.createElement('option');
-			  	op.appendChild(document.createTextNode("Select your class period..."));
+			  	op.appendChild(document.createTextNode("<spring:message code="student.addproject.8" />"));
 			  	op.value = 'none';
   				periodSelect.appendChild(op);
   				
@@ -51,7 +51,7 @@ function findPeriods() {
 		  	}
 		  },
 		  failure: function(o) {
-			  alert('failure');
+			  alert('<spring:message code="student.addproject.10" />');
 		  },
 		  argument: []
 		}
@@ -66,13 +66,13 @@ function save() {
 	var period = document.getElementById("runCode_part2").value;
 
 	if (period != null && period == "none") {
-		alert('Please select a period.');
+		alert('<spring:message code="student.addproject.8" />');
 	} else if (runcode != null && period != null && period != "none") {
 		var projectCode = document.getElementById("projectcode");
 		projectCode.value = runcode + "-" + period;
 		document.getElementById("addproject").submit();		
 	} else {
-		alert('Invalid access code. Please talk to your teacher');
+		alert('<spring:message code="student.addproject.7" />');
 	}
 }
 
@@ -92,9 +92,9 @@ function setup() {
 	<div class="dialogSection">
 		<div class="sectionHead">Instructions</div>
 		<ol id="addProjectInstructions">
-			<li>Enter the Access Code your teacher gave you</li>
-			<li>Press TAB on your keyboard or click 'Show Periods'</li>
-			<li>Select your class period, then click 'Add Project'</li>
+			<li><spring:message code="student.addproject.1" /></li>
+			<li><spring:message code="student.addproject.2" /></li>
+			<li><spring:message code="student.addproject.3" /></li>
 		</ol>
 		
 		<div class="dialogSection formSection" id="addProjectForm">
@@ -109,20 +109,20 @@ function setup() {
 			</div>
 			<form:form method="post" commandName="addProjectParameters" id="addproject" autocomplete='off'>
 			<div>
-		    	<label for="runCode_part1" id="runCode_part1_label">Access Code:</label>
+		    	<label for="runCode_part1" id="runCode_part1_label"><spring:message code="student.addproject.4" /></label>
 				<form:input onblur="findPeriods();" path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="1"/>
 			</div>
 			<div>
-				<a onclick="findPeriods();">SHOW PERIODS (after entering access code)</a>
+				<a onclick="findPeriods();" style="font-size:.9em;"><spring:message code="student.addproject.5" /></a>
 			</div>
 			<div>
-				<label for="runCode_part2" id="runCode_part2_label">Choose Period:</label>
+				<label for="runCode_part2" id="runCode_part2_label"><spring:message code="student.addproject.6" /></label>
 				<form:select path="runCode_part2" id="runCode_part2" tabindex="2" disabled="true"></form:select>
 			</div>
 		      
 		      <form:hidden path="projectcode" id="projectcode"/>
 		     
-		    <div><input type="submit" onclick="save();" value="Add Project" /></div>
+		    <div><input type="button" onclick="save();" value="Add Project" /></div>
 			</form:form>
 		</div>
 	</div>

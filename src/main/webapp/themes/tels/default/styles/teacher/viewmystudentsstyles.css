@@ -1,3 +1,63 @@
+.manageStudents {
+	font-size:.9em;
+	min-width:1000px;
+}
+
+.manageStudents #periodSelect {
+	padding:.4em .75em .45em;
+}
+
+.manageStudents #periodTabs {
+	padding:0;
+}
+
+.manageStudents .ui-tabs .ui-tabs-nav {
+	padding: 0;
+	border: 0 none;
+	margin: 0;
+}
+
+.manageStudents .ui-tabs .ui-tabs-nav li {
+	margin:0;
+	padding:0;
+	border:0 none;
+}
+
+.manageStudents .ui-tabs .ui-tabs-nav li a {
+	color:#DADF8B;
+	margin:0 .25em;
+	padding: 2px 6px 1px;
+	font-size:1em;
+	font-weight:normal;
+}
+
+.manageStudents .ui-tabs .ui-tabs-nav li.ui-tabs-selected {
+	border:0 none;
+	padding:0;
+	margin:0;
+	background:transparent;
+}
+
+.manageStudents .ui-tabs .ui-tabs-nav li.ui-tabs-selected a {
+	color:#333;
+}
+
+.manageStudents .ui-state-active a.periodChoice, a.periodChoice.checked {
+	background-color: #DADF8B;
+    color: #333;
+	text-decoration: none !important;
+	border-radius: 4px;
+}
+
+.studentManageHeader {
+	border-bottom-width:2px;
+}
+
+.manageStudents .gradingContent {
+	margin-top:0;
+	padding:1em;
+}
+
 #L3Label {
 	color:#0000FF;
 	letter-spacing:1px;
@@ -5,13 +65,6 @@
 	font-size:1.1em;
 	margin:0px;
 	padding:8px 0 0px 3px;
-	}
-	
-	
-table {
-	border-collapse:collapse;
-	border:0px;
-	margin:0px 0px 0px 3px;
 }
 
 #projectTitleBox {
@@ -40,13 +93,11 @@ table {
 		}
 		
 #periodHeaderBar {
-	padding:0px;
-	margin: 5px 0 8px 10px;
 }	
 
 .manageDataStyle {
 	font-weight:bold;
-	color:#0000cc;
+	margin-right:.5em;
 }
 
 #periodHeaderBar li {
@@ -63,29 +114,7 @@ table {
 .viewStudentsLink {
 	font-size:.9em;
 	margin: 0 0px 0 25px;
-	}
-
-#periodHeaderBar a:link, #periodHeaderBar a:visited, .viewStudentsLink a {
-	font-size:.8em;
-	font-weight:bold;
-	border-top:1px solid #666666;
-	border-right:1px solid black;
-	border-bottom:1px solid black;
-	border-left:1px solid #666666;
-	padding:3px 5px;
-	background-image: url(../../images/WISE-Secondary-Banner-Gradient.png);
-	background-position: top;
-	text-decoration:none;
-  	-moz-border-radius:2px;
-	-webkit-border-radius:2px;
-	border-radius:2px;
-	    }	
-    
-#periodHeaderBar a:hover {
-	color:#000000;
-	background-image: none;
-	background-color:#FFFF66;	
-    }	
+}
 
 #instructionsBar {
 	font-size:.7em;
@@ -103,7 +132,7 @@ table {
 #instructionsBar:hover {
 	cursor:pointer;
 	background-color:#FFFF00;
-	}
+}
 
 #instructionsBar .subText{
 	color:#666;
@@ -125,12 +154,12 @@ table {
 
 /* BEGIN STYLING FOR STUDENT DATA  */
 
-#manageStudentsTable {
-	margin-top:10px;}
+.manageStudentsTable {
+	width:100%;
+}
 	
-#manageStudentsTable td {
-	padding:0 0 0 20px;
-	vertical-align:top;
+.manageStudentsTable td {
+	width:50%;
 }
 
 .workarea {
@@ -139,89 +168,143 @@ table {
 
 ul.draglist { 
     position: relative;
-    width: 420px;
-    background: #f7f7f7;
-    border-top: 1px solid #999999;
-    border-right: 1px solid #666666;
-    border-bottom: 1px solid #666666;
-    border-left: 1px solid #999999;
-    margin-top:4px;
-    margin-bottom:4px;
+	margin:.5em;
     padding:0;
+    font-size:.9em;
 }
 
 ul.draglist li {
-    margin: 0px;
-    cursor: move; 
     list-style-type: none;
-    padding:1px 1px 1px 3px;
-        }
+    padding:.25em;
+}
 
 ul.draglist_alt li {
     margin: 1px;
-    cursor: move;
+}
+
+.userNameWithinView {
+	margin-right:.25em;
+	color: #585F0C;
+}
+	
+.userLinksBar {
+	position:absolute;
+	right:1em;
+}
+	  
+.userLinks {
+	font-size: .9em;
+	font-weight: normal;
+	margin: 0 .25em;
+	color: #007391 !important;
+}
+
+.emptyGroup {
+	text-align:center;
+}
+
+.workgroupHeader, .grouplessHeader{
+	font-weight:bold;
+	padding:.5em;
+	border: 1px solid #DDDDDD;
+    box-shadow: 1px 1px 2px #444;
+    -webkit-box-shadow: 1px 1px 2px #444;
+    -moz-box-shadow: 1px 1px 2px #444;
+	background: #eeeeee; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #eeeeee 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#eeeeee)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#eeeeee 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#eeeeee 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#eeeeee 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, #ffffff 0%,#eeeeee 100%); /* W3C */
 }
 
 .grouplessHeader{
-	background-color:#990000;
-	color:#FFFFFF;
-	font-weight:bold;
-	font-size:.85em		}
+	color:#FF563F;
+}
 
-li.grouplesslist {
-    font-weight:bold;
-    background-color: #FFCCCC;
-    border: 1px solid #999999;
-    }
+.newWorkgroupHeader {
+	color:#007391;
+}
 
-#userNameWithinView {
-	 font-size:.80em;
-	 padding-right:20px;
-		  }
+.emptyGroup {
+	color: #745A33;
+	border: 1px solid #D1B996;
+	margin: .5em;
+}
 	
-#userLinksBar {
-	position:absolute;
-	right:15px;
-		  }
-	  
-.userLinks {
-	font-size:.75em;
-	font-weight:normal;
-	margin: 0 4px;
-		  }
-
-li.grouplesslist a:active, li.grouplesslist a:visited{
-    color: #CC0000;
-    text-decoration:underline;  
-     }
-
-li.grouplesslist a:hover{
-	color: #000033;
-	text-decoration:underline;
-	}
-
-.workgroupHeader{
-	background-color:#336633;
-	color:#FFFFFF;
-	font-weight:bold;
-	font-size:.8em; 	}
-	
-li.workgrouplist {
-    font-weight:bold;
-    background-color: #CCFF99;
-    border: 1px solid #999999;
+li.workgrouplist, li.grouplesslist {
+	cursor: move;
+	background-color: #F2F5DB;
+	border: 1px solid #C5CD61;
+	margin: .5em;
 }
 
 li.workgrouplist a:active, li.workgrouplist a:visited{
     list-style-type:none;
     color: #009900;
     text-decoration:underline;  
-   }
+}
 
-li.workgrouplist a:hover{
-	color: #000033;
+li.workgrouplist a:hover, li.grouplesslist a:hover {
 	text-decoration:underline;
-	}
+}
+
+li.grouplesslist {
+	background-color: #ffefed;
+	border: 1px solid #f7a391;
+}
+
+li.grouplesslist .userNameWithinView {
+	color:#E81B00;
+}
+
+li.changed {
+	color:#007391;
+	background-color:#e1f2ec;
+	border-color:#87bcb3;
+}
+
+li.changed .userNameWithinView {
+	color:#007391;
+}
+
+li.clone {
+	background-color: #F4F4F4;
+	border-color: #CCC;
+}
+
+li.clone .userNameWithinView {
+	color: #999;
+}
+
+li.clone .userLinks {
+	display:none;
+}
+
+#notifications {
+	position:absolute;
+	text-align:center;
+	left:0;
+	right:0;
+}
+
+#notifications span {
+	font-weight:bold;
+	font-size:.9em;
+	color:#745a33;
+	border-color:#745a33;
+	background-color:#d6c7b1;
+	padding:.25em;
+	box-shadow:0 0 1px #ccc;
+	-moz-box-shadow:0 0 1px #ccc;
+	-webkit-box-shadow:0 0 1px #ccc;
+}
+
+.placeholder {
+	background-color:#ddd;
+}
 
 .createPdfLink {
 	font-size:.9em;
@@ -232,27 +315,6 @@ li.workgrouplist a:hover{
 
 li.workgroupHeader a:hover {
 	color:#CC99FF;
-}
-
-#saveBar {
-	text-align:center;  }
-	
-.saveButton {
-	font-size:1.0em;
-	border-top:1px solid #666666;
-	border-right:1px solid black;
-	border-bottom:1px solid black;
-	border-left:1px solid #666666;
-	padding:4px;
-	margin:20px auto 10px auto;
-	background-image: url(../../images/WISE-Secondary-Banner-Gradient.png);
-	background-position:top;
-	
-}
-
-.saveButton:hover {
-	background-image:none;
-	background-color:#FFFF66;	
 }
 
 /* STYLING FOR STUDENT INFORMATION BOX */

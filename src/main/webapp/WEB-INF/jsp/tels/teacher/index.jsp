@@ -32,7 +32,7 @@
 <script type="text/javascript" src="<spring:theme code="browserdetectsource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="checkcompatibilitysource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
-
+<script type="text/javascript" src="<spring:theme code="utilssource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="jqueryuisource"/>"></script>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript">
