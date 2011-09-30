@@ -20,14 +20,14 @@
 		var title = $(this).attr('title');
 		var path = "/webapp/teacher/grading/gradework.html?" + settings;
 		var div = $('#gradingDialog').html('<iframe id="gradingIfrm" width="100%" height="100%" style="overflow-y:hidden; min-width:1000px;"></iframe>');
-		$('body').css('overflow-y','hidden');
+		$('body').css('overflow','hidden');
 		div.dialog({
 			modal: true,
 			width: $(window).width() - 32,
 			height: $(window).height() - 32,
 			position: 'center',
 			title: title,
-			close: function (e, ui) { $(this).html(''); $('body').css('overflow-y','auto'); },
+			close: function (e, ui) { $(this).html(''); $('body').css('overflow','auto'); },
 			buttons: {
 				Exit: function(){
 					$(this).dialog('close');
@@ -69,12 +69,14 @@
 			height: '400',
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); },
+			close: function(){
+				if(document.getElementById('editIfrm').contentWindow['runUpdated']){
+					window.location.reload();
+				}
+				$(this).html('');
+			},
 			buttons: {
 				Close: function(){
-					if(document.getElementById('editIfrm').contentWindow['runUpdated']){
-						window.location.reload();
-					}
 					$(this).dialog('close');
 				}
 			}
@@ -110,16 +112,29 @@
 		var params = $(this).attr('id').replace('manageStudents_','');
 		var path = "/webapp/teacher/management/viewmystudents.html?" + params;
 		var div = $('#manageStudentsDialog').html('<iframe id="manageStudentsIfrm" width="100%" height="100%"></iframe>');
-		$('body').css('overflow-y','hidden');
+		$('body').css('overflow','hidden');
 		div.dialog({
 			modal: true,
 			width: $(window).width() - 32,
 			height: $(window).height() - 32,
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); $('body').css('overflow-y','auto'); },
+			beforeClose: function() {
+				// check for unsaved changes and alert user if necessary
+				if(document.getElementById('manageStudentsIfrm').contentWindow['unsavedChanges']){
+					var answer = confirm("Warning: You currently have unsaved changes to student teams. If you exit now, they will be discarded. To save your changes, choose 'Cancel' and click the 'SAVE CHANGES' button in the upper right corner.\n\nAre you sure you want to exit without saving?")
+					if(answer){
+						return true;
+					} else {
+						return false;
+					};
+				} else {
+					return true;
+				}
+			},
+			close: function(){ $(this).html(''); $('body').css('overflow','auto'); },
 			buttons: {
-				Close: function(){
+				Exit: function(){
 					$(this).dialog('close');
 				}
 			}
@@ -171,9 +186,9 @@
 					<table id="currentRunTable" class="runTable">
 						<thead>
 						    <tr>
-						       <th style="width:250px;"class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.3"/></th>
-						       <th style="width:140px;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.4" /></th>      
-						       <th style="width:290px;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.5" /></th>
+						       <th style="width:236px;"class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.3"/></th>
+						       <th style="width:170px;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.4" /></th>      
+						       <th style="width:254px;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.5" /></th>
 						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58A" /></th>
 						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58B" /></th>
 						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58C" /></th>
@@ -290,8 +305,8 @@
 											        </li>
 											    </ul>
 											    <ul class="actionList">
-													<li><spring:message code="teacher.run.myprojectruns.16"/>: <a class="grading" title="Grading & Feedback: ${run.name} (Run ID ${run.id})" id="runId=${run.id}&gradingType=step&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (Run ID: ${run.id})"  id="runId=${run.id}&gradingType=step&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
-							  	                    <li><spring:message code="teacher.run.myprojectruns.17"/>: <a class="grading" title="Grading & Feedback: ${run.name} (Run ID ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (Run ID: ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
+													<li><span style="font-weight:bold;"><spring:message code="teacher.run.myprojectruns.16"/>:</span> <a class="grading" title="Grading & Feedback: ${run.name} (Run ID ${run.id})" id="runId=${run.id}&gradingType=step&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (Run ID: ${run.id})"  id="runId=${run.id}&gradingType=step&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
+							  	                    <li><span style="font-weight:bold;"><spring:message code="teacher.run.myprojectruns.17"/>:</span> <a class="grading" title="Grading & Feedback: ${run.name} (Run ID ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (Run ID: ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
 								                    <c:if test="${isXMPPEnabled && run.XMPPEnabled}">
 		                    							<li><a class="classroomMonitor" title="Classroom Monitor: ${run.name} (Run ID ${run.id})" id="runId=${run.id}&gradingType=monitor">Classroom Monitor</a></li>
 		                    						</c:if>

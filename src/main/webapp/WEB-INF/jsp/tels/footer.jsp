@@ -17,7 +17,7 @@
 					</ul>
 	 			</div>
 				<div id="wiseOpenSource">
-					<spring:message code="footer.legal2" /> <a href="http://code.google.com/p/wise4/" title="WISE4 Software" target="_blank"><spring:message code="footer.legal2a" /></a>.
+					<spring:message code="footer.legal2" /> <a href="https://github.com/WISE-Community" title="WISE4 Software" target="_blank"><spring:message code="footer.legal2a" /></a>.
 				</div>
 				<div style="clear:both; padding:0;"></div>
 	 		</div>
