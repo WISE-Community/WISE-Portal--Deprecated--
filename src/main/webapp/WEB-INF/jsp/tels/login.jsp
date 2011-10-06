@@ -88,10 +88,10 @@
 						<div style="clear:both;"></div>
 					</form>
 			    	<div id="forgotLogin">   
-				        <ul id="signInLinkPosition">
+				        <ul id="signInLinkPosition"> <!-- TODO: make these open in top window -->
 				       		<li><a href="forgotaccount/selectaccounttype.html" class="forgotlink"><spring:message code="login.failed13"/></a>  </li>
 				       		<li><a href="signup.html" class="joinlink"><spring:message code="login.failed14"/></a></li>
-				       		<li><a href="./index.html" class="joinlink"><spring:message code="login.failed15"/></a></li>
+				       		<li><a href="/webapp/index.html" class="joinlink"><spring:message code="login.failed15"/></a></li>
 				        </ul>
 			 		</div>
 			 	</div>               

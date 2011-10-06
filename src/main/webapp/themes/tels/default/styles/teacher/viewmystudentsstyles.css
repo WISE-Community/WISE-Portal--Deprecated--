@@ -26,7 +26,7 @@
 .manageStudents .ui-tabs .ui-tabs-nav li a {
 	color:#DADF8B;
 	margin:0 .25em;
-	padding: 2px 6px 1px;
+	padding: 2px 6px;
 	font-size:1em;
 	font-weight:normal;
 }
@@ -281,25 +281,6 @@ li.clone .userNameWithinView {
 
 li.clone .userLinks {
 	display:none;
-}
-
-#notifications {
-	position:absolute;
-	text-align:center;
-	left:0;
-	right:0;
-}
-
-#notifications span {
-	font-weight:bold;
-	font-size:.9em;
-	color:#745a33;
-	border-color:#745a33;
-	background-color:#d6c7b1;
-	padding:.25em;
-	box-shadow:0 0 1px #ccc;
-	-moz-box-shadow:0 0 1px #ccc;
-	-webkit-box-shadow:0 0 1px #ccc;
 }
 
 .placeholder {

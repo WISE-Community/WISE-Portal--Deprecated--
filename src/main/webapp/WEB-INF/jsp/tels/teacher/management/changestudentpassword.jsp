@@ -7,13 +7,8 @@
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-<link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
     
-<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
-<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
-
-    
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="wise.change-password" /></title>
 
 <script type='text/javascript' src='/webapp/dwr/interface/ChangePasswordParametersValidatorJS.js'></script>
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
@@ -27,28 +22,28 @@
 
 <div class="dialogContent">		
 
-	<div class="dialogSection"><spring:message code="wise.change-password" /></div>
+	<div class="sectionHead"><spring:message code="wise.change-password" /></div>
 
-	<div class="errorMsgNoBg">
-		<!-- Support for Spring errors object -->
-		<spring:bind path="changeStudentPasswordParameters.*">
-	  		<c:forEach var="error" items="${status.errorMessages}">
-	   			 <p><c:out value="${error}"/></p>
-	   		</c:forEach>
-		</spring:bind>
-	</div>
 	<form:form method="post" action="changestudentpassword.html" commandName="changeStudentPasswordParameters" id="changestudentpassword" autocomplete='off'>
-		<div>
-			<dl>
-				<dt><label for="changestudentpassword"><spring:message code="changepassword.password1" /></label></dt>
-		      	<dd><form:password path="passwd1" id="teacherchangePasswordField"/></dd>
+		<div class="sectionContent">
+			<label><spring:message code="changepassword.password1" /></label>
+			<form:password path="passwd1"/>
+		</div>
+		<div class="sectionContent">
+			<label><spring:message code="changepassword.password2" /></label>
+			<form:password path="passwd2"/>
+		</div>
 		
-				<dt><label for="changestudentpassword"><spring:message code="changepassword.password2" /></label></dt>
-				<dd><form:password path="passwd2" id="teacherchangePasswordField"/></dd>
-			</dl>
+		<div class="errorMsgNoBg">
+			<!-- Support for Spring errors object -->
+			<spring:bind path="changeStudentPasswordParameters.*">
+		  		<c:forEach var="error" items="${status.errorMessages}">
+		   			 <p><c:out value="${error}"/></p>
+		   		</c:forEach>
+			</spring:bind>
 		</div>
 
-	    <div><input type="submit" class="wisebutton" value="<spring:message code="wise.save-changes"/>"/></div>
+	    <div class="sectionContent"><input type="submit" value="<spring:message code="wise.save-changes"/>"/></div>
 	</form:form>
 </div>
 	

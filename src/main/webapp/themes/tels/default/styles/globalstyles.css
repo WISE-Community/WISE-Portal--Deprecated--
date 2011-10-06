@@ -124,13 +124,29 @@ input[type="submit"], input[type="button"] {
 }
 
 input[type="submit"]:hover, input[type="button"]:hover {
-	box-shadow:0 0 1px #aaa;
-	-moz-box-shadow:0 0 1px #aaa;
-	-webkit-box-shadow:0 0 1px #aaa;
+	box-shadow:0 0 2px #aaa;
+	-moz-box-shadow:0 0 2px #aaa;
+	-webkit-box-shadow:0 0 2px #aaa;
 	/*color: #007391;
-	background-color:#F2F5DB;
-	border-color: #C5CD61;*/
+	background-color:#F2F5DB;*/
+	border-color: #91c6b7;
 	color: #007391;
+}
+
+#notifications {
+	text-align:center;
+}
+
+#notifications span {
+	font-weight:bold;
+	font-size:.9em;
+	color:#745a33;
+	border:1px solid #745a33;
+	background-color:#f4efe8;
+	padding:.25em .5em;
+	box-shadow:1px 1px 2px #aaa;
+	-moz-box-shadow:1px 1px 2px #aaa;
+	-webkit-box-shadow:1px 1px 2px #aaa;
 }
 
 input[type="submit"].disabled, input[type="button"].disabled {
@@ -148,6 +164,11 @@ p.info {
 .panelTabs p.info {
 	margin:.5em .5em;
 	text-align:center;
+}
+
+img.icon {
+	height: 1.4em;
+	margin: -.4em 0.25em -.4em 0;
 }
 
 .valigner {

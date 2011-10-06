@@ -17,19 +17,20 @@ function refreshParent(){
 		self.close();
 	};
 };
+
+var refreshRequired = true;
 </script>
 
 </head>
 
-<body onload='refreshParent()'>
+<!-- <body onload='refreshParent()'>  -->
+<body style="background:#FFF;">
 
-<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug). -->
-
-<h2><spring:message code="teacher.manage.changeperiod.6"/></h2>
-
-<div><a onclick="javascript:window.close()"><spring:message code="teacher.manage.changeworkgroup.5"/></a></div>
-
-</div>
+	<div class="dialogContent">
+		<div class="dialogSection">
+			<div class="errorMsgNoBg"><p><spring:message code="teacher.manage.changeperiod.6"/></p></div>
+		</div>
+	</div>
 
 </body>
 </html>

@@ -132,7 +132,14 @@
 					return true;
 				}
 			},
-			close: function(){ $(this).html(''); $('body').css('overflow','auto'); },
+			close: function(){
+				// refresh page if required (run title or student periods have been modified)
+				if(document.getElementById('manageStudentsIfrm').contentWindow['refreshRequired']){
+					window.location.reload();
+				}
+				$(this).html('');
+				$('body').css('overflow','auto');
+			},
 			buttons: {
 				Exit: function(){
 					$(this).dialog('close');
@@ -266,17 +273,16 @@
 							    	<table class="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
 							          <tr>
 							            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.29"/></th>
-							            <th style="display:none;" class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.8"/></th>
 							            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.9"/></th>
 							          </tr>
 							          <c:forEach var="period" items="${run.periods}">
 							            <tr>
-							              <td style="width:20%;" class="tableInnerData">${period.name}</td>
-							              <td style="display:none;"  style="width:45%;" class="tableInnerData">${run.runcode}</td>
-							              <td style="width:35%;" class="tableInnerDataRight">
+							              <td style="width:35%;" class="tableInnerData">${period.name}</td>
+							              <td style="width:65%;" class="tableInnerDataRight">
 							              	<a class="manageStudents" title="Manage Students: ${run.name} (Run ID ${run.id})" id="runId=${run.id}&periodName=${period.name}">${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.myprojectruns.10"/></a>
 							            </tr>
 							          </c:forEach>
+							          <tr><td colspan="2" class="manageStudentGroups"><a class="manageStudents" title="Manage Students: ${run.name} (Run ID ${run.id})" id="runId=${run.id}">Manage Student Groups</a></td></tr>
 							        </table>
 							        
 							    </td> 
@@ -310,7 +316,7 @@
 								                    <c:if test="${isXMPPEnabled && run.XMPPEnabled}">
 		                    							<li><a class="classroomMonitor" title="Classroom Monitor: ${run.name} (Run ID ${run.id})" id="runId=${run.id}&gradingType=monitor">Classroom Monitor</a></li>
 		                    						</c:if>
-		                    						<li><a class="researchTools" title="Researcher Tools: ${run.name} (Run ID ${run.id})" id="runId=${run.id}&gradingType=export">Researcher Tools</a></li>
+		                    						<li><a class="researchTools" title="Researcher Tools: ${run.name} (Run ID ${run.id})" id="runId=${run.id}&gradingType=export">Researcher Tools (Export Student Data)</a></li>
 								               </ul>
 								               </c:otherwise>
 								           </c:choose>

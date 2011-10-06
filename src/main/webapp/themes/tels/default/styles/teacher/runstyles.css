@@ -486,9 +486,8 @@ div.sharedTeacherMsg1 {
 .currentRunInfoTable {
 	border: 0 none;
     font-size: .95em;
-    margin: 0.5em 0.25em;
-    padding: 0;
     vertical-align: middle;
+    width:100%;
 }
 
 .currentRunInfoTable td {
@@ -520,6 +519,13 @@ div.sharedTeacherMsg1 {
 .currentRunInfoTable .archivedNumberStudents {
 	text-align:center;
 	padding: 2px 1px;
+}
+
+.currentRunInfoTable .manageStudentGroups {
+	padding: 0.5em .75em .25em;
+	font-size: .9em;
+	border-top: 1px solid #CCC;
+	margin-top: .25em;
 }
 
 .actionList  {
