@@ -352,7 +352,7 @@ th.infoHead {
 	border:0px;
 	color:#444444;
 	margin-top:.5em;
-	font-size:.9em;
+	font-size:.95em;
 }
 
 .projectDetails {
@@ -473,14 +473,9 @@ div.sharedTeacherMsg1 {
 	color:#FF563F;
 }
 
-.runTitleTable .accesscode {
-	font-size:1.1em;
-}
-
-.runTitleTable td {
-	border:0px;
+.runTitleTable td, .runTitleTable th {
+	border:0 none;
 	padding:1px 0;
-	vertical-align:top;
 }
 
 .currentRunInfoTable {
@@ -497,7 +492,7 @@ div.sharedTeacherMsg1 {
 .currentRunInfoTable .tableInnerHeader {
     border-bottom: 1px solid #CCCCCC;
     font-weight: bold;
-    padding-bottom: 0.1em;
+    padding-bottom: 0.25em;
     text-align: center;
 }
 
@@ -523,16 +518,15 @@ div.sharedTeacherMsg1 {
 
 .currentRunInfoTable .manageStudentGroups {
 	padding: 0.5em .75em .25em;
-	font-size: .9em;
 	border-top: 1px solid #CCC;
 	margin-top: .25em;
 }
 
 .actionList  {
 	border-bottom: 1px solid #CCCCCC;
-    font-size: 0.9em;
+    font-size: 0.95em;
     margin: 0.5em;
-    padding-bottom: 0.5em;
+    padding-bottom: 0.25em;
     text-align: left;
 }
 

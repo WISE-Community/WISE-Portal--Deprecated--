@@ -16,6 +16,7 @@
 <script type="text/javascript" src="<spring:theme code="utilssource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 
+<!-- TODO: move to js file once js i18n is implemented for portal -->
 <script type="text/javascript">
 
 $(document).ready(function(){
