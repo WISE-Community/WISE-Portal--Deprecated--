@@ -149,6 +149,40 @@
 		$("#manageStudentsDialog > #manageStudentsIfrm").attr('src',path);
 	});
 	
+	// setup archive and restore run dialogs
+	$('.archiveRun, .activateRun').live('click',function(){
+		var title = $(this).attr('title');
+		if($(this).hasClass('archiveRun')){
+			var params = $(this).attr('id').replace('archiveRun_','');
+			var path = "/webapp/teacher/run/manage/archiveRun.html?" + params;
+		} else if($(this).hasClass('activateRun')){
+			var params = $(this).attr('id').replace('activateRun_','');
+			var path = "/webapp/teacher/run/manage/startRun.html?" + params;
+		}
+		var div = $('#archiveRunDialog').html('<iframe id="archiveIfrm" width="100%" height="100%"></iframe>');
+		$('body').css('overflow','hidden');
+		div.dialog({
+			modal: true,
+			width: '600',
+			height: '450',
+			title: title,
+			position: 'center',
+			close: function(){
+				if(document.getElementById('archiveIfrm').contentWindow['refreshRequired']){
+					window.location.reload();
+				}
+				$(this).html('');
+				$('body').css('overflow','auto');
+			},
+			buttons: {
+				Close: function(){
+					$(this).dialog('close');
+				}
+			}
+		});
+		$("#archiveRunDialog > #archiveIfrm").attr('src',path);
+	});
+	
 	// Set up view project details click action for each project id link
 	$('a.projectDetail, a.projectInfo').live('click',function(){
 		var title = $(this).attr('title');
@@ -159,14 +193,14 @@
 		}
 		var path = "/webapp/teacher/projects/projectinfo.html?projectId=" + projectId;
 		var div = $('#projectDetailDialog').html('<iframe id="projectIfrm" width="100%" height="100%"></iframe>');
-		$('body').css('overflow-y','hidden');
+		$('body').css('overflow','hidden');
 		div.dialog({
 			modal: true,
 			width: '800',
 			height: '400',
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); $('body').css('overflow-y','auto'); },
+			close: function(){ $(this).html(''); $('body').css('overflow','auto'); },
 			buttons: {
 				Close: function(){
 					$(this).dialog('close');
@@ -336,7 +370,7 @@
 							    	 -->		
 									<li><a href="/webapp/contactwiseproject.html?projectId=${run.project.id}"><img class="icon" alt="contact" src="/webapp/themes/tels/default/images/icons/teal/email.png" /><span><spring:message code="teacher.run.myprojectruns.22"/></span></a></li>
 				                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
-							    	  <li><a onclick="javascript:popup('/webapp/teacher/run/manage/archiveRun.html?runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />')"><img class="icon" alt="archive" src="/webapp/themes/tels/default/images/icons/teal/lock.png" /><span><spring:message code="teacher.run.myprojectruns.51"/></span></a></li>
+							    	  <li><a class="archiveRun" id="archiveRun_runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />" title="<spring:message code="teacher.run.myprojectruns.67"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})"><img class="icon" alt="archive" src="/webapp/themes/tels/default/images/icons/teal/lock.png" /><span><spring:message code="teacher.run.myprojectruns.51"/></span></a></li>
 							    	</sec:accesscontrollist>
 							    	
 							    </ul>
@@ -369,3 +403,4 @@
 <div id="editAnnouncementsDialog" class="dialog"></div>
 <div id="manageStudentsDialog" style="overflow:hidden;" class="dialog"></div>
 <div id="projectDetailDialog" style="overflow:hidden;" class="dialog"></div>
+<div id="archiveRunDialog" style="overflow:hidden;" class="dialog"></div>

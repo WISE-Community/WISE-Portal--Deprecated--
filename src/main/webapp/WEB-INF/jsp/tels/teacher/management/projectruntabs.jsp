@@ -139,7 +139,7 @@
 		window.open(URL, title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480,left = 320,top = 240');
 	};
 	
-	// setup grading dialogs
+	// setup grading and classroom monitor dialogs
 	$('.grading, .researchTools, .classroomMonitor').live('click',function(){
 		var settings = $(this).attr('id');
 		var title = $(this).attr('title');
@@ -231,6 +231,40 @@
 		$("#editAnnouncementsDialog > #announceIfrm").attr('src',path);
 	});
 	
+	// setup archive and restore run dialogs
+	$('.archiveRun, .activateRun').live('click',function(){
+		var title = $(this).attr('title');
+		if($(this).hasClass('archiveRun')){
+			var params = $(this).attr('id').replace('archiveRun_','');
+			var path = "/webapp/teacher/run/manage/archiveRun.html?" + params;
+		} else if($(this).hasClass('activateRun')){
+			var params = $(this).attr('id').replace('activateRun_','');
+			var path = "/webapp/teacher/run/manage/startRun.html?" + params;
+		}
+		var div = $('#archiveRunDialog').html('<iframe id="archiveIfrm" width="100%" height="100%"></iframe>');
+		$('body').css('overflow','hidden');
+		div.dialog({
+			modal: true,
+			width: '600',
+			height: '450',
+			title: title,
+			position: 'center',
+			close: function(){
+				if(document.getElementById('archiveIfrm').contentWindow['refreshRequired']){
+					window.location.reload();
+				}
+				$(this).html('');
+				$('body').css('overflow','auto');
+			},
+			buttons: {
+				Close: function(){
+					$(this).dialog('close');
+				}
+			}
+		});
+		$("#archiveRunDialog > #archiveIfrm").attr('src',path);
+	});
+	
 	// setup manage students dialog
 	$('.manageStudents').live('click',function(){
 		var title = $(this).attr('title');
@@ -284,13 +318,14 @@
 		}
 		var path = "/webapp/teacher/projects/projectinfo.html?projectId=" + projectId;
 		var div = $('#projectDetailDialog').html('<iframe id="projectIfrm" width="100%" height="100%"></iframe>');
+		$('body').css('overflow','hidden');
 		div.dialog({
 			modal: true,
 			width: '800',
 			height: '400',
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); },
+			close: function(){ $(this).html(''); $('body').css('overflow','auto'); },
 			buttons: {
 				Close: function(){
 					$(this).dialog('close');
@@ -468,7 +503,7 @@
 								    	 -->		
 										<li><a href="/webapp/contactwiseproject.html?projectId=${run.project.id}"><img class="icon" alt="contact" src="/webapp/themes/tels/default/images/icons/teal/email.png" /><span><spring:message code="teacher.run.myprojectruns.22"/></span></a></li>
 					                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
-								    	  <li><a onclick="javascript:popup('/webapp/teacher/run/manage/archiveRun.html?runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />')"><img class="icon" alt="archive" src="/webapp/themes/tels/default/images/icons/teal/lock.png" /><span><spring:message code="teacher.run.myprojectruns.51"/></span></a></li>
+								    	  <li><a class="archiveRun" id="archiveRun_runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />" title="<spring:message code="teacher.run.myprojectruns.67"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})"><img class="icon" alt="archive" src="/webapp/themes/tels/default/images/icons/teal/lock.png" /><span><spring:message code="teacher.run.myprojectruns.51"/></span></a></li>
 								    	</sec:accesscontrollist>
 								    	
 								    </ul>
@@ -606,7 +641,7 @@
 					                    <ul class="actionList actionList2">
 					                    	<li><a class="researchTools" title="<spring:message code="teacher.run.myprojectruns.64"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}&gradingType=export"><img class="icon" alt="export" src="/webapp/themes/tels/default/images/icons/teal/save.png" /><span><spring:message code="teacher.run.myprojectruns.64"/> <spring:message code="teacher.run.myprojectruns.66"/></span></a></li>
 					                    	<sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
-								    	  		<li><a onclick="javascript:popup('/webapp/teacher/run/manage/startRun.html?runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />')"><img class="icon" alt="unlock" src="/webapp/themes/tels/default/images/icons/teal/unlock.png" /><span><spring:message code="teacher.run.myprojectruns.56"/></span></a></li>
+								    	  		<li><a class="activateRun" id="activateRun_runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />" title="<spring:message code="teacher.run.myprojectruns.68"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})"><img class="icon" alt="archive" src="/webapp/themes/tels/default/images/icons/teal/unlock.png" /><span><spring:message code="teacher.run.myprojectruns.56"/></span></a></li>
 								    		</sec:accesscontrollist>							
 										</ul>
 									</td>
@@ -638,3 +673,4 @@
 <div id="editAnnouncementsDialog" class="dialog"></div>
 <div id="manageStudentsDialog" style="overflow:hidden;" class="dialog"></div>
 <div id="projectDetailDialog" style="overflow:hidden;" class="dialog"></div>
+<div id="archiveRunDialog" style="overflow:hidden;" class="dialog"></div>

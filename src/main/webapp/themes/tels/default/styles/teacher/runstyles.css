@@ -499,16 +499,17 @@ div.sharedTeacherMsg1 {
 .currentRunInfoTable .tableInnerData {
 	font-size:100%;
 	text-align:center;
-	padding: 0px;
-	margin:0px;
+	padding: .2em;
+	margin:0;
 	vertical-align:middle;
 }
 
 .currentRunInfoTable .tableInnerDataRight {
 	text-align:center;
-	padding: 1px;
-	border-right:0px;
-	margin:0px;
+	padding: .2em;
+	border-right:0;
+	margin:0;
+	vertical-align:middle;
 }
 
 .currentRunInfoTable .archivedNumberStudents {
