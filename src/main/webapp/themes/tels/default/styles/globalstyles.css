@@ -194,7 +194,7 @@ img.icon {
 }
 
 #headerSmall {
-	background:url("/webapp/themes/tels/default/images/wise-logo-new.png") no-repeat scroll center top transparent;
+	background:url("/webapp/themes/tels/default/images/wise4-logo-new.png") no-repeat scroll center top transparent;
 	width:500px;
 	height:145px;
 	margin: 0 auto;
@@ -269,6 +269,11 @@ a#name {
 	padding: .5em;
 }
 
+.loginContent .errorMsgNoBg p {
+	font-size:.9em;
+	margin:0 auto;
+}
+
 #page {
 	/*background-color: #FFF9EF;*/
 	padding:.5em 0;
@@ -292,6 +297,10 @@ a#name {
 	-webkit-box-shadow:2px 2px 4px #444444;
 	-moz-box-shadow:2px 2px 4px #444444;
 	background-color: #FFFFFF;
+}
+
+.loginContent {
+	width:500px;
 }
 
 .infoContentBox {
@@ -449,6 +458,10 @@ a#name {
 	font-size:.9em
 }
 
+.sectionContent p {
+	margin:.5em 0;
+}
+
 .inactive {
 	color:#555; 
 }
@@ -570,14 +583,23 @@ a#name {
     float:left;
 }
 
-.loginPanel #signinForm {
+.loginContent #signinForm {
 	font-size: 1em;
+	color:#444;
+	text-align:center;
+	float:none;
 }
 
 #signinForm label {
 	font-size:.9em;
 }
 		
+.loginContent #signinForm label {
+	font-size:1em;
+	width:100px;
+	display:inline-block;
+}
+
 #signinForm input[type="text"], #signinForm input[type="password"] {
     width: 160px;
 }
@@ -593,17 +615,20 @@ a#name {
     background-color: transparent;
 }
 
+.loginContent #signInButton {
+	margin: .5em auto 1em;
+}
+
 #forgotLogin {
     font-size: 0.7em;
     width: 96px;
     margin-left:4px;
 }
 
-.loginPanel #forgotLogin {
+.loginPanel #forgotLogin, .loginContent #forgotLogin {
 	width: 100%;
 	text-align: center;
 	font-size: .9em;
-	margin-top: 6px;
 }
 
 #accountMenu {
@@ -866,10 +891,14 @@ form {margin:0px; padding:0px;}
     text-decoration: none !important;
     width: 145px;
     border:0 none;
+    box-shadow:none !important;
+    -moz-box-shadow:none !important;
+    -webkit-box-shadow:none !important;
 }
 
 .wisebutton:hover {
-	background-position: -3px -43px;*
+	background-position: -3px -43px;
+	border:0 none;
 }
 
 .infoContent .wisebutton {

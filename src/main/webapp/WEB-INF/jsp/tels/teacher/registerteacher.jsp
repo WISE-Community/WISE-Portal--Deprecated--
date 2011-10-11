@@ -1,24 +1,6 @@
 <%@ include file="include.jsp"%>
 
-   
-    <!-- $Id: header.jsp 368 2007-05-05 01:41:18Z mattfish $ -->
-    <!--
-  * Copyright (c) 2006 Encore Research Group, University of Toronto
-  * 
-  * This library is free software; you can redistribute it and/or
-  * modify it under the terms of the GNU Lesser General Public
-  * License as published by the Free Software Foundation; either
-  * version 2.1 of the License, or (at your option) any later version.
-  *
-  * This library is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  * Lesser General Public License for more details.
-  *
-  * You should have received a copy of the GNU Lesser General Public
-  * License along with this library; if not, write to the Free Software
-  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
--->
+<!-- $Id: header.jsp 368 2007-05-05 01:41:18Z mattfish $ -->
 
 <!DOCTYPE html>
 <html xml:lang="en" lang="en">
@@ -33,14 +15,6 @@
 <script type="text/javascript" src="<spring:theme code="jqueryuisource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 
-<script type="text/javascript">
-	function checkIfLegalAcknowledged (form, id) {
-		if(form.getElementById(id).checked==true){
-		}else{
-		}
-	}
-</script>
-
 
 <script type="text/javascript">
 
@@ -53,49 +27,53 @@
  * there are no matching accounts we will create the new account.
  */
 function checkForExistingAccountsAndCreateAccount() {
-	if(checkForExistingAccounts()) {
-		//accounts exist, ask teacher if these accounts are theirs
+	 if (checkIfLegalAcknowledged()){
+		 if(checkForExistingAccounts()) {
+			//accounts exist, ask teacher if these accounts are theirs
 
-		//get the JSON array of existing accounts
-		var existingAccountsString = $('#existingAccounts').html();
+			//get the JSON array of existing accounts
+			var existingAccountsString = $('#existingAccounts').html();
 
-		//create a JSON array object
-		var existingAccountsArray = JSON.parse(existingAccountsString);
+			//create a JSON array object
+			var existingAccountsArray = JSON.parse(existingAccountsString);
 
-		//the message to display at the top of the popup
-		var existingAccountsHtml = "<p><spring:message code='teacher.registerteacher.31'/></p>";
+			//the message to display at the top of the popup
+			var existingAccountsHtml = "<p><spring:message code='teacher.registerteacher.31'/></p>";
 
-		//loop through all the existing accounts
-		for(var x=0; x<existingAccountsArray.length; x++) {
-			//get a user name
-			var userName = existingAccountsArray[x];
-			
-			if(existingAccountsHtml != "") {
-				//add line breaks between user names
-				existingAccountsHtml += "<br><br>";
+			//loop through all the existing accounts
+			for(var x=0; x<existingAccountsArray.length; x++) {
+				//get a user name
+				var userName = existingAccountsArray[x];
+				
+				if(existingAccountsHtml != "") {
+					//add line breaks between user names
+					existingAccountsHtml += "<br><br>";
+				}
+
+				//make the user name a link to the login page that will pre-populate the user name field
+				existingAccountsHtml += "<a href='../login.html?userName=" + userName + "'>";
+				existingAccountsHtml += userName;
+				existingAccountsHtml += "</a>";
 			}
 
-			//make the user name a link to the login page that will pre-populate the user name field
-			existingAccountsHtml += "<a href='../login.html?userName=" + userName + "'>";
-			existingAccountsHtml += userName;
-			existingAccountsHtml += "</a>";
+			existingAccountsHtml += "<br><br><p>------------------------------------------------------------</p><br>";
+
+			//add the button that will create a brand new account if none of the existing accounts belongs to the user
+			existingAccountsHtml += "<a onclick='createAccount()' class='wisebutton'><spring:message code='teacher.registerteacher.32'/></a>";
+
+			//add the html to the div
+			$('#existingAccountsDialog').html(existingAccountsHtml);
+
+			//display the popup
+			$('#existingAccountsDialog').dialog({title: "<spring:message code='teacher.registerteacher.33'/>", width:500, height:500});
+		} else {
+			//we did not find any accounts that have matching fields so we will create a new account
+			createAccount();
 		}
-
-		existingAccountsHtml += "<br><br><p>------------------------------------------------------------</p><br>";
-
-		//add the button that will create a brand new account if none of the existing accounts belongs to the user
-		existingAccountsHtml += "<a onclick='createAccount()' class='wisebutton'><spring:message code='teacher.registerteacher.32'/></a>";
-
-		//add the html to the div
-		$('#existingAccountsDialog').html(existingAccountsHtml);
-
-		//display the popup
-		$('#existingAccountsDialog').dialog({title: "<spring:message code='teacher.registerteacher.33'/>", width:500, height:500});
-	} else {
-		//we did not find any accounts that have matching fields so we will create a new account
-		createAccount();
-	}
-}
+	 } else {
+		 alert("<spring:message code="teacher.registerteacher.38"/>");
+	 }
+};
 
 /**
  * Make a sync request for any existing teacher accounts with the same
@@ -133,28 +111,61 @@ function checkForExistingAccounts() {
 	}
 
 	return existingAccounts;
-}
+};
+
+/** check if terms of service checkbox checked
+ * If checked, return true
+ * Otherwise, return false
+ */
+function checkIfLegalAcknowledged () {
+	if($('#legalAcknowledged').is(":checked")){
+		return true;
+	}else{
+		return false;
+	}
+};
 
 /**
  * Submit the form to create the account
  */
 function createAccount() {
 	$('#teacherRegForm').submit();
-}
+};
 
 /**
  * Toggle show/hide of the curriculum box
  */
 function showSubjects() {
-	var posx = $('#toggleSubjects').offset().left + $('#toggleSubjects').width() + 30 + 'px';
-	var posy = $('#toggleSubjects').offset().top - $('#curriculumSubjectsBox').height()*.75;
-	$('#curriculumSubjectsBox').css({'top':posy,"left":posx}).fadeToggle();
-}
+	var posx = /*$('#toggleSubjects').offset().left +*/ $('#toggleSubjects').width() + 30 + 'px';
+	var posy = /*$('#toggleSubjects').offset().top*/ -1*$('#curriculumSubjectsBox').height()*.5 + 'px';
+	$('#curriculumSubjectsBox').css({'top':posy,'left':posx}).fadeToggle();
+};
 
 $(document).ready(function(){
 	$('#closeSubjects').click(function(){
 		$('#curriculumSubjectsBox').fadeOut();
 	});
+	
+	/*
+	 * Set up terms of use dialog
+	 */
+	$('#terms').click(function(){
+		var termsdiv = $('<div id="termsDialog"></div>');
+		termsdiv.load('termsofuse.html').dialog({
+			modal:true,
+			resizeable:false,
+			title:'<spring:message code="teacher.termsofuse.1" />',
+			position:'center',
+			height:450,
+			width:600,
+			draggable:false,
+			close: function() { 
+				$(this).dialog("destroy");
+			},
+			buttons: { "Ok": function() { $(this).dialog("close"); }}
+		});
+	});
+
 });
 
 </script>
@@ -295,7 +306,7 @@ $(document).ready(function(){
 					     	<td><label for="legalAcknowledged" id="legalAcknowledged1"><spring:message code="signup.legalAcknowledged" /></label></td>
 							<td id="termsOfUse">
 							     <form:checkbox path="legalAcknowledged" id="legalAcknowledged"/> 
-						     	 <spring:message code="teacher.registerteacher.25"/>&nbsp;<a href="termsofuse.html" onClick="return popupSpecial(this, 'terms')"><spring:message code="teacher.registerteacher.26"/></a>
+						     	 <spring:message code="teacher.registerteacher.25"/>&nbsp;<a id="terms"><spring:message code="teacher.registerteacher.26"/></a>
 						    </td>
 						 </tr>
 						 

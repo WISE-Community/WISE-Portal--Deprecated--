@@ -103,13 +103,17 @@
 }
 
 .regTable {
-	width:500px;
+	width:450px;
 	margin:0 auto;
 }
 
 .regTable tr td {
-	width:250px;
+	width:225px;
 	height:2em;
+}
+
+.regTable tr td input[type="text"], .regTable tr td input[type="password"] {
+	width:225px;
 }
 
 #regButtons {
