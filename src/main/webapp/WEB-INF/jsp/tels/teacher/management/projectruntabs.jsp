@@ -13,20 +13,20 @@
 			"aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
 			"bSort": false,
 			"oLanguage": {
-				"sInfo": "<spring:message code="teacher.run.myprojectruns.datatables.1"/> _START_-_END_ <spring:message code="teacher.run.myprojectruns.datatables.2"/> _TOTAL_",
-				"sInfoEmpty": "<spring:message code="teacher.run.myprojectruns.datatables.3"/>",
-				"sInfoFiltered": "<spring:message code="teacher.run.myprojectruns.datatables.4"/>", // (from _MAX_ total)
-				"sLengthMenu": "<spring:message code="teacher.run.myprojectruns.datatables.5"/> _MENU_ <spring:message code="teacher.run.myprojectruns.datatables.6"/>",
-				"sProcessing": "<spring:message code="teacher.run.myprojectruns.datatables.7"/>",
-				"sZeroRecords": "<spring:message code="teacher.run.myprojectruns.datatables.8"/>",
-				"sInfoPostFix":  "<spring:message code="teacher.run.myprojectruns.datatables.9"/>",
-				"sSearch": "<spring:message code="teacher.run.myprojectruns.datatables.10"/>",
-				"sUrl": "<spring:message code="teacher.run.myprojectruns.datatables.11"/>",
+				"sInfo": "<spring:message code="teacher.datatables.1"/> _START_-_END_ <spring:message code="teacher.datatables.2"/> _TOTAL_",
+				"sInfoEmpty": "<spring:message code="teacher.datatables.3"/>",
+				"sInfoFiltered": "<spring:message code="teacher.datatables.4"/>", // (from _MAX_ total)
+				"sLengthMenu": "<spring:message code="teacher.datatables.5"/> _MENU_ <spring:message code="teacher.datatables.6"/>",
+				"sProcessing": "<spring:message code="teacher.datatables.7"/>",
+				"sZeroRecords": "<spring:message code="teacher.datatables.8"/>",
+				"sInfoPostFix":  "<spring:message code="teacher.datatables.9"/>",
+				"sSearch": "<spring:message code="teacher.datatables.10"/>",
+				"sUrl": "<spring:message code="teacher.datatables.11"/>",
 				"oPaginate": {
-					"sFirst":    "<spring:message code="teacher.run.myprojectruns.datatables.12"/>",
-					"sPrevious": "<spring:message code="teacher.run.myprojectruns.datatables.13"/>",
-					"sNext":     "<spring:message code="teacher.run.myprojectruns.datatables.14"/>",
-					"sLast":     "<spring:message code="teacher.run.myprojectruns.datatables.15"/>"
+					"sFirst":    "<spring:message code="teacher.datatables.12"/>",
+					"sPrevious": "<spring:message code="teacher.datatables.13"/>",
+					"sNext":     "<spring:message code="teacher.datatables.14"/>",
+					"sLast":     "<spring:message code="teacher.datatables.15"/>"
 				}
 			},
 			"fnDrawCallback": function( oSettings ){
@@ -43,10 +43,10 @@
 		// define sort options
 		var sortParams = {
 			"items": [
-				{"label": "<spring:message code="teacher.run.myprojectruns.sort.1a"/>", "column": 3, "direction": "desc" },
-				{"label": "<spring:message code="teacher.run.myprojectruns.sort.1b"/>", "column": 3, "direction": "asc" },
-				{"label": "<spring:message code="teacher.run.myprojectruns.sort.1c"/>", "column": 0, "direction": "asc" },
-				{"label": "<spring:message code="teacher.run.myprojectruns.sort.1d"/>", "column": 0, "direction": "desc" }
+				{"label": "<spring:message code="teacher.datatables.sort.1a"/>", "column": 3, "direction": "desc" },
+				{"label": "<spring:message code="teacher.datatables.sort.1b"/>", "column": 3, "direction": "asc" },
+				{"label": "<spring:message code="teacher.datatables.sort.1c"/>", "column": 0, "direction": "asc" },
+				{"label": "<spring:message code="teacher.datatables.sort.1d"/>", "column": 0, "direction": "desc" }
 			]
 		}
 		
@@ -59,33 +59,37 @@
 			
 			// Define FacetedFilter options
 			var facets = new FacetedFilter( table, {
+				"bScroll": false,
+				"sClearFilterLabel": "<spring:message code="teacher.datatables.filter.clear"/>",
+				"sClearSearchLabel": "<spring:message code="teacher.datatables.search.clear"/>",
+				"sFilterLabel": "<spring:message code="teacher.datatables.filter.label"/>",
+				"sSearchLabel": "<spring:message code="teacher.datatables.search.label"/>",
 				"aSearchOpts": [
 					{
-						"identifier": "<spring:message code="teacher.run.myprojectruns.search.1a"/>", "label": "<spring:message code="teacher.run.myprojectruns.search.1b"/> ", "column": 0, "maxlength": 50
+						"identifier": "<spring:message code="teacher.datatables.search.1a"/>", "label": "<spring:message code="teacher.datatables.search.1b"/> ", "column": 0, "maxlength": 50
 					},
 					{
-						"identifier": "<spring:message code="teacher.run.myprojectruns.search.2a"/>", "label": "<spring:message code="teacher.run.myprojectruns.search.2b"/> ", "column": 7, "maxlength": 30,
+						"identifier": "<spring:message code="teacher.datatables.search.2a"/>", "label": "<spring:message code="teacher.datatables.search.2b"/> ", "column": 7, "maxlength": 30,
 						"regexreplace": {"match": "/,\s*/gi", "replacement": " "},
-						"instructions": "<spring:message code="teacher.run.myprojectruns.search.2e"/>"
+						"instructions": "<spring:message code="teacher.datatables.search.2e"/>"
 					}
 				 ],
 				"aFilterOpts": [
 					{
-						"identifier": "<spring:message code="teacher.run.myprojectruns.58D"/>", "label": "<spring:message code="teacher.run.myprojectruns.filter.1a"/>", "column": 6,
+						"identifier": "<spring:message code="teacher.run.myprojectruns.58D"/>", "label": "<spring:message code="teacher.datatables.filter.1a"/>", "column": 6,
 						"options": [
-							{"query": "owned", "display": "<spring:message code="teacher.run.myprojectruns.filter.1b"/>"},
-							{"query": "shared", "display": "<spring:message code="teacher.run.myprojectruns.filter.1c"/>"}
+							{"query": "owned", "display": "<spring:message code="teacher.datatables.filter.1b"/>"},
+							{"query": "shared", "display": "<spring:message code="teacher.datatables.filter.1c"/>"}
 						]
 					}
 					/*{
-						"identifier": "<spring:message code="teacher.run.myprojectruns.58C"/>", "label": "<spring:message code="teacher.run.myprojectruns.filter.2a"/>", "column": 5,
+						"identifier": "<spring:message code="teacher.run.myprojectruns.58C"/>", "label": "<spring:message code="teacher.datatables.filter.2a"/>", "column": 5,
 						"options": [
-							{"query": "custom", "display": "<spring:message code="teacher.run.myprojectruns.filter.2b"/>"},
-							{"query": "library", "display": "<spring:message code="teacher.run.myprojectruns.filter.2c"/>"}
+							{"query": "custom", "display": "<spring:message code="teacher.datatables.filter.2b"/>"},
+							{"query": "library", "display": "<spring:message code="teacher.datatables.filter.2c"/>"}
 						]
 					}*/
-				],
-				"bScroll": false
+				]
 			});
 			
 			// add sort logic
@@ -99,7 +103,7 @@
 		function setSort(index,sortParams,wrapper) {
 			if(sortParams.items.length){
 				// insert sort options into DOM
-				var sortHtml = '<div class="dataTables_sort">Sort by <select id="' + 'sort_' + index + '"  size="1">';
+				var sortHtml = '<div class="dataTables_sort"><spring:message code="teacher.datatables.sort.label"/> <select id="' + 'sort_' + index + '"  size="1">';
 				$.each(sortParams.items,function(){
 					sortHtml += '<option>' + this.label + '</option>';
 				});

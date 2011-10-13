@@ -129,6 +129,7 @@
 
 .projectThumb {
 	float:left;
+	margin-bottom:.5em;
 }
 
 .projectThumb img {
@@ -140,6 +141,7 @@
 
 .summaryInfo {
 	margin-left:85px;
+	margin-bottom:.5em;
 }
 
 .libraryIcon, .sharedIcon {
@@ -154,7 +156,7 @@
 	opacity:.5;
 }
 
-.sharedIcon {
+.library .sharedIcon {
 	text-align:right;
 }
 
@@ -198,25 +200,29 @@
 	min-height:2em;
 }
 
-.projectOverviewTable tr.detailsLinks {
+.projectOverview .detailsLinks {
 	border-top: 1px solid #CCCCCC;
     font-size: 0.9em;
 }
 
-.projectOverviewTable .details {
+.projectOverview .detailsLinks div {
+	margin:.5em 0;
+}
+
+.projectOverview .details {
 	margin-top:.5em;
 	display:none;
 }
 
-.projectOverviewTable .details p {
+.projectOverview .details p {
 	font-size:.9em;
 }
 
-.projectOverviewTable span.truncated {
+.projectOverview span.truncated {
 	display:none;
 }
 
-.projectOverviewTable .lessonPlan {
+.projectOverview .lessonPlan {
 	display:none;
 }
 
@@ -224,6 +230,10 @@ div.viewLesson {
 	font-weight:bold;
 	margin-top:.5em;
 	font-size:.9em;
+}
+
+a.viewLesson:hover {
+	text-decoration:underline;
 }
 
 .lessonPlan .panelHeader {
@@ -263,7 +273,7 @@ a.printLesson {
     padding-left: 28px;
 }
 
-.runTable, .projectOverviewTable {
+.runTable, .projectOverview {
 	border-collapse:collapse;
 	width:100%;
 	border:1px solid #999999;
@@ -285,24 +295,25 @@ a.printLesson {
 	padding:0;
 }
 
-.projectTable .projectTitle {
-	padding-bottom:.5em;
-}
-
 /*.projectTitle {
 	color: #765936;
 }*/
-
-.projectOverviewTable, .projectOverviewTable tr {
-	border:0 none;
+.projectOverview {
+	border: 0 none;
 }
 
-.projectOverviewTable td {
-	padding:.5em 0;
+.projectHeader .projectInfo {
+	max-width: 310px;
+	float:left;
 }
 
-.projectOverviewTable tr {
-	margin:.5em 0;
+.projectHeader .projectTools {
+	text-align:right;
+	float:right;
+}
+
+.projectHeader div {
+	margin: .5em 0;
 }
 
 .projectBox a.bookmark {
@@ -314,6 +325,10 @@ a.printLesson {
     width: 16px;
 }
 
+.projectBox.noMatch a.bookmark {
+	opacity:.5;
+}
+
 .projectBox .bookmark.true {
 	background-image:url("/webapp/themes/tels/default/images/star-fill.png");
 }
@@ -322,7 +337,7 @@ ul.actions {
 	border-left:0;
 	font-size:.9em;
 	text-align:right;
-	margin-top:.1em;
+	margin-top:.25em;
 }
 			
 ul.actions ul {

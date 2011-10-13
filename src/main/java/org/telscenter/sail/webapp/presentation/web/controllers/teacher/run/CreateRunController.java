@@ -99,7 +99,7 @@ public class CreateRunController extends AbstractWizardFormController {
 	
 	private static final String COMPLETE_VIEW_NAME = "teacher/run/create/createrunfinish";
 	
-	private static final String CANCEL_VIEW_NAME = "../../teacher/index.html";
+	private static final String CANCEL_VIEW_NAME = "/webapp/teacher/management/library.html";
 
 	private static final String RUN_KEY = "run";
 	

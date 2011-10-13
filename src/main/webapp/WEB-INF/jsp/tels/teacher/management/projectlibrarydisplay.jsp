@@ -214,7 +214,7 @@
 					copyLabel = " Copy";
 				}
 				var $childLink = '<div style="float:left;"><a id="childToggle_' + id + '" class="childToggle">' + numChildren + copyLabel + ' +</a></div>';
-				$('#projectBox_' + id + ' tr.detailsLinks td').prepend($childLink);
+				$('#projectBox_' + id + ' .detailsLinks').prepend($childLink);
 				$('#childToggle_' + id).live('click',function(){
 					if ($('#childToggle_' + id).hasClass('expanded')){
 						toggleChildren(id,false);
@@ -347,22 +347,22 @@
 			"aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
 			"aaSorting": [ [11,'desc'], [12,'asc'], [8,'desc'] ],
 			"oLanguage": {
-				"sInfo": "_TOTAL_ <spring:message code="teacher.run.myprojectruns.datatables.16"/>",
+				"sInfo": "_TOTAL_ <spring:message code="teacher.datatables.16"/>",
 				// TODO: Mofidy these entries in ui-html.properties (make separate entries for datatables - not teacher.datatables.1, for ex.)
-				//"sInfo": "<spring:message code="teacher.run.myprojectruns.datatables.1"/> _START_-_END_ <spring:message code="teacher.run.myprojectruns.datatables.2"/> _TOTAL_ <spring:message code="teacher.run.myprojectruns.datatables.16"/>",
-				"sInfoEmpty": "<spring:message code="teacher.run.myprojectruns.datatables.3"/>",
-				"sInfoFiltered": "<spring:message code="teacher.run.myprojectruns.datatables.17"/> _MAX_ <spring:message code="teacher.run.myprojectruns.datatables.18"/>", // (from _MAX_ total)
-				"sLengthMenu": "<spring:message code="teacher.run.myprojectruns.datatables.5"/> _MENU_ <spring:message code="teacher.run.myprojectruns.datatables.6"/>",
-				"sProcessing": "<spring:message code="teacher.run.myprojectruns.datatables.7"/>",
-				"sZeroRecords": "<spring:message code="teacher.run.myprojectruns.datatables.8"/>",
-				"sInfoPostFix":  "<spring:message code="teacher.run.myprojectruns.datatables.9"/>",
-				"sSearch": "<spring:message code="teacher.run.myprojectruns.datatables.10"/>",
-				"sUrl": "<spring:message code="teacher.run.myprojectruns.datatables.11"/>",
+				//"sInfo": "<spring:message code="teacher.datatables.1"/> _START_-_END_ <spring:message code="teacher.datatables.2"/> _TOTAL_ <spring:message code="teacher.datatables.16"/>",
+				"sInfoEmpty": "<spring:message code="teacher.datatables.3"/>",
+				"sInfoFiltered": "<spring:message code="teacher.datatables.17"/> _MAX_ <spring:message code="teacher.datatables.18"/>", // (from _MAX_ total)
+				"sLengthMenu": "<spring:message code="teacher.datatables.5"/> _MENU_ <spring:message code="teacher.datatables.6"/>",
+				"sProcessing": "<spring:message code="teacher.datatables.7"/>",
+				"sZeroRecords": "<spring:message code="teacher.datatables.8"/>",
+				"sInfoPostFix":  "<spring:message code="teacher.datatables.9"/>",
+				"sSearch": "<spring:message code="teacher.datatables.10"/>",
+				"sUrl": "<spring:message code="teacher.datatables.11"/>",
 				"oPaginate": {
-					"sFirst":    "<spring:message code="teacher.run.myprojectruns.datatables.12"/>",
-					"sPrevious": "<spring:message code="teacher.run.myprojectruns.datatables.13"/>",
-					"sNext":     "<spring:message code="teacher.run.myprojectruns.datatables.14"/>",
-					"sLast":     "<spring:message code="teacher.run.myprojectruns.datatables.15"/>"
+					"sFirst":    "<spring:message code="teacher.datatables.12"/>",
+					"sPrevious": "<spring:message code="teacher.datatables.13"/>",
+					"sNext":     "<spring:message code="teacher.datatables.14"/>",
+					"sLast":     "<spring:message code="teacher.datatables.15"/>"
 				}
 			},
 			"fnDrawCallback": function ( oSettings ) {
@@ -408,67 +408,70 @@
 		// Define FacetedFilter options
 		var facets = new FacetedFilter( otable.fnSettings(), {
 			"bScroll": false,
-			"sClearFilterLabel": "Clear",
+			"sClearFilterLabel": "<spring:message code="teacher.datatables.filter.clear"/>",
+			"sClearSearchLabel": "<spring:message code="teacher.datatables.search.clear"/>",
+			"sFilterLabel": "<spring:message code="teacher.datatables.filter.label"/>",
+			"sSearchLabel": "<spring:message code="teacher.datatables.search.label"/>",
 			"aSearchOpts": [
 				{
-					"identifier": "<spring:message code="teacher.run.myprojectruns.search.1a"/>", "label": "<spring:message code="teacher.run.myprojectruns.search.1b"/> ", "column": 0, "maxlength": 50
+					"identifier": "<spring:message code="teacher.datatables.search.1a"/>", "label": "<spring:message code="teacher.datatables.search.1b"/> ", "column": 0, "maxlength": 50
 				}
 			 ],
 			"aFilterOpts": [
 				{
-					"identifier": "bookmark", "label": "Favorites:", "column": 9,
+					"identifier": "bookmark", "label": "<spring:message code="teacher.datatables.filter.3a"/>", "column": 9,
 					"options": [
-						{"query": "true", "display": "Starred Projects"} // TODO: modify FacetedFilter plugin to only require a query for each filter, use query as display if display option is not set
+						{"query": "true", "display": "<spring:message code="teacher.datatables.filter.3b"/>"} // TODO: modify FacetedFilter plugin to only require a query for each filter, use query as display if display option is not set
 					]
 				},
 				{
-					"identifier": "source", "label": "Source:", "column": 2,
+					"identifier": "source", "label": "<spring:message code="teacher.datatables.filter.4a"/>", "column": 2,
 					"options": [
-						{"query": "library", "display": "WISE Library"}, // TODO: modify FacetedFilter plugin to only require a query for each filter, use query as display if display option is not set
-						{"query": "owned", "display": "Owned (My Custom Projects)"},
-						{"query": "shared", "display": "Shared"}
+						{"query": "library", "display": "<spring:message code="teacher.datatables.filter.4b"/>"}, // TODO: modify FacetedFilter plugin to only require a query for each filter, use query as display if display option is not set
+						{"query": "owned", "display": "<spring:message code="teacher.datatables.filter.4c"/>"},
+						{"query": "shared", "display": "<spring:message code="teacher.datatables.filter.4d"/>"}
 					]
 				},
 				{
-					"identifier": "subject", "label": "Subject:", "column": 3,
+					"identifier": "subject", "label": "<spring:message code="teacher.datatables.filter.5a"/>", "column": 3,
 					"options": [
-						{"query": "Earth Science", "display": "Earth Science"}, // TODO: modify FacetedFilter plugin to only require a query for each filter, use query as display if display option is not set
-						{"query": "General Science", "display": "General Science"},
-						{"query": "Life Science", "display": "Life Science"},
-						{"query": "Physical Science", "display": "Physical Science"},
-						{"query": "Biology", "display": "Biology"},
-						{"query": "Chemistry", "display": "Chemistry"},
-						{"query": "Physics", "display": "Physics"}
+						{"query": "<spring:message code="teacher.datatables.filter.5b"/>", "display": "<spring:message code="teacher.datatables.filter.5b"/>"}, // TODO: modify FacetedFilter plugin to only require a query for each filter, use query as display if display option is not set
+						{"query": "<spring:message code="teacher.datatables.filter.5c"/>", "display": "<spring:message code="teacher.datatables.filter.5c"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.5d"/>", "display": "<spring:message code="teacher.datatables.filter.5d"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.5e"/>", "display": "<spring:message code="teacher.datatables.filter.5e"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.5f"/>", "display": "<spring:message code="teacher.datatables.filter.5f"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.5g"/>", "display": "<spring:message code="teacher.datatables.filter.5g"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.5h"/>", "display": "<spring:message code="teacher.datatables.filter.5h"/>"}
 					]
 				},
 				{
-					"identifier": "grade", "label": "Grade Level:", "column": 4,
+					"identifier": "grade", "label": "<spring:message code="teacher.datatables.filter.6a"/>", "column": 4,
 					"options": [
-						{"query": "3-5", "display": "3-5"},
-						{"query": "6-8", "display": "6-8"},
-						{"query": "6-12", "display": "6-12"},
-						{"query": "9-12", "display": "9-12"}
+						{"query": "<spring:message code="teacher.datatables.filter.6b"/>", "display": "<spring:message code="teacher.datatables.filter.6b"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.6c"/>", "display": "<spring:message code="teacher.datatables.filter.6c"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.6d"/>", "display": "<spring:message code="teacher.datatables.filter.6d"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.6e"/>", "display": "<spring:message code="teacher.datatables.filter.6e"/>"}
 					]
 				},
 				{
-					"identifier": "duration", "label": "Duration:", "column": 5,
+					"identifier": "duration", "label": "<spring:message code="teacher.datatables.filter.7a"/>", "column": 5,
 					"options": [
-						{"query": "2-3 Hours", "display": "2-3 Hours"},
-						{"query": "4-5 Hours", "display": "4-5 Hours"},
-						{"query": "6-7 Hours", "display": "6-7 Hours"},
-						{"query": "8-9 Hours", "display": "8-9 Hours"},
-						{"query": "10-11 Hours", "display": "10-11 Hours"},
-						{"query": "Over 12 Hours", "display": "12+ Hours"}
+						{"query": "<spring:message code="teacher.datatables.filter.7b"/>", "display": "<spring:message code="teacher.datatables.filter.7b"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.7c"/>", "display": "<spring:message code="teacher.datatables.filter.7c"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.7d"/>", "display": "<spring:message code="teacher.datatables.filter.7d"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.7e"/>", "display": "<spring:message code="teacher.datatables.filter.7e"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.7f"/>", "display": "<spring:message code="teacher.datatables.filter.7f"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.7g"/>", "display": "<spring:message code="teacher.datatables.filter.7g"/>"}
 					]
 				},
 				{
-					"identifier": "language", "label": "Language:", "column": 7,
+					"identifier": "language", "label": "<spring:message code="teacher.datatables.filter.8a"/>", "column": 7,
 					"options": [
-						{"query": "Chinese", "display": "Chinese"},
-						{"query": "English", "display": "English"},
-						{"query": "Hebrew", "display": "Hebrew"},
-						{"query": "Japanese", "display": "Japanese"},
-						{"query": "Spanish", "display": "Spanish"}
+						{"query": "<spring:message code="teacher.datatables.filter.8b"/>", "display": "<spring:message code="teacher.datatables.filter.8b"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.8c"/>", "display": "<spring:message code="teacher.datatables.filter.8c"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.8d"/>", "display": "<spring:message code="teacher.datatables.filter.8d"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.8e"/>", "display": "<spring:message code="teacher.datatables.filter.8e"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.8f"/>", "display": "<spring:message code="teacher.datatables.filter.8f"/>"}
 					]
 				}
 			]
@@ -477,12 +480,12 @@
 		// define sort options
 		var sortParams = {
 			"items": [
-				{"label": "<spring:message code="teacher.pro.lib.sort.1"/>", "columns": [11,12,8], "directions": ["desc","asc","desc"] },
-				{"label": "<spring:message code="teacher.pro.lib.sort.2"/>", "columns": [8], "directions": ["desc"] },
-				{"label": "<spring:message code="teacher.pro.lib.sort.3"/>", "columns": [8], "directions": ["asc"] },
-				{"label": "<spring:message code="teacher.pro.lib.sort.4"/>", "columns": [14], "directions": ["desc"] },
-				{"label": "<spring:message code="teacher.pro.lib.sort.5"/>", "columns": [0], "directions": ["asc"] },
-				{"label": "<spring:message code="teacher.pro.lib.sort.6"/>", "columns": [0], "directions": ["desc"] }
+				{"label": "<spring:message code="teacher.datatables.sort.2a"/>", "columns": [11,12,8], "directions": ["desc","asc","desc"] },
+				{"label": "<spring:message code="teacher.datatables.sort.2b"/>", "columns": [8], "directions": ["desc"] },
+				{"label": "<spring:message code="teacher.datatables.sort.2c"/>", "columns": [8], "directions": ["asc"] },
+				{"label": "<spring:message code="teacher.datatables.sort.2d"/>", "columns": [14], "directions": ["desc"] },
+				{"label": "<spring:message code="teacher.datatables.sort.2e"/>", "columns": [0], "directions": ["asc"] },
+				{"label": "<spring:message code="teacher.datatables.sort.2f"/>", "columns": [0], "directions": ["desc"] }
 			]
 		}
 		var wrapper = otable.fnSettings().nTableWrapper;
@@ -509,7 +512,7 @@
 		function setSort(index,sortParams,wrapper) {
 			if(sortParams.items.length){
 				// insert sort options into DOM
-				var sortHtml = '<div class="dataTables_sort">Sort by <select id="' + 'datatablesSort_' + index + '"  size="1">';
+				var sortHtml = '<div class="dataTables_sort"><spring:message code="teacher.datatables.sort.label"/> <select id="' + 'datatablesSort_' + index + '"  size="1">';
 				$.each(sortParams.items,function(){
 					sortHtml += '<option>' + this.label + '</option>';
 				});
@@ -731,12 +734,12 @@
 			}
 			if(filtered){
 				var numResults = $items.length;
-				$('#myProjects_wrapper .dataTables_info').text('<spring:message code="teacher.run.myprojectruns.datatables.1"/> ' + 
-						numResults + ' <spring:message code="teacher.run.myprojectruns.datatables.16"/> ' + 
-						'<spring:message code="teacher.run.myprojectruns.datatables.17"/> ' +
-						totalProjects + ' <spring:message code="teacher.run.myprojectruns.datatables.18"/>');
+				$('#myProjects_wrapper .dataTables_info').text('<spring:message code="teacher.datatables.1"/> ' + 
+						numResults + ' <spring:message code="teacher.datatables.16"/> ' + 
+						'<spring:message code="teacher.datatables.17"/> ' +
+						totalProjects + ' <spring:message code="teacher.datatables.18"/>');
 			} else {
-				$('#myProjects_wrapper .dataTables_info').text(totalProjects + ' <spring:message code="teacher.run.myprojectruns.datatables.16"/>');
+				$('#myProjects_wrapper .dataTables_info').text(totalProjects + ' <spring:message code="teacher.datatables.16"/>');
 			}
 		};
 		
@@ -798,9 +801,9 @@
 								</c:otherwise>
 							</c:choose>
 							<div class="${projectClass}" id="projectBox_${project.id}">
-								<table class="projectOverviewTable">
-									<tr>
-										<td colspan="2" style="max-width: 310px;">
+								<div class="projectOverview">
+									<div class="projectHeader">
+										<div class="projectInfo">
 											<c:set var="bookmarked" value="false" />
 											<c:forEach var="bookmark" items="${bookmarkedProjectsList}">
 												<c:if test="${bookmark.id == project.id}">
@@ -810,8 +813,8 @@
 											<a id="bookmark_${project.id}" class="bookmark ${bookmarked}" title="Add/remove as favorite"></a>
 											<a class="projectTitle" id="project_${project.id}">${projectName}</a>
 											<span>(ID: ${project.id})</span>
-										</td>
-										<td colspan="3" style="text-align:right;">
+										</div>
+										<div class="projectTools">
 											<c:if test="${isChild}">
 												<span class="childDate">Created: <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></span>
 											</c:if>
@@ -828,101 +831,100 @@
 												<input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
 												<li><a class="setupRun" href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Classroom Run</a></li>
 											</ul>
-										</td>
-									</tr>
-									<tr>
-										<td colspan="5" class="projectSummary">
-											<div class="projectThumb" thumbUrl="${projectThumbMap[project.id]}"><img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></div>
-											<div class="summaryInfo">
-												<div class="basicInfo">
-													<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-													<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}">Grades ${project.metadata.gradeRange} | </c:if>
-													<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">Duration: ${project.metadata.totalTime} | </c:if>
-													<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
-													<div style="float:right;">Created: <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></div>
-												</div>
-												<div id="summaryText_${project.id}" class="summaryText">
-												<c:if test="${fn:length(project.metadata.summary) != null && fn:length(project.metadata.summary) != ''}">
-													<c:choose>
-														<c:when test="${(fn:length(project.metadata.summary) > 170) && (projectClass != 'projectBox childProject')}">
-															<c:set var="length" value="${fn:length(project.metadata.summary)}" />
-															<c:set var="summary" value="${fn:substring(project.metadata.summary,0,170)}" />
-															<c:set var="truncated" value="${fn:substring(project.metadata.summary,170,length)}" />
-															<span style="font-weight:bold;">Summary:</span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
-														</c:when>
-														<c:otherwise>
-															<span style="font-weight:bold;">Summary:</span> ${project.metadata.summary}
-														</c:otherwise>
-													</c:choose>
+										</div>
+										<div style="clear:both;"></div>
+									</div>
+									<div class="projectSummary">
+										<div class="projectThumb" thumbUrl="${projectThumbMap[project.id]}"><img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></div>
+										<div class="summaryInfo">
+											<div class="basicInfo">
+												<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
+												<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}">Grades ${project.metadata.gradeRange} | </c:if>
+												<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">Duration: ${project.metadata.totalTime} | </c:if>
+												<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
+												<div style="float:right;">Created: <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></div>
+											</div>
+											<div id="summaryText_${project.id}" class="summaryText">
+											<c:if test="${fn:length(project.metadata.summary) != null && fn:length(project.metadata.summary) != ''}">
+												<c:choose>
+													<c:when test="${(fn:length(project.metadata.summary) > 170) && !isChild}">
+														<c:set var="length" value="${fn:length(project.metadata.summary)}" />
+														<c:set var="summary" value="${fn:substring(project.metadata.summary,0,170)}" />
+														<c:set var="truncated" value="${fn:substring(project.metadata.summary,170,length)}" />
+														<span style="font-weight:bold;">Summary:</span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
+													</c:when>
+													<c:otherwise>
+														<span style="font-weight:bold;">Summary:</span> ${project.metadata.summary}
+													</c:otherwise>
+												</c:choose>
+											</c:if>
+											</div>
+											<div class="details" id="details_${project.id}">
+												<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;">Tags:</span> ${project.metadata.keywords}</p></c:if>
+												<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;">Tech Requirements:</span> ${project.metadata.techDetailsString} (<a href="/webapp/check.html" target="_blank">Check Compatibility</a>)</p></c:if>
+												<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;">Computer Time:</span> ${project.metadata.compTime}</p></c:if>
+												<p><span style="font-weight:bold;">Questions/Comments:</span> <a href="/webapp/contactwiseproject.html?projectId=${project.id}">Contact WISE</a></p>
+												<c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;">Contributors:</span> ${project.metadata.author}</p></c:if>
+												<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
+												<c:if test="${lastEdited == null || lastEdited == ''}">
+													<c:set var="lastEdited" value="${project.dateCreated}" />
 												</c:if>
-												</div>
-												<div class="details" id="details_${project.id}">
-													<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;">Tags:</span> ${project.metadata.keywords}</p></c:if>
-													<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;">Tech Requirements:</span> ${project.metadata.techDetailsString} (<a href="/webapp/check.html" target="_blank">Check Compatibility</a>)</p></c:if>
-													<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;">Computer Time:</span> ${project.metadata.compTime}</p></c:if>
-													<c:if test="${project.metadata.contact != null && project.metadata.contact != ''}"><p><span style="font-weight:bold;">Contact Info:</span> ${project.metadata.contact}</p></c:if>
-													<c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;">Contributors:</span> ${project.metadata.author}</p></c:if>
-													<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
-													<c:if test="${lastEdited == null || lastEdited == ''}">
-														<c:set var="lastEdited" value="${project.dateCreated}" />
-													</c:if>
-													<p><span style="font-weight:bold;">Last Updated:</span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
-													<c:if test="${project.parentProjectId != null}">
-														<p><span style="font-weight:bold"><spring:message code="teacher.run.myprojectruns.40"/></span> <a id="projectDetail_${project.parentProjectId}" class="projectDetail" title="Project Details">${project.parentProjectId}</a></p>
-													</c:if>
-													<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
-														(project.metadata.standards != null && project.metadata.standards != '')}">
-														<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="Review Teaching Tips and Content Standards for this project">Teaching Tips & Standards</a></div>
-														<div class="lessonPlan" id="lessonPlan_${project.id}" title="Teaching Tips & Content Standards">
-															<div class="panelHeader">${project.name} (ID: ${project.id})
-																<span style="float:right;"><a class="printLesson" id="printLesson_${project.id}">Print</a></span>
+												<p><span style="font-weight:bold;">Last Updated:</span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
+												<c:if test="${project.parentProjectId != null}">
+													<p><span style="font-weight:bold"><spring:message code="teacher.run.myprojectruns.40"/></span> <a id="projectDetail_${project.parentProjectId}" class="projectDetail" title="Project Details">${project.parentProjectId}</a></p>
+												</c:if>
+												<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
+													(project.metadata.standards != null && project.metadata.standards != '')}">
+													<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="Review Teaching Tips and Content Standards for this project">Teaching Tips & Standards</a></div>
+													<div class="lessonPlan" id="lessonPlan_${project.id}" title="Teaching Tips & Content Standards">
+														<div class="panelHeader">${project.name} (ID: ${project.id})
+															<span style="float:right;"><a class="printLesson" id="printLesson_${project.id}">Print</a></span>
+														</div>
+														<c:if test="${project.metadata.lessonPlan != null && project.metadata.lessonPlan != ''}">
+															<div class="basicInfo sectionContent">
+																<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
+																<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}">Grades ${project.metadata.gradeRange} | </c:if>
+																<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">Duration: ${project.metadata.totalTime} | </c:if>
+																<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
+																<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;">Tech Requirements:</span> ${project.metadata.techDetailsString}</p></c:if>
 															</div>
-															<c:if test="${project.metadata.lessonPlan != null && project.metadata.lessonPlan != ''}">
-																<div class="basicInfo sectionContent">
-																	<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-																	<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}">Grades ${project.metadata.gradeRange} | </c:if>
-																	<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">Duration: ${project.metadata.totalTime} | </c:if>
-																	<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
-																	<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;">Tech Requirements:</span> ${project.metadata.techDetailsString}</p></c:if>
-																</div>
-																<div class="sectionHead">Teaching Tips</div>
-																<div class="lessonHelp">(Outlines technical or classroom requirements for the project's activities, 
-																	common misconceptions/mistakes students may encounter, as well as suggestions for maximizing the project's effectiveness and student learning.)
-																</div><!-- TODO: remove this, convert to global info/help rollover popup -->
-																<div class="sectionContent">${project.metadata.lessonPlan}</div>
-															</c:if>
-															<c:if test="${project.metadata.standards != null && project.metadata.standards != ''}">
-																<div class="sectionHead">Learning Goals and Standards</div>
-																<div class="lessonHelp">(Outlines the curriculum standards covered by the project, the
-			            											project's overall learning goals, and the goals of each activity in the project.)
-																</div><!-- TODO: remove this, convert to global info/help rollover popup -->
-																<div class="sectionContent">${project.metadata.standards}</div>
-															</c:if>
-														</div>
-													</c:if>
-													<c:if test="${fn:length(project.sharedowners) > 0}">
-														<div class="sharedIcon">
-															<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
-															Shared with: 
-															<span style="font-weight:normal"><c:forEach var="sharedowner" items="${project.sharedowners}" varStatus="status">
-															  <c:out value="${sharedowner.userDetails.firstname}"/>
-															  <c:out value="${sharedowner.userDetails.lastname}"/>${not status.last ? ', ' : ''}
-															</c:forEach></span>
-														</div>
-													</c:if>
-												</div>
+															<div class="sectionHead">Teaching Tips</div>
+															<div class="lessonHelp">(Outlines technical or classroom requirements for the project's activities, 
+																common misconceptions/mistakes students may encounter, as well as suggestions for maximizing the project's effectiveness and student learning.)
+															</div><!-- TODO: remove this, convert to global info/help rollover popup -->
+															<div class="sectionContent">${project.metadata.lessonPlan}</div>
+														</c:if>
+														<c:if test="${project.metadata.standards != null && project.metadata.standards != ''}">
+															<div class="sectionHead">Learning Goals and Standards</div>
+															<div class="lessonHelp">(Outlines the curriculum standards covered by the project, the
+		            											project's overall learning goals, and the goals of each activity in the project.)
+															</div><!-- TODO: remove this, convert to global info/help rollover popup -->
+															<div class="sectionContent">${project.metadata.standards}</div>
+														</c:if>
+													</div>
+												</c:if>
+												<c:if test="${fn:length(project.sharedowners) > 0}">
+													<div class="sharedIcon">
+														<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
+														Shared with: 
+														<span style="font-weight:normal"><c:forEach var="sharedowner" items="${project.sharedowners}" varStatus="status">
+														  <c:out value="${sharedowner.userDetails.firstname}"/>
+														  <c:out value="${sharedowner.userDetails.lastname}"/>${not status.last ? ', ' : ''}
+														</c:forEach></span>
+													</div>
+												</c:if>
 											</div>
-										</td>
-									</tr>
-									<tr class="detailsLinks">
-										<td colspan="5">
-											<div style="float:right; text-align:right">
-												<a id="detailsToggle_${project.id}" class="detailsToggle">Details +</a>
-											</div>
-										</td>
-									</tr>
-								</table>
-							<div>
+										</div>
+										<div style="clear:both;"></div>
+									</div>
+									<div class="detailsLinks">
+										<div style="float:right; text-align:right">
+											<a id="detailsToggle_${project.id}" class="detailsToggle">Details +</a>
+										</div>
+										<div style="clear:both;"></div>
+									</div>
+								</div>
+							</div>
 						</td>
 						<td style="display:none;">
 							<c:choose>
@@ -998,9 +1000,9 @@
 								</c:otherwise>
 							</c:choose>
 							<div class="${projectClass}" id="projectBox_${project.id}">
-								<table class="projectOverviewTable">
-									<tr>
-										<td colspan="2" style="max-width: 310px;">
+								<div class="projectOverview">
+									<div class="projectHeader">
+										<div class="projectInfo">
 											<c:set var="bookmarked" value="false" />
 											<c:forEach var="bookmark" items="${bookmarkedProjectsList}">
 												<c:if test="${bookmark.id == project.id}">
@@ -1010,8 +1012,8 @@
 											<a id="bookmark_${project.id}" class="bookmark ${bookmarked}" title="Add/remove as favorite"></a>
 											<a class="projectTitle" id="project_${project.id}">${project.name}</a>
 											<span>(ID: ${project.id})</span>
-										</td>
-										<td colspan="3" style="text-align:right;">
+										</div>
+										<div class="projectTools">
 											<c:if test="${isChild}">
 												<span class="childDate">Created: <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></span>
 											</c:if>
@@ -1028,111 +1030,110 @@
 												<input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
 												<li><a class="setupRun" href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Classroom Run</a></li>
 											</ul>
-										</td>
-									</tr>
-									<tr>
-										<td colspan="5" class="projectSummary">
-											<div class="projectThumb" thumbUrl="${projectThumbMap[project.id]}"><img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></div>
-											<div class="summaryInfo">
-												<div class="sharedIcon">
-												<c:if test="${fn:length(project.sharedowners) > 0}">
-													<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
-													Shared by 
-													<c:forEach var="projectowner" items="${project.owners}" varStatus="status">
-														<c:out value="${projectowner.userDetails.firstname}" />
-							  							<c:out value="${projectowner.userDetails.lastname}" />
-													</c:forEach>
+										</div>
+										<div style="clear:both;"></div>
+									</div>
+									<div class="projectSummary">
+										<div class="projectThumb" thumbUrl="${projectThumbMap[project.id]}"><img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></div>
+										<div class="summaryInfo">
+											<div class="sharedIcon">
+											<c:if test="${fn:length(project.sharedowners) > 0}">
+												<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
+												Shared by 
+												<c:forEach var="projectowner" items="${project.owners}" varStatus="status">
+													<c:out value="${projectowner.userDetails.firstname}" />
+						  							<c:out value="${projectowner.userDetails.lastname}" />
+												</c:forEach>
+											</c:if>
+											</div>
+											<div class="basicInfo">
+												<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
+												<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}">Grades ${project.metadata.gradeRange} | </c:if>
+												<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">Duration: ${project.metadata.totalTime} | </c:if>
+												<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
+												<div style="float:right;">Created: <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></div>
+											</div>
+											<div id="summaryText_${project.id}" class="summaryText">
+											<c:if test="${fn:length(project.metadata.summary) != null && fn:length(project.metadata.summary) != ''}">
+												<c:choose>
+													<c:when test="${(fn:length(project.metadata.summary) > 170) && !isChild}">
+														<c:set var="length" value="${fn:length(project.metadata.summary)}" />
+														<c:set var="summary" value="${fn:substring(project.metadata.summary,0,170)}" />
+														<c:set var="truncated" value="${fn:substring(project.metadata.summary,170,length)}" />
+														<span style="font-weight:bold;">Summary:</span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
+													</c:when>
+													<c:otherwise>
+														<span style="font-weight:bold;">Summary:</span> ${project.metadata.summary}
+													</c:otherwise>
+												</c:choose>
+											</c:if>
+											</div>
+											<div class="details" id="details_${project.id}">
+												<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;">Tags:</span> ${project.metadata.keywords}</p></c:if>
+												<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;">Tech Requirements:</span> ${project.metadata.techDetailsString} (<a href="/webapp/check.html" target="_blank">Check Compatibility</a>)</p></c:if>
+												<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;">Computer Time:</span> ${project.metadata.compTime}</p></c:if>
+												<p><span style="font-weight:bold;">Questions/Comments:</span> <a href="/webapp/contactwiseproject.html?projectId=${project.id}">Contact WISE</a></p>
+												<c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;">Contributors:</span> ${project.metadata.author}</p></c:if>
+												<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
+												<c:if test="${lastEdited == null || lastEdited == ''}">
+													<c:set var="lastEdited" value="${project.dateCreated}" />
 												</c:if>
-												</div>
-												<div class="basicInfo">
-													<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-													<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}">Grades ${project.metadata.gradeRange} | </c:if>
-													<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">Duration: ${project.metadata.totalTime} | </c:if>
-													<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
-													<div style="float:right;">Created: <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></div>
-												</div>
-												<div id="summaryText_${project.id}" class="summaryText">
-												<c:if test="${fn:length(project.metadata.summary) != null && fn:length(project.metadata.summary) != ''}">
-													<c:choose>
-														<c:when test="${(fn:length(project.metadata.summary) > 170) && (projectClass != 'projectBox childProject')}">
-															<c:set var="length" value="${fn:length(project.metadata.summary)}" />
-															<c:set var="summary" value="${fn:substring(project.metadata.summary,0,170)}" />
-															<c:set var="truncated" value="${fn:substring(project.metadata.summary,170,length)}" />
-															<span style="font-weight:bold;">Summary:</span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
-														</c:when>
-														<c:otherwise>
-															<span style="font-weight:bold;">Summary:</span> ${project.metadata.summary}
-														</c:otherwise>
-													</c:choose>
+												<p><span style="font-weight:bold;">Last Updated:</span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
+												<c:if test="${project.parentProjectId != null}">
+													<p><span style="font-weight:bold"><spring:message code="teacher.run.myprojectruns.40"/></span> <a id="projectDetail_${project.parentProjectId}" class="projectDetail" title="Project Details">${project.parentProjectId}</a></p>
 												</c:if>
-												</div>
-												<div class="details" id="details_${project.id}">
-													<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;">Tags:</span> ${project.metadata.keywords}</p></c:if>
-													<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;">Tech Requirements:</span> ${project.metadata.techDetailsString} (<a href="/webapp/check.html" target="_blank">Check Compatibility</a>)</p></c:if>
-													<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;">Computer Time:</span> ${project.metadata.compTime}</p></c:if>
-													<c:if test="${project.metadata.contact != null && project.metadata.contact != ''}"><p><span style="font-weight:bold;">Contact Info:</span> ${project.metadata.contact}</p></c:if>
-													<c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;">Contributors:</span> ${project.metadata.author}</p></c:if>
-													<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
-													<c:if test="${lastEdited == null || lastEdited == ''}">
-														<c:set var="lastEdited" value="${project.dateCreated}" />
-													</c:if>
-													<p><span style="font-weight:bold;">Last Updated:</span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
-													<c:if test="${project.parentProjectId != null}">
-														<p><span style="font-weight:bold"><spring:message code="teacher.run.myprojectruns.40"/></span> <a id="projectDetail_${project.parentProjectId}" class="projectDetail" title="Project Details">${project.parentProjectId}</a></p>
-													</c:if>
-													<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
-														(project.metadata.standards != null && project.metadata.standards != '')}">
-														<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="Review Teaching Tips and Content Standards for this project">Teaching Tips & Standards</a></div>
-														<div class="lessonPlan" id="lessonPlan_${project.id}" title="Teaching Tips & Content Standards">
-															<div class="panelHeader">${project.name} (ID: ${project.id})
-																<span style="float:right;"><a class="printLesson" id="printLesson_${project.id}">Print</a></span>
+												<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
+													(project.metadata.standards != null && project.metadata.standards != '')}">
+													<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="Review Teaching Tips and Content Standards for this project">Teaching Tips & Standards</a></div>
+													<div class="lessonPlan" id="lessonPlan_${project.id}" title="Teaching Tips & Content Standards">
+														<div class="panelHeader">${project.name} (ID: ${project.id})
+															<span style="float:right;"><a class="printLesson" id="printLesson_${project.id}">Print</a></span>
+														</div>
+														<c:if test="${project.metadata.lessonPlan != null && project.metadata.lessonPlan != ''}">
+															<div class="basicInfo sectionContent">
+																<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
+																<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}">Grades ${project.metadata.gradeRange} | </c:if>
+																<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">Duration: ${project.metadata.totalTime} | </c:if>
+																<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
+																<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;">Tech Requirements:</span> ${project.metadata.techDetailsString}</p></c:if>
 															</div>
-															<c:if test="${project.metadata.lessonPlan != null && project.metadata.lessonPlan != ''}">
-																<div class="basicInfo sectionContent">
-																	<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-																	<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}">Grades ${project.metadata.gradeRange} | </c:if>
-																	<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">Duration: ${project.metadata.totalTime} | </c:if>
-																	<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
-																	<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;">Tech Requirements:</span> ${project.metadata.techDetailsString}</p></c:if>
-																</div>
-																<div class="sectionHead">Teaching Tips</div>
-																<div class="lessonHelp">(Outlines technical or classroom requirements for the project's activities, 
-																	common misconceptions/mistakes students may encounter, as well as suggestions for maximizing the project's effectiveness and student learning.)
-																</div><!-- TODO: remove this, convert to global info/help rollover popup -->
-																<div class="sectionContent">${project.metadata.lessonPlan}</div>
-															</c:if>
-															<c:if test="${project.metadata.standards != null && project.metadata.standards != ''}">
-																<div class="sectionHead">Learning Goals and Standards</div>
-																<div class="lessonHelp">(Outlines the curriculum standards covered by the project, the
-			            											project's overall learning goals, and the goals of each activity in the project.)
-																</div><!-- TODO: remove this, convert to global info/help rollover popup -->
-																<div class="sectionContent">${project.metadata.standards}</div>
-															</c:if>
-														</div>
-													</c:if>
-													<c:if test="${fn:length(project.sharedowners) > 0}">
-														<div class="sharedIcon">
-															<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
-															Shared with: 
-															<span style="font-weight:normal"><c:forEach var="sharedowner" items="${project.sharedowners}" varStatus="status">
-															  <c:out value="${sharedowner.userDetails.firstname}"/>
-															  <c:out value="${sharedowner.userDetails.lastname}"/>${not status.last ? ', ' : ''}
-															</c:forEach></span>
-														</div>
-													</c:if>
-												</div>
+															<div class="sectionHead">Teaching Tips</div>
+															<div class="lessonHelp">(Outlines technical or classroom requirements for the project's activities, 
+																common misconceptions/mistakes students may encounter, as well as suggestions for maximizing the project's effectiveness and student learning.)
+															</div><!-- TODO: remove this, convert to global info/help rollover popup -->
+															<div class="sectionContent">${project.metadata.lessonPlan}</div>
+														</c:if>
+														<c:if test="${project.metadata.standards != null && project.metadata.standards != ''}">
+															<div class="sectionHead">Learning Goals and Standards</div>
+															<div class="lessonHelp">(Outlines the curriculum standards covered by the project, the
+		            											project's overall learning goals, and the goals of each activity in the project.)
+															</div><!-- TODO: remove this, convert to global info/help rollover popup -->
+															<div class="sectionContent">${project.metadata.standards}</div>
+														</c:if>
+													</div>
+												</c:if>
+												<c:if test="${fn:length(project.sharedowners) > 0}">
+													<div class="sharedIcon">
+														<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
+														Shared with: 
+														<span style="font-weight:normal"><c:forEach var="sharedowner" items="${project.sharedowners}" varStatus="status">
+														  <c:out value="${sharedowner.userDetails.firstname}"/>
+														  <c:out value="${sharedowner.userDetails.lastname}"/>${not status.last ? ', ' : ''}
+														</c:forEach></span>
+													</div>
+												</c:if>
 											</div>
-										</td>
-									</tr>
-									<tr class="detailsLinks">
-										<td colspan="5">
-											<div style="float:right; text-align:right">
-												<a id="detailsToggle_${project.id}" class="detailsToggle">Details +</a>
-											</div>
-										</td>
-									</tr>
-								</table>
-							<div>
+										</div>
+									</div>
+									<div style="clear:both;"></div>
+									<div class="detailsLinks">
+										<div style="float:right; text-align:right">
+											<a id="detailsToggle_${project.id}" class="detailsToggle">Details +</a>
+										</div>
+										<div style="clear:both;"></div>
+									</div>
+								</div>
+							</div>
 						</td>
 						<td style="display:none;">
 							<c:choose>
@@ -1195,9 +1196,9 @@
 								</c:if>
 							</c:forEach>
 							<div class="${projectClass}" id="projectBox_${project.id}">
-								<table class="projectOverviewTable">
-									<tr>
-										<td colspan="2" style="max-width: 310px;">
+								<div class="projectOverview">
+									<div class="projectHeader">
+										<div class="projectInfo">
 											<c:set var="bookmarked" value="false" />
 											<c:forEach var="bookmark" items="${bookmarkedProjectsList}">
 												<c:if test="${bookmark.id == project.id}">
@@ -1207,8 +1208,8 @@
 											<a id="bookmark_${project.id}" class="bookmark ${bookmarked}" title="Add/remove as favorite"></a>
 											<a class="projectTitle" id="project_${project.id}">${project.name}</a>
 											<span>(ID: ${project.id})</span>
-										</td>
-										<td colspan="3" style="text-align:right;">
+										</div>
+										<div class="projectTools">
 											<ul class="actions">
 												<li><a style="font-weight:bold;" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" target="_blank">Preview</a>&nbsp;|</li>
 												<sec:accesscontrollist domainObject="${project}" hasPermission="16">
@@ -1222,100 +1223,98 @@
 												<input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
 												<li><a class="setupRun" href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Classroom Run</a></li>
 											</ul>
-										</td>
-									</tr>
-									
-									<tr>
-										<td colspan="5" class="projectSummary">
-											<div class="projectThumb" thumbUrl="${projectThumbMap[project.id]}"><img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></div>
-											<div class="summaryInfo">
-												<c:if test="${fn:length(project.sharedowners) > 0}">
-													<div class="sharedIcon" style="float:right;">
-														<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
-														Shared by 
-														<c:forEach var="projectowner" items="${project.owners}" varStatus="status">
-															<c:out value="${projectowner.userDetails.firstname}" />
-								  							<c:out value="${projectowner.userDetails.lastname}" />
-														</c:forEach>
-													</div>
-												</c:if>
-												<div class="libraryIcon"><img src="/webapp/themes/tels/default/images/open_book.png" alt="library project" /> WISE Library Project</div>
-												<div class="basicInfo">
-													<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-													<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}">Grades ${project.metadata.gradeRange} | </c:if>
-													<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">Duration: ${project.metadata.totalTime} | </c:if>
-													<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
-													<div style="float:right;">Created: <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></div>
+										</div>
+									</div>
+									<div style="clear:both;"></div>
+									<div class="projectSummary">
+										<div class="projectThumb" thumbUrl="${projectThumbMap[project.id]}"><img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></div>
+										<div class="summaryInfo">
+											<c:if test="${fn:length(project.sharedowners) > 0}">
+												<div class="sharedIcon" style="float:right;">
+													<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
+													Shared by 
+													<c:forEach var="projectowner" items="${project.owners}" varStatus="status">
+														<c:out value="${projectowner.userDetails.firstname}" />
+							  							<c:out value="${projectowner.userDetails.lastname}" />
+													</c:forEach>
 												</div>
-												<div id="summaryText_${project.id}" class="summaryText">
-												<c:if test="${fn:length(project.metadata.summary) != null && fn:length(project.metadata.summary) != ''}">
-													<c:choose>
-														<c:when test="${(fn:length(project.metadata.summary) > 170) && (projectClass != 'projectBox childProject')}">
-															<c:set var="length" value="${fn:length(project.metadata.summary)}" />
-															<c:set var="summary" value="${fn:substring(project.metadata.summary,0,170)}" />
-															<c:set var="truncated" value="${fn:substring(project.metadata.summary,170,length)}" />
-															<span style="font-weight:bold;">Summary:</span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
-														</c:when>
-														<c:otherwise>
-															<span style="font-weight:bold;">Summary:</span> ${project.metadata.summary}
-														</c:otherwise>
-													</c:choose>
+											</c:if>
+											<div class="libraryIcon"><img src="/webapp/themes/tels/default/images/open_book.png" alt="library project" /> WISE Library Project</div>
+											<div class="basicInfo">
+												<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
+												<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}">Grades ${project.metadata.gradeRange} | </c:if>
+												<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">Duration: ${project.metadata.totalTime} | </c:if>
+												<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
+												<div style="float:right;">Created: <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></div>
+											</div>
+											<div id="summaryText_${project.id}" class="summaryText">
+											<c:if test="${fn:length(project.metadata.summary) != null && fn:length(project.metadata.summary) != ''}">
+												<c:choose>
+													<c:when test="${(fn:length(project.metadata.summary) > 170) && (projectClass != 'projectBox childProject')}">
+														<c:set var="length" value="${fn:length(project.metadata.summary)}" />
+														<c:set var="summary" value="${fn:substring(project.metadata.summary,0,170)}" />
+														<c:set var="truncated" value="${fn:substring(project.metadata.summary,170,length)}" />
+														<span style="font-weight:bold;">Summary:</span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
+													</c:when>
+													<c:otherwise>
+														<span style="font-weight:bold;">Summary:</span> ${project.metadata.summary}
+													</c:otherwise>
+												</c:choose>
+											</c:if>
+											</div>
+											<div class="details" id="details_${project.id}">
+												<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;">Tags:</span> ${project.metadata.keywords}</p></c:if>
+												<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;">Tech Requirements:</span> ${project.metadata.techDetailsString} (<a href="/webapp/check.html" target="_blank">Check Compatibility</a>)</p></c:if>
+												<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;">Computer Time:</span> ${project.metadata.compTime}</p></c:if>
+												<p><span style="font-weight:bold;">Questions/Comments:</span> <a href="/webapp/contactwiseproject.html?projectId=${project.id}">Contact WISE</a></p>
+												<c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;">Contributors:</span> ${project.metadata.author}</p></c:if>
+												<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
+												<c:if test="${lastEdited == null || lastEdited == ''}">
+													<c:set var="lastEdited" value="${project.dateCreated}" />
 												</c:if>
-												</div>
-												<div class="details" id="details_${project.id}">
-													<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;">Tags:</span> ${project.metadata.keywords}</p></c:if>
-													<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;">Tech Requirements:</span> ${project.metadata.techDetailsString} (<a href="/webapp/check.html" target="_blank">Check Compatibility</a>)</p></c:if>
-													<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;">Computer Time:</span> ${project.metadata.compTime}</p></c:if>
-													<c:if test="${project.metadata.contact != null && project.metadata.contact != ''}"><p><span style="font-weight:bold;">Contact Info:</span> ${project.metadata.contact}</p></c:if>
-													<c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;">Contributors:</span> ${project.metadata.author}</p></c:if>
-													<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
-													<c:if test="${lastEdited == null || lastEdited == ''}">
-														<c:set var="lastEdited" value="${project.dateCreated}" />
-													</c:if>
-													<p><span style="font-weight:bold;">Last Updated:</span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
-													<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
-														(project.metadata.standards != null && project.metadata.standards != '')}">
-														<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="Review Teaching Tips and Content Standards for this project">Teaching Tips & Standards</a></div>
-														<div class="lessonPlan" id="lessonPlan_${project.id}" title="Teaching Tips & Content Standards">
-															<div class="panelHeader">${project.name} (ID: ${project.id})
-																<span style="float:right;"><a class="printLesson" id="printLesson_${project.id}">Print</a></span>
-															</div>
-															<c:if test="${project.metadata.lessonPlan != null && project.metadata.lessonPlan != ''}">
-																<div class="basicInfo sectionContent">
-																	<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-																	<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}">Grades ${project.metadata.gradeRange} | </c:if>
-																	<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">Duration: ${project.metadata.totalTime} | </c:if>
-																	<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
-																	<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;">Tech Requirements:</span> ${project.metadata.techDetailsString}</p></c:if>
-																</div>
-																<div class="sectionHead">Teaching Tips</div>
-																<div class="lessonHelp">(Outlines technical or classroom requirements for the project's activities, 
-																	common misconceptions/mistakes students may encounter, as well as suggestions for maximizing the project's effectiveness and student learning.)
-																</div><!-- TODO: remove this, convert to global info/help rollover popup -->
-																<div class="sectionContent">${project.metadata.lessonPlan}</div>
-															</c:if>
-															<c:if test="${project.metadata.standards != null && project.metadata.standards != ''}">
-																<div class="sectionHead">Learning Goals and Standards</div>
-																<div class="lessonHelp">(Outlines the curriculum standards covered by the project, the
-			            											project's overall learning goals, and the goals of each activity in the project.)
-																</div><!-- TODO: remove this, convert to global info/help rollover popup -->
-																<div class="sectionContent">${project.metadata.standards}</div>
-															</c:if>
+												<p><span style="font-weight:bold;">Last Updated:</span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
+												<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
+													(project.metadata.standards != null && project.metadata.standards != '')}">
+													<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="Review Teaching Tips and Content Standards for this project">Teaching Tips & Standards</a></div>
+													<div class="lessonPlan" id="lessonPlan_${project.id}" title="Teaching Tips & Content Standards">
+														<div class="panelHeader">${project.name} (ID: ${project.id})
+															<span style="float:right;"><a class="printLesson" id="printLesson_${project.id}">Print</a></span>
 														</div>
-												</c:if>
-												</div>
+														<c:if test="${project.metadata.lessonPlan != null && project.metadata.lessonPlan != ''}">
+															<div class="basicInfo sectionContent">
+																<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
+																<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}">Grades ${project.metadata.gradeRange} | </c:if>
+																<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">Duration: ${project.metadata.totalTime} | </c:if>
+																<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
+																<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;">Tech Requirements:</span> ${project.metadata.techDetailsString}</p></c:if>
+															</div>
+															<div class="sectionHead">Teaching Tips</div>
+															<div class="lessonHelp">(Outlines technical or classroom requirements for the project's activities, 
+																common misconceptions/mistakes students may encounter, as well as suggestions for maximizing the project's effectiveness and student learning.)
+															</div><!-- TODO: remove this, convert to global info/help rollover popup -->
+															<div class="sectionContent">${project.metadata.lessonPlan}</div>
+														</c:if>
+														<c:if test="${project.metadata.standards != null && project.metadata.standards != ''}">
+															<div class="sectionHead">Learning Goals and Standards</div>
+															<div class="lessonHelp">(Outlines the curriculum standards covered by the project, the
+		            											project's overall learning goals, and the goals of each activity in the project.)
+															</div><!-- TODO: remove this, convert to global info/help rollover popup -->
+															<div class="sectionContent">${project.metadata.standards}</div>
+														</c:if>
+													</div>
+											</c:if>
 											</div>
-										</td>
-									</tr>
-									<tr class="detailsLinks">
-										<td colspan="5">
-											<div style="float:right; text-align:right">
-												<a id="detailsToggle_${project.id}" class="detailsToggle">Details +</a>
-											</div>
-										</td>
-									</tr>
-								</table>
-							<div>
+										</div>
+									</div>
+									<div style="clear:both;"></div>
+									<div class="detailsLinks">
+										<div style="float:right; text-align:right">
+											<a id="detailsToggle_${project.id}" class="detailsToggle">Details +</a>
+										</div>
+										<div style="clear:both;"></div>
+									</div>
+								</div>
+							</div>
 						</td>
 						<td style="display:none;">${project.rootProjectId}</td>
 						<td style="display:none;">library</td>
