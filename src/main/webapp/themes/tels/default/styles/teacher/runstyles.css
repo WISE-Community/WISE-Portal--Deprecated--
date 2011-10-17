@@ -115,6 +115,10 @@
 	font-weight:bold;
 }
 
+.projectBox .setupRun.wisebutton {
+	font-size:.9em;
+}
+
 .projectBox.childProject .setupRun {
 	font-weight:normal;
 }
@@ -124,7 +128,8 @@
 }
 
 .projectBox .projectSummary {
-	padding-top:0;
+	padding-top: .5em;
+	border-top: 1px solid #DDD;
 }
 
 .projectThumb {
@@ -201,7 +206,7 @@
 }
 
 .projectOverview .detailsLinks {
-	border-top: 1px solid #CCCCCC;
+	border-top: 1px solid #ddd;
     font-size: 0.9em;
 }
 
@@ -303,7 +308,7 @@ a.printLesson {
 }
 
 .projectHeader .projectInfo {
-	max-width: 310px;
+	/*max-width: 310px;*/
 	float:left;
 }
 
@@ -337,7 +342,8 @@ ul.actions {
 	border-left:0;
 	font-size:.9em;
 	text-align:right;
-	margin-top:.25em;
+	margin-top:.15em;
+	color:#AAA;
 }
 			
 ul.actions ul {

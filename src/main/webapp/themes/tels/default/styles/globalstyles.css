@@ -168,7 +168,7 @@ p.info {
 
 img.icon {
 	height: 1.4em;
-	margin: -.4em 0.25em -.4em 0;
+	margin: -.4em 0.1em -.4em 0;
 }
 
 .valigner {
@@ -456,6 +456,7 @@ a#name {
 .sectionContent h5, .sectionContent div {
 	margin:.5em 0;
 	font-size:.9em
+	line-height:1.2em;
 }
 
 .sectionContent p {

@@ -172,13 +172,17 @@
 		var runId = $(this).attr('id').replace('shareRun_','');
 		var path = "/webapp/teacher/run/shareprojectrun.html?runId=" + runId;
 		var div = $('#shareDialog').html('<iframe id="shareIfrm" width="100%" height="100%"></iframe>');
+		$('body').css('overflow','hidden');
 		div.dialog({
 			modal: true,
 			width: '650',
-			height: $(window).height() - 100,
+			height: '450',
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); },
+			close: function(){ 
+				$(this).html('');
+				$('body').css('overflow','auto');
+			},
 			buttons: {
 				Close: function(){$(this).dialog('close');}
 			}
@@ -418,12 +422,12 @@
 							      			<!-- </tr>  -->
 											<tr>
 							      				<th><spring:message code="teacher.run.myprojectruns.11A"/></th>
-							      				<td><a id="projectDetail_${run.project.id}" class="projectDetail" title="Project Details">${run.project.id}</a></td>
+							      				<td><a id="projectDetail_${run.project.id}" class="projectDetail" title="<spring:message code="teacher.pro.info"/>">${run.project.id}</a></td>
 							      			</tr>
 							      			<tr>
 							      				<c:if test="${run.project.parentProjectId != null}">
 							      				<th><spring:message code="teacher.run.myprojectruns.40"/></th>
-												<td><a id="projectDetail_${run.project.parentProjectId}" class="projectDetail" title="Project Details">${run.project.parentProjectId}</a></td>
+												<td><a id="projectDetail_${run.project.parentProjectId}" class="projectDetail" title="<spring:message code="teacher.pro.info"/>">${run.project.parentProjectId}</a></td>
 												</c:if>
 							      			</tr>
 							      			<tr>
@@ -477,7 +481,7 @@
 								               <ul class="actionList">
 											        <li>
 											        	<spring:message code="teacher.run.myprojectruns.46"/>&nbsp;<a href="/webapp/previewproject.html?projectId=${run.project.id}" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" /><span><spring:message code="teacher.run.myprojectruns.46A"/></span></a>
-										    			|&nbsp;<a id="projectInfo_${run.project.id}" class="projectInfo" title="Project Details"><img class="icon" alt="info" src="/webapp/themes/tels/default/images/icons/teal/ID.png" /><span><spring:message code="teacher.run.myprojectruns.46B"/></span></a>
+										    			|&nbsp;<a id="projectInfo_${run.project.id}" class="projectInfo" title="<spring:message code="teacher.pro.info"/>"><img class="icon" alt="info" src="/webapp/themes/tels/default/images/icons/teal/ID.png" /><span><spring:message code="teacher.run.myprojectruns.46B"/></span></a>
 											        	<sec:accesscontrollist domainObject="${run.project}" hasPermission="16">
 											        		|&nbsp;<a onclick="if(confirm('<spring:message code="teacher.run.myprojectruns.47"/>')){window.top.location='/webapp/author/authorproject.html?projectId=${run.project.id}&versionId=${run.versionId}';} return true;"><img class="icon" alt="edit" src="/webapp/themes/tels/default/images/icons/teal/edit.png" /><span><spring:message code="teacher.run.myprojectruns.46C"/></span></a>
 											        	</sec:accesscontrollist>
@@ -608,12 +612,12 @@
 							      			<!-- </tr>  -->
 											<tr>
 							      				<th><spring:message code="teacher.run.myprojectruns.11A"/></th>
-							      				<td><a id="projectDetail_${run.project.id}" class="projectDetail" title="Project Details">${run.project.id}</a></td>
+							      				<td><a id="projectDetail_${run.project.id}" class="projectDetail" title="<spring:message code="teacher.pro.info"/>">${run.project.id}</a></td>
 							      			</tr>
 							      			<tr>
 							      				<c:if test="${run.project.parentProjectId != null}">
 							      				<th><spring:message code="teacher.run.myprojectruns.40"/></th>
-												<td><a id="projectDetail_${run.project.parentProjectId}" class="projectDetail" title="Project Details">${run.project.parentProjectId}</a></td>
+												<td><a id="projectDetail_${run.project.parentProjectId}" class="projectDetail" title="<spring:message code="teacher.pro.info"/>">${run.project.parentProjectId}</a></td>
 												</c:if>
 							      			</tr>
 										</table>

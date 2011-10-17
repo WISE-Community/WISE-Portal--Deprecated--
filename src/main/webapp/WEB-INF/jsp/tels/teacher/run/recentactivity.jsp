@@ -43,13 +43,17 @@
 		var runId = $(this).attr('id').replace('shareRun_','');
 		var path = "/webapp/teacher/run/shareprojectrun.html?runId=" + runId;
 		var div = $('#shareDialog').html('<iframe id="shareIfrm" width="100%" height="100%"></iframe>');
+		$('body').css('overflow','hidden');
 		div.dialog({
 			modal: true,
 			width: '650',
-			height: $(window).height() - 100,
+			height: '450',
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); },
+			close: function(){
+				$(this).html('');
+				$('body').css('overflow','auto');
+			},
 			buttons: {
 				Close: function(){$(this).dialog('close');}
 			}
