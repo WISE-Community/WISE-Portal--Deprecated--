@@ -98,10 +98,10 @@
 				<div class="panelHeader"><spring:message code="contactwiseproject.2"/></div>
 				<div class="infoContentBox">
 					<h4><spring:message code="contactwiseproject.3"/></h4>
-					<div><spring:message code="contactwiseproject.4"/></div>
-					<div><spring:message code="contactwiseproject.5a"/><em><spring:message code="contactwiseproject.5b"/></em>&nbsp;<spring:message code="contactwiseproject.5c"/></div>
-					<div><spring:message code="contactwiseproject.6"/></div>
-					<div><spring:message code="contactwiseproject.7a"/><a href="/webapp/contactwisegeneral.html"><spring:message code="contactwiseproject.7b"/></a>.</div>
+					<div class="instructions"><spring:message code="contactwiseproject.4"/></div>
+					<div class="instructions"><spring:message code="contactwiseproject.5a"/><em><spring:message code="contactwiseproject.5b"/></em>&nbsp;<spring:message code="contactwiseproject.5c"/></div>
+					<div class="instructions"><spring:message code="contactwiseproject.6"/></div>
+					<div class="instructions"><spring:message code="contactwiseproject.7a"/><a href="/webapp/contactwisegeneral.html"><spring:message code="contactwiseproject.7b"/></a>.</div>
 
 					<!-- Support for Spring errors object -->
 					<div id="errorMsgNoBg">

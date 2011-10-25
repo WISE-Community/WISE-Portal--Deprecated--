@@ -88,24 +88,71 @@ abbr, acronym {
 	text-align:center;
 }
 
-input[type="submit"], input[type="text"], input[type="password"] {
-	border-radius: 3px 3px 3px 3px;
-	-moz-border-radius: 3px 3px 3px 3px;
-	-webkit-border-radius: 3px 3px 3px 3px;
-    background-color: #F4F4F4;
-    border: 1px solid #DDDDDD;
-    color: #444444;
+input[type="button"], input[type="submit"], input[type="text"], input[type="password"] {
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+    background-color: #F9F9F9;
+    border: 1px solid #CCCCCC;
+    color: #444;
     font-size: 0.9em;
     margin: .25em;
     padding: 0.25em;
 }
 
-input[type="submit"] {
-	cursor:pointer;
+input[type="text"]:focus {
+	border-color:#DADF8B;
+	background-color:#FFFFFF;
 }
 
-input[type="submit"].disabled {
+input[type="submit"], input[type="button"] {
+	cursor:pointer;
+	padding:.25em .5em;
+	/*color:#555;
+	border-color: #aaa;
+	background-color: #F4F4F4;*/
+	color: #585f0c;
+	background-color:#F2F5DB;
+	border-color: #C5CD61;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	box-shadow:0 0 1px #ccc;
+	-moz-box-shadow:0 0 1px #ccc;
+	-webkit-box-shadow:0 0 1px #ccc;
+	font-size:.8em;
+}
+
+input[type="submit"]:hover, input[type="button"]:hover {
+	box-shadow:0 0 2px #aaa;
+	-moz-box-shadow:0 0 2px #aaa;
+	-webkit-box-shadow:0 0 2px #aaa;
+	/*color: #007391;
+	background-color:#F2F5DB;*/
+	border-color: #91c6b7;
+	color: #007391;
+}
+
+#notifications {
+	text-align:center;
+}
+
+#notifications span {
+	font-weight:bold;
+	font-size:.9em;
+	color:#745a33;
+	border:1px solid #745a33;
+	background-color:#f4efe8;
+	padding:.25em .5em;
+	box-shadow:1px 1px 2px #aaa;
+	-moz-box-shadow:1px 1px 2px #aaa;
+	-webkit-box-shadow:1px 1px 2px #aaa;
+}
+
+input[type="submit"].disabled, input[type="button"].disabled {
 	color:#999999;
+	background-color: #F4F4F4;
+	border-color:#CCCCCC;
 }
 
 p.info {
@@ -117,6 +164,11 @@ p.info {
 .panelTabs p.info {
 	margin:.5em .5em;
 	text-align:center;
+}
+
+img.icon {
+	height: 1.4em;
+	margin: -.4em 0.1em -.4em 0;
 }
 
 .valigner {
@@ -142,7 +194,7 @@ p.info {
 }
 
 #headerSmall {
-	background:url("/webapp/themes/tels/default/images/wise-logo-new.png") no-repeat scroll center top transparent;
+	background:url("/webapp/themes/tels/default/images/wise4-logo-new.png") no-repeat scroll center top transparent;
 	width:500px;
 	height:145px;
 	margin: 0 auto;
@@ -217,6 +269,11 @@ a#name {
 	padding: .5em;
 }
 
+.loginContent .errorMsgNoBg p {
+	font-size:.9em;
+	margin:0 auto;
+}
+
 #page {
 	/*background-color: #FFF9EF;*/
 	padding:.5em 0;
@@ -242,6 +299,10 @@ a#name {
 	background-color: #FFFFFF;
 }
 
+.loginContent {
+	width:500px;
+}
+
 .infoContentBox {
 	margin-bottom:.5em;
 	padding:.25em;
@@ -253,9 +314,6 @@ a#name {
 
 .infoContentBox div {
 	line-height: 1.4em;
-}
-.infoContentBox h4 {
-	color:#745a33;
 }
 
 .infoContent .instructions, .panelContent .instructions {
@@ -398,6 +456,11 @@ a#name {
 .sectionContent h5, .sectionContent div {
 	margin:.5em 0;
 	font-size:.9em
+	line-height:1.2em;
+}
+
+.sectionContent p {
+	margin:.5em 0;
 }
 
 .inactive {
@@ -446,6 +509,23 @@ a#name {
 	color:#FFE6C6;
 	opacity:50%;
 }*/
+
+/* Loading divs */
+#loading div {
+	text-align:center;
+	/*color:#745a33;*/
+	margin: .5em 0;
+}
+
+
+.ui-dialog.no-title {
+	border: 8px solid rgb(0, 115, 145);
+    border: 8px solid rgba(0, 115, 145, 0.9);
+}
+
+.no-title .ui-dialog-titlebar {
+	display:none;
+}
 
 /* STYLES HEADER ACCOUNT MENU, LOG IN/USER INFO SECTIONS, SIGN UP PAGES */
 
@@ -504,14 +584,23 @@ a#name {
     float:left;
 }
 
-.loginPanel #signinForm {
+.loginContent #signinForm {
 	font-size: 1em;
+	color:#444;
+	text-align:center;
+	float:none;
 }
 
 #signinForm label {
 	font-size:.9em;
 }
 		
+.loginContent #signinForm label {
+	font-size:1em;
+	width:100px;
+	display:inline-block;
+}
+
 #signinForm input[type="text"], #signinForm input[type="password"] {
     width: 160px;
 }
@@ -527,17 +616,20 @@ a#name {
     background-color: transparent;
 }
 
+.loginContent #signInButton {
+	margin: .5em auto 1em;
+}
+
 #forgotLogin {
     font-size: 0.7em;
     width: 96px;
     margin-left:4px;
 }
 
-.loginPanel #forgotLogin {
+.loginPanel #forgotLogin, .loginContent #forgotLogin {
 	width: 100%;
 	text-align: center;
 	font-size: .9em;
-	margin-top: 6px;
 }
 
 #accountMenu {
@@ -800,10 +892,14 @@ form {margin:0px; padding:0px;}
     text-decoration: none !important;
     width: 145px;
     border:0 none;
+    box-shadow:none !important;
+    -moz-box-shadow:none !important;
+    -webkit-box-shadow:none !important;
 }
 
 .wisebutton:hover {
-	background-position: -3px -43px;*
+	background-position: -3px -43px;
+	border:0 none;
 }
 
 .infoContent .wisebutton {

@@ -100,8 +100,8 @@
 				<div class="panelHeader"><spring:message code="contactwisegeneral.1"/></div>
 				<div class="infoContentBox">
 					<h4><spring:message code="contactwisegeneral.2"/></h4>
-					<div><spring:message code="contactwisegeneral.3"/><spring:message code="contactwisegeneral.4"/>&nbsp;<spring:message code="contactwisegeneral.5"/></div>
-					<div><spring:message code="contactwisegeneral.6"/></div>
+					<div class="instructions"><spring:message code="contactwisegeneral.3"/><spring:message code="contactwisegeneral.4"/>&nbsp;<spring:message code="contactwisegeneral.5"/></div>
+					<div class="instructions"><spring:message code="contactwisegeneral.6"/></div>
 
 					<!-- Support for Spring errors object -->
 					<div class="errorMsgNoBg">

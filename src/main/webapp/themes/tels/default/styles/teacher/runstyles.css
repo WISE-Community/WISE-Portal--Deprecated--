@@ -115,6 +115,10 @@
 	font-weight:bold;
 }
 
+.projectBox .setupRun.wisebutton {
+	font-size:.9em;
+}
+
 .projectBox.childProject .setupRun {
 	font-weight:normal;
 }
@@ -124,11 +128,13 @@
 }
 
 .projectBox .projectSummary {
-	padding-top:0;
+	padding-top: .5em;
+	border-top: 1px solid #DDD;
 }
 
 .projectThumb {
 	float:left;
+	margin-bottom:.5em;
 }
 
 .projectThumb img {
@@ -140,6 +146,7 @@
 
 .summaryInfo {
 	margin-left:85px;
+	margin-bottom:.5em;
 }
 
 .libraryIcon, .sharedIcon {
@@ -154,7 +161,7 @@
 	opacity:.5;
 }
 
-.sharedIcon {
+.library .sharedIcon {
 	text-align:right;
 }
 
@@ -198,25 +205,29 @@
 	min-height:2em;
 }
 
-.projectOverviewTable tr.detailsLinks {
-	border-top: 1px solid #CCCCCC;
+.projectOverview .detailsLinks {
+	border-top: 1px solid #ddd;
     font-size: 0.9em;
 }
 
-.projectOverviewTable .details {
+.projectOverview .detailsLinks div {
+	margin:.5em 0;
+}
+
+.projectOverview .details {
 	margin-top:.5em;
 	display:none;
 }
 
-.projectOverviewTable .details p {
+.projectOverview .details p {
 	font-size:.9em;
 }
 
-.projectOverviewTable span.truncated {
+.projectOverview span.truncated {
 	display:none;
 }
 
-.projectOverviewTable .lessonPlan {
+.projectOverview .lessonPlan {
 	display:none;
 }
 
@@ -224,6 +235,10 @@ div.viewLesson {
 	font-weight:bold;
 	margin-top:.5em;
 	font-size:.9em;
+}
+
+a.viewLesson:hover {
+	text-decoration:underline;
 }
 
 .lessonPlan .panelHeader {
@@ -263,7 +278,7 @@ a.printLesson {
     padding-left: 28px;
 }
 
-.runTable, .projectOverviewTable {
+.runTable, .projectOverview {
 	border-collapse:collapse;
 	width:100%;
 	border:1px solid #999999;
@@ -285,24 +300,25 @@ a.printLesson {
 	padding:0;
 }
 
-.projectTable .projectTitle {
-	padding-bottom:.5em;
-}
-
 /*.projectTitle {
 	color: #765936;
 }*/
-
-.projectOverviewTable, .projectOverviewTable tr {
-	border:0 none;
+.projectOverview {
+	border: 0 none;
 }
 
-.projectOverviewTable td {
-	padding:.5em 0;
+.projectHeader .projectInfo {
+	/*max-width: 310px;*/
+	float:left;
 }
 
-.projectOverviewTable tr {
-	margin:.5em 0;
+.projectHeader .projectTools {
+	text-align:right;
+	float:right;
+}
+
+.projectHeader div {
+	margin: .5em 0;
 }
 
 .projectBox a.bookmark {
@@ -314,6 +330,10 @@ a.printLesson {
     width: 16px;
 }
 
+.projectBox.noMatch a.bookmark {
+	opacity:.5;
+}
+
 .projectBox .bookmark.true {
 	background-image:url("/webapp/themes/tels/default/images/star-fill.png");
 }
@@ -322,7 +342,8 @@ ul.actions {
 	border-left:0;
 	font-size:.9em;
 	text-align:right;
-	margin-top:.1em;
+	margin-top:.15em;
+	color:#AAA;
 }
 			
 ul.actions ul {
@@ -352,7 +373,7 @@ th.infoHead {
 	border:0px;
 	color:#444444;
 	margin-top:.5em;
-	font-size:.9em;
+	font-size:.95em;
 }
 
 .projectDetails {
@@ -473,22 +494,16 @@ div.sharedTeacherMsg1 {
 	color:#FF563F;
 }
 
-.runTitleTable .accesscode {
-	font-size:1.1em;
-}
-
-.runTitleTable td {
-	border:0px;
+.runTitleTable td, .runTitleTable th {
+	border:0 none;
 	padding:1px 0;
-	vertical-align:top;
 }
 
 .currentRunInfoTable {
 	border: 0 none;
     font-size: .95em;
-    margin: 0.5em 0.25em;
-    padding: 0;
     vertical-align: middle;
+    width:100%;
 }
 
 .currentRunInfoTable td {
@@ -498,23 +513,24 @@ div.sharedTeacherMsg1 {
 .currentRunInfoTable .tableInnerHeader {
     border-bottom: 1px solid #CCCCCC;
     font-weight: bold;
-    padding-bottom: 0.1em;
+    padding-bottom: 0.25em;
     text-align: center;
 }
 
 .currentRunInfoTable .tableInnerData {
 	font-size:100%;
 	text-align:center;
-	padding: 0px;
-	margin:0px;
+	padding: .2em;
+	margin:0;
 	vertical-align:middle;
 }
 
 .currentRunInfoTable .tableInnerDataRight {
 	text-align:center;
-	padding: 1px;
-	border-right:0px;
-	margin:0px;
+	padding: .2em;
+	border-right:0;
+	margin:0;
+	vertical-align:middle;
 }
 
 .currentRunInfoTable .archivedNumberStudents {
@@ -522,11 +538,17 @@ div.sharedTeacherMsg1 {
 	padding: 2px 1px;
 }
 
+.currentRunInfoTable .manageStudentGroups {
+	padding: 0.5em .75em .25em;
+	border-top: 1px solid #CCC;
+	margin-top: .25em;
+}
+
 .actionList  {
 	border-bottom: 1px solid #CCCCCC;
-    font-size: 0.9em;
+    font-size: 0.95em;
     margin: 0.5em;
-    padding-bottom: 0.5em;
+    padding-bottom: 0.25em;
     text-align: left;
 }
 
@@ -546,7 +568,7 @@ div.sharedTeacherMsg1 {
 	margin:0 0 0 20px;
 }
 	
-#gradingDialog, #shareDialog, #editRunDialog, #editAnnouncementsDialog {
+#gradingDialog, #shareDialog, #editRunDialog, #editAnnouncementsDialog, #manageStudentsDialog {
 	padding:0;
 	overflow-y:hidden;
 }

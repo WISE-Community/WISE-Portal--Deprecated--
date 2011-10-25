@@ -23,14 +23,15 @@
 <h3>Runs by activity</h3>
 <table id="runStatsTable">
 	<thead>
-		<tr><td>Name</td><td>Run ID</td><td>Owners</td><td>Number of times run</td></tr>
+		<tr><th>Run ID</th><th>Run Code</th><th>Run Name</th><th>Owners</th><th>Number of times run</th></tr>
 	</thead>
 	<tbody>
 		<tr></tr>
 		<c:forEach var="run" items="${runs}">
 			<tr>
-				<td>${run.name}</td>
 				<td>${run.id}</td>
+				<td>${run.runcode}</td>
+				<td>${run.name}</td>
 				<td>
 					<c:forEach var="owner" items="${run.owners}">
 						${owner.userDetails.username}&nbsp;

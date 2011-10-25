@@ -6,17 +6,18 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
-    type="text/css" />
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
 <title><spring:message code="application.title" /></title>
 </head>
 
-<body>
+<body style="background:#FFF;">
 
-<h3><spring:message code="teacher.manage.batchpassword.9"/></h3>
-
-<div><a href="#" onclick="javascript:window.close()"><spring:message code="teacher.manage.batchpassword.10"/></a></div>
+	<div class="dialogContent">
+		<div class="dialogSection">
+			<div class="errorMsgNoBg"><p><spring:message code="teacher.manage.batchpassword.5"/></p></div>
+		</div>
+	</div>
 
 </body>
 </html>

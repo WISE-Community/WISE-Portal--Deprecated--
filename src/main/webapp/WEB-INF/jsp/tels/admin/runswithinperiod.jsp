@@ -21,13 +21,14 @@
 <h3>Runs run ${period} (${fn:length(runs)} runs)</h3>
 <table id="runStatsTable">
 	<thead>
-		<tr><td>Run ID</td><td>Run Name</td><td>Last Access Time</td><td>Total access count</td><td>Owners (click to login as user)</td><td>Actions</td></tr>
+		<tr><th>Run ID</th><th>Run Code</th><th>Run Name</th><th>Last Access Time</th><th>Total access count</th><th>Owners (click to login as user)</th><th>Actions</th></tr>
 	</thead>
 	<tbody>
 		<tr></tr>
 		<c:forEach var="run" items="${runs}">
 			<tr>
 				<td>${run.id}</td>
+				<td>${run.runcode}</td>
 				<td>${run.name}</td>
 				<td><fmt:formatDate value="${run.lastRun}" type="both" dateStyle="short" timeStyle="short" /></td>
 				<td>${run.timesRun}</td>

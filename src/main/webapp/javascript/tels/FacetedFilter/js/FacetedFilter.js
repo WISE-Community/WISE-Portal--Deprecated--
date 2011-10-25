@@ -1,10 +1,10 @@
 /*
  * File:        FacetedFilter.js
- * Version:     1.0.0
+ * Version:     1.0.1
  * Description: Creates user-defined search and faceted filtering tools for DataTables instances
  * Author:      Jonathan Lim-Breitbart (jbreitbart.com)
  * Created:     Thu May 26 12:10:00 PDT 2011
- * Modified:    $Date$ by $Author$
+ * Modified:    Sun Oct 17 00:10:00 PDT 2011 by Jonathan Lim-Breitbart
  * Language:    Javascript
  * License:     LGPL
  * Project:     
@@ -34,6 +34,9 @@ var FacetedFilter;
  * @param {String} oOpts.oSearchResultsLabel Label for search results header
  * @param {Object} oOpts.aSearchOpts List of search options for the FactedFilter instance
  * @param {Object} oOpts.aFilterOpts List of filter options for the FactedFilter instance
+ * @param {Function} oOpts.fnCallback Callback function for the FactedFilter instance
+ * @param {Function} oOpts.fnInitCallback Callback function to run on initialization complete for the FactedFilter instance
+ * @param {Integer} oOpts.iFadeDuration Integer to specify duration (ms) of fadeIn/fadeOut effect for the FactedFilter instance
  */
 FacetedFilter = function( oDT, oOpts ) {
 	
@@ -175,9 +178,33 @@ FacetedFilter = function( oDT, oOpts ) {
 		 * Variable to store sidebar position after scrolling
 		 *  @property sidebarpos
 		 *  @type     Integer
+		 *  @default  null
+		 */
+		"sidebarpos": null,
+		
+		/**
+		 * Callback function to run once FacetedFilter has completed
+		 *  @property callback
+		 *  @type     Function
+		 *  @default  null
+		 */
+		"callback": null,
+		
+		/**
+		 * Callback function to run once FacetedFilter instance has been instantiated
+		 *  @property initCallback
+		 *  @type     Function
+		 *  @default  null
+		 */
+		"callback": null,
+		
+		/**
+		 * Integer to specify duration (ms) of fadeIn/fadeOut animations
+		 *  @property fadeDuration
+		 *  @type     Integer
 		 *  @default  ''
 		 */
-		"sidebarpos": null
+		"fadeDuration": null,
 	};
 	
 	/**
@@ -279,13 +306,16 @@ FacetedFilter.prototype = {
 		
 		this.s.sidebarpos = $(this.dom.sidebar).offset().top;
 		
-		/* Set up scrolling */
+		/* Set up sidebar scrolling */
 		if(this.s.scroll){
 			/* Bind scroll event for window movement */
 			FacetedFilter.afnScroll.push( function () {
 				that._fnScroll.call(that);
 			} );
 		}
+		
+		/* run initialization callback function */
+		this.s.initCallback();
 	},
 	
 	
@@ -313,6 +343,9 @@ FacetedFilter.prototype = {
 		this.s.searchResultsLabel = this.s.custom.sSearchResultsLabel;
 		this.s.searchOpts = this.s.custom.aSearchOpts;
 		this.s.filterOpts = this.s.custom.aFilterOpts;
+		this.s.callback = this.s.custom.fnCallback;
+		this.s.initCallback = this.s.custom.fnInitCallback;
+		this.s.fadeDuration = this.s.custom.iFadeDuration;
 	},
 	
 	/**
@@ -375,6 +408,8 @@ FacetedFilter.prototype = {
 	 */
 	"_fnSearchDefinitions": function ( searchSet, wrapper ) {
 		var that = this;
+		var callback = this.s.callback;
+		var fadeDuration = this.s.fadeDuration;
 		
 		/* Add search header to wrapper */
 		var searchHeader = document.createElement('div');
@@ -426,13 +461,14 @@ FacetedFilter.prototype = {
 	    					typeof item.regexreplace.replacement === "string"){
 	    				val = val.replace(eval(item.regexreplace.match),item.regexreplace.replacement);
 	    			}
-	    			$(that.dom.table).fadeOut(function(){
+	    			$(that.dom.table).fadeOut(that.fadeDuration,function(){
 	    				var oldIndex = $.fn.dataTableExt.iApiIndex;
 						$.fn.dataTableExt.iApiIndex = that.s.apiIndex;
 	    				that.s.oTable.fnFilter(val,item.column); // execute DataTables filter
 	    				that._fnAddSearchTerm(val,item); // add search to active terms (or update existing)
-	    				$(this).fadeIn();
 	    				$.fn.dataTableExt.iApiIndex = oldIndex;
+	    				
+	    				$(this).fadeIn(fadeDuration,callback);
 	    			});
 				}
 			});
@@ -452,6 +488,8 @@ FacetedFilter.prototype = {
 	"_fnSearchDisplay": function (){
 		var that = this;
 		var index = this.s.id;
+		var callback = this.s.callback;
+		var fadeDuration = this.s.fadeDuration;
 		
 		var searchDisplay = document.createElement('div');
 		searchDisplay.setAttribute('id', 'searchFilters_' + index);
@@ -469,11 +507,11 @@ FacetedFilter.prototype = {
 		
 		// bind click action to clearSearch link
 		$(clearSearch).click(function(){
-			$(that.dom.table).fadeOut(function(){
+			$(that.dom.table).fadeOut(that.fadeDuration,function(){
 				$.each(that.s.searchOpts, function(){
 					that._fnClearSearchTerm(this);
 				});
-    			$(this).fadeIn();
+    			$(this).fadeIn(fadeDuration,callback);
     		});
 		});
 		
@@ -495,6 +533,8 @@ FacetedFilter.prototype = {
 	"_fnAddSearchTerm": function( val, searchItem ){
 		var that = this;
 		var index = this.s.id;
+		var callback = this.s.callback;
+		var fadeDuration = this.s.fadeDuration;
 		
 		if(!$('#searchFilters_' + index).is(':visible')){
 			$('#searchFilters_' + index).slideDown();
@@ -522,9 +562,9 @@ FacetedFilter.prototype = {
 				
 				// bind click action to clear search link
 				$(clearItem).click(function(){
-					$(that.dom.table).fadeOut(function(){
+					$(that.dom.table).fadeOut(that.fadeDuration,function(){
 						that._fnClearSearchTerm(searchItem);
-						$(this).fadeIn();
+						$(this).fadeIn(fadeDuration,callback);
 					});
 				});
 			}
@@ -607,6 +647,8 @@ FacetedFilter.prototype = {
 	"_fnFilterDisplay": function( facetSet, i ){
 		var that = this;
 		var index = this.s.id;
+		var callback = this.s.callback;
+		var fadeDuration = this.s.fadeDuration;
 		
 		/*Create wrapper element for this facet set */
 		var filterDisplay = document.createElement('div');
@@ -646,9 +688,9 @@ FacetedFilter.prototype = {
 				/* Bind click action to facet object */
 				$(facetDisplay).click(function(){
 					var turnOn = ($(this).hasClass('active')) ? false : true;
-					$(that.dom.table).fadeOut(function(){
+					$(that.dom.table).fadeOut(that.fadeDuration,function(){
 						that._fnToggleFacet(facetSet.column,facetSet.identifier,facet,facetDisplay,turnOn);
-						$(this).fadeIn();
+						$(this).fadeIn(fadeDuration,callback);
 					});
 				});
 			} else {
@@ -733,16 +775,18 @@ FacetedFilter.prototype = {
 	"_fnClearFacets": function( facetSet, clearLink ){
 		var that = this;
 		var index = this.s.id;
+		var callback = this.s.callback;
+		var fadeDuration = this.s.fadeDuration;
 		
 		$(clearLink).hide();
 		$('#' + facetSet.identifier + '_terms_' + index + ' > div').removeClass('active');
-		$(this.dom.table).fadeOut(function(){
+		$(this.dom.table).fadeOut(that.fadeDuration,function(){
 			/* Clear all filters for selected facet group */
 			$.each(facetSet.options,function(){
 				var facetDisplay = $('#' + this.query + '_search_' + index);
 				that._fnToggleFacet(facetSet.column,facetSet.identifier,this,facetDisplay,false);
 			});
-			$(this).fadeIn();
+			$(this).fadeIn(fadeDuration,callback);
 		});
 	}
 };
@@ -770,7 +814,7 @@ FacetedFilter.prototype = {
  *  @param   object oTable DataTable instance to consider - optional
  *  @returns void
  */
-FacetedFilter.fnRebuild = function ( oTable ) {
+/*FacetedFilter.fnRebuild = function ( oTable ) {
 	var nTable = null;
 	if ( typeof oTable !== 'undefined' ) {
 		nTable = oTable.fnSettings().nTable;
@@ -781,7 +825,7 @@ FacetedFilter.fnRebuild = function ( oTable ) {
 			FacetedFilter.aInstances[i].fnRebuild();
 		}
 	}
-};
+};*/
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Static object properties
@@ -822,8 +866,11 @@ FacetedFilter.DEFAULTS = {
 	"sClearSearchLabel":	"Clear",
 	"sClearFilterLabel":	"Show All",
 	'sSearchResultsLabel':	"You searched for:",
-	"aSearchOpts":		[],
-	"aFilterOpts":		[]
+	"aSearchOpts":			[],
+	"aFilterOpts":			[],
+	"fnCallback":			function(){},
+	"fnInitCallback":		function(){},
+	"iFadeDuration":		400
 };
 
 

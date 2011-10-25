@@ -4,6 +4,7 @@
 <script type="text/javascript" src="<spring:theme code="jquerydatatables.js"/>"></script>
 <script type="text/javascript" src="<spring:theme code="facetedfilter.js"/>"></script>
 
+<!-- TODO: move to separate js setup file (will require js i18n implementation for portal) -->
 <script type="text/javascript">
 	$(document).ready(function() {
 		var oTable = $('.runTable').dataTable({
@@ -12,20 +13,20 @@
 			"aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
 			"bSort": false,
 			"oLanguage": {
-				"sInfo": "<spring:message code="teacher.run.myprojectruns.datatables.1"/> _START_-_END_ <spring:message code="teacher.run.myprojectruns.datatables.2"/> _TOTAL_",
-				"sInfoEmpty": "<spring:message code="teacher.run.myprojectruns.datatables.3"/>",
-				"sInfoFiltered": "<spring:message code="teacher.run.myprojectruns.datatables.4"/>", // (from _MAX_ total)
-				"sLengthMenu": "<spring:message code="teacher.run.myprojectruns.datatables.5"/> _MENU_ <spring:message code="teacher.run.myprojectruns.datatables.6"/>",
-				"sProcessing": "<spring:message code="teacher.run.myprojectruns.datatables.7"/>",
-				"sZeroRecords": "<spring:message code="teacher.run.myprojectruns.datatables.8"/>",
-				"sInfoPostFix":  "<spring:message code="teacher.run.myprojectruns.datatables.9"/>",
-				"sSearch": "<spring:message code="teacher.run.myprojectruns.datatables.10"/>",
-				"sUrl": "<spring:message code="teacher.run.myprojectruns.datatables.11"/>",
+				"sInfo": "<spring:message code="teacher.datatables.1"/> _START_-_END_ <spring:message code="teacher.datatables.2"/> _TOTAL_",
+				"sInfoEmpty": "<spring:message code="teacher.datatables.3"/>",
+				"sInfoFiltered": "<spring:message code="teacher.datatables.4"/>", // (from _MAX_ total)
+				"sLengthMenu": "<spring:message code="teacher.datatables.5"/> _MENU_ <spring:message code="teacher.datatables.6"/>",
+				"sProcessing": "<spring:message code="teacher.datatables.7"/>",
+				"sZeroRecords": "<spring:message code="teacher.datatables.8"/>",
+				"sInfoPostFix":  "<spring:message code="teacher.datatables.9"/>",
+				"sSearch": "<spring:message code="teacher.datatables.10"/>",
+				"sUrl": "<spring:message code="teacher.datatables.11"/>",
 				"oPaginate": {
-					"sFirst":    "<spring:message code="teacher.run.myprojectruns.datatables.12"/>",
-					"sPrevious": "<spring:message code="teacher.run.myprojectruns.datatables.13"/>",
-					"sNext":     "<spring:message code="teacher.run.myprojectruns.datatables.14"/>",
-					"sLast":     "<spring:message code="teacher.run.myprojectruns.datatables.15"/>"
+					"sFirst":    "<spring:message code="teacher.datatables.12"/>",
+					"sPrevious": "<spring:message code="teacher.datatables.13"/>",
+					"sNext":     "<spring:message code="teacher.datatables.14"/>",
+					"sLast":     "<spring:message code="teacher.datatables.15"/>"
 				}
 			},
 			"fnDrawCallback": function( oSettings ){
@@ -42,10 +43,10 @@
 		// define sort options
 		var sortParams = {
 			"items": [
-				{"label": "<spring:message code="teacher.run.myprojectruns.sort.1a"/>", "column": 3, "direction": "desc" },
-				{"label": "<spring:message code="teacher.run.myprojectruns.sort.1b"/>", "column": 3, "direction": "asc" },
-				{"label": "<spring:message code="teacher.run.myprojectruns.sort.1c"/>", "column": 0, "direction": "asc" },
-				{"label": "<spring:message code="teacher.run.myprojectruns.sort.1d"/>", "column": 0, "direction": "desc" }
+				{"label": "<spring:message code="teacher.datatables.sort.1a"/>", "column": 3, "direction": "desc" },
+				{"label": "<spring:message code="teacher.datatables.sort.1b"/>", "column": 3, "direction": "asc" },
+				{"label": "<spring:message code="teacher.datatables.sort.1c"/>", "column": 0, "direction": "asc" },
+				{"label": "<spring:message code="teacher.datatables.sort.1d"/>", "column": 0, "direction": "desc" }
 			]
 		}
 		
@@ -58,33 +59,37 @@
 			
 			// Define FacetedFilter options
 			var facets = new FacetedFilter( table, {
+				"bScroll": false,
+				"sClearFilterLabel": "<spring:message code="teacher.datatables.filter.clear"/>",
+				"sClearSearchLabel": "<spring:message code="teacher.datatables.search.clear"/>",
+				"sFilterLabel": "<spring:message code="teacher.datatables.filter.label"/>",
+				"sSearchLabel": "<spring:message code="teacher.datatables.search.label"/>",
 				"aSearchOpts": [
 					{
-						"identifier": "<spring:message code="teacher.run.myprojectruns.search.1a"/>", "label": "<spring:message code="teacher.run.myprojectruns.search.1b"/> ", "column": 0, "maxlength": 50
+						"identifier": "<spring:message code="teacher.datatables.search.1a"/>", "label": "<spring:message code="teacher.datatables.search.1b"/> ", "column": 0, "maxlength": 50
 					},
 					{
-						"identifier": "<spring:message code="teacher.run.myprojectruns.search.2a"/>", "label": "<spring:message code="teacher.run.myprojectruns.search.2b"/> ", "column": 7, "maxlength": 30,
+						"identifier": "<spring:message code="teacher.datatables.search.2a"/>", "label": "<spring:message code="teacher.datatables.search.2b"/> ", "column": 7, "maxlength": 30,
 						"regexreplace": {"match": "/,\s*/gi", "replacement": " "},
-						"instructions": "<spring:message code="teacher.run.myprojectruns.search.2e"/>"
+						"instructions": "<spring:message code="teacher.datatables.search.2e"/>"
 					}
 				 ],
 				"aFilterOpts": [
 					{
-						"identifier": "<spring:message code="teacher.run.myprojectruns.58D"/>", "label": "<spring:message code="teacher.run.myprojectruns.filter.1a"/>", "column": 6,
+						"identifier": "<spring:message code="teacher.run.myprojectruns.58D"/>", "label": "<spring:message code="teacher.datatables.filter.1a"/>", "column": 6,
 						"options": [
-							{"query": "owned", "display": "<spring:message code="teacher.run.myprojectruns.filter.1b"/>"},
-							{"query": "shared", "display": "<spring:message code="teacher.run.myprojectruns.filter.1c"/>"}
+							{"query": "owned", "display": "<spring:message code="teacher.datatables.filter.1b"/>"},
+							{"query": "shared", "display": "<spring:message code="teacher.datatables.filter.1c"/>"}
 						]
 					}
 					/*{
-						"identifier": "<spring:message code="teacher.run.myprojectruns.58C"/>", "label": "<spring:message code="teacher.run.myprojectruns.filter.2a"/>", "column": 5,
+						"identifier": "<spring:message code="teacher.run.myprojectruns.58C"/>", "label": "<spring:message code="teacher.datatables.filter.2a"/>", "column": 5,
 						"options": [
-							{"query": "custom", "display": "<spring:message code="teacher.run.myprojectruns.filter.2b"/>"},
-							{"query": "library", "display": "<spring:message code="teacher.run.myprojectruns.filter.2c"/>"}
+							{"query": "custom", "display": "<spring:message code="teacher.datatables.filter.2b"/>"},
+							{"query": "library", "display": "<spring:message code="teacher.datatables.filter.2c"/>"}
 						]
 					}*/
-				],
-				"bScroll": false
+				]
 			});
 			
 			// add sort logic
@@ -98,7 +103,7 @@
 		function setSort(index,sortParams,wrapper) {
 			if(sortParams.items.length){
 				// insert sort options into DOM
-				var sortHtml = '<div class="dataTables_sort">Sort by <select id="' + 'sort_' + index + '"  size="1">';
+				var sortHtml = '<div class="dataTables_sort"><spring:message code="teacher.datatables.sort.label"/> <select id="' + 'sort_' + index + '"  size="1">';
 				$.each(sortParams.items,function(){
 					sortHtml += '<option>' + this.label + '</option>';
 				});
@@ -127,26 +132,31 @@
 	        	$stickyEl.css('width','auto');
 	        }
 	    });
+		
+		// reset cloumn widths on run tables (datatables seems to change these)
+		$('.runHeader').width(220);
+		$('.studentHeader').width(155);
+		$('.toolsHeader').width(285);
 	});
 	
 	function popup(URL, title) {
 		window.open(URL, title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480,left = 320,top = 240');
 	};
 	
-	// setup grading dialogs
+	// setup grading and classroom monitor dialogs
 	$('.grading, .researchTools, .classroomMonitor').live('click',function(){
 		var settings = $(this).attr('id');
 		var title = $(this).attr('title');
 		var path = "/webapp/teacher/grading/gradework.html?" + settings;
 		var div = $('#gradingDialog').html('<iframe id="gradingIfrm" width="100%" height="100%" style="overflow-y:hidden; min-width:1000px;"></iframe>');
-		$('body').css('overflow-y','hidden');
+		$('body').css('overflow','hidden');
 		div.dialog({
 			modal: true,
 			width: $(window).width() - 32,
 			height: $(window).height() - 32,
 			position: 'center',
 			title: title,
-			close: function (e, ui) { $(this).html(''); $('body').css('overflow-y','auto'); },
+			close: function (e, ui) { $(this).html(''); $('body').css('overflow','auto'); },
 			buttons: {
 				Exit: function(){
 					$(this).dialog('close');
@@ -162,13 +172,17 @@
 		var runId = $(this).attr('id').replace('shareRun_','');
 		var path = "/webapp/teacher/run/shareprojectrun.html?runId=" + runId;
 		var div = $('#shareDialog').html('<iframe id="shareIfrm" width="100%" height="100%"></iframe>');
+		$('body').css('overflow','hidden');
 		div.dialog({
 			modal: true,
 			width: '650',
-			height: $(window).height() - 100,
+			height: '450',
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); },
+			close: function(){ 
+				$(this).html('');
+				$('body').css('overflow','auto');
+			},
 			buttons: {
 				Close: function(){$(this).dialog('close');}
 			}
@@ -188,12 +202,14 @@
 			height: '400',
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); },
+			close: function(){
+				if(document.getElementById('editIfrm').contentWindow['runUpdated']){
+					window.location.reload();
+				}
+				$(this).html(''); 
+			},
 			buttons: {
 				Close: function(){
-					if(document.getElementById('editIfrm').contentWindow['runUpdated']){
-						window.location.reload();
-					}
 					$(this).dialog('close');
 				}
 			}
@@ -223,22 +239,76 @@
 		$("#editAnnouncementsDialog > #announceIfrm").attr('src',path);
 	});
 	
+	// setup archive and restore run dialogs
+	$('.archiveRun, .activateRun').live('click',function(){
+		var title = $(this).attr('title');
+		if($(this).hasClass('archiveRun')){
+			var params = $(this).attr('id').replace('archiveRun_','');
+			var path = "/webapp/teacher/run/manage/archiveRun.html?" + params;
+		} else if($(this).hasClass('activateRun')){
+			var params = $(this).attr('id').replace('activateRun_','');
+			var path = "/webapp/teacher/run/manage/startRun.html?" + params;
+		}
+		var div = $('#archiveRunDialog').html('<iframe id="archiveIfrm" width="100%" height="100%"></iframe>');
+		$('body').css('overflow','hidden');
+		div.dialog({
+			modal: true,
+			width: '600',
+			height: '450',
+			title: title,
+			position: 'center',
+			close: function(){
+				if(document.getElementById('archiveIfrm').contentWindow['refreshRequired']){
+					window.location.reload();
+				}
+				$(this).html('');
+				$('body').css('overflow','auto');
+			},
+			buttons: {
+				Close: function(){
+					$(this).dialog('close');
+				}
+			}
+		});
+		$("#archiveRunDialog > #archiveIfrm").attr('src',path);
+	});
+	
 	// setup manage students dialog
 	$('.manageStudents').live('click',function(){
 		var title = $(this).attr('title');
 		var params = $(this).attr('id').replace('manageStudents_','');
 		var path = "/webapp/teacher/management/viewmystudents.html?" + params;
 		var div = $('#manageStudentsDialog').html('<iframe id="manageStudentsIfrm" width="100%" height="100%"></iframe>');
-		$('body').css('overflow-y','hidden');
+		$('body').css('overflow','hidden');
 		div.dialog({
 			modal: true,
 			width: $(window).width() - 32,
 			height: $(window).height() - 32,
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); $('body').css('overflow-y','auto'); },
+			beforeClose: function() {
+				// check for unsaved changes and alert user if necessary
+				if(document.getElementById('manageStudentsIfrm').contentWindow['unsavedChanges']){
+					var answer = confirm("Warning: You currently have unsaved changes to student teams. If you exit now, they will be discarded. To save your changes, choose 'Cancel' and click the 'SAVE CHANGES' button in the upper right corner.\n\nAre you sure you want to exit without saving?")
+					if(answer){
+						return true;
+					} else {
+						return false;
+					};
+				} else {
+					return true;
+				}
+			},
+			close: function(){
+				// refresh page if required (run title or student periods have been modified)
+				if(document.getElementById('manageStudentsIfrm').contentWindow['refreshRequired']){
+					window.location.reload();
+				}
+				$(this).html('');
+				$('body').css('overflow','auto');
+			},
 			buttons: {
-				Close: function(){
+				Exit: function(){
 					$(this).dialog('close');
 				}
 			}
@@ -256,13 +326,14 @@
 		}
 		var path = "/webapp/teacher/projects/projectinfo.html?projectId=" + projectId;
 		var div = $('#projectDetailDialog').html('<iframe id="projectIfrm" width="100%" height="100%"></iframe>');
+		$('body').css('overflow','hidden');
 		div.dialog({
 			modal: true,
 			width: '800',
 			height: '400',
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); },
+			close: function(){ $(this).html(''); $('body').css('overflow','auto'); },
 			buttons: {
 				Close: function(){
 					$(this).dialog('close');
@@ -281,8 +352,7 @@
     <ul>
     	<li><a href="#currentRuns"><spring:message code="teacher.run.myprojectruns.1A"/>  (${fn:length(current_run_list)})</a></li>
     	<li><a href="#archivedRuns"><spring:message code="teacher.run.myprojectruns.1B"/>  (${fn:length(ended_run_list)})</a></li>
-    </ul>       
-    <!-- <div class="yui-content" id="currentrunWrapper"> -->
+    </ul>
     <div id="currentRuns">
 		<p class="info"><spring:message code="teacher.run.myprojectruns.2" /></p>
 		
@@ -293,9 +363,9 @@
 					<table id="currentRunTable" class="runTable" border="1" cellpadding="0" cellspacing="0">
 						<thead>
 						    <tr>
-						       <th style="width:250px;"class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.3"/></th>
-						       <th style="width:140px;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.4" /></th>      
-						       <th style="width:290px;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.5" /></th>
+						       <th style="width:220px;"class="tableHeaderMain runHeader"><spring:message code="teacher.run.myprojectruns.3"/></th>
+						       <th style="width:155px;" class="tableHeaderMain studentHeader"><spring:message code="teacher.run.myprojectruns.4" /></th>      
+						       <th style="width:285px;" class="tableHeaderMain toolsHeader"><spring:message code="teacher.run.myprojectruns.5" /></th>
 						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58A" /></th>
 						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58B" /></th>
 						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58C" /></th>
@@ -352,41 +422,39 @@
 							      			<!-- </tr>  -->
 											<tr>
 							      				<th><spring:message code="teacher.run.myprojectruns.11A"/></th>
-							      				<td><a id="projectDetail_${run.project.id}" class="projectDetail" title="Project Details">${run.project.id}</a></td>
+							      				<td><a id="projectDetail_${run.project.id}" class="projectDetail" title="<spring:message code="teacher.pro.info"/>">${run.project.id}</a></td>
 							      			</tr>
 							      			<tr>
 							      				<c:if test="${run.project.parentProjectId != null}">
 							      				<th><spring:message code="teacher.run.myprojectruns.40"/></th>
-												<td><a id="projectDetail_${run.project.parentProjectId}" class="projectDetail" title="Project Details">${run.project.parentProjectId}</a></td>
+												<td><a id="projectDetail_${run.project.parentProjectId}" class="projectDetail" title="<spring:message code="teacher.pro.info"/>">${run.project.parentProjectId}</a></td>
 												</c:if>
 							      			</tr>
 							      			<tr>
 							      				<td colspan="2" style="padding-top:.5em;">
-							      				<a id="editRun_${run.id}" class="editRun" title="Edit Run Settings: ${run.name} (Run ID ${run.id})"><spring:message code="teacher.run.myprojectruns.48"/></a>
+							      				<a id="editRun_${run.id}" class="editRun" title="<spring:message code="teacher.run.myprojectruns.48"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})"><img class="icon" alt="settings" src="/webapp/themes/tels/default/images/icons/teal/processing.png" /><span><spring:message code="teacher.run.myprojectruns.48"/></span></a>
 							      				</td>
 							      			</tr>
 									</table>
 							      	
 								</td>
 															
-							    <td style="vertical-align:top; padding:0;" >
+							    <td style="vertical-align: top; padding:.5em 0;" >
 							    	<table class="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
 							          <tr>
 							            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.29"/></th>
-							            <th style="display:none;" class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.8"/></th>
 							            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.9"/></th>
 							          </tr>
 							          <c:forEach var="period" items="${run.periods}">
 							            <tr>
-							              <td style="width:20%;" class="tableInnerData">${period.name}</td>
-							              <td style="display:none;"  style="width:45%;" class="tableInnerData">${run.runcode}</td>
-							              <td style="width:35%;" class="tableInnerDataRight">
-							              	<a class="manageStudents" title="Manage Students: ${run.name} (Run ID ${run.id})" id="runId=${run.id}&periodName=${period.name}">${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.myprojectruns.10"/></a>
+							              <td style="width:35%;" class="tableInnerData">${period.name}</td>
+							              <td style="width:65%;" class="tableInnerDataRight">
+							              	<a class="manageStudents" title="<spring:message code="teacher.run.myprojectruns.62"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}&periodName=${period.name}">${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.myprojectruns.10"/></a>
 							              </td>
 							            </tr>
 							          </c:forEach>
+							          <tr><td colspan="2" class="manageStudentGroups"><a class="manageStudents" title="<spring:message code="teacher.run.myprojectruns.62"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}"><img class="icon" alt="groups" src="/webapp/themes/tels/default/images/icons/teal/connected.png" /><span><spring:message code="teacher.run.myprojectruns.62"/></span></a></td></tr>
 							        </table>
-							        
 							    </td> 
 							    <td style="vertical-align: top; padding: 0.25em 0;">
 								    <c:set var="isExternalProject" value="0"/>
@@ -404,35 +472,35 @@
 								               </c:when>
 								               <c:otherwise>
 											    <ul class="actionList">
+													<li><span style="font-weight:bold;"><spring:message code="teacher.run.myprojectruns.16"/>:</span> <a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}&gradingType=step&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/>: ${run.id})"  id="runId=${run.id}&gradingType=step&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
+							  	                    <li><span style="font-weight:bold;"><spring:message code="teacher.run.myprojectruns.17"/>:</span> <a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/>: ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
+								                    <c:if test="${isXMPPEnabled && run.XMPPEnabled}">
+		                    							<li><a class="classroomMonitor" title="<spring:message code="teacher.run.myprojectruns.65"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}&gradingType=monitor"><spring:message code="teacher.run.myprojectruns.65"/></a></li>
+		                    						</c:if>
+								               </ul>
+								               <ul class="actionList">
 											        <li>
-											        	<spring:message code="teacher.run.myprojectruns.46"/>&nbsp;<a href="/webapp/previewproject.html?projectId=${run.project.id}" target="_blank"><spring:message code="teacher.run.myprojectruns.46A"/></a>
-										    			|&nbsp;<a id="projectInfo_${run.project.id}" class="projectInfo" title="Project Details"><spring:message code="teacher.run.myprojectruns.46B"/></a>
+											        	<spring:message code="teacher.run.myprojectruns.46"/>&nbsp;<a href="/webapp/previewproject.html?projectId=${run.project.id}" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" /><span><spring:message code="teacher.run.myprojectruns.46A"/></span></a>
+										    			|&nbsp;<a id="projectInfo_${run.project.id}" class="projectInfo" title="<spring:message code="teacher.pro.info"/>"><img class="icon" alt="info" src="/webapp/themes/tels/default/images/icons/teal/ID.png" /><span><spring:message code="teacher.run.myprojectruns.46B"/></span></a>
 											        	<sec:accesscontrollist domainObject="${run.project}" hasPermission="16">
-											        		|&nbsp;<a onclick="if(confirm('<spring:message code="teacher.run.myprojectruns.47"/>')){window.top.location='/webapp/author/authorproject.html?projectId=${run.project.id}&versionId=${run.versionId}';} return true;"><spring:message code="teacher.run.myprojectruns.46C"/></a>
+											        		|&nbsp;<a onclick="if(confirm('<spring:message code="teacher.run.myprojectruns.47"/>')){window.top.location='/webapp/author/authorproject.html?projectId=${run.project.id}&versionId=${run.versionId}';} return true;"><img class="icon" alt="edit" src="/webapp/themes/tels/default/images/icons/teal/edit.png" /><span><spring:message code="teacher.run.myprojectruns.46C"/></span></a>
 											        	</sec:accesscontrollist>
 											        </li>
 											    </ul>
-											    <ul class="actionList">
-													<li><spring:message code="teacher.run.myprojectruns.16"/>: <a class="grading" title="Grading & Feedback: ${run.name} (Run ID ${run.id})" id="runId=${run.id}&gradingType=step&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (Run ID: ${run.id})"  id="runId=${run.id}&gradingType=step&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
-							  	                    <li><spring:message code="teacher.run.myprojectruns.17"/>: <a class="grading" title="Grading & Feedback: ${run.name} (Run ID ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (Run ID: ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
-								                    <c:if test="${isXMPPEnabled && run.XMPPEnabled}">
-		                    							<li><a class="classroomMonitor" title="Classroom Monitor: ${run.name} (Run ID ${run.id})" id="runId=${run.id}&gradingType=monitor">Classroom Monitor</a></li>
-		                    						</c:if>
-		                    						<li><a class="researchTools" title="Researcher Tools: ${run.name} (Run ID ${run.id})" id="runId=${run.id}&gradingType=export">Researcher Tools</a></li>
-								               </ul>
 								               </c:otherwise>
 								           </c:choose>
 									
 									<ul class="actionList actionList2">
 				
 										<sec:accesscontrollist domainObject="${run}" hasPermission="16">
-				   					      <li><a id="shareRun_${run.id}" class="shareRun" title="Sharing Permissions: ${run.name} (Run ID ${run.id})"><spring:message code="teacher.run.myprojectruns.18"/></a></li> 
+				   					      <li><a id="shareRun_${run.id}" class="shareRun" title="<spring:message code="teacher.run.myprojectruns.63"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})"><img class="icon" alt="share" src="/webapp/themes/tels/default/images/icons/teal/agent.png" /><span><spring:message code="teacher.run.myprojectruns.18"/></span></a></li> 
 				 	                    	</sec:accesscontrollist>
 								    	
 								    	<c:set var="isExternalProject" value="0"/>
 								    	<sec:accesscontrollist domainObject="${run}" hasPermission="16">
-								      		<!-- <li><a id="editAnnouncements_${run.id}" class="editAnnouncements" title="Manage Announcements: ${run.name} (Run ID ${run.id})" ><spring:message code="teacher.run.myprojectruns.50"/></a></li> -->
-								        </sec:accesscontrollist>			    	
+								      		<!-- <li><a id="editAnnouncements_${run.id}" class="editAnnouncements" title="Manage Announcements: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" ><spring:message code="teacher.run.myprojectruns.50"/></a></li> -->
+								        </sec:accesscontrollist>
+								        <li><a class="researchTools" title="<spring:message code="teacher.run.myprojectruns.64"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}&gradingType=export"><img class="icon" alt="export" src="/webapp/themes/tels/default/images/icons/teal/save.png" /><span><spring:message code="teacher.run.myprojectruns.64"/> <spring:message code="teacher.run.myprojectruns.66"/></span></a></li>	    	
 								    	<!-- 
 								    	<li><a href="../run/brainstorm/createbrainstorm.html?runId=${run.id}" target="_top">Create Q&A Discussion</a></li>
 								    	<c:if test="${not empty run.brainstorms}" >
@@ -441,9 +509,9 @@
 								            </c:forEach>
 								    	</c:if>
 								    	 -->		
-										<li><a href="/webapp/contactwiseproject.html?projectId=${run.project.id}" target="_top"><spring:message code="teacher.run.myprojectruns.22"/></a></li>
+										<li><a href="/webapp/contactwiseproject.html?projectId=${run.project.id}"><img class="icon" alt="contact" src="/webapp/themes/tels/default/images/icons/teal/email.png" /><span><spring:message code="teacher.run.myprojectruns.22"/></span></a></li>
 					                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
-								    	  <li><a onclick="javascript:popup('/webapp/teacher/run/manage/archiveRun.html?runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />')"><spring:message code="teacher.run.myprojectruns.51"/></a></li>
+								    	  <li><a class="archiveRun" id="archiveRun_runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />" title="<spring:message code="teacher.run.myprojectruns.67"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})"><img class="icon" alt="archive" src="/webapp/themes/tels/default/images/icons/teal/lock.png" /><span><spring:message code="teacher.run.myprojectruns.51"/></span></a></li>
 								    	</sec:accesscontrollist>
 								    	
 								    </ul>
@@ -482,9 +550,9 @@
 					<table id="archivedRunTable" class="runTable" border="1" cellpadding="0" cellspacing="0" >
 						<thead>
 						    <tr>
-						       <th style="width:250px;"class="tableHeaderMain archive"><spring:message code="teacher.run.myprojectruns.3A"/></th>
-						       <th style="width:140px;" class="tableHeaderMain archive"><spring:message code="teacher.run.myprojectruns.4"/></th>      
-						       <th style="width:290px;" class="tableHeaderMain archive"><spring:message code="teacher.run.myprojectruns.5"/></th>
+						       <th style="width:220px;"class="tableHeaderMain archive runHeader"><spring:message code="teacher.run.myprojectruns.3A"/></th>
+						       <th style="width:155px;" class="tableHeaderMain archive studentHeader"><spring:message code="teacher.run.myprojectruns.4"/></th>      
+						       <th style="width:285px;" class="tableHeaderMain archive toolsHeader"><spring:message code="teacher.run.myprojectruns.61"/></th>
 						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58A" /></th>
 						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58B" /></th>
 						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58C" /></th>
@@ -533,7 +601,7 @@
 							      				<th><spring:message code="teacher.run.myprojectruns.12"/></th> TODO: decide whether to include or not -->
 							      				<c:set var="source" value="custom" />
 							      				<c:choose>
-							      				<c:when test="${run.project.familytag == 'TELS'}"> <!-- TODO: modify this to include ALL library projects (not just TELS) -->
+							      				<c:when test="${run.project.familytag == 'TELS'}"> <!-- TODO: modify this to select ALL library projects -->
 								      				<c:set var="source" value="library" />
 								      				<!-- <td><spring:message code="teacher.run.myprojectruns.43"/></td> -->
 							      				</c:when>
@@ -544,18 +612,18 @@
 							      			<!-- </tr>  -->
 											<tr>
 							      				<th><spring:message code="teacher.run.myprojectruns.11A"/></th>
-							      				<td><a id="projectDetail_${run.project.id}" class="projectDetail" title="Project Details">${run.project.id}</a></td>
+							      				<td><a id="projectDetail_${run.project.id}" class="projectDetail" title="<spring:message code="teacher.pro.info"/>">${run.project.id}</a></td>
 							      			</tr>
 							      			<tr>
 							      				<c:if test="${run.project.parentProjectId != null}">
 							      				<th><spring:message code="teacher.run.myprojectruns.40"/></th>
-												<td><a id="projectDetail_${run.project.parentProjectId}" class="projectDetail" title="Project Details">${run.project.parentProjectId}</a></td>
+												<td><a id="projectDetail_${run.project.parentProjectId}" class="projectDetail" title="<spring:message code="teacher.pro.info"/>">${run.project.parentProjectId}</a></td>
 												</c:if>
 							      			</tr>
 										</table>
 									</td>
 															
-									<td style="vertical-align:top; padding:0px;" >
+									<td style="vertical-align:top; padding:.5em;" >
 							    		<table class="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
 							          		<tr>
 							            		<th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.7"/></th>
@@ -572,15 +640,16 @@
 									</td> 
 									<td style="vertical-align:top; padding: 0.25em 0;">
 									    <ul class="actionList">
-								        	<li><a href="/webapp/previewproject.html?projectId=${run.project.id}&versionId=${run.versionId}" target="_blank">View the Project</a></li>
-								        </ul>
-								        <ul class="actionList">
-					 	                    <li><spring:message code="teacher.run.myprojectruns.16"/>: <a class="grading" title="Grading & Feedback: ${run.name} (Run ID: ${run.id})" id="runId=${run.id}&gradingType=step&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (Run ID: ${run.id})"  id="runId=${run.id}&gradingType=step&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
-							  	            <li><spring:message code="teacher.run.myprojectruns.17"/>: <a class="grading" title="Grading & Feedback: ${run.name} (Run ID: ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (Run ID: ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>		
+					 	                    <li><span style="font-weight:bold;"><spring:message code="teacher.run.myprojectruns.59"/>:</span> <a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/>: ${run.id})" id="runId=${run.id}&gradingType=step&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/>: ${run.id})"  id="runId=${run.id}&gradingType=step&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
+							  	            <li><span style="font-weight:bold;"><spring:message code="teacher.run.myprojectruns.60"/>:</span> <a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/>: ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/>: ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>		
 					                    </ul>
+					                    <ul class="actionList">
+								        	<li><a href="/webapp/previewproject.html?projectId=${run.project.id}&versionId=${run.versionId}" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" /><span><spring:message code="teacher.run.myprojectruns.46D"/></span></a></li>
+								        </ul>
 					                    <ul class="actionList actionList2">
+					                    	<li><a class="researchTools" title="<spring:message code="teacher.run.myprojectruns.64"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}&gradingType=export"><img class="icon" alt="export" src="/webapp/themes/tels/default/images/icons/teal/save.png" /><span><spring:message code="teacher.run.myprojectruns.64"/> <spring:message code="teacher.run.myprojectruns.66"/></span></a></li>
 					                    	<sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
-								    	  		<li><a onclick="javascript:popup('/webapp/teacher/run/manage/startRun.html?runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />')"><spring:message code="teacher.run.myprojectruns.56"/></a></li>
+								    	  		<li><a class="activateRun" id="activateRun_runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />" title="<spring:message code="teacher.run.myprojectruns.68"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})"><img class="icon" alt="archive" src="/webapp/themes/tels/default/images/icons/teal/unlock.png" /><span><spring:message code="teacher.run.myprojectruns.56"/></span></a></li>
 								    		</sec:accesscontrollist>							
 										</ul>
 									</td>
@@ -612,3 +681,4 @@
 <div id="editAnnouncementsDialog" class="dialog"></div>
 <div id="manageStudentsDialog" style="overflow:hidden;" class="dialog"></div>
 <div id="projectDetailDialog" style="overflow:hidden;" class="dialog"></div>
+<div id="archiveRunDialog" style="overflow:hidden;" class="dialog"></div>

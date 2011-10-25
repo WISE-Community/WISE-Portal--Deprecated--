@@ -204,15 +204,7 @@
 			<name>oaw-eclipse-repo</name>
 			<url>http://www.openarchitectureware.org/m2</url>
 		</repository>
-		<repository>
-			<id>tels-repo-internal-snapshot</id>
-			<name>TELS internal repository snapshot</name>
-			<url>http://repo.telscenter.org/internal_snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
+ 		<repository>
 			<id>concord-repo-internal-snapshot</id>
 			<name>concord internal repository snapshot</name>
 			<url>

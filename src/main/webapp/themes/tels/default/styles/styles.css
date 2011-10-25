@@ -148,15 +148,19 @@
 #setUpRunBox .projectSummary {
 	margin:1em;
 	padding:.5em;
-	font-size:1.2em;
+	font-size:1.1em;
 }
 
-#setRunBox div.projectTitle {
+#setUpRunBox div.projectTitle {
 	color:#007391;
 }
 
 #setUpRunBox .projectSummary div {
 	margin: 0 0 .5em;
+}
+
+#setUpRunBox .projectSummary p {
+	margin:0;
 }
 
 #reviewRunBox {
@@ -316,10 +320,6 @@
 #projectRunConfirmTable td {
 	vertical-align: text-top;
 	padding:.3em;
-}
-
-#projectRunConfirmTable .instructions {
-	background-color: #CCC;
 }
 
 .reducedBottomMargin {

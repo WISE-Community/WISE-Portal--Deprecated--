@@ -161,12 +161,12 @@ font-weight: bold;
 	width:100%;
 	margin-top:.5em;
 	margin-bottom:.5em;
-	border:1px solid #999999;
+	border:1px solid #BBB;
 	padding:0px;
 }
 	
 .runTable td {
-	border:1px solid #999999;
+	border:1px solid #BBB;
 	font-size:.8em;
 	vertical-align:middle;
 	padding:.25em .5em;
@@ -225,7 +225,8 @@ font-weight: bold;
 }
 
 #archivedRuns .studentTitleText {
-	color: #F47F6E;
+	color: #FF563F;
+	font-size: 1.2em;
 }
 
 .studentActionList  {
