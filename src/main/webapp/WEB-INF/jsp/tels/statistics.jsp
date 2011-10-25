@@ -153,6 +153,49 @@ function isLastDayOfMonth(day, month) {
 	return day == daysInMonth;
 }
 
+/**
+ * Determine if the current entry is the last entry of the day
+ * by comparing it with the next entry.
+ * @param portalStatisticsEntry the current statistics entry
+ * @param nextPortalStatisticsEntry the next statistics entry
+ */
+function isLastEntryOfDay(portalStatisticsEntry, nextPortalStatisticsEntry) {
+	var result = false;
+	
+	if(nextPortalStatisticsEntry == null) {
+		//there is no next entry so this is the last entry of the day
+		result = true;
+	} else {
+		//get the timestamps for both entries
+		var timestamp = portalStatisticsEntry.timestamp;
+		var nextTimestamp = nextPortalStatisticsEntry.timestamp;
+		
+		//get the timestamp as a Date object
+		var date = new Date(timestamp);
+		var hour = date.getHours();
+		var day = date.getDate();
+		var month = date.getMonth() + 1;
+		var year = date.getFullYear();
+		
+		//get the next timestamp as a Date object
+		var nextEntryDate = new Date(nextTimestamp);
+		var nextEntryHour = nextEntryDate.getHours();
+		var nextEntryDay = nextEntryDate.getDate();
+		var nextEntryMonth = nextEntryDate.getMonth() + 1;
+		var nextEntryYear = nextEntryDate.getFullYear();
+		
+		if(day != nextEntryDay) {
+			/*
+			 * the day is not the same, so the current
+			 * entry is the last entry of the day
+			 */
+			result = true;
+		}		
+	}
+	
+	return result;
+}
+
 //get the portal and vle base urls
 var portal_baseurl = "${portal_baseurl}";
 var vlewrapper_baseurl = "${vlewrapper_baseurl}";
@@ -262,6 +305,9 @@ function parsePortalStatistics(portalStatisticsArray) {
 	for(var x=0; x<portalStatisticsArray.length; x++) {
 		//get an entry
 		var portalStatisticsEntry = portalStatisticsArray[x];
+		
+		//get the next entry for comparison purposes
+		var nextPortalStatisticsEntry = portalStatisticsArray[x + 1];
 
 		//get the timestamp
 		var timestamp = portalStatisticsEntry.timestamp;
@@ -291,9 +337,9 @@ function parsePortalStatistics(portalStatisticsArray) {
 		var month = date.getMonth() + 1;
 		var year = date.getFullYear();
 
-		if(isLastDayOfMonth(day, month) && isLastHourOfDay(hour)) {
+		if(isLastDayOfMonth(day, month) && isLastEntryOfDay(portalStatisticsEntry, nextPortalStatisticsEntry)) {
 			/*
-			 * the date is the last hour of the last day of the month
+			 * the date is the last entry on the last day of the month
 			 * so we will remember this statistics entry
 			 */
 			monthEndEntry = portalStatisticsEntry;
