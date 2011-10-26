@@ -380,7 +380,7 @@ function parsePortalStatistics(portalStatisticsArray) {
 		var month = date.getMonth() + 1;
 		var year = date.getFullYear();
 
-		if((isLastDayOfMonth(day, month) || isLastEntryOfMonth(portalStatisticsEntry, nextPortalStatisticsEntry)) && isLastEntryOfDay(portalStatisticsEntry, nextPortalStatisticsEntry)) {
+		if(isLastEntryOfMonth(portalStatisticsEntry, nextPortalStatisticsEntry) && isLastEntryOfDay(portalStatisticsEntry, nextPortalStatisticsEntry)) {
 			/*
 			 * the date is the last entry on the last day of the month
 			 * so we will remember this statistics entry
