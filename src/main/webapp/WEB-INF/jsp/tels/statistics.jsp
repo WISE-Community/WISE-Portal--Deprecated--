@@ -196,6 +196,49 @@ function isLastEntryOfDay(portalStatisticsEntry, nextPortalStatisticsEntry) {
 	return result;
 }
 
+/**
+ * Determine if the current entry is the last entry of the month
+ * by comparing it with the next entry.
+ * @param portalStatisticsEntry the current statistics entry
+ * @param nextPortalStatisticsEntry the next statistics entry
+ */
+function isLastEntryOfMonth(portalStatisticsEntry, nextPortalStatisticsEntry) {
+	var result = false;
+	
+	if(nextPortalStatisticsEntry == null) {
+		//there is no next entry so this is the last entry of the day
+		result = true;
+	} else {
+		//get the timestamps for both entries
+		var timestamp = portalStatisticsEntry.timestamp;
+		var nextTimestamp = nextPortalStatisticsEntry.timestamp;
+		
+		//get the timestamp as a Date object
+		var date = new Date(timestamp);
+		var hour = date.getHours();
+		var day = date.getDate();
+		var month = date.getMonth() + 1;
+		var year = date.getFullYear();
+		
+		//get the next timestamp as a Date object
+		var nextEntryDate = new Date(nextTimestamp);
+		var nextEntryHour = nextEntryDate.getHours();
+		var nextEntryDay = nextEntryDate.getDate();
+		var nextEntryMonth = nextEntryDate.getMonth() + 1;
+		var nextEntryYear = nextEntryDate.getFullYear();
+		
+		if(month != nextEntryMonth) {
+			/*
+			 * the month is not the same, so the current
+			 * entry is the last entry of the month
+			 */
+			result = true;
+		}		
+	}
+	
+	return result;
+}
+
 //get the portal and vle base urls
 var portal_baseurl = "${portal_baseurl}";
 var vlewrapper_baseurl = "${vlewrapper_baseurl}";
@@ -337,7 +380,7 @@ function parsePortalStatistics(portalStatisticsArray) {
 		var month = date.getMonth() + 1;
 		var year = date.getFullYear();
 
-		if(isLastDayOfMonth(day, month) && isLastEntryOfDay(portalStatisticsEntry, nextPortalStatisticsEntry)) {
+		if((isLastDayOfMonth(day, month) || isLastEntryOfMonth(portalStatisticsEntry, nextPortalStatisticsEntry)) && isLastEntryOfDay(portalStatisticsEntry, nextPortalStatisticsEntry)) {
 			/*
 			 * the date is the last entry on the last day of the month
 			 * so we will remember this statistics entry
