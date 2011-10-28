@@ -367,7 +367,6 @@ var postChanges = function(tabIndex){
    		}
    		postString += '&numChanges=' + changeIndex;
    		postDataStrings.push(postString);
-   		console.log(postString);
    	}
 	
    	var numPosts = postDataStrings.length;

@@ -148,7 +148,7 @@
 		var settings = $(this).attr('id');
 		var title = $(this).attr('title');
 		var path = "/webapp/teacher/grading/gradework.html?" + settings;
-		var div = $('#gradingDialog').html('<iframe id="gradingIfrm" width="100%" height="100%" style="overflow-y:hidden; min-width:1000px;"></iframe>');
+		var div = $('#gradingDialog').html('<iframe id="gradingIfrm" width="100%" height="100%" style="overflow-y:hidden;"></iframe>');
 		$('body').css('overflow','hidden');
 		div.dialog({
 			modal: true,
