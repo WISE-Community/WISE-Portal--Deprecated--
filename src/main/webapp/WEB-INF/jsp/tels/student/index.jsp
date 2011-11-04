@@ -79,13 +79,6 @@ $(document).ready(function() {
 <script type="text/javascript">
 	function popup(URL) {
   	window.open(URL, 'SelectTeam', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=850,height=600,left = 570,top = 300');}
-  	
-  	function invalidateLink(linkID) {
-  	   window.location= document.getElementById(linkID).href;
-  	   document.getElementById(linkID).href="#";
-  	   document.getElementById(linkID).style.backgroundColor='#000066';
-  	   document.getElementById(linkID).style.color='#666666';
-  	}
 </script>
 
 <!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
@@ -250,7 +243,7 @@ $(document).ready(function() {
 													<c:choose>
 														<c:when test="${fn:length(studentRunInfo.workgroup.members) == 1}">
 															<li class="startProject"><a href="startproject.html?runId=${studentRunInfo.run.id}"
-																id='${studentRunInfo.run.id}' class="wisebutton" onclick="javascript:invalidateLink('${studentRunInfo.run.id}');"><spring:message code="student.index.17"/></a></li>
+																id='${studentRunInfo.run.id}' class="wisebutton"><spring:message code="student.index.17"/></a></li>
 														</c:when>
 														<c:otherwise>
 															<li class="startProject"><a href='teamsignin.html?runId=${studentRunInfo.run.id}' 
