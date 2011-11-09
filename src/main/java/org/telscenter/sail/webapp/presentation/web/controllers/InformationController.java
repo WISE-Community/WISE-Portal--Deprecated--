@@ -367,6 +367,8 @@ public class InformationController extends AbstractController{
 		String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
 		String studentUploadsBaseWWW = portalProperties.getProperty("studentuploads_base_www");
 		
+		String excelExportRestriction = portalProperties.getProperty("excelExportRestriction");
+		
 		String polishedProjectUrl = null;
 		String rawProjectUrl = null;
 		String portalVLEControllerUrl = null;
@@ -496,6 +498,7 @@ public class InformationController extends AbstractController{
 					config.put("postMaxScoreUrl", postMaxScoreUrl);
 					config.put("getXLSExportUrl", getXLSExportUrl);
 					config.put("getStudentListUrl", getStudentListUrl);
+					config.put("excelExportRestriction", excelExportRestriction);
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
