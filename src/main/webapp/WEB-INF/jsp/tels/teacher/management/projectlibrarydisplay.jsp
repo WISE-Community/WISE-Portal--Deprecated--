@@ -424,7 +424,7 @@
 				$('div.projectBox').each(function(){setTitleWidth(this);});
 			},
 			"fnInitCallback": function(){
-				setTimeout(1000,$('div.projectBox').each(function(){setTitleWidth(this);}));
+				setTimeout(function(){$('div.projectBox').each(function(){setTitleWidth(this);}),1000});
 				// TODO: call function that processes any url params and sets specified filters/searches/sort/pagination/projects per page
 			},
 			"aSearchOpts": [
