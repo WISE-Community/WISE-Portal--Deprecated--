@@ -196,7 +196,49 @@ public class StudentUserDetails extends PersistentUserDetails implements
 	 */
 	public String[] getUsernameSuffixes() {
 		return new String[] {"", "a", "b", "c", "d", "e", "f", "g", "h",
-            "i", "j", "k", "l", "m", "n", "o", "p"};
+            "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+	}
+	
+	/**
+	 * Get the next username suffix. For students the suffix is just an alphabet letter.
+	 * If we reach "z" we will then move on to "aa", if we reach "az" we will then move
+	 * on to "aaa", etc.
+	 * e.g.
+	 * "x"
+	 * "y"
+	 * "z"
+	 * "aa"
+	 * "ab"
+	 * @param currentUsernameSuffix the current suffix
+	 * @see org.telscenter.sail.webapp.domain.authentication.MutableUserDetails#getNextUsernameSuffix(java.lang.String)
+	 * @return the next username suffix which will be the next letter in the alphabet
+	 */
+	public String getNextUsernameSuffix(String currentUsernameSuffix) {
+		String nextUsernameSuffix = "";
+		
+		if(currentUsernameSuffix == null) {
+			//empty suffix string
+			nextUsernameSuffix = "";
+		} else if("".equals(currentUsernameSuffix)) {
+			//if the previous was "" we will now return "a"
+			nextUsernameSuffix = "a";
+		} else {
+			if(currentUsernameSuffix.length() > 0) {
+				//get the last char in the suffix
+				char lastChar = currentUsernameSuffix.charAt(currentUsernameSuffix.length() - 1);
+				
+				if(lastChar == 'z') {
+					//the last char was 'z' so we need to move on to "aa"
+					String beginningCurrentUsernameSuffix = currentUsernameSuffix.substring(0, currentUsernameSuffix.length() - 1);
+					nextUsernameSuffix = beginningCurrentUsernameSuffix + "aa";
+				} else {
+					//try the next letter in the alphabet
+					nextUsernameSuffix = currentUsernameSuffix.substring(0, currentUsernameSuffix.length() - 1) + (char) (lastChar + 1);
+				}
+			}
+		}
+		
+		return nextUsernameSuffix;
 	}
 	
 	/**

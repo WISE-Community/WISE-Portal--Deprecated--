@@ -67,6 +67,13 @@ public interface MutableUserDetails extends
 	public String[] getUsernameSuffixes();
 	
 	/**
+	 * Get the next username suffix
+	 * @param currentUsernameSuffix
+	 * @return a String containing the next username suffix
+	 */
+	public String getNextUsernameSuffix(String currentUsernameSuffix);
+	
+	/**
 	 * Returns the number of times the user has logined into the system
 	 * 
 	 * @return Integer of times

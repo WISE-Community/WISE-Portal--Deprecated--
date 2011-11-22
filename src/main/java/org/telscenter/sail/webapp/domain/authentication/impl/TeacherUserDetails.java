@@ -264,6 +264,34 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	            "9", "10", "11", "12", "13", "14", "15", "16"};
 	}
 	
+	/**
+	 * Get the next username suffix. For teachers the suffix is just an integer
+	 * that we will increment
+	 * @param currentUsernameSuffix the current suffix
+	 * @see org.telscenter.sail.webapp.domain.authentication.MutableUserDetails#getNextUsernameSuffix(java.lang.String)
+	 * @return the next username suffix which is just the next integer
+	 */
+	public String getNextUsernameSuffix(String currentUsernameSuffix) {
+		String nextUsernameSuffix = "";
+		
+		if(currentUsernameSuffix == null) {
+			//empty suffix string
+			nextUsernameSuffix = "";
+		} else if("".equals(currentUsernameSuffix)) {
+			//if the previous was "" we will now return an integer
+			nextUsernameSuffix = "1";
+		} else {
+			try {
+				//increment the integer by 1
+				nextUsernameSuffix = (Integer.parseInt(currentUsernameSuffix) + 1) + "";
+			} catch(NumberFormatException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return nextUsernameSuffix;
+	}
+	
 	public Integer getNumberOfLogins() {
 		return this.numberOfLogins;
 	}

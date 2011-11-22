@@ -47,27 +47,35 @@ net.sf.sail.webapp.service.impl.UserServiceImpl {
 		details.setFirstname(details.getFirstname().trim());
 		details.setLastname(details.getLastname().trim());
 		String coreUsername = details.getCoreUsername();
-		String[] suffixes = details.getUsernameSuffixes(); // extra at end to ensure username uniqueness
-		int index = 0;  // index within suffixes array 
 
 		details.setNumberOfLogins(0);
-		for (;;) {   // loop until a unique username can be found
+		
+		//the username suffix
+		String currentUsernameSuffix = null;
+		User createdUser = null;
+		boolean done = false;
+		
+		//loop until we have successfully found a unique username
+		while(!done) {
 			try {
-				details.setUsername(coreUsername + suffixes[index]);
-				User createdUser = super.createUser(details);
-				return createdUser;
-			}
-			catch (DuplicateUsernameException e) {
-				if (index >= suffixes.length) {
-					throw e;
-				}
-				index++;
+				//get the next username suffix
+				currentUsernameSuffix = details.getNextUsernameSuffix(currentUsernameSuffix);
+				
+				//try to create a user with the given username
+				details.setUsername(coreUsername + currentUsernameSuffix);
+				createdUser = super.createUser(details);
+				
+				//we were able to successfully create a user with the username 
+				done = true;
+			} catch (DuplicateUsernameException e) {
+				//the username is already used so we will try the next possible username
 				continue;
-			}
-			catch (HttpStatusCodeException e) {
+			} catch (HttpStatusCodeException e) {
 				throw e;
 			}
 		}
+		
+		return createdUser;
 	}
 
 	/**
