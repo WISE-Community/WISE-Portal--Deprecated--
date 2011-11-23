@@ -22,18 +22,13 @@
  */
 package org.telscenter.sail.webapp.dao.premadecomment.impl;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 
-import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.premadecomment.PremadeComment;
-import org.telscenter.sail.webapp.domain.premadecomment.PremadeCommentList;
 import org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentImpl;
 import org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentListImpl;
 import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
@@ -50,13 +45,7 @@ public class HibernatePremadeCommentListTest extends AbstractTransactionalDbTest
 	
 	private final static String COMMENT_MSG_2 = "comment2";
 	
-	private final static String COMMENT_LABEL_1 = "1st comment";
-	
-	private final static String COMMENT_LABEL_2 = "2nd comment";
-	
 	private User goodCommentOwner = new UserImpl();
-	
-	private Run goodListRun = new RunImpl();
 	
 	private User goodListOwner = new UserImpl();
 	
@@ -78,18 +67,15 @@ public class HibernatePremadeCommentListTest extends AbstractTransactionalDbTest
 
 		defaultPremadeCommentList.setLabel(GOOD_LABEL);
 		defaultPremadeCommentList.setOwner(goodListOwner);
-		defaultPremadeCommentList.setRun(goodListRun);
 		
 		thisList = new TreeSet<PremadeComment>();
 		
 		premadeComment1 = new PremadeCommentImpl();
 		premadeComment1.setComment(COMMENT_MSG_1);
-		premadeComment1.setLabel(COMMENT_LABEL_1);
 		premadeComment1.setOwner(goodCommentOwner);
 		
 		premadeComment2 = new PremadeCommentImpl();
 		premadeComment2.setComment(COMMENT_MSG_2);
-		premadeComment2.setLabel(COMMENT_LABEL_2);
 		premadeComment2.setOwner(goodCommentOwner);
 		
 		thisList.add(premadeComment1);

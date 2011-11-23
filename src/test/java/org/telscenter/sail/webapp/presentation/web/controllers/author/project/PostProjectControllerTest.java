@@ -104,16 +104,16 @@ public class PostProjectControllerTest extends AbstractModelAndViewTests {
 	
 	@Test
 	public void postPOTrunkProject_success() throws ObjectNotFoundException {
+		try {
 		expect(projectService.getById(DEFAULT_PROJECT_ID)).andReturn(defaultProject);
 		OtmlModuleImpl curnit = (OtmlModuleImpl) defaultProject.getCurnit();
 		curnit.setOtml(DEFAULT_OTML_CONTENT.getBytes());
 		moduleService.updateCurnit(curnit);
 		expectLastCall();
-		projectService.updateProject(defaultProject);
+		projectService.updateProject(defaultProject,null);
 		expectLastCall();
 		replay(projectService);
 		replay(moduleService);
-		try {
 			controller.handleRequestInternal(request, response);
 		} catch (Exception e) {
 			fail("exception thrown but was not expected");

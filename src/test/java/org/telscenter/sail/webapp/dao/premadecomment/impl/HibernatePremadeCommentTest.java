@@ -41,10 +41,6 @@ public class HibernatePremadeCommentTest extends AbstractTransactionalDbTests{
 	
 	private final static String GOOD_COMMENT = "Good job!";
 	
-	private final static String GOOD_LABEL = "good1";
-	
-	private Run goodRun = new RunImpl();
-	
 	private User goodOwner = new UserImpl();
 	
 	private PremadeCommentImpl defaultPremadeComment = new PremadeCommentImpl();
@@ -58,10 +54,8 @@ public class HibernatePremadeCommentTest extends AbstractTransactionalDbTests{
     protected void onSetUpBeforeTransaction() throws Exception {
         super.onSetUpBeforeTransaction();
 
-		defaultPremadeComment.setLabel(GOOD_LABEL);
 		defaultPremadeComment.setComment(GOOD_COMMENT);
 		defaultPremadeComment.setOwner(goodOwner);
-		defaultPremadeComment.setRun(goodRun);
     }
     
     /**
@@ -90,7 +84,6 @@ public class HibernatePremadeCommentTest extends AbstractTransactionalDbTests{
 
 
 	public void testSaveWithoutLabel(){
-		defaultPremadeComment.setLabel(null);
 		
         try {
         	this.premadeCommentDao.save(this.defaultPremadeComment);

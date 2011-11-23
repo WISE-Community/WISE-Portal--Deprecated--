@@ -48,9 +48,7 @@ public class PremadeCommentImplTest extends TestCase{
 		label = "bad students";
 		comment = new PremadeCommentImpl();
 		
-		comment.setRun(run);
 		comment.setOwner(user);
-		comment.setLabel(label);
 		comment.setComment("needs work");
 	}
 	
@@ -64,11 +62,8 @@ public class PremadeCommentImplTest extends TestCase{
 	
 	public void testPremadeComment(){
 		run = new RunImpl();
-		comment.setRun(run);
 		
 		assertEquals(null, comment.getOwner());
 		assertEquals("needs work", comment.getComment());
-		assertEquals(label, comment.getLabel());
-		assertEquals(run, comment.getRun());
 	}
 }

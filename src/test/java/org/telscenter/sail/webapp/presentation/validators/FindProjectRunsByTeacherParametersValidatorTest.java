@@ -27,7 +27,7 @@ import net.sf.sail.webapp.service.UserService;
 import org.easymock.EasyMock;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
-import org.telscenter.sail.webapp.domain.impl.FindProjectRunsByTeacherParameters;
+import org.telscenter.sail.webapp.domain.impl.FindProjectParameters;
 
 import junit.framework.TestCase;
 
@@ -37,9 +37,9 @@ import junit.framework.TestCase;
  */
 public class FindProjectRunsByTeacherParametersValidatorTest extends TestCase{
 	
-	private FindProjectRunsByTeacherParameters params;
+	private FindProjectParameters params;
 	
-	private FindProjectRunsByTeacherParametersValidator validator;
+	private FindProjectParametersValidator validator;
 	
 	private Errors errors;
 	
@@ -51,8 +51,8 @@ public class FindProjectRunsByTeacherParametersValidatorTest extends TestCase{
 	
 	@Override
 	protected void setUp(){
-		this.params = new FindProjectRunsByTeacherParameters();
-		this.validator = new FindProjectRunsByTeacherParametersValidator();
+		this.params = new FindProjectParameters();
+		this.validator = new FindProjectParametersValidator();
 		this.errors = new BeanPropertyBindingResult(this.params, "");
 		this.userService = EasyMock.createMock(UserService.class);
 		this.validator.setUserService(this.userService);
@@ -67,9 +67,9 @@ public class FindProjectRunsByTeacherParametersValidatorTest extends TestCase{
 	}
 	
 	public void testAllOK(){
-		this.params.setUsername(USERNAME);
+		this.params.setUserName(USERNAME);
 		
-		EasyMock.expect(this.userService.retrieveUserByUsername(params.getUsername()))
+		EasyMock.expect(this.userService.retrieveUserByUsername(params.getUserName()))
 			.andReturn(new UserImpl());
 		EasyMock.replay(this.userService);
 		
@@ -81,9 +81,9 @@ public class FindProjectRunsByTeacherParametersValidatorTest extends TestCase{
 	}
 	
 	public void testNullUser(){
-		this.params.setUsername(USERNAME);
+		this.params.setUserName(USERNAME);
 		
-		EasyMock.expect(this.userService.retrieveUserByUsername(params.getUsername()))
+		EasyMock.expect(this.userService.retrieveUserByUsername(params.getUserName()))
 			.andReturn(null);
 		EasyMock.replay(this.userService);
 		
@@ -97,7 +97,7 @@ public class FindProjectRunsByTeacherParametersValidatorTest extends TestCase{
 	}
 	
 	public void testEmpty(){
-		this.params.setUsername(EMPTY);
+		this.params.setUserName(EMPTY);
 		
 		this.validator.validate(params, errors);
 		
