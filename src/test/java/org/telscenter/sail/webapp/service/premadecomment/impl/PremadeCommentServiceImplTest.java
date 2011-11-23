@@ -85,10 +85,8 @@ public class PremadeCommentServiceImplTest extends TestCase{
 		list = new TreeSet<PremadeComment>();
 		
 		for(int x = 0; x < 2; x += 1){
-			premadeComments[x].setLabel(labels[x]);
 			premadeComments[x].setComment(comments[x]);
 			premadeComments[x].setOwner(owners[x]);
-			premadeComments[x].setRun(runs[x]);
 			list.add(premadeComments[x]);
 			
 			premadeCommentParameters[x] = new PremadeCommentParameters();

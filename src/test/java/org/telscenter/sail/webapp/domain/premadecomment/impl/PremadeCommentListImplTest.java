@@ -22,8 +22,6 @@
  */
 package org.telscenter.sail.webapp.domain.premadecomment.impl;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -62,7 +60,6 @@ public class PremadeCommentListImplTest extends TestCase {
 			user = new UserImpl();
 			currentComment = new PremadeCommentImpl();
 			
-			currentComment.setLabel("good comment");
 			currentComment.setOwner(user);
 			currentComment.setComment(comment);
 			commentList.add(currentComment);

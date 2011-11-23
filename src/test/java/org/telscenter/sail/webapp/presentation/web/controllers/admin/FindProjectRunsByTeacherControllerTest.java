@@ -41,7 +41,7 @@ import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.impl.FindProjectRunsByTeacherParameters;
+import org.telscenter.sail.webapp.domain.impl.FindProjectParameters;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import static org.easymock.EasyMock.createMock;
 import org.easymock.EasyMock;
@@ -66,9 +66,9 @@ public class FindProjectRunsByTeacherControllerTest extends AbstractModelAndView
 	
 	private RunService runService;
 	
-	private FindProjectRunsByTeacherController controller;
+	private FindProjectRunsController controller;
 	
-	private FindProjectRunsByTeacherParameters params;
+	private FindProjectParameters params;
 	
 	private User user;
 	
@@ -89,11 +89,11 @@ public class FindProjectRunsByTeacherControllerTest extends AbstractModelAndView
 		runService = createMock(RunService.class);
 		mockSession = new MockHttpSession();
 		
-		params = new FindProjectRunsByTeacherParameters();
-		params.setUsername(USERNAME);
+		params = new FindProjectParameters();
+		params.setUserName(USERNAME);
 		errors = new BindException(params, "");
 		
-		controller = new FindProjectRunsByTeacherController();
+		controller = new FindProjectRunsController();
 		controller.setUserService(userService);
 		controller.setRunService(runService);
 		controller.setApplicationContext(mockApplicationContext);
