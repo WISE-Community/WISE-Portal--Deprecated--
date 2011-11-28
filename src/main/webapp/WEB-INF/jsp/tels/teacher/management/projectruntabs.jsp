@@ -37,7 +37,7 @@
 					$('html,body').scrollTop(targetOffset);
 				}
 			},
-			"sDom":'<"top"lip<"clear">>rt<"bottom"ip><"clear">'
+			"sDom":'<"top"lip>rt<"bottom"ip><"clear">'
 		});
 		
 		// define sort options

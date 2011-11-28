@@ -409,7 +409,7 @@
 				
 				// TODO: add url params to current page location for each filter/search/sort/pagination/projects per page
 			},
-			"sDom":'<"top"lip<"clear">>rt<"bottom"ip<"clear">><"clear">'
+			"sDom":'<"top"lip>rt<"bottom"ip<"clear">><"clear">'
 			//"sDom":'<"top"lip<"clear">>rt<"bottom"ip><"clear">'
 		});
 		
