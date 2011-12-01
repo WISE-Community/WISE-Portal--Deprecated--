@@ -157,7 +157,7 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 	public void testRetrieveUserByEmail() {
 		// this test simply confirms that the userDao is called appropriately,
 		// since the DAO is being tested and does all the work
-		List<User> userList = new ArrayList();
+		List<User> userList = new ArrayList<User>();
 		User user = new UserImpl();
 		userList.add(user);
 		UserDao<User> mockUserDao = EasyMock.createMock(UserDao.class);

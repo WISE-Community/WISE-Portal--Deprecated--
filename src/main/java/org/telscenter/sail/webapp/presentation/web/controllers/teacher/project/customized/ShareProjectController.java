@@ -3,7 +3,6 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.customized;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
-import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.mail.IMailFacade;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.AclService;
@@ -29,23 +25,18 @@ import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.acls.domain.BasePermission;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.userdetails.UserDetails;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
-import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
-import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
+ * @author Hiroki Terashima
  * @author MattFish
  * @version $Id:$
  */
@@ -57,7 +48,7 @@ public class ShareProjectController extends SimpleFormController {
 
 	private UserDetailsService userDetailsService;
 	
-	private AclService aclService;
+	private AclService<Project> aclService;
 	
 	private IMailFacade javaMail = null;
 
@@ -99,7 +90,6 @@ public class ShareProjectController extends SimpleFormController {
      * 
      * @see org.springframework.web.servlet.mvc.SimpleFormController#referenceData(javax.servlet.http.HttpServletRequest)
      */
-	@SuppressWarnings("unchecked")
 	@Override
 	protected Map<String, Object> referenceData(HttpServletRequest request) 
 	    throws Exception {
@@ -318,7 +308,7 @@ public class ShareProjectController extends SimpleFormController {
 	/**
 	 * @param aclService the aclService to set
 	 */
-	public void setAclService(AclService aclService) {
+	public void setAclService(AclService<Project> aclService) {
 		this.aclService = aclService;
 	}
 }

@@ -45,9 +45,6 @@ import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.acls.domain.BasePermission;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.userdetails.UserDetails;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -78,7 +75,7 @@ public class ShareProjectRunController extends SimpleFormController {
 
 	private UserDetailsService userDetailsService;
 	
-	private AclService aclService;
+	private AclService<Run> aclService;
 
 	private IMailFacade javaMail = null;
 
@@ -344,7 +341,7 @@ public class ShareProjectRunController extends SimpleFormController {
 	/**
 	 * @param aclService the aclService to set
 	 */
-	public void setAclService(AclService aclService) {
+	public void setAclService(AclService<Run> aclService) {
 		this.aclService = aclService;
 	}
 }

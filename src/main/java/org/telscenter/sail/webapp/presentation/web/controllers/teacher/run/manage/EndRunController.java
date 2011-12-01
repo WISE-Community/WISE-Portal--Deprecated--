@@ -50,7 +50,7 @@ public class EndRunController extends SimpleFormController {
 
 	private RunService runService;
 	
-	private AclService aclService;
+	private AclService<Run> aclService;
 
 	private static final String RUNID_PARAM_NAME = "runId";
 
@@ -113,7 +113,7 @@ public class EndRunController extends SimpleFormController {
 	/**
 	 * @param aclService the aclService to set
 	 */
-	public void setAclService(AclService aclService) {
+	public void setAclService(AclService<Run> aclService) {
 		this.aclService = aclService;
 	}
 }

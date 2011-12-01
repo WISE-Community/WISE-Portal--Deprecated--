@@ -30,14 +30,10 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.service.AclService;
-import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.workgroup.*;
 
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.acls.domain.BasePermission;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
@@ -67,11 +63,9 @@ public class ViewMyStudentsController extends AbstractController{
 
 	private RunService runService;
 
-	private UserService userService;
-
 	private WorkgroupService workgroupService;
 	
-	private AclService aclService;
+	private AclService<Run> aclService;
 
 	private HttpRestTransport httpRestTransport;
 
@@ -240,16 +234,9 @@ public class ViewMyStudentsController extends AbstractController{
 	}
 	
 	/**
-	 * @param userService the userService to set
-	 */
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
-
-	/**
 	 * @param aclService the aclService to set
 	 */
-	public void setAclService(AclService aclService) {
+	public void setAclService(AclService<Run> aclService) {
 		this.aclService = aclService;
 	}
 

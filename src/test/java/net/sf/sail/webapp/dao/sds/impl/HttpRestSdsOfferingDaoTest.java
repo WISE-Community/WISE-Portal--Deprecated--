@@ -116,7 +116,7 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 		// test,
 		// although they are retrieved by getList. GetById is probably
 		// sufficient.
-		List<SdsOffering> actualSet = new ArrayList();
+		List<SdsOffering> actualSet = new ArrayList<SdsOffering>();
 		try {
 			actualSet = this.sdsOfferingDao.getList();
 		} catch (CurnitMapNotFoundException e) {
@@ -172,7 +172,6 @@ public class HttpRestSdsOfferingDaoTest extends AbstractSpringHttpUnitTests {
 	 * Test method for {@link
 	 * net.sf.sail.webapp.dao.sds.impl.HttpRestSdsOfferingDao#save(net.sf.sail.webapp.domain.sds.SdsOffering)}.
 	 */
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testSave_NewOffering() throws Exception {
 		this.sdsOffering.setName(DEFAULT_NAME);

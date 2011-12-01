@@ -56,7 +56,7 @@ public class BatchStudentChangePasswordController extends SimpleFormController {
 	
 	private RunService runService;
 	
-	private AclService aclService;
+	private AclService<Run> aclService;
 	
 	private static final String GROUPID_PARAM_NAME = "groupId";
 	
@@ -134,7 +134,7 @@ public class BatchStudentChangePasswordController extends SimpleFormController {
 	/**
 	 * @param aclService the aclService to set
 	 */
-	public void setAclService(AclService aclService) {
+	public void setAclService(AclService<Run> aclService) {
 		this.aclService = aclService;
 	}
 	

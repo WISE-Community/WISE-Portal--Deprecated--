@@ -17,8 +17,6 @@ import java.util.Properties;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import sun.security.action.GetBooleanAction;
-
 public class DbMigration {
 	private String built = "";
     private String username = "";

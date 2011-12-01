@@ -23,7 +23,6 @@
 package org.telscenter.sail.webapp.service.project.impl;
 
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -32,10 +31,7 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
-import net.sf.sail.webapp.service.NotAuthorizedException;
-import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
-import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -147,7 +143,7 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	public List<Project> getProjectList() {
 		// look in the internal database
 		// make sure that projects are external projects
-		List<Project> externalProjectList = new ArrayList();
+		List<Project> externalProjectList = new ArrayList<Project>();
     	List<Project> projectlist = this.projectDao.getList();
 		ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
     	for (Project externalproject : projectlist) {

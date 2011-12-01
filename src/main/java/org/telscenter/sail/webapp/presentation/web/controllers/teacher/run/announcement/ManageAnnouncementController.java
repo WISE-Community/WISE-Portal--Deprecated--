@@ -44,7 +44,7 @@ public class ManageAnnouncementController extends AbstractController{
 
 	private RunService runService;
 	
-	private AclService aclService;
+	private AclService<Run> aclService;
 	
 	protected final static String RUN = "run";
 	
@@ -81,7 +81,7 @@ public class ManageAnnouncementController extends AbstractController{
 	/**
 	 * @param aclService the aclService to set
 	 */
-	public void setAclService(AclService aclService) {
+	public void setAclService(AclService<Run> aclService) {
 		this.aclService = aclService;
 	}	
 	

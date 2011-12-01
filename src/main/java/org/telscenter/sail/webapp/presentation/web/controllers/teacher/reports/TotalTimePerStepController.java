@@ -78,7 +78,6 @@ public class TotalTimePerStepController extends AbstractController{
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -107,10 +106,10 @@ public class TotalTimePerStepController extends AbstractController{
 		
 		//check for amount of data -- if off chart make adjustments to granularity,
 		//spacing, and x-axis labels
-		List rawLabels = new ArrayList(averagedData.keySet());
+		List<String> rawLabels = new ArrayList<String>(averagedData.keySet());
 		if(averagedData.size() > 25){
-			List xLabelsInner = new ArrayList();
-			List xLabelsOuter = new ArrayList();
+			List<String> xLabelsInner = new ArrayList<String>();
+			List<String> xLabelsOuter = new ArrayList<String>();
 			Integer size = ((WIDTH - (averagedData.size() * 5))/ averagedData.size()) - 1;
 			options.setBarWidthAndSpacing(size, 5, 0);
 			
@@ -133,7 +132,7 @@ public class TotalTimePerStepController extends AbstractController{
 		}
 		
 		//y-axis labels and their position on the axis
-		List yLabels = new LinkedList();
+		List<Float> yLabels = new LinkedList<Float>();
 		List<Float> labelPos = new LinkedList<Float>();
 		for(float x = 0f; x <= 100; x+= 10){
 			labelPos.add(x);
