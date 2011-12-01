@@ -85,7 +85,7 @@
 <label><spring:message code="teacher.pro.reportproblem.21"/></label> <br />
 <textarea cols="100" rows="10"> specify message </textarea> <br />
 <ul>
-<li><spring:message code="teacher.pro.reportproblem.22/></li>
+<li><spring:message code="teacher.pro.reportproblem.22"/></li>
 
 <li><spring:message code="teacher.pro.reportproblem.23"/></li>
 

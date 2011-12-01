@@ -21,8 +21,7 @@
 
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-         version="2.4">
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" version="2.4">
 
 
     <display-name>Sail Web application</display-name>
@@ -151,11 +150,6 @@
     </servlet-mapping>
 
 
-    <!-- List of filenames that are automatically resolved for directory requests -->
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
-
 
     <!--
         Make it distributable for load balancing purposes.
@@ -168,5 +162,8 @@
         <session-timeout>20</session-timeout>
 	</session-config>
 
-
+    <!-- List of filenames that are automatically resolved for directory requests -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

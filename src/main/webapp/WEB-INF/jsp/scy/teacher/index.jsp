@@ -23,8 +23,6 @@
 <html lang="en">
 <head>
 
-<%@ include file="./projects/styles.jsp"%>
-
 <!-- Core + Skin CSS --> 
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.1/build/menu/assets/skins/sam/menu.css"> 
  
@@ -402,10 +400,6 @@
 <body class="yui-skin-sam"> 
 
 <div id="centeredDiv">
-
-<%@ include file="../headerteacherhome.jsp"%>
-
-<%@ include file="../L2homebar.jsp"%>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 

@@ -34,7 +34,7 @@
 
 <body>
 
-<%@ include file="studentHeader.jsp"%>
+<%@ include file="student/studentHeader.jsp"%>
 
 <div style="position:relative;right:-380px;bottom:5px;">
 <h2><spring:message code="student.registration" /></h2>
