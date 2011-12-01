@@ -728,7 +728,6 @@
 	<bean id="viewMyStudentsController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ViewMyStudentsController">
 		<property name="runService" ref="runService" />
-		<property name="userService" ref="userService"/>
 		<property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
     	<property name="aclService" ref="aclServiceImpl" />
