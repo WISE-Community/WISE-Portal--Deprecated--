@@ -176,7 +176,7 @@ public class ShareProjectController extends SimpleFormController {
     				// only send email if this is a new shared owner
     				if (newSharedOwner) {
     					ShareProjectEmailService emailService = 
-    						new ShareProjectEmailService(signedInUser, retrievedUser, project);
+    						new ShareProjectEmailService(signedInUser, retrievedUser, project, ControllerUtil.getBaseUrlString(request));
     					Thread thread = new Thread(emailService);
     					thread.start();
     				}
@@ -199,12 +199,14 @@ public class ShareProjectController extends SimpleFormController {
     	private User sharer;
     	private User sharee;
     	private Project project;
+    	private String portalBaseUrlString;
 
 		public ShareProjectEmailService(User sharer, User sharee,
-				Project project) {
+				Project project, String portalBaseUrlString) {
 			this.sharer = sharer;
 			this.sharee = sharee;
 			this.project = project;
+			this.portalBaseUrlString = portalBaseUrlString;
 		}
 
 		public void run() {
@@ -228,6 +230,8 @@ public class ShareProjectController extends SimpleFormController {
 
     		String shareeEmailAddress = shareeDetails.getEmailAddress();
 
+    		String previewProjectUrl = this.portalBaseUrlString + "/webapp/previewproject.html?projectId="+project.getId();
+
     		String[] recipients = {shareeEmailAddress, emaillisteners.getProperty("uber_admin")};
 
     		String subject = sharerName + " shared a project with you on WISE4";	
@@ -235,7 +239,8 @@ public class ShareProjectController extends SimpleFormController {
     		"Project Name: " + project.getName() + "\n" +
     		"Project ID: " + project.getId() + "\n" +
     		"Shared with username: " + shareeDetails.getUsername() + "\n" +
-    		"Date this project was shared: " + sdf.format(date) + "\n\n\n" +
+    		"Date this project was shared: " + sdf.format(date) + "\n\n" +
+    		"Go to this URL to preview this project: " + previewProjectUrl + "\n\n" +
     		"Thanks,\n" +
     		"WISE4 Team";
 
