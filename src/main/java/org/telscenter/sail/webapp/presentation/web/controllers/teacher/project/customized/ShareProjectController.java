@@ -23,6 +23,7 @@ import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.UserService;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.validation.BindException;
@@ -228,12 +229,12 @@ public class ShareProjectController extends SimpleFormController {
 
     		TeacherUserDetails shareeDetails = (TeacherUserDetails) sharee.getUserDetails();
 
-    		String shareeEmailAddress = shareeDetails.getEmailAddress();
+    		String[] shareeEmailAddress = {shareeDetails.getEmailAddress()};
 
     		String previewProjectUrl = this.portalBaseUrlString + "/webapp/previewproject.html?projectId="+project.getId();
 
-    		String[] recipients = {shareeEmailAddress, emaillisteners.getProperty("uber_admin")};
-
+    		String[] recipients = (String[]) ArrayUtils.addAll(shareeEmailAddress, emaillisteners.getProperty("uber_admin").split(","));
+    		
     		String subject = sharerName + " shared a project with you on WISE4";	
     		String message = sharerName + " shared a project with you on WISE4:\n\n" +
     		"Project Name: " + project.getName() + "\n" +

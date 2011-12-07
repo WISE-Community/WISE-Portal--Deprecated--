@@ -77,7 +77,7 @@ public class TelsSimpleMappingExceptionResolver extends
 
 		if (sendEmailOnException) {
 			String portalName = portalProperties.getProperty("portal.name");
-			String[] recipients = {emaillisteners.getProperty(HANDLE_EXCEPTION_PROPERTY_KEY)};
+			String[] recipients = emaillisteners.getProperty(HANDLE_EXCEPTION_PROPERTY_KEY).split(",");
 			String subject = HANDLE_EXCEPTION_MAIL_SUBJECT + ": (" + portalName + ")";
 			String fromEmail = HANDLE_EXCEPTION_FROM_EMAIL;
 			String message = getHandleExceptionMessage(request, response, handler, exception);

@@ -170,7 +170,10 @@ public class MessageServiceImpl implements MessageService {
     		ArrayList<String> recipients = new ArrayList<String>();
     		ArrayList<String> recipientNames = new ArrayList<String>();
     		Set<MessageRecipient> recips = message.getRecipients();
-    		recipients.add(emaillisteners.getProperty("uber_admin"));
+    		String[] uberAdmins = emaillisteners.getProperty("uber_admin").split(",");
+    		for (int i=0; i< uberAdmins.length; i++) {
+        		recipients.add(uberAdmins[i]);    			
+    		}
     		
     		for(MessageRecipient recip : recips){
         		recipients.add(recip.getRecipient().getUserDetails().getEmailAddress());

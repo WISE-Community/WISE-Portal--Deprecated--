@@ -37,6 +37,7 @@ import net.sf.sail.webapp.mail.IMailFacade;
 import net.sf.sail.webapp.presentation.web.controllers.SignupController;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -206,9 +207,9 @@ public class RegisterTeacherController extends SignupController {
 			TeacherUserDetails newUserDetails = 
 				(TeacherUserDetails) newUser.getUserDetails();
 			String userUsername = newUserDetails.getUsername();
-			String userEmailAddress = newUserDetails.getEmailAddress();
+			String userEmailAddress[] = {newUserDetails.getEmailAddress()};
 
-			String[] recipients = {userEmailAddress, emaillisteners.getProperty("uber_admin")};
+			String[] recipients = (String[]) ArrayUtils.addAll(userEmailAddress, emaillisteners.getProperty("uber_admin").split(","));
 
 			String defaultSubject = messageSource.getMessage("welcome.new.teacher.subject", null, Locale.US);
 			String subject = messageSource.getMessage("welcome.new.teacher.subject", null, defaultSubject, this.locale);

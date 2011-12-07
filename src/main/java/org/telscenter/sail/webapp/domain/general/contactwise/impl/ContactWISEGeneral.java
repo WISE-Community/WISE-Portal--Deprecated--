@@ -139,9 +139,8 @@ public class ContactWISEGeneral implements ContactWISE {
 	}
 
 	public String[] getMailRecipients() {
-		String[] recipients = {
-				emaillisteners.getProperty(this.issuetype.name().toLowerCase())
-		};
+		String[] recipients = 
+				emaillisteners.getProperty(this.issuetype.name().toLowerCase()).split(",");
 		return recipients;
 	}
 	

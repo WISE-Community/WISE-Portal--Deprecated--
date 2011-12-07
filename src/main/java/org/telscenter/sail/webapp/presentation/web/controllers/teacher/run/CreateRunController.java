@@ -519,7 +519,7 @@ public class CreateRunController extends AbstractWizardFormController {
 			projectID = runParameters.getProject().getId();
 			Long runID = run.getId();
 			
-			String[] recipients = {emaillisteners.getProperty("project_setup")};
+			String[] recipients = emaillisteners.getProperty("project_setup").split(",");
 			
 			String subject = uiHTMLProperties.getProperty("setuprun.confirmation.email.subject") 
 			    + " (" + portalProperties.getProperty("portal.name") + ")";		
