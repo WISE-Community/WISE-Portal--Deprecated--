@@ -126,7 +126,7 @@ table tr, table td {
 	font-size:.75em;
 }
 
-#displayAsEnglish {
+.displayAsEnglish {
 	text-align:center;
 	font-size:.8em;
 	margin:2px 5px 5px 5px;

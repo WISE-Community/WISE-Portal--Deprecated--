@@ -97,7 +97,27 @@
 		}
 		
 		// setup tabs
-		$( "#runTabs" ).tabs({ selected: 0 });
+		$( "#runTabs" ).tabs({ 
+			selected: 0,
+			show: function(event, ui){
+				// Make top header scroll with page
+				var $stickyEl = $('.dataTables_wrapper .top', ui.panel);
+				if($stickyEl.length>0){
+					var elTop = $stickyEl.offset().top,
+					width = $stickyEl.width();
+					$(window).scroll(function() {
+				        var windowTop = $(window).scrollTop();
+				        if (windowTop > elTop) {
+				            $stickyEl.addClass('sticky');
+				        	$stickyEl.css('width',width);
+				        } else {
+				            $stickyEl.removeClass('sticky');
+				        	$stickyEl.css('width','auto');
+				        }
+				    });
+				}
+			}
+		});
 		
 		// setup sorting
 		function setSort(index,sortParams,wrapper) {
@@ -117,21 +137,6 @@
 				});
 			}
 		};
-		
-		// Make top header scroll with page
-		var $stickyEl = $('.dataTables_wrapper .top'),
-			elTop = $stickyEl.offset().top,
-			width = $stickyEl.width();
-		$(window).scroll(function() {
-	        var windowTop = $(window).scrollTop();
-	        if (windowTop > elTop) {
-	            $stickyEl.addClass('sticky');
-	        	$stickyEl.css('width',width);
-	        } else {
-	            $stickyEl.removeClass('sticky');
-	        	$stickyEl.css('width','auto');
-	        }
-	    });
 		
 		// reset cloumn widths on run tables (datatables seems to change these)
 		$('.runHeader').width(220);
@@ -532,9 +537,9 @@
 				</div>
 			</c:when>
 		<c:otherwise>
-			<p class="info"><spring:message code="teacher.run.myprojectruns.52"/> <a href="/webapp/teacher/management/library.html">
-				<spring:message code="teacher.run.myprojectruns.52A"/></a> <spring:message code="teacher.run.myprojectruns.52D"/>	<a href="/webapp/author/authorproject.html">
-				<spring:message code="teacher.run.myprojectruns.52E"/></a>.</p>
+			<p class="info">
+				<spring:escapeBody htmlEscape="false"><spring:message code="teacher.run.myprojectruns.52"/></spring:escapeBody>
+			</p>
 		</c:otherwise>
 	</c:choose>
 	</div><!-- end current runs tab -->
