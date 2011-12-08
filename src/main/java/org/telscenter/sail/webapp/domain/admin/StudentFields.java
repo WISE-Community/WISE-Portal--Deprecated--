@@ -20,12 +20,11 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.telscenter.sail.webapp.domain.admin;
 
 /**
+ * Query-able fields of a WISE Teacher User
  * @author patrick lawler
- *
  */
 public enum StudentFields {
 	FIRSTNAME, LASTNAME, USERNAME, ID, GENDER

@@ -22,13 +22,10 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,8 +41,9 @@ import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.impl.LookupParameters;
 
 /**
+ * Controller for admins to look up student user accounts based on specified
+ * search criteria.
  * @author patrick lawler
- *
  */
 public class LookupStudentController extends SimpleFormController {
 

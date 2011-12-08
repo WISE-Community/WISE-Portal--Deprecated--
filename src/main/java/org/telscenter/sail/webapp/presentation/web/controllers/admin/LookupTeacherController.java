@@ -42,8 +42,10 @@ import org.telscenter.sail.webapp.domain.authentication.Schoollevel;
 import org.telscenter.sail.webapp.domain.impl.LookupParameters;
 
 /**
+ * Controller for admins to look up teacher user accounts based on specified
+ * search criteria.
+ *  
  * @author patrick lawler
- *
  */
 public class LookupTeacherController extends SimpleFormController {
 
