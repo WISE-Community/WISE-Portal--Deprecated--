@@ -35,7 +35,7 @@
 	function updateRunPeriod(runId){
 		$('#msgDiv').html('');
 		var val=$.trim($('#editRunPeriodsInput').val());
-		debugger;
+
 		/* validate user entered value */
 		if(!val || val==''){
 			writeMessage('You must specify a value for the period');
