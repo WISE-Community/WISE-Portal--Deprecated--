@@ -78,7 +78,12 @@ public class LookupStudentController extends SimpleFormController {
 		} else {
 			term = params.getLookupData();
 		}
-		
+
+		// if searching for ID, make the term object in a Long.
+		if ("ID".equals(params.getLookupField())) {
+			term = Long.parseLong(params.getLookupData());
+		}
+
 		List<User> users = this.userService.retrieveByField(params.getLookupField()
 				.toLowerCase(),	params.getLookupCriteria(), term,
 				"studentUserDetails");

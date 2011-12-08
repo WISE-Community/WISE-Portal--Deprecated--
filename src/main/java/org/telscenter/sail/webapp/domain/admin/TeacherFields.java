@@ -23,10 +23,10 @@
 package org.telscenter.sail.webapp.domain.admin;
 
 /**
+ * Query-able fields of a WISE Teacher User
  * @author patrick lawler
- *
  */
 public enum TeacherFields {
-	FIRSTNAME, LASTNAME, USERNAME, DISPLAYNAME, CITY, STATE, COUNTRY, 
+	FIRSTNAME, LASTNAME, USERNAME, ID, DISPLAYNAME, CITY, STATE, COUNTRY, 
 	SCHOOLNAME, SCHOOLLEVEL, CURRICULUMSUBJECTS
 }

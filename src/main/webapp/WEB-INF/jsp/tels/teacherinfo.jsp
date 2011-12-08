@@ -33,6 +33,10 @@
 
 <table id="teacherInfoTable" border="2" cellpadding="2" cellspacing="0" align="center">
 	<tr>
+		<th>ID</th>
+		<td><c:out value="${userInfoMap['ID']}"/></td>
+	</tr>
+	<tr>
 		<th>Name</th>
 		<td><c:out value="${userInfoMap['First Name']}"/>&nbsp;<c:out value="${userInfoMap['Last Name']}"/> </td>
 	</tr>

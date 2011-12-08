@@ -28,5 +28,5 @@ package org.telscenter.sail.webapp.domain.admin;
  *
  */
 public enum StudentFields {
-	FIRSTNAME, LASTNAME, USERNAME, GENDER
+	FIRSTNAME, LASTNAME, USERNAME, ID, GENDER
 }
