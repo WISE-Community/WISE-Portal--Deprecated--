@@ -30,6 +30,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
+ * Controller for updating run settings, like add period, 
+ * enable/disable idea manager and student file uploader.
  * @author patrick lawler
  * @version $Id:$
  */
