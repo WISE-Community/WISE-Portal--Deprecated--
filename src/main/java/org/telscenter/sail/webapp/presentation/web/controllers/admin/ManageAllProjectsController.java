@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,8 +62,16 @@ public class ManageAllProjectsController extends AbstractController {
 			HttpServletResponse response) throws Exception {
 		if (request.getMethod().equals("GET")) {
 			// separate calls to project services to get internal and external projects
-			List<Project> internalProjectList = projectService.getAdminProjectList();
-			List<Project> externalProjectList = externalProjectService.getProjectList();
+			List<Project> externalProjectList = new ArrayList<Project>();
+			List<Project> internalProjectList = new ArrayList<Project>();
+			// check if projectId was passed in
+			String projectIdStr = request.getParameter("projectId");
+			if (projectIdStr != null) {
+				internalProjectList.add(projectService.getById(Long.valueOf(projectIdStr)));
+			} else {
+				internalProjectList.addAll(projectService.getAdminProjectList());
+				externalProjectList.addAll(externalProjectService.getProjectList());
+			}
 
 			ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
 			modelAndView.addObject(INTERNAL_PROJECT_LIST_PARAM_NAME, internalProjectList);
