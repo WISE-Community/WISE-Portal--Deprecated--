@@ -128,6 +128,12 @@
 		</notifiers>
 	</ciManagement>
 	<build>
+		<resources outputDirectory="${project.build.outputDirectory}">
+                    <resource>
+                <filtering>true</filtering>
+                <directory>src/main/webapp/WEB-INF</directory>
+            </resource>
+         </resources>
 	<!--  
 		<resources outputDirectory="${project.build.outputDirectory}">
 			<resource>
@@ -139,7 +145,7 @@
                 <directory>src/main/webapp/WEB-INF</directory>
             </resource>
 		</resources>
--->
+         -->
 		<testResources
 			testOutputDirectory="${project.build.outputDirectory}">
 			<testResource>
@@ -151,16 +157,19 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
 			</plugin>
 			<plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+                                <version>2.3.2</version>
+<!--
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
-					<includes>
-					   <include>src/main/webapp/WEB-INF/lib</include>
-					</includes>					
+                                        <compilerArgument>-bootclasspath src/main/webapp/WEB-INF/lib/*</compilerArgument>
 				</configuration>
+-->
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -591,6 +600,83 @@
    			<artifactId>poi-ooxml-schemas</artifactId>
     		<version>3.7</version>
 		</dependency>
+		<dependency>
+  			<groupId>camel-core</groupId>
+			  <artifactId>camel-core</artifactId>
+			  <version>1.5.0</version>
+			  <scope>system</scope>
+			  <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/camel-core-1.5.0.jar</systemPath>			
+		</dependency> 			
+		<dependency>
+  			<groupId>common</groupId>
+			  <artifactId>common</artifactId>
+			  <version>2.2.0</version>
+			  <scope>system</scope>
+			  <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/common-2.2.0.jar</systemPath>			
+		</dependency> 			
+		<dependency>
+  			<groupId>commons-io</groupId>
+			  <artifactId>commons-io</artifactId>
+			  <version>1.3.2</version>
+			  <scope>system</scope>
+			  <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/commons-io-1.3.2.jar</systemPath>			
+		</dependency> 			
+		<dependency>
+  			<groupId>ecore</groupId>
+			  <artifactId>ecore</artifactId>
+			  <version>2.2.0</version>
+			  <scope>system</scope>
+			  <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ecore-2.2.0.jar</systemPath>			
+		</dependency> 			
+		<dependency>
+  			<groupId>elo-api</groupId>
+			  <artifactId>elo-api</artifactId>
+			  <version>0.1.0</version>
+			  <scope>system</scope>
+			  <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/elo-api-0.1.0-SNAPSHOT.jar</systemPath>			
+		</dependency> 			
+		<dependency>
+  			<groupId>elo-impl</groupId>
+			  <artifactId>elo-impl</artifactId>
+			  <version>0.1.0</version>
+			  <scope>system</scope>
+			  <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/elo-impl-0.1.0-SNAPSHOT.jar</systemPath>			
+		</dependency> 			
+		<dependency>
+  			<groupId>jug</groupId>
+			  <artifactId>jug</artifactId>
+			  <version>1.1.2</version>
+			  <scope>system</scope>
+			  <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/jug-1.1.2.jar</systemPath>			
+		</dependency> 			
+		<dependency>
+  			<groupId>pas-curnitmap</groupId>
+			  <artifactId>pas-curnitmap</artifactId>
+			  <version>0.1.0</version>
+			  <scope>system</scope>
+			  <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/pas-curnitmap-0.1.0-SNAPSHOT.jar</systemPath>			
+		</dependency> 			
+		<dependency>
+  			<groupId>qti-bindings</groupId>
+			  <artifactId>qti-bindings</artifactId>
+			  <version>2.0</version>
+			  <scope>system</scope>
+			  <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/qti-bindings-2.0-SNAPSHOT.jar</systemPath>			
+		</dependency> 			
+		<dependency>
+  			<groupId>sail-core</groupId>
+			  <artifactId>sail-core</artifactId>
+			  <version>0.4.5</version>
+			  <scope>system</scope>
+			  <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/sail-core-0.4.5-SNAPSHOT.jar</systemPath>			
+		</dependency> 			
+		<dependency>
+  			<groupId>sail-data-emf</groupId>
+			  <artifactId>sail-data-emf</artifactId>
+			  <version>0.1.0</version>
+			  <scope>system</scope>
+			  <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/sail-data-emf-0.1.0-SNAPSHOT.jar</systemPath>			
+		</dependency> 			
 	</dependencies>
 	<reporting>
 		<plugins>
