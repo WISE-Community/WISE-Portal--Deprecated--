@@ -128,12 +128,14 @@
 		</notifiers>
 	</ciManagement>
 	<build>
+<!--
 		<resources outputDirectory="${project.build.outputDirectory}">
                     <resource>
                 <filtering>true</filtering>
                 <directory>src/main/webapp/WEB-INF</directory>
             </resource>
          </resources>
+-->
 	<!--  
 		<resources outputDirectory="${project.build.outputDirectory}">
 			<resource>
