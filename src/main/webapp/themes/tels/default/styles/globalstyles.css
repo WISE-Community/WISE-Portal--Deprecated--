@@ -293,9 +293,9 @@ a#name {
 	border-radius: 6px;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
-	box-shadow:2px 2px 4px #444444;
-	-webkit-box-shadow:2px 2px 4px #444444;
-	-moz-box-shadow:2px 2px 4px #444444;
+	-moz-box-shadow:1px 1px 3px #444;
+	-webkit-box-shadow:1px 1px 3px #444;
+	box-shadow:1px 1px 3px #444;
 	background-color: #FFFFFF;
 }
 
@@ -330,9 +330,9 @@ a#name {
 	border-radius: 8px;
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
-	box-shadow:2px 2px 4px #444444;
-	-webkit-box-shadow:2px 2px 4px #444444;
-	-moz-box-shadow:2px 2px 4px #444444;
+	-moz-box-shadow:1px 1px 3px #444;
+	-webkit-box-shadow:1px 1px 3px #444;
+	box-shadow:1px 1px 3px #444;
 }
 
 .sidePanel {
@@ -341,9 +341,9 @@ a#name {
 	-moz-border-radius: 8px;
     background-color: #FFFFFF;
     border: 6px solid #FFFFFF;
-    box-shadow:2px 2px 4px #444444;
-	-webkit-box-shadow:2px 2px 4px #444444;
-	-moz-box-shadow:2px 2px 4px #444444;
+    -moz-box-shadow:1px 1px 3px #444;
+	-webkit-box-shadow:1px 1px 3px #444;
+	box-shadow:1px 1px 3px #444;
     margin-bottom: 1em;
 }
 
