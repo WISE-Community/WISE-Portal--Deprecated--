@@ -174,8 +174,7 @@ public class AdminJob extends QuartzJobBean {
 	}
 	
 	public void sendEmail(String message) {
-		String uberAdmins = emaillisteners.getProperty("uber_admin");  // comma-separated values
-		String[] recipients = uberAdmins.split(",");
+		String[] recipients = emaillisteners.getProperty("uber_admin").split(",");
 		
 		String subject = "Daily Admin Report on Portal: "
 		    + " (" + portalProperties.getProperty("portal.name") + ")";		

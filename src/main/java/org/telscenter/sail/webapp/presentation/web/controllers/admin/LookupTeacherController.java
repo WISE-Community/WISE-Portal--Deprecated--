@@ -42,8 +42,10 @@ import org.telscenter.sail.webapp.domain.authentication.Schoollevel;
 import org.telscenter.sail.webapp.domain.impl.LookupParameters;
 
 /**
+ * Controller for admins to look up teacher user accounts based on specified
+ * search criteria.
+ *  
  * @author patrick lawler
- *
  */
 public class LookupTeacherController extends SimpleFormController {
 
@@ -77,6 +79,11 @@ public class LookupTeacherController extends SimpleFormController {
 			term = params.getLookupData();
 		}
 		
+		// if searching for ID, make the term object in a Long.
+		if ("ID".equals(params.getLookupField())) {
+			term = Long.parseLong(params.getLookupData());
+		}
+		
 		List<User> users = this.userService.retrieveByField(params.getLookupField()
 				.toLowerCase(),	params.getLookupCriteria(), term,
 				"teacherUserDetails");
@@ -105,6 +112,7 @@ public class LookupTeacherController extends SimpleFormController {
 		return Schoollevel.OTHER;
 	}
 	
+	@SuppressWarnings("unused")
 	private Curriculumsubjects getSubject(String subject){
 		for(Curriculumsubjects curriculum : Curriculumsubjects.values()){
 			if(curriculum.toString().toUpperCase().equals(subject.toUpperCase()))

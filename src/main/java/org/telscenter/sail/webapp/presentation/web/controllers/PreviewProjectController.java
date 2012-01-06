@@ -22,12 +22,13 @@ import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
 import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
-import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.presentation.util.Util;
+import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * Controller for previewing a specific project
+ * Parameters can be projectId, runId, and externalId.
  * 
  * @author Matt Fishbach
  * @author Hiroki Terashima
@@ -39,12 +40,16 @@ public class PreviewProjectController extends AbstractController {
 
 	private static final String PROJECT_ID_PARAM_NAME = "projectId";
 
+	private static final String RUN_ID_PARAM_NAME = "runId";
+
 	private static final String EXTERNAL_ID_PARAM_NAME = "externalId";
 	
 	private static final String VERSION_ID = "versionId";
 	
 	private ProjectService projectService;
 	
+	private RunService runService;
+
 	private ProjectCommunicatorDao<ProjectCommunicator> diyProjectCommunicator;
 	
 	private HttpRestTransport httpRestTransport;
@@ -68,12 +73,22 @@ public class PreviewProjectController extends AbstractController {
 			return (ModelAndView) projectService.previewProject(params);
 		}
 		
-		User user = ControllerUtil.getSignedInUser();
 		String projectIdStr = request.getParameter(PROJECT_ID_PARAM_NAME);
-		Project project = projectService.getById(projectIdStr);
-		 Set<String> tagNames = new TreeSet<String>();
-		 tagNames.add("library");
+		String runIdStr = request.getParameter(RUN_ID_PARAM_NAME);
+		Project project = null;
+		if (projectIdStr != null) {
+			project = projectService.getById(projectIdStr);
+		} else if (runIdStr != null) {
+			project = runService.retrieveById(Long.valueOf(runIdStr)).getProject();
+		} else {
+			throw new Exception("Please specify a Project to Preview");
+		}
 		
+		Set<String> tagNames = new TreeSet<String>();
+		tagNames.add("library");
+
+		User user = ControllerUtil.getSignedInUser();
+
 		if(project.hasTags(tagNames) || 
 				project.getFamilytag().equals(FamilyTag.TELS) || this.projectService.canReadProject(project, user)){
 			PreviewProjectParameters params = new PreviewProjectParameters();
@@ -95,6 +110,10 @@ public class PreviewProjectController extends AbstractController {
 		this.projectService = projectService;
 	}
 	
+	public void setRunService(RunService runService) {
+		this.runService = runService;
+	}
+
 	/**
 	 * @param httpRestTransport the httpRestTransport to set
 	 */

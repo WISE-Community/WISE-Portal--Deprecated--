@@ -56,6 +56,7 @@
 				height: '400',
 				title: title,
 				position: 'center',
+				modal:true,
 				close: function(){ $(this).html(''); },
 				buttons: {
 					Close: function(){

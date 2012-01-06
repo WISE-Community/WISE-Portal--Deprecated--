@@ -200,11 +200,11 @@ $(document).ready(function() {
 							
 							<spring:htmlEscape defaultHtmlEscape="false">
             				<spring:escapeBody htmlEscape="false">
-								<div id="displayAsEnglish"><spring:message code="student.index.48"/></div>
+								<div class="displayAsEnglish"><spring:message code="student.index.48"/></div>
 							</spring:escapeBody>
 							</spring:htmlEscape>
 						
-							<div style="display:none;" id="displayAsEnglish"><a href="#"><spring:message code="student.index.12"/></a></div>
+							<div style="display:none;" class="displayAsEnglish"><a href="#"><spring:message code="student.index.12"/></a></div>
 							
 						</div>
 					</div>

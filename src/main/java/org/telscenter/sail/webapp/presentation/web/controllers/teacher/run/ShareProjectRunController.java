@@ -43,6 +43,7 @@ import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.UserService;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.validation.BindException;
@@ -249,9 +250,9 @@ public class ShareProjectRunController extends SimpleFormController {
 			
 			TeacherUserDetails shareeDetails = (TeacherUserDetails) sharee.getUserDetails();
 			
-			String shareeEmailAddress = shareeDetails.getEmailAddress();
+			String[] shareeEmailAddress = {shareeDetails.getEmailAddress()};
 			
-			String[] recipients = {shareeEmailAddress, emaillisteners.getProperty("uber_admin")};
+			String[] recipients = (String[]) ArrayUtils.addAll(shareeEmailAddress, emaillisteners.getProperty("uber_admin").split(","));
 			
 			String subject = sharerName + " shared a project run with you on WISE4";	
 			String message = sharerName + " shared a project run with you on WISE4:\n\n" +

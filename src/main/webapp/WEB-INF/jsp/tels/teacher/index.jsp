@@ -65,53 +65,57 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 
 </head>
 
-        <!-- Page-specific script TODO: Make text translatable -->
+        <!-- Page-specific script TODO: Make text translatable and move to external script-->
 
         <script type="text/javascript">
             /**
              * Asynchronously updates the run with the given id on the server and 
              * displays the appropriate reponse when completed.
              */
-            function extendReminder(id){
-            	var runLI = $('#extendReminder_' + id);
-            	runLIhtml('Updating run on server...');
-            	
+            $('.extendReminderLink').live('click',function(){
+            	var link = $(this);
+            	var id = $(this).attr('id').replace('extendReminder_','');
+            	var updatingText = $('<span style="color: #DDCDB5;"> Updating...</span>');
+            	link.parent().append(updatingText);
             	$.ajax({
 					type: 'post',
 					url: '/webapp/teacher/run/manage/extendremindertime.html?runId=' + id,
 					success: function(request){
-						runLIhtml('<span style="color: #24DD24;">You will be reminded to archive project run ' + id + ' again in 30 days.</span>');
+						updatingText.remove();
+						link.css('text-decoration','strike-through');
+						link.parent().append('<span style="color: #DDCDB5;"> Success! You will be reminded to archive project run ' + id + ' again in 30 days.</span>');
+						setTimeout(function(){link.parent().fadeOut();},5000);
 					},
 					error: function(request,error){
-						runLI.innerHTML = '<span style="color: #DD2424;">Unable to update project run ' + id + ' on server.</span>';
+						updatingText.remove();
+						link.parent().append('<span style="color: #DD2424;"> Sorry, unable to update project run ' + id + ' on server. Please try again later.</span>');
 					}
             	});
-            };
+            });
 			
             /**
             * Asynchronously archives a run
             **/
-            function archiveRun(runId){
-				var runLI = $('#extendReminder_' + runId);
-				runLI.html('Archiving run on server...');
-				
-				$.ajax({
+            $('.runArchiveLink').live('click',function(){
+            	var link = $(this);
+            	var id = $(this).attr('id').replace('archiveRun_','');
+            	var updatingText = $('<span style="color: #DDCDB5;"> Updating...</span>');
+            	link.parent().append(updatingText);
+            	$.ajax({
 					type: 'post',
-					url: '/webapp/teacher/run/manage/archiveRun.html?runId=' + runId,
+					url: '/webapp/teacher/run/manage/extendremindertime.html?runId=' + id,
 					success: function(request){
-						/* update message on teacher index page announcements section */
-						runLI.html('<span style="color:#24DD24;">Project run ' + runId + ' has been archived.</span>');
-
-						/* remove archived run from quick runs list */
-						var child = window.frames['dynamicFrame'].document.getElementById('runTitleRow_' + runId);
-						child.parentNode.removeChild(child);
+						updatingText.remove();
+						link.css('text-decoration','strike-through');
+						link.parent().append('<span style="color: #DDCDB5;"> Project run ' + id + ' has been archived. Run listing will now refresh.</span>');
+						setTimeout(function(){window.location.reload();},2000);
 					},
 					error: function(request,error){
-						/* set failure message */
-						runLIhtml('<span style="color:#992244;">Unable to archive project run! Refresh this page and try again.</span>');
+						updatingText.remove();
+						link.parent().append('<span style="color: #DD2424;"> Sorry, unable to archive project run ' + id + ' on server. Please try again later.</span>');
 					}
-				});
-            };
+            	});
+            });
 
             /**
              * Asynchronously archives a message
@@ -265,10 +269,10 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 									<c:forEach var="run" items="${current_run_list1}">
 										<sec:accesscontrollist domainObject="${run}" hasPermission="16">
 											<c:if test='${(run.archiveReminderTime.time - current_date.time) < 0}'>
-												<li id='extendReminder_${run.id}'><spring:message code="teacher.index.46" /> <span style="font-weight:bold;">${run.name} (${run.id})</span> <spring:message code="teacher.index.47" />
+												<li><spring:message code="teacher.index.46" /> <span style="font-weight:bold;">${run.name} (${run.id})</span> <spring:message code="teacher.index.47" />
 													<fmt:formatDate value="${run.starttime}" type="date" dateStyle="medium" timeStyle="short" />.
 													 <spring:message code="teacher.index.48" />  [<a class="runArchiveLink"
-															onclick="archiveRun('${run.id}')"><spring:message code="teacher.index.49" /></a> / <a class="runArchiveLink" onclick='extendReminder("${run.id}")'><spring:message code="teacher.index.49A" /></a>]</li>
+															id='archiveRun_${run.id}'><spring:message code="teacher.index.49" /></a> / <a class="extendReminderLink" id='extendReminder_${run.id}'><spring:message code="teacher.index.49A" /></a>]</li>
 											</c:if>
 										</sec:accesscontrollist>
 									</c:forEach>

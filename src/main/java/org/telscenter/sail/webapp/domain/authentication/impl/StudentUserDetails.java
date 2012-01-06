@@ -301,6 +301,7 @@ public class StudentUserDetails extends PersistentUserDetails implements
 	 */
 	public HashMap<String, Object> getInfo() {
 		HashMap<String, Object> infoMap = new HashMap<String, Object>();
+		infoMap.put("ID", this.getId());
 		infoMap.put("First Name", this.getFirstname());
 		infoMap.put("Last Name", this.getLastname());
 		infoMap.put("username", this.getUsername());

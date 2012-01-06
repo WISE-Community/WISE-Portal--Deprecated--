@@ -395,9 +395,11 @@
 			</div>
 		</c:when>
 		<c:otherwise>
+<!--
 			<p class="info"><spring:message code="teacher.run.myprojectruns.52"/> <a href="/webapp/teacher/management/library.html">
 				<spring:message code="teacher.run.myprojectruns.52A"/></a> <spring:message code="teacher.run.myprojectruns.52D"/>	<a href="/webapp/author/authorproject.html">
 				<spring:message code="teacher.run.myprojectruns.52E"/></a>.</p>
+-->
 		</c:otherwise>
 	</c:choose>
 

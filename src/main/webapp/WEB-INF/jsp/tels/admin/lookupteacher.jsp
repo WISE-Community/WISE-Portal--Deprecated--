@@ -4,6 +4,7 @@
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
 
 <link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
@@ -11,22 +12,25 @@
 <link href="../<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
     
 <script src="../javascript/tels/general.js" 			type="text/javascript"> </script>
-<script src="../javascript/tels/prototype.js" 			type="text/javascript"> </script>
-<script src="../javascript/tels/effects.js" 			type="text/javascript"> </script>
-<script src="../javascript/tels/scriptaculous.js" 		type="text/javascript"> </script>
-<script src="../javascript/tels/rotator.js" 			type="text/javascript"> </script>
-<script src="../javascript/tels/rotatorT.js" 			type="text/javascript"> </script>
     
 <title><spring:message code="application.title" /></title>
 
-<script type='text/javascript' src='/webapp/dwr/interface/ChangePasswordParametersValidatorJS.js'></script>
-<script type='text/javascript' src='/webapp/dwr/engine.js'></script>
-
+<script type='text/javascript'>
+// update lookup criteria options based on lookup field chosen
+function lookupFieldChanged() {
+	var selectedLookupField = $("#lookupField option:selected").val();
+	if (selectedLookupField == "ID") {
+		$("#equalsCriteria").attr("selected","selected");
+		$("#likeCriteria").hide();
+	} else {
+		$("#likeCriteria").show();		
+	}
+};
+</script>
 </head>
 
 <body onload="document.getElementById('lookupData').focus();">
 
-<%@ include file="adminheader.jsp"%>
 <h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>
 <br>
 
@@ -41,7 +45,7 @@
 
 <form:form method="post" action="lookupteacher.html" commandName="lookupParameters" id="lookupTeacher" autocomplete='off'>
 	<form:label path="lookupField">Search for all teachers by  </form:label>
-	<form:select path="lookupField" id="lookupField">
+	<form:select path="lookupField" id="lookupField" onchange="lookupFieldChanged()">
 		<c:forEach var="field" items="${fields }">
 			<form:option value="${field}">${field }</form:option>
 		</c:forEach>
@@ -49,8 +53,8 @@
 	
 	<form:label path="lookupCriteria">  that  </form:label>
 	<form:select path="lookupCriteria" id="lookupCriteria">
-		<form:option value="like">CONTAINS</form:option>
-		<form:option value="=">MATCHES</form:option>
+		<form:option id="likeCriteria" value="like">CONTAINS</form:option>
+		<form:option id="equalsCriteria" value="=">MATCHES</form:option>
 	</form:select>
 	
 	<form:input path="lookupData" id="lookupData"/>

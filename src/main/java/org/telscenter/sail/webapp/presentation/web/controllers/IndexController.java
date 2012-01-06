@@ -105,18 +105,20 @@ public class IndexController extends AbstractController {
 		
 		for (Project p: libraryProjectsList) {
 			String subject = p.getMetadata().getSubject();
-			if (subject.equals("Earth Science")){
+			if (subject != null) {
+			    if (subject.equals("Earth Science")){
 				esProjects.add(p);
-			} else if (subject.equals("Life Science")){
+			    } else if (subject.equals("Life Science")){
 				lsProjects.add(p);
-			} else if (subject.equals("Physical Science")){
+			    } else if (subject.equals("Physical Science")){
 				psProjects.add(p);
-			} else if (subject.equals("Biology")){
+			    } else if (subject.equals("Biology")){
 				bioProjects.add(p);
-			} else if (subject.equals("Chemistry")){
+			    } else if (subject.equals("Chemistry")){
 				chemProjects.add(p);
-			} else if (subject.equals("Physics")){
+			    } else if (subject.equals("Physics")){
 				physProjects.add(p);
+			    }
 			}
 		}
 		

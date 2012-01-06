@@ -34,12 +34,18 @@
 
 	function updateRunPeriod(runId){
 		$('#msgDiv').html('');
-		var val=$('#editRunPeriodsInput').val();
+		var val=$.trim($('#editRunPeriodsInput').val());
 
 		/* validate user entered value */
 		if(!val || val==''){
 			writeMessage('You must specify a value for the period');
 			return;
+		} else if (val != val.match( /[A-Za-z0-9 ]*/ )) {
+			writeMessage('The period name must be alphanumeric.');
+			return;
+		} else if ($("#period_"+val+"").length > 0) {
+			writeMessage('You already have a period with this name.');
+			return;			
 		}
 
 		$.ajax({type:'POST', url:'updaterun.html', data:'command=addPeriod&runId=' + runId + '&name=' + val, error:updateFailure, success:updatePeriodSuccess});
@@ -66,8 +72,7 @@
 	function updatePeriodSuccess(){
 		runUpdated = true;
 		var val = $('#editRunPeriodsInput').val();
-
-		$('#existingPeriodsList').append('<li>Period Name: ' + val);
+		$('#existingPeriodsList').append('<li>Period Name: <span id="period_'+val+'">' + val + "</span></li>");
 		writeMessage('Period successfully added to run!');
 	}
 
@@ -113,7 +118,7 @@
 		<div id="editRunPeriodsExistingPeriodsDiv">
 			<ul id="existingPeriodsList">
 				<c:forEach var="period" items="${run.periods}">
-					<li>Period Name: ${period.name}</li>
+					<li>Period Name: <span id="period_${period.name}">${period.name}</span></li>
 				</c:forEach>
 			</ul>
 		</div>

@@ -23,6 +23,7 @@ import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.UserService;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.validation.BindException;
@@ -176,7 +177,7 @@ public class ShareProjectController extends SimpleFormController {
     				// only send email if this is a new shared owner
     				if (newSharedOwner) {
     					ShareProjectEmailService emailService = 
-    						new ShareProjectEmailService(signedInUser, retrievedUser, project);
+    						new ShareProjectEmailService(signedInUser, retrievedUser, project, ControllerUtil.getBaseUrlString(request));
     					Thread thread = new Thread(emailService);
     					thread.start();
     				}
@@ -199,12 +200,14 @@ public class ShareProjectController extends SimpleFormController {
     	private User sharer;
     	private User sharee;
     	private Project project;
+    	private String portalBaseUrlString;
 
 		public ShareProjectEmailService(User sharer, User sharee,
-				Project project) {
+				Project project, String portalBaseUrlString) {
 			this.sharer = sharer;
 			this.sharee = sharee;
 			this.project = project;
+			this.portalBaseUrlString = portalBaseUrlString;
 		}
 
 		public void run() {
@@ -226,16 +229,19 @@ public class ShareProjectController extends SimpleFormController {
 
     		TeacherUserDetails shareeDetails = (TeacherUserDetails) sharee.getUserDetails();
 
-    		String shareeEmailAddress = shareeDetails.getEmailAddress();
+    		String[] shareeEmailAddress = {shareeDetails.getEmailAddress()};
 
-    		String[] recipients = {shareeEmailAddress, emaillisteners.getProperty("uber_admin")};
+    		String previewProjectUrl = this.portalBaseUrlString + "/webapp/previewproject.html?projectId="+project.getId();
 
+    		String[] recipients = (String[]) ArrayUtils.addAll(shareeEmailAddress, emaillisteners.getProperty("uber_admin").split(","));
+    		
     		String subject = sharerName + " shared a project with you on WISE4";	
     		String message = sharerName + " shared a project with you on WISE4:\n\n" +
     		"Project Name: " + project.getName() + "\n" +
     		"Project ID: " + project.getId() + "\n" +
     		"Shared with username: " + shareeDetails.getUsername() + "\n" +
-    		"Date this project was shared: " + sdf.format(date) + "\n\n\n" +
+    		"Date this project was shared: " + sdf.format(date) + "\n\n" +
+    		"Go to this URL to preview this project: " + previewProjectUrl + "\n\n" +
     		"Thanks,\n" +
     		"WISE4 Team";
 
