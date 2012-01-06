@@ -68,7 +68,7 @@
 								<tr>
 									<td style="font-weight:bold; width:170px;"><spring:message code="setuprun.confirmation.run.projectcodes" /></td>
 									<td style="color: #FF563F;">
-								    	<div style="font-weight:bold; font-size:1.25em; margin-top:0;"><c:out value="${run.runcode}" /></div>
+								    	<div id="runCode" style="font-weight:bold; font-size:1.25em; margin-top:0;"><c:out value="${run.runcode}" /></div>
 								    	<span><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></span>
 								    </td>
 								</tr>
