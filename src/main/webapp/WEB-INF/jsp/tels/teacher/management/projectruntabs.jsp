@@ -144,10 +144,6 @@
 		$('.toolsHeader').width(285);
 	});
 	
-	function popup(URL, title) {
-		window.open(URL, title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480,left = 320,top = 240');
-	};
-	
 	// setup grading and classroom monitor dialogs
 	$('.grading, .researchTools, .classroomMonitor').live('click',function(){
 		var settings = $(this).attr('id');
@@ -155,6 +151,7 @@
 		var path = "/webapp/teacher/grading/gradework.html?" + settings;
 		var div = $('#gradingDialog').html('<iframe id="gradingIfrm" width="100%" height="100%" style="overflow-y:hidden;"></iframe>');
 		$('body').css('overflow','hidden');
+		console.log($(window).height());
 		div.dialog({
 			modal: true,
 			width: $(window).width() - 32,
@@ -177,7 +174,6 @@
 		var runId = $(this).attr('id').replace('shareRun_','');
 		var path = "/webapp/teacher/run/shareprojectrun.html?runId=" + runId;
 		var div = $('#shareDialog').html('<iframe id="shareIfrm" width="100%" height="100%"></iframe>');
-		$('body').css('overflow','hidden');
 		div.dialog({
 			modal: true,
 			width: '650',
@@ -186,7 +182,6 @@
 			position: 'center',
 			close: function(){ 
 				$(this).html('');
-				$('body').css('overflow','auto');
 			},
 			buttons: {
 				Close: function(){$(this).dialog('close');}
@@ -255,7 +250,6 @@
 			var path = "/webapp/teacher/run/manage/startRun.html?" + params;
 		}
 		var div = $('#archiveRunDialog').html('<iframe id="archiveIfrm" width="100%" height="100%"></iframe>');
-		$('body').css('overflow','hidden');
 		div.dialog({
 			modal: true,
 			width: '600',
@@ -267,7 +261,6 @@
 					window.location.reload();
 				}
 				$(this).html('');
-				$('body').css('overflow','auto');
 			},
 			buttons: {
 				Close: function(){
@@ -331,14 +324,13 @@
 		}
 		var path = "/webapp/teacher/projects/projectinfo.html?projectId=" + projectId;
 		var div = $('#projectDetailDialog').html('<iframe id="projectIfrm" width="100%" height="100%"></iframe>');
-		$('body').css('overflow','hidden');
 		div.dialog({
 			modal: true,
 			width: '800',
 			height: '400',
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); $('body').css('overflow','auto'); },
+			close: function(){ $(this).html(''); },
 			buttons: {
 				Close: function(){
 					$(this).dialog('close');
@@ -359,10 +351,10 @@
     	<li><a href="#archivedRuns"><spring:message code="teacher.run.myprojectruns.1B"/>  (${fn:length(ended_run_list)})</a></li>
     </ul>
     <div id="currentRuns">
-		<p class="info"><spring:message code="teacher.run.myprojectruns.2" /></p>
 		
 		<c:choose>
 			<c:when test="${fn:length(current_run_list) > 0}">
+				<p class="info"><spring:message code="teacher.run.myprojectruns.2" /></p>
 				<div class="runBox">
 					
 					<table id="currentRunTable" class="runTable" border="1" cellpadding="0" cellspacing="0">
@@ -503,7 +495,7 @@
 								    	
 								    	<c:set var="isExternalProject" value="0"/>
 								    	<sec:accesscontrollist domainObject="${run}" hasPermission="16">
-								      		<!-- <li><a id="editAnnouncements_${run.id}" class="editAnnouncements" title="Manage Announcements: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" ><spring:message code="teacher.run.myprojectruns.50"/></a></li> -->
+								      		<li><a id="editAnnouncements_${run.id}" class="editAnnouncements" title="Manage Announcements: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" ><img class="icon" alt="announcements" src="/webapp/themes/tels/default/images/icons/teal/chat-.png" /><spring:message code="teacher.run.myprojectruns.50"/></a></li>
 								        </sec:accesscontrollist>
 								        <li><a class="researchTools" title="<spring:message code="teacher.run.myprojectruns.64"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}&gradingType=export"><img class="icon" alt="export" src="/webapp/themes/tels/default/images/icons/teal/save.png" /><span><spring:message code="teacher.run.myprojectruns.64"/> <spring:message code="teacher.run.myprojectruns.66"/></span></a></li>	    	
 								    	<!-- 
@@ -538,18 +530,21 @@
 			</c:when>
 		<c:otherwise>
 			<p class="info">
-				<spring:escapeBody htmlEscape="false"><spring:message code="teacher.run.myprojectruns.52"/></spring:escapeBody>
+				<spring:htmlEscape defaultHtmlEscape="false">
+				<spring:escapeBody htmlEscape="false">
+					<spring:message code="teacher.run.myprojectruns.52"/>
+				</spring:escapeBody>
+				</spring:htmlEscape>
 			</p>
 		</c:otherwise>
 	</c:choose>
 	</div><!-- end current runs tab -->
 
 	<div id="archivedRuns">
-		<p class="info"><spring:message code="teacher.run.myprojectruns.54"/></p>
 		
 		<c:choose>
 			<c:when test="${fn:length(ended_run_list) > 0}">
-			
+				<p class="info"><spring:message code="teacher.run.myprojectruns.54"/></p>
 				<div class="runBox">
 					
 					<table id="archivedRunTable" class="runTable" border="1" cellpadding="0" cellspacing="0" >
