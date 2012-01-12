@@ -1,7 +1,7 @@
 <%@ include file="../include.jsp"%>
 
 <!DOCTYPE html>
-<html xml:lang="en" lang="en">
+<html lang="en">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -11,7 +11,6 @@
 <script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="jqueryuisource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="jquerycookiesource"/>"></script>
-<script type="text/javascript" src="<spring:theme code="superfishsource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="browserdetectsource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="checkcompatibilitysource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
@@ -25,7 +24,9 @@
 if ($.cookie("hasBeenAlertedBrowserCompatibility") != "true") {
 	alertBrowserCompatibility();
 }
-$.cookie("hasBeenAlertedBrowserCompatibility","true");    
+$.cookie("hasBeenAlertedBrowserCompatibility","true");
+
+$.cookie("pLT","<%= request.getParameter("pLT") %>", {path:"/"});
 
 $(document).ready(function() {
 	// create add project dialog
@@ -70,9 +71,58 @@ $(document).ready(function() {
 		});
 
 	});
-
+	
+	// setup announcement link click handlers
+	$('.viewAnnouncements').live('click',function(){
+		var runIds = $(this).attr('id').replace('viewAnnouncements_','');
+		showAnnouncements(runIds);
+	});
+	
+	/* Shows announcements dialog
+	** @param runIds String of Ids (comma separated) of runs to show announcements for
+	** @param title String for title of dialog window
+	** @param onlyNew Boolean whether to show all announcements or only new ones
+	*/
+	function showAnnouncements(runIds,title,onlyNew){
+		var thisTitle = "<spring:message code="student.index.33"/>";
+		if(title){
+			thisTitle = title;
+		}
+		var newOnly = 'false';
+		if(onlyNew){
+			newOnly = onlyNew;
+		}
+		var previousLogin = $.cookie("pLT");
+		var path = "viewannouncements.html?runId=" + runIds + "&pLT=" + previousLogin + "&newOnly=" + newOnly;
+		var div = $('#announcementsDialog').html('<iframe id="announceIfrm" width="100%" height="100%"></iframe>');
+		div.dialog({
+			modal: true,
+			width: '800',
+			height: '500',
+			title: thisTitle,
+			position: 'center',
+			close: function(){ $(this).html(''); },
+			buttons: {
+				Close: function(){
+					$(this).dialog('close');
+				}
+			}
+		});
+		$("#announcementsDialog > #announceIfrm").attr('src',path);
+	};
+	
 	// make tabs for current/archived runs
-    $("#tabSystem").tabs();		
+    $("#tabSystem").tabs();
+	
+	// check for new teacher announcements and display
+	var newAnnouncements = "<c:out value="${newAnnouncements}" />";
+	
+	if(newAnnouncements > 0){
+		var title = "<spring:message code="student.index.34A"/>";
+		var announcementRunIds = "<c:out value="${announcementRunIds}" />";
+		showAnnouncements(announcementRunIds,title,'true');
+	}
+	
 });
 </script>
 
@@ -169,11 +219,11 @@ $(document).ready(function() {
 									<td style="width:90px;"><spring:message code="student.index.6"/></td>
 									<td>
 									<c:choose>
-										<c:when test="${user.userDetails.lastLoginTime == null}">
+										<c:when test="${lastLoginTime == null}">
 											<spring:message code="student.index.7"/>
 										</c:when>
 										<c:otherwise>
-											<fmt:formatDate value="${user.userDetails.lastLoginTime}" 
+											<fmt:formatDate value="${lastLoginTime}" 
 												type="both" dateStyle="short" timeStyle="short" />
 										</c:otherwise>
 									</c:choose>
@@ -182,7 +232,15 @@ $(document).ready(function() {
 								</tr>
 								<tr>
 									<td><spring:message code="student.index.5"/></td>
-									<td><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></td>
+									<c:choose>
+										<c:when test="${user.userDetails.lastLoginTime} == null}">
+											<c:set var="thisLogin" value="${current_date}" />
+										</c:when>
+										<c:otherwise>
+											<c:set var="thisLogin" value="${user.userDetails.lastLoginTime}" />
+										</c:otherwise>
+									</c:choose>
+									<td><fmt:formatDate value="${thisLogin}" type="both" dateStyle="short" timeStyle="short" /></td>
 								<tr>
 									<td class="listTitle2"><spring:message code="student.index.8"/></td>
 									<td id="numberOfLogins">${user.userDetails.numberOfLogins}</td>
@@ -259,7 +317,7 @@ $(document).ready(function() {
 					    							-->
 												</c:otherwise>
 											</c:choose>
-											<!-- <li><a href="viewannouncements.html?runId=${studentRunInfo.run.id}" class="wisebutton medium">View Announcements</a></li> TODO: reinstate when announcements are re-enabled -->
+											<li class="announcements"><a id="viewAnnouncements_${studentRunInfo.run.id}" class="viewAnnouncements"><spring:message code="student.index.34"/></a></li> <!-- TODO: i18n -->
 											<li><a href="/webapp/contactwiseproject.html?projectId=${studentRunInfo.run.project.id}"><spring:message code="student.index.20"/></a></li>
 										</ul>
 								 	</td>
@@ -405,6 +463,8 @@ $(document).ready(function() {
 	
 	<%@ include file="../footer.jsp"%>
 </div>
+
+<div id="announcementsDialog" class="dialog" style="display:none; overflow:hidden;"></div>
 
 </body>
 </html>

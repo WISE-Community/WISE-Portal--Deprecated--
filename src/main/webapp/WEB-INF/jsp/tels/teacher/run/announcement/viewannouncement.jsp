@@ -1,30 +1,30 @@
 <%@ include file="../include.jsp"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+<!DOCTYPE html>
 <html xml:lang="en" lang="en">
 <head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
 
-<link href="../../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
-<link href="../../../<spring:theme code="teacherrunstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<title>View Announcement</title>
+<title>Edit Announcement</title>
 
-<script src="../javascript/tels/general.js" type="text/javascript"> </script>
-<script src="../javascript/tels/prototype.js" type="text/javascript"> </script>
+<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 </head>
 
-<body class="yui-skin-sam">
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<div align="center">
-	
-	<h3>${announcement.title}</h3>
-	${announcement.timestamp}
-	<br><br>
-	${announcement.announcement}
-</div>
+<body style="background:#FFFFFF;">
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	<div class="dialogContent">
+		<div class="sectionHead">Sent <fmt:formatDate value="${announcement.timestamp}" type="both" timeStyle="short" dateStyle="medium" /></div>
+		<div class="dialogSection">Title: ${announcement.title}</div>
+		<div class="dialogSection">
+			Message: ${announcement.announcement}
+		</div>
+		<div class="dialogSection"><a href="manageannouncement.html?runId=<c:out value='${param.runId}' />">Go Back</a></div>
+	</div>
 </body>
 </html>
