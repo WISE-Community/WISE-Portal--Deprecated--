@@ -219,6 +219,11 @@ public class BridgeController extends AbstractController {
 				workgroupIdStr = request.getParameter("userId");
 				canAccessOtherWorkgroups = true;
 			} else if (type.equals("annotation")) {
+				String annotationType = request.getParameter("annotationType");
+				if ("cRater".equals(annotationType)) {
+					// anyone can make a cRater annotation
+					return true;
+				}
 				workgroupIdStr = request.getParameter("toWorkgroup");
 				
 				//get the fromWorkgroup id
@@ -376,6 +381,8 @@ public class BridgeController extends AbstractController {
 			 * has access to the teacher and classmate info
 			 */
 			setUserInfos(run, request);
+			
+			setCRaterAttributes(request);
 			
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/annotations.html");
 			requestDispatcher.forward(request, response);
@@ -752,6 +759,17 @@ public class BridgeController extends AbstractController {
 		 * context can access this data
 		 */
 		request.setAttribute("studentAttendance", studentAttendanceJSONArray.toString());
+	}
+	
+	/**
+	 * Sets the CRater urls and client id so the VLEAnnotationController can make
+	 * requests to the CRater server.
+	 * @param request
+	 */
+	private void setCRaterAttributes(HttpServletRequest request) {
+		request.setAttribute("cRaterVerificationUrl", portalProperties.getProperty("cRater_verification_url"));
+		request.setAttribute("cRaterScoringUrl", portalProperties.getProperty("cRater_scoring_url"));
+		request.setAttribute("cRaterClientId", portalProperties.getProperty("cRater_client_id"));
 	}
 	
 	/**
