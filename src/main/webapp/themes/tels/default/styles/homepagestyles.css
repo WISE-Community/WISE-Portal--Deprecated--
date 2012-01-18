@@ -56,7 +56,7 @@ a.projectsLink {
 }
 
 #about {
-	width: 605px;
+	width: 606px;
 	background: url('/webapp/themes/tels/default/images/home/intro_slider_bg.png') no-repeat center center;
 }
 
@@ -89,7 +89,7 @@ a.projectsLink {
 
 #showcaseSlider {
     position:relative;
-    width:578px; /* Change this to your images width */
+    width:577px; /* Change this to your images width */
     height:240px; /* Change this to your images height */
     background:url(images/loading.gif) no-repeat 50% 50%;
     margin: 1px 13px 0;

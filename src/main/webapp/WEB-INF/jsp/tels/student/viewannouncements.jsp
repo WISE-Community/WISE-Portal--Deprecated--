@@ -1,97 +1,65 @@
 <%@ include file="../include.jsp"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
-<html xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+<title><spring:message code="application.title" /></title>
 
-<link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-<link href="../<spring:theme code="studenthomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="studenthomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
-<title>View Announcements</title>
+<title><spring:message code="student.announcements.1" /></title>
 
-<%@ include file="styles.jsp"%>
-
-<script src=".././javascript/tels/general.js" type="text/javascript" > </script>
-<script src=".././javascript/tels/prototype.js" type="text/javascript" > </script>
-<script src=".././javascript/tels/effects.js" type="text/javascript" > </script>
-
-<script>
-var getNewAnnouncements = function(dialog){
-    	var newAnnouncement = false;
-    	var announcementHTML = "";
-    	<c:forEach var="runInfo" items="${current_run_list}">
-    		<c:forEach var="announcement" items="${runInfo.run.announcements}">
-    			<c:if test="${user.userDetails.lastLoginTime < announcement.timestamp || user.userDetails.lastLoginTime == null}">
-    				newAnnouncement = true;
-    				announcementHTML = announcementHTML + "<tr><td align='center'><h3>${announcement.title} (posted on:" + "${announcement.timestamp})</h3>" + "${announcement.announcement}<br><br></td></tr>";
-   			</c:if>
-    		</c:forEach>
-    	</c:forEach>
-    	
-    	if(newAnnouncement){
-    		document.getElementById('announcementsTable').innerHTML =  announcementHTML;
-    		dialog.show();
-    	};
-    };
-</script>
+<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
 
 </head>
 
-<body class="yui-skin-sam">
+<body>
 
-<div id="centeredDiv">
+<body style="background:#FFFFFF;">
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+	<% pageContext.setAttribute("newLineChar", "\n"); %>
+	<div class="dialogContent">
 
-<%@ include file="./studentHeader.jsp"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<a href="index.html?showNewAnnouncements=false"><b>Go to Student Home Page</b></a>
-
-<c:forEach var="run" items="${runs}">
-
-<div id="studentAnnouncementHeader">Student Announcements for <i>${run.name}</i></div>
-
-<div id="existingAnnouncements">
-	<c:choose>
-		<c:when test="${fn:length(run.announcements) > 0}">
-			<c:forEach var="announcement" items="${run.announcements}">
-			    <c:choose>
-			    <c:when test="${user.userDetails.lastLoginTime < announcement.timestamp || user.userDetails.lastLoginTime == null}">
-    				
-    				<table id="announcementTable">
-    					<tr class='newAnnouncement'>
-    						<td class="col1">${announcement.title}</td>
-    						<td class="col2"><fmt:formatDate value="${announcement.timestamp}" type="both" dateStyle="short" timeStyle="short" /></td>
-    						<td class="col3">${announcement.announcement}</td>
-    					</tr>
-    				</table>
-   			    </c:when>
-   			    <c:otherwise>
-				<table id="announcementTable">
-    					<tr class='existingAnnouncement'>
-    						<td class="col1">${announcement.title}</td>
-    						<td class="col2"><fmt:formatDate value="${announcement.timestamp}" type="both" dateStyle="short" timeStyle="short" /></td>
-    						<td class="col3">${announcement.announcement}</td>
-    					</tr>
-    				</table>
-    			</c:otherwise>
-				</c:choose>
-			</c:forEach>
-		</c:when>
-		<c:otherwise>
-			This project currently has no announcements.
-		</c:otherwise>
-	</c:choose>
-</div>
-</c:forEach>
-
-<br/>
-<br/>
-<a href="index.html?showNewAnnouncements=false"><b>Go to Student Home Page</b></a>
-
-</div>
-
+		<c:forEach var="run" items="${runs}">
+		<div class="sectionHead"><spring:message code="student.announcements.2" /> ${run.name}</div>
+		
+		<div class="dialogSection">
+			<c:choose>
+				<c:when test="${fn:length(run.announcements) > 0}">
+					<ul class="announcements">
+						<c:forEach var="announcement" items="${run.announcements}">
+							<c:choose>
+							    <c:when test="${user.userDetails.lastLoginTime < announcement.timestamp || user.userDetails.lastLoginTime == null || previousLoginTime < announcement.timestamp}">
+									<li class="new">
+										<div><span class="aTitle">${announcement.title}</span> <span class="aDate">(<fmt:formatDate value="${announcement.timestamp}" type="both" dateStyle="medium" timeStyle="short" />)</span> <span class="newTag"><spring:message code="student.announcements.4" /></span></div>
+										<div class="aMessage">${fn:replace(announcement.announcement, newLineChar, "<br />")}</div>
+									</li>
+								</c:when>
+								<c:otherwise>
+									<c:if test="${param.newOnly == 'false'}">
+										<li>
+											<div><span class="aTitle">${announcement.title}</span> <span class="aDate">(<fmt:formatDate value="${announcement.timestamp}" type="both" dateStyle="medium" timeStyle="short" />)</span></div>
+											<div class="aMessage">${fn:replace(announcement.announcement, newLineChar, "<br />")}</div>
+										</li>
+									</c:if>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</ul>
+				</c:when>
+				<c:otherwise>
+					<div class="noMessages"><spring:message code="student.announcements.3" /></div>
+				</c:otherwise>
+			</c:choose>
+		</div>
+		</c:forEach>
+	</div>
 </body>
 </html>

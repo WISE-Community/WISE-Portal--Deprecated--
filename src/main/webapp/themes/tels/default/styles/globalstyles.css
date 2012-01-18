@@ -55,6 +55,7 @@ body {
 	overflow:auto;
 	color: #444;
 	background:url("/webapp/themes/tels/default/images/body-bg.png") repeat-y scroll center top #555555;
+	/*background:url("/webapp/themes/tels/default/images/body-bg-circles.png") repeat-y scroll center top #555555;*/
 }
 	
 img {border: 0px;}
@@ -88,7 +89,7 @@ abbr, acronym {
 	text-align:center;
 }
 
-input[type="button"], input[type="submit"], input[type="text"], input[type="password"] {
+input[type="button"], input[type="submit"], input[type="text"], input[type="password"], textarea  {
 	border-radius: 4px;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
@@ -98,6 +99,7 @@ input[type="button"], input[type="submit"], input[type="text"], input[type="pass
     font-size: 0.9em;
     margin: .25em;
     padding: 0.25em;
+    font-family:Arial,Helvetica,Tahoma,sans-serif;
 }
 
 input[type="text"]:focus {
@@ -204,7 +206,7 @@ img.icon {
 	background-color: #4D93A1;
     border-top: 6px solid #C6CE52;
     margin: 0 auto;
-    max-width: 1161px;
+    max-width: 1160px;
     color:#DCF2EA;
 }
 

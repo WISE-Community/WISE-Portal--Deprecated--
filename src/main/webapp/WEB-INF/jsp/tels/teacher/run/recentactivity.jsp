@@ -1,19 +1,6 @@
 <link href="<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
 <script type="text/javascript">
-	
-	function popup(URL, title) {
-		window.open(URL, title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480,left = 320,top = 240');
-	};
- </script>
-
-<script type="text/javascript">
-	function checkRuns(){
-		//if(${current_run_list} == 0){          
-			//  document.getElementById('runBox').innerHTML = '<div id="noRuns"><br/><h5>You have no current project runs.</h5><br/><h5>Explore the Project Library (in PROJECTS) to find a curriculum project and set it up for a run in your classroom.</h5><br/><h5>Or review <a href="#" style="text-decoration:line-through;">Setting Up a Project Run</a> in the WISE 4.0 Help Guide.</h5></div>';
-		// }
-	}
-	
 	// setup grading dialogs
 	$('.grading, .researchTools, .classroomMonitor').live('click',function(){
 		var settings = $(this).attr('id');
@@ -43,7 +30,6 @@
 		var runId = $(this).attr('id').replace('shareRun_','');
 		var path = "/webapp/teacher/run/shareprojectrun.html?runId=" + runId;
 		var div = $('#shareDialog').html('<iframe id="shareIfrm" width="100%" height="100%"></iframe>');
-		$('body').css('overflow','hidden');
 		div.dialog({
 			modal: true,
 			width: '650',
@@ -52,7 +38,6 @@
 			position: 'center',
 			close: function(){
 				$(this).html('');
-				$('body').css('overflow','auto');
 			},
 			buttons: {
 				Close: function(){$(this).dialog('close');}
@@ -164,7 +149,6 @@
 			var path = "/webapp/teacher/run/manage/startRun.html?" + params;
 		}
 		var div = $('#archiveRunDialog').html('<iframe id="archiveIfrm" width="100%" height="100%"></iframe>');
-		$('body').css('overflow','hidden');
 		div.dialog({
 			modal: true,
 			width: '600',
@@ -176,7 +160,6 @@
 					window.location.reload();
 				}
 				$(this).html('');
-				$('body').css('overflow','auto');
 			},
 			buttons: {
 				Close: function(){
@@ -197,14 +180,13 @@
 		}
 		var path = "/webapp/teacher/projects/projectinfo.html?projectId=" + projectId;
 		var div = $('#projectDetailDialog').html('<iframe id="projectIfrm" width="100%" height="100%"></iframe>');
-		$('body').css('overflow','hidden');
 		div.dialog({
 			modal: true,
 			width: '800',
 			height: '400',
 			title: title,
 			position: 'center',
-			close: function(){ $(this).html(''); $('body').css('overflow','auto'); },
+			close: function(){ $(this).html(''); },
 			buttons: {
 				Close: function(){
 					$(this).dialog('close');
@@ -361,7 +343,7 @@
 							    	
 							    	<c:set var="isExternalProject" value="0"/>
 							    	<sec:accesscontrollist domainObject="${run}" hasPermission="16">
-							      		<!-- <li><a id="editAnnouncements_${run.id}" class="editAnnouncements" title="Manage Announcements: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" ><spring:message code="teacher.run.myprojectruns.50"/></a></li> -->
+							      		<li><a id="editAnnouncements_${run.id}" class="editAnnouncements" title="Manage Announcements: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" ><img class="icon" alt="announcements" src="/webapp/themes/tels/default/images/icons/teal/chat-.png" /><spring:message code="teacher.run.myprojectruns.50"/></a></li>
 							        </sec:accesscontrollist>
 							        <li><a class="researchTools" title="<spring:message code="teacher.run.myprojectruns.64"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}&gradingType=export"><img class="icon" alt="export" src="/webapp/themes/tels/default/images/icons/teal/save.png" /><span><spring:message code="teacher.run.myprojectruns.64"/> <spring:message code="teacher.run.myprojectruns.66"/></span></a></li>			    	
 							    	<!-- 
@@ -395,11 +377,11 @@
 			</div>
 		</c:when>
 		<c:otherwise>
-<!--
-			<p class="info"><spring:message code="teacher.run.myprojectruns.52"/> <a href="/webapp/teacher/management/library.html">
-				<spring:message code="teacher.run.myprojectruns.52A"/></a> <spring:message code="teacher.run.myprojectruns.52D"/>	<a href="/webapp/author/authorproject.html">
-				<spring:message code="teacher.run.myprojectruns.52E"/></a>.</p>
--->
+			<spring:htmlEscape defaultHtmlEscape="false">
+			<spring:escapeBody htmlEscape="false">
+				<p class="info"><spring:message code="teacher.run.myprojectruns.52"/></p>
+			</spring:escapeBody>
+			</spring:htmlEscape>
 		</c:otherwise>
 	</c:choose>
 

@@ -93,9 +93,15 @@ public class StudentIndexController extends AbstractController {
 
 	static final String DEFAULT_PREVIEW_WORKGROUP_NAME = "Your test workgroup";
 
-	private static final String VIEW_ANNOUNCEMENTS_RUNID = "runId";
+	private static final String VIEW_ANNOUNCEMENTS_RUNID = "announcementRunIds";
 
 	private static final String SHOW_NEW_ANNOUNCEMENTS = "showNewAnnouncements";
+	
+	private static final String NEW_ANNOUNCEMENTS = "newAnnouncements";
+	
+	private static final String PREVIOUS_LOGIN_STRING = "pLT";
+	
+	private static final String LAST_LOGIN = "lastLoginTime";
 
 	/** 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -114,6 +120,13 @@ public class StudentIndexController extends AbstractController {
 		List<StudentRunInfo> ended_run_list = new ArrayList<StudentRunInfo>();
 		boolean hasNewAnnouncements = false;
 		
+		List<Long> announcementRuns = new ArrayList<Long>();
+		Date lastLoginTime = new Date();
+		String pLT = request.getParameter("pLT");
+		
+		if (user.getUserDetails() != null && user.getUserDetails() instanceof StudentUserDetails) {
+			lastLoginTime = ((StudentUserDetails) user.getUserDetails()).getLastLoginTime();
+		}
 		
 		for (Run run : runlist) {
 			StudentRunInfo studentRunInfo = studentService.getStudentRunInfo(user, run);
@@ -131,24 +144,26 @@ public class StudentIndexController extends AbstractController {
 				run.setBrainstorms(brainstormsForRun);
 			}
 			
-			// check if there are new announcement for this run
+			// check if there are new announcements for this run
 			if (user.getUserDetails() != null && user.getUserDetails() instanceof StudentUserDetails) {
-				Date lastLoginTime = ((StudentUserDetails) user.getUserDetails()).getLastLoginTime();
-				if (request.getParameter("pLT") != null) {
+				if (pLT != null) {
 					Calendar cal = Calendar.getInstance();
 					try {
-						Long previousLoginTime = new Long(request.getParameter("pLT"));
-						cal.setTimeInMillis(previousLoginTime);
+						Long previousLogin = new Long(pLT);
+						cal.setTimeInMillis(previousLogin);
 						lastLoginTime = cal.getTime();
 					} catch (NumberFormatException nfe) {
 						// if there was an exception parsing previous last login time, such as user appending pLT=1302049863000\, assume this is the lasttimelogging in
-						lastLoginTime = cal.getTime();
+						//lastLoginTime = cal.getTime();
 					}
 				}
 				for (Announcement announcement : run.getAnnouncements()) {
 					if (lastLoginTime == null ||
 							lastLoginTime.before(announcement.getTimestamp())) {
 						hasNewAnnouncements = true;
+						if(!announcementRuns.contains(run.getId())){
+							announcementRuns.add(run.getId());
+						}
 					}
 				}
 			}
@@ -165,27 +180,41 @@ public class StudentIndexController extends AbstractController {
 		List<StudentRunInfo> joinedRunInfo = new ArrayList<StudentRunInfo>();
 		joinedRunInfo.addAll(current_run_list);
 		joinedRunInfo.addAll(ended_run_list);
+		
+		String announcementRunIds = "none";
 		if (isShowNewAnnouncements && hasNewAnnouncements) {
-			modelAndView.setView(new RedirectView("viewannouncements.html"));
-			String runIds = "";
-			for (int i=0; i < joinedRunInfo.size(); i ++) {
-				StudentRunInfo runInfo = joinedRunInfo.get(i);
-				Long id = runInfo.getRun().getId();
-				String idString = id.toString();
-				if (i == joinedRunInfo.size() - 1) {
-					runIds = runIds + idString;					
+			announcementRunIds = "";
+			//modelAndView.setView(new RedirectView("viewannouncements.html"));
+			//String runIds = "";
+			//for (int i=0; i < joinedRunInfo.size(); i ++) {
+				//StudentRunInfo runInfo = joinedRunInfo.get(i);
+				//Long id = runInfo.getRun().getId();
+				//String idString = id.toString();
+				//if (i == joinedRunInfo.size() - 1) {
+					//runIds = runIds + idString;					
+				//} else {
+					//runIds = runIds + idString + ",";
+				//}
+			//}
+			for (int i=0; i < announcementRuns.size(); i ++) {
+				if (i == announcementRuns.size() - 1) {
+					announcementRunIds = announcementRunIds + (announcementRuns.get(i).toString());
 				} else {
-					runIds = runIds + idString + ",";
+					announcementRunIds = announcementRunIds + (announcementRuns.get(i).toString()) + ",";
 				}
-			}
-			modelAndView.addObject(VIEW_ANNOUNCEMENTS_RUNID, runIds);	
-			modelAndView.getModelMap().remove("user");
-	        return modelAndView;
+			}	
+			//modelAndView.getModelMap().remove("user");
+	        //return modelAndView;
 		}
 		
 		//Collections.sort(current_run_list);
 		//Collections.sort(ended_run_list);
+		Integer newAnnouncements = announcementRuns.size();
 		
+		modelAndView.addObject(PREVIOUS_LOGIN_STRING, pLT);
+		modelAndView.addObject(LAST_LOGIN, lastLoginTime);
+		modelAndView.addObject(NEW_ANNOUNCEMENTS, newAnnouncements);
+		modelAndView.addObject(VIEW_ANNOUNCEMENTS_RUNID, announcementRunIds);
 		modelAndView.addObject(CURRENT_STUDENTRUNINFO_LIST_KEY, current_run_list);
 		modelAndView.addObject(ENDED_STUDENTRUNINFO_LIST_KEY, ended_run_list);
 		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);

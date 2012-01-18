@@ -389,10 +389,6 @@ ol#addProjectInstructions li {
 	padding: 3px;
 }
 
-#save {
-	margin-left: 320px;
-}
-
 .passwordData {
 	margin-bottom: 5px;
 }
@@ -1545,6 +1541,65 @@ background-color
 
 #announcementTable .col3 {
 	width: 55%;
+}
+
+ul#announcementList .aDate {
+	color:#777;
+}
+
+ul#announcementList {
+	margin:.5em;
+}
+
+ul#announcementList li {
+	margin-left:1em;
+	list-style-type:disc;
+}
+
+ul#announcementList li a {
+	font-size:.85em;
+}
+
+ul.announcements {
+	margin:.5em;
+}
+
+ul.announcements.new {
+	color:#F47F6E;
+}
+
+ul.announcements li {
+	border: 1px solid #CCCCCC;
+    margin: 0.5em 0;
+    padding: 0.5em;
+}
+
+ul.announcements li.new {
+	border-color:#F47F6E;
+	background-color:#FFF7F7;
+}
+
+ul.announcements .aTitle {
+	text-decoration:underline;
+}
+
+ul.announcements .aDate {
+	color: #777777;
+    font-size: 0.85em;
+}
+
+ul.announcements .aMessage {
+    font-size: 0.9em;
+    margin: 0.5em 0.5em 0;
+}
+
+ul.announcements li.new .newTag {
+	color:#FF563F;
+	font-style:italic;
+}
+
+div.noMessages {
+	margin:.5em;
 }
 
 

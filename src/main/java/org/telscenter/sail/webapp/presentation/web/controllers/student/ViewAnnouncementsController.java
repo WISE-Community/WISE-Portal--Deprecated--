@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +36,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
+import com.ibm.icu.util.Calendar;
+
 /**
  * @author patrick lawler
  * @version $Id:$
@@ -44,6 +47,8 @@ public class ViewAnnouncementsController extends AbstractController{
 	protected final static String RUNID = "runId";
 	
 	protected final static String RUNS = "runs";
+	
+	private static final String PREVIOUS_LOGIN = "previousLoginTime";
 	
 	private RunService runService;
 	
@@ -60,6 +65,19 @@ public class ViewAnnouncementsController extends AbstractController{
 			Run run = runService.retrieveById(new Long(runId));			
 			runs.add(run);
 		}
+		
+		Date previousLoginTime = new Date();
+		Calendar cal = Calendar.getInstance();
+		try {
+			Long pLT = new Long(request.getParameter("pLT"));
+			cal.setTimeInMillis(pLT);
+			previousLoginTime = cal.getTime();
+		} catch (NumberFormatException nfe) {
+			// if there was an exception parsing previous last login time, such as user appending pLT=1302049863000\, assume this is the lasttimelogging in
+			previousLoginTime = cal.getTime();
+		}
+		
+		modelAndView.addObject(PREVIOUS_LOGIN, previousLoginTime);
 		modelAndView.addObject(RUNS, runs);
 		return modelAndView;
 	}

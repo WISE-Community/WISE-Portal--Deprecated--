@@ -25,9 +25,6 @@
 <body onload="document.getElementById('j_username').focus();">
 
 <div id="pageWrapper" style="min-width:550px; background:transparent;">
-			<div id="headerSmall">
-				<a id="name" href="/webapp/index.html" title="WISE Homepage"><spring:message code="wise"/></a>
-			</div>
 			
 			<div class="infoContent loginContent">
 				<div class="panelHeader"><spring:message code="login.title"/></div>
