@@ -358,12 +358,18 @@ a#name {
     color: #FFFFFF;
     margin: 0;
     padding: 0.3em 0.5em;
+    text-shadow:-1px 0 #A3AA3F, 0 1px #A3AA3F, 1px 0 #A3AA3F, 0 -1px #A3AA3F;
 }
 
 .sidePanel .panelContent {
-	-moz-border-radius: 0 0 4px 4px;
     background-color: #745A34;
     color: #F2F4D2;
+}
+
+.sidePanel .panelContent:last-child {
+	-webkit-border-radius:0 0 4px 4px;
+	-moz-border-radius:0 0 4px 4px;
+	border-radius:0 0 4px 4px;
 }
 
 .sidePanel .panelContent a {
