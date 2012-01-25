@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
 
 <script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>

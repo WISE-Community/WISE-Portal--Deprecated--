@@ -375,7 +375,7 @@
 							  <c:forEach var="run" items="${current_run_list}">
 							  
 							  <tr id="runTitleRow_${run.id}" class="runRow">
-							    <td class="titleCell">
+							    <td>
 							    	<div class="runTitle">${run.name}</div>
 							    		<c:set var="ownership" value="owned" />
 										<c:forEach var="sharedowner" items="${run.sharedowners}">
@@ -436,7 +436,7 @@
 							      	
 								</td>
 															
-							    <td style="vertical-align: top; padding:.5em 0;" >
+							    <td style="padding:.5em 0;" >
 							    	<table class="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
 							          <tr>
 							            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.29"/></th>
@@ -453,7 +453,7 @@
 							          <tr><td colspan="2" class="manageStudentGroups"><a class="manageStudents" title="<spring:message code="teacher.run.myprojectruns.62"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}"><img class="icon" alt="groups" src="/webapp/themes/tels/default/images/icons/teal/connected.png" /><span><spring:message code="teacher.run.myprojectruns.62"/></span></a></td></tr>
 							        </table>
 							    </td> 
-							    <td style="vertical-align: top; padding: 0.25em 0;">
+							    <td>
 								    <c:set var="isExternalProject" value="0"/>
 								    
 								        <c:forEach var="external_run" items="${externalprojectruns}">
@@ -468,7 +468,7 @@
 								               	  </ul>
 								               </c:when>
 								               <c:otherwise>
-											    <ul class="actionList">
+											   <ul class="actionList">
 													<li><span style="font-weight:bold;"><spring:message code="teacher.run.myprojectruns.16"/>:</span> <a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}&gradingType=step&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/>: ${run.id})"  id="runId=${run.id}&gradingType=step&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
 							  	                    <li><span style="font-weight:bold;"><spring:message code="teacher.run.myprojectruns.17"/>:</span> <a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/>: ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
 								                    <c:if test="${isXMPPEnabled && run.XMPPEnabled}">
@@ -487,7 +487,7 @@
 								               </c:otherwise>
 								           </c:choose>
 									
-									<ul class="actionList actionList2">
+									<ul class="actionList">
 				
 										<sec:accesscontrollist domainObject="${run}" hasPermission="16">
 				   					      <li><a id="shareRun_${run.id}" class="shareRun" title="<spring:message code="teacher.run.myprojectruns.63"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})"><img class="icon" alt="share" src="/webapp/themes/tels/default/images/icons/teal/agent.png" /><span><spring:message code="teacher.run.myprojectruns.18"/></span></a></li> 
@@ -565,7 +565,7 @@
 							 	<c:forEach var="run" items="${ended_run_list}">
 							  
 							  	<tr class="runTitleRow">
-							    	<td class="titleCell">
+							    	<td>
 							    		<div class="runTitle">${run.name}</div>
 							    		<c:set var="ownership" value="owned" />
 						    			<c:forEach var="sharedowner" items="${run.sharedowners}">
@@ -623,7 +623,7 @@
 										</table>
 									</td>
 															
-									<td style="vertical-align:top; padding:.5em;" >
+									<td style="padding:.5em;" >
 							    		<table class="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
 							          		<tr>
 							            		<th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.7"/></th>
@@ -638,7 +638,7 @@
 							          		</c:forEach>
 										</table>
 									</td> 
-									<td style="vertical-align:top; padding: 0.25em 0;">
+									<td>
 									    <ul class="actionList">
 					 	                    <li><span style="font-weight:bold;"><spring:message code="teacher.run.myprojectruns.59"/>:</span> <a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/>: ${run.id})" id="runId=${run.id}&gradingType=step&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/>: ${run.id})"  id="runId=${run.id}&gradingType=step&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
 							  	            <li><span style="font-weight:bold;"><spring:message code="teacher.run.myprojectruns.60"/>:</span> <a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/>: ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/>: ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>		
@@ -646,7 +646,7 @@
 					                    <ul class="actionList">
 								        	<li><a href="/webapp/previewproject.html?projectId=${run.project.id}&versionId=${run.versionId}" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" /><span><spring:message code="teacher.run.myprojectruns.46D"/></span></a></li>
 								        </ul>
-					                    <ul class="actionList actionList2">
+					                    <ul class="actionList">
 					                    	<li><a class="researchTools" title="<spring:message code="teacher.run.myprojectruns.64"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}&gradingType=export"><img class="icon" alt="export" src="/webapp/themes/tels/default/images/icons/teal/save.png" /><span><spring:message code="teacher.run.myprojectruns.64"/> <spring:message code="teacher.run.myprojectruns.66"/></span></a></li>
 					                    	<sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
 								    	  		<li><a class="activateRun" id="activateRun_runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />" title="<spring:message code="teacher.run.myprojectruns.68"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})"><img class="icon" alt="archive" src="/webapp/themes/tels/default/images/icons/teal/unlock.png" /><span><spring:message code="teacher.run.myprojectruns.56"/></span></a></li>

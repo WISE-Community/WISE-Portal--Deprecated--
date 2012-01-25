@@ -287,6 +287,8 @@ a.printLesson {
 
 .runTable td {
 	border:1px solid #999999;
+	padding:.5em;
+	vertical-align:top;
 }
 	
 .runTitle, .projectTitle {
@@ -294,6 +296,10 @@ a.printLesson {
 	font-weight:bold;
 	margin: 0;
 	padding:0;
+}
+
+.hidden {
+	display:none;
 }
 
 /*.projectTitle {
@@ -403,6 +409,10 @@ th.infoHead {
 	width:135px;
 	text-align:left;
 	vertical-align:top;
+}
+
+.runTitleTable.admin th {
+	width:115px;
 }
 
 .projectDetails th {
@@ -540,15 +550,18 @@ div.sharedTeacherMsg1 {
 	margin-top: .25em;
 }
 
-.actionList  {
+ul.actionList:first-child {
+	padding-top:0;
+}
+
+ul.actionList  {
 	border-bottom: 1px solid #CCCCCC;
     font-size: 0.95em;
-    margin: 0.5em;
-    padding-bottom: 0.25em;
+    padding: 0.25em 0;
     text-align: left;
 }
 
-.actionList2 {
+ul.actionList:last-child {
 	border-bottom:0 none;
 	padding-bottom:0;
 }

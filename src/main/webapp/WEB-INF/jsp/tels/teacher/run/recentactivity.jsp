@@ -208,14 +208,14 @@
 				<table id="currentRunTable" class="runTable" border="1" cellpadding="0" cellspacing="0">
 					<thead>
 					    <tr>
-					       <th style="width:215px;"class="tableHeaderMain runHeader"><spring:message code="teacher.run.myprojectruns.3"/></th>
+					       <th style="width:215px;" class="tableHeaderMain runHeader"><spring:message code="teacher.run.myprojectruns.3"/></th>
 					       <th style="width:155px;" class="tableHeaderMain studentHeader"><spring:message code="teacher.run.myprojectruns.4" /></th>      
 					       <th style="width:285px;" class="tableHeaderMain toolsHeader"><spring:message code="teacher.run.myprojectruns.5" /></th>
-					       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58A" /></th>
-					       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58B" /></th>
-					       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58C" /></th>
-					       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58D" /></th>
-					       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58E" /></th>
+					       <th class="tableHeaderMain hidden"><spring:message code="teacher.run.myprojectruns.58A" /></th>
+					       <th class="tableHeaderMain hidden"><spring:message code="teacher.run.myprojectruns.58B" /></th>
+					       <th class="tableHeaderMain hidden"><spring:message code="teacher.run.myprojectruns.58C" /></th>
+					       <th class="tableHeaderMain hidden"><spring:message code="teacher.run.myprojectruns.58D" /></th>
+					       <th class="tableHeaderMain hidden"><spring:message code="teacher.run.myprojectruns.58E" /></th>
 					    </tr>
 					</thead>
 					<tbody>
@@ -223,7 +223,7 @@
 						  <c:forEach var="run" items="${current_run_list}">
 						  
 						  <tr id="runTitleRow_${run.id}" class="runRow">
-						    <td class="titleCell">
+						    <td>
 						    	<div class="runTitle">${run.name}</div>
 						    		<c:set var="ownership" value="owned" />
 									<c:forEach var="sharedowner" items="${run.sharedowners}">
@@ -284,8 +284,8 @@
 						      	
 							</td>
 														
-						    <td style="vertical-align: top; padding:.5em 0;" >
-						    	<table class="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
+						    <td style="padding:.5em 0;">
+						    	<table class="currentRunInfoTable">
 						          <tr>
 						            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.29"/></th>
 						            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.9"/></th>
@@ -301,7 +301,7 @@
 						          <tr><td colspan="2" class="manageStudentGroups"><a class="manageStudents" title="<spring:message code="teacher.run.myprojectruns.62"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}"><img class="icon" alt="groups" src="/webapp/themes/tels/default/images/icons/teal/connected.png" /><span><spring:message code="teacher.run.myprojectruns.62"/></span></a></td></tr>
 						        </table>
 						    </td> 
-						    <td style="vertical-align: top; padding: 0.25em 0;">
+						    <td>
 							    <c:set var="isExternalProject" value="0"/>
 							    
 							        <c:forEach var="external_run" items="${externalprojectruns}">
@@ -335,7 +335,7 @@
 							               </c:otherwise>
 							           </c:choose>
 								
-								<ul class="actionList actionList2">
+								<ul class="actionList">
 			
 									<sec:accesscontrollist domainObject="${run}" hasPermission="16">
 			   					      <li><a id="shareRun_${run.id}" class="shareRun" title="<spring:message code="teacher.run.myprojectruns.63"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})"><img class="icon" alt="share" src="/webapp/themes/tels/default/images/icons/teal/agent.png" /><span><spring:message code="teacher.run.myprojectruns.18"/></span></a></li> 
