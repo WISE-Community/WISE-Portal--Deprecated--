@@ -141,6 +141,12 @@ public class BridgeController extends AbstractController {
 			} else if(authority.getAuthority().equals(UserDetailsService.TEACHER_ROLE)) {
 				//the signed in user is a teacher
 				
+				String type = request.getParameter("type");
+				if ("cRater".equals(type)) {
+					//any teacher can make a cRater request
+					return true;
+				}
+				
 				Run run = null;
 				try {
 					//get the run object
@@ -246,6 +252,12 @@ public class BridgeController extends AbstractController {
 				return true;
 			} else if(type.equals("xmppAuthenticate")) {
 				return true;
+			} else if(type.equals("cRater")) {
+				//allow students to make cRater scoring requests
+				String cRaterRequestType = request.getParameter("cRaterRequestType");
+				if("scoring".equals(cRaterRequestType)) {
+					return true;
+				}
 			} else {
 				// this should never happen
 			}
@@ -430,6 +442,11 @@ public class BridgeController extends AbstractController {
 			if (isXMPPEnabled != null && Boolean.valueOf(isXMPPEnabled)) {
 				handleWISEXMPPAuthenticate(request,response);
 			}
+		} else if(type.equals("cRater")) {
+			setCRaterAttributes(request);
+			
+			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/cRater.html");
+			requestDispatcher.forward(request, response);
 		}
 		return null;
 	}
