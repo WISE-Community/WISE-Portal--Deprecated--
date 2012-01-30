@@ -804,6 +804,9 @@ public class AuthorProjectController extends AbstractController {
 		//get the url to get and post metadata
 		String projectMetaDataUrl = portalUrl + "/webapp/metadata.html";
 		
+		//get the url to make CRater requests
+		String cRaterRequestUrl = portalUrl + "/webapp/bridge/request.html?type=cRater";
+		
 		//get the curriculum_base_www variable from the portal.properties file
 		String vlewrapperBaseUrl = portalProperties.getProperty("curriculum_base_www");
 		
@@ -824,6 +827,7 @@ public class AuthorProjectController extends AbstractController {
 				sessionTimeoutCheckInterval = 60000;
 			}
 			config.put("sessionTimeoutCheckInterval", sessionTimeoutCheckInterval); // how often session should be checked...check every minute (1 min=60sec=60000 milliseconds)
+			config.put("cRaterRequestUrl", cRaterRequestUrl);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

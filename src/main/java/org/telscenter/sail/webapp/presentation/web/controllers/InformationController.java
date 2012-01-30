@@ -461,6 +461,9 @@ public class InformationController extends AbstractController{
 	    	
 	    	String getStudentListUrl = portalurl + "/webapp/teacher/management/studentlistexcel.html?runId=" + run.getId().toString();
 	    	
+	    	//get the url to make CRater requests
+	    	String cRaterRequestUrl = portalurl + "/webapp/bridge/request.html?type=cRater";
+	    	
 			/* Set the post level if specified in the run */
 			Integer postLevel = run.getPostLevel();
 	    	
@@ -485,6 +488,7 @@ public class InformationController extends AbstractController{
 				config.put("runInfo", run.getInfo());
 				config.put("isXMPPEnabled", true);  // make this run-specific setting
 				config.put("hostName", hostName);
+				config.put("cRaterRequestUrl", cRaterRequestUrl);
 				
 				if(postLevel!=null){
 					config.put("postLevel", postLevel);
