@@ -117,6 +117,12 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	@Transient
 	public final static String COLUMN_NAME_MAX_SCORES = "max_scores";
 	
+	@Transient
+	public final static String COLUMN_NAME_THEME = "theme";
+	
+	@Transient
+	public final static String COLUMN_NAME_NAV_MODE = "nav_mode";
+	
 	@Column(name = COLUMN_NAME_TITLE)
 	private String title;
 
@@ -179,6 +185,12 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	
 	@Column(name = COLUMN_NAME_MAX_SCORES)
 	private String maxScores;
+	
+	@Column(name = COLUMN_NAME_THEME)
+	private String theme;
+	
+	@Column(name = COLUMN_NAME_NAV_MODE)
+	private String navMode;
 	
 	public ProjectMetadataImpl() {
 		
@@ -404,6 +416,22 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 		this.maxScores = maxScores;
 	}
 	
+	public String getTheme() {
+		return theme;
+	}
+
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+	
+	public String getNavMode() {
+		return navMode;
+	}
+
+	public void setNavMode(String navMode) {
+		this.navMode = navMode;
+	}
+	
 	public void populateFromJSON(JSONObject metadataJSON) {
 		//check that the title exists and is not null
 		if(metadataJSON.has("title") && !metadataJSON.isNull("title")) {
@@ -597,6 +625,30 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 					maxScores = "";
 				}
 				setMaxScores(maxScores);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if(metadataJSON.has("theme") && !metadataJSON.isNull("theme")) {
+			try {
+				String theme = metadataJSON.getString("theme");
+				if(theme.equals("null")) {
+					theme = "";
+				}
+				setTheme(theme);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if(metadataJSON.has("navMode") && !metadataJSON.isNull("navMode")) {
+			try {
+				String navMode = metadataJSON.getString("navMode");
+				if(navMode.equals("null")) {
+					navMode = "";
+				}
+				setNavMode(navMode);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
