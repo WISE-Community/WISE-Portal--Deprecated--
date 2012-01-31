@@ -191,27 +191,6 @@
 	margin: 1em;
 }
 
-#setupProjectTable {
-	border-collapse: collapse;
-	width:100%;
-}
-
-#setupProjectTable th {
-	text-align:center;
-	border:0 none;
-	border-bottom:2px solid #777777;
-	font-weight:bold;
-	font-size:.9em;
-	padding-bottom:.25em;
-}
-
-#setupProjectTable td {
-	border:1px solid #DDDDDD;
-	font-size:.9em;
-	padding:.25em;
-	vertical-align:middle;
-}
-
 #titleBarSetUpRun {
 	clear: both;
 	width: 958px;
@@ -228,35 +207,6 @@
 	font-size: 1.4em;
 	letter-spacing: 1px;
 	font-weight: bold;
-}
-
-#setupProjectTableR1 {
-	color: #333333;
-	background-color: #CCCCCC;
-	font-size: .9em;
-	font-weight: bold;
-	font-variant: small-caps;
-}
-
-#setupProjectTableR1 td {
-	padding: 3px 8px;
-}
-
-#setupProjectTableR2 {
-	font-size: .85em;
-	color: #006600;
-}
-
-#setupProjectTableR2 td {
-	padding: 3px 8px;
-}
-
-#setupProjectTableR3 {
-	font-size: .85em;
-	color: #339933;
-	background-image: url(../images/Arrow_Down.png);
-	background-position: 5px 3px;
-	background-repeat: no-repeat;
 }
 
 .followup1 {

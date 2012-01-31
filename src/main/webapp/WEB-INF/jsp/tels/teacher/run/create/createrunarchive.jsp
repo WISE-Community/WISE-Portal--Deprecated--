@@ -57,7 +57,7 @@
 									</c:when>
 									<c:otherwise>
 										<div id="setupProjectTableContainer">
-											<table  id="setupProjectTable">
+											<table  id="setupProjectTable" class="wisetable">
 												<thead>
 													<tr>
 														<th><spring:message code="teacher.run.setup.17"/></th>

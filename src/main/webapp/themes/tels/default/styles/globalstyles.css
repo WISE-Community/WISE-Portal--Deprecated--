@@ -135,6 +135,59 @@ input[type="submit"]:hover, input[type="button"]:hover {
 	color: #007391;
 }
 
+input[type="submit"].disabled, input[type="button"].disabled {
+	color:#999999;
+	background-color: #F4F4F4;
+	border-color:#CCCCCC;
+}
+
+table.wisetable {
+	border-collapse: collapse;
+	margin: .5em auto;
+	border: 0 none;
+	text-align: center;
+}
+
+table.wisetable th {
+	border-bottom: 2px solid #777;
+	color: #444;
+	font-weight: bold;
+	padding: .25em .5em;
+	text-align: center;
+}
+
+table.wisetable td {
+	border: 1px solid #DDD;
+	text-align: center;
+	vertical-align: middle;
+	padding: .5em;
+	font-size: 0.9em;
+}
+
+table.wisetable td.emph {
+	color: #745A33;
+}
+
+.pValue {
+	width: 40px;
+	float: right;
+}
+
+.ui-progressbar.progress {
+	margin: 0 40px 0 5px;
+	border-radius: 0 0 0 0;
+	-moz-border-radius: 0 0 0 0;
+	-webkit-border-radius: 0 0 0 0;
+	height:18px;
+	line-height:20px;
+}
+
+.progress .ui-progressbar-value {
+	border-radius: 0 0 0 0;
+	-moz-border-radius: 0 0 0 0;
+	-webkit-border-radius: 0 0 0 0;
+}
+
 #notifications {
 	text-align:center;
 }
@@ -149,12 +202,6 @@ input[type="submit"]:hover, input[type="button"]:hover {
 	box-shadow:1px 1px 2px #aaa;
 	-moz-box-shadow:1px 1px 2px #aaa;
 	-webkit-box-shadow:1px 1px 2px #aaa;
-}
-
-input[type="submit"].disabled, input[type="button"].disabled {
-	color:#999999;
-	background-color: #F4F4F4;
-	border-color:#CCCCCC;
 }
 
 p.info {
@@ -482,6 +529,29 @@ a#name {
 
 .sectionContent th {
 	font-weight:bold;
+}
+
+/** Dialog Styles **/
+.dialogContent {
+	background:#FFFFFF;
+	padding:.5em;
+	font-size:.9em;
+	font-family: Arial,Helvetica,Tahoma,sans-serif;
+}
+
+.dialogSection {
+	padding:.5em;
+	line-height:1.25em;
+}
+
+.dialogTextInput {
+	margin-top:.5em;
+	color:#444444;
+}
+
+#msgDiv {
+	color:#FF563F;
+	margin:.5em;
 }
 
 /*#bannerArea2 {

@@ -84,7 +84,7 @@ function removeSharedUserClicked() {
 		<ul id="matchedUsernames"></ul>
 	</div>
 	
-	<table id="sharedProjectPermissions">
+	<table id="sharedProjectPermissions" class='wisetable'>
 	
 		<tr>
 			<th><spring:message code="teacher.run.shareprojectrun.9"/></th>
@@ -98,7 +98,7 @@ function removeSharedUserClicked() {
 			<c:otherwise>
 				<c:forEach var="owner" items="${run.owners}">
 					<tr>
-					    <td class="user">${owner.userDetails.firstname} ${owner.userDetails.lastname}</td>
+					    <td class="emph">${owner.userDetails.username}</td>
 						<td><spring:message code="teacher.run.shareprojectrun.12"/></td>
 						<td></td>
 				    </tr>
@@ -113,8 +113,8 @@ function removeSharedUserClicked() {
 				    <td align="left">
 				    	<form:form method="post" id="${sharedowner.userDetails.username}" commandName="${sharedowner.userDetails.username}" autocomplete='off'>
 	            			<form:hidden path="sharedOwnerUsername" />
-				        	<form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_READ" /><spring:message code="teacher.run.shareprojectrun.14"/><br />
-				    	    <form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_GRADE" /><spring:message code="teacher.run.shareprojectrun.15"/>
+				        	<form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_READ" /> <spring:message code="teacher.run.shareprojectrun.14"/><br />
+				    	    <form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_GRADE" /> <spring:message code="teacher.run.shareprojectrun.15"/>
 				    	</form:form>			        
 					</td>
 					<td><form:form method="post" id="${sharedowner.userDetails.username}" commandName="${sharedowner.userDetails.username}" autocomplete='off'>

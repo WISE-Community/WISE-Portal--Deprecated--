@@ -81,7 +81,7 @@ function removeSharedUserClicked() {
 		<ul id="matchedUsernames"></ul>
 	</div>	
 	
-	<table id="sharedProjectPermissions">
+	<table id="sharedProjectPermissions" class="wisetable">
 	
 		<tr>
 			<th><spring:message code="teacher.pro.custom.sharepro.5"/></th>
@@ -94,7 +94,7 @@ function removeSharedUserClicked() {
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="owner" items="${project.owners }">
-						<td class="sharedUserName">${owner.userDetails.username}</td>
+						<td class="emph">${owner.userDetails.username}</td>
 						<td><spring:message code="teacher.pro.custom.sharepro.7"/></td>
 						<td></td>
 					</c:forEach>
@@ -109,7 +109,7 @@ function removeSharedUserClicked() {
 				<c:forEach var="sharedowner" items="${project.sharedowners}">
 						<tr>
 							<td>${sharedowner.userDetails.username}</td>
-							<td align="left">		
+							<td>		
 							<form:form method="post" id="${sharedowner.userDetails.username}"
 								commandName="${sharedowner.userDetails.username}" autocomplete='off'>
 								<form:hidden path="sharedOwnerUsername" />
