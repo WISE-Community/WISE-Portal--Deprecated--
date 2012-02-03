@@ -55,7 +55,7 @@
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
-                /**=httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor,switchUserProcessingFilter,openSessionInViewFilter
+                /**=charsetFilter,httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor,switchUserProcessingFilter,openSessionInViewFilter
             </value>
             <!--
                 <value>
@@ -178,6 +178,22 @@
     		<value>/index.html</value>
     	</property>
     </bean>
+    
+    <!-- =================== Encoding ==================== -->
+    
+    <bean id="charsetFilter"
+        class="org.springframework.web.filter.CharacterEncodingFilter">
+        <property name="encoding"><value>UTF8</value></property>
+        <property name="forceEncoding"><value>true</value></property>
+    </bean>
+    
+    <!--
+    <bean id="charsetFilter"
+        class="net.sf.sail.webapp.presentation.web.filters.CharsetFilter">
+        <property name="encoding"><value>UTF-8</value></property>
+    </bean>
+    -->
+    
 
 
     <!-- =================== SECURITY SYSTEM DEFINITIONS ================== -->
