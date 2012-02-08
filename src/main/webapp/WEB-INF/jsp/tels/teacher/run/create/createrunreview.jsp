@@ -114,7 +114,6 @@
 		 * @return true iff project was successfully copied. 
 		 */
         function copy(pID, type, projectName, fileName, relativeProjectFilePathUrl){
-        	projectName = escape(projectName);
             var isSuccess = false;
             var newProjectId = null;
    			if(type=='LD'){
@@ -144,7 +143,7 @@
    	   							url:"/webapp/author/authorproject.html",
    	   							async:false,
    	   							type:"POST",
-   	   							data:'command=createProject&parentProjectId='+pID+'&projectPath=' + projectPath + '&projectName=' + projectName,
+   	   							data:{"command":"createProject","parentProjectId":pID,"projectPath":projectPath,"projectName":projectName},
    	   							dataType:'text',
    	   							success:function(returnData){
    	   								isSuccess = true;
