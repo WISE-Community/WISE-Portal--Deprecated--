@@ -393,6 +393,11 @@ public class LdProjectServiceImpl implements ProjectService {
 			launchVLEUrl = "/vle/preview.html?projectId=" + project.getId();
 		}
 		
+		String isConstraintsDisabledStr = request.getParameter("isConstraintsDisabled");
+		if (isConstraintsDisabledStr != null) {
+			launchVLEUrl += "&isConstraintsDisabled="+isConstraintsDisabledStr;
+		}
+		
 		return portalUrl + launchVLEUrl;
 	}
 	

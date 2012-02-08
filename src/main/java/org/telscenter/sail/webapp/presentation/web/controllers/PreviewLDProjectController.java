@@ -70,6 +70,11 @@ public class PreviewLDProjectController extends AbstractController {
 				String portalurl = ControllerUtil.getBaseUrlString(request);
 				String vleConfigUrl = portalurl + "/webapp/request/info.html" + "?projectId=" + request.getParameter("projectId") + "&action=getVLEConfig&requester=portalpreview";
 
+				String isConstraintsDisabledStr = request.getParameter("isConstraintsDisabled");
+				if (isConstraintsDisabledStr != null && Boolean.parseBoolean(isConstraintsDisabledStr)) {
+					vleConfigUrl += "&isConstraintsDisabled=true";
+				}
+
 				/* if preview request is coming from the run, we want to pass along the version id when we make a request to get the config */
 				String versionId = request.getParameter("versionId");
 				if(versionId != null && !versionId.equals("")){
