@@ -80,30 +80,43 @@ function checkForExistingAccountsAndCreateAccount() {
 		//create a JSON array object
 		var existingAccountsArray = JSON.parse(existingAccountsString);
 
-		//the message to display at the top of the popup
-		var existingAccountsHtml = "<p><spring:message code='student.registerstudent.23'/></p>";
-
+		//the message to display in the popup
+		var existingAccountsHtml = "";
+		
+		existingAccountsHtml += "<h1 style='color:red;text-align:center'><spring:message code='student.registerstudent.31'/></h1>";
+		
+		if(existingAccountsArray.length > 1) {
+			//message to display if we found multiple accounts
+			existingAccountsHtml += "<p style='color:red'><spring:message code='student.registerstudent.32'/></p>";
+		} else {
+			//message to display if we found a single account
+			existingAccountsHtml += "<p style='color:red'><spring:message code='student.registerstudent.23'/></p>";
+		}
+		
+		existingAccountsHtml += "<br>";
+		
 		//loop through all the existing accounts
 		for(var x=0; x<existingAccountsArray.length; x++) {
 			//get a user name
 			var userName = existingAccountsArray[x];
-			
-			if(existingAccountsHtml != "") {
-				//add line breaks between user names
-				existingAccountsHtml += "<br><br>";
-			}
 
 			//make the user name a link to the login page that will pre-populate the user name field
 			existingAccountsHtml += "<a href='../login.html?userName=" + userName + "'>";
 			existingAccountsHtml += userName;
 			existingAccountsHtml += "</a>";
+			
+			existingAccountsHtml += "<br><br>";
 		}
 
-		existingAccountsHtml += "<br><br><p>------------------------------------------------------------</p><br>";
+		existingAccountsHtml += "<p style='text-align:center'>------------------------------------------------------------</p><br>";
 
+		existingAccountsHtml += "<p><spring:message code='student.registerstudent.33'/></p>";
+		
 		//add the button that will create a brand new account if none of the existing accounts belongs to the user
-		existingAccountsHtml += "<a id='createBrandNewAccountButton' onclick='createAccount()' class='createAccountButton'><spring:message code='student.registerstudent.24'/></a>";
+		existingAccountsHtml += "<p style='text-align:center'><a id='createBrandNewAccountButton' onclick='checkIfReallyWantToCreateAccount()' class='createAccountButton'><spring:message code='student.registerstudent.24'/></a></p>";
 
+		existingAccountsHtml += "<br>";
+		
 		//add the html to the div
 		$('#existingAccountsDialog').html(existingAccountsHtml);
 
@@ -154,6 +167,20 @@ function checkForExistingAccounts() {
 	}
 
 	return existingAccounts;
+}
+
+/**
+ * Ask the student again if they are really sure they 
+ * have never created an account before.
+ */
+function checkIfReallyWantToCreateAccount() {
+	//ask the student again 
+	var answer = confirm("Please do not create duplicate accounts. Are you really sure you have never created an account before?");
+	
+	if(answer) {
+		//create the account if they answered 'OK'
+		createAccount();
+	}
 }
 
 function createAccount() {
