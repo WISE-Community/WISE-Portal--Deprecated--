@@ -113,7 +113,7 @@ function checkForExistingAccountsAndCreateAccount() {
 		existingAccountsHtml += "<p><spring:message code='student.registerstudent.33'/></p>";
 		
 		//add the button that will create a brand new account if none of the existing accounts belongs to the user
-		existingAccountsHtml += "<p style='text-align:center'><a id='createBrandNewAccountButton' onclick='checkIfReallyWantToCreateAccount()' class='createAccountButton'><spring:message code='student.registerstudent.24'/></a></p>";
+		existingAccountsHtml += "<table style='width:100%'><tr><td style='width:100%' align='center'><a onclick='checkIfReallyWantToCreateAccount()' class='wisebutton'><spring:message code='student.registerstudent.24'/></a></td</tr></table>";
 
 		existingAccountsHtml += "<br>";
 		
