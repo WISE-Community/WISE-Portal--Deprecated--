@@ -525,7 +525,7 @@ public class InformationController extends AbstractController{
 
 		/* get location of last separator in url */
 		int lastIndexOfSlash = getContentUrl.lastIndexOf("/");
-		if(lastIndexOfSlash==-1){
+		if(lastIndexOfSlash==-1){ 
 			lastIndexOfSlash = getContentUrl.lastIndexOf("\\");
 		}
 		
@@ -536,7 +536,7 @@ public class InformationController extends AbstractController{
 		String getContentBaseUrl = getContentUrl.substring(0, lastIndexOfSlash) + "/";
 		
 		String getUserInfoUrl = infourl + "?action=getUserInfo";
-		if(requester.equals("portalpreview")){
+		if(requester != null && requester.equals("portalpreview")){
 			getUserInfoUrl += "&preview=true";
 		} else {
 			getUserInfoUrl += "&runId=" + runId;
@@ -597,6 +597,14 @@ public class InformationController extends AbstractController{
 			}
 			
 			config.put("runName", runName);
+			
+			// add preview project specific settings
+			if(requester != null && requester.equals("portalpreview")){
+				String isConstraintsDisabledStr = request.getParameter("isConstraintsDisabled");
+				if (isConstraintsDisabledStr != null && Boolean.parseBoolean(isConstraintsDisabledStr)) {
+					config.put("isConstraintsDisabled", true);
+				}
+			}
 			
 			// add userType {teacher, student, null}
 			User signedInUser = ControllerUtil.getSignedInUser();
