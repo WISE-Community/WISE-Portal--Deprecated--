@@ -163,7 +163,6 @@
 		var path = "/webapp/teacher/grading/gradework.html?" + settings;
 		var div = $('#gradingDialog').html('<iframe id="gradingIfrm" width="100%" height="100%" style="overflow-y:hidden;"></iframe>');
 		$('body').css('overflow','hidden');
-		console.log($(window).height());
 		div.dialog({
 			modal: true,
 			width: $(window).width() - 32,
