@@ -365,6 +365,8 @@
         tools varchar(255),
         total_time varchar(255),
         version_id varchar(255),
+        nav_mode varchar(50),
+        theme varchar(50),
         primary key (id)
     ) engine=MyISAM;
 
