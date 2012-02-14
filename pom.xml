@@ -185,7 +185,9 @@
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-                    <webappDirectory>${maven.war.portal.webappDirectory}</webappDirectory>
+          <!-- NP: not sure where this variable was supposed to be defined, but its not -->
+          <!-- which is fine, because the default value does the right thing in our case-->
+          <!-- <webappDirectory>${maven.war.portal.webappDirectory}</webappDirectory>   -->
 					<webResources>
 						<resource>
 							<!-- this is relative to the pom.xml directory -->
@@ -258,14 +260,20 @@
           <name>JBoss repository</name>
           <url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
         </repository>		
-		<repository>
+		  <repository>
         	<id>repo1.maven.org</id>
         	<url>http://repo1.maven.org/maven2/</url>
         </repository>
 	    <repository>
     		<id>concord-jnlp</id>
     		<url>http://jnlp.concord.org/dev/</url>
-		</repository>
+      </repository>
+      <!-- NP: 2012.02.02 - couldn't find tomcat maven plugin -->
+      <!-- see: http://bit.ly/zd5Jv9 -->
+      <repository>
+        <id>app-fuse</id>
+        <url>http://static.appfuse.org/repository/</url>
+      </repository>
 		</repositories>
 	<pluginRepositories>
 		<pluginRepository>
@@ -273,8 +281,10 @@
 				<enabled>false</enabled>
 			</releases>
 			<snapshots />
-			<id>Maven Snapshots</id>
-			<url>http://snapshots.maven.codehaus.org/maven2/</url>
+      <id>Codehause Snapshots</id>
+      <url>http://snapshots.repository.codehaus.org/</url>
+      <!-- NP: the one below works for certain as of 2012.02.06                          -->
+			<!-- <url>https://nexus.codehaus.org/content/repositories/codehaus-snapshots</url> -->
 		</pluginRepository>
 	</pluginRepositories>
 	<dependencies>
