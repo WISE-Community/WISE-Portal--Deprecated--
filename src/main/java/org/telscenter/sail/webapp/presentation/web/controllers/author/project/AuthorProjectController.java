@@ -167,6 +167,37 @@ public class AuthorProjectController extends AbstractController {
 						request.setAttribute("curriculumBaseDir", curriculumBaseDir);
 						request.setAttribute("projectUrl", projectUrl);
 						request.setAttribute("parentProjectUrl", parentProjectUrl);
+					} else if("importSteps".equals(command)) {
+						//get the curriculum base directory
+						String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
+						
+						//get the project url
+						String projectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+						
+						//set the attributes so that FileManager.java can access these values in the vlewrapper
+						request.setAttribute("curriculumBaseDir", curriculumBaseDir);
+						request.setAttribute("projectUrl", projectUrl);
+						
+						//get the from project id string
+						String fromProjectIdStr = request.getParameter("fromProjectId");
+						
+						if(fromProjectIdStr != null) {
+							try {
+								//get the from project id
+								long fromProjectId = Long.parseLong(fromProjectIdStr);
+								
+								//get the from project
+								Project fromProject = projectService.getById(fromProjectId);
+								
+								//get the from project url e.g. /172/wise4.project.json
+								String fromProjectUrl = (String) fromProject.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+								
+								//set the from project url into the request so we can have access to it in other controllers
+								request.setAttribute("fromProjectUrl", fromProjectUrl);
+							} catch(Exception e) {
+								e.printStackTrace();
+							}
+						}
 					}
 					
 					//add any necessary attributes to the request object
@@ -257,6 +288,8 @@ public class AuthorProjectController extends AbstractController {
 				return handleReviewUpdateProject(request, response);
 			} else if(command.equals("updateProject")) {
 				return handleUpdateProject(request, response);
+			} else if(command.equals("importSteps")) {
+				return handleReviewOrUpdateProject(request, response);
 			}
 		}
 		
@@ -516,6 +549,26 @@ public class AuthorProjectController extends AbstractController {
 	 * @throws Exception
 	 */
 	private ModelAndView handleProjectList(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String projectTag = request.getParameter("projectTag");
+		
+		if(projectTag == null) {
+			//get all the projects the current user can author
+			getAuthorableProjects(request, response);
+		} else if(projectTag.equals("library")) {
+			//get all the library projects
+			getLibraryProjects(request, response);
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Get all the projects the current user can author
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	private void getAuthorableProjects(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<Project> allAuthorableProjects = new ArrayList<Project>();
 		User signedInUser = ControllerUtil.getSignedInUser();
 		List<Project> projects = projectService.getProjectList(signedInUser);
@@ -568,7 +621,58 @@ public class AuthorProjectController extends AbstractController {
 		
 		//return the JSONArray as a string
 		response.getWriter().write(projectArray.toString());
-		return null;
+	}
+	
+	/**
+	 * Get all the library projects
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	private void getLibraryProjects(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String projectTag = request.getParameter("projectTag");
+		List<Project> libraryProjects = projectService.getProjectListByTagName(projectTag);
+		
+		//an array to hold the information for the projects
+		JSONArray libraryProjectArray = new JSONArray();
+				
+		for(Project libraryProject : libraryProjects) {
+			if(libraryProject.getProjectType()==ProjectType.LD) {
+				/*
+				 * get the relative project url
+				 * e.g.
+				 * /235/wise4.project.json
+				 */
+				String rawProjectUrl = (String) libraryProject.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+				
+				//get the title of the project
+				String title = libraryProject.getName();
+				
+				if(rawProjectUrl != null) {
+					/*
+					 * get the project file name
+					 * e.g.
+					 * /wise4.project.json
+					 */
+					String projectFileName = rawProjectUrl.substring(rawProjectUrl.lastIndexOf("/"));
+					
+					/*
+					 * add the project file name, project id, and project title
+					 * to the JSONObject
+					 */
+					JSONObject projectDetails = new JSONObject();
+					projectDetails.put("id", libraryProject.getId());
+					projectDetails.put("path", projectFileName);
+					projectDetails.put("title", title);
+					
+					//add the JSONObject to our array
+					libraryProjectArray.put(projectDetails);
+				}
+			}
+		}
+		
+		//return the JSONArray as a string
+		response.getWriter().write(libraryProjectArray.toString());
 	}
 	
 	/**
