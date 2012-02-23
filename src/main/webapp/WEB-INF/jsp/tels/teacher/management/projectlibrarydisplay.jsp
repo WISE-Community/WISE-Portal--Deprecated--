@@ -487,7 +487,8 @@
 						{"query": "<spring:message code="teacher.datatables.filter.8c"/>", "display": "<spring:message code="teacher.datatables.filter.8c"/>"},
 						{"query": "<spring:message code="teacher.datatables.filter.8d"/>", "display": "<spring:message code="teacher.datatables.filter.8d"/>"},
 						{"query": "<spring:message code="teacher.datatables.filter.8e"/>", "display": "<spring:message code="teacher.datatables.filter.8e"/>"},
-						{"query": "<spring:message code="teacher.datatables.filter.8f"/>", "display": "<spring:message code="teacher.datatables.filter.8f"/>"}
+						{"query": "<spring:message code="teacher.datatables.filter.8f"/>", "display": "<spring:message code="teacher.datatables.filter.8f"/>"},
+						{"query": "<spring:message code="teacher.datatables.filter.8g"/>", "display": "<spring:message code="teacher.datatables.filter.8g"/>"}
 					]
 				}
 			]
