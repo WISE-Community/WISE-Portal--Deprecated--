@@ -26,6 +26,7 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.security.userdetails.UserDetails;
 
@@ -184,4 +185,26 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
     	//run the query and return the results
     	return this.getHibernateTemplate().find(query.toString(), objectValues.toArray());
     }
+
+    /**
+     * Given a reset password key retrieve a corresponding user.
+     * @param resetPasswordKey an alphanumeric key
+     * @return a User object or null if there is no user with the given reset password key
+     */
+	@Override
+	public User retrieveByResetPasswordKey(String resetPasswordKey) {
+		User user = null;
+		try {
+	        user = (User) DataAccessUtils
+	                .requiredUniqueResult(this
+	                        .getHibernateTemplate()
+	                        .findByNamedParam(
+	                                "from UserImpl as user where user.userDetails.resetPasswordKey = :resetPasswordKey",
+	                                "resetPasswordKey", resetPasswordKey));
+		} catch(EmptyResultDataAccessException e) {
+			e.printStackTrace();
+		}
+        
+        return user;
+	}
 }

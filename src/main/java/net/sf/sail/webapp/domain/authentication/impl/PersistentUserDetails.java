@@ -83,6 +83,11 @@ public class PersistentUserDetails implements MutableUserDetails {
     @Transient
     public static final String COLUMN_NAME_RECENT_NUMBER_FAILED_LOGINS = "recent_number_of_failed_login_attempts";
 
+    @Transient
+    public static final String COLUMN_NAME_REST_PASSWORD_KEY = "reset_password_key";
+    
+    @Transient
+    public static final String COLUMN_NAME_RESET_PASSWORD_REQUEST_TIME = "reset_password_request_time";
     
     @Transient
     private static final long serialVersionUID = 1L;
@@ -129,6 +134,12 @@ public class PersistentUserDetails implements MutableUserDetails {
     @Column(name = PersistentUserDetails.COLUMN_NAME_RECENT_NUMBER_FAILED_LOGINS, nullable = true)
     private Integer numberOfRecentFailedLoginAttempts = 0;
 
+    @Column(name = PersistentUserDetails.COLUMN_NAME_REST_PASSWORD_KEY, nullable = true)
+    private String resetPasswordKey = null;
+    
+    @Column(name = PersistentUserDetails.COLUMN_NAME_RESET_PASSWORD_REQUEST_TIME, nullable = true)
+    private Date resetPasswordRequestTime = null;
+    
     public Long getId() {
         return id;
     }
@@ -389,5 +400,41 @@ public class PersistentUserDetails implements MutableUserDetails {
 	 */
 	public void incrementNumberOfRecentFailedLoginAttempts() {
 		this.numberOfRecentFailedLoginAttempts++;
+	}
+
+	/**
+	 * Set the password key
+	 * @param passwordKey an alphanumeric string
+	 */
+	@Override
+	public void setResetPasswordKey(String resetPasswordKey) {
+		this.resetPasswordKey = resetPasswordKey;
+	}
+
+	/**
+	 * Get the password key
+	 * @return an alphanumeric string
+	 */
+	@Override
+	public String getResetPasswordKey() {
+		return this.resetPasswordKey;
+	}
+
+	/**
+	 * Set the time the user requested a password reset
+	 * @param resetPasswordRequestTime the time the user requested the password reset
+	 */
+	@Override
+	public void setResetPasswordRequestTime(Date resetPasswordRequestTime) {
+		this.resetPasswordRequestTime = resetPasswordRequestTime;
+	}
+
+	/**
+	 * Get the time the user requested a password reset
+	 * @return the time the user requested the password reset
+	 */
+	@Override
+	public Date getResetPasswordRequestTime() {
+		return this.resetPasswordRequestTime;
 	}
 }

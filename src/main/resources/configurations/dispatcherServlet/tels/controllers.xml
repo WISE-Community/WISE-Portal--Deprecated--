@@ -1589,5 +1589,15 @@
     <bean id="statisticsController"
          class="org.telscenter.sail.webapp.presentation.web.controllers.StatisticsController">
          <property name="portalProperties" ref="portalproperties" />
-    </bean>	
+    </bean>
+    
+    <bean id="resetPasswordController"
+         class="org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.ResetPasswordController">
+         <property name="userService" ref="userService" />
+         <property name="commandName" value="reminderParameters" />
+         <property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.ReminderParameters" />
+         <property name="javaMail" ref="javaMail"/>
+         <property name="portalProperties" ref="portalproperties" />
+         <property name="messageSource" ref="messageSource" />
+    </bean>
 </beans>

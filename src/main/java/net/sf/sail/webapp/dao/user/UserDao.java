@@ -97,4 +97,11 @@ public interface UserDao<T extends User> extends SimpleDao<T> {
      */
     public List<T> retrieveByFields(String[] fields, String[] values, String classVar);
     
+    /**
+     * Given a reset password key retrieve a corresponding user.
+     * @param resetPasswordKey an alphanumeric key
+     * @return a User object
+     */
+    public T retrieveByResetPasswordKey(String resetPasswordKey);
+    
 }

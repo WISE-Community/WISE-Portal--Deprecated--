@@ -177,4 +177,11 @@ public interface UserService {
      * @return a list of Users that have matching values for the given fields
      */
 	public List<User> retrieveByFields(String[] fields, String[] values, String classVar);
+	
+	/**
+	 * Get the User object given the reset password key
+	 * @param resetPasswordKey an alphanumeric string
+	 * @return a User object or null if there is no user with the given reset password key
+	 */
+	public User retrieveByResetPasswordKey(String resetPasswordKey);
 }

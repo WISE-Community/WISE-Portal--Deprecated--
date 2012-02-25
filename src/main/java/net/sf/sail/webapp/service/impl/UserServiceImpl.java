@@ -293,4 +293,14 @@ public class UserServiceImpl implements UserService {
 	public List<User> retrieveByFields(String[] fields, String[] types, String classVar){
 		return this.userDao.retrieveByFields(fields, types, classVar);
 	}
+	
+	/**
+	 * Get the User object given the reset password key
+	 * @param resetPasswordKey an alphanumeric string
+	 * @return a User object or null if there is no user with the given reset password key
+	 */
+	@Transactional()
+	public User retrieveByResetPasswordKey(String resetPasswordKey) {
+		return this.userDao.retrieveByResetPasswordKey(resetPasswordKey);
+	}
 }

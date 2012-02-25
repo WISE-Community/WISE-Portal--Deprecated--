@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.teacher;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -36,6 +37,7 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.mail.JavaMailHelper;
 import net.sf.sail.webapp.service.UserService;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.validation.BindException;
@@ -126,9 +128,26 @@ public class ForgotAccountTeacherIndexController extends SimpleFormController {
 					username = user.getUserDetails().getUsername();
 				}
 			}
-			String generateRandomPassword = generateRandomPassword();
-			userService.updateUserPassword(user, generateRandomPassword);
+			
+			//get a 64 character alphanumeric string
+			String randomAlphanumeric = RandomStringUtils.randomAlphanumeric(64);
 
+			//get the current time
+			Date now = new Date();
+		    
+			//set the values for the user
+			user.getUserDetails().setResetPasswordKey(randomAlphanumeric);
+			user.getUserDetails().setResetPasswordRequestTime(now);
+			userService.updateUser(user);
+			
+			/*
+			 * generate the link that we will send in the email that will allow
+			 * the user to reset their password.
+			 * e.g.
+			 * http://wise4.berkeley.edu/webapp/forgotaccount/resetpassword.html?k=1234567890abc
+			 */
+			String passwordResetLink = portalProperties.getProperty("portal_baseurl") + "/forgotaccount/resetpassword.html?k=" + randomAlphanumeric;
+			
 			String portalName = portalProperties.getProperty("portal.name");
 			
 			String userEmail = user.getUserDetails().getEmailAddress();
@@ -139,14 +158,13 @@ public class ForgotAccountTeacherIndexController extends SimpleFormController {
 			Locale userLocale = request.getLocale();
 			
 			// subject looks like this: "Notification from WISE4@Berkeley: Password Changed"
-			String defaultSubject = messageSource.getMessage("forgot.teacher.email.subject", new Object[]{portalName}, Locale.US); 
-			String subject = messageSource.getMessage("forgot.teacher.email.subject", new Object[]{portalName}, defaultSubject, userLocale); 
-			String defaultBody = messageSource.getMessage("forgot.teacher.email.body", new Object[]{username,generateRandomPassword,portalName}, Locale.US);
-			String body = messageSource.getMessage("forgot.teacher.email.body", new Object[] {username,generateRandomPassword,portalName}, defaultBody, userLocale);				
+			String defaultSubject = messageSource.getMessage("password.change.request.email.subject", new Object[]{portalName}, Locale.US); 
+			String subject = messageSource.getMessage("password.change.request.email.subject", new Object[]{portalName}, defaultSubject, userLocale); 
+			String defaultBody = messageSource.getMessage("password.change.request.email.body", new Object[]{username,passwordResetLink,portalName}, Locale.US);
+			String body = messageSource.getMessage("password.change.request.email.body", new Object[] {username,passwordResetLink,portalName}, defaultBody, userLocale);				
 			
 			// send password in the email here
 			javaMail.postMail(recipients, subject, body, userEmail);
-
 			
 			Map<String, String> model = new HashMap<String, String>();
 			model.put(EMAIL, userEmail);

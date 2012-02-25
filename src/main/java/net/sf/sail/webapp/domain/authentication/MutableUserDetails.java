@@ -136,4 +136,28 @@ public interface MutableUserDetails extends UserDetails, Persistable {
 	 * Increase the number of recent failed login attempts by 1
 	 */
 	public void incrementNumberOfRecentFailedLoginAttempts();
+	
+	/**
+	 * Set the password key
+	 * @param passwordKey an alphanumeric string
+	 */
+	public void setResetPasswordKey(String passwordKey);
+	
+	/**
+	 * Get the password key
+	 * @return an alphanumeric string
+	 */
+	public String getResetPasswordKey();
+	
+	/**
+	 * Set the time the user requested a password reset
+	 * @param resetPasswordRequestTime the time the user requested the password reset
+	 */
+	public void setResetPasswordRequestTime(Date resetPasswordRequestTime);
+	
+	/**
+	 * Get the time the user requested a password reset
+	 * @return the time the user requested the password reset
+	 */
+	public Date getResetPasswordRequestTime();
 }
