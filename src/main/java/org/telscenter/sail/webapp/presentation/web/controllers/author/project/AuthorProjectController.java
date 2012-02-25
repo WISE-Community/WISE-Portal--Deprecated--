@@ -932,6 +932,7 @@ public class AuthorProjectController extends AbstractController {
 			}
 			config.put("sessionTimeoutCheckInterval", sessionTimeoutCheckInterval); // how often session should be checked...check every minute (1 min=60sec=60000 milliseconds)
 			config.put("cRaterRequestUrl", cRaterRequestUrl);
+			config.put("locale", request.getLocale());			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
