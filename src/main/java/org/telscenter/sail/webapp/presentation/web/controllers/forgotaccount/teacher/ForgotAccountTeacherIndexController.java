@@ -95,6 +95,8 @@ public class ForgotAccountTeacherIndexController extends SimpleFormController {
 
 		String username = null;
 		String emailAddress = null;
+		boolean userNameProvided = false;
+		boolean emailProvided = false;
 		
 		try {
 
@@ -103,6 +105,8 @@ public class ForgotAccountTeacherIndexController extends SimpleFormController {
 					.trimToNull(userDetails.getEmailAddress());
 			User user = null;
 			if (username != null) {
+				userNameProvided = true;
+				
 				user = userService.retrieveUserByUsername(userDetails
 						.getUsername());
 				
@@ -114,6 +118,8 @@ public class ForgotAccountTeacherIndexController extends SimpleFormController {
 				}
 				
 			} else if (emailAddress != null) {
+				emailProvided = true;
+				
 				List<User> users = userService
 						.retrieveUserByEmailAddress(emailAddress);
 
@@ -157,11 +163,25 @@ public class ForgotAccountTeacherIndexController extends SimpleFormController {
 			// get user Locale
 			Locale userLocale = request.getLocale();
 			
-			// subject looks like this: "Notification from WISE4@Berkeley: Password Changed"
-			String defaultSubject = messageSource.getMessage("password.change.request.email.subject", new Object[]{portalName}, Locale.US); 
-			String subject = messageSource.getMessage("password.change.request.email.subject", new Object[]{portalName}, defaultSubject, userLocale); 
-			String defaultBody = messageSource.getMessage("password.change.request.email.body", new Object[]{username,passwordResetLink,portalName}, Locale.US);
-			String body = messageSource.getMessage("password.change.request.email.body", new Object[] {username,passwordResetLink,portalName}, defaultBody, userLocale);				
+			String defaultSubject = "";
+			String subject = "";
+			String defaultBody = "";
+			String body = "";
+			
+			if (userNameProvided) {
+				//the user entered their user name so we will send them a password reset link by email
+				// subject looks like this: "Notification from WISE4@Berkeley: Password Changed"
+				defaultSubject = messageSource.getMessage("password.change.request.email.subject", new Object[]{portalName}, Locale.US); 
+				subject = messageSource.getMessage("password.change.request.email.subject", new Object[]{portalName}, defaultSubject, userLocale); 
+				defaultBody = messageSource.getMessage("password.change.request.email.body", new Object[]{username,passwordResetLink,portalName}, Locale.US);
+				body = messageSource.getMessage("password.change.request.email.body", new Object[] {username,passwordResetLink,portalName}, defaultBody, userLocale);				
+			} else if (emailProvided) {
+				//the user entered their email so we will send them their username by email
+				defaultSubject = messageSource.getMessage("username.request.email.subject", new Object[]{portalName}, Locale.US); 
+				subject = messageSource.getMessage("username.request.email.subject", new Object[]{portalName}, defaultSubject, userLocale); 
+				defaultBody = messageSource.getMessage("username.request.email.body", new Object[]{username,portalName}, Locale.US);
+				body = messageSource.getMessage("username.request.email.body", new Object[] {username,portalName}, defaultBody, userLocale);				
+			}
 			
 			// send password in the email here
 			javaMail.postMail(recipients, subject, body, userEmail);
@@ -169,7 +189,7 @@ public class ForgotAccountTeacherIndexController extends SimpleFormController {
 			Map<String, String> model = new HashMap<String, String>();
 			model.put(EMAIL, userEmail);
 			model.put(USERNAME, username);
-			//model.put(NEW_PASSWORD, generateRandomPassword);
+
 			return new ModelAndView(getSuccessView(), model);
 
 		} catch (Exception e) {

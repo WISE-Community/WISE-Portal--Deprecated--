@@ -45,7 +45,7 @@
 				<div class="panelHeader"><spring:message code="forgot.teacher.success.2"/></div>
 				<div class="infoContentBox">
 					<div>
-						<span class="bold;">${username},</span> <spring:message code="forgot.teacher.success.4"/> ${email}.
+						<spring:message code="forgot.teacher.success.4"/>
 					</div>
 					<div>
 						<spring:message code="forgot.teacher.success.6"/> <a href="/webapp/contactwisegeneral.html"> <spring:message code="forgot.teacher.success.7"/></a>
