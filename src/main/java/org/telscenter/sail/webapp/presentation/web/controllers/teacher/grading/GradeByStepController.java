@@ -168,7 +168,13 @@ public class GradeByStepController extends AbstractController {
 		
 		//get the url to post flags
 		String postFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=flag&runId=" + run.getId().toString();
+
+		//get the url to get flags
+		String getInappropriateFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=inappropriateFlag&runId=" + run.getId().toString();
 		
+		//get the url to post flags
+		String postInappropriateFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=inappropriateFlag&runId=" + run.getId().toString();
+
 		//get the url to get annotations
     	String getAnnotationsUrl = portalurl + "/webapp/bridge/request.html?type=annotation&runId=" + run.getId().toString();
     	
@@ -187,6 +193,8 @@ public class GradeByStepController extends AbstractController {
 			config.put("runId", run.getId().toString());
 			config.put("getFlagsUrl", getFlagsUrl);
 			config.put("postFlagsUrl", postFlagsUrl);
+			config.put("getInappropriateFlagsUrl", getInappropriateFlagsUrl);
+			config.put("postInappropriateFlagsUrl", postInappropriateFlagsUrl);
 			config.put("getAnnotationsUrl", getAnnotationsUrl);
 			config.put("postAnnotationsUrl", postAnnotationsUrl);
 			config.put("getUserInfoUrl", getUserInfoUrl);

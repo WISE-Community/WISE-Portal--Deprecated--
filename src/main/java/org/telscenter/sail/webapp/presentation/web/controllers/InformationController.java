@@ -418,6 +418,12 @@ public class InformationController extends AbstractController{
 			//get the url to post flags
 			String postFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=flag&runId=" + run.getId().toString();
 			
+			//get the url to get inappropriate flags
+			String getInappropriateFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=inappropriateFlag&runId=" + run.getId().toString();
+			
+			//get the url to post inappropriate flags
+			String postInappropriateFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=inappropriateFlag&runId=" + run.getId().toString();
+
 			//get the url to get annotations
 	    	String getAnnotationsUrl = portalurl + "/webapp/bridge/request.html?type=annotation&runId=" + run.getId().toString();
 	    	
@@ -470,6 +476,7 @@ public class InformationController extends AbstractController{
 	    	//put all the config params into the json object
 			try {
 				config.put("getFlagsUrl", getFlagsUrl);
+				config.put("getInappropriateFlagsUrl", getInappropriateFlagsUrl);
 				config.put("getAnnotationsUrl", getAnnotationsUrl);
 				config.put("postAnnotationsUrl", postAnnotationsUrl);
 				config.put("getStudentDataUrl", getStudentDataUrl);
@@ -499,6 +506,7 @@ public class InformationController extends AbstractController{
 					config.put("getPremadeCommentsUrl", getPremadeCommentsUrl);
 					config.put("postPremadeCommentsUrl", postPremadeCommentsUrl);
 					config.put("postFlagsUrl", postFlagsUrl);
+					config.put("postInappropriateFlagsUrl", postInappropriateFlagsUrl);
 					config.put("postMaxScoreUrl", postMaxScoreUrl);
 					config.put("getXLSExportUrl", getXLSExportUrl);
 					config.put("getStudentListUrl", getStudentListUrl);

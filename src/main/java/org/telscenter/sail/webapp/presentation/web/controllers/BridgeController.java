@@ -221,7 +221,7 @@ public class BridgeController extends AbstractController {
 			
 			if (type == null) {
 				workgroupIdStr = request.getParameter("userId");
-			} else if(type.equals("flag")) {
+			} else if(type.equals("flag") || type.equals("inappropriateFlag")) {
 				workgroupIdStr = request.getParameter("userId");
 				canAccessOtherWorkgroups = true;
 			} else if (type.equals("annotation")) {
@@ -387,7 +387,7 @@ public class BridgeController extends AbstractController {
 		} else if (type.equals("brainstorm")){
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/getdata.html");
 			requestDispatcher.forward(request, response);
-		} else if (type.equals("flag") || type.equals("annotation")){			// get flags
+		} else if (type.equals("flag") || type.equals("inappropriateFlag") || type.equals("annotation")){			// get flags
 			/*
 			 * set the user info JSONObjects into the request so the vlewrapper servlet
 			 * has access to the teacher and classmate info
@@ -463,7 +463,7 @@ public class BridgeController extends AbstractController {
 			// post student data
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/postdata.html");
 			requestDispatcher.forward(request, response);
-		} else if (type.equals("flag") || type.equals("annotation")){
+		} else if (type.equals("flag") || type.equals("inappropriateFlag") || type.equals("annotation")){
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/annotations.html");
 			requestDispatcher.forward(request, response);
 		} else if (type.equals("journal")) {
