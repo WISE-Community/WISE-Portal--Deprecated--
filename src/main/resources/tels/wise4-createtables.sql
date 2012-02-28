@@ -585,6 +585,8 @@
         recent_number_of_failed_login_attempts integer,
         password varchar(255) not null,
         recent_failed_login_time datetime,
+        reset_password_key varchar(255),
+        reset_password_request_time datetime,
         username varchar(255) not null unique,
         OPTLOCK integer,
         primary key (id)
