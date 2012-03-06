@@ -64,7 +64,13 @@ function findRunByRunId(runId) {
 			<td><a href="#"
 				onclick="javascript:popup640('../teacherinfo.html?userName=${user[0]}');">info</a></td>
 			<c:if test="${not empty user[1]}">
-				<td><a style="color:blue;text-decoration:underline; cursor:pointer" onclick="findRunByRunId(${user[1].id})">${user[1].name} (Run ID ${user[1].id})</a></td>
+				<td>
+				<a style="color:blue;text-decoration:underline; cursor:pointer" onclick="findRunByRunId(${user[1].id})">(Run ID: ${user[1].id}) | Run Title: "${user[1].name}"  
+				<c:forEach var="owner" items="${user[1].owners}">
+					| Teacher: ${owner.userDetails.username}
+					${owner.userDetails.schoolname}, ${owner.userDetails.city}, ${owner.userDetails.state},${owner.userDetails.country}
+				</c:forEach>
+				</a></td>
 			</c:if>
 		</tr>
 	</c:forEach>
