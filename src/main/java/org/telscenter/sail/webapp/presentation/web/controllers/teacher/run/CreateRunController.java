@@ -335,10 +335,8 @@ public class CreateRunController extends AbstractWizardFormController {
 			} catch (ObjectNotFoundException e) {
 				e.printStackTrace();
 			}
-		    String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
 			String relativeProjectFilePath = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());  // looks like this: "/109/new.project.json"
 			int ndx = relativeProjectFilePath.lastIndexOf("/");
-			String srcProjectRootFolder = curriculumBaseDir + "/" + relativeProjectFilePath.substring(0, ndx);  // looks like this: "/users/hiroki/..../curriculum/109/"
 			String projectJSONFilename = relativeProjectFilePath.substring(ndx + 1, relativeProjectFilePath.length());  // looks like this: "new.project.json"
 			
 			//get the project name
@@ -350,9 +348,7 @@ public class CreateRunController extends AbstractWizardFormController {
 			model.put("projectId", projectId);
 			model.put("projectType", project.getProjectType());
 			model.put("projectName", projectName);
-			model.put("srcProjectRootFolder", srcProjectRootFolder);
 			model.put("projectJSONFilename", projectJSONFilename);
-			model.put("curriculumBaseDir", curriculumBaseDir);
 			break;
 		default:
 			break;

@@ -89,14 +89,13 @@
 		 * @param type the project type e.g. "LD"
 		 * @param name the project name
 		 * @param fileName the project file name e.g. "wise4.project.json"
-		 * @param relativeProjectFilePathUrl the relative project file path e.g. "/513/wise4.project.json"
 		 * @return true iff project was successfully copied. 
 		 */
-    	function createRun(pID, type, projectName, fileName, relativeProjectFilePathUrl) {
+    	function createRun(pID, type, projectName, fileName) {
         	// ensure that project doesn't get copied multiple times
         	if (!doneClicked) {
             	doneClicked=true;
-    			var result = copy(pID, type, projectName, fileName, relativeProjectFilePathUrl);
+    			var result = copy(pID, type, projectName, fileName);
     			if (!result) {
         			alert('There was an error creating the run. Please contact WISE.');
     			}
@@ -110,10 +109,9 @@
 		 * @param type the project type e.g. "LD"
 		 * @param name the project name
 		 * @param fileName the project file name e.g. "wise4.project.json"
-		 * @param relativeProjectFilePathUrl the relative project file path e.g. "/513/wise4.project.json"
 		 * @return true iff project was successfully copied. 
 		 */
-        function copy(pID, type, projectName, fileName, relativeProjectFilePathUrl){
+        function copy(pID, type, projectName, fileName){
             var isSuccess = false;
             var newProjectId = null;
    			if(type=='LD'){
@@ -228,7 +226,7 @@
 						</div>
 					</div>
 	
-					<form method="post" class="center" onSubmit="return createRun('${projectId}','${projectType}','<c:out value="${projectName}" />','${projectJSONFilename}','${srcProjectRootFolder}')">
+					<form method="post" class="center" onSubmit="return createRun('${projectId}','${projectType}','<c:out value="${projectName}" />','${projectJSONFilename}')">
 						<input type="submit" name="_target3" value="<spring:message code="navigate.back" />" />
 						<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 						<input type="submit" id="submit_form" name="_finish" value="<spring:message code="navigate.done" />" />
