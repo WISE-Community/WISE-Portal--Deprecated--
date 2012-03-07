@@ -194,31 +194,33 @@ public class TeamSignInController extends SimpleFormController {
 			//get the members in the workgroup
 			StudentRunInfo studentRunInfo = studentService.getStudentRunInfo(user, run);
 			Workgroup workgroup = studentRunInfo.getWorkgroup();
-			Set<User> members = workgroup.getMembers();
+			if (workgroup != null) {
+				Set<User> members = workgroup.getMembers();
 
-			//counter for how many members we have so far
-			int currentNumMembers = 1;
-			
-			//loop through all the members
-			Iterator<User> membersIterator = members.iterator();
-			while(membersIterator.hasNext()) {
-				//get a member and their username
-				User member = membersIterator.next();
-				String username = member.getUserDetails().getUsername();
-				
-				//check that the username is not the one that is already signed in
-				if(username != null && !username.equals(signedInUsername)) {
-					if(currentNumMembers == 1) {
-						//set the username2
-						form.setUsername2(username);
-						currentNumMembers++;
-					} else if(currentNumMembers == 2) {
-						//set the username3
-						form.setUsername3(username);
-						currentNumMembers++;
-					}				
-				}
-			}			
+				//counter for how many members we have so far
+				int currentNumMembers = 1;
+
+				//loop through all the members
+				Iterator<User> membersIterator = members.iterator();
+				while(membersIterator.hasNext()) {
+					//get a member and their username
+					User member = membersIterator.next();
+					String username = member.getUserDetails().getUsername();
+
+					//check that the username is not the one that is already signed in
+					if(username != null && !username.equals(signedInUsername)) {
+						if(currentNumMembers == 1) {
+							//set the username2
+							form.setUsername2(username);
+							currentNumMembers++;
+						} else if(currentNumMembers == 2) {
+							//set the username3
+							form.setUsername3(username);
+							currentNumMembers++;
+						}				
+					}
+				}	
+			}
 		}
 		
 		return form;
