@@ -304,7 +304,7 @@ public class StudentUserDetails extends PersistentUserDetails implements
 		infoMap.put("ID", this.getId());
 		infoMap.put("First Name", this.getFirstname());
 		infoMap.put("Last Name", this.getLastname());
-		infoMap.put("username", this.getUsername());
+		infoMap.put("Username", this.getUsername());
 		infoMap.put("Sign Up Date", this.getSignupdate());
 		infoMap.put("Gender", this.getGender().toString());
 		infoMap.put("Birthday", this.getBirthday());
