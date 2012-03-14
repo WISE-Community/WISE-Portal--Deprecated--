@@ -117,11 +117,15 @@ public class RegisterStudentController extends SignupController {
 					
 					User user = userService.createUser(userDetails);
 					Projectcode projectcode = new Projectcode(accountForm.getProjectCode());
-					while (true) {
+					
+					int maxLoop = 100;  // to ensure that the following while loop gets run at most this many times.
+					int currentLoopIndex = 0;
+					while (currentLoopIndex < maxLoop) {
 						try {
-							studentService.addStudentToRun(user, projectcode);
+							studentService.addStudentToRun(user, projectcode);  // add student to period
 						} catch (HibernateOptimisticLockingFailureException holfe) {
 							// multiple students tried to create an account at the same time, resulting in this exception. try saving again.
+							currentLoopIndex++;
 							continue;
 						}
 						// if it reaches here, it means that hibernate optimisitic locking exception was not thrown, so we can exit the loop.
