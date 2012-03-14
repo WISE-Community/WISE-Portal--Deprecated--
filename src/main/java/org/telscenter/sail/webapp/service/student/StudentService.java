@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.service.student;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.StudentUserAlreadyAssociatedWithRunException;
@@ -62,6 +63,7 @@ public interface StudentService {
 	 *      studentUser to be added is already associated with the run in any
 	 *      of the periods that the run has been set up for
 	 */
+	@Transactional
 	public void addStudentToRun(User studentUser, Projectcode projectcode) 
 	     throws ObjectNotFoundException, PeriodNotFoundException, StudentUserAlreadyAssociatedWithRunException;
 	

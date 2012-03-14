@@ -39,6 +39,7 @@ import net.sf.sail.webapp.presentation.web.controllers.SignupController;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -78,7 +79,7 @@ public class RegisterStudentController extends SignupController {
 	@Override
 	@Transactional(rollbackFor = { 
 			DuplicateUsernameException.class, ObjectNotFoundException.class, 
-			PeriodNotFoundException.class })
+			PeriodNotFoundException.class, HibernateOptimisticLockingFailureException.class })
 	protected synchronized ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {
@@ -116,7 +117,16 @@ public class RegisterStudentController extends SignupController {
 					
 					User user = userService.createUser(userDetails);
 					Projectcode projectcode = new Projectcode(accountForm.getProjectCode());
-					studentService.addStudentToRun(user, projectcode);
+					while (true) {
+						try {
+							studentService.addStudentToRun(user, projectcode);
+						} catch (HibernateOptimisticLockingFailureException holfe) {
+							// multiple students tried to create an account at the same time, resulting in this exception. try saving again.
+							continue;
+						}
+						// if it reaches here, it means that hibernate optimisitic locking exception was not thrown, so we can exit the loop.
+						break;
+					}
 				} catch (DuplicateUsernameException e) {
 					errors.rejectValue("userDetails.username", "error.duplicate-username",
 							new Object[] { userDetails.getUsername() }, "Duplicate Username.");
