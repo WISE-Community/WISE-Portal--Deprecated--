@@ -637,7 +637,7 @@ public class InformationController extends AbstractController{
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader ("Expires", 0);
 		
-		response.setContentType("text/xml");
+		response.setContentType("application/json");
 		response.getWriter().write(config.toString());
 	}
 	
