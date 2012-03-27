@@ -504,25 +504,38 @@ public class AuthorProjectController extends AbstractController {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
+	/**
+	 * Gets other WISE users who are also editing the same project as the logged-in user
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")	
 	private ModelAndView handleGetEditors(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String projectPath = request.getParameter("param1");
 		
+		// get current user session
 		HttpSession currentUserSession = request.getSession();
+		
+		// get all sessions of people editing a project.
 		HashMap<String, ArrayList<String>> openedProjectsToSessions = 
 			(HashMap<String, ArrayList<String>>) currentUserSession.getServletContext().getAttribute("openedProjectsToSessions");
 		
 		if(openedProjectsToSessions != null){
+			// if there are ppl editing projects, see if there are people editing the same project as logged in user.
 			ArrayList<String> sessions = openedProjectsToSessions.get(projectPath);
 			HashMap<String, User> allLoggedInUsers = (HashMap<String, User>) currentUserSession.getServletContext()
 				.getAttribute(PasSessionListener.ALL_LOGGED_IN_USERS);
 			
 			String otherUsersAlsoEditingProject = "";
-			for (String sessionId : sessions) {
-				if (sessionId != currentUserSession.getId()) {
-					User user = allLoggedInUsers.get(sessionId);
-					if (user != null) {
-						otherUsersAlsoEditingProject += user.getUserDetails().getUsername() + ",";
+			if (sessions != null) {
+				for (String sessionId : sessions) {
+					if (sessionId != currentUserSession.getId()) {
+						User user = allLoggedInUsers.get(sessionId);
+						if (user != null) {
+							otherUsersAlsoEditingProject += user.getUserDetails().getUsername() + ",";
+						}
 					}
 				}
 			}
