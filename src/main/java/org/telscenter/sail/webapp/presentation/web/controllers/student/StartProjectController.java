@@ -38,6 +38,7 @@ import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
+import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
@@ -133,7 +134,19 @@ public class StartProjectController extends AbstractController {
 				workgroup = workgroupService.createWISEWorkgroup(name, members, run, period);
 				
 				/* update run statistics */
-				this.runService.updateRunStatistics(run.getId());
+				int maxLoop = 30;  // to ensure that the following while loop gets run at most this many times.
+				int currentLoopIndex = 0;
+				while(currentLoopIndex < maxLoop) {
+					try {
+						this.runService.updateRunStatistics(run.getId());
+					} catch (HibernateOptimisticLockingFailureException holfe) {
+						// multiple students tried to update run statistics at the same time, resulting in the exception. try again.
+						currentLoopIndex++;
+						continue;
+					}
+					// if it reaches here, it means that HibernateOptimisticLockingFailureException was not thrown, so we can exit the loop.
+					break;
+				}
 				
 				LaunchProjectParameters launchProjectParameters = new LaunchProjectParameters();
 				launchProjectParameters.setRun(run);
@@ -164,7 +177,19 @@ public class StartProjectController extends AbstractController {
 			workgroup = (WISEWorkgroup) workgroups.get(0);
 			if (workgroup.getMembers().size() == 1) {
 				/* update run statistics */
-				this.runService.updateRunStatistics(run.getId());
+				int maxLoop = 30;  // to ensure that the following while loop gets run at most this many times.
+				int currentLoopIndex = 0;
+				while(currentLoopIndex < maxLoop) {
+					try {
+						this.runService.updateRunStatistics(run.getId());
+					} catch (HibernateOptimisticLockingFailureException holfe) {
+						// multiple students tried to update run statistics at the same time, resulting in the exception. try again.
+						currentLoopIndex++;
+						continue;
+					}
+					// if it reaches here, it means that HibernateOptimisticLockingFailureException was not thrown, so we can exit the loop.
+					break;
+				}
 				
 				// if the student is already in a workgroup and she is the only member,
 				// launch the project
