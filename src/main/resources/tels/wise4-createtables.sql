@@ -362,7 +362,7 @@
         summary varchar(255),
         tech_reqs varchar(255),
         title varchar(255),
-        tools varchar(255),
+        tools text,
         total_time varchar(255),
         version_id varchar(255),
         nav_mode varchar(50),
