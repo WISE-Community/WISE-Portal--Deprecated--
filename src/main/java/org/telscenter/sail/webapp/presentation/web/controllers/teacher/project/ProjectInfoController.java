@@ -85,7 +85,16 @@ public class ProjectInfoController extends AbstractController {
 				//||	project.hasTags(telslibrary)){
 				ModelAndView modelAndView = new ModelAndView();
 				modelAndView.addObject(PROJECT_PARAM_NAME, project);
-				modelAndView.addObject(USAGE, this.runService.getProjectUsage((Long)project.getId()));
+				Integer usage = this.runService.getProjectUsage((Long)project.getId());
+				modelAndView.addObject(USAGE, usage);
+				
+				//get the command
+				String command = request.getParameter("command");
+				//if command is 'getTimesRun', return the usage count
+				if(command != null && command.equals("getNumberOfRuns")){
+					response.getWriter().write(usage.toString());
+					return null;
+				}
 				
 				String curriculumBaseWWW = this.portalProperties.getProperty("curriculum_base_www");
 				String url = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
