@@ -114,7 +114,7 @@
 						<div>You should not be behind firewall/proxy if possible when running WISE projects.  Parts or all of the WISE may not load 
 		     depending on your school's firewall settings. This section checks if you are
 			 restricted from accessing certain resources on the WISE server. 
-			 If you see any X's below, WISE may not function properly. Please talk to your server administrator.</div>
+			 If you see any X's below, WISE may not function properly. Please talk to your school technician.</div>
 						<div id='contentFilterMessageSwf'>
 							<span>Can Retrieve Flash objects (.swf):</span><span id='contentFilterSwfRequirementSatisfied'>checking...</span><br/><br/>
 							<span>Can Retrieve Java archives (.jar):</span><span id='contentFilterJarRequirementSatisfied'>checking...</span>
