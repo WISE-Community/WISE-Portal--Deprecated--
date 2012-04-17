@@ -131,22 +131,22 @@
 								<th>Recommendation Level</th>
 							</tr>
 							<tr>
-								<td>Firefox 3.5/3.6 on OSX and Windows</td>
+								<td>Firefox 3.5/3.6 or higher on OSX and Windows</td>
 								<td>none</td>
 								<td>Strongly Recommended</td>
 							</tr>
 							<tr>
-								<td>Chrome on OSX and OSX and Windows</td>
+								<td>Chrome 10 or higher on OSX and Windows</td>
 								<td>none</td>
 								<td>Recommended</td>
 							</tr>
 							<tr>
-								<td>Safari 4.0+ on OSX</td>
+								<td>Safari 4.0 or higher on OSX</td>
 								<td>none</td>
 								<td>Recommended</td>
 							</tr>
 							<tr>
-								<td>IE 7,8 on Windows</td>
+								<td>IE 7,8,9 on Windows</td>
 								<td>Drawing and MySystem steps do not work, some usability issues in student+teacher pages</td>
 								<td>Least Recommended</td>
 							</tr>
@@ -171,7 +171,7 @@
 								</tr> 
 								<tr> 
 								<td class='confluenceTd'>Java</td> 
-								<td class='confluenceTd'>1.5.0 or later</td> 
+								<td class='confluenceTd'>1.6.0 or later</td> 
 								</tr> 
 								<tr> 
 								<td class='confluenceTd'>Flash</td> 
