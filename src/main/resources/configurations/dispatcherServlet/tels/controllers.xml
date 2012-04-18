@@ -1109,10 +1109,11 @@
     </bean>
 
 	<bean id="exportProjectController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ExportProjectController">
+		class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.ExportProjectController">
         <property name="projectService" ref="projectService" />
 		<property name="portalProperties" ref="portalproperties" />		
 	</bean>
+	
     <bean id="uploadProjectController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.admin.UploadProjectController" >
         <property name="projectService" ref="projectService" />

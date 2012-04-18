@@ -20,7 +20,7 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers.admin;
+package org.telscenter.sail.webapp.presentation.web.controllers.author.project;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -34,12 +34,16 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.security.GrantedAuthority;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -61,8 +65,18 @@ public class ExportProjectController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
+		User signedInUser = ControllerUtil.getSignedInUser();
+
 		String projectId = request.getParameter("projectId");
 		Project project = projectService.getById(projectId);
+
+		// check if user is authorized to export
+		boolean authorized = authorize(signedInUser, project);
+		if (!authorized) {
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You are not authorized to access this page");
+			return null;
+		}
+		
 		String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
 
 		String sep = System.getProperty("file.separator");
@@ -98,6 +112,28 @@ public class ExportProjectController extends AbstractController {
 		return null;
 	}
 
+	/**
+	 * Return true iff the logged-in user is allowed to export the project
+	 * @param signedInUser user that is signed in
+	 * @param project can the signed in user export this project?
+	 * @return true/false
+	 */
+	private boolean authorize(User signedInUser, Project project) {
+		GrantedAuthority[] authorities = signedInUser.getUserDetails().getAuthorities();
+		for (GrantedAuthority authority : authorities) {
+			if (authority.getAuthority().equals(UserDetailsService.ADMIN_ROLE)) {
+				// if signed in user is an admin, (s)he can export all projects.
+				return true;
+			} else if(authority.getAuthority().equals(UserDetailsService.TEACHER_ROLE)) {
+				//the signed in user is a teacher
+				return this.projectService.canAuthorProject(project, signedInUser) ||
+						this.projectService.canReadProject(project, signedInUser);
+			}
+		}
+		// other request methods are not authorized at this point
+		return false;
+	}
+	
 	private static void addFolderToZip(File folder, ZipOutputStream zip, String baseName) throws IOException {
 		File[] files = folder.listFiles();
 		for (File file : files) {
