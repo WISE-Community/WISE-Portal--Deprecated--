@@ -60,6 +60,7 @@ import org.telscenter.sail.webapp.domain.attendance.StudentAttendance;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
 import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
 import org.telscenter.sail.webapp.presentation.util.json.JSONException;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
@@ -427,6 +428,9 @@ public class BridgeController extends AbstractController {
 			
 			//set the project path into the request object
 			setProjectPath(run, request);
+			
+			//set the project meta data into the request object
+			setProjectMetaData(run, request);
 			
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/getxls.html");
 			requestDispatcher.forward(request, response);
@@ -803,6 +807,19 @@ public class BridgeController extends AbstractController {
 		request.setAttribute("projectPath", projectPath);
 	}
 	
+	/**
+	 * Set the project meta data into the request as an attribute so that we can access
+	 * it in other controllers
+	 * @param run
+	 * @param request
+	 */
+	private void setProjectMetaData(Run run, HttpServletRequest request) {
+		Project project = run.getProject();
+		ProjectMetadata metadata = project.getMetadata();
+		String projectMetaDataJSONString = metadata.toJSONString();
+		
+		request.setAttribute("projectMetaData", projectMetaDataJSONString);
+	}
 
 	/**
 	 * @return the workgroupService
