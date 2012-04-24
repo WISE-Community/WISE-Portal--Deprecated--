@@ -199,15 +199,32 @@
 			});
 	};
 	
+	function getRootId(id){
+		var rootBox = $('#projectBox_' + id);
+		var newId = rootBox.attr('rootid');
+		if(rootBox.hasClass('childProject') && newId){
+    	  	return getRootId(newId);
+       	} else {
+       		return id;
+       	}
+	};
+	
 	$(document).ready(function() {
 		
-		// Show child link for projects with children
 		totalProjects = $('div.projectBox').length;
 		
+		// resolve child projects that have roots set that are also children
+		$("div.childProject").each(function(){
+			var rootId = $(this).attr('rootid');
+			var newRootId = getRootId(rootId);
+			$(this).attr('rootid',newRootId);
+		});
+		
+		// Show child link for projects with children
 		$("div.projectBox").not(".childProject").each(function(){
 			var id = $(this).attr('id').replace('projectBox_','');
 			// get all child projects of current project (as projectbox div)
-			var projectChildren = $('.root_' + id);
+			var projectChildren = $('div[rootid="' + id + '"]');
 			var numChildren = projectChildren.length;
 			if(numChildren > 0){
 				rootProjectIds.push(id);
@@ -569,15 +586,15 @@
 			var text = $('#childToggle_' + id).text();
 			if(open){
 				$('#childToggle_' + id).addClass('expanded');
-				$('.root_' + id).slideDown('fast');
+				$('div[rootid="' + id + '"]').slideDown('fast');
 				text = text.replace('+','-');
 				$('#childToggle_' + id).text(text);
 			} else {
 				$('#childToggle_' + id).removeClass('expanded');
 				if($('#projectBox_' + id).is(":hidden")) {
-					$('.root_' + id).hide();
+					$('div[rootid="' + id + '"]').hide();
 				} else {
-					$('.root_' + id).slideUp("fast");
+					$('div[rootid="' + id + '"]').slideUp("fast");
 				}
 				text = text.replace('-','+');
 				$('#childToggle_' + id).text(text);
@@ -775,7 +792,7 @@
 			$('.childToggle').each(function(){
 				var id = $(this).attr('id').replace('childToggle_',''),
 					match = false,
-					children = $('.root_' + id);
+					children = $('div[rootid="' + id + '"]');
 				for(var i=0; i<children.length; i++){
 					if (!$(children[i]).hasClass('noMatch')){
 						match = true;
@@ -857,21 +874,30 @@
 								<c:otherwise>
 									<c:forEach var="item" items="${projectIds}">
 									  <c:if test="${item eq project.rootProjectId}">
-									    <c:set var="projectClass" value="projectBox owned childProject root_${project.rootProjectId}" />
+									    <c:set var="rootId" value="${project.rootProjectId}" />
+									    <c:set var="projectClass" value="projectBox owned childProject" />
 									    <c:set var="isChild" value="true" />
 									  </c:if>
 									</c:forEach>
 									<c:if test="${!isChild}">
 										<c:forEach var="item" items="${projectIds}">
 										  <c:if test="${item eq project.parentProjectId}">
-										    <c:set var="projectClass" value="projectBox owned childProject root_${project.parentProjectId}" />
+										  	<c:set var="projectClass" value="projectBox owned childProject" />
+										    <c:set var="rootId" value="${project.parentProjectId}" />
 										    <c:set var="isChildNoRoot" value="true" />
 										  </c:if>
 										</c:forEach>
 									</c:if>
 								</c:otherwise>
 							</c:choose>
-							<div class="${projectClass}" id="projectBox_${project.id}">
+							<c:choose>
+								<c:when test="${isChild || isChildNoRoot}">
+									<div class="${projectClass}" id="projectBox_${project.id}" rootid="${rootId}">
+								</c:when>
+								<c:otherwise>
+									<div class="${projectClass}" id="projectBox_${project.id}">
+								</c:otherwise>
+							</c:choose>
 								<div class="projectOverview">
 									<div class="projectHeader">
 										<div class="projectInfo">
@@ -1056,21 +1082,30 @@
 								<c:otherwise>
 									<c:forEach var="item" items="${projectIds}">
 									  <c:if test="${item eq project.rootProjectId}">
-									    <c:set var="projectClass" value="projectBox shared childProject root_${project.rootProjectId}" />
+									    <c:set var="rootId" value="${project.rootProjectId}" />
+									    <c:set var="projectClass" value="projectBox shared childProject" />
 									    <c:set var="isChild" value="true" />
 									  </c:if>
 									</c:forEach>
 									<c:if test="${!isChild}">
 										<c:forEach var="item" items="${projectIds}">
 										  <c:if test="${item eq project.parentProjectId}">
-										    <c:set var="projectClass" value="projectBox shared childProject root_${project.parentProjectId}" />
+										  	<c:set var="projectClass" value="projectBox shared childProject" />
+										    <c:set var="rootId" value="${project.parentProjectId}" />
 										    <c:set var="isChildNoRoot" value="true" />
 										  </c:if>
 										</c:forEach>
 									</c:if>
 								</c:otherwise>
 							</c:choose>
-							<div class="${projectClass}" id="projectBox_${project.id}">
+							<c:choose>
+								<c:when test="${isChild || isChildNoRoot}">
+									<div class="${projectClass}" id="projectBox_${project.id}" rootid="${rootId}">
+								</c:when>
+								<c:otherwise>
+									<div class="${projectClass}" id="projectBox_${project.id}">
+								</c:otherwise>
+							</c:choose>
 								<div class="projectOverview">
 									<div class="projectHeader">
 										<div class="projectInfo">
