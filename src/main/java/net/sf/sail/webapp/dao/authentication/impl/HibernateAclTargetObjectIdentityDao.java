@@ -23,7 +23,7 @@ import net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentAclTargetObjectIdentity;
 
 import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.security.acls.objectidentity.ObjectIdentity;
+import org.springframework.security.acls.model.ObjectIdentity;
 
 /**
  * This class is not being used. Tried to implement Hibernate versions of the acl
@@ -59,7 +59,7 @@ public class HibernateAclTargetObjectIdentityDao extends
                                 "from PersistentAclTargetObjectIdentity as object_id where object_id.aclTargetObject.classname = :classname and object_id.aclTargetObjectId = :id",
                                 RETRIEVE_BY_OBJECT_IDENTITY_PARAM_NAMES,
                                 new Object[] {
-                                        objectIdentity.getJavaType().getName(),
+                                        objectIdentity.getType(),
                                         objectIdentity.getIdentifier() }));
     }
 

@@ -46,9 +46,9 @@ import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.acls.AlreadyExistsException;
-import org.springframework.security.acls.NotFoundException;
-import org.springframework.security.acls.Permission;
+import org.springframework.security.acls.model.AlreadyExistsException;
+import org.springframework.security.acls.model.NotFoundException;
+import org.springframework.security.acls.model.Permission;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.security.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;

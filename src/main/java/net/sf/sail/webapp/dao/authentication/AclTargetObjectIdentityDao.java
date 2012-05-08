@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.dao.authentication;
 
-import org.springframework.security.acls.objectidentity.ObjectIdentity;
+import org.springframework.security.acls.model.ObjectIdentity;
 
 import net.sf.sail.webapp.dao.SimpleDao;
 import net.sf.sail.webapp.domain.authentication.MutableAclTargetObjectIdentity;

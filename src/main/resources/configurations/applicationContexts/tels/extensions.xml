@@ -204,12 +204,12 @@
     </bean>
     
     <bean id="runServiceSecurity"
-        class="org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor">
+        class="org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor">
         <property name="validateConfigAttributes" value="true" />
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="accessDecisionManager" ref="offeringAccessDecisionManager" />
         <property name="afterInvocationManager" ref="afterInvocationManager" />
-        <property name="objectDefinitionSource" ref="objectDefinitionSource" />
+        <property name="securityMetadataSource" ref="securityMetadataSource" />
     </bean>    
 
     <bean id="runServiceTarget"
@@ -239,12 +239,12 @@
     </bean>
     
     <bean id="projectServiceSecurity"
-        class="org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor">
+        class="org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor">
         <property name="validateConfigAttributes" value="true" />
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="accessDecisionManager" ref="offeringAccessDecisionManager" />
         <property name="afterInvocationManager" ref="afterInvocationManager" />
-        <property name="objectDefinitionSource" ref="objectDefinitionSource" />
+        <property name="securityMetadataSource" ref="securityMetadataSource" />
     </bean>    
     
     
@@ -422,12 +422,12 @@
     </bean>
     
     <bean id="wiseWorkgroupServiceSecurity"
-        class="org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor">
+        class="org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor">
         <property name="validateConfigAttributes" value="true" />
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="accessDecisionManager" ref="workgroupAccessDecisionManager" />
         <property name="afterInvocationManager" ref="afterInvocationManager" />
-        <property name="objectDefinitionSource" ref="objectDefinitionSource" />
+        <property name="securityMetadataSource" ref="securityMetadataSource" />
     </bean>    
 
     <bean id="wiseWorkgroupServiceTarget"

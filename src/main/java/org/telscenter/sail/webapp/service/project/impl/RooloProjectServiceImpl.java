@@ -31,10 +31,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Curnit;
-import net.sf.sail.webapp.domain.Jnlp;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
-import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.UserService;
@@ -42,9 +40,9 @@ import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.acls.AlreadyExistsException;
-import org.springframework.security.acls.NotFoundException;
-import org.springframework.security.acls.Permission;
+import org.springframework.security.acls.model.AlreadyExistsException;
+import org.springframework.security.acls.model.NotFoundException;
+import org.springframework.security.acls.model.Permission;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.security.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;

@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.domain.authentication;
 
-import org.springframework.security.GrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 
 import net.sf.sail.webapp.domain.Persistable;
 

@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -34,7 +35,7 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
-import org.springframework.security.GrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.impl.PremadeCommentListParameters;
@@ -570,7 +571,7 @@ public class PremadeCommentsController extends AbstractController {
 		String username = signedInUser.getUserDetails().getUsername();
 		
 		//get the user's authorities
-		GrantedAuthority[] authorities = signedInUser.getUserDetails().getAuthorities();
+		Collection<? extends GrantedAuthority> authorities = signedInUser.getUserDetails().getAuthorities();
 
 		//loop through the authorities
 		for (GrantedAuthority authority : authorities) {

@@ -26,6 +26,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -39,7 +40,7 @@ import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.apache.commons.io.IOUtils;
-import org.springframework.security.GrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.Project;
@@ -119,7 +120,7 @@ public class ExportProjectController extends AbstractController {
 	 * @return true/false
 	 */
 	private boolean authorize(User signedInUser, Project project) {
-		GrantedAuthority[] authorities = signedInUser.getUserDetails().getAuthorities();
+		Collection<? extends GrantedAuthority> authorities = signedInUser.getUserDetails().getAuthorities();
 		for (GrantedAuthority authority : authorities) {
 			if (authority.getAuthority().equals(UserDetailsService.ADMIN_ROLE)) {
 				// if signed in user is an admin, (s)he can export all projects.

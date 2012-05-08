@@ -40,8 +40,8 @@ import net.sf.sail.webapp.service.group.GroupService;
 
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.acls.AlreadyExistsException;
-import org.springframework.security.acls.NotFoundException;
+import org.springframework.security.acls.model.AlreadyExistsException;
+import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,6 +1,8 @@
 package net.sf.sail.webapp;
 
-import org.springframework.security.GrantedAuthority;
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
 
 import net.sf.sail.webapp.dao.authentication.UserDetailsDao;
 import net.sf.sail.webapp.dao.authentication.impl.HibernateUserDetailsDao;
@@ -48,15 +50,15 @@ public class CreateDefaultUsersTest extends AbstractTransactionalDbTests {
     public void testCreateAdministrator() throws Exception {
 
         MutableUserDetails actualUserDetails = userDao.retrieveByName(USERNAME);
-        GrantedAuthority[] authorities = actualUserDetails.getAuthorities();
+        Collection<? extends GrantedAuthority> authorities = actualUserDetails.getAuthorities();
         assertTrue(testIfHasRole(authorities, UserDetailsService.ADMIN_ROLE));
         assertTrue(testIfHasRole(authorities, UserDetailsService.USER_ROLE));
     }
 
-    private boolean testIfHasRole(GrantedAuthority[] authorities, String role) {
+    private boolean testIfHasRole(Collection<? extends GrantedAuthority> authorities, String role) {
         boolean isRole = false;
-        for (int i = 0; i < authorities.length; i++) {
-            String thisRole = authorities[i].getAuthority();
+        for (GrantedAuthority authority : authorities) {
+            String thisRole = authority.getAuthority();
             if (thisRole == role)
                 isRole = true;
         }

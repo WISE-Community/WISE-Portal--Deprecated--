@@ -20,7 +20,7 @@ package net.sf.sail.webapp.dao.authentication.impl;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.security.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
 
 import net.sf.sail.webapp.dao.AbstractTransactionalDaoTests;
 import net.sf.sail.webapp.domain.authentication.MutableAclSid;

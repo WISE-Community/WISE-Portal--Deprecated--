@@ -30,9 +30,9 @@ import net.sf.sail.webapp.service.UserService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.Authentication;
-import org.springframework.security.ui.webapp.AuthenticationProcessingFilter;
-import org.springframework.security.userdetails.UserDetails;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
@@ -46,12 +46,16 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * 
  */
 public class PasAuthenticationProcessingFilter extends
-        AuthenticationProcessingFilter {
+	UsernamePasswordAuthenticationFilter {
 
-    private static final Log LOGGER = LogFactory
+	private static final Log LOGGER = LogFactory
             .getLog(PasAuthenticationProcessingFilter.class);
 
-    /**
+    public PasAuthenticationProcessingFilter() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
      * @see org.acegisecurity.ui.AbstractProcessingFilter#successfulAuthentication(javax.servlet.http.HttpServletRequest,
      *      javax.servlet.http.HttpServletResponse,
      *      org.acegisecurity.Authentication)

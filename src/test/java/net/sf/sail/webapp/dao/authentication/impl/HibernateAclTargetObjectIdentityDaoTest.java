@@ -31,8 +31,8 @@ import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
 
 import org.easymock.EasyMock;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.GrantedAuthorityImpl;
-import org.springframework.security.acls.objectidentity.ObjectIdentity;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.acls.model.ObjectIdentity;
 
 /**
  * @author Cynick Young
@@ -108,15 +108,15 @@ public class HibernateAclTargetObjectIdentityDaoTest
 
         ObjectIdentity objectIdentity = EasyMock
                 .createMock(ObjectIdentity.class);
-        EasyMock.expect(objectIdentity.getJavaType()).andReturn(
-                PersistentGroup.class);
+        EasyMock.expect(objectIdentity.getType()).andReturn(
+                PersistentGroup.class.getName());
         EasyMock.expect(objectIdentity.getIdentifier()).andReturn(ID);
         EasyMock.replay(objectIdentity);
 
         MutableAclTargetObjectIdentity actual = this.dao
                 .retrieveByObjectIdentity(objectIdentity);
         assertNotNull(actual);
-        assertEquals(CLASSNAME, actual.getJavaType().getName());
+        assertEquals(CLASSNAME, actual.getType());
         assertEquals(ID, actual.getIdentifier());
         assertEquals(this.dataObject, actual);
         EasyMock.verify(objectIdentity);

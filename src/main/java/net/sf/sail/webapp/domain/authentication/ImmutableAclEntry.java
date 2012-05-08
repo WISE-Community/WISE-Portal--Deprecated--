@@ -17,8 +17,8 @@
  */
 package net.sf.sail.webapp.domain.authentication;
 
-import org.springframework.security.acls.AccessControlEntry;
-import org.springframework.security.acls.AuditableAccessControlEntry;
+import org.springframework.security.acls.model.AccessControlEntry;
+import org.springframework.security.acls.model.AuditableAccessControlEntry;
 
 import net.sf.sail.webapp.domain.Persistable;
 

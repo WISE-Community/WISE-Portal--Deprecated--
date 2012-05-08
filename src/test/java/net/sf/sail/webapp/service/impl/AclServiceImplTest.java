@@ -21,18 +21,18 @@ import junit.framework.TestCase;
 import net.sf.sail.webapp.domain.group.Group;
 
 import org.easymock.EasyMock;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.GrantedAuthorityImpl;
-import org.springframework.security.acls.MutableAcl;
-import org.springframework.security.acls.MutableAclService;
-import org.springframework.security.acls.NotFoundException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.acls.model.MutableAcl;
+import org.springframework.security.acls.model.MutableAclService;
+import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.security.acls.domain.BasePermission;
-import org.springframework.security.acls.objectidentity.ObjectIdentity;
-import org.springframework.security.acls.objectidentity.ObjectIdentityImpl;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.context.SecurityContextImpl;
-import org.springframework.security.providers.TestingAuthenticationToken;
+import org.springframework.security.acls.model.ObjectIdentity;
+import org.springframework.security.acls.domain.ObjectIdentityImpl;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.authentication.TestingAuthenticationToken;
 
 /**
  * @author Laurel Williams
@@ -55,7 +55,7 @@ public class AclServiceImplTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 
-		authority = new TestingAuthenticationToken("admin", null,
+		authority = new TestingAuthenticationToken("admin",
 				new GrantedAuthority[] { new GrantedAuthorityImpl(
 						"ROLE_ADMINISTRATOR") });
 		authority.setAuthenticated(true);

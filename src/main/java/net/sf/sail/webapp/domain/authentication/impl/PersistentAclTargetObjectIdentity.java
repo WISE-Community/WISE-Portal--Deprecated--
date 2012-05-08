@@ -123,6 +123,12 @@ public class PersistentAclTargetObjectIdentity implements
         this.id = id;
     }
 
+	@Override
+	public String getType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
     /**
      * @return the version
      */
@@ -273,4 +279,5 @@ public class PersistentAclTargetObjectIdentity implements
             return null;
         }
     }
+
 }

@@ -56,13 +56,13 @@
 	</div>
 </sec:authorize>
 
-<sec:authorize ifAllGranted="ROLE_USER">
+<sec:authorize ifAnyGranted="ROLE_USER">
 	<div id="userInfoBlock" class="userInfo">
 		<a id="signOut" class="wisebutton minibutton" href="<c:url value="/j_spring_security_logout"/>" title="<spring:message code="log.out"/>"><spring:message code="log.out"/></a>
 		<div id="userName">
 			<span>Welcome, <sec:authentication property="principal.firstname" /> <sec:authentication property="principal.lastname" />!</span>
 		</div>
-		<div<sec:authorize ifAllGranted="ROLE_STUDENT"> style="margin-top:1.25em;"</sec:authorize>>
+		<div<sec:authorize ifAnyGranted="ROLE_STUDENT"> style="margin-top:1.25em;"</sec:authorize>>
 			<spring:message code="teacher.index.4" /> <span id="lastLogin"></span>
 		</div>
 		<sec:authorize ifNotGranted="ROLE_STUDENT">
@@ -71,13 +71,13 @@
 				<!-- <a href="/webapp/message.html?action=index" ><spring:message code="menu.messages"/><span id="unreadMsg"></span></a>  -->
 			</div>
 		</sec:authorize>
-		<sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+		<sec:authorize ifAnyGranted="ROLE_ADMINISTRATOR">
 			<a id="adminTools" class="wisebutton smallbutton-wide" href="/webapp/admin/index.html" ><spring:message code="menu.admin"/></a>
 		</sec:authorize>
-		<sec:authorize ifAllGranted="ROLE_RESEARCHER">
+		<sec:authorize ifAnyGranted="ROLE_RESEARCHER">
 			<a id="researchTools" class="wisebutton smallbutton-wide" href="/webapp/admin/index.html" ><spring:message code="menu.researcher"/></a>
 		</sec:authorize>
-		<sec:authorize ifAllGranted="ROLE_STUDENT">
+		<sec:authorize ifAnyGranted="ROLE_STUDENT">
 			<a id="researchTools" class="wisebutton smallbutton-wide" href="/webapp/student/index.html" ><spring:message code="menu.student"/></a>
 		</sec:authorize>
 	</div>
@@ -116,7 +116,7 @@
 	   	</ul>
 	   </div>
 	</sec:authorize>
-	<sec:authorize ifAllGranted="ROLE_STUDENT">
+	<sec:authorize ifAnyGranted="ROLE_STUDENT">
 		<div id="accountMenu" class="guest">
 		<ul class="welcome-menu">
 			<li><spring:message code="header.welcome"/> <spring:message code="header.signup1"/> <spring:message code="header.signup2"/> <spring:message code="header.signup3"/></li>

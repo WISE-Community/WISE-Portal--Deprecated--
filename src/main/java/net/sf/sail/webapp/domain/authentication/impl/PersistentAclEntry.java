@@ -32,10 +32,11 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
-import org.springframework.security.acls.Acl;
-import org.springframework.security.acls.Permission;
+import org.springframework.security.acls.model.Acl;
+import org.springframework.security.acls.model.Permission;
 import org.springframework.security.acls.domain.BasePermission;
-import org.springframework.security.acls.sid.Sid;
+import org.springframework.security.acls.domain.DefaultPermissionFactory;
+import org.springframework.security.acls.model.Sid;
 
 import net.sf.sail.webapp.domain.authentication.ImmutableAclEntry;
 import net.sf.sail.webapp.domain.authentication.MutableAclSid;
@@ -229,7 +230,8 @@ public class PersistentAclEntry implements ImmutableAclEntry, Serializable {
     @SuppressWarnings("unused")
     private void setMask(Integer mask) {
         this.mask = mask;
-        this.permission = BasePermission.buildFromMask(mask);
+        DefaultPermissionFactory dpf = new DefaultPermissionFactory();
+        this.permission = dpf.buildFromMask(mask);
     }
 
     /**

@@ -18,6 +18,7 @@
 package net.sf.sail.webapp.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
@@ -33,10 +34,10 @@ import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.easymock.EasyMock;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.providers.dao.SaltSource;
-import org.springframework.security.providers.encoding.PasswordEncoder;
-import org.springframework.security.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.authentication.dao.SaltSource;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @author Cynick Young
@@ -240,12 +241,12 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 
 	private void checkRole(UserDetails actual) {
 		// check role
-		GrantedAuthority[] authorities = actual.getAuthorities();
+		Collection<? extends GrantedAuthority> authorities = actual.getAuthorities();
 		if (authorities == null)
 			fail("authorities is null");
 		boolean foundUserRole = false;
-		for (int i = 0; i < authorities.length; i++) {
-			if (authorities[i].getAuthority() == UserDetailsService.USER_ROLE) {
+		for (GrantedAuthority authority : authorities) {
+			if (authority.getAuthority() == UserDetailsService.USER_ROLE) {
 				foundUserRole = true;
 				break;
 			}
@@ -271,9 +272,9 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 		assertEquals(USERNAME, updatedUserDetails.getUsername());
 		assertNull(updatedUserDetails.getEmailAddress());
 		assertEquals(expectedUserDetails.getId(), updatedUserDetails.getId());
-		GrantedAuthority grantedAuthority[] = updatedUserDetails
+		Collection<? extends GrantedAuthority> grantedAuthority = updatedUserDetails
 				.getAuthorities();
-		assertEquals(UserDetailsService.USER_ROLE, grantedAuthority[0]
+		assertEquals(UserDetailsService.USER_ROLE, grantedAuthority.iterator().next()
 				.getAuthority());
 		this.checkPasswordEncoding(updatedUserDetails, NEWW);
 	}

@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.management;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -36,7 +37,7 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.service.UserService;
 
-import org.springframework.security.GrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
@@ -113,7 +114,7 @@ public class AddSharedTeacherController extends AbstractWizardFormController{
 		case 1:
 			// for page 2 of the wizard, display all possible roles for that user
 			User sharedOwner = userService.retrieveUserByUsername(params.getSharedOwnerUsername());
-			GrantedAuthority[] allRoles = sharedOwner.getUserDetails().getAuthorities();
+			Collection<? extends GrantedAuthority> allRoles = sharedOwner.getUserDetails().getAuthorities();
 			for (GrantedAuthority role : allRoles) {
 				for (RunPermission runpermission: RunPermission.values()) {
 					if (role.getAuthority().equals(runpermission.toString())) {

@@ -19,7 +19,7 @@ package net.sf.sail.webapp.service;
 
 import java.util.List;
 
-import org.springframework.security.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;

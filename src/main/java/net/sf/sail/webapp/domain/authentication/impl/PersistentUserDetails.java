@@ -18,6 +18,7 @@
 package net.sf.sail.webapp.domain.authentication.impl;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,7 +38,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
-import org.springframework.security.GrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 
@@ -184,11 +185,11 @@ public class PersistentUserDetails implements MutableUserDetails {
      * @see org.acegisecurity.userdetails.UserDetails#getAuthorities()
      */
     @Transient
-    public GrantedAuthority[] getAuthorities() {
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         // Used by Acegi Security. This implements the required method from
         // Acegi Security. This implementation does not obtain the values
         // directly from the data store.
-        return this.getGrantedAuthorities().toArray(new GrantedAuthority[0]);
+        return this.getGrantedAuthorities();
     }
 
     /**

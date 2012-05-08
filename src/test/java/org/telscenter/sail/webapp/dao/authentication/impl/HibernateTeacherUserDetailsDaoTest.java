@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.dao.authentication.impl;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,7 +37,7 @@ import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.GrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 import org.telscenter.sail.webapp.domain.authentication.Schoollevel;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.junit.AbstractTransactionalDbTests;
@@ -372,9 +373,9 @@ public class HibernateTeacherUserDetailsDaoTest extends
 		defaultRolesList.add(DEFAULT_ROLE_2);
 		defaultRolesList.add(DEFAULT_ROLE_3);
 
-		GrantedAuthority[] grantedAuthorities = userDetails.getAuthorities();
-		for (int i = 0; i < grantedAuthorities.length; i++) {
-			String role = grantedAuthorities[i].getAuthority();
+		Collection<? extends GrantedAuthority> grantedAuthorities = userDetails.getAuthorities();
+		for (GrantedAuthority grantedAuthority : grantedAuthorities) {
+			String role = grantedAuthority.getAuthority();
 			assertTrue(defaultRolesList.contains(role));
 			defaultRolesList.remove(role);
 		}

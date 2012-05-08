@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.dao.authentication.impl;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ import net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
 
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.GrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * @author Cynick Young
@@ -239,9 +240,9 @@ public class HibernateUserDetailsDaoTest extends AbstractTransactionalDaoTests<H
         defaultRolesList.add(DEFAULT_ROLE_2);
         defaultRolesList.add(DEFAULT_ROLE_3);
 
-        GrantedAuthority[] grantedAuthorities = userDetails.getAuthorities();
-        for (int i = 0; i < grantedAuthorities.length; i++) {
-            String role = grantedAuthorities[i].getAuthority();
+        Collection<? extends GrantedAuthority> grantedAuthorities = userDetails.getAuthorities();
+        for (GrantedAuthority grantedAuthority : grantedAuthorities) {
+            String role = grantedAuthority.getAuthority();
             assertTrue(defaultRolesList.contains(role));
             defaultRolesList.remove(role);
         }

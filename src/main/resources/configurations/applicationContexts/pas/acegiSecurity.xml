@@ -20,16 +20,19 @@
 <!-- $Id$ -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:util="http://www.springframework.org/schema/util"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+    xsi:schemaLocation="
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+      http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
     <bean id="filterInvocationInterceptor"
         class="org.springframework.security.intercept.web.FilterSecurityInterceptor">
         <property name="validateConfigAttributes" value="true" />
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="accessDecisionManager" ref="urlAccessDecisionManager" />
-        <property name="objectDefinitionSource">
+        <property name="securityMetadataSource">
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
@@ -50,21 +53,29 @@
     <!--  if you wish to use channel security, add "channelProcessingFilter," in front
         of "httpSessionContextIntegrationFilter" in the list below -->
     <bean id="filterChainProxy"
-        class="org.springframework.security.util.FilterChainProxy">
+        class="org.springframework.security.web.FilterChainProxy">
+        <sec:filter-chain-map path-type="ant">        
+     		<sec:filter-chain pattern="/**" filters="
+     			charsetFilter,
+     			httpSessionContextIntegrationFilter,
+     			logoutFilter,
+     			authenticationProcessingFilter,
+     			anonymousProcessingFilter,
+     			exceptionTranslationFilter,
+     			filterInvocationInterceptor,
+     			switchUserProcessingFilter,
+     			openSessionInViewFilter" />
+  			</sec:filter-chain-map>
+  			
+  			<!--        
         <property name="filterInvocationDefinitionSource">
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
                 /**=charsetFilter,httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor,switchUserProcessingFilter,openSessionInViewFilter
             </value>
-            <!--
-                <value>
-                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-                PATTERN_TYPE_APACHE_ANT
-                /**=httpSessionContextIntegrationFilter,authenticationProcessingFilter,basicProcessingFilter,rememberMeProcessingFilter,anonymousProcessingFilter,switchUserProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
-                </value>
-            -->
         </property>
+        -->
     </bean>
 
     <bean id="openSessionInViewInterceptor"
@@ -76,7 +87,7 @@
     <!-- ======================== AUTHENTICATION ======================= -->
 
     <bean id="authenticationManager"
-        class="org.springframework.security.providers.ProviderManager">
+        class="org.springframework.security.authentication.ProviderManager">
         <property name="providers">
             <list>
                 <ref local="daoAuthenticationProvider" />
@@ -87,24 +98,24 @@
     </bean>
 
     <bean id="daoAuthenticationProvider"
-        class="org.springframework.security.providers.dao.DaoAuthenticationProvider">
+        class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
         <property name="userDetailsService" ref="userDetailsService" />
         <property name="passwordEncoder" ref="passwordEncoder" />
         <property name="saltSource" ref="systemSaltSource" />
     </bean>
 
     <bean id="passwordEncoder"
-        class="org.springframework.security.providers.encoding.Md5PasswordEncoder" />
+        class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
 
 
     <bean id="systemSaltSource"
-        class="org.springframework.security.providers.dao.salt.SystemWideSaltSource">
+        class="org.springframework.security.authentication.dao.SystemWideSaltSource">
         <property name="systemWideSalt" value="secret" />
     </bean>
 
     <!-- Automatically receives AuthenticationEvent messages -->
     <bean id="loggerListener"
-        class="org.springframework.security.event.authentication.LoggerListener" />
+        class="org.springframework.security.access.event.LoggerListener" />
 
     <bean id="authenticationProcessingFilter"
         class="net.sf.sail.webapp.presentation.web.filters.PasAuthenticationProcessingFilter">
@@ -117,18 +128,18 @@
     </bean>
 
     <bean id="authenticationEntryPoint"
-        class="org.springframework.security.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+        class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
         <property name="loginFormUrl" value="/login.html" />
     </bean>
 
     <bean id="anonymousProcessingFilter"
-        class="org.springframework.security.providers.anonymous.AnonymousProcessingFilter">
+        class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
         <property name="key" value="fubar" />
         <property name="userAttribute" value="Anonymous User,ROLE_ANONYMOUS" />
     </bean>
 
     <bean id="anonymousAuthenticationProvider"
-        class="org.springframework.security.providers.anonymous.AnonymousAuthenticationProvider">
+        class="org.springframework.security.authentication.AnonymousAuthenticationProvider">
         <property name="key" value="fubar" />
     </bean>
 
@@ -136,7 +147,7 @@
         For HTTP Basic Authentication, we don't have access to HttpSession
         for use under the event notification system.
         <bean id="basicProcessingFilter"
-        class="org.springframework.security.ui.basicauth.BasicProcessingFilter">
+        class="org.springframework.security.ui.basicauth.BasicAuthenticationFilter">
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="authenticationEntryPoint" ref="basicAuthenticationEntryPoint" />
         </bean>
@@ -148,25 +159,27 @@
     -->
 
     <bean id="httpSessionContextIntegrationFilter"
-        class="org.springframework.security.context.HttpSessionContextIntegrationFilter">
+        class="org.springframework.security.web.context.SecurityContextPersistenceFilter">
+        <!--
         <property name="contextClass"
             value="org.springframework.security.context.SecurityContextImpl" />
+            -->
     </bean>
 
     <bean id="openSessionInViewFilter" 
         class="org.springframework.orm.hibernate3.support.OpenSessionInViewFilter"/>
 
-    <bean id="logoutFilter" class="org.springframework.security.ui.logout.LogoutFilter">
+    <bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
         <constructor-arg value="/index.html" />
         <constructor-arg>
             <list>
                 <bean
-                    class="org.springframework.security.ui.logout.SecurityContextLogoutHandler" />
+                    class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
             </list>
         </constructor-arg>
     </bean>
 
-    <bean id="switchUserProcessingFilter" class="org.springframework.security.ui.switchuser.SwitchUserProcessingFilter">
+    <bean id="switchUserProcessingFilter" class="org.springframework.security.web.authentication.switchuser.SwitchUserFilter">
     	<property name="userDetailsService" ref="userDetailsService" />
     	<property name="switchUserUrl">
     		<value>/j_acegi_switch_user</value>
@@ -199,26 +212,26 @@
     <!-- =================== SECURITY SYSTEM DEFINITIONS ================== -->
 	
 	<!-- RunAsManager -->
-	<bean id="runAsManager" class="org.springframework.security.runas.RunAsManagerImpl">
+	<bean id="runAsManager" class="org.springframework.security.access.intercept.RunAsManagerImpl">
      	<property name="key"><value>my_run_as_password</value></property>
  	</bean>
  	
- 	<bean id="runAsAuthenticationProvider" class="org.springframework.security.runas.RunAsImplAuthenticationProvider">
+ 	<bean id="runAsAuthenticationProvider" class="org.springframework.security.access.intercept.RunAsImplAuthenticationProvider">
   		<property name="key"><value>my_run_as_password</value></property>
 	</bean>
 
     <!-- ===================== HTTP REQUEST SECURITY ==================== -->
 
     <bean id="exceptionTranslationFilter"
-        class="org.springframework.security.ui.ExceptionTranslationFilter">
+        class="org.springframework.security.web.access.ExceptionTranslationFilter">
         <property name="authenticationEntryPoint"
             ref="authenticationEntryPoint" />
     </bean>
 
-    <bean id="roleVoter" class="org.springframework.security.vote.RoleVoter" />
+    <bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter" />
 
     <bean id="urlAccessDecisionManager"
-        class="org.springframework.security.vote.ConsensusBased">
+        class="org.springframework.security.access.vote.ConsensusBased">
         <property name="allowIfAllAbstainDecisions" value="false" />
         <property name="decisionVoters">
             <list>
@@ -231,7 +244,7 @@
 
     <!-- An access decision manager used by the business objects -->
     <bean id="groupAccessDecisionManager"
-        class="org.springframework.security.vote.ConsensusBased">
+        class="org.springframework.security.access.vote.ConsensusBased">
         <property name="allowIfAllAbstainDecisions">
             <value>false</value>
         </property>
@@ -249,7 +262,7 @@
     
     <!-- An access decision manager used by the business objects -->
     <bean id="offeringAccessDecisionManager"
-        class="org.springframework.security.vote.ConsensusBased">
+        class="org.springframework.security.access.vote.ConsensusBased">
         <property name="allowIfAllAbstainDecisions">
             <value>false</value>
         </property>
@@ -266,7 +279,7 @@
     </bean>
 
     <bean id="projectAccessDecisionManager"
-        class="org.springframework.security.vote.ConsensusBased">
+        class="org.springframework.security.access.vote.ConsensusBased">
         <property name="allowIfAllAbstainDecisions">
             <value>false</value>
         </property>
@@ -283,7 +296,7 @@
     </bean>
     
     <bean id="workgroupAccessDecisionManager"
-        class="org.springframework.security.vote.ConsensusBased">
+        class="org.springframework.security.access.vote.ConsensusBased">
         <property name="allowIfAllAbstainDecisions">
             <value>false</value>
         </property>
@@ -328,7 +341,7 @@
 
     <!-- An access decision voter that reads VOTE_ACL_GROUP_ADMIN configuration settings -->
     <bean id="aclGroupAdminVoter"
-        class="org.springframework.security.vote.AclEntryVoter">
+        class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -347,7 +360,7 @@
     </bean>
     
     <bean id="aclOfferingAdminVoter"
-        class="org.springframework.security.vote.AclEntryVoter">
+        class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -366,7 +379,7 @@
     </bean>
     
     <bean id="aclProjectAdminVoter"
-        class="org.springframework.security.vote.AclEntryVoter">
+        class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -385,7 +398,7 @@
     </bean>
     
     <bean id="aclWorkgroupAdminVoter"
-        class="org.springframework.security.vote.AclEntryVoter">
+        class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -404,7 +417,7 @@
     </bean>
 
     <!-- An access decision voter that reads VOTE_ACL_GROUP_READ configuration settings -->
-    <bean id="aclGroupReadVoter" class="org.springframework.security.vote.AclEntryVoter">
+    <bean id="aclGroupReadVoter" class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -423,7 +436,7 @@
         </property>
     </bean>
     
-    <bean id="aclOfferingReadVoter" class="org.springframework.security.vote.AclEntryVoter">
+    <bean id="aclOfferingReadVoter" class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -442,7 +455,7 @@
         </property>
     </bean>   
 
-    <bean id="aclProjectReadVoter" class="org.springframework.security.vote.AclEntryVoter">
+    <bean id="aclProjectReadVoter" class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -461,7 +474,7 @@
         </property>
     </bean>   
     
-	<bean id="aclWorkgroupReadVoter" class="org.springframework.security.vote.AclEntryVoter">
+	<bean id="aclWorkgroupReadVoter" class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -482,7 +495,7 @@
 
     <!-- An access decision voter that reads VOTE_ACL_GROUP_WRITE configuration settings -->
     <bean id="aclGroupWriteVoter"
-        class="org.springframework.security.vote.AclEntryVoter">
+        class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -502,7 +515,7 @@
     </bean>
     
     <bean id="aclProjectWriteVoter"
-        class="org.springframework.security.vote.AclEntryVoter">
+        class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -522,7 +535,7 @@
     </bean> 
     
     <bean id="aclOfferingWriteVoter"
-        class="org.springframework.security.vote.AclEntryVoter">
+        class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -542,7 +555,7 @@
     </bean>
 
     <bean id="aclWorkgroupWriteVoter"
-        class="org.springframework.security.vote.AclEntryVoter">
+        class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -563,7 +576,7 @@
 
     <!-- An access decision voter that reads VOTE_ACL_GROUP_CREATE configuration settings -->
     <bean id="aclGroupCreateVoter"
-        class="org.springframework.security.vote.AclEntryVoter">
+        class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -584,7 +597,7 @@
     </bean>
     
     <bean id="aclOfferingCreateVoter"
-        class="org.springframework.security.vote.AclEntryVoter">
+        class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -605,7 +618,7 @@
     </bean>
 
    <bean id="aclProjectCreateVoter"
-        class="org.springframework.security.vote.AclEntryVoter">
+        class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -626,7 +639,7 @@
     </bean>
     
    <bean id="aclWorkgroupCreateVoter"
-        class="org.springframework.security.vote.AclEntryVoter">
+        class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -648,7 +661,7 @@
 
     <!-- An access decision voter that reads ACL_GROUP_DELETE configuration settings -->
     <bean id="aclGroupDeleteVoter"
-        class="org.springframework.security.vote.AclEntryVoter">
+        class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -669,7 +682,7 @@
     </bean>
     
    <bean id="aclOfferingDeleteVoter"
-        class="org.springframework.security.vote.AclEntryVoter">
+        class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -690,7 +703,7 @@
     </bean> 
     
     <bean id="aclProjectDeleteVoter"
-        class="org.springframework.security.vote.AclEntryVoter">
+        class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -711,7 +724,7 @@
     </bean> 
     
     <bean id="aclWorkgroupDeleteVoter"
-        class="org.springframework.security.vote.AclEntryVoter">
+        class="org.springframework.security.acls.AclEntryVoter">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -734,7 +747,7 @@
     <!-- ========= ACCESS CONTROL LIST LOOKUP MANAGER DEFINITIONS ========= -->
 
     <bean id="aclCache"
-        class="org.springframework.security.acls.jdbc.EhCacheBasedAclCache">
+        class="org.springframework.security.acls.domain.EhCacheBasedAclCache">
         <constructor-arg>
             <bean
                 class="org.springframework.cache.ehcache.EhCacheFactoryBean">
@@ -763,13 +776,13 @@
         class="org.springframework.security.acls.domain.AclAuthorizationStrategyImpl">
         <constructor-arg>
             <list>
-                <bean class="org.springframework.security.GrantedAuthorityImpl">
+                <bean class="org.springframework.security.core.authority.GrantedAuthorityImpl">
                     <constructor-arg value="ROLE_ADMINISTRATOR" />
                 </bean>
-                <bean class="org.springframework.security.GrantedAuthorityImpl">
+                <bean class="org.springframework.security.core.authority.GrantedAuthorityImpl">
                     <constructor-arg value="ROLE_ADMINISTRATOR" />
                 </bean>
-                <bean class="org.springframework.security.GrantedAuthorityImpl">
+                <bean class="org.springframework.security.core.authority.GrantedAuthorityImpl">
                     <constructor-arg value="ROLE_ADMINISTRATOR" />
                 </bean>
             </list>
@@ -793,7 +806,7 @@
     <!-- ============== "AFTER INTERCEPTION" AUTHORIZATION DEFINITIONS =========== -->
 
     <bean id="afterInvocationManager"
-        class="org.springframework.security.afterinvocation.AfterInvocationProviderManager">
+        class="org.springframework.security.access.intercept.AfterInvocationProviderManager">
         <property name="providers">
             <list>
                 <ref local="afterAclRead" />
@@ -804,7 +817,7 @@
 
     <!-- Processes AFTER_ACL_COLLECTION_READ configuration settings -->
     <bean id="afterAclCollectionRead"
-        class="org.springframework.security.afterinvocation.AclEntryAfterInvocationCollectionFilteringProvider">
+        class="org.springframework.security.acls.afterinvocation.AclEntryAfterInvocationCollectionFilteringProvider">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -820,7 +833,7 @@
 
     <!-- Processes AFTER_ACL_READ configuration settings -->
     <bean id="afterAclRead"
-        class="org.springframework.security.afterinvocation.AclEntryAfterInvocationProvider">
+        class="org.springframework.security.acls.afterinvocation.AclEntryAfterInvocationProvider">
         <constructor-arg>
             <ref bean="aclService" />
         </constructor-arg>
@@ -845,18 +858,22 @@
         <property name="attributes" ref="attributes" />
     </bean>
 -->
-
+<!--
     <bean id="objectDefinitionSource"
         class="org.springframework.security.annotation.SecuredMethodDefinitionSource">
     </bean>
+-->
+    <bean id="securityMetadataSource"
+        class="org.springframework.security.access.annotation.SecuredAnnotationSecurityMetadataSource">
+    </bean>
 
     <bean id="groupServiceSecurity"
-        class="org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor">
+        class="org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor">
         <property name="validateConfigAttributes" value="true" />
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="accessDecisionManager" ref="groupAccessDecisionManager" />
         <property name="afterInvocationManager" ref="afterInvocationManager" />
-        <property name="objectDefinitionSource" ref="objectDefinitionSource" />
+        <property name="securityMetadataSource" ref="securityMetadataSource" />
     </bean>
 
     <bean id="groupService"
@@ -893,12 +910,12 @@
     </bean>
     
     <bean id="offeringServiceSecurity"
-        class="org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor">
+        class="org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor">
         <property name="validateConfigAttributes" value="true" />
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="accessDecisionManager" ref="offeringAccessDecisionManager" />
         <property name="afterInvocationManager" ref="afterInvocationManager" />
-        <property name="objectDefinitionSource" ref="objectDefinitionSource" />
+        <property name="securityMetadataSource" ref="securityMetadataSource" />
     </bean>    
     
        <bean id="workgroupService"
@@ -915,12 +932,12 @@
     </bean>
     
     <bean id="workgroupServiceSecurity"
-        class="org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor">
+        class="org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor">
         <property name="validateConfigAttributes" value="true" />
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="accessDecisionManager" ref="workgroupAccessDecisionManager" />
         <property name="afterInvocationManager" ref="afterInvocationManager" />
-        <property name="objectDefinitionSource" ref="objectDefinitionSource" />
+        <property name="securityMetadataSource" ref="securityMetadataSource" />
     </bean>    
     
    <bean id="aclServiceImpl"

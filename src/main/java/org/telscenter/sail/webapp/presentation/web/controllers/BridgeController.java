@@ -51,7 +51,7 @@ import net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.apache.commons.httpclient.HttpStatus;
-import org.springframework.security.GrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -134,7 +134,7 @@ public class BridgeController extends AbstractController {
 	private boolean authorize(HttpServletRequest request) {
 		String method = request.getMethod();
 		User signedInUser = ControllerUtil.getSignedInUser();
-		GrantedAuthority[] authorities = signedInUser.getUserDetails().getAuthorities();
+		Collection<? extends GrantedAuthority> authorities = signedInUser.getUserDetails().getAuthorities();
 		Long signedInUserId = null;
 		for (GrantedAuthority authority : authorities) {
 			if (authority.getAuthority().equals(UserDetailsService.ADMIN_ROLE)) {

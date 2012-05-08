@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.service.authentication;
 
-import org.springframework.security.GrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 
 import net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
@@ -30,7 +30,7 @@ import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
  * 
  */
 public interface UserDetailsService extends
-	org.springframework.security.userdetails.UserDetailsService {
+	org.springframework.security.core.userdetails.UserDetailsService {
 
     public static final String USER_ROLE = "ROLE_USER";
 

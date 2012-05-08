@@ -131,26 +131,6 @@
 		</notifiers>
 	</ciManagement>
 	<build>
-<!--
-		<resources outputDirectory="${project.build.outputDirectory}">
-					<resource>
-				<filtering>true</filtering>
-				<directory>src/main/webapp/WEB-INF</directory>
-			</resource>
-		 </resources>
--->
-	<!--  
-		<resources outputDirectory="${project.build.outputDirectory}">
-			<resource>
-				<filtering>true</filtering>
-				<directory>src/main/resources</directory>
-			</resource>
-			<resource>
-				<filtering>true</filtering>
-				<directory>src/main/webapp/WEB-INF</directory>
-			</resource>
-		</resources>
-		 -->
 		<testResources
 			testOutputDirectory="${project.build.outputDirectory}">
 			<testResource>
@@ -168,13 +148,6 @@
 								<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 								<version>2.3.2</version>
-<!--
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-										<compilerArgument>-bootclasspath src/main/webapp/WEB-INF/lib/*</compilerArgument>
-				</configuration>
--->
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -226,10 +199,6 @@
 		</plugins>
 	</build>
 	<repositories>
-		<repository>
-				<id>com.springsource.repository.maven.snapshot</id>
-				<url>http://maven.springframework.org/snapshot/</url>
-		</repository>		
 		<repository>
 			<id>eclipse-repo</id>
 			<name>oaw-eclipse-repo</name>
@@ -383,13 +352,6 @@
 		   <artifactId>hibernate-commons-annotations</artifactId>
 		   <version>3.1.0.GA</version>
 	   </dependency>
-	   <!--
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>3.6.0.Final</version>
-		</dependency>
-		-->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate</artifactId>
@@ -400,82 +362,68 @@
 			<artifactId>hibernate-annotations</artifactId>
 			<version>3.4.0.GA</version>
 		</dependency>
-<!--			
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-hibernate3</artifactId>
-			<version>2.5.1</version>
-		</dependency>
--->		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>2.5.6</version>
+			<version>${org.springframework.version}</version>
 		</dependency>
-<!--		
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-remoting</artifactId>
-			<version>2.5.1</version>
-		</dependency>
- -->		
- <!--  
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-support</artifactId>
-			<version>2.5.6</version>
-		</dependency>
--->		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>2.5.6</version>
+			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
-			<version>2.5.6</version>
+			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-aop</artifactId>
-				<version>2.5.6</version>
+				<version>${org.springframework.version}</version>
 		</dependency>
 	<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-orm</artifactId>
-				<version>2.5.6</version>
+				<version>${org.springframework.version}</version>
 		</dependency>					
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring</artifactId>
-			<version>2.5.6</version>
+			<artifactId>spring-core</artifactId>
+			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-acl</artifactId>
-			<version>2.0.4</version>
+			<version>3.1.0.RELEASE</version>
 		</dependency>		
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-			<version>2.0.4</version>
+			<version>3.1.0.RELEASE</version>
 		</dependency>	
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core-tiger</artifactId>
-			<version>2.0.4</version>
-		</dependency>
+        	<groupId>org.springframework.security</groupId>
+	        <artifactId>spring-security-config</artifactId>
+    	    <version>3.1.0.RELEASE</version>
+	    </dependency>
+		<!--
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 			<classifier>tests</classifier>
-			<version>2.0.4</version>
-		</dependency>	
+			<version>3.1.0.RELEASE</version>
+		</dependency>		
+		-->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core-tiger</artifactId>
+			<version>2.0.7.RELEASE</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
-			<version>2.0.4</version>
+			<version>3.1.0.RELEASE</version>
 		</dependency>		
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -527,39 +475,6 @@
 			<artifactId>ehcache</artifactId>
 			<version>1.3.0</version>
 		</dependency>
-		<!--
-		<dependency>
-			<groupId>net.sf.sail</groupId>
-			<artifactId>sail-core</artifactId>
-			<version>0.4.5-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.sail</groupId>
-			<artifactId>sail-data-emf</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>ecore</artifactId>
-			<version>2.2.0</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>org.telscenter</groupId>
-			<artifactId>pas-curnitmap</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-				<groupId>elo-api</groupId>
-			<artifactId>elo-api</artifactId>
-			<version>0.1.0-SNAPSHOT</version>		
-		</dependency>
-		<dependency>
-				<groupId>elo-impl</groupId>
-			<artifactId>elo-impl</artifactId>
-			<version>0.1.0-SNAPSHOT</version>		
-		</dependency>
-		-->
 		<dependency>
 			<groupId>org.directwebremoting</groupId>
 			<artifactId>dwr</artifactId>
@@ -570,13 +485,6 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.2.1</version>
 		</dependency>
-		<!--
-		<dependency>
-			<groupId>net.sf.sail</groupId>
-			<artifactId>qti-bindings</artifactId>
-			<version>2.0-SNAPSHOT</version>
-		</dependency>
-		-->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
@@ -715,8 +623,8 @@
 			</plugin>
 		</plugins>
 	</reporting>
-
 	<properties>
+	    <org.springframework.version>3.0.5.RELEASE</org.springframework.version>
 		<startup.listeners> </startup.listeners>
 	</properties>
 </project>

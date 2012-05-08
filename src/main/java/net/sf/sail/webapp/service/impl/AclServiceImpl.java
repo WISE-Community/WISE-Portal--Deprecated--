@@ -17,6 +17,7 @@
  */
 package net.sf.sail.webapp.service.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,17 +27,19 @@ import net.sf.sail.webapp.service.AclService;
 
 
 import org.springframework.beans.factory.annotation.Required;
-import org.springframework.security.Authentication;
-import org.springframework.security.acls.AccessControlEntry;
-import org.springframework.security.acls.MutableAcl;
-import org.springframework.security.acls.MutableAclService;
-import org.springframework.security.acls.NotFoundException;
-import org.springframework.security.acls.Permission;
-import org.springframework.security.acls.objectidentity.ObjectIdentity;
-import org.springframework.security.acls.objectidentity.ObjectIdentityImpl;
-import org.springframework.security.acls.sid.PrincipalSid;
-import org.springframework.security.acls.sid.Sid;
-import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.acls.model.AccessControlEntry;
+import org.springframework.security.acls.model.MutableAcl;
+import org.springframework.security.acls.model.MutableAclService;
+import org.springframework.security.acls.model.NotFoundException;
+import org.springframework.security.acls.model.Permission;
+import org.springframework.security.acls.model.ObjectIdentity;
+import org.springframework.security.acls.domain.BasePermission;
+import org.springframework.security.acls.domain.ObjectIdentityImpl;
+import org.springframework.security.acls.domain.PrincipalSid;
+import org.springframework.security.acls.model.Sid;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * A class which allows creation of access control lists for any object.
@@ -73,7 +76,7 @@ public class AclServiceImpl<T extends Persistable> implements AclService<T> {
 	            acl = mutableAclService.createAcl(objectIdentity);
 	        }
 	        // add this new ace at the end of the acl.
-			acl.insertAce(acl.getEntries().length, permission,
+			acl.insertAce(acl.getEntries().size(), permission,
 					new PrincipalSid(this.getAuthentication()), true);
 			this.mutableAclService.updateAcl(acl);
 		} else {
@@ -97,7 +100,7 @@ public class AclServiceImpl<T extends Persistable> implements AclService<T> {
 	            acl = mutableAclService.createAcl(objectIdentity);
 	        }
 	        // add this new ace at the end of the acl.
-			acl.insertAce(acl.getEntries().length, permission,
+			acl.insertAce(acl.getEntries().size(), permission,
 					new PrincipalSid(user.getUserDetails().getUsername()), true);
 			this.mutableAclService.updateAcl(acl);
 		} else {
@@ -114,17 +117,18 @@ public class AclServiceImpl<T extends Persistable> implements AclService<T> {
 			MutableAcl acl = null;
 			ObjectIdentity objectIdentity = new ObjectIdentityImpl(object.getClass(), object
 					.getId());
-			Sid[] sid = {new PrincipalSid(user.getUserDetails().getUsername())};
+			List<Sid> sid = new ArrayList<Sid>();
+			sid.add(new PrincipalSid(user.getUserDetails().getUsername()));
 			
 	        try {
 	            acl = (MutableAcl) mutableAclService.readAclById(objectIdentity, sid);
 	        } catch (NotFoundException nfe) {
 	        	return;
 	        }
-	        AccessControlEntry[] aces = acl.getEntries();
-	        for (int i=0; i < aces.length; i++) {
-	        	AccessControlEntry ace = aces[i];
-	        	if (ace.getPermission().equals(permission) && ace.getSid().equals(sid[0])) {
+	        List<AccessControlEntry> aces = acl.getEntries();
+	        for (int i=0; i < aces.size(); i++) {
+	        	AccessControlEntry ace = aces.get(i);
+	        	if (ace.getPermission().equals(permission) && ace.getSid().equals(sid.get(0))) {
 	        		acl.deleteAce(i);
 	        	}
 	        }
@@ -145,16 +149,44 @@ public class AclServiceImpl<T extends Persistable> implements AclService<T> {
 			MutableAcl acl = null;
 			ObjectIdentity objectIdentity = new ObjectIdentityImpl(object.getClass(), object
 					.getId());
-			Sid[] sid = {new PrincipalSid(user.getUserDetails().getUsername())};
+			List<Sid> sid = new ArrayList<Sid>();
+			sid.add(new PrincipalSid(user.getUserDetails().getUsername()));
 			
 	        try {
 	            acl = (MutableAcl) mutableAclService.readAclById(objectIdentity, sid);
 	        } catch (NotFoundException nfe) {
 	        	return permissions;
 	        }
-	        AccessControlEntry[] aces = acl.getEntries();
+	        List<AccessControlEntry> aces = acl.getEntries();
 	        for (AccessControlEntry ace : aces) {
-	        	if (ace.getSid().equals(sid[0])) {
+	        	if (ace.getSid().equals(sid.get(0))) {
+	        		permissions.add(ace.getPermission());
+	        	}
+	        }
+	        return permissions;
+		} else {
+			throw new IllegalArgumentException(
+					"Cannot retrieve ACL. Object not set.");
+		}		
+	}
+	
+	public List<Permission> getPermissions(T object, UserDetails userDetails) {
+		List<Permission> permissions = new ArrayList<Permission>();
+		if (object != null) {	
+			MutableAcl acl = null;
+			ObjectIdentity objectIdentity = new ObjectIdentityImpl(object.getClass(), object
+					.getId());
+			List<Sid> sid = new ArrayList<Sid>();
+			sid.add(new PrincipalSid(userDetails.getUsername()));
+			
+	        try {
+	            acl = (MutableAcl) mutableAclService.readAclById(objectIdentity, sid);
+	        } catch (NotFoundException nfe) {
+	        	return permissions;
+	        }
+	        List<AccessControlEntry> aces = acl.getEntries();
+	        for (AccessControlEntry ace : aces) {
+	        	if (ace.getSid().equals(sid.get(0))) {
 	        		permissions.add(ace.getPermission());
 	        	}
 	        }
@@ -179,6 +211,51 @@ public class AclServiceImpl<T extends Persistable> implements AclService<T> {
 			}
 		}
 		
+		return false;
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.service.AclService#hasPermission(java.lang.Object, org.springframework.security.acls.Permission, net.sf.sail.webapp.domain.User)
+	 */
+	public boolean hasPermission(T object, Permission permission, UserDetails userDetails){
+		
+		if(object != null && permission != null && userDetails != null){
+			List<Permission> permissions = this.getPermissions(object, userDetails);
+			for(Permission p : permissions){
+				if(p.getMask() >= permission.getMask()){
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
+		// separate possibly comma-separated permissions string into array of permissions
+		String[] permissions = ((String) permission).split(",");
+		boolean hasAllPermissions = true;
+		for (String permissionStr : permissions) {
+			int permissionMask = Integer.valueOf((String) permissionStr);
+			Permission p = null;
+
+			if (permissionMask == BasePermission.ADMINISTRATION.getMask()) {
+				p = BasePermission.ADMINISTRATION;			
+			} else if (permissionMask == BasePermission.READ.getMask()) {
+				p = BasePermission.READ;
+			} else if (permissionMask == BasePermission.WRITE.getMask()) {
+				p = BasePermission.WRITE;
+			}
+			hasAllPermissions &= this.hasPermission((T) targetDomainObject, p, (UserDetails) authentication.getPrincipal());
+		}
+		return hasAllPermissions;
+	}
+
+	@Override
+	public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 }

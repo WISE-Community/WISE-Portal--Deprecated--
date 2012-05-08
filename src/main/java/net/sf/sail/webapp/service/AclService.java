@@ -24,7 +24,8 @@ package net.sf.sail.webapp.service;
 
 import java.util.List;
 
-import org.springframework.security.acls.Permission;
+import org.springframework.security.access.PermissionEvaluator;
+import org.springframework.security.acls.model.Permission;
 
 import net.sf.sail.webapp.domain.User;
 
@@ -36,7 +37,7 @@ import net.sf.sail.webapp.domain.User;
  * @author Laurel Williams
  * @version $Id$
  */
-public interface AclService<T> {
+public interface AclService<T> extends PermissionEvaluator {
 
 	/**
 	 * Creates an acl for an object if neccessary and adds an ace for that

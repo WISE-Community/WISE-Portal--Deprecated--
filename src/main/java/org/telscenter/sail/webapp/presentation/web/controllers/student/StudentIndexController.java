@@ -23,7 +23,6 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -38,22 +37,15 @@ import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.beans.factory.annotation.Required;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.announcement.Announcement;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
-import org.telscenter.sail.webapp.domain.project.ExternalProject;
 import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
-import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.offering.RunService;
-import org.telscenter.sail.webapp.service.project.impl.PodProjectServiceImpl;
 import org.telscenter.sail.webapp.service.student.StudentService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 

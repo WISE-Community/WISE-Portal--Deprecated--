@@ -20,9 +20,15 @@
 <!-- $Id$ -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:util="http://www.springframework.org/schema/util"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+  xmlns:sec="http://www.springframework.org/schema/security"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.1.xsd
+      	   http://www.springframework.org/schema/util
+      	   http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
 	<util:properties id="javaMailProperties"
 		location="classpath:portal.properties" />
@@ -35,7 +41,7 @@
 		<property name="properties" ref="javaMailProperties" />
 		<property name="sender" ref="javaMailSender" />
 	</bean>
-
+	
     <bean id="userService"
         class="org.telscenter.sail.webapp.service.impl.UserServiceImpl">
         <property name="userDetailsDao" ref="userDetailsDao" />
@@ -49,18 +55,7 @@
 	<bean id="curnitParameters"
 		class="org.telscenter.sail.webapp.domain.impl.ModuleParameters"
 		scope="prototype" />
-<!-- 		
-    <bean id="createRooloOtmlModuleParameters"
-        class="org.telscenter.sail.webapp.domain.impl.CreateRooloOtmlModuleParameters"
-        scope="prototype">
-    </bean>
- -->
- 		<!--  
-	  <bean id="createRooloLOROtmlModuleParameters"
-        class="org.telscenter.sail.webapp.domain.impl.CreateRooloLOROtmlModuleParameters"
-        scope="prototype">
-    </bean>
-    -->
+
     <bean id="createUrlModuleParameters"
 		class="org.telscenter.sail.webapp.domain.impl.CreateUrlModuleParameters"
 		scope="prototype" />
@@ -80,81 +75,88 @@
             </list>
         </property>
     </bean>
+    
+    <bean id="authSuccessHandler" 
+    	class="org.telscenter.sail.webapp.presentation.web.filters.TelsAuthenticationSuccessHandler" >
+		<property name="defaultTargetUrl" value="/student/index.html" /> <!-- which is the default value -->
+		<property name="userDetailsService" ref="userDetailsService" />
+	    <property name="portalService" ref="portalService" />
+	</bean>
+	
+	<bean id="authFailureHandler" class="org.telscenter.sail.webapp.presentation.web.filters.TelsAuthenticationFailureHandler" >
+	    <property name="portalProperties" ref="portalproperties" />
+        <property name="authenticationFailureUrl" value="/login.html?failed=true" />
+	</bean>
 
     <bean id="authenticationProcessingFilter"
         class="org.telscenter.sail.webapp.presentation.web.filters.TelsAuthenticationProcessingFilter">
         <property name="authenticationManager" ref="authenticationManager" />
-        <property name="authenticationFailureUrl"
-            value="/login.html?failed=true" />
-        <property name="alwaysUseDefaultTargetUrl" value="false" />
-        <property name="defaultTargetUrl" value="/teacherindex.html" />
-        <property name="filterProcessesUrl" value="/j_acegi_security_check" />
-        <property name="userDetailsService" ref="userDetailsService" />
-	    <property name="portalService" ref="portalService" />
-	    <property name="portalProperties" ref="portalproperties" />
+		<property name="authenticationSuccessHandler" ref="authSuccessHandler" />
+        <property name="authenticationFailureHandler" ref="authFailureHandler" />
+        <property name="portalProperties" ref="portalproperties" />
+		<property name="filterProcessesUrl" value="/j_acegi_security_check"/>
     </bean>
-
+              
     <bean id="filterInvocationInterceptor"
-        class="org.springframework.security.intercept.web.FilterSecurityInterceptor">
+        class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="accessDecisionManager" ref="urlAccessDecisionManager" />
-        <property name="objectDefinitionSource">
-            <value>
-                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-                PATTERN_TYPE_APACHE_ANT
-                /index.html=ROLE_ANONYMOUS,ROLE_USER
-                /smartroom/smartroom.html=ROLE_ANONYMOUS,ROLE_USER
-                /vle/preview.html=ROLE_ANONYMOUS,ROLE_USER
-                /index.jsp=ROLE_ANONYMOUS,ROLE_USER
-                /login.html=ROLE_ANONYMOUS,ROLE_USER
-                /signup.html=ROLE_ANONYMOUS,ROLE_USER
-                /check.html=ROLE_ANONYMOUS,ROLE_USER
-                /metadata.html=ROLE_ANONYMOUS,ROLE_USER
-                /contactwisegeneral.html=ROLE_ANONYMOUS,ROLE_USER
-                /contactwiseproject.html=ROLE_ANONYMOUS,ROLE_USER
-                /contactwiseconfirm.html=ROLE_ANONYMOUS,ROLE_USER
-                /checkforexistingaccount.html=ROLE_ANONYMOUS,ROLE_USER
-                /statistics.html=ROLE_ANONYMOUS,ROLE_USER
-                /getportalstatistics.html=ROLE_ANONYMOUS,ROLE_USER
-                /previewprojectlist.html=ROLE_ANONYMOUS,ROLE_USER
-                /previewproject.html=ROLE_ANONYMOUS,ROLE_USER
-                /credits.html=ROLE_ANONYMOUS,ROLE_USER
-                /teacher/countries.html=ROLE_ANONYMOUS,ROLE_USER
-                /teacher/states.html=ROLE_ANONYMOUS,ROLE_USER
-                /help.html=ROLE_ANONYMOUS,ROLE_USER
-                /setup*.html=ROLE_ANONYMOUS,ROLE_USER
-                /lostpassword*.html=ROLE_ANONYMOUS,ROLE_USER
-                /enter*.html=ROLE_ANONYMOUS,ROLE_USER
-                /student/registerstudent.html=ROLE_ANONYMOUS,ROLE_USER
-                /student/getannotationbundle.html=ROLE_ANONYMOUS,ROLE_USER              
-                /student/**/*.html=ROLE_STUDENT,ROLE_TEACHER,ROLE_ADMINISTRATOR,ROLE_RESEARCHER
-                /teacher/registerteacher.html=ROLE_ANONYMOUS,ROLE_USER
-                /teacher/curriculumsubjects.html=ROLE_ANONYMOUS,ROLE_USER
-                /teacher/termsofuse.html=ROLE_ANONYMOUS,ROLE_USER
-                /teacher/projects/projectinfo.html=ROLE_ANONYMOUS,ROLE_USER
-				/teacher/**/*.html=ROLE_TEACHER,ROLE_ADMINISTRATOR,ROLE_RESEARCHER
-                /wiseoverview.html=ROLE_ANONYMOUS,ROLE_USER
-                /forgotaccount/*.html=ROLE_ANONYMOUS,ROLE_USER
-                /forgotaccount/**/*.html=ROLE_ANONYMOUS,ROLE_USER
-                /admin/**/*.html=ROLE_ADMINISTRATOR,ROLE_RESEARCHER
-                /j_acegi_switch_user*=ROLE_ADMINISTRATOR,ROLE_RESEARCHER  
-                /repository/**/*.html=ROLE_ANONYMOUS,ROLE_USER              
-                /author/**/*.html=ROLE_TEACHER,ROLE_ADMINISTRATOR,ROLE_RESEARCHER
-                /author/publishproject.html=ROLE_ADMINISTRATOR
-                /author/project/postproject.html=ROLE_ANONYMOUS,ROLE_USER
-                /author/brainstorm/*.html=ROLE_ANONYMOUS,ROLE_USER
-                /bridge/authoringtool/*.html=ROLE_ANONYMOUS,ROLE_USER
-                /bridge/*.html=ROLE_USER
-                /runinfo.html=ROLE_ANONYMOUS,ROLE_USER
-                /message.html=ROLE_TEACHER,ROLE_ADMINISTRATOR,ROLE_RESEARCHER
-                /authorize.html=ROLE_ANONYMOUS,ROLE_USER
-                /request/info.html=ROLE_ANONYMOUS,ROLE_USER
-                /pages/*.html=ROLE_ANONYMOUS,ROLE_USER
-                /pages/**/*.html=ROLE_ANONYMOUS,ROLE_USER
-                /memorymonitor.html=ROLE_ADMINISTRATOR
-                /*.html=ROLE_USER
-                /**/*.html=ROLE_USER
-            </value>
+        <property name="securityMetadataSource">
+			<sec:filter-security-metadata-source>
+            	<sec:intercept-url pattern="/index.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/login.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/signup.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/check.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/metadata.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/contactwisegeneral.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/contactwiseproject.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/contactwiseconfirm.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/checkforexistingaccount.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/statistics.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/getportalstatistics.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/previewprojectlist.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/previewproject.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/credits.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/teacher/countries.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/teacher/states.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/help.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/setup*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/lostpassword*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/enter*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/student/registerstudent.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/student/getannotationbundle.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/student/**/*.html" access="ROLE_STUDENT,ROLE_TEACHER,ROLE_ADMINISTRATOR,ROLE_RESEARCHER"/>
+            	<sec:intercept-url pattern="/teacher/registerteacher.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/teacher/curriculumsubjects.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/teacher/termsofuse.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/teacher/projects/projectinfo.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/teacher/**/*.html" access="ROLE_TEACHER,ROLE_ADMINISTRATOR,ROLE_RESEARCHER"/>
+            	<sec:intercept-url pattern="/wiseoverview.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/forgotaccount/*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/forgotaccount/**/*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/admin/**/*.html" access="ROLE_ADMINISTRATOR,ROLE_RESEARCHER"/>
+            	<sec:intercept-url pattern="/j_acegi_switch_user*" access="ROLE_ADMINISTRATOR,ROLE_RESEARCHER"/>
+            	<sec:intercept-url pattern="/repository/**/*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/author/**/*.html" access="ROLE_TEACHER,ROLE_ADMINISTRATOR,ROLE_RESEARCHER"/>
+            	<sec:intercept-url pattern="/author/publishproject.html" access="ROLE_ADMINISTRATOR"/>
+            	<sec:intercept-url pattern="/author/project/postproject.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/author/brainstorm/*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/bridge/authoringtool/*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/bridge/*.html" access="ROLE_USER"/>
+            	<sec:intercept-url pattern="/runinfo.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/message.html" access="ROLE_TEACHER,ROLE_ADMINISTRATOR,ROLE_RESEARCHER"/>
+            	<sec:intercept-url pattern="/authorize.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/request/info.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/pages/*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/pages/**/*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/memorymonitor.html" access="ROLE_ADMINISTRATOR"/>
+            	<sec:intercept-url pattern="/smartroom/smartroom.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/vle/preview.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/*.html" access="ROLE_USER"/>
+            	<sec:intercept-url pattern="/**/*.html" access="ROLE_USER"/>
+        	</sec:filter-security-metadata-source>
         </property>
     </bean>
+    
 </beans>
+    

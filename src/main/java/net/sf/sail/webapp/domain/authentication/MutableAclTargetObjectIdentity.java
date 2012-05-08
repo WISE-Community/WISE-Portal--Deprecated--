@@ -17,7 +17,7 @@
  */
 package net.sf.sail.webapp.domain.authentication;
 
-import org.springframework.security.acls.objectidentity.ObjectIdentity;
+import org.springframework.security.acls.model.ObjectIdentity;
 
 import net.sf.sail.webapp.domain.Persistable;
 

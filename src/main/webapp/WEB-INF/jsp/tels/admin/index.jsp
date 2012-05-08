@@ -65,7 +65,7 @@
 					<div class="sectionContent"> 
 						<h5>List: <a href="manageusers.html?userType=teacher">All Teachers</a> | 
 								  <a href="manageusers.html?userType=student">All Students</a> 
-								   <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+								   <sec:authorize ifAnyGranted="ROLE_ADMINISTRATOR">
 								   |
 								  <a href="manageusers.html?onlyShowLoggedInUser=true">All Currently-Logged In Users</a> |
 								  <a href="manageusers.html?onlyShowUsersWhoLoggedInToday=true">All Users Who Logged in Today</a>
@@ -89,7 +89,7 @@
 					</div>
 					
 					
-					<sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+					<sec:authorize ifAnyGranted="ROLE_ADMINISTRATOR">
 						<div class="sectionHead">Project Management</div>
 						<div class="sectionContent">
 							    Manage Project By Project ID: <form action="manageallprojects.html" method="GET" style="display:inline"><input type="text" name="projectId" size="5"></input><input type="Submit" value="Go"></input></form><br/>
@@ -98,7 +98,7 @@
 						</div>
 					</sec:authorize>
 					
-					<sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+					<sec:authorize ifAnyGranted="ROLE_ADMINISTRATOR">
 						<div class="sectionHead">News Management</div>
 						<div class="sectionContent">
 							<h5><a href="managenewsitems.html">Work with News Items</a></h5>

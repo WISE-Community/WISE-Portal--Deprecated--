@@ -26,13 +26,13 @@ import net.sf.sail.webapp.spring.SpringConfiguration;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.security.Authentication;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.GrantedAuthorityImpl;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.context.SecurityContextImpl;
-import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.telscenter.sail.webapp.domain.project.Project;
 
 /**
@@ -71,7 +71,7 @@ public class Initializer {
 			// this also means that the only user allowed to "see" offerings at
 			// the initial login will be the admin user.
 			Authentication authority = new UsernamePasswordAuthenticationToken(
-					adminUser.getUserDetails(), null,
+					adminUser.getUserDetails(),
 					new GrantedAuthority[] { new GrantedAuthorityImpl(
 							UserDetailsService.ADMIN_ROLE) });
 			SecurityContext securityContext = new SecurityContextImpl();

@@ -29,10 +29,8 @@ import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.GrantedAuthority;
-import org.telscenter.sail.webapp.domain.authentication.Gender;
+import org.springframework.security.core.GrantedAuthority;
 import org.telscenter.sail.webapp.domain.authentication.Schoollevel;
-import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 

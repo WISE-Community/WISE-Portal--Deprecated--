@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.service.impl;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 
 import net.sf.sail.webapp.dao.authentication.GrantedAuthorityDao;
@@ -34,10 +35,10 @@ import net.sf.sail.webapp.service.UserService;
 
 import org.easymock.EasyMock;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.providers.dao.SaltSource;
-import org.springframework.security.providers.encoding.PasswordEncoder;
-import org.springframework.security.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.authentication.dao.SaltSource;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
@@ -334,12 +335,12 @@ public class UserServiceImplTest extends AbstractTransactionalDbTests {
 
 	private void checkRole(UserDetails actual) {
 		// check role
-		GrantedAuthority[] authorities = actual.getAuthorities();
+		Collection<? extends GrantedAuthority> authorities = actual.getAuthorities();
 		if (authorities == null)
 			fail("authorities is null");
 		boolean foundUserRole = false;
-		for (int i = 0; i < authorities.length; i++) {
-			if (authorities[i].getAuthority() == UserDetailsService.USER_ROLE) {
+		for (GrantedAuthority authority : authorities) {
+			if (authority.getAuthority() == UserDetailsService.USER_ROLE) {
 				foundUserRole = true;
 				break;
 			}

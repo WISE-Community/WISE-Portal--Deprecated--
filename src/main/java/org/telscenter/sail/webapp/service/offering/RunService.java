@@ -30,7 +30,7 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
-import org.springframework.security.acls.Permission;
+import org.springframework.security.acls.model.Permission;
 import org.springframework.security.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.domain.Run;
