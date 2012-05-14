@@ -45,10 +45,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
-import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.cmsImpl.RooloProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
@@ -126,10 +124,7 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 		
 		if (project instanceof ProjectImpl || curnitUrl == null) {
 			curnitUrl = "http://www.telscenter.org/confluence/download/attachments/20047/Airbags.otml";
-		} else if (project instanceof RooloProjectImpl) {
-			curnitUrl = "http://localhost:8080/webapp/repository/retrieveotml.html?uri=" + ((RooloProjectImpl) project).getProxy().getUri();
-		}
-		
+		} 
 		Curnit curnit = project.getCurnit();
 		try{
 			curnit = moduleService.getById(project.getCurnit().getId());

@@ -37,14 +37,7 @@
     	<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.CreateUrlModuleParameters" />
     	<property name="validator" ref="curnitParametersValidator" />
     </bean>
-    
-    <bean id="registerOtmlModuleController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.author.module.RegisterOtmlModuleController">
-    	<property name="curnitService" ref="curnitService" />
-    	<property name="commandName" value="otmlFile" />
-    	<property name="commandClass"
-			value="org.telscenter.sail.webapp.domain.admin.OtmlFileUpload" />    </bean>
-    
+        
 
     <!-- JSP with optional JSTL views -->
     <bean id="viewResolver"
@@ -125,8 +118,7 @@
     		    /student/getannotationbundle.html=getAnnotationBundleController
 				/student/changestudentpassword.html=changeUserPasswordController
 				/student/brainstorm/studentbrainstorm.html=studentBrainstormController
-			<!-- 	/student/brainstorm/teststudentbrainstorm.html=testStudentBrainstormController
-				/student/brainstorm/testpostanswer.html=testPostBrainstormAnswerController  -->				/student/brainstorm/brainstormresponse.html=brainstormResponseController
+				/student/brainstorm/brainstormresponse.html=brainstormResponseController
 				/student/brainstorm/addcomment.html=addCommentController
 				/student/brainstorm/postresponse.html=postResponseController
 				/student/brainstorm/postcomment.html=postCommentController
@@ -203,10 +195,8 @@
 				/teacher/grading/createNewCommentList.html=createNewCommentListController
 				/teacher/grading/selectworkgroup.html=selectWorkgroupController
 				/teacher/grading/gradebyworkgroup.html=gradeByWorkgroupController
-				/teacher/grading/editmaxstepvalues.html=editMaxStepValuesController
 				/teacher/grading/batchscore.html=batchScoreController
 				/teacher/grading/gradingcellinfo.html=gradingCellInfoController
- 				/teacher/management/progresscellinfo.html=progressCellInfoController
     		    /teacher/management/overview.html=managementOverviewController
     		    /teacher/management/projectPickerManagement.html=projectPickerManagementController
     		    /teacher/management/exportsandreports.html=exportsAndReportsController
@@ -216,12 +206,10 @@
     		    /teacher/management/changeteacherpasswordsuccess.html=changeTeacherPasswordSuccessController
     		    /teacher/management/classroomruns.html=myClassroomRunsMainController
     		    /teacher/management/projectruntabs.html=myClassroomRunsController
-    		    <!--  /teacher/management/updateteacheraccount.html=updateTeacherAccountController-->
     		    /teacher/management/submitworkgroupchanges.html=submitWorkgroupChangesController
     		    /studentinfo.html=infoController
     		    /teacher/management/studentlist.html=studentListController
     		    /teacher/management/studentlistexcel.html=listStudentNamesController
-    		    <!--  /teacher/management/manageextrateachers.html=manageExtraTeachersController -->
     		    /teacher/management/addsharedteacher.html=addSharedTeacherController
     		    /teacher/help/overview.html=overviewHelpController
     		    /teacher/help/main.html=mainHelpController
@@ -255,12 +243,9 @@
 				/teacherinfo.html=infoController
 				/dwr/*=dwrController
 				/author/registermodule.html=registerCurnitController
-				<!-- /author/registerotmlmodule.html=registerOtmlModuleController  -->
-<!--  			/author/registerroolootmlmodule.html=registerRooloOtmlModuleController  -->	
 				/author/registerjnlp.html=registerJnlpController
 				/author/createproject.html=createProjectController
 				/author/publishproject.html=publishProjectController
-				<!-- /author/createrooloproject.html=createRooloProjectController -->
 				/author/authorproject.html=authorProjectController
 				/author/brainstorm/createbrainstorm.html=createBrainstormQuestionController
 				/author/brainstorm/editpreparedanswer.html=editPreparedAnswerController
@@ -273,7 +258,6 @@
 				/admin/manageallprojects.html=manageAllProjectsController
 				/admin/editproject.html=editProjectController
 				/admin/manageallprojectruns.html=manageAllProjectRunsController
-				/admin/uploadotml.html=uploadOtmlController
 				/admin/findprojectrunsbyprojectid.html=findProjectRunsController
 				/admin/findprojectrunsbyteacher.html=findProjectRunsController
 				/admin/findprojectrunsbyrunid.html=findProjectRunsController
@@ -295,9 +279,6 @@
 				/admin/tagger.html=taggerController
 				/newsarchive.html=listNewsItemsController
 				/teacher/management/changestudentperiod.html=changeStudentPeriodController
-				<!-- /repository/retrieveotml.html=retrieveOtmlController  -->
-				/teacher/reports/stepactivitygraph.html=stepActivityGraphController
-				/teacher/reports/totaltimeperstep.html=totalTimePerStepController
 				/teacher/run/announcement/manageannouncement.html=manageAnnouncementController
 				/teacher/run/announcement/viewannouncement.html=viewAnnouncementController
 				/teacher/run/announcement/createannouncement.html=createAnnouncementController
@@ -315,12 +296,6 @@
 				/runInfo.html=runInfoController
 				/managehierarchytypes.html=manageHierarchyTypesController
 				/managehierarchy.html=manageHierarchyController
-				<!-- /reposit.html=repositController  -->
-				<!-- /junk.html=junkController  -->
-				<!-- /retrieve.html=retrieveController  -->
-				<!-- /rooloproject.html=rooloProjectController -->
-				<!-- /author/authorrooloproject.html=authorRooloProjectController -->
-				/author/uploadxml.html=uploadXMLProjectController
 				/message/message.html=messageController
 				/bridge/**/*.html=bridgeController
 				/errors/outsideerror.html=outsideErrorController

@@ -775,16 +775,6 @@
     	class="org.telscenter.sail.webapp.domain.impl.PublishProjectMetadataParameters">
     </bean>
 
-    <bean id="createRooloProjectController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.CreateRooloProjectController">
-    	<property name="commandName" value="rooloProjectParameters"/>
-    	<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.RooloProjectParameters"/>
-    	<property name="sessionForm" value="true"/>
-    	<property name="successView" value="author/authorrooloproject"/>
-    	<property name="curnitService" ref="curnitService"/>
-        <property name="projectService" ref="projectService"/>
-    </bean>
-
 	<bean id="projectParameters"
 	    class="org.telscenter.sail.webapp.domain.impl.ProjectParameters">
 	</bean>
@@ -1351,21 +1341,6 @@
 
      -->
 
-    <bean id="rooloProjectController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.RooloProjectController">
-    	<property name="runService" ref="runService"/>
-    	<property name="workgroupService" ref="workgroupService"/>
-    	<property name="moduleService" ref="curnitService"/>
-    </bean>
-
-    <bean id="authorRooloProjectController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.AuthorRooloProjectController">
-    	<property name="commandName" value="rooloProjectParameters"/>
-    	<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.RooloProjectParameters"/>
-    	<property name="projectService" ref="projectService"/>
-    	<property name="moduleService" ref="curnitService"/>
-    	<property name="sessionForm" value="true"/>
-    </bean>
 
     <!--  Author-related controllers -->
     <bean id="postProjectController"

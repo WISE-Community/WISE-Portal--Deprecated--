@@ -28,8 +28,6 @@ import org.telscenter.sail.webapp.dao.module.ModuleDao;
 import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.impl.ModuleImpl;
 
-import roolo.elo.api.IELO;
-
 /**
  * @author Hiroki Terashima
  *
@@ -54,11 +52,6 @@ public class HibernateModuleDao extends AbstractHibernateDao<Module> implements
 	@Override
 	protected Class<ModuleImpl> getDataObjectClass() {
 		return ModuleImpl.class;
-	}
-
-	public IELO getEloForModule(Module mod) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public Long getLatestId() {

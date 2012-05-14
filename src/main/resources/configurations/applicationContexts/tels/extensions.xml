@@ -129,54 +129,10 @@
     <bean id="module"
         class="org.telscenter.sail.webapp.domain.impl.ModuleImpl">
     </bean>
-    <!--  
-    <bean id="rooloOtmlModule"
-        class="org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl">
-    </bean>
--->
-    <!--  
-    <bean id="rooloLOROtmlModule"
-        class="org.telscenter.sail.webapp.domain.impl.RooloEnlaceLORModuleImpl">
-    </bean>
--->
     <bean id="moduleDao"
         class="org.telscenter.sail.webapp.dao.module.impl.HibernateModuleDao">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
-
-<!--  
-    <bean id="repository"
-    	class="roolo.elo.RepositoryJcrImpl">
-    </bean>
-    
-    <bean id="repositoryService"
-    	class="org.telscenter.sail.webapp.service.repository.impl.RepositoryServiceImpl">
-    	<property name="repository" ref="repository"/>
-    </bean>
--->    
-<!--  
-    <bean id="rooloClientCurnitRepository"
-        class="roolo.elo.RepositoryJcrImpl">
-    </bean>
-     <bean id="rooloLORClientCurnitRepository"
-        class="roolo.enlace.RooloEnlaceLOR">
-        <constructor-arg index="0" value="http://tels-web.soe.berkeley.edu:8080/lor/services/LORService"/>
-  		<constructor-arg index="1" value="admin"/>
-  		<constructor-arg index="2" value="admin"/>
-    </bean>
-    <bean id="rooloOtmlModuleDao"
-        class="org.telscenter.sail.webapp.dao.module.impl.RooloOtmlModuleDao">
-       <property name="sessionFactory" ref="sessionFactory" />        
-        <property name="rooloClientCurnitRepository" ref="rooloClientCurnitRepository" />
-        <property name="rooloRepositoryUrl" value="http://localhost:8080/webapp/repository" />
-        <property name="defaultOtrunkCurnitUrl" value="http://wise-dev.berkeley.edu/upload/curnit/otrunk-curnit.jar" />
-    </bean>
-
-    <bean id="rooloRepositoryService"
-         class="org.telscenter.sail.webapp.service.repository.impl.RooloRepositoryServiceImpl">
-        <property name="rooloClientCurnitRepository" ref="rooloClientCurnitRepository" />
-    </bean>
--->
     <bean id="wiseWorkgroupDao"
 		class="org.telscenter.sail.webapp.dao.workgroup.impl.HibernateWISEWorkgroupDao">
 		<property name="sessionFactory" ref="sessionFactory" />
@@ -260,7 +216,6 @@
 	    <property name="potrunkProjectService" ref="potrunkProjectService" />
 	    <property name="otrunkProjectService" ref="otrunkProjectService" />
 	    <property name="externalProjectService" ref="externalProjectService" />
- 	    <property name="rooloProjectService" ref="rooloProjectService"/>
  	    <property name="ldProjectService" ref="ldProjectService"/>
 	    <property name="moduleService" ref="curnitService"/>
 	</bean>
@@ -270,7 +225,6 @@
         <property name="curnitService" ref="curnitService" />
         <property name="jnlpService" ref="jnlpService" />
         <property name="projectDao" ref="projectDao" />
-<!--          <property name="rooloProjectDao" ref="rooloProjectDao" />  -->
         <property name="runService" ref="runService" />
         <property name="workgroupService" ref="wiseWorkgroupService" />
         <property name="userService" ref="userService" />
@@ -284,7 +238,6 @@
         <property name="curnitService" ref="curnitService" />
         <property name="jnlpService" ref="jnlpService" />
         <property name="projectDao" ref="projectDao" />
-<!--          <property name="rooloProjectDao" ref="rooloProjectDao" />  -->
         <property name="runService" ref="runService" />
         <property name="workgroupService" ref="wiseWorkgroupService" />
         <property name="userService" ref="userService" />
@@ -299,7 +252,6 @@
         <property name="curnitService" ref="curnitService" />
         <property name="jnlpService" ref="jnlpService" />
         <property name="projectDao" ref="projectDao" />
-<!--          <property name="rooloProjectDao" ref="rooloProjectDao" />  -->
         <property name="runService" ref="runService" />
         <property name="workgroupService" ref="wiseWorkgroupService" />
         <property name="userService" ref="userService" />
@@ -308,16 +260,6 @@
         <property name="aclService" ref="aclServiceImpl" />
 	</bean>
 
-	<bean id="rooloProjectService"
-	    class="org.telscenter.sail.webapp.service.project.impl.RooloProjectServiceImpl">
-	    <property name="curnitService" ref="curnitService"/>
-        <property name="projectDao" ref="projectDao"/>
-        <property name="aclService" ref="aclServiceImpl"/>
-        <property name="runService" ref="runService" />
-        <property name="workgroupService" ref="wiseWorkgroupService"/>
-        <property name="userService" ref="userService"/>
-	</bean>
-	
 	<bean id="ldProjectService"
 	    class="org.telscenter.sail.webapp.service.project.impl.LdProjectServiceImpl">
 	    <property name="curnitService" ref="curnitService"/>
@@ -384,7 +326,6 @@
     	<property name="sdsCurnitDao" ref="sdsCurnitDao" />
     	<property name="curnitDao" ref="curnitDao" />
     	<property name="moduleDao" ref="moduleDao" />
-    	<!--  <property name="rooloOtmlModuleDao" ref="rooloOtmlModuleDao" /> -->
     </bean>
     
     <bean id="studentService"
@@ -566,33 +507,4 @@
     	class="org.telscenter.sail.webapp.service.attendance.impl.StudentAttendanceServiceImpl">
     	<property name="studentAttendanceDao" ref="studentAttendanceDao"/>
     </bean>
-	    <!--      
-    <bean id="rooloLORProject"
-        class="org.telscenter.sail.webapp.domain.project.cmsImpl.RooloLORProjectImpl">
-    </bean>    
--->
-<!--      
-    <bean id="rooloProject"
-        class="org.telscenter.sail.webapp.domain.project.cmsImpl.RooloProjectImpl">
-    </bean>
--->    
-    
-    <!--  
-     <bean id="rooloLOROtmlModuleDao"
-        class="org.telscenter.sail.webapp.dao.module.impl.RooloLOROtmlModuleDao">
-       <property name="sessionFactory" ref="sessionFactory" />        
-        <property name="rooloLORClientCurnitRepository" ref="rooloLORClientCurnitRepository" />
-        <property name="rooloRepositoryUrl" value="http://tels-web.soe.berkeley.edu:8080/lor" />
-     <property name="defaultOtrunkCurnitUrl" value="http://wise-dev.berkeley.edu/upload/curnit/otrunk-curnit.jar" />
-    </bean>
-    -->
-
-    <!--  
-       <bean id="rooloRepositoryService"
-         class="org.telscenter.sail.webapp.service.repository.impl.RooloLORRepositoryServiceImpl">
-        <property name="rooloClientCurnitRepository" ref="rooloLORClientCurnitRepository" />
-    </bean>
-    -->
-	
-	
 </beans>

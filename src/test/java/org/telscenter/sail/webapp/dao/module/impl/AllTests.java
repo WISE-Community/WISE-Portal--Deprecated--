@@ -31,7 +31,6 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	org.telscenter.sail.webapp.dao.module.impl.RooloOtmlModuleDaoTest.class
 })
 public class AllTests {
 

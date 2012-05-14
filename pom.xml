@@ -88,46 +88,6 @@
 		<system>continuum</system>
 		<url>http://portal-continuum.encorewiki.org/</url>
 		<notifiers>
-			<notifier>
-				<type>mail</type>
-				<sendOnError>true</sendOnError>
-				<sendOnFailure>true</sendOnFailure>
-				<sendOnWarning>true</sendOnWarning>
-				<sendOnSuccess>true</sendOnSuccess>
-				<configuration>
-					<address>somebodyiknow@gmail.com</address>
-				</configuration>
-			</notifier>
-			<notifier>
-				<type>mail</type>
-				<sendOnError>true</sendOnError>
-				<sendOnFailure>true</sendOnFailure>
-				<sendOnWarning>true</sendOnWarning>
-				<sendOnSuccess>true</sendOnSuccess>
-				<configuration>
-					<address>honchikun@gmail.com</address>
-				</configuration>
-			</notifier>
-			<notifier>
-				<type>mail</type>
-				<sendOnError>true</sendOnError>
-				<sendOnFailure>true</sendOnFailure>
-				<sendOnWarning>true</sendOnWarning>
-				<sendOnSuccess>true</sendOnSuccess>
-				<configuration>
-					<address>aperritano@gmail.com</address>
-				</configuration>
-			</notifier>
-			<notifier>
-				<type>mail</type>
-				<sendOnError>true</sendOnError>
-				<sendOnFailure>true</sendOnFailure>
-				<sendOnWarning>true</sendOnWarning>
-				<sendOnSuccess>true</sendOnSuccess>
-				<configuration>
-					<address>geoffreykwan@gmail.com</address>
-				</configuration>
-			</notifier>
 		</notifiers>
 	</ciManagement>
 	<build>
@@ -315,7 +275,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.0.5</version>
+			<version>5.1.19</version>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -448,7 +408,7 @@
 		<dependency>
 			<groupId>jdom</groupId>
 			<artifactId>jdom</artifactId>
-			<version>1.0</version>
+			<version>1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>jaxen</groupId>
@@ -552,33 +512,19 @@
 				<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/commons-io-1.3.2.jar</systemPath>			
 		</dependency>				
 		<dependency>
-				<groupId>ecore</groupId>
-				<artifactId>ecore</artifactId>
-				<version>2.2.0</version>
-				<scope>system</scope>
-				<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ecore-2.2.0.jar</systemPath>			
-		</dependency>				
-		<dependency>
-				<groupId>elo-api</groupId>
-				<artifactId>elo-api</artifactId>
-				<version>0.1.0</version>
-				<scope>system</scope>
-				<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/elo-api-0.1.0-SNAPSHOT.jar</systemPath>			
-		</dependency>				
-		<dependency>
-				<groupId>elo-impl</groupId>
-				<artifactId>elo-impl</artifactId>
-				<version>0.1.0</version>
-				<scope>system</scope>
-				<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/elo-impl-0.1.0-SNAPSHOT.jar</systemPath>			
-		</dependency>				
-		<dependency>
 				<groupId>jug</groupId>
 				<artifactId>jug</artifactId>
 				<version>1.1.2</version>
 				<scope>system</scope>
 				<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/jug-1.1.2.jar</systemPath>			
-		</dependency>				
+		</dependency>	
+		<dependency>
+				<groupId>ecore</groupId>
+				<artifactId>ecore</artifactId>
+				<version>2.2.0</version>
+				<scope>system</scope>
+				<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ecore-2.2.0.jar</systemPath>			
+		</dependency>					
 		<dependency>
 				<groupId>pas-curnitmap</groupId>
 				<artifactId>pas-curnitmap</artifactId>

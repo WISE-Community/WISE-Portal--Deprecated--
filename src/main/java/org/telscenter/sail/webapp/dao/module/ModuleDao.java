@@ -24,8 +24,6 @@ package org.telscenter.sail.webapp.dao.module;
 
 import org.telscenter.sail.webapp.domain.Module;
 
-import roolo.elo.api.IELO;
-
 import net.sf.sail.webapp.dao.curnit.CurnitDao;
 
 /**
@@ -34,12 +32,4 @@ import net.sf.sail.webapp.dao.curnit.CurnitDao;
  * @version $Id$
  */
 public interface ModuleDao<T extends Module> extends CurnitDao<Module> {
-	/**
-	 * Given a <code>RooloOtmlModuleImpl</code> retrieves
-	 * the associated <code>IELO</code> from the repository
-	 * 
-	 * @param <code>RooloOtmlModuleImpl</code> mod
-	 * @return <code>IELO</code>
-	 */
-	public IELO getEloForModule(Module mod);
 }

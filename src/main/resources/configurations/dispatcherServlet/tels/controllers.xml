@@ -247,12 +247,6 @@
 		<property name="runService" ref="runService"/>
 	</bean>
 
-	<bean id="progressCellInfoController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ProgressCellInfoController">
-		<property name="gradingService" ref="gradingService"/>
-		<property name="workgroupService" ref="wiseWorkgroupService"/>
-	</bean>
-
 	<bean id="submitWorkgroupChangesController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.SubmitWorkgroupChangesController">
 		<property name="userService" ref="userService" />
@@ -861,23 +855,9 @@
         <property name="curnitService" ref="curnitService" />
         <property name="projectService" ref="projectService" />
     </bean>
-    
-    <bean id="createRooloProjectController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.CreateRooloProjectController">
-    	<property name="commandName" value="rooloProjectParameters"/>
-    	<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.RooloProjectParameters"/>
-    	<property name="sessionForm" value="true"/>
-    	<property name="successView" value="author/authorrooloproject"/>
-    	<property name="curnitService" ref="curnitService"/>
-        <property name="projectService" ref="projectService"/>
-    </bean>
     	
 	<bean id="projectParameters" 
 	    class="org.telscenter.sail.webapp.domain.impl.ProjectParameters">
-	</bean>
-	
-	<bean id="rooloProjectParameters"
-		class="org.telscenter.sail.webapp.domain.impl.RooloProjectParameters">
 	</bean>
 	
 	<bean id="infoController"
@@ -917,20 +897,7 @@
 		<property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="gradingService" ref="gradingService" />
 	</bean>
-    
-    <bean id="editMaxStepValuesController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.EditMaxStepValuesController">
-    	<property name="gradingService" ref="gradingService" />
-    	<property name="runService" ref="runService" />
-    	<property name="sessionForm" value="true" />
-    	<property name="commandName" value="curnitmap" />
-    	<!--  
-    	<property name="validator" ref="teacherUserDetailsValidator" />
-    	-->
-    	<property name="formView" value="teacher/grading/editmaxstepvalues" />
-    	<property name="successView" value="teacher/grading/editmaxstepvaluesconfirm" />
-	</bean>
-	
+    	
 	<bean id="batchScoreController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.BatchScoreController">
 		<property name="gradingService" ref="gradingService"/>
@@ -1086,28 +1053,6 @@
         <property name="runService" ref="runService" />
     </bean>
     
-    <!--  
-    <bean id="retrieveOtmlController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.repository.RetrieveOtmlController" >
-        <property name="repositoryService" ref="rooloRepositoryService" />
-        <property name="moduleService" ref="curnitService" />
-    </bean>
--->
-    <bean id="otmlFileUpload"
-        class="org.telscenter.sail.webapp.domain.admin.OtmlFileUpload" />
-
-    <bean id="uploadOtmlController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.admin.UploadOtmlController" >
-        <property name="projectService" ref="projectService" />
-        <property name="moduleService" ref="curnitService" />
-		<property name="sessionForm" value="true"/>
-		<property name="commandName" value="otmlFile"/>
-		<property name="commandClass"
-			value="org.telscenter.sail.webapp.domain.admin.OtmlFileUpload" />
-		<property name="successView" value="manageallprojects.html" />
-		<property name="formView" value="admin/uploadotml" />
-    </bean>
-
 	<bean id="exportProjectController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.ExportProjectController">
         <property name="projectService" ref="projectService" />
@@ -1131,17 +1076,6 @@
     	class="org.telscenter.sail.webapp.domain.admin.XMLFileUpload">
     </bean>
     	
-    <bean id="uploadXMLProjectController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.admin.UploadXMLProjectController">
-    	<property name="projectService" ref="projectService"/>
-    	<property name="moduleService" ref="curnitService"/>
-    	<property name="sessionForm" value="true"/>
-    	<property name="commandName" value="xmlFile"/>
-    	<property name="commandClass" value="org.telscenter.sail.webapp.domain.admin.XMLFileUpload"/>
-    	<property name="formView" value="author/uploadxml"/>
-    	<property name="successView" value="index.html"/>
-    </bean>
-
     <bean id="listProjectsController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ListProjectsController">
         <property name="projectService" ref="projectService" />
@@ -1236,19 +1170,6 @@
         <property name="workgroupService" ref="wiseWorkgroupService"/>
     </bean>
       
-    <bean id="stepActivityGraphController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.reports.StepActivityGraphController">
-		<property name="runService" ref="runService"/>
-		<property name="workgroupService" ref="wiseWorkgroupService"/>
-	</bean>
-	
-	<bean id="totalTimePerStepController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.reports.TotalTimePerStepController">
-		<property name="runService" ref="runService"/>
-		<property name="workgroupService" ref="wiseWorkgroupService"/>
-		<property name="gradingService" ref="gradingService"/>
-	</bean>
-	
 	<bean id="postResponseController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.PostResponseController">
 		<property name="brainstormService" ref="brainstormService"/>
@@ -1292,17 +1213,6 @@
     <bean id="pollNewPostsController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.PollNewPostsController">
     	<property name="brainstormService" ref="brainstormService"/>
-    </bean>
-    
-    <bean id="workgroupNavLog"
-    	class="org.telscenter.sail.webapp.presentation.util.impl.WorkgroupNavLogImpl">
-    	<property name="workgroupService" ref="wiseWorkgroupService"/>
-    	<property name="sessionBundleService" ref="sessionBundleService"/>
-    	<property name="gradingService" ref="gradingService"/>
-    </bean>
-    
-    <bean id="sessionNavLog"
-    	class="org.telscenter.sail.webapp.presentation.util.impl.SessionNavLogImpl">
     </bean>
     
         <bean id="manageAnnouncementController"
@@ -1462,24 +1372,7 @@
     </bean>
     
      -->
-     
-     <!--  
-    <bean id="rooloProjectController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.RooloProjectController">
-    	<property name="runService" ref="runService"/>
-    	<property name="workgroupService" ref="workgroupService"/>
-    	<property name="moduleService" ref="curnitService"/>
-    </bean>
-    
-    <bean id="authorRooloProjectController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.AuthorRooloProjectController">
-    	<property name="commandName" value="rooloProjectParameters"/>
-    	<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.RooloProjectParameters"/>
-    	<property name="projectService" ref="projectService"/>
-    	<property name="moduleService" ref="curnitService"/>
-    	<property name="sessionForm" value="true"/>
-    </bean>
-    -->
+
     <!--  Author-related controllers -->    	
     <bean id="postProjectController"
          class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.PostProjectController">

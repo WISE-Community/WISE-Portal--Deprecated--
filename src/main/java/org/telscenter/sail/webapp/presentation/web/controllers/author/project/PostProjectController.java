@@ -37,7 +37,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
-import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
@@ -76,9 +75,7 @@ public class PostProjectController extends AbstractController {
 
 			Project project = projectService.getById(projectId);
 			Curnit curnit = project.getCurnit();
-			if (curnit instanceof RooloOtmlModuleImpl) {
-				((RooloOtmlModuleImpl) project.getCurnit()).getElo().getContent().setBytes(otmlString.getBytes());		
-			} else if (curnit instanceof OtmlModuleImpl) {
+			if (curnit instanceof OtmlModuleImpl) {
 				((OtmlModuleImpl) project.getCurnit()).setOtml(otmlString.getBytes());
 				moduleService.updateCurnit(project.getCurnit());
 			}

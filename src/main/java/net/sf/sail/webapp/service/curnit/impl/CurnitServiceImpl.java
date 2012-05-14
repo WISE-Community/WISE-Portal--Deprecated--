@@ -70,6 +70,7 @@ public class CurnitServiceImpl implements CurnitService {
     }
 
 	/**
+	 * @throws Exception 
 	 * @see net.sf.sail.webapp.service.curnit.CurnitService#createCurnit(net.sf.sail.webapp.domain.impl.CurnitParameters)
 	 */
     @Transactional(rollbackFor = { HttpStatusCodeException.class })

@@ -41,13 +41,13 @@
 	<form:form method="post" action="editnewsitem.html" commandName="newsItemParameters" id="editnewsitem" autocomplete='off'>
 		<dl>
 		<dt><label for="titleField"><spring:message code="newsitem.title" /></label></dt>
-		<dd><form:input path="title" id="titleField"/> </dd>
+		<dd><form:input path="title" size="50" id="titleField"/> </dd>
 		<dt><label for="newsField"><spring:message code="newsitem.news" /></label></dt>
-		<dd><form:input path="news" id="newsField"/></dd>
+		<dd><form:textarea rows="10" cols="50" path="news" id="newsField"/></dd>
 		</dl>
  	
  	   <input type="image" id="save" src="../<spring:theme code="register_save" />" 
-    	onmouseover="swapSaveImage('save',1)"onmouseout="swapSaveImage('save',0)"   />
+    	onmouseover="swapSaveImage('save',1)" alt="Save" onmouseout="swapSaveImage('save',0)"   />
 
 	</form:form>
 </body>

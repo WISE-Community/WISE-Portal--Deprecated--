@@ -62,7 +62,6 @@ import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.ModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
-import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
@@ -74,15 +73,10 @@ import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
-import org.telscenter.sail.webapp.domain.project.impl.ProjectInfoImpl;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
-
-import roolo.elo.ELOMetadataKeys;
-import roolo.elo.api.IELO;
-import roolo.elo.api.IMetadata;
 
 /**
  * TELS Portal's PodProjectService can work with projects that are persisted
@@ -388,32 +382,12 @@ public class PodProjectServiceImpl implements ProjectService {
 	private void populateProjectInfo(Project project)
 			throws ObjectNotFoundException {
 		Curnit curnit = project.getCurnit();
-		if (curnit instanceof RooloOtmlModuleImpl) {
-			// need to retrieve curnit from roolo
-			RooloOtmlModuleImpl curnitWithProxy = (RooloOtmlModuleImpl) curnitService.getById(curnit.getId());
-			IELO elo = curnitWithProxy.getElo();
-			project.setCurnit(curnitWithProxy);
-			project.setProjectInfo(getProjectInfoFromCurnitProxy(elo));
-		} else if (curnit instanceof ModuleImpl) {
+		if (curnit instanceof ModuleImpl) {
 			// populate iscurrent and familytag from database
 			project.getProjectInfo().setName(project.getName());
 		}
 	}
 
-    public ProjectInfo getProjectInfoFromCurnitProxy(IELO elo) {
-    	ProjectInfo projectInfo = new ProjectInfoImpl();
-    	IMetadata metadata = elo.getMetadata();
-    	projectInfo.setAuthor(metadata.getMetadataValueContainer(ELOMetadataKeys.AUTHOR.getKey()).getValue().toString());
-    	projectInfo.setComment(metadata.getMetadataValueContainer(ELOMetadataKeys.COMMENT.getKey()).getValue().toString());
-    	projectInfo.setDescription(metadata.getMetadataValueContainer(ELOMetadataKeys.DESCRIPTION.getKey()).getValue().toString());
-    	projectInfo.setCurrent(Boolean.valueOf(metadata.getMetadataValueContainer(ELOMetadataKeys.ISCURRENT.getKey()).getValue().toString()));
-    	projectInfo.setFamilyTag(FamilyTag.valueOf(metadata.getMetadataValueContainer(ELOMetadataKeys.FAMILYTAG.getKey()).getValue().toString()));
-    	projectInfo.setGradeLevel(metadata.getMetadataValueContainer(ELOMetadataKeys.GRADELEVEL.getKey()).getValue().toString());
-    	projectInfo.setKeywords(metadata.getMetadataValueContainer(ELOMetadataKeys.KEYWORDS.getKey()).getValue().toString());
-    	projectInfo.setSubject(metadata.getMetadataValueContainer(ELOMetadataKeys.SUBJECT.getKey()).getValue().toString());
-    	return projectInfo;
-    }
-    
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectList()
 	 */

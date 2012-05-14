@@ -326,7 +326,6 @@
 				<!-- /junk.html=junkController  -->
 				<!-- /retrieve.html=retrieveController  -->
 				<!--/rooloproject.html=rooloProjectController
-				/author/authorrooloproject.html=authorRooloProjectController
 				/author/uploadxml.html=uploadXMLProjectController
 				/bridge/*.html=bridgeController-->
     		</value>

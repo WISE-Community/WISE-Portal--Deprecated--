@@ -36,7 +36,6 @@ import net.sf.sail.webapp.service.curnit.CurnitService;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.telscenter.sail.webapp.dao.module.impl.RooloOtmlModuleDao;
 import org.telscenter.sail.webapp.domain.impl.CreateOtmlModuleParameters;
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
@@ -75,7 +74,7 @@ public class CopyProjectController extends AbstractController{
 		
 		CreateOtmlModuleParameters params = new CreateOtmlModuleParameters();
 		params.setName(project.getCurnit().getSdsCurnit().getName());
-		params.setUrl(RooloOtmlModuleDao.defaultOtrunkCurnitUrl);
+		params.setUrl("");
 		params.setRetrieveotmlurl(Util.getPortalUrl(request) + "/repository/retrieveotml.html?otmlModuleId=");
 		byte[] otmlbytes = (byte[]) project.getCurnit().accept(new CurnitGetOtmlVisitor());
 		if(otmlbytes != null) {

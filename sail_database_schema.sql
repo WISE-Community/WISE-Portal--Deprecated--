@@ -930,23 +930,6 @@ CREATE TABLE `projects_related_to_tags` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `roolootmlmodules`
---
-
-DROP TABLE IF EXISTS `roolootmlmodules`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `roolootmlmodules` (
-  `roolomoduleuri` varchar(255) DEFAULT NULL,
-  `roolorepositoryurl` varchar(255) DEFAULT NULL,
-  `id` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKCB4BDACE9627A0C6` (`id`),
-  CONSTRAINT `FKCB4BDACE9627A0C6` FOREIGN KEY (`id`) REFERENCES `modules` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `runs`
 --
 

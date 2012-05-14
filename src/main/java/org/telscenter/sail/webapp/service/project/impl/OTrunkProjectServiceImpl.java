@@ -42,11 +42,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.cmsImpl.RooloProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
@@ -106,7 +104,7 @@ public class OTrunkProjectServiceImpl extends PodProjectServiceImpl {
 				previewWorkgroup);
 		
 		Curnit curnit = project.getCurnit();
-		String curnitOtmlUrl = ((RooloOtmlModuleImpl) curnit).getRetrieveOtmlUrl();
+		String curnitOtmlUrl = "";
 		previewProjectUrl += "?sailotrunk.otmlurl=" + curnitOtmlUrl;
 		// TODO HT: put these param-generation into run/project domain object as much as possible to stop
 		// cluttering services
@@ -132,13 +130,10 @@ public class OTrunkProjectServiceImpl extends PodProjectServiceImpl {
 		
 		if (project instanceof ProjectImpl || curnitUrl == null) {
 			curnitUrl = "http://www.telscenter.org/confluence/download/attachments/20047/Airbags.otml";
-		} else if (project instanceof RooloProjectImpl) {
-			curnitUrl = "http://localhost:8080/webapp/repository/retrieveotml.html?uri=" + ((RooloProjectImpl) project).getProxy().getUri();
-		}
+		} 
 		
 		Curnit curnit = project.getCurnit();
-		RooloOtmlModuleImpl rooloOtmlModule = (RooloOtmlModuleImpl) curnit;
-		curnitUrl = rooloOtmlModule.getRetrieveOtmlUrl();
+		curnitUrl = "";
 
 		URL jnlpURL = new URL(authoringToolJnlpUrl);
 		BufferedReader in = new BufferedReader(
@@ -178,9 +173,6 @@ public class OTrunkProjectServiceImpl extends PodProjectServiceImpl {
 		if(this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user) || 
 				this.aclService.hasPermission(project, BasePermission.WRITE, user)){
 			this.projectDao.save(project);
-			Curnit curnit = project.getCurnit();
-			RooloOtmlModuleImpl rooloOtmlModule = (RooloOtmlModuleImpl) curnit;
-			//rooloOtmlModule.updateProxy(project.getProjectInfo());
 			curnitService.updateCurnit(project.getCurnit());
 		} else {
 			throw new NotAuthorizedException("You are not authorized to update this project");
@@ -225,9 +217,6 @@ public class OTrunkProjectServiceImpl extends PodProjectServiceImpl {
 		if (run.getProject().getFamilytag().equals(FamilyTag.UCCP)) {
 			entireUrl += "&jnlp.style=UCCP";			
 		}
-		Curnit curnit = run.getProject().getCurnit();
-		String curnitOtmlUrl = ((RooloOtmlModuleImpl) curnit).getRetrieveOtmlUrl();
-		entireUrl += "&sailotrunk.otmlurl=" + curnitOtmlUrl;
 
 		return entireUrl;
 	}

@@ -27,7 +27,6 @@
     <bean id="registerstudentController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.student.RegisterStudentController">
     	<property name="userService" ref="userService" />
- <!--    	<property name="runService" ref="runService" />  -->
     	<property name="studentService" ref="studentService" />
     	<property name="commandName" value="studentAccountForm" />
     	<property name="validator" ref="studentAccountFormValidator" />
@@ -47,17 +46,5 @@
 		<property name="portalProperties" ref="portalproperties" />        
 		<property name="messageSource" ref="messageSource" />      	
     </bean>
-<!--  
-    <bean id="createRooloOtmlModuleParameters"
-        class="org.telscenter.sail.webapp.domain.impl.CreateRooloOtmlModuleParameters">
-    </bean>
-    
-    <bean id="registerRooloOtmlModuleController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.author.module.RegisterRooloOtmlModuleController">
-    	<property name="curnitService" ref="curnitService" />
-    	<property name="repository" ref="clientCurnitRepository" />
-    	<property name="commandName" value="curnitParameters" />
-    	<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.CreateRooloOtmlModuleParameters" />
-    </bean>
-    -->
+
 </beans>

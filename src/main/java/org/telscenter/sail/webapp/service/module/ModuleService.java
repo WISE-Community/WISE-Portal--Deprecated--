@@ -22,11 +22,6 @@
  */
 package org.telscenter.sail.webapp.service.module;
 
-import org.telscenter.sail.webapp.domain.Module;
-import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
-
-import roolo.elo.api.IELO;
-
 import net.sf.sail.webapp.service.curnit.CurnitService;
 
 /**
@@ -36,13 +31,4 @@ import net.sf.sail.webapp.service.curnit.CurnitService;
  * @version $Id$
  */
 public interface ModuleService extends CurnitService {
-	
-	/**
-	 * Given a <code>RooloOtmlModuleImpl</code>, retrieves and
-	 * returns the <code>IELO</code> from the repository
-	 * 
-	 * @param <code>RooloOtmlModuleImplmod</code>
-	 * @return <code>IELO</code>
-	 */
-	public IELO getEloForModule(RooloOtmlModuleImpl mod);
 }
