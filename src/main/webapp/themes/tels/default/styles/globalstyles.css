@@ -199,9 +199,9 @@ table.wisetable td.emph {
 	border:1px solid #745a33;
 	background-color:#f4efe8;
 	padding:.25em .5em;
-	box-shadow:1px 1px 2px #aaa;
-	-moz-box-shadow:1px 1px 2px #aaa;
-	-webkit-box-shadow:1px 1px 2px #aaa;
+	box-shadow:0 0 2px #aaa;
+	-moz-box-shadow:0 0 2px #aaa;
+	-webkit-box-shadow:0 0 2px #aaa;
 }
 
 p.info {

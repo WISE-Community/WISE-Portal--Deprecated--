@@ -5,6 +5,7 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher.manageme
 
 //import java.util.ArrayList;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -25,6 +26,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.message.Message;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.message.MessageService;
@@ -156,16 +158,6 @@ public class LibraryController extends AbstractController {
 		this.projectService.sortProjectsByDateCreated(sharedProjectsList);
 		//this.projectService.sortProjectsByDateCreated(libraryProjectsList);
 
-		// send in owned, shared, library, bookmarked projects, and list of project ids
-		List<Project> bookmarkedProjectsList = this.projectService.getBookmarkerProjectList(user);
-		modelAndView.addObject("bookmarkedProjectsList", bookmarkedProjectsList);
-		modelAndView.addObject("ownedProjectsList", ownedProjectsList);
-		modelAndView.addObject("sharedProjectsList", sharedProjectsList);
-		modelAndView.addObject("libraryProjectsList", libraryProjectsList);
-		modelAndView.addObject("projectIds", projectIds);
-		modelAndView.addObject("sharedRemove", sharedRemove);
-		modelAndView.addObject("owenedRemove", ownedRemove);
-
 		//Map<Long, Integer> usageMap = new TreeMap<Long, Integer>();
 		Map<Long,String> urlMap = new TreeMap<Long,String>();
 		Map<Long,String> projectThumbMap = new TreeMap<Long,String>();  // maps projectId to url where its thumbnail can be found
@@ -177,10 +169,18 @@ public class LibraryController extends AbstractController {
 		//a map to contain projectId to escaped project name
 		Map<Long,String> projectNameEscapedMap = new TreeMap<Long,String>();
 		
+		Map<Long,Date> projectRunMap = new TreeMap<Long,Date>();
+		
 		String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
 		String curriculumBaseWWW = this.portalProperties.getProperty("curriculum_base_www");
 		for (Project p: ownedProjectsList) {
 			if (p.isCurrent()){
+				List<Run> runList = this.runService.getProjectRuns((Long) p.getId());
+				if (!runList.isEmpty()){
+					// add project and date to the list of project runs
+					projectRunMap.put((Long) p.getId(), runList.get(0).getStarttime()); // since a project can now only be run once, just use the first run in the list
+				}
+				
 				String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 
 				//get the project name and put it into the map
@@ -223,6 +223,12 @@ public class LibraryController extends AbstractController {
 
 		for (Project p: sharedProjectsList) {
 			if (p.isCurrent()){
+				List<Run> runList = this.runService.getProjectRuns((Long) p.getId());
+				if (!runList.isEmpty()){
+					// add project and date to the list of project runs
+					projectRunMap.put((Long) p.getId(), runList.get(0).getStarttime()); // since a project can now only be run once, just use the first run in the list
+				}
+				
 				String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 
 				//get the project name and put it into the map
@@ -265,6 +271,12 @@ public class LibraryController extends AbstractController {
 		
 		for (Project p: libraryProjectsList) {
 			if (p.isCurrent()){
+				List<Run> runList = this.runService.getProjectRuns((Long) p.getId());
+				if (!runList.isEmpty()){
+					// add project and date to the list of project runs
+					projectRunMap.put((Long) p.getId(), runList.get(0).getStarttime()); // since a project can now only be run once, just use the first run in the list
+				}
+				
 				String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 
 				//get the project name and put it into the map
@@ -307,6 +319,16 @@ public class LibraryController extends AbstractController {
 				//usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
 			}
 		}
+		
+		// send in owned, shared, library, bookmarked projects, and list of project ids
+		List<Project> bookmarkedProjectsList = this.projectService.getBookmarkerProjectList(user);
+		modelAndView.addObject("bookmarkedProjectsList", bookmarkedProjectsList);
+		modelAndView.addObject("ownedProjectsList", ownedProjectsList);
+		modelAndView.addObject("sharedProjectsList", sharedProjectsList);
+		modelAndView.addObject("libraryProjectsList", libraryProjectsList);
+		modelAndView.addObject("projectIds", projectIds);
+		modelAndView.addObject("sharedRemove", sharedRemove);
+		modelAndView.addObject("ownedRemove", ownedRemove);
     	
 		//modelAndView.addObject("usageMap", usageMap);
 		modelAndView.addObject("urlMap", urlMap);
@@ -316,6 +338,7 @@ public class LibraryController extends AbstractController {
 		modelAndView.addObject("curriculumBaseWWW", curriculumBaseWWW);
 		modelAndView.addObject("projectNameMap", projectNameMap);
 		modelAndView.addObject("projectNameEscapedMap", projectNameEscapedMap);
+		modelAndView.addObject("projectRunMap", projectRunMap);
 		modelAndView.addObject("user", user);
 		return modelAndView;
 	}

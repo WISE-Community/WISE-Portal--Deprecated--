@@ -528,6 +528,12 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	}
 	
 	@Transactional()
+	public List<Run> getProjectRuns(Long id){
+		List<Run> runList = this.runDao.getRunsOfProject(id);
+		return runList;
+	}
+	
+	@Transactional()
 	public void setExtras(Run run, String extras) throws Exception {
 		run.setExtras(extras);
 		this.runDao.save(run);

@@ -34,7 +34,7 @@
 					<label for="titleField">Title: </label><form:input path="title" id="titleField"/>
 				</div><br />
 				<div><label for="announcementField">Message: </label></div>
-				<div><form:textarea path="announcement" rows="7" cols="84" id="announcementField"/></div>
+				<div><form:textarea path="announcement" rows="7" cols="90" id="announcementField"/></div>
 				<br />
 				<% String runId = request.getParameter( "runId" ); %>
 				<div><input type="submit" id="save" value="Save" />  <a href="manageannouncement.html?runId=<c:out value='${param.runId}' />">Cancel</a></div>

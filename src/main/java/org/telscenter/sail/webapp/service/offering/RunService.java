@@ -305,6 +305,15 @@ public interface RunService extends OfferingService {
     public Integer getProjectUsage(Long id);
     
     /**
+     * Given a <code>Long</code> projectId, returns a <code>List<Run></code> list of
+     * runs associated with that id.
+     * 
+     * @param <code>Long</code> id
+     * @return <code>Integer</code>
+     */
+    public List<Run> getProjectRuns(Long id);
+    
+    /**
      * 
      * @param run
      * @param nodeId
