@@ -169,7 +169,11 @@ public class LibraryController extends AbstractController {
 		//a map to contain projectId to escaped project name
 		Map<Long,String> projectNameEscapedMap = new TreeMap<Long,String>();
 		
-		Map<Long,Date> projectRunMap = new TreeMap<Long,Date>();
+		//a map to contain projectId to run date
+		Map<Long,Date> projectRunDateMap = new TreeMap<Long,Date>();
+		
+		//a map to contain projectId to run date
+		Map<Long,Long> projectRunIdMap = new TreeMap<Long,Long>();
 		
 		String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
 		String curriculumBaseWWW = this.portalProperties.getProperty("curriculum_base_www");
@@ -177,8 +181,10 @@ public class LibraryController extends AbstractController {
 			if (p.isCurrent()){
 				List<Run> runList = this.runService.getProjectRuns((Long) p.getId());
 				if (!runList.isEmpty()){
-					// add project and date to the list of project runs
-					projectRunMap.put((Long) p.getId(), runList.get(0).getStarttime()); // since a project can now only be run once, just use the first run in the list
+					// add project and date to the maps of project runs
+					// since a project can now only be run once, just use the first run in the list
+					projectRunDateMap.put((Long) p.getId(), runList.get(0).getStarttime());
+					projectRunIdMap.put((Long) p.getId(), (Long) runList.get(0).getId());
 				}
 				
 				String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
@@ -225,8 +231,10 @@ public class LibraryController extends AbstractController {
 			if (p.isCurrent()){
 				List<Run> runList = this.runService.getProjectRuns((Long) p.getId());
 				if (!runList.isEmpty()){
-					// add project and date to the list of project runs
-					projectRunMap.put((Long) p.getId(), runList.get(0).getStarttime()); // since a project can now only be run once, just use the first run in the list
+					// add project and date to the maps of project runs
+					// since a project can now only be run once, just use the first run in the list
+					projectRunDateMap.put((Long) p.getId(), runList.get(0).getStarttime());
+					projectRunIdMap.put((Long) p.getId(), (Long) runList.get(0).getId());
 				}
 				
 				String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
@@ -273,8 +281,10 @@ public class LibraryController extends AbstractController {
 			if (p.isCurrent()){
 				List<Run> runList = this.runService.getProjectRuns((Long) p.getId());
 				if (!runList.isEmpty()){
-					// add project and date to the list of project runs
-					projectRunMap.put((Long) p.getId(), runList.get(0).getStarttime()); // since a project can now only be run once, just use the first run in the list
+					// add project and date to the maps of project runs
+					// since a project can now only be run once, just use the first run in the list
+					projectRunDateMap.put((Long) p.getId(), runList.get(0).getStarttime());
+					projectRunIdMap.put((Long) p.getId(), (Long) runList.get(0).getId());
 				}
 				
 				String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
@@ -338,7 +348,8 @@ public class LibraryController extends AbstractController {
 		modelAndView.addObject("curriculumBaseWWW", curriculumBaseWWW);
 		modelAndView.addObject("projectNameMap", projectNameMap);
 		modelAndView.addObject("projectNameEscapedMap", projectNameEscapedMap);
-		modelAndView.addObject("projectRunMap", projectRunMap);
+		modelAndView.addObject("projectRunDateMap", projectRunDateMap);
+		modelAndView.addObject("projectRunIdMap", projectRunIdMap);
 		modelAndView.addObject("user", user);
 		return modelAndView;
 	}

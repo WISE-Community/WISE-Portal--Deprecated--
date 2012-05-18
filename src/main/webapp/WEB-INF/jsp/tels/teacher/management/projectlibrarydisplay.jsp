@@ -867,7 +867,7 @@
 					<c:set var="projectName" value="${projectNameMap[project.id]}" />
 					<c:set var="projectNameEscaped" value="${projectNameEscapedMap[project.id]}" />
 					<c:set var="hasRun" value="false" />
-					<c:forEach var="entry" items="${projectRunMap}">
+					<c:forEach var="entry" items="${projectRunDateMap}">
 						<c:if test="${entry.getKey() == project.id}">
 							<c:set var="hasRun" value="true" />
 						</c:if>
@@ -925,7 +925,7 @@
 											<c:if test="${isChild || isChildNoRoot}">
 												<c:choose>
 													<c:when test="${hasRun}">
-														<span class="childDate runCopy"><spring:message code="teacher.manage.library.3a" /> <fmt:formatDate value="${projectRunMap[project.id]}" type="date" dateStyle="medium" /></span>
+														<span class="childDate runCopy"><spring:message code="teacher.manage.library.3a" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /></span>
 													</c:when>
 													<c:otherwise>
 														<span class="childDate"><spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></span>
@@ -963,7 +963,7 @@
 												<div style="float:right;">
 													<c:choose>
 														<c:when test="${hasRun && (isChild || isChildNoRoot)}">
-															<span class="runCopy"><spring:message code="teacher.manage.library.3a" /> <fmt:formatDate value="${projectRunMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.manage.library.help.runcopy" />" tooltip-anchor="left" tooltip-class="info" tooltip-title="<spring:message code="teacher.manage.library.help.runcopytitle" />" alt="help" />
+															<span class="runCopy"><spring:message code="teacher.manage.library.3a" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.manage.library.help.runcopy" />" tooltip-anchor="left" tooltip-class="info" tooltip-title="<spring:message code="teacher.manage.library.help.runcopytitle" />" alt="help" />
 														</c:when>
 														<c:otherwise>
 															<spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
@@ -1097,7 +1097,7 @@
 					<c:set var="projectName" value="${projectNameMap[project.id]}" />
 					<c:set var="projectNameEscaped" value="${projectNameEscapedMap[project.id]}" />
 					<c:set var="hasRun" value="false" />
-					<c:forEach var="entry" items="${projectRunMap}">
+					<c:forEach var="entry" items="${projectRunDateMap}">
 						<c:if test="${entry.getKey() == project.id}">
 							<c:set var="hasRun" value="true" />
 						</c:if>
@@ -1155,7 +1155,7 @@
 											<c:if test="${isChild || isChildNoRoot}">
 												<c:choose>
 													<c:when test="${hasRun}">
-														<span class="childDate runCopy"><spring:message code="teacher.manage.library.3a" /> <fmt:formatDate value="${projectRunMap[project.id]}" type="date" dateStyle="medium" /></span>
+														<span class="childDate runCopy"><spring:message code="teacher.manage.library.3a" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /></span>
 													</c:when>
 													<c:otherwise>
 														<span class="childDate"><spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></span>
@@ -1203,7 +1203,7 @@
 												<div style="float:right;">
 													<c:choose>
 														<c:when test="${hasRun && (isChild || isChildNoRoot)}">
-															<span class="runCopy"><spring:message code="teacher.manage.library.3a" /> <fmt:formatDate value="${projectRunMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.manage.library.help.runcopy" />" tooltip-anchor="left" tooltip-class="info" tooltip-title="<spring:message code="teacher.manage.library.help.runcopytitle" />" alt="help" />
+															<span class="runCopy"><spring:message code="teacher.manage.library.3a" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.manage.library.help.runcopy" />" tooltip-anchor="left" tooltip-class="info" tooltip-title="<spring:message code="teacher.manage.library.help.runcopytitle" />" alt="help" />
 														</c:when>
 														<c:otherwise>
 															<spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
@@ -1337,7 +1337,7 @@
 					<c:set var="projectName" value="${projectNameMap[project.id]}" />
 					<c:set var="projectNameEscaped" value="${projectNameEscapedMap[project.id]}" />
 					<c:set var="hasRun" value="false" />
-					<c:forEach var="entry" items="${projectRunMap}">
+					<c:forEach var="entry" items="${projectRunDateMap}">
 						<c:if test="${entry.getKey() == project.id}">
 							<c:set var="hasRun" value="true" />
 						</c:if>
