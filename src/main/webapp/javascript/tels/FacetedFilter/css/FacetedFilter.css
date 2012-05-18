@@ -44,7 +44,8 @@
 }
 
 .FF_sidebar .search_field {
-	display:table-row;
+	display: table;
+    width: 208px;
 }
 
 .FF_sidebar .search_field label {
@@ -57,7 +58,7 @@
 .FF_sidebar .search_field input {
 	display: table-cell;
     margin: 0 0 0.25em 0.2em;
-    width: 155px; /* TODO: remove fixed width */
+    width:100%;
 }
 
 .FF_sidebar .help {
