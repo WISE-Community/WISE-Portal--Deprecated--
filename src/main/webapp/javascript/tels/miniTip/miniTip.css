@@ -76,9 +76,9 @@
 /** Alternate Styles **/
 #miniTip.info {
 	background:rgb(246,246,236);
-	background:rgba(246,246,236,.95);
+	/*background:rgba(246,246,236,.95);*/
 	border: 6px solid #dadf8b;
-	color: #333;
+	color: #745a33;
 	font-size: .8em;
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
