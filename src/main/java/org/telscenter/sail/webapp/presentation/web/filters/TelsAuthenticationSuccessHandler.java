@@ -122,7 +122,6 @@ public class TelsAuthenticationSuccessHandler extends
         SavedRequest savedRequest = 
         	    new HttpSessionRequestCache().getRequest(request, response);
         String redirectUrl = savedRequest.getRedirectUrl();
-   		//String redirectUrl = request.getParameter("redmrect");
    		if(StringUtils.hasText(redirectUrl)){
    			this.setDefaultTargetUrl(redirectUrl);
    		}
