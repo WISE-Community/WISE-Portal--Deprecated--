@@ -35,6 +35,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.util.StringUtils;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
@@ -117,7 +119,10 @@ public class TelsAuthenticationSuccessHandler extends
 		}
       
         /* redirect if specified in the login request */
-   		String redirectUrl = request.getParameter("redirect");
+        SavedRequest savedRequest = 
+        	    new HttpSessionRequestCache().getRequest(request, response);
+        String redirectUrl = savedRequest.getRedirectUrl();
+   		//String redirectUrl = request.getParameter("redmrect");
    		if(StringUtils.hasText(redirectUrl)){
    			this.setDefaultTargetUrl(redirectUrl);
    		}
