@@ -121,10 +121,12 @@ public class TelsAuthenticationSuccessHandler extends
         /* redirect if specified in the login request */
         SavedRequest savedRequest = 
         	    new HttpSessionRequestCache().getRequest(request, response);
-        String redirectUrl = savedRequest.getRedirectUrl();
-   		if(StringUtils.hasText(redirectUrl)){
-   			this.setDefaultTargetUrl(redirectUrl);
-   		}
+        if (savedRequest != null) {
+        	String redirectUrl = savedRequest.getRedirectUrl();
+        	if(StringUtils.hasText(redirectUrl)){
+        		this.setDefaultTargetUrl(redirectUrl);
+        	}
+        }
    		
 		((MutableUserDetails) userDetails).incrementNumberOfLogins();
 		((MutableUserDetails) userDetails).setLastLoginTime(Calendar.getInstance().getTime());
