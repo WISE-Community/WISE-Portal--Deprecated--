@@ -273,6 +273,7 @@
 				/admin/project/getallexternalprojects.html=getAllExternalProjectsController
 				/admin/project/viewprojectcommunicators.html=projectCommunicatorController
 				/admin/project/manageprojectcommunicator.html=projectCommunicatorController
+				/admin/project/currentlyAuthoredProjects.html=currentlyAuthoredProjectsController
 				/admin/portal/manageportal.html=managePortalController
 				/admin/enableaccount.html=enableAccountController
 				/admin/runstats.html=runStatisticsController

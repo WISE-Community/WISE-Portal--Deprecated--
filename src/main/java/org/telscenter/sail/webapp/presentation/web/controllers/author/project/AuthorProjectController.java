@@ -422,12 +422,6 @@ public class AuthorProjectController extends AbstractController {
 			
 			//get the project object
 			String projectId = request.getParameter("projectId");
-			Project project = projectService.getById(projectId);
-			
-			//get the full project path
-			String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
-			String rawProjectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-			String fullProjectPath = curriculumBaseDir + rawProjectUrl;
 			
 			HttpSession currentUserSession = request.getSession();
 			HashMap<String, ArrayList<String>> openedProjectsToSessions = 
@@ -438,10 +432,10 @@ public class AuthorProjectController extends AbstractController {
 				currentUserSession.getServletContext().setAttribute("openedProjectsToSessions", openedProjectsToSessions);
 			}
 			
-			if (openedProjectsToSessions.get(fullProjectPath) == null) {
-				openedProjectsToSessions.put(fullProjectPath, new ArrayList<String>());
+			if (openedProjectsToSessions.get(projectId) == null) {
+				openedProjectsToSessions.put(projectId, new ArrayList<String>());
 			}
-			ArrayList<String> sessions = openedProjectsToSessions.get(fullProjectPath);  // sessions that are currently authoring this project
+			ArrayList<String> sessions = openedProjectsToSessions.get(projectId);  // sessions that are currently authoring this project
 			if (!sessions.contains(currentUserSession.getId())) {
 				sessions.add(currentUserSession.getId());
 			}
@@ -482,19 +476,23 @@ public class AuthorProjectController extends AbstractController {
 	private ModelAndView handleNotifyProjectClose(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = ControllerUtil.getSignedInUser();
 		if(this.hasAuthorPermissions(user)){
-			String projectPath = request.getParameter("param1");
+			String projectId = request.getParameter("projectId");
 			HttpSession currentSession = request.getSession();
 			
 			Map<String, ArrayList<String>> openedProjectsToSessions = (Map<String, ArrayList<String>>) currentSession.getServletContext().getAttribute("openedProjectsToSessions");
 			
-			if(openedProjectsToSessions == null || openedProjectsToSessions.get(projectPath) == null){
+			if(openedProjectsToSessions == null || openedProjectsToSessions.get(projectId) == null){
 				return null;
 			} else {
-				ArrayList<String> sessions = openedProjectsToSessions.get(projectPath);
+				ArrayList<String> sessions = openedProjectsToSessions.get(projectId);
 				if(!sessions.contains(currentSession.getId())){
 					return null;
 				} else {
 					sessions.remove(currentSession.getId());
+					// if there are no more users authoring this project, remove this project from openedProjectsToSessions
+					if (sessions.size() == 0) {
+						openedProjectsToSessions.remove(projectId);
+					}
 					response.getWriter().write("success");
 					return null;
 				}

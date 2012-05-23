@@ -95,6 +95,7 @@
 							    Manage Project By Project ID: <form action="manageallprojects.html" method="GET" style="display:inline"><input type="text" name="projectId" size="5"></input><input type="Submit" value="Go"></input></form><br/>
 							<h5><a href="manageallprojects.html">Manage All Projects</a></h5>
 							<h5><a href="project/uploadproject.html">Import A Project</a></h5>
+							<h5><a href="project/currentlyAuthoredProjects.html">View Projects Currently Being Authored</a></h5>
 						</div>
 					</sec:authorize>
 					
