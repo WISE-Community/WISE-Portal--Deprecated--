@@ -442,8 +442,11 @@ public class InformationController extends AbstractController{
 			//get the url to get peer review work
 			String getPeerReviewUrl = portalurl + "/webapp/bridge/getdata.html?type=peerreview";
 			
-	    	//get the url for xls export
+			//get the url for xls export
 	    	String getXLSExportUrl = portalurl + "/webapp/bridge/request.html?type=xlsexport&runId=" + run.getId().toString();
+	    	
+	    	//get the url for special export
+	    	String getSpecialExportUrl = portalurl + "/webapp/bridge/request.html?type=specialExport&runId=" + run.getId().toString();
 	    	
 	    	//get the url for premade comments
 	    	String getPremadeCommentsUrl = portalurl + "/webapp/teacher/grading/premadeComments.html?action=getData";
@@ -509,6 +512,7 @@ public class InformationController extends AbstractController{
 					config.put("postInappropriateFlagsUrl", postInappropriateFlagsUrl);
 					config.put("postMaxScoreUrl", postMaxScoreUrl);
 					config.put("getXLSExportUrl", getXLSExportUrl);
+					config.put("getSpecialExportUrl", getSpecialExportUrl);
 					config.put("getStudentListUrl", getStudentListUrl);
 					config.put("excelExportRestriction", excelExportRestriction);
 				}

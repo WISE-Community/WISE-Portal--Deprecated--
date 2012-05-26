@@ -244,7 +244,7 @@ public class BridgeController extends AbstractController {
 			} else if(type.equals("peerreview")) {
 				//return true for now until logic is implemented
 				return true;
-			} else if(type.equals("xlsexport")) {
+			} else if(type.equals("xlsexport") || type.equals("specialExport")) {
 				//TODO: need to check user permissions
 				return true;
 			} else if(type.equals("ideaBasket")) {
@@ -422,7 +422,7 @@ public class BridgeController extends AbstractController {
 			}
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/peerreview.html");
 			requestDispatcher.forward(request, response);
-		} else if (type.equals("xlsexport")) {
+		} else if (type.equals("xlsexport") || type.equals("specialExport")) {
 			//set the user info into the request object
 			setUserInfos(run, request);
 			
@@ -432,7 +432,20 @@ public class BridgeController extends AbstractController {
 			//set the project meta data into the request object
 			setProjectMetaData(run, request);
 			
-			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/getxls.html");
+			String requestPath = "";
+			
+			if(type.equals("xlsexport")) {
+				//get the path for regular exports
+				requestPath = "/getxls.html";
+			} else if(type.equals("specialExport")) {
+				//set the vlewrapper base so we can access files from the vlewrapper
+				setVlewrapperBase(run, request);
+				
+				//get the path for special exports
+				requestPath = "/getSpecialExport.html";
+			}
+			
+			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher(requestPath);
 			requestDispatcher.forward(request, response);
 		} else if(type.equals("ideaBasket")) {
 			handleIdeaBasket(request, response);
@@ -819,6 +832,18 @@ public class BridgeController extends AbstractController {
 		String projectMetaDataJSONString = metadata.toJSONString();
 		
 		request.setAttribute("projectMetaData", projectMetaDataJSONString);
+	}
+	
+	/**
+	 * Set the vlewrapper path into the request as an attribute so that we can access
+	 * it in other controllers
+	 * @param run
+	 * @param request
+	 */
+	private void setVlewrapperBase(Run run, HttpServletRequest request) {
+		String vlewrapperBaseDir = portalProperties.getProperty("vlewrapper_base_dir");
+		
+		request.setAttribute("vlewrapperBaseDir", vlewrapperBaseDir);
 	}
 
 	/**
