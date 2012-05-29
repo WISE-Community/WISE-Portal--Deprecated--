@@ -183,13 +183,6 @@ PasAuthenticationProcessingFilter {
 		User user = userService.retrieveUser(userDetails);
 		session.setAttribute(User.CURRENT_USER_SESSION_KEY, user);
 
-		//get the public and private keys from the portal.properties
-		String reCaptchaPublicKey = portalProperties.getProperty("recaptcha_public_key");
-		String reCaptchaPrivateKey = portalProperties.getProperty("recaptcha_private_key");
-
-		//check if the public key is valid in case the admin entered it wrong
-		boolean reCaptchaKeyValid = isReCaptchaKeyValid(reCaptchaPublicKey, reCaptchaPrivateKey);
-
 		/*
 		 * get the user so we can check if they have been failing to login
 		 * multiple times recently and if so, we will display a captcha to
@@ -198,7 +191,7 @@ PasAuthenticationProcessingFilter {
 		 * will also check to make sure the captcha keys are valid otherwise
 		 * we won't use the captcha at all either.
 		 */
-		if(user != null && reCaptchaPrivateKey != null && reCaptchaPublicKey != null && reCaptchaKeyValid) {
+		if(user != null) {
 			//get the user details
 			MutableUserDetails mutableUserDetails = (MutableUserDetails) user.getUserDetails();
 
@@ -221,29 +214,61 @@ PasAuthenticationProcessingFilter {
 					if(numberOfRecentFailedLoginAttempts != null &&
 							numberOfRecentFailedLoginAttempts >= TelsAuthenticationProcessingFilter.recentFailedLoginAttemptsLimit) {
 
-						/*
-						 * the user has failed to log in 5 or more times in the last 15 minutes
-						 * so they need to fill in the captcha
-						 */
-						String reCaptchaChallengeField = request.getParameter("recaptcha_challenge_field");
-						String reCaptchaResponseField = request.getParameter("recaptcha_response_field");
-						String remoteAddr = request.getRemoteAddr();
+						//get the public and private keys from the portal.properties
+						String reCaptchaPublicKey = portalProperties.getProperty("recaptcha_public_key");
+						String reCaptchaPrivateKey = portalProperties.getProperty("recaptcha_private_key");
 
-						if(reCaptchaChallengeField != null && reCaptchaResponseField != null && remoteAddr != null) {
-							//the user filled in the captcha
+						//check if the public key is valid in case the admin entered it wrong
+						boolean reCaptchaKeyValid = isReCaptchaKeyValid(reCaptchaPublicKey, reCaptchaPrivateKey);
 
-							ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
-							reCaptcha.setPrivateKey(reCaptchaPrivateKey);
-							ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(remoteAddr, reCaptchaChallengeField, reCaptchaResponseField);
+						if (reCaptchaPrivateKey != null && reCaptchaPublicKey != null && reCaptchaKeyValid) {
+							/*
+							 * the user has failed to log in 5 or more times in the last 15 minutes
+							 * and recaptcha is enabled for this WISE instance,
+							 * so they need to fill in the captcha
+							 */
+							String reCaptchaChallengeField = request.getParameter("recaptcha_challenge_field");
+							String reCaptchaResponseField = request.getParameter("recaptcha_response_field");
+							String remoteAddr = request.getRemoteAddr();
 
-							if (!reCaptchaResponse.isValid()) {
+							if(reCaptchaChallengeField != null && reCaptchaResponseField != null && remoteAddr != null) {
+								//the user filled in the captcha
+
+								ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
+								reCaptcha.setPrivateKey(reCaptchaPrivateKey);
+								ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(remoteAddr, reCaptchaChallengeField, reCaptchaResponseField);
+
+								if (!reCaptchaResponse.isValid()) {
+									/*
+									 * user did not correctly answer the captcha so we will
+									 * redirect them to the failure page
+									 */
+									try {
+										unsuccessfulAuthentication(request, response, new AuthenticationException(remoteAddr, mutableUserDetails) {});
+									} catch (IOException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									} catch (ServletException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									return;
+								}
+							} else {
 								/*
-								 * user did not correctly answer the captcha so we will
-								 * redirect them to the failure page
+								 * there are no captcha params because the user was on the index.html
+								 * page where the captcha does not show up. we will redirect them to
+								 * the login.html page and require the captcha.
+								 * 
+								 * note: if the user has failed to log in 5 or more times in the last
+								 * 15 minutes, we will require them to fill in the captcha. if at that
+								 * point, the user tries to log in from the index.html page (which does
+								 * not display the captcha) and correctly enters their 
+								 * username and password, we will still not allow them
+								 * to log in. we will redirect them to the login.html page and require
+								 * the captcha. this is to prevent the user/bot from always just accessing
+								 * the index.html page to try to log in order to circumvent the captcha.
 								 */
-								//this.setAlwaysUseDefaultTargetUrl(true);
-								//this.setDefaultTargetUrl("/login.html?failed=true&requireCaptcha=true");
-								//return;
 								try {
 									unsuccessfulAuthentication(request, response, new AuthenticationException(remoteAddr, mutableUserDetails) {});
 								} catch (IOException e) {
@@ -255,34 +280,6 @@ PasAuthenticationProcessingFilter {
 								}
 								return;
 							}
-						} else {
-							/*
-							 * there are no captcha params because the user was on the index.html
-							 * page where the captcha does not show up. we will redirect them to
-							 * the login.html page and require the captcha.
-							 * 
-							 * note: if the user has failed to log in 5 or more times in the last
-							 * 15 minutes, we will require them to fill in the captcha. if at that
-							 * point, the user tries to log in from the index.html page (which does
-							 * not display the captcha) and correctly enters their 
-							 * username and password, we will still not allow them
-							 * to log in. we will redirect them to the login.html page and require
-							 * the captcha. this is to prevent the user/bot from always just accessing
-							 * the index.html page to try to log in order to circumvent the captcha.
-							 */
-							//this.setAlwaysUseDefaultTargetUrl(true);
-							//this.setDefaultTargetUrl("/login.html?failed=true&requireCaptcha=true");
-							//return;
-							try {
-								unsuccessfulAuthentication(request, response, new AuthenticationException(remoteAddr, mutableUserDetails) {});
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (ServletException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							return;
 						}
 					}        		
 				}
