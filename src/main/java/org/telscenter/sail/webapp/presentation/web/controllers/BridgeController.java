@@ -438,9 +438,6 @@ public class BridgeController extends AbstractController {
 				//get the path for regular exports
 				requestPath = "/getxls.html";
 			} else if(type.equals("specialExport")) {
-				//set the vlewrapper base so we can access files from the vlewrapper
-				setVlewrapperBase(run, request);
-				
 				//get the path for special exports
 				requestPath = "/getSpecialExport.html";
 			}
@@ -834,18 +831,6 @@ public class BridgeController extends AbstractController {
 		request.setAttribute("projectMetaData", projectMetaDataJSONString);
 	}
 	
-	/**
-	 * Set the vlewrapper path into the request as an attribute so that we can access
-	 * it in other controllers
-	 * @param run
-	 * @param request
-	 */
-	private void setVlewrapperBase(Run run, HttpServletRequest request) {
-		String vlewrapperBaseDir = portalProperties.getProperty("vlewrapper_base_dir");
-		
-		request.setAttribute("vlewrapperBaseDir", vlewrapperBaseDir);
-	}
-
 	/**
 	 * @return the workgroupService
 	 */
