@@ -227,9 +227,45 @@ public interface Project extends Persistable {
 	 */
 	public void setParentProjectId(Long parentProjectId);
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Long getParentProjectId();
 	
+	/**
+	 * 
+	 * @param rootProjectId
+	 */
 	public void setRootProjectId(Long rootProjectId);
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Long getRootProjectId();
+	
+	/**
+	 * Whether this project is deleted
+	 * @return
+	 */
+	public boolean isDeleted();
+
+	/**
+	 * Set whether this project is deleted
+	 * @param isDeleted
+	 */
+	public void setDeleted(boolean isDeleted);
+
+	/**
+	 * Get the date the project was deleted
+	 * @return
+	 */
+	public Date getDateDeleted();
+
+	/**
+	 * Set the date the project was deleted
+	 * @param dateDeleted
+	 */
+	public void setDateDeleted(Date dateDeleted);
 }

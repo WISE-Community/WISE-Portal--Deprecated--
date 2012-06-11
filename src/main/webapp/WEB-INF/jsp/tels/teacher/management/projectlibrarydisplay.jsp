@@ -838,6 +838,49 @@
 		// load project thumbnails		
 		loadProjectThumbnails();
 	});
+	
+	/**
+	 * Delete the project. This won't actually delete the project content,
+	 * it will only set a boolean flag in the projects table in the database.
+	 */
+	function deleteProject(projectTitle, projectId) {
+		//display a confirm message to make sure they really want to delete the project
+		var response = confirm("WARNING!!!\n\nAre you really sure you want to delete this project?\nThis will remove the project from your library and\nyou will no longer be able to see it.\n\nProject Title: " + projectTitle + "\n" + "Project Id: " + projectId + "\n\nClick 'OK' to delete the project.\nClick 'Cancel' to keep the project.");
+		
+		if(response) {
+			//the user answered 'OK' to delete the project
+			
+			//make the request to delete the project
+			$.ajax({
+				url:"../../deleteproject.html",
+				data:{projectId:projectId},
+				success:function(data, text, xml) {
+					//remove the div that displays the project in the library
+					$('#projectBox_' + projectId).remove();
+					
+					if(text == 'success') {
+						/*
+						 * the project was successfully deleted so we will
+						 * display the success message to the user
+						 */
+						alert("Successfully deleted project.\n\nProject Title: " + projectTitle + "\n" + "Project Id: " + projectId + "\n\nThe Project Library will now reload.");
+						
+						//refresh the project library page
+						location.reload();
+					} else if(text == 'failure: not owner') {
+						//the user is not the owner of the project so the project was not deleted
+						alert('Error: Failed to delete project.\n\nYou must be the owner to delete this project.');
+					} else if(text == 'failure: invalid project id') {
+						alert('Error: Failed to delete project.\n\nInvalid project id.');
+					} else if(text == 'failure: project does not exist') {
+						alert('Error: Failed to delete project.\n\nInvalid project id.');
+					} else if(text == 'failure') {
+						alert('Error: Failed to delete project.');
+					}
+				}
+			});
+		}
+	};
 </script>
 
 <table id="myProjects" class="projectTable">
@@ -872,221 +915,233 @@
 							<c:set var="hasRun" value="true" />
 						</c:if>
 					</c:forEach>
-					<tr class="projectRow" id="projectRow_${project.id}">
-						<td>
-							<c:set var="projectClass" value="projectBox owned" />
-							<c:set var="isChildNoRoot" value="false" />
-							<c:set var="isChild" value="false" />
-							<c:choose>
-								<c:when test="${project.rootProjectId == project.id}">
-									<c:set var="projectClass" value="projectBox owned rootProject" />
-								</c:when>
-								<c:otherwise>
-									<c:forEach var="item" items="${projectIds}">
-									  <c:if test="${item eq project.rootProjectId}">
-									    <c:set var="rootId" value="${project.rootProjectId}" />
-									    <c:set var="projectClass" value="projectBox owned childProject" />
-									    <c:set var="isChild" value="true" />
-									  </c:if>
-									</c:forEach>
-									<c:if test="${!isChild}">
+					
+					<c:if test="${project.deleted == 'false'}">
+						<tr class="projectRow" id="projectRow_${project.id}">
+							<td>
+								<c:set var="projectClass" value="projectBox owned" />
+								<c:set var="isChildNoRoot" value="false" />
+								<c:set var="isChild" value="false" />
+								<c:choose>
+									<c:when test="${project.rootProjectId == project.id}">
+										<c:set var="projectClass" value="projectBox owned rootProject" />
+									</c:when>
+									<c:otherwise>
 										<c:forEach var="item" items="${projectIds}">
-										  <c:if test="${item eq project.parentProjectId}">
-										  	<c:set var="projectClass" value="projectBox owned childProject" />
-										    <c:set var="rootId" value="${project.parentProjectId}" />
-										    <c:set var="isChildNoRoot" value="true" />
+										  <c:if test="${item eq project.rootProjectId}">
+										    <c:set var="rootId" value="${project.rootProjectId}" />
+										    <c:set var="projectClass" value="projectBox owned childProject" />
+										    <c:set var="isChild" value="true" />
 										  </c:if>
 										</c:forEach>
-									</c:if>
-								</c:otherwise>
-							</c:choose>
-							<c:choose>
-								<c:when test="${isChild || isChildNoRoot}">
-									<div class="${projectClass}" id="projectBox_${project.id}" rootid="${rootId}">
-								</c:when>
-								<c:otherwise>
-									<div class="${projectClass}" id="projectBox_${project.id}">
-								</c:otherwise>
-							</c:choose>
-								<div class="projectOverview">
-									<div class="projectHeader">
-										<div class="projectInfo">
-											<c:set var="bookmarked" value="false" />
-											<c:forEach var="bookmark" items="${bookmarkedProjectsList}">
-												<c:if test="${bookmark.id == project.id}">
-													<c:set var="bookmarked" value="true" />
-												</c:if>
+										<c:if test="${!isChild}">
+											<c:forEach var="item" items="${projectIds}">
+											  <c:if test="${item eq project.parentProjectId}">
+											  	<c:set var="projectClass" value="projectBox owned childProject" />
+											    <c:set var="rootId" value="${project.parentProjectId}" />
+											    <c:set var="isChildNoRoot" value="true" />
+											  </c:if>
 											</c:forEach>
-											<a id="bookmark_${project.id}" class="bookmark ${bookmarked} tooltip" title="<spring:message code="teacher.manage.library.2" />"></a>
-											<a class="projectTitle" id="project_${project.id}">${projectName}</a>
-											<span>(<spring:message code="teacher.manage.library.4" /> ${project.id})</span>
-										</div>
-										<div class="projectTools">
-											<c:if test="${isChild || isChildNoRoot}">
-												<c:choose>
-													<c:when test="${hasRun}">
-														<span class="childDate runCopy"><spring:message code="teacher.manage.library.3a" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /></span>
-													</c:when>
-													<c:otherwise>
-														<span class="childDate"><spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></span>
-													</c:otherwise>
-												</c:choose>
-											</c:if>
-											<ul class="actions">
-												<li><a class="tooltip" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" title="<spring:message code="teacher.manage.library.6a" />" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" />
-													<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="teacher.manage.library.6" /></span></a>&nbsp;|
-												</li>
-												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
-													<li><a title="<spring:message code="teacher.manage.library.7a" />" id="shareProject_${project.id}" class="shareProject tooltip" dialog-title="<spring:message code="teacher.manage.library.7" /> ${project.name} (<spring:message code="teacher.manage.library.5" /> ${project.id})"><img class="icon" alt="share" src="/webapp/themes/tels/default/images/icons/teal/agent.png" /><span><spring:message code="teacher.manage.library.8" /></span></a>&nbsp;|</li>
-												</sec:accesscontrollist>
-												<li><a class="tooltip" title="<spring:message code="teacher.manage.library.9a" />" onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" ><img class="icon" alt="copy" src="/webapp/themes/tels/default/images/icons/teal/copy-item.png" /><span><spring:message code="teacher.manage.library.9" /></span></a>&nbsp;|</li>
-												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
-													<li><a class="tooltip" title="<spring:message code="teacher.manage.library.10a" />" href="/webapp/author/authorproject.html?projectId=${project.id}"><img class="icon" alt="edit" src="/webapp/themes/tels/default/images/icons/teal/edit.png" /><span><spring:message code="teacher.manage.library.10" /></span></a>&nbsp;|</li>
-												</sec:accesscontrollist>
-												<!-- <li><a style="color:#666;">Archive</a>
-												<input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
-												<li><a class="setupRun tooltip" title="<spring:message code="teacher.manage.library.11a" />" href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>"><img class="icon" alt="new run" src="/webapp/themes/tels/default/images/icons/teal/computer.png" />
-													<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="teacher.manage.library.11" /></span></a>
-												</li>
-											</ul>
-										</div>
-										<div style="clear:both;"></div>
-									</div>
-									<div class="projectSummary">
-										<div class="projectThumb" thumbUrl="${projectThumbMap[project.id]}"><img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></div>
-										<div class="summaryInfo">
-											<div class="basicInfo">
-												<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-												<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
-												<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">${project.metadata.totalTime} | </c:if>
-												<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
-												<div style="float:right;">
+										</c:if>
+									</c:otherwise>
+								</c:choose>
+								<c:choose>
+									<c:when test="${isChild || isChildNoRoot}">
+										<div class="${projectClass}" id="projectBox_${project.id}" rootid="${rootId}">
+									</c:when>
+									<c:otherwise>
+										<div class="${projectClass}" id="projectBox_${project.id}">
+									</c:otherwise>
+								</c:choose>
+									<div class="projectOverview">
+										<div class="projectHeader">
+											<div class="projectInfo">
+												<c:set var="bookmarked" value="false" />
+												<c:forEach var="bookmark" items="${bookmarkedProjectsList}">
+													<c:if test="${bookmark.id == project.id}">
+														<c:set var="bookmarked" value="true" />
+													</c:if>
+												</c:forEach>
+												<a id="bookmark_${project.id}" class="bookmark ${bookmarked} tooltip" title="<spring:message code="teacher.manage.library.2" />"></a>
+												<a class="projectTitle" id="project_${project.id}">${projectName}</a>
+												<span>(<spring:message code="teacher.manage.library.4" /> ${project.id})</span>
+											</div>
+											<div class="projectTools">
+												<c:if test="${isChild || isChildNoRoot}">
 													<c:choose>
-														<c:when test="${hasRun && (isChild || isChildNoRoot)}">
-															<span class="runCopy"><spring:message code="teacher.manage.library.3a" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.manage.library.help.runcopy" />" tooltip-anchor="left" tooltip-class="info" tooltip-title="<spring:message code="teacher.manage.library.help.runcopytitle" />" alt="help" />
+														<c:when test="${hasRun}">
+															<span class="childDate runCopy"><spring:message code="teacher.manage.library.3a" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /></span>
 														</c:when>
 														<c:otherwise>
-															<spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
+															<span class="childDate"><spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></span>
 														</c:otherwise>
 													</c:choose>
+												</c:if>
+												<ul class="actions">
+													<li><a class="tooltip" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" title="<spring:message code="teacher.manage.library.6a" />" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" />
+														<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="teacher.manage.library.6" /></span></a>&nbsp;|
+													</li>
+													<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
+														<li><a title="<spring:message code="teacher.manage.library.7a" />" id="shareProject_${project.id}" class="shareProject tooltip" dialog-title="<spring:message code="teacher.manage.library.7" /> ${project.name} (<spring:message code="teacher.manage.library.5" /> ${project.id})"><img class="icon" alt="share" src="/webapp/themes/tels/default/images/icons/teal/agent.png" /><span><spring:message code="teacher.manage.library.8" /></span></a>&nbsp;|</li>
+													</sec:accesscontrollist>
+													<li><a class="tooltip" title="<spring:message code="teacher.manage.library.9a" />" onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" ><img class="icon" alt="copy" src="/webapp/themes/tels/default/images/icons/teal/copy-item.png" /><span><spring:message code="teacher.manage.library.9" /></span></a>&nbsp;|</li>
+													<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
+														<li><a class="tooltip" title="<spring:message code="teacher.manage.library.10a" />" href="/webapp/author/authorproject.html?projectId=${project.id}"><img class="icon" alt="edit" src="/webapp/themes/tels/default/images/icons/teal/edit.png" /><span><spring:message code="teacher.manage.library.10" /></span></a>&nbsp;|</li>
+													</sec:accesscontrollist>
+													<!-- <li><a style="color:#666;">Archive</a>
+													<input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
+													<c:set var="isOwner" value="false" />
+													<c:forEach var="owner" items="${project.owners}">
+														<c:if test="${owner.id == user.id}">
+															<c:set var="isOwner" value="true" />
+														</c:if>
+													</c:forEach>
+													<c:if test="${isOwner == 'true'}">
+														<li><a onclick="deleteProject('${project.name}', ${project.id})"><span>Delete</span></a>&nbsp;|</li>												
+													</c:if>
+													<li><a class="setupRun tooltip" title="<spring:message code="teacher.manage.library.11a" />" href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>"><img class="icon" alt="new run" src="/webapp/themes/tels/default/images/icons/teal/computer.png" />
+														<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="teacher.manage.library.11" /></span></a>
+													</li>
+												</ul>
+											</div>
+											<div style="clear:both;"></div>
+										</div>
+										<div class="projectSummary">
+											<div class="projectThumb" thumbUrl="${projectThumbMap[project.id]}"><img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></div>
+											<div class="summaryInfo">
+												<div class="basicInfo">
+													<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
+													<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
+													<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">${project.metadata.totalTime} | </c:if>
+													<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
+													<div style="float:right;">
+														<c:choose>
+															<c:when test="${hasRun && (isChild || isChildNoRoot)}">
+																<span class="runCopy"><spring:message code="teacher.manage.library.3a" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.manage.library.help.runcopy" />" tooltip-anchor="left" tooltip-class="info" tooltip-title="<spring:message code="teacher.manage.library.help.runcopytitle" />" alt="help" />
+															</c:when>
+															<c:otherwise>
+																<spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
+															</c:otherwise>
+														</c:choose>
+													</div>
+												</div>
+												<div id="summaryText_${project.id}" class="summaryText">
+												<c:if test="${project.metadata.summary != null && project.metadata.summary != ''}">
+													<c:choose>
+														<c:when test="${(fn:length(project.metadata.summary) > 170) && !isChild}">
+															<c:set var="length" value="${fn:length(project.metadata.summary)}" />
+															<c:set var="summary" value="${fn:substring(project.metadata.summary,0,170)}" />
+															<c:set var="truncated" value="${fn:substring(project.metadata.summary,170,length)}" />
+															<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
+														</c:when>
+														<c:otherwise>
+															<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${project.metadata.summary}
+														</c:otherwise>
+													</c:choose>
+												</c:if>
+												</div>
+												<div class="details" id="details_${project.id}">
+													<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.13" /></span> ${project.metadata.keywords}</p></c:if>
+													<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/check.html" target="_blank"><spring:message code="teacher.manage.library.22" /></a>)</p></c:if>
+													<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.15" /></span> ${project.metadata.compTime}</p></c:if>
+													<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
+													<c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.17" /></span> ${project.metadata.author}</p></c:if>
+													<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
+													<c:if test="${lastEdited == null || lastEdited == ''}">
+														<c:set var="lastEdited" value="${project.dateCreated}" />
+													</c:if>
+													<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.18" /></span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
+													<c:if test="${project.parentProjectId != null}">
+														<p><span style="font-weight:bold"><spring:message code="teacher.run.myprojectruns.40"/></span> <a id="projectDetail_${project.parentProjectId}" class="projectDetail" title="Project Details">${project.parentProjectId}</a></p>
+													</c:if>
+													<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
+														(project.metadata.standards != null && project.metadata.standards != '')}">
+														<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="<spring:message code="teacher.manage.library.23" />"><spring:message code="teacher.manage.library.24" /></a></div>
+														<div class="lessonPlan" id="lessonPlan_${project.id}" title="<spring:message code="teacher.manage.library.24" />">
+															<div class="panelHeader">${project.name} (<spring:message code="teacher.manage.library.4" /> ${project.id})
+																<span style="float:right;"><a class="printLesson" id="printLesson_${project.id}">Print</a></span>
+															</div>
+															<c:if test="${project.metadata.lessonPlan != null && project.metadata.lessonPlan != ''}">
+																<div class="basicInfo sectionContent">
+																	<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
+																	<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
+																	<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.manage.library.21" /> ${project.metadata.totalTime} | </c:if>
+																	<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
+																	<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString}</p></c:if>
+																</div>
+																<div class="sectionHead"><spring:message code="teacher.manage.library.25" /></div>
+																<div class="lessonHelp"><spring:message code="teacher.manage.library.25a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
+																<div class="sectionContent">${project.metadata.lessonPlan}</div>
+															</c:if>
+															<c:if test="${project.metadata.standards != null && project.metadata.standards != ''}">
+																<div class="sectionHead"><spring:message code="teacher.manage.library.26" /></div>
+																<div class="lessonHelp"><spring:message code="teacher.manage.library.26a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
+																<div class="sectionContent">${project.metadata.standards}</div>
+															</c:if>
+														</div>
+													</c:if>
+													<c:if test="${fn:length(project.sharedowners) > 0}">
+														<div class="sharedIcon">
+															<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
+															<spring:message code="teacher.manage.library.27" /> 
+															<span style="font-weight:normal"><c:forEach var="sharedowner" items="${project.sharedowners}" varStatus="status">
+															  <c:out value="${sharedowner.userDetails.firstname}"/>
+															  <c:out value="${sharedowner.userDetails.lastname}"/>${not status.last ? ', ' : ''}
+															</c:forEach></span>
+														</div>
+													</c:if>
 												</div>
 											</div>
-											<div id="summaryText_${project.id}" class="summaryText">
-											<c:if test="${project.metadata.summary != null && project.metadata.summary != ''}">
-												<c:choose>
-													<c:when test="${(fn:length(project.metadata.summary) > 170) && !isChild}">
-														<c:set var="length" value="${fn:length(project.metadata.summary)}" />
-														<c:set var="summary" value="${fn:substring(project.metadata.summary,0,170)}" />
-														<c:set var="truncated" value="${fn:substring(project.metadata.summary,170,length)}" />
-														<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
-													</c:when>
-													<c:otherwise>
-														<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${project.metadata.summary}
-													</c:otherwise>
-												</c:choose>
-											</c:if>
-											</div>
-											<div class="details" id="details_${project.id}">
-												<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.13" /></span> ${project.metadata.keywords}</p></c:if>
-												<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/check.html" target="_blank"><spring:message code="teacher.manage.library.22" /></a>)</p></c:if>
-												<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.15" /></span> ${project.metadata.compTime}</p></c:if>
-												<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
-												<c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.17" /></span> ${project.metadata.author}</p></c:if>
-												<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
-												<c:if test="${lastEdited == null || lastEdited == ''}">
-													<c:set var="lastEdited" value="${project.dateCreated}" />
-												</c:if>
-												<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.18" /></span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
-												<c:if test="${project.parentProjectId != null}">
-													<p><span style="font-weight:bold"><spring:message code="teacher.run.myprojectruns.40"/></span> <a id="projectDetail_${project.parentProjectId}" class="projectDetail" title="Project Details">${project.parentProjectId}</a></p>
-												</c:if>
-												<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
-													(project.metadata.standards != null && project.metadata.standards != '')}">
-													<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="<spring:message code="teacher.manage.library.23" />"><spring:message code="teacher.manage.library.24" /></a></div>
-													<div class="lessonPlan" id="lessonPlan_${project.id}" title="<spring:message code="teacher.manage.library.24" />">
-														<div class="panelHeader">${project.name} (<spring:message code="teacher.manage.library.4" /> ${project.id})
-															<span style="float:right;"><a class="printLesson" id="printLesson_${project.id}">Print</a></span>
-														</div>
-														<c:if test="${project.metadata.lessonPlan != null && project.metadata.lessonPlan != ''}">
-															<div class="basicInfo sectionContent">
-																<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-																<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
-																<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.manage.library.21" /> ${project.metadata.totalTime} | </c:if>
-																<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
-																<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString}</p></c:if>
-															</div>
-															<div class="sectionHead"><spring:message code="teacher.manage.library.25" /></div>
-															<div class="lessonHelp"><spring:message code="teacher.manage.library.25a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
-															<div class="sectionContent">${project.metadata.lessonPlan}</div>
-														</c:if>
-														<c:if test="${project.metadata.standards != null && project.metadata.standards != ''}">
-															<div class="sectionHead"><spring:message code="teacher.manage.library.26" /></div>
-															<div class="lessonHelp"><spring:message code="teacher.manage.library.26a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
-															<div class="sectionContent">${project.metadata.standards}</div>
-														</c:if>
-													</div>
-												</c:if>
-												<c:if test="${fn:length(project.sharedowners) > 0}">
-													<div class="sharedIcon">
-														<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
-														<spring:message code="teacher.manage.library.27" /> 
-														<span style="font-weight:normal"><c:forEach var="sharedowner" items="${project.sharedowners}" varStatus="status">
-														  <c:out value="${sharedowner.userDetails.firstname}"/>
-														  <c:out value="${sharedowner.userDetails.lastname}"/>${not status.last ? ', ' : ''}
-														</c:forEach></span>
-													</div>
-												</c:if>
-											</div>
-										</div>
-									</div>
-									<div style="clear:both;"></div>
-									<div class="detailsLinks">
-										<div style="float:right; text-align:right">
-											<a id="detailsToggle_${project.id}" class="detailsToggle"><spring:message code="teacher.manage.library.28" /></a>
 										</div>
 										<div style="clear:both;"></div>
+										<div class="detailsLinks">
+											<div style="float:right; text-align:right">
+												<a id="detailsToggle_${project.id}" class="detailsToggle"><spring:message code="teacher.manage.library.28" /></a>
+											</div>
+											<div style="clear:both;"></div>
+										</div>
 									</div>
 								</div>
-							</div>
-						</td>
-						<td style="display:none;">
-							<c:choose>
-								<c:when test="${isChildNoRoot}">
-									${project.parentProjectId}
-								</c:when>
-								<c:otherwise>
-									${project.rootProjectId}
-								</c:otherwise>
-							</c:choose>
-						</td>
-						<td style="display:none;">owned</td>
-						<td style="display:none;">${project.metadata.subject}</td>
-						<td style="display:none;">${project.metadata.gradeRange}</td>
-						<td style="display:none;">${project.metadata.totalTime}</td>
-						<td style="display:none;">${project.metadata.compTime}</td>
-						<td style="display:none;">${project.metadata.language}</td>
-						<td style="display:none;">${project.dateCreated}</td>
-						<td style="display:none;">${bookmarked}</td>
-						<c:set var="root" value="0" />
-						<c:if test="${project.rootProjectId == project.id}">
-							<c:set var="root" value="1" />
-						</c:if>
-						<td style="display:none;">${root}</td>
-						<c:set var="isLibraryFamily" value="0" />
-						<c:set var="libraryFamilyName" value="" />
-						<c:set var="libraryFamilyId" value="" />
-						<c:forEach var="libraryProject" items="${libraryProjectsList}">
-							<c:if test="${project.rootProjectId == libraryProject.id}">
-								<c:set var="isLibraryFamily" value="1" />
-								<c:set var="libraryFamilyName" value="${libraryProject.name}" />
-								<c:set var="libraryFamilyId" value="${libraryProject.id}" />
+							</td>
+							<td style="display:none;">
+								<c:choose>
+									<c:when test="${isChildNoRoot}">
+										${project.parentProjectId}
+									</c:when>
+									<c:otherwise>
+										${project.rootProjectId}
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td style="display:none;">owned</td>
+							<td style="display:none;">${project.metadata.subject}</td>
+							<td style="display:none;">${project.metadata.gradeRange}</td>
+							<td style="display:none;">${project.metadata.totalTime}</td>
+							<td style="display:none;">${project.metadata.compTime}</td>
+							<td style="display:none;">${project.metadata.language}</td>
+							<td style="display:none;">${project.dateCreated}</td>
+							<td style="display:none;">${bookmarked}</td>
+							<c:set var="root" value="0" />
+							<c:if test="${project.rootProjectId == project.id}">
+								<c:set var="root" value="1" />
 							</c:if>
-						</c:forEach>
-						<td style="display:none;">${isLibraryFamily}</td>
-						<td style="display:none;">${libraryFamilyName}</td>
-						<td style="display:none;">${libraryFamilyId}</td>
-						<td style="display:none;">${lastEdited}</td>
-					</tr>
+							<td style="display:none;">${root}</td>
+							<c:set var="isLibraryFamily" value="0" />
+							<c:set var="libraryFamilyName" value="" />
+							<c:set var="libraryFamilyId" value="" />
+							<c:forEach var="libraryProject" items="${libraryProjectsList}">
+								<c:if test="${project.rootProjectId == libraryProject.id}">
+									<c:set var="isLibraryFamily" value="1" />
+									<c:set var="libraryFamilyName" value="${libraryProject.name}" />
+									<c:set var="libraryFamilyId" value="${libraryProject.id}" />
+								</c:if>
+							</c:forEach>
+							<td style="display:none;">${isLibraryFamily}</td>
+							<td style="display:none;">${libraryFamilyName}</td>
+							<td style="display:none;">${libraryFamilyId}</td>
+							<td style="display:none;">${lastEdited}</td>
+						</tr>
+					</c:if>
 				</c:forEach>
 			</c:when>
 		</c:choose>

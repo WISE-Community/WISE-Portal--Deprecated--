@@ -1284,6 +1284,11 @@
 		<property name="curnitService" ref="curnitService"/>
 	</bean>
 	
+	<bean id="deleteProjectController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.DeleteProjectController">
+		<property name="projectService" ref="projectService"/>
+	</bean>
+	
 	    <bean id="pollInstantPollController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.PollInstantPollController">
     	<property name="brainstormService" ref="brainstormService"/>

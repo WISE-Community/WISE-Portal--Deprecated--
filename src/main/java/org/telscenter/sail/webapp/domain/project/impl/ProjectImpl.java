@@ -147,6 +147,12 @@ public class ProjectImpl implements Project {
 
     @Transient
     private static final String COLUMN_NAME_METADATA_FK = "metadata_fk";
+    
+    @Transient
+    private static final String COLUMN_NAME_IS_DELETED = "isDeleted";
+    
+    @Transient
+    private static final String COLUMN_NAME_DATE_DELETED = "dateDeleted";
 
 	@Transient
 	public ProjectInfo projectinfo = new ProjectInfoImpl();
@@ -221,6 +227,12 @@ public class ProjectImpl implements Project {
     @JoinTable(name = TAGS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = PROJECT_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = TAGS_JOIN_COLUMN_NAME, nullable = false))
     protected Set<Tag> tags = new TreeSet<Tag>();
     
+    @Column(name = ProjectImpl.COLUMN_NAME_IS_DELETED, nullable=true)
+    protected boolean isDeleted;
+    
+    @Column(name = ProjectImpl.COLUMN_NAME_DATE_DELETED, nullable=true)
+    protected Date dateDeleted;
+
 	/**
 	 * @see org.telscenter.sail.webapp.domain.project.Project#getCurnit()
 	 */
@@ -543,11 +555,51 @@ public class ProjectImpl implements Project {
 		this.parentProjectId = parentProjectId;
 	}
 
+	/**
+	 * 
+	 * @see org.telscenter.sail.webapp.domain.project.Project#getRootProjectId()
+	 */
 	public Long getRootProjectId() {
 		return rootProjectId;
 	}
 
+	/**
+	 * 
+	 * @see org.telscenter.sail.webapp.domain.project.Project#setRootProjectId(java.lang.Long)
+	 */
 	public void setRootProjectId(Long rootProjectId) {
 		this.rootProjectId = rootProjectId;
+	}
+	
+	/**
+	 * Whether this project is deleted
+	 * @return
+	 */
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	/**
+	 * Set whether this project is deleted
+	 * @param isDeleted
+	 */
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	/**
+	 * Get the date the project was deleted
+	 * @return
+	 */
+	public Date getDateDeleted() {
+		return dateDeleted;
+	}
+
+	/**
+	 * Set the date the project was deleted
+	 * @param dateDeleted
+	 */
+	public void setDateDeleted(Date dateDeleted) {
+		this.dateDeleted = dateDeleted;
 	}
 }
