@@ -291,10 +291,37 @@ public class PremadeCommentsController extends AbstractController {
 
 				//get the JSON value of the premade comment list in string form
 				returnValue = convertPremadeCommentListToJSON(premadeCommentList).toString();
+			} else if(premadeCommentAction.equals("editCommentListLabel")) {
+				//modify an existing comment list label
+				if(premadeCommentListId != null && premadeCommentListLabel != null) {
+					//retrieve the premade comment list we are editing
+					PremadeCommentList premadeCommentListToUpdate = premadeCommentService.retrievePremadeCommentListById(new Long(premadeCommentListId));
+					
+					//make sure the signed in user is the owner of the premade comment
+					if(signedInUser.equals(premadeCommentListToUpdate.getOwner())) {
+						//update the premade comment
+						premadeCommentListToUpdate.setLabel(premadeCommentListLabel);
+						PremadeCommentList updatedPremadeCommentList = premadeCommentService.updatePremadeCommentListLabel(new Long(premadeCommentListId), premadeCommentListLabel);
+
+						//get the JSON value of the premade comment list in string form
+						returnValue = convertPremadeCommentListToJSON(updatedPremadeCommentList).toString();
+					}
+				}
+				
 			} else if(premadeCommentAction.equals("editCommentList")) {
 				//modify an existing comment list
 			} else if(premadeCommentAction.equals("deleteCommentList")) {
 				//remove a comment list
+				//retrieve the premade comment list we are deleting
+				PremadeCommentList premadeCommentListToDelete = premadeCommentService.retrievePremadeCommentListById(new Long(premadeCommentListId));
+				
+				//make sure the signed in user is the owner of the premade comment
+				if(signedInUser.equals(premadeCommentListToDelete.getOwner())) {
+					premadeCommentService.deletePremadeCommentList(new Long(premadeCommentListId));
+					
+					//get the JSON value of the premade comment list in string form...just return the old deleted premade comment list in this case.
+					returnValue = convertPremadeCommentListToJSON(premadeCommentListToDelete).toString();
+				}
 			} else {
 				//error
 			}
