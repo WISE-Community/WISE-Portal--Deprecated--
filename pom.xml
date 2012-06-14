@@ -355,24 +355,24 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-acl</artifactId>
-			<version>3.1.0.RELEASE</version>
+			<version>${org.springframework.security.version}</version>
 		</dependency>		
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-			<version>3.1.0.RELEASE</version>
+			<version>${org.springframework.security.version}</version>
 		</dependency>	
 		<dependency>
         	<groupId>org.springframework.security</groupId>
 	        <artifactId>spring-security-config</artifactId>
-    	    <version>3.1.0.RELEASE</version>
+    	    <version>${org.springframework.security.version}</version>
 	    </dependency>
 		<!--
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 			<classifier>tests</classifier>
-			<version>3.1.0.RELEASE</version>
+			<version>${org.springframework.security.version}</version>
 		</dependency>		
 		-->
 		<dependency>
@@ -383,7 +383,7 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
-			<version>3.1.0.RELEASE</version>
+			<version>${org.springframework.security.version}</version>
 		</dependency>		
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -571,6 +571,7 @@
 	</reporting>
 	<properties>
 	    <org.springframework.version>3.0.5.RELEASE</org.springframework.version>
+	    <org.springframework.security.version>3.1.0.RELEASE</org.springframework.security.version>
 		<startup.listeners> </startup.listeners>
 	</properties>
 </project>
