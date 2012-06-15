@@ -1289,6 +1289,12 @@
 		<property name="projectService" ref="projectService"/>
 	</bean>
 	
+	<bean id="analyzeProjectController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.AnalyzeProjectController">
+		<property name="projectService" ref="projectService"/>
+		<property name="portalProperties" ref="portalproperties" />
+	</bean>
+	
 	    <bean id="pollInstantPollController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.PollInstantPollController">
     	<property name="brainstormService" ref="brainstormService"/>
