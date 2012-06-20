@@ -927,6 +927,9 @@ public class AuthorProjectController extends AbstractController {
 		
 		//get the url to make CRater requests
     	String deleteProjectUrl = portalUrl + "/webapp/deleteproject.html";
+    	
+    	//get the url to make analyze project requests
+    	String analyzeProjectUrl = portalUrl + "/webapp/analyzeproject.html";
 		
 		//create a JSONObject to contain the config params
 		JSONObject config = new JSONObject();
@@ -948,6 +951,7 @@ public class AuthorProjectController extends AbstractController {
 			config.put("cRaterRequestUrl", cRaterRequestUrl);
 			config.put("locale", request.getLocale());
 			config.put("deleteProjectUrl", deleteProjectUrl);
+			config.put("analyzeProjectUrl", analyzeProjectUrl);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

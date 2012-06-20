@@ -525,6 +525,9 @@ public class AnalyzeProjectController extends AbstractController {
 				
 				//loop through the content to find matches
 				while(matcher.find()) {
+					//used for project assets to remember the relative path reference e.g. assets/sunlight.jpg
+					String originalAssetPath = null;
+					
 					//will contain the path to the asset that is referenced in the step
 					String assetPath = null;
 					
@@ -551,14 +554,15 @@ public class AnalyzeProjectController extends AbstractController {
 
 						if(group != null) {
 							//get the asset path
-							assetPath = group;
+							originalAssetPath = group;
 						}
 					}
 					
-					if(assetPath == null) {
+					if(originalAssetPath == null) {
 						//nothing was captured in the regular expression
-					} else if(assetPath.startsWith("http")) {
+					} else if(originalAssetPath.startsWith("http")) {
 						//this is a reference to an asset on the web
+						assetPath = originalAssetPath;
 					} else {
 						/*
 						 * this is a reference to something in the project folder so
@@ -570,7 +574,7 @@ public class AnalyzeProjectController extends AbstractController {
 						 * after
 						 * http://wise4.berkeley.edu/curriculum/123/assets/sunlight.jpg
 						 */
-						assetPath = projectFolderWebPath + "/" + assetPath;
+						assetPath = projectFolderWebPath + "/" + originalAssetPath;
 					}
 					
 					try {
@@ -597,7 +601,7 @@ public class AnalyzeProjectController extends AbstractController {
 								 * the response code is not 200 so we were unable to retrieve the path.
 								 * we will add it to our array of broken links
 								 */
-								brokenLinks.put(assetPath);
+								brokenLinks.put(originalAssetPath);
 							}
 						}
 					} catch (MalformedURLException e) {
@@ -714,7 +718,7 @@ public class AnalyzeProjectController extends AbstractController {
 				//get a project result
 				JSONObject projectResult = projectResults.getJSONObject(x);
 				
-				if(html.toString() != null && !html.toString().equals("")) {
+				if(x != 0) {
 					//add a horizontal line if this is not the first project result
 					html.append("<hr>");
 				}
@@ -730,26 +734,30 @@ public class AnalyzeProjectController extends AbstractController {
 				//get the steps in the project that have broken links
 				JSONArray steps = projectResult.getJSONArray("steps");
 				
-				//loop through all the steps that have broken links
-				for(int y=0; y<steps.length(); y++) {
-					//get a step
-					JSONObject step = steps.getJSONObject(y);
-					
-					//add the step title
-					String stepTitle = step.getString("stepTitle");
-					html.append(stepTitle + "<br>");
-					
-					//get the broken links
-					JSONArray brokenLinks = step.getJSONArray("brokenLinks");
-					
-					//loop through all the broken links
-					for(int z=0; z<brokenLinks.length(); z++) {
-						//add the broken link
-						String brokenLink = brokenLinks.getString(z);
-						html.append(brokenLink + "<br>");
+				if(steps.length() == 0) {
+					html.append("There are no broken links.");
+				} else {
+					//loop through all the steps that have broken links
+					for(int y=0; y<steps.length(); y++) {
+						//get a step
+						JSONObject step = steps.getJSONObject(y);
+						
+						//add the step title
+						String stepTitle = step.getString("stepTitle");
+						html.append(stepTitle + "<br>");
+						
+						//get the broken links
+						JSONArray brokenLinks = step.getJSONArray("brokenLinks");
+						
+						//loop through all the broken links
+						for(int z=0; z<brokenLinks.length(); z++) {
+							//add the broken link
+							String brokenLink = brokenLinks.getString(z);
+							html.append(brokenLink + "<br>");
+						}
+						
+						html.append("<br>");
 					}
-					
-					html.append("<br>");
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
