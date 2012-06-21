@@ -981,11 +981,11 @@
 													<li><a class="tooltip" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" title="<spring:message code="teacher.manage.library.6a" />" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" />
 														<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="teacher.manage.library.6" /></span></a>&nbsp;|
 													</li>
-													<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
+													<sec:accesscontrollist domainObject="${project}" hasPermission="16">
 														<li><a title="<spring:message code="teacher.manage.library.7a" />" id="shareProject_${project.id}" class="shareProject tooltip" dialog-title="<spring:message code="teacher.manage.library.7" /> ${project.name} (<spring:message code="teacher.manage.library.5" /> ${project.id})"><img class="icon" alt="share" src="/webapp/themes/tels/default/images/icons/teal/agent.png" /><span><spring:message code="teacher.manage.library.8" /></span></a>&nbsp;|</li>
 													</sec:accesscontrollist>
 													<li><a class="tooltip" title="<spring:message code="teacher.manage.library.9a" />" onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" ><img class="icon" alt="copy" src="/webapp/themes/tels/default/images/icons/teal/copy-item.png" /><span><spring:message code="teacher.manage.library.9" /></span></a>&nbsp;|</li>
-													<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
+													<sec:accesscontrollist domainObject="${project}" hasPermission="2">
 														<li><a class="tooltip" title="<spring:message code="teacher.manage.library.10a" />" href="/webapp/author/authorproject.html?projectId=${project.id}"><img class="icon" alt="edit" src="/webapp/themes/tels/default/images/icons/teal/edit.png" /><span><spring:message code="teacher.manage.library.10" /></span></a>&nbsp;|</li>
 													</sec:accesscontrollist>
 													<!-- <li><a style="color:#666;">Archive</a>
@@ -1145,7 +1145,7 @@
 				</c:forEach>
 			</c:when>
 		</c:choose>
-		
+		<!-- shared projects -->
 		<c:choose>
 			<c:when test="${fn:length(sharedProjectsList) > 0}">
 				<c:forEach var="project" items="${sharedProjectsList}">
@@ -1221,13 +1221,14 @@
 												<li><a class="tooltip" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" title="<spring:message code="teacher.manage.library.6a" />" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" />
 													<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="teacher.manage.library.6" /></span></a>&nbsp;|
 												</li>
-												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
+												<sec:accesscontrollist domainObject="${project}" hasPermission="16">
 													<li><a title="<spring:message code="teacher.manage.library.7a" />" id="shareProject_${project.id}" class="shareProject tooltip" dialog-title="<spring:message code="teacher.manage.library.7" /> ${project.name} (<spring:message code="teacher.manage.library.5" /> ${project.id})"><img class="icon" alt="share" src="/webapp/themes/tels/default/images/icons/teal/agent.png" /><span><spring:message code="teacher.manage.library.8" /></span></a>&nbsp;|</li>
 												</sec:accesscontrollist>
 												<li><a class="tooltip" title="<spring:message code="teacher.manage.library.9a" />" onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" ><img class="icon" alt="copy" src="/webapp/themes/tels/default/images/icons/teal/copy-item.png" /><span><spring:message code="teacher.manage.library.9" /></span></a>&nbsp;|</li>
-												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
+												<sec:accesscontrollist domainObject="${project}" hasPermission="2">
 													<li><a class="tooltip" title="<spring:message code="teacher.manage.library.10a" />" href="/webapp/author/authorproject.html?projectId=${project.id}"><img class="icon" alt="edit" src="/webapp/themes/tels/default/images/icons/teal/edit.png" /><span><spring:message code="teacher.manage.library.10" /></span></a>&nbsp;|</li>
 												</sec:accesscontrollist>
+												
 												<!-- <li><a style="color:#666;">Archive</a>
 												<input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
 												<li><a class="setupRun tooltip" title="<spring:message code="teacher.manage.library.11a" />" href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>"><img class="icon" alt="new run" src="/webapp/themes/tels/default/images/icons/teal/computer.png" />
@@ -1429,11 +1430,11 @@
 												<li><a class="tooltip" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" title="<spring:message code="teacher.manage.library.6a" />" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" />
 													<span style="font-weight:bold;"><spring:message code="teacher.manage.library.6" /></span></a>&nbsp;|
 												</li>
-												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
+												<sec:accesscontrollist domainObject="${project}" hasPermission="16">
 													<li><a title="<spring:message code="teacher.manage.library.7a" />" id="shareProject_${project.id}" class="shareProject tooltip" dialog-title="<spring:message code="teacher.manage.library.7" /> ${project.name} (<spring:message code="teacher.manage.library.5" /> ${project.id})"><img class="icon" alt="share" src="/webapp/themes/tels/default/images/icons/teal/agent.png" /><span><spring:message code="teacher.manage.library.8" /></span></a>&nbsp;|</li>
 												</sec:accesscontrollist>
 												<li><a class="tooltip" title="<spring:message code="teacher.manage.library.9a" />" onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" ><img class="icon" alt="copy" src="/webapp/themes/tels/default/images/icons/teal/copy-item.png" /><span><spring:message code="teacher.manage.library.9" /></span></a>&nbsp;|</li>
-												<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">
+												<sec:accesscontrollist domainObject="${project}" hasPermission="2">
 													<li><a class="tooltip" title="<spring:message code="teacher.manage.library.10a" />" href="/webapp/author/authorproject.html?projectId=${project.id}"><img class="icon" alt="edit" src="/webapp/themes/tels/default/images/icons/teal/edit.png" /><span><spring:message code="teacher.manage.library.10" /></span></a>&nbsp;|</li>
 												</sec:accesscontrollist>
 												<!-- <li><a style="color:#666;">Archive</a>
