@@ -1040,7 +1040,7 @@ public class AnalyzeProjectController extends AbstractController {
 				
 				if(activeStepsResults.length() == 0 && inactiveStepResults.length() == 0) {
 					//there were no broken links
-					html.append("There are no broken links.");
+					html.append("There are no broken links");
 				}
 				
 			} catch (JSONException e) {
@@ -1080,6 +1080,9 @@ public class AnalyzeProjectController extends AbstractController {
 				//get the project name and id
 				String projectName = projectResult.getString("projectName");
 				long projectId = projectResult.getLong("projectId");
+				
+				//boolean value to check if all assets are being used
+				boolean allAssetsUsed = true;
 				
 				//display the project name and id
 				html.append("Project Name: " + projectName + "<br>");
@@ -1130,9 +1133,17 @@ public class AnalyzeProjectController extends AbstractController {
 					if(activeStepsUsedIn.length() == 0 && inactiveStepsUsedIn.length() == 0) {
 						//this asset was not used in any steps
 						html.append("Not Used<br>");
+						
+						//this asset was not used so there is at least one asset that is not used
+						allAssetsUsed = false;
 					}
 					
 					html.append("<br>");
+				}
+				
+				if(allAssetsUsed) {
+					//all the assets are being used
+					html.append("All Assets Used<br>");
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
