@@ -20,6 +20,7 @@
  * - tooltip-offset: 'XX' sets as the offset of the tooltip element to XX pixels (default is '0')
  */
 insertTooltips = function(options,target){
+	
 	function processElement(item,options){
 		// set miniTip default options
 		var settings = {
@@ -31,7 +32,9 @@ insertTooltips = function(options,target){
 			fadeIn:10,
 			fadOut:10,
 			delay:100,
-			show: function(){}
+			show: function(){
+				$('#miniTip').width('auto');
+			}
 		};
 		if(options != null && typeof options == 'object'){
 			// miniTip options have been sent in as a parameter, so merge with defaults
@@ -85,9 +88,13 @@ insertTooltips = function(options,target){
 	
 	// for all DOM elements with the 'tooltip' class, initialize miniTip
 	if(target){
-		$('.tooltip',target).each(function(){
-			processElement($(this),options);
-		});
+		if(target.hasClass('tooltip')){
+			processElement(target,options);
+		} else {
+			$('.tooltip',target).each(function(){
+				processElement($(this),options);
+			});
+		}
 	} else {
 		$('.tooltip').each(function(){
 			processElement($(this),options);
@@ -147,3 +154,44 @@ function prepareInputsForHints() {
   }
 }
 addLoadEvent(prepareInputsForHints);
+
+
+// Added my MattFish to handle special Pop-Up Windows on Teacher Dashboard pages //
+
+function popupSpecial(mylink, windowname)
+		{
+		if (! window.focus)return true;
+		var href;
+		if (typeof(mylink) == 'string')
+		   href=mylink;
+		else
+		   href=mylink.href;
+		window.open(href, windowname, 'width=850,height=600,resizable=yes,scrollbars=yes');
+		return false;
+		}
+		
+
+function popup640(mylink, windowname)
+		{
+		if (! window.focus)return true;
+		var href;
+		if (typeof(mylink) == 'string')
+		   href=mylink;
+		else
+		   href=mylink.href;
+		window.open(href, windowname, 'width=640,height=480,resizable=yes,scrollbars=yes');
+		return false;
+		}
+		
+function popup300(mylink, windowname)
+		{
+		if (! window.focus)return true;
+		var href;
+		if (typeof(mylink) == 'string')
+		   href=mylink;
+		else
+		   href=mylink.href;
+		window.open(href, windowname, 'width=300,height=300,resizable=yes,scrollbars=yes');
+		return false;
+		}
+		
