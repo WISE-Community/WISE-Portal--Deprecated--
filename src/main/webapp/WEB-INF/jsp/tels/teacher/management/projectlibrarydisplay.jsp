@@ -881,6 +881,21 @@
 			});
 		}
 	};
+	
+	function unshareFromProject(projectId,projectName) {
+		var unshareConfirmed = confirm('<spring:message code="teacher.manage.library.unshare.confirm"/>\n\n'+projectName+' (Project ID: '+projectId +')?');
+		if (unshareConfirmed) {
+			$.ajax({
+				url:"/webapp/teacher/projects/customized/unshareproject.html",
+				type:"POST",
+				data:{"projectId":projectId},
+				success:function() {
+					alert("You have been successfully unshared from the project.");
+					$("#projectRow_"+projectId).remove();					
+				}
+			});
+		}
+	};
 </script>
 
 <table id="myProjects" class="projectTable">
@@ -1249,6 +1264,7 @@
 													<c:out value="${projectowner.userDetails.firstname}" />
 						  							<c:out value="${projectowner.userDetails.lastname}" />
 												</c:forEach>
+												<a onclick="unshareFromProject('${project.id}','${project.name}')"><spring:message code="teacher.manage.library.unshare.linkText" /></a>
 											</c:if>
 											</div>
 											<div class="basicInfo">

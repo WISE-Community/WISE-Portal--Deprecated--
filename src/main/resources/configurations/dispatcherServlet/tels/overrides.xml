@@ -152,7 +152,9 @@
     		    /teacher/projects/projectinfo.html=projectInfoController
     		    /teacher/projects/customized/index.html=customizedIndexController
     		    /teacher/projects/customized/shareproject.html=shareProjectController
+    		    /teacher/projects/customized/unshareproject.html=unShareProjectController
     		    /teacher/run/shareprojectrun.html=shareProjectRunController
+    		    /teacher/run/unshareprojectrun.html=unShareProjectRunController
     		    /teacher/run/myprojectruns.html=myProjectRunsMainController
     		    /teacher/run/projectruntabs.html=myProjectRunsController
     		    /teacher/run/myarchivedruns.html=myArchivedRunsController

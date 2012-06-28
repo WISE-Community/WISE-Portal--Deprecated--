@@ -339,6 +339,20 @@
 		$("#projectDetailDialog > #projectIfrm").attr('src',path);
 	});
 	
+	function unshareFromRun(runId,runName) {
+		var unshareConfirmed = confirm('<spring:message code="teacher.run.myprojectruns.70"/>\n\n'+runName+' (Run ID: '+runId +')?');
+		if (unshareConfirmed) {
+			$.ajax({
+				url:"/webapp/teacher/run/unshareprojectrun.html",
+				type:"POST",
+				data:{"runId":runId},
+				success:function() {
+					alert("You have been successfully unshared from the run.");
+					$("#runTitleRow_"+runId).remove();					
+				}
+			});
+		}
+	};
  </script>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -350,16 +364,14 @@
     	<li><a href="#archivedRuns"><spring:message code="teacher.run.myprojectruns.1B"/>  (${fn:length(ended_run_list)})</a></li>
     </ul>
     <div id="currentRuns">
-		
 		<c:choose>
 			<c:when test="${fn:length(current_run_list) > 0}">
 				<p class="info"><spring:message code="teacher.run.myprojectruns.2" /></p>
 				<div class="runBox">
-					
 					<table id="currentRunTable" class="runTable" border="1" cellpadding="0" cellspacing="0">
 						<thead>
 						    <tr>
-						       <th style="width:220px;"class="tableHeaderMain runHeader"><spring:message code="teacher.run.myprojectruns.3"/></th>
+						       <th style="width:220px;" class="tableHeaderMain runHeader"><spring:message code="teacher.run.myprojectruns.3" /></th>
 						       <th style="width:155px;" class="tableHeaderMain studentHeader"><spring:message code="teacher.run.myprojectruns.4" /></th>      
 						       <th style="width:285px;" class="tableHeaderMain toolsHeader"><spring:message code="teacher.run.myprojectruns.5" /></th>
 						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58A" /></th>
@@ -379,6 +391,7 @@
 							    		<c:set var="ownership" value="owned" />
 										<c:forEach var="sharedowner" items="${run.sharedowners}">
 								    	    <c:if test="${sharedowner == user}">
+								    	    	<!-- the project run is shared with the logged-in user. -->
 								    	    	<c:set var="ownership" value="shared" />
 								    	    	<div class="sharedIcon">
 									    	    	<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" /> <spring:message code="teacher.run.myprojectruns.6"/>
@@ -386,6 +399,8 @@
 									    	    		${owner.userDetails.firstname} ${owner.userDetails.lastname}
 									    	    	</c:forEach>
 								    	    	</div>
+								    	    	<!-- let the user unshare themself from the run. -->
+								    	    	<a onClick="unshareFromRun('${run.id}','${run.name}');"><spring:message code="teacher.run.myprojectruns.69"/></a>
 								    	    </c:if>
 								    	</c:forEach>
 							     
@@ -575,6 +590,7 @@
 										    	    	<c:forEach var="owner" items="${run.owners}">
 										    	    		${owner.userDetails.firstname} ${owner.userDetails.lastname}
 										    	    	</c:forEach>
+										    	    	muahah
 								    	    	</div></c:if>
 								    	</c:forEach>
 							     

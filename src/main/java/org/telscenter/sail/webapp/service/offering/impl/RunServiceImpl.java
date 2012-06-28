@@ -322,10 +322,15 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		if (run.getSharedowners().contains(user)) {
 			run.getSharedowners().remove(user);
 			this.runDao.save(run);
-			List<Permission> permissions = this.aclService.getPermissions(run, user);
-			for (Permission permission : permissions) {
-				this.aclService.removePermission(run, permission, user);
+			try {
+				List<Permission> permissions = this.aclService.getPermissions(run, user);
+				for (Permission permission : permissions) {
+					this.aclService.removePermission(run, permission, user);
+				}
+			} catch (Exception e) {
+				// do nothing. permissions might get be deleted if user requesting the deletion is not the owner of the run.
 			}
+			
 		}
 	}
 	

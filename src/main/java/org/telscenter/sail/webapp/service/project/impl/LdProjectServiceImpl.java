@@ -148,9 +148,13 @@ public class LdProjectServiceImpl implements ProjectService {
 		if (project.getSharedowners().contains(user)) {
 			project.getSharedowners().remove(user);
 			this.projectDao.save(project);
-			List<Permission> permissions = this.aclService.getPermissions(project, user);
-			for (Permission permission : permissions) {
-				this.aclService.removePermission(project, permission, user);
+			try {
+				List<Permission> permissions = this.aclService.getPermissions(project, user);
+				for (Permission permission : permissions) {
+					this.aclService.removePermission(project, permission, user);
+				}
+			} catch (Exception e) {
+				// do nothing. permissions might get be deleted if user requesting the deletion is not the owner of the project.
 			}
 		}
 	}
