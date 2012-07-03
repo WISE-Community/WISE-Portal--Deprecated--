@@ -313,6 +313,13 @@ public interface ProjectService {
 	public void sortProjectsByDateCreated(List<Project> projectList);
 	
 	/**
+	 * Sorts the given <code>List<Project></code> list of projects by the date they were last edited.
+	 * 
+	 * @param projectList
+	 */
+	public void sortProjectsByLastEdited(List<Project> projectList);
+	
+	/**
 	 * Given a <code>String</code> tag name, returns a <code>List<Project></code>
 	 * list of projects with that tag.
 	 * 

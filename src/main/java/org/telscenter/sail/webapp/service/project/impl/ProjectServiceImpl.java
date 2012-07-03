@@ -334,6 +334,28 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		
 	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#sortProjectsByLastEdited(java.util.List)
+	 */
+	public void sortProjectsByLastEdited(List<Project> projectList){
+		Collections.sort(projectList, new ProjectComparatorByLastEdited());
+	}
+	
+	/**
+	 * Helper class for sorting projects by last edited.
+	 * 
+	 * @author jonathan lim-breitbart
+	 * @version $Id$
+	 */
+	private class ProjectComparatorByLastEdited implements Comparator<Project> {
+
+		public int compare(Project p1, Project p2) {
+			if (p1.getMetadata().getLastEdited() == null || p2.getMetadata().getLastEdited() == null)
+		        return 0;
+			return -p1.getMetadata().getLastEdited().compareTo(p2.getMetadata().getLastEdited());
+		}
+	}
 
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#addTagToProject(java.lang.String, org.telscenter.sail.webapp.domain.project.Project)
