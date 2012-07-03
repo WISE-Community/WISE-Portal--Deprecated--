@@ -179,7 +179,7 @@
 					</div>
 					<div id="socialLinks">
 						<a href="http://www.facebook.com/pages/WISE-4/150541171679054" title="Find us on Facebook"><img src="/webapp/themes/tels/default/images/home/facebook.png" alt="facebook" /></a>
-						<a href="" title="Follow us on Twitter" ><img src="/webapp/themes/tels/default/images/home/twitter.png" alt="twitter" /></a>
+						<a href="https://twitter.com/#!/WISETELS" title="Follow us on Twitter" ><img src="/webapp/themes/tels/default/images/home/twitter.png" alt="twitter" /></a>
 					</div>
 				</div>
 			</div>
