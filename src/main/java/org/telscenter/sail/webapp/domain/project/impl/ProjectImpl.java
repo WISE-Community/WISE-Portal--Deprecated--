@@ -207,7 +207,7 @@ public class ProjectImpl implements Project {
     private Project parentProject;
     
     @Transient
-    private Long rootProjectId;
+    private Long rootProjectId = null;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

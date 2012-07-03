@@ -56,6 +56,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
@@ -69,6 +70,8 @@ import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.presentation.util.http.Connector;
+import org.telscenter.sail.webapp.presentation.util.json.JSONException;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
@@ -247,7 +250,53 @@ public class LdProjectServiceImpl implements ProjectService {
 		project.setName(projectParameters.getProjectname());
 		project.setOwners(projectParameters.getOwners());
 		project.setProjectType(projectParameters.getProjectType());
-		project.setMetadata(projectParameters.getMetadata());
+		ProjectMetadata metadata = projectParameters.getMetadata();
+		
+		// set original author (if not sent in as a parameter)
+		JSONObject metaJSON = new JSONObject(metadata);
+		if(metaJSON.has("author")){
+			try {
+				String author = metaJSON.getString("author");
+				if(author == null || author.equals("null") || author.equals("")){
+					JSONObject authorJSON = new JSONObject();
+					
+					// set root id for project (if not already set)
+					Long rootId = project.getRootProjectId();
+					if(rootId == null){
+						try {
+							rootId = this.identifyRootProjectId(project);
+							project.setRootProjectId(rootId);
+						} catch (ObjectNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					try {
+						Project rootP = this.getById(rootId);
+						Set<User> owners = rootP.getOwners();
+						for(User owner : owners){
+							MutableUserDetails ownerDetails = (MutableUserDetails)owner.getUserDetails();
+							try {
+								authorJSON.put("username", ownerDetails.getUsername());
+								authorJSON.put("fullname", ownerDetails.getFirstname() + " " + ownerDetails.getLastname());
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+						metadata.setAuthor(authorJSON.toString());
+					} catch (ObjectNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		project.setMetadata(metadata);
 		//TODO -- isCurrent being set here may need to be removed
 		project.setFamilytag(FamilyTag.TELS);
 		project.setCurrent(true);

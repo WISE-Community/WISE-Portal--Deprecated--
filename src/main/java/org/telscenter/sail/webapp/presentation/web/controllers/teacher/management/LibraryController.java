@@ -87,8 +87,10 @@ public class LibraryController extends AbstractController {
 		// set root project ids, remove duplicates
 		List<Project> ownedRemove = new ArrayList<Project>();
 		for (int i = 0; i < ownedProjectsList.size(); i++) {
-			Long rootId = this.projectService.identifyRootProjectId(ownedProjectsList.get(i));
-			ownedProjectsList.get(i).setRootProjectId(rootId);
+			if(ownedProjectsList.get(i).getRootProjectId() == null){
+				Long rootId = this.projectService.identifyRootProjectId(ownedProjectsList.get(i));
+				ownedProjectsList.get(i).setRootProjectId(rootId);
+			}
 			Long id = (Long)ownedProjectsList.get(i).getId();
 			projectIds.add(id);
 			
