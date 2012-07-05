@@ -77,6 +77,16 @@ public interface PremadeCommentService {
 		throws ObjectNotFoundException;
 	
 	/**
+	 * Updates the labels in a PremadeComment
+	 * @param premadeCommentId the id of the premade comment
+	 * @param labels the labels
+	 * @return
+	 * @throws ObjectNotFoundException
+	 */
+	public PremadeComment updatePremadeCommentLabels (Long premadeCommentId, String labels)
+		throws ObjectNotFoundException;
+	
+	/**
 	 * Retrieves all PremadeComments from the data store.
 	 * 
 	 * @return a Set<PremadeComment>

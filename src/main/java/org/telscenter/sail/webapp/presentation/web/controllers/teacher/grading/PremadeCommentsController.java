@@ -121,6 +121,13 @@ public class PremadeCommentsController extends AbstractController {
 				//if the value is null or 'null' set it to empty string
 				premadeComment = "";
 			}
+			
+			//get the premade comment text
+			String premadeCommentLabels = request.getParameter("premadeCommentLabels");
+			if(premadeCommentLabels == null || (premadeCommentLabels != null && premadeCommentLabels.equals("null"))) {
+				//if the value is null or 'null' set it to empty string
+				premadeCommentLabels = "";
+			}
 
 			//the default isGlobal value
 			boolean isGlobal = false;
@@ -321,6 +328,22 @@ public class PremadeCommentsController extends AbstractController {
 					
 					//get the JSON value of the premade comment list in string form...just return the old deleted premade comment list in this case.
 					returnValue = convertPremadeCommentListToJSON(premadeCommentListToDelete).toString();
+				}
+			} else if(premadeCommentAction.equals("editCommentLabels")) {
+				//modify a comment's labels
+
+				if(premadeCommentId != null) {
+					//retrieve the premade comment we are editing
+					PremadeComment premadeCommentToUpdate = premadeCommentService.retrievePremadeCommentById(new Long(premadeCommentId));
+
+					//make sure the signed in user is the owner of the premade comment
+					if(signedInUser.equals(premadeCommentToUpdate.getOwner())) {
+						//update the premade comment labels
+						PremadeComment updatedPremadeComment = premadeCommentService.updatePremadeCommentLabels(new Long(premadeCommentId), premadeCommentLabels);
+
+						//get the JSON value of the premade comment in string form
+						returnValue = convertPremadeCommentToJSON(updatedPremadeComment).toString();
+					}
 				}
 			} else {
 				//error
@@ -551,12 +574,14 @@ public class PremadeCommentsController extends AbstractController {
 			User premadeCommentOwner = premadeComment.getOwner();
 			String premadeCommentOwnerUsername = getUsernameFromUser(premadeCommentOwner);
 			Long premadeCommentListPosition = premadeComment.getListPosition();
+			String labels = premadeComment.getLabels();
 
 			//put the attributes into the JSON object
 			premadeCommentJSON.put("id", premadeCommentId);
 			premadeCommentJSON.put("comment", premadeCommentComment);
 			premadeCommentJSON.put("owner", premadeCommentOwnerUsername);
 			premadeCommentJSON.put("listPosition", premadeCommentListPosition);
+			premadeCommentJSON.put("labels", labels);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

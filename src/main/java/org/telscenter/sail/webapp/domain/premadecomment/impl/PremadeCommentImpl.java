@@ -71,6 +71,9 @@ public class PremadeCommentImpl implements PremadeComment, Comparable<PremadeCom
     public static final String COLUMN_NAME_LISTPOSITION = "listposition";
     
     @Transient
+    public static final String COLUMN_NAME_LABELS = "labels";
+    
+    @Transient
     public static final long serialVersionUID = 1L;
     
     @Column(name = PremadeCommentImpl.COLUMN_NAME_COMMENT, nullable = false)
@@ -82,6 +85,9 @@ public class PremadeCommentImpl implements PremadeComment, Comparable<PremadeCom
     
     @Column(name = PremadeCommentImpl.COLUMN_NAME_LISTPOSITION, nullable = true)
     private Long listPosition = null;
+    
+    @Column(name = PremadeCommentImpl.COLUMN_NAME_LABELS, nullable = true)
+    private String labels;
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -135,6 +141,14 @@ public class PremadeCommentImpl implements PremadeComment, Comparable<PremadeCom
 
 	public void setListPosition(Long listPosition) {
 		this.listPosition = listPosition;
+	}
+	
+	public String getLabels() {
+		return labels;
+	}
+
+	public void setLabels(String labels) {
+		this.labels = labels;
 	}
 	
 	public int compareTo(PremadeComment o) {

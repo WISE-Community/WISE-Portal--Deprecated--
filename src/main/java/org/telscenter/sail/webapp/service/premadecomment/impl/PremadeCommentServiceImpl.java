@@ -45,7 +45,7 @@ import org.telscenter.sail.webapp.service.premadecomment.PremadeCommentService;
  * @author patrick lawler
  *
  */
-public class PremadeCommentServiceImpl implements PremadeCommentService{
+public class PremadeCommentServiceImpl implements PremadeCommentService {
 	
 	private PremadeCommentDao<PremadeComment> premadeCommentDao;
 	
@@ -90,6 +90,19 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		try{
 			PremadeComment premadeComment = premadeCommentDao.getById(premadeCommentId);
 			premadeComment.setListPosition(listPosition);
+			premadeCommentDao.save(premadeComment);
+			return premadeComment;
+		} catch (ObjectNotFoundException e){
+			throw e;
+		}
+	}
+	
+	@Transactional()
+	public PremadeComment updatePremadeCommentLabels (Long premadeCommentId, String labels)
+		throws ObjectNotFoundException{
+		try{
+			PremadeComment premadeComment = premadeCommentDao.getById(premadeCommentId);
+			premadeComment.setLabels(labels);
 			premadeCommentDao.save(premadeComment);
 			return premadeComment;
 		} catch (ObjectNotFoundException e){

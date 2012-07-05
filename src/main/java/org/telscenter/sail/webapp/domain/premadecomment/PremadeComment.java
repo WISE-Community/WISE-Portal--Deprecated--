@@ -51,4 +51,8 @@ public interface PremadeComment {
     public Long getListPosition();
 
 	public void setListPosition(Long listPosition);
+	
+	public String getLabels();
+
+	public void setLabels(String labels);
 }
