@@ -427,7 +427,7 @@ public class AnalyzeProjectController extends AbstractController {
 						String nodeContent = nodeIdToNodeContent.get(activeNodeId);
 						
 						//check if the file name exists in the content
-						if(nodeContent.contains(assetFileName)) {
+						if(nodeContent != null && nodeContent.contains(assetFileName)) {
 							//the file name exists in the content
 							
 							//get the step title
@@ -452,7 +452,7 @@ public class AnalyzeProjectController extends AbstractController {
 						String nodeContent = nodeIdToNodeContent.get(inactiveNodeId);
 						
 						//check if the file name exists in the content
-						if(nodeContent.contains(assetFileName)) {
+						if(nodeContent != null && nodeContent.contains(assetFileName)) {
 							//the file name exists in the content
 							
 							//get the step title
@@ -837,32 +837,34 @@ public class AnalyzeProjectController extends AbstractController {
 					assetPath = projectFolderWebPath + "/" + originalAssetPath;
 				}
 				
+				//the default initialization value for the response code
+				int responseCode = -1;
+
 				try {
 					//try to access the path and get the response code
-					int responseCode = getResponseCode(assetPath);
-					
-					if(responseCode != 200) {
-						//response code is not 200 so we were unable to retrieve the path
-						
+					responseCode = getResponseCode(assetPath);
+
+					if(responseCode == 301) {
 						/*
-						 * if the path begins with http://wise.berkeley.edu we will now try
-						 * https://wise.berkeley.edu
+						 * path responded with a redirect so we will retrieve 
+						 * the redirect path and try accessing that path
 						 */
-						if(assetPath.startsWith("http://wise.berkeley.edu/")) {
-							//add the s
-							String secureAssetPath = assetPath.replaceFirst("http", "https");
-							
-							//try to access the new path
-							responseCode = getResponseCode(secureAssetPath);
-						}
+						String redirectLocation = getRedirectLocation(assetPath);
 						
-						if(responseCode != 200) {
-							/*
-							 * the response code is not 200 so we were unable to retrieve the path.
-							 * we will add it to our array of broken links
-							 */
-							brokenLinks.put(originalAssetPath);
-						}
+						//get the response code for the redirect path
+						responseCode = getResponseCode(redirectLocation);
+					} else if(responseCode == 505) {
+						/*
+						 * sometimes a 505 is caused by a space in the url so we will
+						 * try to make the request with " " replaced with "%20" because
+						 * the browser usually performs this replacement automatically
+						 * when making requests unlike the Java HttpURLConnection which
+						 * does not do this automatically.
+						 */
+						assetPath = assetPath.replaceAll(" " , "%20");
+						
+						//get the response code for the redirect path
+						responseCode = getResponseCode(assetPath);
 					}
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
@@ -870,6 +872,14 @@ public class AnalyzeProjectController extends AbstractController {
 					e.printStackTrace();
 				} catch (Exception e) {
 					e.printStackTrace();
+				}
+
+				if(responseCode != 200) {
+					/*
+					 * the response code is not 200 so we were unable to retrieve the path.
+					 * we will add it to our array of broken links
+					 */
+					brokenLinks.put(originalAssetPath);
 				}
 			}
 		}
@@ -897,6 +907,28 @@ public class AnalyzeProjectController extends AbstractController {
 		int responseCode = conn.getResponseCode();
 		
 		return responseCode;
+	}
+	
+	/**
+	 * Get the redirect location for the URL
+	 * @param urlString the url as a string
+	 * @return the redirect location
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 */
+	private static String getRedirectLocation(String urlString) throws MalformedURLException, IOException {
+		//create the URL object
+		URL url = new URL(urlString);
+		
+		//create a connection to the url
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.connect();
+		
+		//get the redirect location
+		String redirectLocation = conn.getHeaderField("Location");
+		
+		return redirectLocation;
 	}
 
 	/**
@@ -1004,6 +1036,10 @@ public class AnalyzeProjectController extends AbstractController {
 						for(int z=0; z<brokenLinks.length(); z++) {
 							//add the broken link
 							String brokenLink = brokenLinks.getString(z);
+							
+							//make a link out of the url
+							brokenLink = makeLinkFromUrl(brokenLink, brokenLink);
+							
 							html.append(brokenLink + "<br>");
 						}
 						
@@ -1031,6 +1067,10 @@ public class AnalyzeProjectController extends AbstractController {
 						for(int z=0; z<brokenLinks.length(); z++) {
 							//add the broken link
 							String brokenLink = brokenLinks.getString(z);
+
+							//make a link out of the url
+							brokenLink = makeLinkFromUrl(brokenLink, brokenLink);
+							
 							html.append(brokenLink + "<br>");
 						}
 						
@@ -1107,14 +1147,19 @@ public class AnalyzeProjectController extends AbstractController {
 					
 					if(activeStepsUsedIn.length() > 0) {
 						//this asset was used in an active step
-						html.append("<font color='green'>" + assetFileName + "</font><br>");
+						html.append("<font color='green'>" + assetFileName + "</font>");
 					} else if(inactiveStepsUsedIn.length() > 0) {
 						//this asset was used in an inactive step and not any active steps
-						html.append("<font color='blue'>" + assetFileName + "</font><br>");
+						html.append("<font color='blue'>" + assetFileName + "</font>");
 					} else {
 						//this asset was not used in any step
-						html.append("<font color='red'>" + assetFileName + "</font><br>");
+						html.append("<font color='red'>" + assetFileName + "</font>");
 					}
+					
+					//display a link to view the asset
+					String link = makeLinkFromUrl("assets/" + assetFileName, "view asset");
+					html.append(" (" + link + ")");
+					html.append("<br>");
 					
 					//loop through all the active steps this asset was used in
 					for(int a=0; a<activeStepsUsedIn.length(); a++) {
@@ -1154,6 +1199,33 @@ public class AnalyzeProjectController extends AbstractController {
 		html.append("</body></html>");
 		
 		return html.toString();
+	}
+	
+	/**
+	 * Make an <a href=''></a> link given a url
+	 * @param url the url string
+	 * @param text the text to show in the link
+	 * @return a string containing the <a href=''></a> html
+	 */
+	private String makeLinkFromUrl(String url, String text) {
+		//the result link
+		String link = "";
+		
+		//the href value
+		String href = "";
+		
+		if(url.startsWith("assets")) {
+			//the url is a project asset so we will prepend the project folder web path
+			href = projectFolderWebPath + "/" + url;
+		} else {
+			//the url is an absolute web link so we do not need to modify it
+			href = url;
+		}
+		
+		//create the link
+		link = "<a href='" + href + "' target='_blank'>" + text + "</a>";
+		
+		return link;
 	}
 
 	/**
