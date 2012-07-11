@@ -145,6 +145,18 @@ public class PremadeCommentsController extends AbstractController {
 				premadeCommentListPositions = "";
 			}
 
+			//get the project id if it was passed in
+			String projectIdString = request.getParameter("projectId");
+			Long projectId = null;
+			
+			if(projectIdString != null && !projectIdString.equals("null")) {
+				try {
+					//get the project id as a long value
+					projectId = new Long(projectIdString);	
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
 
 			/*
 			 * this is a security check to see if signed in user is admin since
@@ -293,7 +305,7 @@ public class PremadeCommentsController extends AbstractController {
 				//create a new comment list
 
 				//create the new premade comment list
-				PremadeCommentListParameters premadeCommentListParameters = new PremadeCommentListParameters(premadeCommentListLabel, signedInUser, isGlobal);
+				PremadeCommentListParameters premadeCommentListParameters = new PremadeCommentListParameters(premadeCommentListLabel, signedInUser, isGlobal, projectId);
 				PremadeCommentList premadeCommentList = premadeCommentService.createPremadeCommentList(premadeCommentListParameters);
 
 				//get the JSON value of the premade comment list in string form
@@ -377,11 +389,29 @@ public class PremadeCommentsController extends AbstractController {
 			//get the signed in user
 			User signedInUser = ControllerUtil.getSignedInUser();
 
-			//get all the premade comment lists owned by the signed in user
-			Set<PremadeCommentList> allPremadeCommentListsByUser = premadeCommentService.retrieveAllPremadeCommentListsByUser(signedInUser);
-
+			Set<PremadeCommentList> premadeCommentLists = null;
+			
+			//get the project id if it was passed in
+			String projectIdString = request.getParameter("projectId");
+			Long projectId = null;
+			
+			if(projectIdString != null) {
+				/*
+				 * project id was passed in so we will only retrieve premade
+				 * comments lists for this project id
+				 */
+				projectId = Long.parseLong(projectIdString);
+				premadeCommentLists = premadeCommentService.retrieveAllPremadeCommentListsByProject(projectId);
+			} else {
+				/*
+				 * project id was not passed in so we will retrieve all premade
+				 * comments lists
+				 */
+				premadeCommentLists = premadeCommentService.retrieveAllPremadeCommentListsByUser(signedInUser);
+			}
+			
 			//check if the user has any premade comment lists
-			if(allPremadeCommentListsByUser.size() == 0) {
+			if(premadeCommentLists.size() == 0) {
 				//the user does not have any premade comment lists so we will create one for them
 
 				String premadeCommentListLabel = "";
@@ -391,12 +421,18 @@ public class PremadeCommentsController extends AbstractController {
 					//if the signed in user is admin, we will name the list global
 					premadeCommentListLabel = "Global Premade Comment List";
 				} else {
-					//get the user name of the signed in user
-					String username = getUsernameFromUser(signedInUser);
+					
+					if(projectId == null) {
+						//get the user name of the signed in user
+						String username = getUsernameFromUser(signedInUser);
 
-					if(username != null && !username.equals("")) {
-						//make the premade comment list name
-						premadeCommentListLabel = username + "'s Premade Comment List";
+						if(username != null && !username.equals("")) {
+							//make the premade comment list name
+							premadeCommentListLabel = username + "'s Premade Comment List";
+						}
+					} else {
+						//we are making a list for a project
+						premadeCommentListLabel = "Project " + projectId + " Premade Comment List";
 					}
 				}
 
@@ -406,17 +442,17 @@ public class PremadeCommentsController extends AbstractController {
 				}
 
 				/*
-				 * if the user does not have any premade comment lists we will
+				 * the user does not have any premade comment lists so we will
 				 * create one
 				 */
-				PremadeCommentList newPremadeCommentList = createPremadeCommentList(premadeCommentListLabel, signedInUser, isGlobal);
+				PremadeCommentList newPremadeCommentList = createPremadeCommentList(premadeCommentListLabel, signedInUser, isGlobal, projectId);
 
 				//add the new premade comment list to the set
-				allPremadeCommentListsByUser.add(newPremadeCommentList);
+				premadeCommentLists.add(newPremadeCommentList);
 			}
 
 			//get an iterator for the user premade comment lists
-			Iterator<PremadeCommentList> userPremadeCommentListIterator = allPremadeCommentListsByUser.iterator();
+			Iterator<PremadeCommentList> userPremadeCommentListIterator = premadeCommentLists.iterator();
 
 			//loop through all the user premade comment lists
 			while(userPremadeCommentListIterator.hasNext()) {
@@ -446,7 +482,7 @@ public class PremadeCommentsController extends AbstractController {
 				 * user we do not want to put it into the array again. if it is not owned
 				 * by this user we will put it into the array.
 				 */
-				if(!allPremadeCommentListsByUser.contains(currentPremadeCommentList)) {
+				if(!premadeCommentLists.contains(currentPremadeCommentList)) {
 					//get the JSON version of the list
 					JSONObject currentPremadeCommentListToJSON = convertPremadeCommentListToJSON(currentPremadeCommentList);
 
@@ -471,9 +507,9 @@ public class PremadeCommentsController extends AbstractController {
 	 * @param isGlobal whether the list will be global
 	 * @return the newly created PremadeCommentList
 	 */
-	private PremadeCommentList createPremadeCommentList(String premadeCommentListLabel, User signedInUser, boolean isGlobal) {
+	private PremadeCommentList createPremadeCommentList(String premadeCommentListLabel, User signedInUser, boolean isGlobal, Long projectId) {
 		//create the new premade comment list
-		PremadeCommentListParameters premadeCommentListParameters = new PremadeCommentListParameters(premadeCommentListLabel, signedInUser, isGlobal);
+		PremadeCommentListParameters premadeCommentListParameters = new PremadeCommentListParameters(premadeCommentListLabel, signedInUser, isGlobal, projectId);
 		PremadeCommentList premadeCommentList = premadeCommentService.createPremadeCommentList(premadeCommentListParameters);
 
 		/*
@@ -521,6 +557,7 @@ public class PremadeCommentsController extends AbstractController {
 		String label = premadeCommentList.getLabel();
 		User owner = premadeCommentList.getOwner();
 		String ownerUsername = getUsernameFromUser(owner);
+		Long projectId = premadeCommentList.getProjectId();
 		Set<PremadeComment> premadeComments = premadeCommentList.getPremadeCommentList();
 
 		try {
@@ -528,6 +565,7 @@ public class PremadeCommentsController extends AbstractController {
 			premadeCommentListJSON.put("id", id);
 			premadeCommentListJSON.put("label", label);
 			premadeCommentListJSON.put("owner", ownerUsername);
+			premadeCommentListJSON.put("projectId", projectId);
 
 			//the array to hold all the premade comments that are in the premade comment list
 			JSONArray premadeCommentsJSON = new JSONArray();

@@ -60,5 +60,9 @@ public interface PremadeCommentList extends Comparable {
 	
 	public boolean isGlobal();
 	
+	public Long getProjectId();
+
+	public void setProjectId(Long projectId);
+	
 	public boolean equals(PremadeCommentList premadeCommentList);
 }

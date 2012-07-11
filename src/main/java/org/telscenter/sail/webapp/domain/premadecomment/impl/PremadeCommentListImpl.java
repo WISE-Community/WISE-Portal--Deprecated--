@@ -65,6 +65,9 @@ public class PremadeCommentListImpl implements PremadeCommentList, Comparable {
     public static final String COLUMN_NAME_OWNER = "owner";
     
     @Transient
+    public static final String COLUMN_NAME_PROJECT_ID = "projectId";
+    
+    @Transient
     public static final long serialVersionUID = 1L;
 
 	private static final String PREMADECOMMENTS_JOIN_TABLE = "premadecomments_related_to_premadecommentlists";
@@ -91,6 +94,9 @@ public class PremadeCommentListImpl implements PremadeCommentList, Comparable {
     @Column(name = PremadeCommentImpl.COLUMN_NAME_GLOBAL, nullable=true)
     private boolean global = false;
     
+    @Column(name = COLUMN_NAME_PROJECT_ID, nullable=true)
+    private Long projectId = null;
+
 	/**
 	 * @return the list of Premade Comments
 	 */
@@ -157,6 +163,14 @@ public class PremadeCommentListImpl implements PremadeCommentList, Comparable {
 
 	public boolean isGlobal() {
 		return global;
+	}
+	
+	public Long getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
 	}
 
 	/**

@@ -132,6 +132,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService {
 		premadeCommentList.setOwner(param.getOwner());
 		premadeCommentList.setLabel(param.getLabel());
 		premadeCommentList.setGlobal(param.isGlobal());
+		premadeCommentList.setProjectId(param.getProjectId());
 		premadeCommentList.setPremadeCommentList(param.getList());
 		
 		premadeCommentListDao.save(premadeCommentList);
@@ -222,6 +223,13 @@ public class PremadeCommentServiceImpl implements PremadeCommentService {
 	public Set<PremadeCommentList> retrieveAllPremadeCommentListsByUser(User user){
 		TreeSet<PremadeCommentList> returnSet = new TreeSet<PremadeCommentList>();
 		returnSet.addAll(this.premadeCommentListDao.getListByOwner(user));
+		return returnSet;
+	}
+	
+	@Transactional()
+	public Set<PremadeCommentList> retrieveAllPremadeCommentListsByProject(Long projectId){
+		TreeSet<PremadeCommentList> returnSet = new TreeSet<PremadeCommentList>();
+		returnSet.addAll(this.premadeCommentListDao.getListByProject(projectId));
 		return returnSet;
 	}
 	

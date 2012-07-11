@@ -931,6 +931,12 @@ public class AuthorProjectController extends AbstractController {
     	//get the url to make analyze project requests
     	String analyzeProjectUrl = portalUrl + "/webapp/analyzeproject.html";
 		
+    	//the get url for premade comments
+    	String getPremadeCommentsUrl = portalUrl + "/webapp/teacher/grading/premadeComments.html?action=getData";
+    	
+    	//the post url for premade comments
+    	String postPremadeCommentsUrl = portalUrl + "/webapp/teacher/grading/premadeComments.html?action=postData";
+    	
 		//create a JSONObject to contain the config params
 		JSONObject config = new JSONObject();
 		
@@ -952,6 +958,8 @@ public class AuthorProjectController extends AbstractController {
 			config.put("locale", request.getLocale());
 			config.put("deleteProjectUrl", deleteProjectUrl);
 			config.put("analyzeProjectUrl", analyzeProjectUrl);
+			config.put("getPremadeCommentsUrl", getPremadeCommentsUrl);
+			config.put("postPremadeCommentsUrl", postPremadeCommentsUrl);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

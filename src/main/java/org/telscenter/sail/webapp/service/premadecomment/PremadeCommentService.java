@@ -23,14 +23,15 @@
 package org.telscenter.sail.webapp.service.premadecomment;
 
 import java.util.Set;
+
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.User;
+
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.PremadeCommentListParameters;
 import org.telscenter.sail.webapp.domain.impl.PremadeCommentParameters;
 import org.telscenter.sail.webapp.domain.premadecomment.PremadeComment;
 import org.telscenter.sail.webapp.domain.premadecomment.PremadeCommentList;
-
-import net.sf.sail.webapp.dao.ObjectNotFoundException;
-import net.sf.sail.webapp.domain.User;
 
 /**
  * A service for working with <code>PremadeComment</code>
@@ -163,6 +164,13 @@ public interface PremadeCommentService {
 	 * @return a Set<PremadeCommentList>
 	 */
 	public Set<PremadeCommentList> retrieveAllPremadeCommentListsByUser(User user);
+	
+	/**
+	 * Retrieves all PremadeCommentLists associated with a given project id
+	 * @param projectId
+	 * @return
+	 */
+	public Set<PremadeCommentList> retrieveAllPremadeCommentListsByProject(Long projectId);
 	
 	/**
 	 * Retrieves all PremadeCommentLists associated with a given run.

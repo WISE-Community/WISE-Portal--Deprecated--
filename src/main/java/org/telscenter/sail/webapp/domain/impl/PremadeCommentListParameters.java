@@ -45,19 +45,22 @@ public class PremadeCommentListParameters {
 	private Run run = null;
 	
 	private boolean global = false;
+	
+	private Long projectId = null;
 
 	public PremadeCommentListParameters() {
 		
 	}
 			
 	public PremadeCommentListParameters(String label, User owner) {
-		this(label, owner, false);
+		this(label, owner, false, null);
 	}
 	
-	public PremadeCommentListParameters(String label, User owner, boolean global) {
+	public PremadeCommentListParameters(String label, User owner, boolean global, Long projectId) {
 		this.label = label;
 		this.owner = owner;
 		this.global = global;
+		this.projectId = projectId;
 		this.list = new TreeSet<PremadeComment>();
 	}
 	
@@ -125,5 +128,21 @@ public class PremadeCommentListParameters {
 
 	public boolean isGlobal() {
 		return global;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Long getProjectId() {
+		return projectId;
+	}
+
+	/**
+	 * 
+	 * @param projectId
+	 */
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
 	}
 }
