@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.service.premadecomment.impl;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -57,6 +58,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService {
 		premadeComment.setComment(param.getComment());
 		premadeComment.setOwner(param.getOwner());
 		premadeComment.setListPosition(param.getListPosition());
+		premadeComment.setLabels(param.getLabels());
 		
 		premadeCommentDao.save(premadeComment);
 		return premadeComment;
@@ -282,5 +284,78 @@ public class PremadeCommentServiceImpl implements PremadeCommentService {
 		}		
 		
 		return premadeComment;
+	}
+	
+	/**
+	 * Copy all the premade comment lists for a project into another project
+	 * @param fromProjectId the project id to copy from
+	 * @param toProjectId the project id to set in the new lists
+	 * @param toOwner the owner to set in the new lists
+	 * @see org.telscenter.sail.webapp.service.premadecomment.PremadeCommentService#copyPremadeCommentsFromProject(java.lang.Long, java.lang.Long, net.sf.sail.webapp.domain.User)
+	 */
+	@Transactional()
+	public void copyPremadeCommentsFromProject(Long fromProjectId, Long toProjectId, User toOwner) {
+		if(fromProjectId != null && toProjectId != null) {
+			//get all the premade comment lists for a project
+			Set<PremadeCommentList> premadeCommentListsFromProject = retrieveAllPremadeCommentListsByProject(fromProjectId);
+			
+			Iterator<PremadeCommentList> premadeCommentListsFromProjectIterator = premadeCommentListsFromProject.iterator();
+
+			//loop through all the lists
+			while(premadeCommentListsFromProjectIterator.hasNext()) {
+				//get a list
+				PremadeCommentList fromPremadeCommentList = premadeCommentListsFromProjectIterator.next();
+				
+				//get the list name
+				String fromLabel = fromPremadeCommentList.getLabel();
+				
+				//get the is global value
+				boolean fromIsGlobal = fromPremadeCommentList.isGlobal();
+				
+				/*
+				 * if this a list for a project, it is likely that the list name
+				 * is something like
+				 * "Project 684 Premade Comment List"
+				 * so we will replace the project id with the new project id
+				 * "Project 1033 Premade Comment List"
+				 */
+				String toLabel = fromLabel.replaceAll(fromProjectId.toString(), toProjectId.toString());
+				
+				//create the new list
+				PremadeCommentListParameters toPremadeCommentListParams = new PremadeCommentListParameters(toLabel, toOwner, fromIsGlobal, toProjectId);
+				PremadeCommentList toPremadeCommentList = createPremadeCommentList(toPremadeCommentListParams);
+				
+				//get all the premade comments from the old list
+				Set<PremadeComment> fromPremadeComments = fromPremadeCommentList.getPremadeCommentList();
+				
+				Iterator<PremadeComment> fromPremadeCommentsIterator = fromPremadeComments.iterator();
+				
+				//loop through all the premade comments from the old list
+				while(fromPremadeCommentsIterator.hasNext()) {
+					//get a premade comment
+					PremadeComment fromPremadeComment = fromPremadeCommentsIterator.next();
+					
+					//get the comment
+					String fromComment = fromPremadeComment.getComment();
+					
+					//get the labels
+					String fromLabels = fromPremadeComment.getLabels();
+					
+					//get the position
+					Long fromListPosition = fromPremadeComment.getListPosition();
+					
+					//create the new comment
+					PremadeCommentParameters toPremadeCommentParams = new PremadeCommentParameters(fromComment, toOwner, false, fromListPosition, fromLabels);
+					PremadeComment toPremadeComment = createPremadeComment(toPremadeCommentParams);
+					
+					try {
+						//put the new comment into our new list
+						addPremadeCommentToList(toPremadeCommentList.getId(), toPremadeComment);
+					} catch (ObjectNotFoundException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
 	}
 }

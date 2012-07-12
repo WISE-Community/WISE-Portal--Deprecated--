@@ -34,7 +34,7 @@ public class PremadeCommentParameters {
 	
 	private String comment = null;
 	
-	private String label = null;
+	private String labels = null;
 	
 	private User owner = null;
 	
@@ -49,14 +49,15 @@ public class PremadeCommentParameters {
 	}
 	
 	public PremadeCommentParameters(String comment, User owner) {
-		this(comment, owner, false, 0);
+		this(comment, owner, false, 0, "");
 	}
 	
-	public PremadeCommentParameters(String comment, User owner, boolean global, long listPosition) {
+	public PremadeCommentParameters(String comment, User owner, boolean global, long listPosition, String labels) {
 		this.comment = comment;
 		this.owner = owner;
 		this.global = global;
 		this.listPosition = listPosition;
+		this.labels = labels;
 	}
 	
 	/**
@@ -76,15 +77,15 @@ public class PremadeCommentParameters {
 	/**
 	 * @return the label
 	 */
-	public String getLabel() {
-		return label;
+	public String getLabels() {
+		return labels;
 	}
 
 	/**
 	 * @param label the label to set
 	 */
-	public void setLabel(String label) {
-		this.label = label;
+	public void setLabels(String labels) {
+		this.labels = labels;
 	}
 
 	/**

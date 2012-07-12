@@ -467,4 +467,10 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void sortProjectsByLastEdited(List<Project> projectList) {
+		// TODO Auto-generated method stub
+		
+	}
 }

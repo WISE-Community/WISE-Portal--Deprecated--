@@ -74,6 +74,7 @@ import org.telscenter.sail.webapp.presentation.util.json.JSONException;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.premadecomment.PremadeCommentService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 import org.telscenter.sail.webapp.service.tag.TagService;
 
@@ -103,6 +104,8 @@ public class LdProjectServiceImpl implements ProjectService {
 	private RunService runService;
 	
 	private TagService tagService;
+	
+	private PremadeCommentService premadeCommentService;
 	
 	{
 		PREVIEW_PERIOD_NAMES = new HashSet<String>();
@@ -252,6 +255,15 @@ public class LdProjectServiceImpl implements ProjectService {
 		project.setProjectType(projectParameters.getProjectType());
 		ProjectMetadata metadata = projectParameters.getMetadata();
 		
+		//get the parent project id if any
+		Long parentProjectId = projectParameters.getParentProjectId();
+		Project parentProject = null;
+		
+		if(parentProjectId != null) {
+			//get the parent project
+			parentProject = getById(parentProjectId);
+		}
+		
 		// set original author (if not sent in as a parameter)
 		JSONObject metaJSON = new JSONObject(metadata);
 		if(metaJSON.has("author")){
@@ -264,7 +276,7 @@ public class LdProjectServiceImpl implements ProjectService {
 					Long rootId = project.getRootProjectId();
 					if(rootId == null){
 						try {
-							rootId = this.identifyRootProjectId(project);
+							rootId = this.identifyRootProjectId(parentProject);
 							project.setRootProjectId(rootId);
 						} catch (ObjectNotFoundException e) {
 							// TODO Auto-generated catch block
@@ -272,19 +284,21 @@ public class LdProjectServiceImpl implements ProjectService {
 						}
 					}
 					try {
-						Project rootP = this.getById(rootId);
-						Set<User> owners = rootP.getOwners();
-						for(User owner : owners){
-							MutableUserDetails ownerDetails = (MutableUserDetails)owner.getUserDetails();
-							try {
-								authorJSON.put("username", ownerDetails.getUsername());
-								authorJSON.put("fullname", ownerDetails.getFirstname() + " " + ownerDetails.getLastname());
-							} catch (JSONException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+						if(rootId != null) {
+							Project rootP = this.getById(rootId);
+							Set<User> owners = rootP.getOwners();
+							for(User owner : owners){
+								MutableUserDetails ownerDetails = (MutableUserDetails)owner.getUserDetails();
+								try {
+									authorJSON.put("username", ownerDetails.getUsername());
+									authorJSON.put("fullname", ownerDetails.getFirstname() + " " + ownerDetails.getLastname());
+								} catch (JSONException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 							}
+							metadata.setAuthor(authorJSON.toString());
 						}
-						metadata.setAuthor(authorJSON.toString());
 					} catch (ObjectNotFoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -303,7 +317,16 @@ public class LdProjectServiceImpl implements ProjectService {
 		project.setParentProjectId(projectParameters.getParentProjectId());
 		project.setDateCreated(new Date());
 		this.projectDao.save(project);
-		this.aclService.addPermission(project, BasePermission.ADMINISTRATION);		 
+		this.aclService.addPermission(project, BasePermission.ADMINISTRATION);	
+		
+		if(parentProjectId != null) {
+			Long newProjectId = (Long) project.getId();
+			User signedInUser = ControllerUtil.getSignedInUser();
+			
+			//copy any premade comment lists from the parent project into the new project
+			premadeCommentService.copyPremadeCommentsFromProject(parentProjectId, newProjectId, signedInUser);
+		}
+		
 		return project;
 	}
 
@@ -815,12 +838,30 @@ public class LdProjectServiceImpl implements ProjectService {
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#identifyRootProjectId(java.lang.Long)
 	 */
 	public Long identifyRootProjectId(Project project) throws ObjectNotFoundException {
-		Long parentProjectId = project.getParentProjectId();
-		if(parentProjectId == null || this.projectContainsTag((Long)project.getId(), "library")){
-			return (Long)project.getId();
+		if(project == null) {
+			return null;
 		} else {
-			Project parentProject = this.getById(parentProjectId);
-			return this.identifyRootProjectId(parentProject);
+			Long parentProjectId = project.getParentProjectId();
+			if(parentProjectId == null || this.projectContainsTag((Long)project.getId(), "library")){
+				return (Long)project.getId();
+			} else {
+				Project parentProject = this.getById(parentProjectId);
+				return this.identifyRootProjectId(parentProject);
+			}
 		}
+	}
+
+	@Override
+	public void sortProjectsByLastEdited(List<Project> projectList) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public PremadeCommentService getPremadeCommentService() {
+		return premadeCommentService;
+	}
+
+	public void setPremadeCommentService(PremadeCommentService premadeCommentService) {
+		this.premadeCommentService = premadeCommentService;
 	}
 }

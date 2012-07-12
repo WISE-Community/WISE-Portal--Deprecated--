@@ -201,4 +201,12 @@ public interface PremadeCommentService {
 	 * given id
 	 */
 	public PremadeComment retrievePremadeCommentById(Long id);
+	
+	/**
+	 * Copies all the PremadeCommentLists that are associated with a project id
+	 * @param fromProjectId the project id to copy from
+	 * @param toProjectId the project id to set in all the new PremadeCommentLists
+	 * @param toOwner the owner to set in all the new PremadeCommentLists
+	 */
+	public void copyPremadeCommentsFromProject(Long fromProjectId, Long toProjectId, User toOwner);
 }

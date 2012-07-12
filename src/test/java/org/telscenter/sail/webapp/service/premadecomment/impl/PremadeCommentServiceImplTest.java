@@ -90,7 +90,7 @@ public class PremadeCommentServiceImplTest extends TestCase{
 			list.add(premadeComments[x]);
 			
 			premadeCommentParameters[x] = new PremadeCommentParameters();
-			premadeCommentParameters[x].setLabel(labels[x]);
+			premadeCommentParameters[x].setLabels(labels[x]);
 			premadeCommentParameters[x].setComment(comments[x]);
 			premadeCommentParameters[x].setOwner(owners[x]);
 			premadeCommentParameters[x].setRun(runs[x]);

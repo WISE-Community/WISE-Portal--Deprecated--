@@ -205,8 +205,10 @@ public class PremadeCommentsController extends AbstractController {
 					if(signedInUser.equals(premadeCommentList.getOwner())) {
 						int listSize = premadeCommentList.getPremadeCommentList().size();
 
+						String labels = null;
+						
 						//create a new comment
-						PremadeCommentParameters premadeCommentParameters = new PremadeCommentParameters(premadeComment, signedInUser, isGlobal, listSize + 1); 
+						PremadeCommentParameters premadeCommentParameters = new PremadeCommentParameters(premadeComment, signedInUser, isGlobal, listSize + 1, labels); 
 						PremadeComment newPremadeComment = premadeCommentService.createPremadeComment(premadeCommentParameters);
 
 						//add the new premade comment to the list
@@ -512,11 +514,13 @@ public class PremadeCommentsController extends AbstractController {
 		PremadeCommentListParameters premadeCommentListParameters = new PremadeCommentListParameters(premadeCommentListLabel, signedInUser, isGlobal, projectId);
 		PremadeCommentList premadeCommentList = premadeCommentService.createPremadeCommentList(premadeCommentListParameters);
 
+		String labels = null;
+		
 		/*
 		 * create a new blank premade comment so the list will have one
 		 * premade comment to start out with
 		 */
-		PremadeCommentParameters premadeCommentParameters = new PremadeCommentParameters("", signedInUser, isGlobal, 1);
+		PremadeCommentParameters premadeCommentParameters = new PremadeCommentParameters("", signedInUser, isGlobal, 1, labels);
 		PremadeComment newPremadeComment = premadeCommentService.createPremadeComment(premadeCommentParameters);
 
 		try {

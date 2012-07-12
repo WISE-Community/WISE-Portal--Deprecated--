@@ -269,6 +269,7 @@
         <property name="userService" ref="userService"/>
         <property name="portalProperties" ref="portalproperties" />
         <property name="tagService" ref="tagService"/>
+        <property name="premadeCommentService" ref="premadeCommentService"/>
 	</bean>
  	
     <bean id="diyProjectCommunicatorDao"
