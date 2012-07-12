@@ -141,6 +141,12 @@ public class UserServiceImpl implements UserService {
 	public List<User> retrieveUsersByUsername(String username) {
 		return retrieveByField("username", "like", username, "UserDetails");
 	}
+	
+
+	@Override
+	public List<User> retrieveDisabledUsers() {
+		return this.userDao.retrieveDisabledUsers();
+	}
 
 
 	/**
@@ -303,4 +309,5 @@ public class UserServiceImpl implements UserService {
 	public User retrieveByResetPasswordKey(String resetPasswordKey) {
 		return this.userDao.retrieveByResetPasswordKey(resetPasswordKey);
 	}
+
 }

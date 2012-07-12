@@ -889,6 +889,11 @@
     <bean id="lookupUserParameters"
     	class="org.telscenter.sail.webapp.domain.impl.LookupUserParameters">
     	</bean>
+
+    <bean id="enableDisableUserController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.EnableDisableUserController">
+		<property name="userService" ref="userService" />
+	</bean>
     	
     <bean id="selectWorkgroupController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.SelectWorkgroupController">

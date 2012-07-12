@@ -90,6 +90,14 @@ public interface UserService {
 	public List<User> retrieveUserByEmailAddress(String emailAddress);
 
 	/**
+	 * Retrieve a list of users whose accounts have been disabled
+	 * 
+	 * @param emailAddress
+	 * @return <code>Users</code> whose accounts have been disabled
+	 */
+	public List<User> retrieveDisabledUsers();
+	
+	/**
 	 * Encodes a new password and updates a user in the persistent data store.
 	 * 
 	 * @param user

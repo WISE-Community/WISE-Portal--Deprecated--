@@ -257,6 +257,7 @@
 				/admin/project/uploadproject.html=uploadProjectController
 				/admin/manageusers.html=viewAllUsersController
 				/admin/lookupuser.html=lookupUserController
+				/admin/enabledisableuser.html=enableDisableUserController
 				/admin/manageallprojects.html=manageAllProjectsController
 				/admin/editproject.html=editProjectController
 				/admin/manageallprojectruns.html=manageAllProjectRunsController

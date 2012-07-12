@@ -51,6 +51,12 @@ public interface UserDao<T extends User> extends SimpleDao<T> {
      * @return A new instance of a data object
      */
     public T retrieveByUsername(String username);
+    
+    /**
+     * Retrieves all users whose accounts are disabled.
+     * @return A list of users whose accounts are disabled.
+     */
+    public List<T> retrieveDisabledUsers();
    
     /**
      * Given a username retrieve a corresponding user records from data store.

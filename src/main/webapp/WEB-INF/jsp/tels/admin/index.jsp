@@ -73,6 +73,7 @@
 								  
 						</h5>
 						<h5>Find: <a href="lookupteacher.html">Teacher</a> | <a href="lookupstudent.html">Student</a></h5>
+						<h5><a href="enabledisableuser.html">Enable/Disable User</a></h5>
 						<!-- <h5><a href="lookupuser.html">Look up User</a></h5>-->
 					</div>
 						

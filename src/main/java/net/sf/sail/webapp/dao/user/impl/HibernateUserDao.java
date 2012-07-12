@@ -103,6 +103,18 @@ public class HibernateUserDao extends AbstractHibernateDao<User> implements
     }
 
     /**
+     * @see net.sf.sail.webapp.dao.user.UserDao#retrieveDisabledUsers()
+     */
+    @SuppressWarnings("unchecked")
+	public List<User> retrieveDisabledUsers() {
+        return this
+        .getHibernateTemplate()
+        .findByNamedParam(
+                "from UserImpl as user where user.userDetails.enabled = :enabled",
+                "enabled", false);
+    }
+    
+    /**
      * @see net.sf.sail.webapp.dao.user.UserDao#retrieveByField(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @SuppressWarnings("unchecked")
