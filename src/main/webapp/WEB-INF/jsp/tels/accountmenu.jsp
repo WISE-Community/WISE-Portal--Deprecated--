@@ -27,6 +27,26 @@
 			$('#lastLogin').text($.cookie("lastLoginTime"));
 		}
 	});
+	
+	/**
+	 * the user has clicked "Edit Premade Comments" from the drop down on
+	 * the teacher home page.
+	 */
+	function editPremadeComments() {
+		//create a div with an iframe in it so we can load the vle in it
+		var div = $('#editPremadeCommentsDiv').html('<iframe id="editPremadeCommentsIfrm" width="100%" height="100%" style="overflow-y:hidden;"></iframe>');
+		
+		/*
+		 * the path to open the authoring tool that will automatically
+		 * open the premade comments. this will not display the authoring
+		 * tool. we are only loading the authoring tool so that the vle
+		 * is loaded and can then open the premade comments editing view.
+		 */
+		var path = '/webapp/author/authorproject.html?editPremadeComments=true';
+		
+		//set the path to start loading the authoring tool
+		$("#editPremadeCommentsIfrm").attr('src',path);
+	}
 
 </script>
 
@@ -108,6 +128,7 @@
 				            <li><a href="/webapp/teacher/management/classroomruns.html"><spring:message code="menu.runs"/></a></li>
 				            <!-- <li><a href="/webapp/teacher/management/projectPickerManagement.html"><spring:message code="menu.managestudents"/></a></li> -->
 							<li><a href="/webapp/author/authorproject.html"><spring:message code="menu.authoring"/></a></li>
+							<li><a onclick="editPremadeComments()"><spring:message code="menu.editpremadecomments"/></a></li>
 				        </ul>
 						</li>
 					<li class="level1 menu3"><a href="/webapp/teacher/index.html" ><spring:message code="menu.teacher"/></a></li>
@@ -125,3 +146,5 @@
 	</div>
 	</sec:authorize>
 </sec:authorize>
+
+<div id="editPremadeCommentsDiv" style="display:none;"></div>

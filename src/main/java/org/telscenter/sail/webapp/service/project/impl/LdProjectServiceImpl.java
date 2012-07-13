@@ -179,6 +179,18 @@ public class LdProjectServiceImpl implements ProjectService {
 		if(command != null && command != ""){
 			mav.addObject("command", command);
 		}
+		
+		/*
+		 * this value will be set to "true" only if the user is opening the premade comments
+		 * from the teacher home page. this value is used to tell the authoring tool
+		 * to immediately open the premade comments after the vle is loaded because
+		 * we will not actually display the authoring tool to the user. we only need
+		 * to load the authoring tool so that the vle is loaded and can then open
+		 * the editing view for the premade comments.
+		 */
+		String editPremadeComments = params.getHttpServletRequest().getParameter("editPremadeComments");
+		mav.addObject("editPremadeComments", editPremadeComments);
+		
 		User author = params.getAuthor();
 		Project project = params.getProject();
 		if(project != null){
