@@ -44,6 +44,7 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,6 +57,7 @@ import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
 import org.telscenter.sail.webapp.domain.project.ProjectUpload;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectMetadataImpl;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -160,11 +162,31 @@ public class UploadProjectController extends SimpleFormController {
 		pParams.setOwners(owners);
 		pParams.setProjectname(name);
 		pParams.setProjectType(ProjectType.LD);
-		// since this is new original project, set a new fresh metadata object
-		ProjectMetadata metadata = new ProjectMetadataImpl();
-		metadata.setTitle(name);
-		pParams.setMetadata(metadata);
+
+		ProjectMetadata metadata = null;
+
+		// see if a file called wise4.project-meta.json exists. if yes, try parsing it.
+		try {
+			String projectMetadataFilePath = newFileFullDir + sep + "wise4.project-meta.json";
+			String projectMetadataStr = FileUtils.readFileToString(new File(projectMetadataFilePath));
+			JSONObject metadataJSONObj = new JSONObject(projectMetadataStr);
+			metadata = new ProjectMetadataImpl();
+			metadata.populateFromJSON(metadataJSONObj);
+		} catch (Exception e) {
+			// if there is any error during the parsing of the metadata, set the metadata to null
+			metadata = null;
+		}
 		
+		// If metadata is null at this point, either wise4.project-meta.json was not
+		// found in the zip file, or there was an error parsing. 
+		// Set a new fresh metadata object
+		if (metadata == null) {
+			metadata = new ProjectMetadataImpl();
+			metadata.setTitle(name);
+		}
+
+		pParams.setMetadata(metadata);
+
 		Project project = projectService.createProject(pParams);
 
 		ModelAndView modelAndView = new ModelAndView(getSuccessView());		

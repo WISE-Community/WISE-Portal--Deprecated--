@@ -131,7 +131,7 @@ $(document).ready(function() {
 <!-- 	<a href="editproject.html?projectId=${project.id}">Edit Project Metadata</a>&nbsp;|&nbsp;		 -->	
 		<a href="../previewproject.html?projectId=${project.id}">Preview</a>&nbsp;|&nbsp;
 		<a href="../teacher/projects/customized/shareproject.html?projectId=${project.id}">Manage Ownership/Shared Teachers</a>&nbsp;|&nbsp;
-		<a href="project/exportproject.html?projectId=${project.id}">Export project as Zip</a>&nbsp;|&nbsp;
+		<a href="../author/project/exportproject.html?projectId=${project.id}">Export project as Zip</a>&nbsp;|&nbsp;
 		</td>		
 		<!-- 
 		<td><a href="../author/authorproject.html?projectId=${project.id}">Edit Project (Authoring tool)</a></td>		
@@ -140,7 +140,7 @@ $(document).ready(function() {
 		    <ul>
 		        <li><a href="../previewproject.html?projectId=${project.id}">Preview</a></li>
 		        <li><a href="../teacher/projects/customized/shareproject.html?projectId=${project.id}">Manage Ownership/Shared Teachers</a></li>
-		        <li><a href="project/exportproject.html?projectId=${project.id}">Export project as Zip</a></li>
+		        <li><a href="../author/project/exportproject.html?projectId=${project.id}">Export project as Zip</a></li>
 		    </ul>
 		</td>		
 		 -->

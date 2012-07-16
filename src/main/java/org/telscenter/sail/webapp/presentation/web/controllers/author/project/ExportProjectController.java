@@ -25,7 +25,9 @@ package org.telscenter.sail.webapp.presentation.web.controllers.author.project;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
@@ -44,6 +46,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
@@ -90,6 +93,16 @@ public class ExportProjectController extends AbstractController {
 		response.setContentType("application/zip");
 		response.addHeader("Content-Disposition", "attachment;filename=\"" + foldername+".zip" + "\"");
 
+		
+		//add project metadata to zip
+		ProjectMetadata metadata = project.getMetadata();
+		String metadataJSONString = metadata.toJSONString();
+
+		String metaFileName = projectJSONDir + sep + "wise4.project-meta.json";
+		PrintWriter metaOut = new PrintWriter(metaFileName);
+		metaOut.println(metadataJSONString);
+		metaOut.close();
+		
 		// zip the folder and write to outputstream		
 		ServletOutputStream outputStream = response.getOutputStream();
 
@@ -108,6 +121,11 @@ public class ExportProjectController extends AbstractController {
 		String baseName = zipFolder.getAbsolutePath().substring(0,len+1);
 		
 		addFolderToZip(zipFolder, out, baseName);
+
+		//ZipEntry zipEntry = new ZipEntry(updateFilename(projectJSONDir + sep + metaFileName));
+		//out.putNextEntry(zipEntry);
+		//IOUtils.copy(new FileInputStream(metaFileName), out);
+		//out.closeEntry();
 		
 		out.close();
 		return null;
