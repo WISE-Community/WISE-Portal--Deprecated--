@@ -571,7 +571,7 @@
 	</reporting>
 	<properties>
 	    <org.springframework.version>3.0.5.RELEASE</org.springframework.version>
-	    <org.springframework.security.version>3.1.0.RELEASE</org.springframework.security.version>
+	    <org.springframework.security.version>3.1.1.RELEASE</org.springframework.security.version>
 		<startup.listeners> </startup.listeners>
 	</properties>
 </project>
