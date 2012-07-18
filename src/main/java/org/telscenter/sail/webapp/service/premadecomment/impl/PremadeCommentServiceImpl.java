@@ -40,7 +40,10 @@ import org.telscenter.sail.webapp.domain.premadecomment.PremadeComment;
 import org.telscenter.sail.webapp.domain.premadecomment.PremadeCommentList;
 import org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentImpl;
 import org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentListImpl;
+import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.premadecomment.PremadeCommentService;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * @author patrick lawler
@@ -51,6 +54,10 @@ public class PremadeCommentServiceImpl implements PremadeCommentService {
 	private PremadeCommentDao<PremadeComment> premadeCommentDao;
 	
 	private PremadeCommentListDao<PremadeCommentList> premadeCommentListDao;
+	
+	private ProjectService projectService;
+	
+	private RunService runService;
 	
 	@Transactional()
 	public PremadeComment createPremadeComment (PremadeCommentParameters param){
@@ -312,14 +319,8 @@ public class PremadeCommentServiceImpl implements PremadeCommentService {
 				//get the is global value
 				boolean fromIsGlobal = fromPremadeCommentList.isGlobal();
 				
-				/*
-				 * if this a list for a project, it is likely that the list name
-				 * is something like
-				 * "Project 684 Premade Comment List"
-				 * so we will replace the project id with the new project id
-				 * "Project 1033 Premade Comment List"
-				 */
-				String toLabel = fromLabel.replaceAll(fromProjectId.toString(), toProjectId.toString());
+				//make the list name using the project id
+				String toLabel = makePremadeCommentListNameFromProjectId(toProjectId);
 				
 				//create the new list
 				PremadeCommentListParameters toPremadeCommentListParams = new PremadeCommentListParameters(toLabel, toOwner, fromIsGlobal, toProjectId);
@@ -357,5 +358,91 @@ public class PremadeCommentServiceImpl implements PremadeCommentService {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Make the name for a premade comment list given the project id
+	 * @param projectId the project id this list is for
+	 * @return the premade comment list name
+	 * e.g.
+	 * 
+	 * project with a run
+	 * Project Id: 123, Run Id: 456, Chemical Reactions
+	 * 
+	 * project without a run
+	 * Project Id: 123, Chemical Reactions
+	 */
+	public String makePremadeCommentListNameFromProjectId(Long projectId) {
+		String listName = "";
+		
+		try {
+			if(projectId != null) {
+				//get the project
+				Project project = projectService.getById(projectId);
+				
+				//get the project name
+				String projectName = project.getName();
+				
+				//get the runs for this project if any
+				List<Run> projectRuns = runService.getProjectRuns(projectId);
+				
+				Long runId = null;
+				String runName = null;
+				
+				//loop through all the runs (there should actually only be one)
+				for(int x=0; x<projectRuns.size(); x++) {
+					//get the run
+					Run run = projectRuns.get(x);
+					
+					//get the run id and run name
+					runId = run.getId();
+					runName = run.getName();
+				}
+				
+				if(runId == null) {
+					//this project does not have a run
+					listName = "Project Id: " + projectId + ", " + projectName;
+				} else {
+					//this project does have a run
+					listName = "Project Id: " + projectId + ", " + "Run Id: " + runId + ", " + runName;
+				}				
+			}
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return listName;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public ProjectService getProjectService() {
+		return projectService;
+	}
+
+	/**
+	 * 
+	 * @param projectService
+	 */
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public RunService getRunService() {
+		return runService;
+	}
+
+	/**
+	 * 
+	 * @param runService
+	 */
+	public void setRunService(RunService runService) {
+		this.runService = runService;
 	}
 }

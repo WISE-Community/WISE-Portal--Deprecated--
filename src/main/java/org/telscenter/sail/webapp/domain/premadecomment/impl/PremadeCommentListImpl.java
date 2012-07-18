@@ -153,8 +153,38 @@ public class PremadeCommentListImpl implements PremadeCommentList, Comparable {
 		this.id = id;
 	}
 
+	/**
+	 * Compare this list with another list to determine their ordering
+	 * in a Set
+	 * @see org.telscenter.sail.webapp.domain.premadecomment.PremadeCommentList#compareTo(java.lang.Object)
+	 */
 	public int compareTo(Object premadeCommentList){
-		return this.getLabel().compareTo(((PremadeCommentListImpl) premadeCommentList).getLabel());
+		int result = 0;
+		
+		if(premadeCommentList != null) {
+			//cast the other PremadeCommentList
+			PremadeCommentListImpl otherPremadeCommentListImpl = (PremadeCommentListImpl) premadeCommentList;
+			
+			//get the other label
+			String otherLabel = otherPremadeCommentListImpl.getLabel();
+			
+			if(otherLabel != null) {
+				//compare the labels
+				result = this.getLabel().compareTo(otherLabel);
+			}
+			
+			if(result == 0) {
+				//the labels were the same so we will now use the id to compare
+				Long otherId = otherPremadeCommentListImpl.getId();
+				
+				if(otherId != null) {
+					//compare the ids
+					result = this.getId().compareTo(otherId);
+				}
+			}
+		}
+
+		return result;
 	}
 
 	public void setGlobal(boolean global) {

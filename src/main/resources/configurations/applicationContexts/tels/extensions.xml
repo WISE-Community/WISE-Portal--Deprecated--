@@ -389,6 +389,8 @@
 		class="org.telscenter.sail.webapp.service.premadecomment.impl.PremadeCommentServiceImpl">
 		<property name="premadeCommentDao" ref="premadeCommentDao" />
 		<property name="premadeCommentListDao" ref="premadeCommentListDao" />
+		<property name="projectService" ref="projectService" />
+		<property name="runService" ref="runService" />
 	</bean>
 	
     <bean id="premadeCommentDao"

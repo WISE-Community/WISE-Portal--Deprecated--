@@ -209,4 +209,18 @@ public interface PremadeCommentService {
 	 * @param toOwner the owner to set in all the new PremadeCommentLists
 	 */
 	public void copyPremadeCommentsFromProject(Long fromProjectId, Long toProjectId, User toOwner);
+	
+	/**
+	 * Make the name for a premade comment list given the project id
+	 * @param projectId the project id this list is for
+	 * @return the premade comment list name
+	 * e.g.
+	 * 
+	 * project with a run
+	 * Project Id: 123, Run Id: 456, Chemical Reactions
+	 * 
+	 * project without a run
+	 * Project Id: 123, Chemical Reactions
+	 */
+	public String makePremadeCommentListNameFromProjectId(Long projectId);
 }

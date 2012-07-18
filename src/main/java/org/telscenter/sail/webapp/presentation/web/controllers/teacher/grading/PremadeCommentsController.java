@@ -149,7 +149,7 @@ public class PremadeCommentsController extends AbstractController {
 			String projectIdString = request.getParameter("projectId");
 			Long projectId = null;
 			
-			if(projectIdString != null && !projectIdString.equals("null")) {
+			if(projectIdString != null && !projectIdString.equals("null") && projectIdString != "undefined") {
 				try {
 					//get the project id as a long value
 					projectId = new Long(projectIdString);	
@@ -182,12 +182,11 @@ public class PremadeCommentsController extends AbstractController {
 					//if the signed in user is admin, we will name the list global
 					premadeCommentListLabel = "Global Premade Comment List";
 				} else {
-					//get the user name of the signed in user
-					String username = getUsernameFromUser(signedInUser);
-
-					if(username != null && !username.equals("")) {
-						//make the premade comment list name
-						premadeCommentListLabel = username + "'s Premade Comment List";					
+					if(projectId != null) {
+						//make the premade comment list from the project id
+						premadeCommentListLabel = premadeCommentService.makePremadeCommentListNameFromProjectId(projectId);
+					} else {
+						premadeCommentListLabel = "My New List";
 					}
 				}
 			}
@@ -434,7 +433,7 @@ public class PremadeCommentsController extends AbstractController {
 						}
 					} else {
 						//we are making a list for a project
-						premadeCommentListLabel = "Project " + projectId + " Premade Comment List";
+						premadeCommentListLabel = premadeCommentService.makePremadeCommentListNameFromProjectId(projectId);
 					}
 				}
 
@@ -531,20 +530,6 @@ public class PremadeCommentsController extends AbstractController {
 		}
 
 		return premadeCommentList;
-	}
-
-	/**
-	 * @return the premadeCommentService
-	 */
-	public PremadeCommentService getPremadeCommentService() {
-		return premadeCommentService;
-	}
-
-	/**
-	 * @param premadeCommentService the premadeCommentService to set
-	 */
-	public void setPremadeCommentService(PremadeCommentService premadeCommentService) {
-		this.premadeCommentService = premadeCommentService;
 	}
 
 	/**
@@ -773,5 +758,19 @@ public class PremadeCommentsController extends AbstractController {
 				e.printStackTrace();
 			}		
 		}
+	}
+
+	/**
+	 * @return the premadeCommentService
+	 */
+	public PremadeCommentService getPremadeCommentService() {
+		return premadeCommentService;
+	}
+
+	/**
+	 * @param premadeCommentService the premadeCommentService to set
+	 */
+	public void setPremadeCommentService(PremadeCommentService premadeCommentService) {
+		this.premadeCommentService = premadeCommentService;
 	}
 }
