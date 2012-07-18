@@ -70,9 +70,16 @@ public class CurrentlyAuthoredProjectsController extends AbstractController {
 		if (openedProjectsToSessions != null) {
 			Set<String> openedProjectIdsSet = openedProjectsToSessions.keySet();
 			for (String openedProjectId : openedProjectIdsSet) {
-				openedProjectIds.add(openedProjectId);				
-				Project project = projectService.getById(openedProjectId);
-				openedProjects.put(openedProjectId, project);
+				// check if there is a session associated with the opened project
+				if (openedProjectsToSessions.get(openedProjectId) != null &&
+						openedProjectsToSessions.get(openedProjectId).size() > 0) {
+					openedProjectIds.add(openedProjectId);				
+					Project project = projectService.getById(openedProjectId);
+					openedProjects.put(openedProjectId, project);
+				} else {
+					// otherwise remove this opened project id information from this set because it's not accurate
+					openedProjectsToSessions.remove(openedProjectId);
+				}
 			}
 		}
 		
