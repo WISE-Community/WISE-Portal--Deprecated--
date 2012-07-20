@@ -103,7 +103,11 @@ public class UploadProjectController extends SimpleFormController {
 		long timeInMillis = Calendar.getInstance().getTimeInMillis();
 		String zipFilename = file.getOriginalFilename();
 		String filename = zipFilename.substring(0, zipFilename.indexOf(".zip"));
-		String newFilename = filename + "-" + timeInMillis; // add a date time in milliseconds to the filename to make it unique
+		String newFilename = filename;
+		if (new File(curriculumBaseDir + sep + filename).exists()) {
+			// if this directory already exists, add a date time in milliseconds to the filename to make it unique
+			newFilename = filename + "-" + timeInMillis;
+		}
 		String newFileFullPath = curriculumBaseDir + sep + newFilename + ".zip"; 
 		
 		// copy the zip file inside curriculum_base_dir temporarily
@@ -115,16 +119,35 @@ public class UploadProjectController extends SimpleFormController {
 		String newFileFullDir = curriculumBaseDir + sep + newFilename;
 		File newFileFullDirFile = new File(newFileFullDir);
 		newFileFullDirFile.mkdir();
+		
 
 		// unzip the zip file
 		try {
 			ZipFile zipFile = new ZipFile(newFileFullPath);
 			Enumeration entries = zipFile.entries();
+			
+			int i=0;  // index used later to check for first folder in the zip file
 
-			while(entries.hasMoreElements()) {
+			while(entries.hasMoreElements()) {				
 				ZipEntry entry = (ZipEntry)entries.nextElement();
+				
+				if(entry.getName().startsWith("__MACOSX")) {
+					// if this entry starts with __MACOSX, this zip file was created by a user using mac's "compress" feature.
+					// ignore it.
+					continue;
+				}
 
 				if(entry.isDirectory()) {
+					// first check to see if the user has changed the zip file name and therefore the zipfile name
+					// is no longer the same as the name of the first folder in the top-level of the zip file.
+					// if this is the case, import will fail, so throw an error.
+					if (i==0) {
+						if (!entry.getName().startsWith(filename)) {
+							throw new Exception("Zip file name does not match folder name. Do not change zip filename");
+						}
+						i++;						
+					}
+
 					// Assume directories are stored parents first then children.
 					System.out.println("Extracting directory: " + entry.getName());
 					// This is not robust, just for demonstration purposes.
@@ -139,8 +162,9 @@ public class UploadProjectController extends SimpleFormController {
 
 			zipFile.close();
 		} catch (IOException ioe) {
-			System.err.println("Unhandled exception:");
+			System.err.println("Unhandled exception during project import. Project was not properly imported.");
 			ioe.printStackTrace();
+			throw ioe;
 		}
 
 		// remove the temp zip file
