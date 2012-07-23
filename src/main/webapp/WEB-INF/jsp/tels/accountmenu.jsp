@@ -1,5 +1,7 @@
 <script type="text/javascript" src="<spring:theme code="superfishsource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="jquerycookiesource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="jqueryuisource"/>"></script>
+<link rel="stylesheet" type="text/css" href="<spring:theme code="jquerystylesheet"/>">
 <link rel="stylesheet" type="text/css" href="<spring:theme code="superfishstylesheet"/>" media="screen">
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -33,6 +35,15 @@
 	 * the teacher home page.
 	 */
 	function editPremadeComments() {
+
+		//create a popup for the loading premade comments message
+		$('#editPremadeCommentsLoadingDiv').dialog({
+			autoOpen:false
+		});
+		
+		//display the loading premade comments message
+		$('#editPremadeCommentsLoadingDiv').dialog('open');
+		
 		//create a div with an iframe in it so we can load the vle in it
 		var div = $('#editPremadeCommentsDiv').html('<iframe id="editPremadeCommentsIfrm" width="100%" height="100%" style="overflow-y:hidden;"></iframe>');
 		
@@ -46,6 +57,13 @@
 		
 		//set the path to start loading the authoring tool
 		$("#editPremadeCommentsIfrm").attr('src',path);
+	}
+	
+	/**
+	 * Close the loading premade comments message
+	 */
+	function closeLoadingPremadeCommentsDialog() {
+		$('#editPremadeCommentsLoadingDiv').dialog('close');
 	}
 
 </script>
@@ -148,3 +166,4 @@
 </sec:authorize>
 
 <div id="editPremadeCommentsDiv" style="display:none;"></div>
+<div id="editPremadeCommentsLoadingDiv" style="display:none;"><h5 style="text-align:center">Loading Premade Comments...</h5></div>
