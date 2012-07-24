@@ -562,13 +562,39 @@ public class AuthorProjectController extends AbstractController {
 	private ModelAndView handleProjectList(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String projectTag = request.getParameter("projectTag");
 		
+		JSONArray projects = new JSONArray();
+		
 		if(projectTag == null) {
 			//get all the projects the current user can author
-			getAuthorableProjects(request, response);
+			projects = getAuthorableProjects(request, response);
 		} else if(projectTag.equals("library")) {
 			//get all the library projects
-			getLibraryProjects(request, response);
+			projects = getLibraryProjects(request, response);
+		} else if(projectTag.equals("authorable")) {
+			//get all the projects the current user can author
+			projects = getAuthorableProjects(request, response);
+		} else if(projectTag.equals("authorableAndLibrary")) {
+			//get all the projects the current user can author
+			JSONArray authorableProjects = getAuthorableProjects(request, response);
+			
+			//get all the library projects
+			JSONArray libraryProjects = getLibraryProjects(request, response);
+			
+			//add the authorable projects to the array
+			for(int x=0; x<authorableProjects.length(); x++) {
+				JSONObject authorableProject = authorableProjects.getJSONObject(x);
+				projects.put(authorableProject);
+			}
+			
+			//add the library projects to the array
+			for(int y=0; y<libraryProjects.length(); y++) {
+				JSONObject libraryProject = libraryProjects.getJSONObject(y);
+				projects.put(libraryProject);
+			}
 		}
+		
+		//write the JSONArray of projects to the response
+		response.getWriter().write(projects.toString());
 		
 		return null;
 	}
@@ -578,8 +604,9 @@ public class AuthorProjectController extends AbstractController {
 	 * @param request
 	 * @param response
 	 * @throws Exception
+	 * @return the JSONArray of authorable projects
 	 */
-	private void getAuthorableProjects(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	private JSONArray getAuthorableProjects(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<Project> allAuthorableProjects = new ArrayList<Project>();
 		User signedInUser = ControllerUtil.getSignedInUser();
 		List<Project> projects = projectService.getProjectList(signedInUser);
@@ -630,8 +657,8 @@ public class AuthorProjectController extends AbstractController {
 			}
 		}
 		
-		//return the JSONArray as a string
-		response.getWriter().write(projectArray.toString());
+		//return the JSONArray
+		return projectArray;
 	}
 	
 	/**
@@ -639,10 +666,10 @@ public class AuthorProjectController extends AbstractController {
 	 * @param request
 	 * @param response
 	 * @throws Exception
+	 * @return the JSONArray of library projects
 	 */
-	private void getLibraryProjects(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String projectTag = request.getParameter("projectTag");
-		List<Project> libraryProjects = projectService.getProjectListByTagName(projectTag);
+	private JSONArray getLibraryProjects(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<Project> libraryProjects = projectService.getProjectListByTagName("library");
 		
 		//an array to hold the information for the projects
 		JSONArray libraryProjectArray = new JSONArray();
@@ -682,8 +709,8 @@ public class AuthorProjectController extends AbstractController {
 			}
 		}
 		
-		//return the JSONArray as a string
-		response.getWriter().write(libraryProjectArray.toString());
+		//return the JSONArray
+		return libraryProjectArray;
 	}
 	
 	/**
