@@ -287,6 +287,14 @@ public interface RunService extends OfferingService {
     public void setStudentAssetUploaderEnabled(Long runId, boolean isEnabled) throws ObjectNotFoundException;
     
     /**
+     * Sets whether xmpp is enabled for this run
+     * @param runId
+     * @param isEnabled
+     * @throws ObjectNotFoundException
+     */
+    public void setXMPPEnabled(Long runId, boolean isEnabled) throws ObjectNotFoundException;
+    
+    /**
      * Given a <code>Long</code> runId, changes the archiveReminderTime to be 30 days
      * from today.
      * 

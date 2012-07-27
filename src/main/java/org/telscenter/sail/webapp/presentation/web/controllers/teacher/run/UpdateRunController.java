@@ -63,6 +63,10 @@ public class UpdateRunController extends AbstractController {
 			boolean isEnabled = Boolean.parseBoolean(request.getParameter("isEnabled"));
 			this.runService.setStudentAssetUploaderEnabled(Long.parseLong(runId), isEnabled);
 			response.getWriter().write("success");
+		} else if (command.equals("enableXMPP")) {
+			boolean isEnabled = Boolean.parseBoolean(request.getParameter("isEnabled"));
+			this.runService.setXMPPEnabled(Long.parseLong(runId), isEnabled);
+			response.getWriter().write("success");
 		}
 		
 		return null;

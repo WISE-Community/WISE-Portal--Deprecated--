@@ -98,18 +98,28 @@
 	<div id='runInfo' class="dialogSection">
 		<c:choose>
 			<c:when test="${run.ideaManagerEnabled}">
-				<input id='enableIdeaManager' class='runInfoOption' type="checkbox" checked="checked" ></input>Enable Idea Manager<br/>
+				<input id='enableIdeaManager' class='runInfoOption' type="checkbox" checked="checked" ></input>Enable Idea Manager
 			</c:when>
 			<c:otherwise>
-				<input id='enableIdeaManager' class='runInfoOption' type="checkbox" ></input>Enable Idea Manager<br/>
+				<input id='enableIdeaManager' class='runInfoOption' type="checkbox" ></input>Enable Idea Manager
 			</c:otherwise>
 		</c:choose>
+		<br/>
 		<c:choose>
 			<c:when test="${run.studentAssetUploaderEnabled}">
 				<input id='enableStudentAssetUploader' class='runInfoOption' type="checkbox" checked="checked"></input>Enable Student File Uploader
 			</c:when>
 			<c:otherwise>
 				<input id='enableStudentAssetUploader' class='runInfoOption' type="checkbox"></input>Enable Student File Uploader
+			</c:otherwise>
+		</c:choose>
+		<br/>
+		<c:choose>
+			<c:when test="${run.XMPPEnabled}">
+				<input id='enableXMPP' class='runInfoOption' type="checkbox" checked="checked"></input>Enable XMPP
+			</c:when>
+			<c:otherwise>
+				<input id='enableXMPP' class='runInfoOption' type="checkbox"></input>Enable XMPP
 			</c:otherwise>
 		</c:choose>
 	</div>

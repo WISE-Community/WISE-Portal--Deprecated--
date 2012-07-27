@@ -339,4 +339,10 @@ public interface Run extends Offering {
 	 * @return
 	 */
 	public boolean isXMPPEnabled();
+	
+	/**
+	 * 
+	 * @param isXMPPEnabled
+	 */
+	public void setXMPPEnabled(boolean isXMPPEnabled);
 }

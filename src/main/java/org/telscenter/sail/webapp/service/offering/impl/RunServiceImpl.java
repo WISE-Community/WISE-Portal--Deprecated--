@@ -646,4 +646,15 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		run.setStudentAssetUploaderEnabled(isEnabled);
 		this.runDao.save(run);
 	}
+	
+	/**
+	 * @throws ObjectNotFoundException 
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#setXMPPEnabled(java.lang.Long, boolean)
+	 */
+	@Transactional
+	public void setXMPPEnabled(Long runId, boolean isEnabled) throws ObjectNotFoundException {
+		Run run = this.retrieveById(runId);
+		run.setXMPPEnabled(isEnabled);
+		this.runDao.save(run);
+	}
 }
