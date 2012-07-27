@@ -618,6 +618,7 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 			}
 		}
 		
+		//check that the max scores exists and is not null
 		if(metadataJSON.has("maxScores") && !metadataJSON.isNull("maxScores")) {
 			try {
 				String maxScores = metadataJSON.getString("maxScores");
@@ -630,6 +631,7 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 			}
 		}
 		
+		//check that the theme exists and is not null
 		if(metadataJSON.has("theme") && !metadataJSON.isNull("theme")) {
 			try {
 				String theme = metadataJSON.getString("theme");
@@ -642,6 +644,7 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 			}
 		}
 		
+		//check that the navigation mode exists and is not null
 		if(metadataJSON.has("navMode") && !metadataJSON.isNull("navMode")) {
 			try {
 				String navMode = metadataJSON.getString("navMode");
@@ -649,6 +652,20 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 					navMode = "";
 				}
 				setNavMode(navMode);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//check that the post level exists and is not null
+		if(metadataJSON.has("postLevel") && !metadataJSON.isNull("postLevel")) {
+			
+			try {
+				Long postLevel = metadataJSON.getLong("postLevel");
+				if(postLevel.equals("null")) {
+					postLevel = (long) 5;
+				}
+				setPostLevel(postLevel);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
