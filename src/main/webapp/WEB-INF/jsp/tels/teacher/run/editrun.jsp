@@ -84,6 +84,14 @@
 			var isEnabled = this.checked;
 
 			$.ajax({type:'POST', url:'updaterun.html', data:'command='+infoOptionName+'&runId=' + runId + '&isEnabled=' + isEnabled, error:updateFailure, success:updateSuccess});
+			
+			if(infoOptionName == 'enableXMPP' && isEnabled == false) {
+				//hide the Classroom Monitor link because the teacher has enabled xmpp
+				$('#runId\\=' + runId + '\\&gradingType\\=monitor', window.parent.document).hide();
+			} else if(infoOptionName == 'enableXMPP' && isEnabled == true) {
+				//show the Classroom Monitor link because the teacher has disabled xmpp
+				$('#runId\\=' + runId + '\\&gradingType\\=monitor', window.parent.document).show();
+			}
 		});
 	});
 </script>
@@ -116,10 +124,10 @@
 		<br/>
 		<c:choose>
 			<c:when test="${run.XMPPEnabled}">
-				<input id='enableXMPP' class='runInfoOption' type="checkbox" checked="checked"></input>Enable XMPP
+				<input id='enableXMPP' class='runInfoOption' type="checkbox" checked="checked"></input>Enable Real-Time Classroom
 			</c:when>
 			<c:otherwise>
-				<input id='enableXMPP' class='runInfoOption' type="checkbox"></input>Enable XMPP
+				<input id='enableXMPP' class='runInfoOption' type="checkbox"></input>Enable Real-Time Classroom
 			</c:otherwise>
 		</c:choose>
 	</div>
