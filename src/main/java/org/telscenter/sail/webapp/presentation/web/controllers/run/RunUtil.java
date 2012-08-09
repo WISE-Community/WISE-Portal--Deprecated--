@@ -1,5 +1,7 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.run;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -105,6 +107,34 @@ public class RunUtil {
 					if(!((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
 						//the workgroup is a student workgroup
 						classmateJSONObject.put("workgroupId", ((WISEWorkgroup) workgroup).getId());
+						
+						//get the members of the workgroup
+						Set<User> members = ((WISEWorkgroup) workgroup).getMembers();
+						
+						//array list to hold all the wise ids for this workgroup
+						ArrayList<Long> wiseIdsArrayList = new ArrayList<Long>();
+						
+						//loop through all the members in the workgroup to retrieve their wise ids
+						Iterator<User> membersIter = members.iterator();
+						while(membersIter.hasNext()) {
+							User user = membersIter.next();
+							Long wiseId = user.getId();
+							wiseIdsArrayList.add(wiseId);
+						}
+						
+						//sort the wise ids numerically
+						Collections.sort(wiseIdsArrayList);
+						
+						JSONArray wiseIdsJSONArray = new JSONArray();
+						
+						//put the wise ids into the JSONArray
+						for(int x=0; x<wiseIdsArrayList.size(); x++) {
+							Long wiseId = wiseIdsArrayList.get(x);
+							wiseIdsJSONArray.put(wiseId);							
+						}
+						
+						//put the wise ids array into the classmate object
+						classmateJSONObject.put("wiseIds", wiseIdsJSONArray);
 						
 						if(((WISEWorkgroup) workgroup).getPeriod() != null) {
 							classmateJSONObject.put("periodId", ((WISEWorkgroup) workgroup).getPeriod().getId());
