@@ -358,6 +358,7 @@ public class InformationController extends AbstractController{
 		String runId = request.getParameter("runId");
 		String requester = request.getParameter("requester");
 		//String versionId = request.getParameter("versionId");
+		String step = request.getParameter("step");
 		
 		String portalurl = ControllerUtil.getBaseUrlString(request);
 		String hostName = ControllerUtil.getHostNameFromUrl(portalurl);
@@ -593,6 +594,12 @@ public class InformationController extends AbstractController{
 			config.put("locale", request.getLocale());
 			config.put("enableAudio", false);
 			config.put("runInfoRequestInterval", GET_RUNINFO_REQUEST_INTERVAL);
+			
+			if(step != null) {
+				//this is set if the request is to preview the project and load a specific step such as 1.2
+				config.put("step", step);
+			}
+			
 			int maxInactiveInterval = request.getSession().getMaxInactiveInterval() * 1000;
 			config.put("sessionTimeoutInterval", maxInactiveInterval);			// add sessiontimeout interval, in milleseconds
 			int sessionTimeoutCheckInterval = maxInactiveInterval / 20;         // check 20 times during the session.
