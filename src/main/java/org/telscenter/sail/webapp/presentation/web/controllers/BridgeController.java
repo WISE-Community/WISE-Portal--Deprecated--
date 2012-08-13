@@ -461,6 +461,9 @@ public class BridgeController extends AbstractController {
 			
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/cRater.html");
 			requestDispatcher.forward(request, response);
+		} else if(type.equals("chatLog")) {
+			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/chatLog.html");
+			requestDispatcher.forward(request, response);
 		}
 		return null;
 	}
@@ -492,6 +495,9 @@ public class BridgeController extends AbstractController {
 			handleStudentAssetManager(request, response);
 		} else if(type.equals("viewStudentAssets")) {
 			handleViewStudentAssets(request, response);
+		} else if(type.equals("chatLog")) {
+			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/chatLog.html");
+			requestDispatcher.forward(request, response);
 		}
 		return null;
 	}
