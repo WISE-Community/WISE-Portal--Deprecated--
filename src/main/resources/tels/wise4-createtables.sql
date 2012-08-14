@@ -323,7 +323,8 @@
     create table premadecommentlists (
         id bigint not null auto_increment,
         global bit,
-        label varchar(255) not null,
+        projectId bigint,
+        label varchar(255) not null,        
         owner bigint,
         primary key (id)
     ) engine=MyISAM;
@@ -332,6 +333,7 @@
         id bigint not null auto_increment,
         comment varchar(255) not null,
         listposition bigint,
+        labels varchar(255),
         owner bigint,
         primary key (id)
     ) engine=MyISAM;
@@ -353,7 +355,7 @@
         last_cleaned datetime,
         last_edited datetime,
         last_minified datetime,
-        lesson_plan text,
+        lesson_plan mediumtext,
         max_scores varchar(255),
         post_level bigint,
         project_fk bigint,
@@ -394,8 +396,8 @@
         jnlp_fk bigint,
         metadata_fk bigint unique,
         run_fk bigint unique,
-        isDeleted` bit(1) DEFAULT b'0',
-	    `dateDeleted` timestamp NULL DEFAULT NULL,
+        isDeleted bit(1) DEFAULT b'0',
+	    dateDeleted timestamp NULL DEFAULT NULL,
         primary key (id)
     ) engine=MyISAM;
 
