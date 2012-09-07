@@ -63,6 +63,9 @@ public class LibraryController extends AbstractController {
 		ModelAndView modelAndView = new ModelAndView();
 		User user = ControllerUtil.getSignedInUser();
 		
+		int totalActiveProjects = 0;
+		int totalArchivedProjects = 0;
+		
 		// get library projects
 		Set<String> tagNames = new TreeSet<String>();
 		tagNames.add("library");
@@ -181,6 +184,14 @@ public class LibraryController extends AbstractController {
 		String curriculumBaseWWW = this.portalProperties.getProperty("curriculum_base_www");
 		for (Project p: ownedProjectsList) {
 			if (p.isCurrent()){
+				if(p.isDeleted()){
+					// project has been marked as deleted, so increment archived count
+					totalArchivedProjects++;
+				} else {
+					// project has not been marked as deleted, so increment active count
+					totalActiveProjects++;
+				}
+				
 				List<Run> runList = this.runService.getProjectRuns((Long) p.getId());
 				if (!runList.isEmpty()){
 					// add project and date to the maps of project runs
@@ -231,6 +242,14 @@ public class LibraryController extends AbstractController {
 
 		for (Project p: sharedProjectsList) {
 			if (p.isCurrent()){
+				if(p.isDeleted()){
+					// project has been marked as deleted, so increment archived count
+					totalArchivedProjects++;
+				} else {
+					// project has not been marked as deleted, so increment active count
+					totalActiveProjects++;
+				}
+				
 				List<Run> runList = this.runService.getProjectRuns((Long) p.getId());
 				if (!runList.isEmpty()){
 					// add project and date to the maps of project runs
@@ -281,6 +300,14 @@ public class LibraryController extends AbstractController {
 		
 		for (Project p: libraryProjectsList) {
 			if (p.isCurrent()){
+				if(p.isDeleted()){
+					// project has been marked as deleted, so increment archived count
+					totalArchivedProjects++;
+				} else {
+					// project has not been marked as deleted, so increment active count
+					totalActiveProjects++;
+				}
+				
 				List<Run> runList = this.runService.getProjectRuns((Long) p.getId());
 				if (!runList.isEmpty()){
 					// add project and date to the maps of project runs
@@ -341,6 +368,8 @@ public class LibraryController extends AbstractController {
 		modelAndView.addObject("projectIds", projectIds);
 		modelAndView.addObject("sharedRemove", sharedRemove);
 		modelAndView.addObject("ownedRemove", ownedRemove);
+		modelAndView.addObject("totalActiveProjects", totalActiveProjects);
+		modelAndView.addObject("totalArchivedProjects", totalArchivedProjects);
     	
 		//modelAndView.addObject("usageMap", usageMap);
 		modelAndView.addObject("urlMap", urlMap);

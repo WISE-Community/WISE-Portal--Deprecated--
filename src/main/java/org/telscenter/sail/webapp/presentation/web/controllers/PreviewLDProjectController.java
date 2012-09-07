@@ -63,13 +63,19 @@ public class PreviewLDProjectController extends AbstractController {
 		Project project = this.projectService.getById(Long.parseLong(projectId));
 		Set<String> tagNames = new TreeSet<String>();
 		tagNames.add("library");
-		 
+		String step = request.getParameter("step");
+
 		if(projectId != null && project != null){
 			if(project.hasTags(tagNames) || 
 					project.getFamilytag().equals(FamilyTag.TELS) || this.projectService.canReadProject(project, user)){
 				String portalurl = ControllerUtil.getBaseUrlString(request);
 				String vleConfigUrl = portalurl + "/webapp/request/info.html" + "?projectId=" + request.getParameter("projectId") + "&action=getVLEConfig&requester=portalpreview";
 
+				if(step != null) {
+					//this is set if the request is to preview the project and load a specific step such as 1.2
+					vleConfigUrl += "&step=" + step;
+				}
+				
 				String isConstraintsDisabledStr = request.getParameter("isConstraintsDisabled");
 				if (isConstraintsDisabledStr != null && Boolean.parseBoolean(isConstraintsDisabledStr)) {
 					vleConfigUrl += "&isConstraintsDisabled=true";

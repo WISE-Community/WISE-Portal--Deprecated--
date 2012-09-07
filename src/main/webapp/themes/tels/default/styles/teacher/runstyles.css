@@ -1,10 +1,10 @@
 /* Project and run display styles */
-#copyDialog p {
+.dialog p {
 	font-size: 0.9em;
     margin-bottom: 0.5em;
 }
 
-#myProjects_wrapper .bottom {
+#myProjects_wrapper .bottom, #myArchivedProjects_wrapper .bottom {
 	height:20px;  /*TODO: Fix this - should not need to set a height */
 }
 
@@ -80,8 +80,14 @@
 
 }
 
-.projectBox.rootProject {
-	
+.projectBox.rootProject {}
+
+.projectBox.dummy {
+	opacity:.6;
+}
+
+.projectBox.dummy a {
+	color:#444;
 }
 
 .projectBox.childProject {
@@ -196,6 +202,12 @@
 .sharedIcon img {
 	height: 1.2em;
 	vertical-align:top;
+}
+
+a.unshare {
+	font-weight:normal;
+	font-size:.9em;
+	margin-right:.5em;
 }
 
 .projectSummary div.basicInfo {

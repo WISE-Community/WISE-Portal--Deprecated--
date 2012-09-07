@@ -107,6 +107,7 @@ function checkForExistingAccounts() {
 	$.ajax({
 		url:'../checkforexistingaccount.html',
 		data:data,
+		dataType:'html',
 		success:function(response) {
 			if(response != null) {
 				//set the response into a hidden div so we can access it later

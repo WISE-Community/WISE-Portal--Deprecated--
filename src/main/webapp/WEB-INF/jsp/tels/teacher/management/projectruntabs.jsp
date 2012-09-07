@@ -340,18 +340,60 @@
 	});
 	
 	function unshareFromRun(runId,runName) {
-		var unshareConfirmed = confirm('<spring:message code="teacher.run.myprojectruns.70"/>\n\n'+runName+' (Run ID: '+runId +')?');
-		if (unshareConfirmed) {
-			$.ajax({
-				url:"/webapp/teacher/run/unshareprojectrun.html",
-				type:"POST",
-				data:{"runId":runId},
-				success:function() {
-					alert("You have been successfully unshared from the run.");
-					$("#runTitleRow_"+runId).remove();					
+		var agreed = false,
+			dialogContent = '<spring:message code="teacher.run.myprojectruns.unshare.dialog.confirm" htmlEscape="false" />',
+			title = '<spring:message code="teacher.run.myprojectruns.unshare.dialog.title" /> ' + runName + ' (<spring:message code="id" />: ' + runId + ')',
+			processing = '<spring:message code="teacher.run.myprojectruns.unshare.dialog.processing" />';
+		$('#unshareDialog').html(dialogContent).dialog({
+			modal: true,
+			title: title,
+			width: '500',
+			closeOnEscape: false,
+			beforeclose : function() { return agreed; },
+			buttons: {
+				'<spring:message code="cancel" />': function(){
+					agreed = true;
+					$(this).dialog('close');
+				},
+				'<spring:message code="ok" />': function(){
+					var processingHtml = '<p>' + processing + '</p>' + 
+						'<p><img src="/webapp/themes/tels/default/images/rel_interstitial_loading.gif" /></p>';
+					$('#unshareDialog').css('text-align','center');
+					$('#unshareDialog').html(processingHtml);
+					$('ui-dialog-titlebar-close',$(this).parent()).hide();
+					$('button',$(this).parent()).hide().unbind();
+					//make the request to unshare the project
+					$.ajax({
+						url:"/webapp/teacher/run/unshareprojectrun.html",
+						type:"POST",
+						data:{"runId":runId},
+						success: function(data, text, xml){
+							$('#unshareDialog').html("<p><spring:message code='teacher.run.myprojectruns.unshare.dialog.success' /></p>");
+							$('button:eq(1)',$('#unshareDialog').parent()).show().click(function(){
+								agreed = true;
+								$('#unshareDialog').dialog('close');
+								// reload page
+								// TODO: remove row dynamically without page reload
+								window.location.reload();
+								//remove run from listing
+								/*var otable = $("#runTitleRow_"+runId).parent().parent().dataTable();
+								$("#runTitleRow_"+runId).fadeOut(function(){
+									otable.fnDeleteRow($(this));
+								});*/
+							});
+						},
+						error: function(data, text, xml){
+							// an error occured, so we will display an error message to the user
+							$('#unshareDialog').html('<p><spring:message code="teacher.run.myprojectruns.unshare.dialog.failure" /></p>');
+							$('button:eq(1)',$('#unshareDialog').parent()).show().click(function(){
+								agreed = true;
+								$('#unshareDialog').dialog('close');
+							});
+						}
+					});
 				}
-			});
-		}
+			}
+		});
 	};
  </script>
 
@@ -399,8 +441,8 @@
 									    	    		${owner.userDetails.firstname} ${owner.userDetails.lastname}
 									    	    	</c:forEach>
 								    	    	</div>
-								    	    	<!-- let the user unshare themself from the run. -->
-								    	    	<a onClick="unshareFromRun('${run.id}','${run.name}');"><spring:message code="teacher.run.myprojectruns.69"/></a>
+								    	    	<!-- let the user unshare self from the run. -->
+								    	    	<a class="unshare" onClick="unshareFromRun('${run.id}','<spring:escapeBody javaScriptEscape="true">${run.name}</spring:escapeBody>');"><spring:message code="teacher.run.myprojectruns.unshare.linktext"/></a>
 								    	    </c:if>
 								    	</c:forEach>
 							     
@@ -485,9 +527,14 @@
 											   <ul class="actionList">
 													<li><span style="font-weight:bold;"><spring:message code="teacher.run.myprojectruns.16"/>:</span> <a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}&gradingType=step&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/>: ${run.id})"  id="runId=${run.id}&gradingType=step&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
 							  	                    <li><span style="font-weight:bold;"><spring:message code="teacher.run.myprojectruns.17"/>:</span> <a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=false&minified=true"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a class="grading" title="Grading & Feedback: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/>: ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=true&minified=true"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
-								                    <c:if test="${isXMPPEnabled && run.XMPPEnabled}">
-		                    							<li><a class="classroomMonitor" title="<spring:message code="teacher.run.myprojectruns.65"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}&gradingType=monitor"><img class="icon" alt="monitor" src="/webapp/themes/tels/default/images/icons/teal/bar-chart.png" /><span><spring:message code="teacher.run.myprojectruns.65"/></span></a></li>
-		                    						</c:if>
+		                    						<c:choose>
+		                    							<c:when test="${isXMPPEnabled && run.XMPPEnabled}">
+		                    								<li><a class="classroomMonitor" title="<spring:message code="teacher.run.myprojectruns.65"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}&gradingType=monitor"><img class="icon" alt="monitor" src="/webapp/themes/tels/default/images/icons/teal/bar-chart.png" /><span><spring:message code="teacher.run.myprojectruns.65"/></span></a></li>
+		                    							</c:when>
+		                    							<c:otherwise>
+		                    								<li><a class="classroomMonitor" title="<spring:message code="teacher.run.myprojectruns.65"/>: ${run.name} (<spring:message code="teacher.run.myprojectruns.11B"/> ${run.id})" id="runId=${run.id}&gradingType=monitor" style="display:none"><img class="icon" alt="monitor" src="/webapp/themes/tels/default/images/icons/teal/bar-chart.png" /><span><spring:message code="teacher.run.myprojectruns.65"/></span></a></li>
+		                    							</c:otherwise>
+		                    						</c:choose>
 								               </ul>
 								               <ul class="actionList">
 											        <li>
@@ -544,11 +591,7 @@
 			</c:when>
 		<c:otherwise>
 			<p class="info">
-				<spring:htmlEscape defaultHtmlEscape="false">
-				<spring:escapeBody htmlEscape="false">
-					<spring:message code="teacher.run.myprojectruns.52"/>
-				</spring:escapeBody>
-				</spring:htmlEscape>
+				<spring:message code="teacher.run.myprojectruns.52" htmlEscape="false"/>
 			</p>
 		</c:otherwise>
 	</c:choose>
@@ -578,20 +621,22 @@
 						    <c:if test="${fn:length(ended_run_list) > 0}">
 							 	<c:forEach var="run" items="${ended_run_list}">
 							  
-							  	<tr class="runTitleRow">
+							  	<tr id="runTitleRow_${run.id}" class="runRow">
 							    	<td>
 							    		<div class="runTitle">${run.name}</div>
 							    		<c:set var="ownership" value="owned" />
 						    			<c:forEach var="sharedowner" items="${run.sharedowners}">
 								    	    <c:if test="${sharedowner == user}">
 								    	    	<c:set var="ownership" value="shared" />
-								    	    		<div class="sharedIcon">
-								    	    			<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" /> <spring:message code="teacher.run.myprojectruns.6"/>
-										    	    	<c:forEach var="owner" items="${run.owners}">
-										    	    		${owner.userDetails.firstname} ${owner.userDetails.lastname}
-										    	    	</c:forEach>
-										    	    	muahah
-								    	    	</div></c:if>
+							    	    		<div class="sharedIcon">
+							    	    			<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" /> <spring:message code="teacher.run.myprojectruns.6"/>
+									    	    	<c:forEach var="owner" items="${run.owners}">
+									    	    		${owner.userDetails.firstname} ${owner.userDetails.lastname}
+									    	    	</c:forEach>
+							    	    		</div>
+							    	    		<!-- let the user unshare themself from the run. -->
+								    	    	<a class="unshare" onClick="unshareFromRun('${run.id}','<spring:escapeBody javaScriptEscape="true">${run.name}</spring:escapeBody>');"><spring:message code="teacher.run.myprojectruns.unshare.linktext"/></a>
+								    	    </c:if>
 								    	</c:forEach>
 							     
 										<table class="runTitleTable">
@@ -697,3 +742,4 @@
 <div id="manageStudentsDialog" style="overflow:hidden;" class="dialog"></div>
 <div id="projectDetailDialog" style="overflow:hidden;" class="dialog"></div>
 <div id="archiveRunDialog" style="overflow:hidden;" class="dialog"></div>
+<div id="unshareDialog" class="dialog"></div>

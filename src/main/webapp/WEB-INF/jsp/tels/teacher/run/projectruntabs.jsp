@@ -262,9 +262,14 @@
 													<li><spring:message code="teacher.run.myprojectruns.16"/>: <a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=step&getRevisions=false" target="_top"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=step&getRevisions=true" target="_top"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
 							  	                        <li><spring:message code="teacher.run.myprojectruns.17"/>: <a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=team&getRevisions=false" target="_top"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=team&getRevisions=true" target="_top"><spring:message code="teacher.run.myprojectruns.41"/></a></li>				    	
 								                    <li><a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=team" target="_top"><spring:message code="teacher.run.myprojectruns.49"/></a></li>
-								                    <c:if test="${isXMPPEnabled && run.XMPPEnabled}">
-		                    							<li><a href="../grading/gradework.html?runId=${run.id}&gradingType=monitor" target="_top">Classroom Monitor</a></li>
-		                    						</c:if>
+		                    						<c:choose>
+		                    							<c:when test="${isXMPPEnabled && run.XMPPEnabled}">
+		                    								<li><a href="../grading/gradework.html?runId=${run.id}&gradingType=monitor" target="_top">Classroom Monitor</a></li>
+		                    							</c:when>
+		                    							<c:otherwise>
+		                    								<li><a href="../grading/gradework.html?runId=${run.id}&gradingType=monitor" target="_top" style="display:none">Classroom Monitor</a></li>
+		                    							</c:otherwise>
+		                    						</c:choose>
 		                    						<li><a href="../grading/gradework.html?runId=${run.id}&gradingType=export" target="_top">Researcher Tools</a></li>
 								               </ul>
 								               </c:otherwise>

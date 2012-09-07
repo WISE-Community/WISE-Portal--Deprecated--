@@ -397,7 +397,7 @@
         metadata_fk bigint unique,
         run_fk bigint unique,
         isDeleted bit(1) DEFAULT b'0',
-	    dateDeleted timestamp NULL DEFAULT NULL,
+        dateDeleted timestamp NULL DEFAULT NULL,
         primary key (id)
     ) engine=MyISAM;
 
