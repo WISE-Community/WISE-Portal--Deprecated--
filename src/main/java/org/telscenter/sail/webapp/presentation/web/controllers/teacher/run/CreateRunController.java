@@ -325,6 +325,10 @@ public class CreateRunController extends AbstractWizardFormController {
 			} catch (ObjectNotFoundException e) {
 				e.printStackTrace();
 			}
+			String maxWorkgroupSizeStr = portalProperties.getProperty("maxWorkgroupSize", "3");
+			int maxWorkgroupSize = Integer.parseInt(maxWorkgroupSizeStr);
+			runParameters.setMaxWorkgroupSize(maxWorkgroupSize);
+			model.put("maxWorkgroupSize", maxWorkgroupSize);
 			model.put("implementedPostLevels", IMPLEMENTED_POST_LEVELS);
 			model.put("postLevelTextMap", POST_LEVEL_TEXT_MAP);
 			model.put("minPostLevel", this.getMinPostLevel(project));

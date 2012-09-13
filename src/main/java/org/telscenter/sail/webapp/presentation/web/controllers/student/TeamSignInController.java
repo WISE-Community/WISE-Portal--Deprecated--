@@ -22,10 +22,12 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.student;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -82,6 +84,8 @@ public class TeamSignInController extends SimpleFormController {
 	private HttpRestTransport httpRestTransport;
 	
 	private StudentAttendanceService studentAttendanceService;
+	
+	private Properties portalProperties;
 
 	public TeamSignInController() {
 		setSessionForm(true);
@@ -107,10 +111,17 @@ public class TeamSignInController extends SimpleFormController {
 		User user1 = userService.retrieveUserByUsername(teamSignInForm.getUsername1());
 		User user2 = userService.retrieveUserByUsername(teamSignInForm.getUsername2());
 		User user3 = userService.retrieveUserByUsername(teamSignInForm.getUsername3());
+		User user4 = userService.retrieveUserByUsername(teamSignInForm.getUsername4());
+		User user5 = userService.retrieveUserByUsername(teamSignInForm.getUsername5());
+		User user6 = userService.retrieveUserByUsername(teamSignInForm.getUsername6());
+		User user7 = userService.retrieveUserByUsername(teamSignInForm.getUsername7());
+		User user8 = userService.retrieveUserByUsername(teamSignInForm.getUsername8());
+		User user9 = userService.retrieveUserByUsername(teamSignInForm.getUsername9());
+		User user10 = userService.retrieveUserByUsername(teamSignInForm.getUsername10());
 		
 		Run run = runService.retrieveById(teamSignInForm.getRunId());
 		
-		// get projectcode to use to add user2 and user3 to run
+		// get projectcode to use to add user2 ... userX to run
 		StudentRunInfo studentRunInfoUser1 = studentService.getStudentRunInfo(user1, run);
 		Projectcode projectcode = new Projectcode(run.getRuncode(), studentRunInfoUser1.getGroup().getName());
 
@@ -138,6 +149,27 @@ public class TeamSignInController extends SimpleFormController {
 			membersInWorkgroup = workgroups.get(0).getMembers();
 		}
 		
+		User[] otherUsers = new User[]{user2, user3, user4, user5, user6, user7, user8, user9, user10};
+		for (User user : otherUsers) {
+			if (user != null) {
+				try {
+					studentService.addStudentToRun(user, projectcode);
+				} catch (StudentUserAlreadyAssociatedWithRunException e) {
+					// do nothing. it's okay if the student is already associated with this run.
+				}
+				
+				//add user3 to the members logged in
+				membersLoggedIn.add(user);
+				
+				workgroupname += user.getUserDetails().getUsername();
+				workgroups.addAll(workgroupService.getWorkgroupListByOfferingAndUser(run, user));
+				
+				//add user3 to the users that are present
+				presentUserIds.put(user.getId());
+			}
+		}
+		
+		/*
 		if (user2 != null) {
 			try {
 				studentService.addStudentToRun(user2, projectcode);
@@ -170,6 +202,7 @@ public class TeamSignInController extends SimpleFormController {
 			//add user3 to the users that are present
 			presentUserIds.put(user3.getId());
 		}
+		*/
 
 		Workgroup workgroup = null;
 		Group period = run.getPeriodOfStudent(user1);
@@ -267,6 +300,10 @@ public class TeamSignInController extends SimpleFormController {
 		TeamSignInForm form = new TeamSignInForm();
 		Long runId = null;
 		
+		String maxWorkgroupSizeStr = portalProperties.getProperty("maxWorkgroupSize", "3");
+		int maxWorkgroupSize = Integer.parseInt(maxWorkgroupSizeStr);
+		form.setMaxWorkgroupSize(maxWorkgroupSize);
+		
 		//set the signed in username
 		form.setUsername1(signedInUsername);
 		
@@ -299,7 +336,7 @@ public class TeamSignInController extends SimpleFormController {
 				Set<User> members = workgroup.getMembers();
 
 				//counter for how many members we have so far
-				int currentNumMembers = 1;
+				int currentNumMembers = 2;
 				
 				//loop through all the members
 				Iterator<User> membersIterator = members.iterator();
@@ -310,15 +347,35 @@ public class TeamSignInController extends SimpleFormController {
 					
 					//check that the username is not the one that is already signed in
 					if(username != null && !username.equals(signedInUsername)) {
-						if(currentNumMembers == 1) {
+						if(currentNumMembers == 2) {
 							//set the username2
 							form.setUsername2(username);
-							currentNumMembers++;
-						} else if(currentNumMembers == 2) {
+						} else if(currentNumMembers == 3) {
 							//set the username3
 							form.setUsername3(username);
-							currentNumMembers++;
-						}				
+						} else if (currentNumMembers == 4) {
+							//set the username4
+							form.setUsername4(username);
+						} else if (currentNumMembers == 5) {
+							//set the username5
+							form.setUsername5(username);
+						} else if (currentNumMembers == 6) {
+							//set the username6
+							form.setUsername6(username);
+						} else if (currentNumMembers == 7) {
+							//set the username7
+							form.setUsername7(username);
+						} else if (currentNumMembers == 8) {
+							//set the username8
+							form.setUsername8(username);
+						} else if (currentNumMembers == 9) {
+							//set the username9
+							form.setUsername9(username);
+						} else if (currentNumMembers == 10) {
+							//set the username10
+							form.setUsername10(username);
+						}
+						currentNumMembers++;
 					}
 				}					
 			}
@@ -338,7 +395,14 @@ public class TeamSignInController extends SimpleFormController {
 			Run run = runService.retrieveById(runId);
 			User signedInUser = ControllerUtil.getSignedInUser();
 			if (run.isStudentAssociatedToThisRun(signedInUser)) {
-				return super.showForm(request, response, errors);			
+				ModelAndView formToShow = super.showForm(request, response, errors);
+				Integer maxWorkgroupSize = run.getMaxWorkgroupSize();
+				if (maxWorkgroupSize == null) {
+					String maxWorkgroupSizeStr = portalProperties.getProperty("maxWorkgroupSize", "3");
+					maxWorkgroupSize = Integer.parseInt(maxWorkgroupSizeStr);
+				}
+				formToShow.addObject("maxWorkgroupSize", maxWorkgroupSize);
+				return formToShow;		
 			} else {
 				return new ModelAndView(new RedirectView("index.html"));
 			}
@@ -405,5 +469,19 @@ public class TeamSignInController extends SimpleFormController {
 	public void setStudentAttendanceService(
 			StudentAttendanceService studentAttendanceService) {
 		this.studentAttendanceService = studentAttendanceService;
+	}
+
+	/**
+	 * @return the portalProperties
+	 */
+	public Properties getPortalProperties() {
+		return portalProperties;
+	}
+
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
 	}
 }

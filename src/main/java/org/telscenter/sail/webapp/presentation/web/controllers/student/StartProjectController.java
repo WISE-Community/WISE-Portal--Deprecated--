@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,6 +77,8 @@ public class StartProjectController extends AbstractController {
 	
 	private StudentAttendanceService studentAttendanceService;
 	
+	protected Properties portalProperties;
+
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -171,6 +174,13 @@ public class StartProjectController extends AbstractController {
 				// need to create a workgroup for this user, take them to create workgroup wizard
 				ModelAndView modelAndView = new ModelAndView(SELECT_TEAM_URL);
 				modelAndView.addObject("runId", runId);
+				
+				Integer maxWorkgroupSize = run.getMaxWorkgroupSize();
+				if (maxWorkgroupSize == null) {
+					String maxWorkgroupSizeStr = portalProperties.getProperty("maxWorkgroupSize", "3");
+					maxWorkgroupSize = Integer.parseInt(maxWorkgroupSizeStr);
+				}
+				modelAndView.addObject("maxWorkgroupSize",maxWorkgroupSize);
 				return modelAndView;
 			}
 		} else if (workgroups.size() == 1) {
@@ -311,5 +321,19 @@ public class StartProjectController extends AbstractController {
 	public void setStudentAttendanceService(
 			StudentAttendanceService studentAttendanceService) {
 		this.studentAttendanceService = studentAttendanceService;
+	}
+
+	/**
+	 * @return the portalProperties
+	 */
+	public Properties getPortalProperties() {
+		return portalProperties;
+	}
+
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
 	}
 }

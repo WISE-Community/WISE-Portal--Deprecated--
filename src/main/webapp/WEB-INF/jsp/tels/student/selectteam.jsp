@@ -105,7 +105,7 @@
 	<div id="teamSelectChoices">
 		<ul>
 			<li><a href="startproject.html?runId=${runId}&bymyself=true" onclick="setTimeout('self.close()', 15000);" id="byMyself"><spring:message code="student.selectteam.2"/></a></li>
-      		<li><a href="teamsignin.html?runId=${runId}" id="withTeam"><spring:message code="student.selectteam.3"/></a></li>
+      		<li><a href="teamsignin.html?runId=${runId}" id="withTeam"><spring:message code="student.selectteam.3" arguments="${maxWorkgroupSize}" /></a></li>
     	</ul>
 	</div>
 
