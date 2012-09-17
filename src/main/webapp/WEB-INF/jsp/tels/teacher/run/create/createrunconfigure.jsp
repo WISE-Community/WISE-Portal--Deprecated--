@@ -69,7 +69,7 @@
 								<h5 style="margin:.5em;">
 									How many students per computer during the project?<br/>
 									<form:radiobutton path="maxWorkgroupSize" value='1'/>Always 1 student per computer.<br/>
-									<form:radiobutton path="maxWorkgroupSize" value='3'/>1, 2, or 3 students per computer.
+									<form:radiobutton path="maxWorkgroupSize" value='${maxWorkgroupSize}'/>1~${maxWorkgroupSize} students per computer.
 								</h5>
 								<h5 style="margin:.5em;">
 									Select the storage level for this run<br/>

@@ -154,6 +154,7 @@
 		<property name="httpRestTransport" ref="httpRestTransport" />
 		<property name="projectService" ref="projectService" />
 		<property name="studentAttendanceService" ref="studentAttendanceService" />
+		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 	
 	<bean id="previewprojectController"
@@ -196,6 +197,7 @@
     	<property name="formView" value="student/teamsignin" />
     	<property name="successView" value="student/teamsigninsuccess" />
     	<property name="studentAttendanceService" ref="studentAttendanceService" />
+		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 	
 	<bean id="curriculumSubjectsController"
