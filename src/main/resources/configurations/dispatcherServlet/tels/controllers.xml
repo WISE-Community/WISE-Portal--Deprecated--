@@ -178,7 +178,6 @@
 		<property name="curnitService" ref="curnitService"/>
 		<property name="portalProperties" ref="portalproperties" />
 		<property name="tagger" ref="taggerController"/>
-		<property name="runService" ref="runService" />
 	</bean>
 	
 	
