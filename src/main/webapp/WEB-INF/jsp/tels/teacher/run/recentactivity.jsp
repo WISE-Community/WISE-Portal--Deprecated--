@@ -197,7 +197,7 @@
 	});
 
 	function unshareFromRun(runId,runName) {
-		var unshareConfirmed = confirm('<spring:message code="teacher.run.myprojectruns.70"/>\n\n'+runName+' (Run ID: '+runId +')?');
+		var unshareConfirmed = confirm('<spring:message code="teacher.run.myprojectruns.69"/>\n\n'+runName+' (Run ID: '+runId +')?');
 		if (unshareConfirmed) {
 			$.ajax({
 				url:"/webapp/teacher/run/unshareprojectrun.html",
