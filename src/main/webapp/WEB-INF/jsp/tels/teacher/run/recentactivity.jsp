@@ -251,7 +251,7 @@
 								    	    	</c:forEach>
 							    	    	</div>
 							    	    	<!-- let the user unshare themself from the run. -->
-							    	    	<a onClick="unshareFromRun('${run.id}','${run.name}');"><spring:message code="teacher.run.myprojectruns.69"/></a>
+							    	    	<a onClick="unshareFromRun('${run.id}','${run.name}');"><spring:message code="teacher.run.myprojectruns.70"/></a>
 							    	    </c:if>
 							    	</c:forEach>
 						     
