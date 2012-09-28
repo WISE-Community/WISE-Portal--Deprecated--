@@ -134,7 +134,8 @@ public class AuthorProjectController extends AbstractController {
 			if(forward.equals("filemanager") || forward.equals("assetmanager")){
 				
 				if((this.isProjectlessRequest(request, forward) || this.projectService.canAuthorProject(project, user)) ||
-						("copyProject".equals(command) && project.getFamilytag().equals(FamilyTag.TELS))){
+						("copyProject".equals(command) && project.getFamilytag().equals(FamilyTag.TELS)) ||
+						("retrieveFile".equals(command) && project.getFamilytag().equals(FamilyTag.TELS))){
 					
 					if("createProject".equals(command) && !this.hasAuthorPermissions(user)){
 						return new ModelAndView(new RedirectView("accessdenied.html"));
