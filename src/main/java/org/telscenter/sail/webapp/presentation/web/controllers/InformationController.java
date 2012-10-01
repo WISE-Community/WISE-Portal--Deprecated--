@@ -394,7 +394,19 @@ public class InformationController extends AbstractController{
 		if(runId != null){
 			Run run = this.runService.retrieveById(Long.parseLong(runId));
 			rawProjectUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-			//versionId = run.getVersionId();
+
+			Long periodId = null;
+			Workgroup workgroup = getWorkgroup(request, run);
+			
+			if(workgroup == null) {
+				//should not go here
+			} else if(((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
+				//workgroup is a teacher
+			} else {
+				//workgroup is a student so we will get the period
+				Group periodGroup = ((WISEWorkgroup) workgroup).getPeriod();//geoff
+				periodId = periodGroup.getId();
+			}
 			
 			portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
 			
@@ -461,6 +473,11 @@ public class InformationController extends AbstractController{
 	    	//get the url to post idea basket data
 	    	String postIdeaBasketUrl = portalurl + "/webapp/bridge/request.html?type=ideaBasket&runId=" + run.getId().toString();
 
+	    	if(periodId != null) {
+	    		//add the period id if it is available
+	    		postIdeaBasketUrl += "&periodId=" + periodId;
+	    	}
+	    	
 	    	//get the url to get idea basket data
 	    	String studentAssetManagerUrl = portalurl + "/webapp/bridge/request.html?type=studentAssetManager&runId=" + run.getId().toString();
 

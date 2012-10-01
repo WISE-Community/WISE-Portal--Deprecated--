@@ -45,14 +45,15 @@ import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.dao.sds.impl.AbstractHttpRestCommand;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.apache.commons.httpclient.HttpStatus;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.acls.domain.BasePermission;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
@@ -505,45 +506,53 @@ public class BridgeController extends AbstractController {
 	private void handleIdeaBasket(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext servletContext2 = this.getServletContext();
 		ServletContext vlewrappercontext = servletContext2.getContext("/vlewrapper");
-		User user = ControllerUtil.getSignedInUser();
+		User signedInUser = ControllerUtil.getSignedInUser();
 		String action = request.getParameter("action");
 		
 		try {
-			//check if the request is for all idea baskets and the user is not a teacher
-			if(action.equals("getAllIdeaBaskets") && !(user.getUserDetails() instanceof TeacherUserDetails)) {
-				/*
-				 * the request is for all idea baskets and the user is not a teacher
-				 * so we will not allow this
-				 */
-				response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You are not authorized to access this page");
-			} else {
-				//get the run
-				String runId = request.getParameter("runId");
-				Run run = runService.retrieveById(new Long(runId));
-				
-				//get the project id
-				Project project = run.getProject();
-				Serializable projectId = project.getId();
-				
-				//set the project id into the request so the vlewrapper controller has access to it
-				request.setAttribute("projectId", projectId + "");
+			//get the run
+			String runId = request.getParameter("runId");
+			Run run = runService.retrieveById(new Long(runId));
+			
+			//get the project id
+			Project project = run.getProject();
+			Serializable projectId = project.getId();
+			
+			//set the project id into the request so the vlewrapper controller has access to it
+			request.setAttribute("projectId", projectId + "");
 
-				// if admin is requesting all baskets, there is no need to get the workgroupId.
-				if (!user.isAdmin()) {
+			//get the authorities for the signed in user
+			MutableUserDetails signedInUserDetails = signedInUser.getUserDetails();
+			Collection<? extends GrantedAuthority> authorities = signedInUserDetails.getAuthorities();
 
-					//get the workgroup id
-					List<Workgroup> workgroupListByOfferingAndUser = workgroupService.getWorkgroupListByOfferingAndUser(run, user);
-					Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
-					Long workgroupId = workgroup.getId();
-
-					//set the workgroup id into the request so the vlewrapper controller has access to it
-					request.setAttribute("workgroupId", workgroupId + "");
+			//this value will determine whether the user can modify anything they want in the public idea basket
+			boolean isPrivileged = false;
+			
+			for (GrantedAuthority authority : authorities) {
+				if (authority.getAuthority().equals(UserDetailsService.ADMIN_ROLE) ||
+						authority.getAuthority().equals(UserDetailsService.TEACHER_ROLE)) {
+					//user is an admin or teacher
+					isPrivileged = true;
 				}
-				
-				//forward the request to the vlewrapper controller
-				RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/ideaBasket.html");
-				requestDispatcher.forward(request, response);				
 			}
+			
+			request.setAttribute("isPrivileged", isPrivileged);
+			
+			// if admin is requesting all baskets, there is no need to get the workgroupId.
+			if (!signedInUser.isAdmin()) {
+
+				//get the workgroup id
+				List<Workgroup> workgroupListByOfferingAndUser = workgroupService.getWorkgroupListByOfferingAndUser(run, signedInUser);
+				Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
+				Long signedInWorkgroupId = workgroup.getId();
+				
+				//set the workgroup id into the request so the vlewrapper controller has access to it
+				request.setAttribute("signedInWorkgroupId", signedInWorkgroupId + "");
+			}
+			
+			//forward the request to the vlewrapper controller
+			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/ideaBasket.html");
+			requestDispatcher.forward(request, response);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (ObjectNotFoundException e) {
