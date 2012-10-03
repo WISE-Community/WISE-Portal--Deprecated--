@@ -29,6 +29,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -525,29 +526,75 @@ public class BridgeController extends AbstractController {
 			MutableUserDetails signedInUserDetails = signedInUser.getUserDetails();
 			Collection<? extends GrantedAuthority> authorities = signedInUserDetails.getAuthorities();
 
+			boolean isAdmin = false;
+			boolean isTeacher = false;
+			boolean isStudent = false;
+			
 			//this value will determine whether the user can modify anything they want in the public idea basket
 			boolean isPrivileged = false;
 			
 			for (GrantedAuthority authority : authorities) {
-				if (authority.getAuthority().equals(UserDetailsService.ADMIN_ROLE) ||
-						authority.getAuthority().equals(UserDetailsService.TEACHER_ROLE)) {
+				if (authority.getAuthority().equals(UserDetailsService.ADMIN_ROLE)) {
 					//user is an admin or teacher
+					isAdmin = true;					
+					isPrivileged = true;
+				} else if(authority.getAuthority().equals(UserDetailsService.TEACHER_ROLE)) {
+					//user is an admin or teacher
+					isTeacher = true;
 					isPrivileged = true;
 				}
 			}
 			
+			if(!isTeacher) {
+				isStudent = true;
+			}
+			
 			request.setAttribute("isPrivileged", isPrivileged);
 			
-			// if admin is requesting all baskets, there is no need to get the workgroupId.
-			if (!signedInUser.isAdmin()) {
-
+			if(isAdmin) {
+				//user is an admin so we do not need to retrieve the workgroup id
+			} else if(isTeacher) {
+				//user is a teacher so we will retrieve their workgroup id for the run
+				
 				//get the workgroup id
 				List<Workgroup> workgroupListByOfferingAndUser = workgroupService.getWorkgroupListByOfferingAndUser(run, signedInUser);
+				//add nullpointer check
 				Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
 				Long signedInWorkgroupId = workgroup.getId();
 				
 				//set the workgroup id into the request so the vlewrapper controller has access to it
 				request.setAttribute("signedInWorkgroupId", signedInWorkgroupId + "");
+			} else if(isStudent) {
+				/*
+				 * the user is a student so we will make sure the run id 
+				 * matches the run they are currently working on and then
+				 * retrieve their workgroup id for the run
+				 */
+				
+				HashMap<String, Run> studentsToRuns = 
+						(HashMap<String, Run>) request.getSession()
+							.getServletContext().getAttribute("studentsToRuns");
+				
+				String sessionId = request.getSession().getId();
+				
+				if (studentsToRuns != null && studentsToRuns.containsKey(sessionId)) {
+					Run sessionRun = studentsToRuns.get(sessionId);
+					Long sessionRunId = sessionRun.getId();
+					
+					if(sessionRunId.equals(new Long(runId))) {
+						//get the workgroup id
+						List<Workgroup> workgroupListByOfferingAndUser = workgroupService.getWorkgroupListByOfferingAndUser(run, signedInUser);
+						//add nullpointer check
+						Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
+						Long signedInWorkgroupId = workgroup.getId();
+						
+						//set the workgroup id into the request so the vlewrapper controller has access to it
+						request.setAttribute("signedInWorkgroupId", signedInWorkgroupId + "");
+					} else {
+						//run id does not match the run that the student is logged in to
+						response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Run id does not match run that student is logged in to");
+					}
+				}
 			}
 			
 			//forward the request to the vlewrapper controller
