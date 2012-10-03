@@ -600,6 +600,14 @@ public class InformationController extends AbstractController{
 						//get the parent project id as a string
 						parentProjectId = project.getParentProjectId() + "";
 					}
+					
+					// check if run is active 
+					if (!run.isEnded()) {
+						config.put("isRunActive", true);
+					} else {
+						config.put("isRunActive", false);						
+					}
+
 				}
 			}
 			
