@@ -1456,6 +1456,7 @@
     <bean id="runStatisticsController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.admin.RunStatisticsController">
     	<property name="runService" ref="runService"/>
+    	<property name="studentAttendanceService" ref="studentAttendanceService"/>
     </bean>
     
     <bean id="updateRunController"

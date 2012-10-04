@@ -28,21 +28,9 @@
 	<artifactId>webapp</artifactId>
 	<packaging>war</packaging>
 	<name>SAIL Web Application</name>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>4.6</version>
 	<url>http://sail.sourceforge.net/</url>
 	<developers>
-		<developer>
-			<id>rokham</id>
-			<name>Rokham Sadeghnezhadfard</name>
-			<email>somebodyiknow@gmail.com</email>
-			<url>http://www.utoronto.ca/</url>
-			<organization>University of Toronto</organization>
-			<organizationUrl>http://www.utoronto.ca/</organizationUrl>
-			<roles>
-				<role>developer</role>
-			</roles>
-			<timezone>-5</timezone>
-		</developer>
 		<developer>
 			<id>hiroki</id>
 			<name>Hiroki Terashima</name>
@@ -57,9 +45,22 @@
 			<timezone>-8</timezone>
 		</developer>
 		<developer>
-			<id>tony</id>
-			<name>Anthony Perritano</name>
-			<email>aperritano@gmail.com</email>
+			<id>geoff</id>
+			<name>Geoffrey Kwan</name>
+			<email>geoffreykwan@gmail.com</email>
+			<organization>TELS</organization>
+			<organizationUrl>
+				http://www.telscenter.org/
+			</organizationUrl>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>-8</timezone>
+		</developer>
+		<developer>
+			<id>jon</id>
+			<name>Jonathan Breitbart</name>
+			<email>breity10@gmail.com</email>
 			<organization>TELS</organization>
 			<organizationUrl>
 				http://www.telscenter.org/

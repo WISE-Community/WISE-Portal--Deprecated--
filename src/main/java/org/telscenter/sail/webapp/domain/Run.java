@@ -24,9 +24,11 @@
 package org.telscenter.sail.webapp.domain;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.telscenter.sail.webapp.domain.announcement.Announcement;
+import org.telscenter.sail.webapp.domain.attendance.StudentAttendance;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.run.RunStatus;
@@ -345,4 +347,17 @@ public interface Run extends Offering {
 	 * @param isXMPPEnabled
 	 */
 	public void setXMPPEnabled(boolean isXMPPEnabled);
+
+	/**
+	 * sets student attendance for this run
+	 * @param studentAttendanceByRunIdAndPeriod
+	 */
+	public void setStudentAttendance(
+			List<StudentAttendance> studentAttendance);
+
+	/**
+	 * sets student attendance for this run
+	 * @param studentAttendanceByRunIdAndPeriod
+	 */
+	public List<StudentAttendance> getStudentAttendance();
 }

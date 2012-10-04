@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.domain.impl;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -43,6 +44,7 @@ import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.announcement.Announcement;
 import org.telscenter.sail.webapp.domain.announcement.impl.AnnouncementImpl;
+import org.telscenter.sail.webapp.domain.attendance.StudentAttendance;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
@@ -202,6 +204,9 @@ public class RunImpl extends OfferingImpl implements Run {
     //@JoinColumn(name = COLUMN_NAME_RUNSTATUS, unique = true)
     @Transient
     private RunStatus runStatus;
+    
+    @Transient
+    private List<StudentAttendance> studentAttendance;
     
     @Transient
     private Set<Brainstorm> brainstorms = new TreeSet<Brainstorm>();
@@ -652,5 +657,16 @@ public class RunImpl extends OfferingImpl implements Run {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void setStudentAttendance(
+			List<StudentAttendance> studentAttendance) {
+		this.studentAttendance = studentAttendance;
+	}
+
+	@Override
+	public List<StudentAttendance> getStudentAttendance() {
+		return this.studentAttendance;
 	}
 }
