@@ -13,14 +13,6 @@
 <script type="text/javascript"
 	src="<spring:theme code="generalsource"/>"></script>
 
-<!-- Dependency -->
-<!-- 
-<script src="http://yui.yahooapis.com/2.8.0r4/build/yahoo/yahoo-min.js"></script>
-<script src="http://yui.yahooapis.com/2.8.0r4/build/event/event-min.js"></script>
-<script src="http://yui.yahooapis.com/2.8.0r4/build/connection/connection_core-min.js"></script>
-
-
--->
 <script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
 <script type="text/javascript"
 	src="<spring:theme code="jqueryuisource"/>"></script>
