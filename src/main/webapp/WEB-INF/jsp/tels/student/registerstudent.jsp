@@ -18,6 +18,14 @@
 
 <title><spring:message code="student.signup.title" /></title>
 <script type="text/javascript">
+$(document).ready(function(){
+	
+	//focus cursor into the First Name field on page ready 
+	if($('#firstname').length){
+		$('#firstname').focus();
+	}
+});
+
 function findPeriods() {
 	  var successCallback = function(o) {
   			var periodSelect = document.getElementById("runCode_part2");
@@ -44,7 +52,6 @@ function findPeriods() {
 			  		}
 		  		}
 		  		periodSelect.disabled = false;
-		  		document.getElementById("createAccountLink").onclick = checkForExistingAccountsAndCreateAccount;
 		  	}
 		  };
 		  var failureCallback = function(o) {
@@ -54,6 +61,7 @@ function findPeriods() {
 	if (runcode != null && runcode != "") {
 		$.ajax({
 			url:"/webapp/runinfo.html?runcode=" + runcode,
+			dataType:"text",		
 			success:successCallback,
 			error:failureCallback
 		});
@@ -151,6 +159,7 @@ function checkForExistingAccounts() {
 	$.ajax({
 		url:'../checkforexistingaccount.html',
 		data:data,
+		dataType:"text",
 		success:function(response) {
 			if(response != null) {
 				$('#existingAccounts').html(response);

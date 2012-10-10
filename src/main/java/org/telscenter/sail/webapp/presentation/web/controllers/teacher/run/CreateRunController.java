@@ -448,7 +448,6 @@ public class CreateRunController extends AbstractWizardFormController {
 		// send email to the recipients in new thread
 		//tries to retrieve the user from the session
 		User user = ControllerUtil.getSignedInUser();
-
 		CreateRunEmailService emailService = 
 			new CreateRunEmailService(command, run, user);
 		Thread thread = new Thread(emailService);
@@ -472,6 +471,12 @@ public class CreateRunController extends AbstractWizardFormController {
 
 		public void run() {
 			try {
+				String sendEmailEnabledStr = portalProperties.getProperty("send_email_enabled");
+				Boolean sendEmailEnabled = Boolean.valueOf(sendEmailEnabledStr);
+				if (!sendEmailEnabled) {
+					return;
+				}
+				
 				sendEmail();
 			} catch (MessagingException e) {
 				// what if there was an error sending email?
