@@ -119,7 +119,8 @@ public class RegisterTeacherController extends SignupController {
 					userDetails.setDisplayname(userDetails.getFirstname() + " " + userDetails.getLastname());
 					userDetails.setEmailValid(true);
 					User createdUser = this.userService.createUser(userDetails);
-					// send email to new teacher
+					// send email to new teacher if email server is configured properly
+					
 					NewAccountEmailService newAccountEmailService = new NewAccountEmailService(createdUser,request.getLocale());
 					Thread thread = new Thread(newAccountEmailService);
 					thread.start();

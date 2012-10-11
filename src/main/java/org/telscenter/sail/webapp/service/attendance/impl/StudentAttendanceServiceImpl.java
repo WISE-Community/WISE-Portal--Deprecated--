@@ -33,6 +33,12 @@ public class StudentAttendanceServiceImpl implements StudentAttendanceService {
 		return studentAttendanceList;
 	}
 	
+	@Override
+	public List<StudentAttendance> getStudentAttendanceByRunIdAndPeriod(Long runId, int lookBackNumDays) {
+		List<StudentAttendance> studentAttendanceList = studentAttendanceDao.getStudentAttendanceByRunIdAndPeriod(runId,lookBackNumDays);
+		return studentAttendanceList;
+	}
+	
 	/**
 	 * 
 	 * @see org.telscenter.sail.webapp.service.attendance.StudentAttendanceService#getStudentAttendanceDao()

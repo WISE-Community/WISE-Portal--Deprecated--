@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.attendance.StudentAttendance;
+import org.telscenter.sail.webapp.service.attendance.StudentAttendanceService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
@@ -39,6 +42,8 @@ import org.telscenter.sail.webapp.service.offering.RunService;
 public class RunStatisticsController extends AbstractController {
 
 	private RunService runService;
+	
+	private StudentAttendanceService studentAttendanceService;
 	
 	private final static String RUNS_WITHIN_VIEW = "/admin/runswithinperiod";
 	
@@ -57,6 +62,19 @@ public class RunStatisticsController extends AbstractController {
 		
 		if(command.equals("today") || command.equals("week") || command.equals("month")){
 			List<Run> runs = this.runService.getRunsRunWithinPeriod(command);
+			int lookBackPeriod = 0;
+			if(command.equals("today")){
+				lookBackPeriod = 0;
+			} else if(command.equals("week")){
+				lookBackPeriod = 7;
+			} else if(command.equals("month")){
+				lookBackPeriod = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
+			}
+			for (Run run: runs) {
+				List<StudentAttendance> studentAttendanceByRunIdAndPeriod = this.studentAttendanceService.getStudentAttendanceByRunIdAndPeriod(run.getId(), lookBackPeriod);
+				run.setStudentAttendance(studentAttendanceByRunIdAndPeriod);
+			}
+			
 			String period = null;
 			if(command.equals("today")){
 				period = command;
@@ -81,5 +99,13 @@ public class RunStatisticsController extends AbstractController {
 
 	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+
+	/**
+	 * @param studentAttendanceService the studentAttendanceService to set
+	 */
+	public void setStudentAttendanceService(
+			StudentAttendanceService studentAttendanceService) {
+		this.studentAttendanceService = studentAttendanceService;
 	}
 }

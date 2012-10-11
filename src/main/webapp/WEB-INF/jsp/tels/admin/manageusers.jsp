@@ -82,11 +82,18 @@ function findRunByRunId(runId) {
 
 <c:choose>
 <c:when test="${studentsWhoLoggedInSinceYesterday != null && teachersWhoLoggedInSinceYesterday != null}">
-Teachers who logged in today (${fn:length(teachersWhoLoggedInSinceYesterday)}):
+Teachers who logged in today (${fn:length(teachersWhoLoggedInSinceYesterday)}). New teachers will have a lightpink background:
 <table id="teachersTable" border="2">
 	<c:forEach var="user" items="${teachersWhoLoggedInSinceYesterday}">
 		<c:set var="username" value="${user.userDetails.username}"></c:set>
-		<tr>
+		<c:choose>
+		<c:when test="${user.userDetails.numberOfLogins == 1}">
+			<tr style="background-color:lightpink">
+		</c:when>
+		<c:otherwise>
+			<tr>
+		</c:otherwise>
+		</c:choose>
 			<td>${username}</td>
 			<td><a href="#"
 				onclick="javascript:popup640('../teacher/management/changepassword.html?userName=${username}');">Change

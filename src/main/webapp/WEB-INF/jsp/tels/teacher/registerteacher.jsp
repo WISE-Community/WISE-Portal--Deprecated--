@@ -17,6 +17,13 @@
 
 
 <script type="text/javascript">
+$(document).ready(function(){
+	
+	//focus cursor into the First Name field on page ready 
+	if($('#teacherFirstName').length){
+		$('#teacherFirstName').focus();
+	}
+});
 
 /**
  * Check if there is an account with matching first name and

@@ -33,6 +33,17 @@ public class HibernateStudentAttendanceDao extends AbstractHibernateDao<StudentA
 		return results;
 	}
 	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<StudentAttendance> getStudentAttendanceByRunIdAndPeriod(
+			Long runId, int lookBackNumDays) {
+		
+			return this.getHibernateTemplate().find("select attendance from StudentAttendanceImpl attendance where"
+					+ " datediff(curdate(), attendance.loginTimestamp) <=" + lookBackNumDays
+					+ " and attendance.runId = " + runId);
+	}
+	
 	@Override
 	protected Class<? extends StudentAttendance> getDataObjectClass() {
 		return null;
@@ -42,5 +53,6 @@ public class HibernateStudentAttendanceDao extends AbstractHibernateDao<StudentA
 	protected String getFindAllQuery() {
 		return null;
 	}
+
 
 }

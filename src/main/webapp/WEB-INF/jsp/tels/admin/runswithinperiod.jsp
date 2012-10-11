@@ -19,9 +19,9 @@
 <h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>
 
 <h3>Runs run ${period} (${fn:length(runs)} runs)</h3>
-<table id="runStatsTable">
+<table id="runStatsTable" border="1">
 	<thead>
-		<tr><th>Run ID</th><th>Run Code</th><th>Run Name</th><th>Last Access Time</th><th>Total access count</th><th>Owners (click to login as user)</th><th>Actions</th></tr>
+		<tr><th>Run ID</th><th>Run Code</th><th>Run Name</th><th>Last Access Time</th><th>Access Count ${period}</th><th>Total access count (all time)</th><th>Owners (click to login as user)</th><th>Actions</th></tr>
 	</thead>
 	<tbody>
 		<tr></tr>
@@ -31,6 +31,7 @@
 				<td>${run.runcode}</td>
 				<td>${run.name}</td>
 				<td><fmt:formatDate value="${run.lastRun}" type="both" dateStyle="short" timeStyle="short" /></td>
+				<td>${fn:length(run.studentAttendance)}</td>
 				<td>${run.timesRun}</td>
 				<td>
 					<c:forEach var="owner" items="${run.owners}">
@@ -40,7 +41,7 @@
 				</td>
 			    <td>
 			    	<ul>
-			    		<sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+			    		<sec:authorize ifAnyGranted="ROLE_ADMINISTRATOR">
 			    		  <li><a href="../teacher/run/shareprojectrun.html?runId=${run.id}">Manage shared teachers</a></li>
 			    		  <li><a href="../teacher/management/viewmystudents.html?runId=${run.id}">Manage students</a></li>
 			    		</sec:authorize>
