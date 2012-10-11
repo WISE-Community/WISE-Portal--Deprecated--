@@ -475,6 +475,7 @@ public class InformationController extends AbstractController{
 
 	    	if(periodId != null) {
 	    		//add the period id if it is available
+	    		getIdeaBasketUrl += "&periodId=" + periodId;
 	    		postIdeaBasketUrl += "&periodId=" + periodId;
 	    	}
 	    	
