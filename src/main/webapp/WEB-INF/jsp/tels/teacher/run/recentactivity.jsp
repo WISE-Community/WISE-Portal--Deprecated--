@@ -197,19 +197,55 @@
 	});
 
 	function unshareFromRun(runId,runName) {
-		var unshareConfirmed = confirm('<spring:message code="teacher.run.myprojectruns.69"/>\n\n'+runName+' (Run ID: '+runId +')?');
-		if (unshareConfirmed) {
-			$.ajax({
-				url:"/webapp/teacher/run/unshareprojectrun.html",
-				type:"POST",
-				data:{"runId":runId},
-				success:function() {
-					alert("You have been successfully unshared from the run.");
-					$("#runTitleRow_"+runId).remove();					
+		var agreed = false,
+			dialogContent = '<spring:message code="teacher.run.myprojectruns.unshare.dialog.confirm" htmlEscape="false" />',
+			title = '<spring:message code="teacher.run.myprojectruns.unshare.dialog.title" /> ' + runName + ' (<spring:message code="id" />: ' + runId + ')',
+			processing = '<spring:message code="teacher.run.myprojectruns.unshare.dialog.processing" />';
+		$('#unshareDialog').html(dialogContent).dialog({
+			modal: true,
+			title: title,
+			width: '500',
+			closeOnEscape: false,
+			beforeclose : function() { return agreed; },
+			buttons: {
+				'<spring:message code="cancel" />': function(){
+					agreed = true;
+					$(this).dialog('close');
+				},
+				'<spring:message code="ok" />': function(){
+					var processingHtml = '<p>' + processing + '</p>' + 
+						'<p><img src="/webapp/themes/tels/default/images/rel_interstitial_loading.gif" /></p>';
+					$('#unshareDialog').css('text-align','center');
+					$('#unshareDialog').html(processingHtml);
+					$('ui-dialog-titlebar-close',$(this).parent()).hide();
+					$('button',$(this).parent()).hide().unbind();
+					//make the request to unshare the project
+					$.ajax({
+						url:"/webapp/teacher/run/unshareprojectrun.html",
+						type:"POST",
+						data:{"runId":runId},
+						success: function(data, text, xml){
+							$('#unshareDialog').html("<p><spring:message code='teacher.run.myprojectruns.unshare.dialog.success' /></p>");
+							$('button:eq(1)',$('#unshareDialog').parent()).show().click(function(){
+								agreed = true;
+								$('#unshareDialog').dialog('close');
+								// reload page
+								window.location.reload();
+							});
+						},
+						error: function(data, text, xml){
+							// an error occured, so we will display an error message to the user
+							$('#unshareDialog').html('<p><spring:message code="teacher.run.myprojectruns.unshare.dialog.failure" /></p>');
+							$('button:eq(1)',$('#unshareDialog').parent()).show().click(function(){
+								agreed = true;
+								$('#unshareDialog').dialog('close');
+							});
+						}
+					});
 				}
-			});
-		}
-	}
+			}
+		});
+	};
 </script>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -251,7 +287,7 @@
 								    	    	</c:forEach>
 							    	    	</div>
 							    	    	<!-- let the user unshare themself from the run. -->
-							    	    	<a onClick="unshareFromRun('${run.id}','${run.name}');"><spring:message code="teacher.run.myprojectruns.70"/></a>
+							    	    	<a class="unshare" onClick="unshareFromRun('${run.id}','<spring:escapeBody javaScriptEscape="true">${run.name}</spring:escapeBody>');"><spring:message code="teacher.run.myprojectruns.unshare.linktext"/></a>
 							    	    </c:if>
 							    	</c:forEach>
 						     
@@ -409,6 +445,7 @@
 
 <div id="gradingDialog" class="dialog"></div>
 <div id="shareDialog" class="dialog"></div>
+<div id="unshareDialog" class="dialog"></div>
 <div id="editRunDialog" class="dialog"></div>
 <div id="editAnnouncementsDialog" class="dialog"></div>
 <div id="manageStudentsDialog" style="overflow:hidden;" class="dialog"></div>
