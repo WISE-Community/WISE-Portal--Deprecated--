@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.author.project;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -51,6 +52,8 @@ import net.sf.sail.webapp.service.curnit.CurnitService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
+import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.impl.CreateUrlModuleParameters;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
@@ -68,6 +71,7 @@ import org.telscenter.sail.webapp.presentation.web.controllers.CredentialManager
 import org.telscenter.sail.webapp.presentation.web.controllers.TaggerController;
 import org.telscenter.sail.webapp.presentation.web.filters.TelsAuthenticationProcessingFilter;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
+import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -78,6 +82,9 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
  */
 public class AuthorProjectController extends AbstractController {
 
+	// path to project thumb image relative to project folder
+	private static final String PROJECT_THUMB_PATH = "/assets/project_thumb.png";
+		
 	private static final String PROJECT_ID_PARAM_NAME = "projectId";
 	
 	private static final String FORWARD = "forward";
@@ -97,6 +104,8 @@ public class AuthorProjectController extends AbstractController {
 	private final static List<String> filemanagerProjectlessRequests;
 	
 	private final static List<String> minifierProjectlessRequests;
+
+	private RunService runService;
 		static {
 			filemanagerProjectlessRequests = new ArrayList<String>();
 			filemanagerProjectlessRequests.add("createProject");
@@ -250,6 +259,8 @@ public class AuthorProjectController extends AbstractController {
 				return handleCreateProject(request, response);
 			} else if(command.equals("projectList")){
 				return handleProjectList(request, response);
+			} else if(command.equals("getProjectInfo")){
+				return handleProjectInfo(request, response);
 			} else if (command.equals("notifyProjectOpen")) {
 				return handleNotifyProjectOpen(request, response);
 			} else if (command.equals("notifyProjectClose")){
@@ -291,6 +302,8 @@ public class AuthorProjectController extends AbstractController {
 				return handleUpdateProject(request, response);
 			} else if(command.equals("importSteps")) {
 				return handleReviewOrUpdateProject(request, response);
+			} else if(command.equals("welcomeProjectList")){
+				return handleWelcomeProjectList(request, response);
 			}
 		}
 		
@@ -554,6 +567,83 @@ public class AuthorProjectController extends AbstractController {
 	}
 	
 	/**
+	 * Returns some additional info about a project being authored (owner/shared info, whether project is in public library,
+	 * if it's bookmarked, thumbnail url)
+	 * TODO: perhaps include last edited time (and user) in the future
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	private ModelAndView handleProjectInfo(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String projectId = request.getParameter("projectId");
+		
+		if(projectId != null) {
+			Project project = projectService.getById(projectId);
+			User signedInUser = ControllerUtil.getSignedInUser();
+			List<Project> libraryProjects = projectService.getProjectListByTagName("library");
+			List<Project> bookmarkedProjects = this.projectService.getBookmarkerProjectList(signedInUser);
+			
+			//get the project is owner
+			Set<User> owners = project.getOwners();
+			String projectOwnerName = new String();
+			String projectOwnerUsername = new String();
+			for(User owner : owners){
+				MutableUserDetails ownerDetails = (MutableUserDetails)owner.getUserDetails();
+				projectOwnerName = ownerDetails.getFirstname() + ' ' + ownerDetails.getLastname();
+				projectOwnerUsername = ownerDetails.getUsername();
+			}
+			
+			//get the shared users
+			Set<User> sharedOwners = project.getSharedowners();
+			String sharedUsers = "";
+			String delim = "";
+			for(User sharedOwner : sharedOwners){
+				MutableUserDetails sharedUserDetails = (MutableUserDetails)sharedOwner.getUserDetails();
+				sharedUsers = sharedUsers + delim + sharedUserDetails.getFirstname() + " " + sharedUserDetails.getLastname();
+				delim = ", ";
+			}
+			
+			//get if project is a public library project
+			Boolean isLibrary = false;
+			if(libraryProjects.contains(project)){
+				isLibrary = true;
+			}
+			
+			//get if project is bookmarked
+			Boolean bookmarked = false;
+			if(bookmarkedProjects.contains(project)){
+				bookmarked = true;
+			}
+			
+			String url = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+			String thumbUrl = "";
+			if(url != null && url != ""){
+				int ndx = url.lastIndexOf("/");
+				if(ndx != -1){
+					String curriculumBaseWWW = this.portalProperties.getProperty("curriculum_base_www");
+					thumbUrl = curriculumBaseWWW + url.substring(0, ndx) + PROJECT_THUMB_PATH;
+				}
+			}
+			
+			/*
+			 * create json object to hold project details
+			 */
+			JSONObject projectDetails = new JSONObject();
+			projectDetails.put("projectOwnerName", projectOwnerName);
+			projectDetails.put("projectOwnerUsername", projectOwnerUsername);
+			projectDetails.put("isLibrary", isLibrary);
+			projectDetails.put("isFavorite", bookmarked);
+			projectDetails.put("sharedUsers", sharedUsers);
+			projectDetails.put("thumbUrl", thumbUrl);
+			
+			response.getWriter().write(projectDetails.toString());
+		}
+		
+		return null;
+	}
+	
+	/**
 	 * Returns a list of projects that the signed in user can author
 	 * @param request
 	 * @param response
@@ -601,6 +691,20 @@ public class AuthorProjectController extends AbstractController {
 	}
 	
 	/**
+	 * Returns a list of projects that the signed in user can author for authoring welcome screen
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	private ModelAndView handleWelcomeProjectList(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		//get the number of projects the current user can author and recently edited projects
+		getWelcomeProjects(request, response);
+		
+		return null;
+	}
+	
+	/**
 	 * Get all the projects the current user can author
 	 * @param request
 	 * @param response
@@ -608,15 +712,37 @@ public class AuthorProjectController extends AbstractController {
 	 * @return the JSONArray of authorable projects
 	 */
 	private JSONArray getAuthorableProjects(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String mode = request.getParameter("listMode");
+		
 		List<Project> allAuthorableProjects = new ArrayList<Project>();
 		User signedInUser = ControllerUtil.getSignedInUser();
 		List<Project> projects = projectService.getProjectList(signedInUser);
-		List<Project> sharedProjects = projectService.getSharedProjectList(ControllerUtil.getSignedInUser());
+		List<Project> sharedProjects = projectService.getSharedProjectList(signedInUser);
+		List<Project> libraryProjects = projectService.getProjectListByTagName("library");
+		List<Project> bookmarkedProjects = this.projectService.getBookmarkerProjectList(signedInUser);
 
 		// in the future, we'll want to filter this allAuthorableProjects list even further by what kind of
 		// permissions (view, edit, share) the user has on the project.
 		allAuthorableProjects.addAll(projects);
 		allAuthorableProjects.addAll(sharedProjects);
+		
+		// remove projects from library list if they appear in the owned or shared lists (to avoid duplicates)
+		List<Project> libraryRemove = new ArrayList<Project>();
+		for (Project libProject : libraryProjects){
+			if (sharedProjects.contains(libProject) || projects.contains(libProject)){
+				libraryRemove.add(libProject);
+			}
+		}
+		for (int a=0; a<libraryProjects.size(); a++){
+			if(libraryRemove.contains(libraryProjects.get(a))){
+				libraryProjects.remove(a);
+			}
+		}
+		
+		// if in copy dialog mode, add library projects to master list
+		if(mode.equals("copy")){
+			allAuthorableProjects.addAll(libraryProjects);
+		}
 		
 		//an array to hold the information for the projects
 		JSONArray projectArray = new JSONArray();
@@ -624,7 +750,7 @@ public class AuthorProjectController extends AbstractController {
 		//loop through all the projects
 		for(Project project : allAuthorableProjects){
 			if(project.getProjectType()==ProjectType.LD &&
-					projectService.canAuthorProject(project, signedInUser)){
+					projectService.canAuthorProject(project, signedInUser) && !project.isDeleted()){
 				/*
 				 * get the relative project url
 				 * e.g.
@@ -632,10 +758,88 @@ public class AuthorProjectController extends AbstractController {
 				 */
 				String rawProjectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 				
-				//get the title of the project
-				String title = project.getName();
-				
 				if(rawProjectUrl != null) {
+					/*
+					 * create json object to hold project details
+					 */
+					JSONObject projectDetails = new JSONObject();
+					
+					//get the title of the project
+					String title = project.getName();
+					
+					//get who owns the project
+					Set<User> owners = project.getOwners();
+					String projectOwnerName = new String();
+					for(User owner : owners){
+						MutableUserDetails ownerDetails = (MutableUserDetails)owner.getUserDetails();
+						projectOwnerName = ownerDetails.getFirstname() + ' ' + ownerDetails.getLastname();
+					}
+					
+					//get the shared users
+					Set<User> sharedOwners = project.getSharedowners();
+					String sharedUsers = "";
+					String delim = "";
+					for(User sharedOwner : sharedOwners){
+						MutableUserDetails sharedUserDetails = (MutableUserDetails)sharedOwner.getUserDetails();
+						sharedUsers = sharedUsers + delim + sharedUserDetails.getFirstname() + " " + sharedUserDetails.getLastname();
+						delim = ", ";
+					}
+					
+					//get date created
+					String dateCreated = DateFormat.getDateInstance(DateFormat.MEDIUM).format(project.getDateCreated());
+					
+					//get project runs
+					List<Run> runList = runService.getProjectRuns((Long) project.getId());
+					Long runId = null;
+					if (!runList.isEmpty()){
+						runId = runList.get(0).getId();
+					}
+					
+					//get parent project id
+					Long parentId = project.getParentProjectId();
+					Boolean parentIsLibrary = null;
+					String parentTitle = null;
+					if(parentId != null){
+						Project parent = projectService.getById(parentId);
+						parentTitle = parent.getName();
+						if(libraryProjects.contains(parent)){
+							parentIsLibrary = true;
+						} else {
+							parentIsLibrary = false;
+						}
+					}
+					
+					//get if project is bookmarked
+					Boolean bookmarked = false;
+					if(bookmarkedProjects.contains(project)){
+						bookmarked = true;
+					}
+					
+					//get if project is a public library project
+					Boolean isLibrary = false;
+					if(libraryProjects.contains(project) || libraryRemove.contains(project)){
+						isLibrary = true;
+					}
+					
+					//get some metadata fields
+					String lastEdited = "";
+					Long lastEditedTime = null;
+					//String subject = "";
+					//String gradeRange = "";
+					//String language = "";
+					//String summary = "";
+					if(project.getMetadata() != null){
+						Date lastEditedDate = project.getMetadata().getLastEdited();
+						if(lastEditedDate != null){
+							lastEdited = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(lastEditedDate);
+							lastEditedTime = lastEditedDate.getTime();
+						}
+						//subject = project.getMetadata().getSubject();
+						//gradeRange = project.getMetadata().getGradeRange();
+						//language = project.getMetadata().getLanguage();
+						//summary = project.getMetadata().getSummary();
+					}
+					
 					/*
 					 * get the project file name
 					 * e.g.
@@ -643,14 +847,47 @@ public class AuthorProjectController extends AbstractController {
 					 */
 					String projectFileName = rawProjectUrl.substring(rawProjectUrl.lastIndexOf("/"));
 					
+					String url = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+					if(url != null && url != ""){
+						int ndx = url.lastIndexOf("/");
+						if(ndx != -1){
+							String curriculumBaseWWW = this.portalProperties.getProperty("curriculum_base_www");
+							String thumbUrl = curriculumBaseWWW + url.substring(0, ndx) + PROJECT_THUMB_PATH;
+							projectDetails.put("thumbUrl", thumbUrl);
+						}
+					}
+					
+					if(mode.equals("copy")){
+						// if in copy dialog mode, add whether project is authorable to the JSON object
+						Boolean isAuthorable = false;
+						if(projects.contains(project) || sharedProjects.contains(project)){
+							isAuthorable = true;
+						}
+						projectDetails.put("authorable", isAuthorable);
+					}
+					
 					/*
-					 * add the project file name, project id, and project title
+					 * add the project file name, project id, project title, and other details
 					 * to the JSONObject
 					 */
-					JSONObject projectDetails = new JSONObject();
 					projectDetails.put("id", project.getId());
 					projectDetails.put("path", projectFileName);
 					projectDetails.put("title", title);
+					projectDetails.put("dateCreated", dateCreated);
+					projectDetails.put("lastEdited", lastEdited);
+					projectDetails.put("lastEditedTime", lastEditedTime);
+					projectDetails.put("projectOwnerName", projectOwnerName);
+					projectDetails.put("parentId", parentId);
+					projectDetails.put("parentTitle", parentTitle);
+					projectDetails.put("parentLibrary", parentIsLibrary);
+					projectDetails.put("sharedUsers", sharedUsers);
+					projectDetails.put("runId", runId);
+					projectDetails.put("isFavorite", bookmarked);
+					projectDetails.put("isLibrary", isLibrary);
+					//projectDetails.put("subject", subject);
+					//projectDetails.put("gradeRange", gradeRange);
+					//projectDetails.put("language", language);
+					//projectDetails.put("summary", summary);
 					
 					//add the JSONObject to our array
 					projectArray.put(projectDetails);
@@ -660,6 +897,121 @@ public class AuthorProjectController extends AbstractController {
 		
 		//return the JSONArray
 		return projectArray;
+	}
+	
+	/**
+	 * Get all the projects the current user can author (for authoring tool welcome screen)
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	private void getWelcomeProjects(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<Project> allAuthorableProjects = new ArrayList<Project>();
+		User signedInUser = ControllerUtil.getSignedInUser();
+		List<Project> projects = projectService.getProjectList(signedInUser);
+		List<Project> sharedProjects = projectService.getSharedProjectList(signedInUser);
+		List<Project> bookmarkedProjects = this.projectService.getBookmarkerProjectList(signedInUser);
+
+		// in the future, we'll want to filter this allAuthorableProjects list even further by what kind of
+		// permissions (view, edit, share) the user has on the project.
+		allAuthorableProjects.addAll(projects);
+		allAuthorableProjects.addAll(sharedProjects);
+		
+		//an array to hold the information for the recently edited projects
+		JSONArray recentProjectArray = new JSONArray();
+		
+		//get total number of owned, shared, and bookmarked projects
+		int totalOwned = 0;
+		int totalShared = 0;
+		int totalBookmarked = 0;
+		
+		List<Project> editedProjects = new ArrayList<Project>();
+		List<Project> recentProjects = new ArrayList<Project>();
+		
+		//loop through all the projects
+		for(Project project : allAuthorableProjects){
+			if(project.getProjectType()==ProjectType.LD &&
+					projectService.canAuthorProject(project, signedInUser) && !project.isDeleted()){
+				
+				if(projects.contains(project)){
+					totalOwned+=1;
+				}
+				if(bookmarkedProjects.contains(project)){
+					totalBookmarked+=1;
+				}
+				if(sharedProjects.contains(project)){
+					totalShared+=1;
+				}
+				
+				//check if project has been edited
+				if(project.getMetadata() != null){
+					Date lastEditedDate = project.getMetadata().getLastEdited();
+					if(lastEditedDate != null){
+						// if it has been edited, add to list of edited projects
+						editedProjects.add(project);
+					}
+				}
+			}
+		}
+		
+		//sort edited projects by last edited time (descending) and limit to max of 10 projects
+		this.projectService.sortProjectsByLastEdited(editedProjects);
+		int size = editedProjects.size();
+		if(size > 10){
+			size = 10;
+		}
+		for(int n=0; n<size; n++){
+			recentProjects.add(editedProjects.get(n));
+		}
+		
+		//loop through all recently edited projects
+		for(Project p : recentProjects){
+			Date lastEditedDate = p.getMetadata().getLastEdited();
+			String lastEdited = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(lastEditedDate);
+			Long lastEditedTime = lastEditedDate.getTime();
+			/*
+			 * get the relative project url
+			 * e.g.
+			 * /235/wise4.project.json
+			 */
+			String rawProjectUrl = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+			
+			//get the title of the project
+			String title = p.getName();
+			
+			if(rawProjectUrl != null) {
+				/*
+				 * get the project file name
+				 * e.g.
+				 * /wise4.project.json
+				 */
+				String projectFileName = rawProjectUrl.substring(rawProjectUrl.lastIndexOf("/"));
+				
+				/*
+				 * add the project file name, project id, project title, and other details
+				 * to the JSONObject
+				 */
+				JSONObject projectDetails = new JSONObject();
+				projectDetails.put("id", p.getId());
+				projectDetails.put("path", projectFileName);
+				projectDetails.put("title", title);
+				projectDetails.put("lastEdited", lastEdited);
+				projectDetails.put("lastEditedTime", lastEditedTime);
+				
+				//add the JSONObject to our array
+				recentProjectArray.put(projectDetails);
+			}
+		}
+		
+		//create JSONObject and add recent project array and number of owned, shared, and bookmarked proejcts
+		JSONObject myprojects = new JSONObject();
+		myprojects.put("owned", totalOwned);
+		myprojects.put("shared", totalShared);
+		myprojects.put("bookmarked", totalBookmarked);
+		myprojects.put("recentProjects", recentProjectArray);
+		
+		//return the JSONArray as a string
+		response.getWriter().write(myprojects.toString());
 	}
 	
 	/**
@@ -938,8 +1290,10 @@ public class AuthorProjectController extends AbstractController {
 		//get the user
 		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
 		
-		//get the username
-		String username = user.getUserDetails().getUsername();
+		//get the username and full name
+		MutableUserDetails userDetails = (MutableUserDetails)user.getUserDetails();
+		String username = userDetails.getUsername();
+		String userfullname = userDetails.getFirstname() + " " + userDetails.getLastname();
 		
 		//get the portal url
 		String portalUrl = ControllerUtil.getBaseUrlString(request);
@@ -971,6 +1325,7 @@ public class AuthorProjectController extends AbstractController {
 		try {
 			//set the config variables
 			config.put("username", username);
+			config.put("userfullname", userfullname);
 			config.put("projectMetaDataUrl", projectMetaDataUrl);
 			config.put("vlewrapperBaseUrl", vlewrapperBaseUrl);
 			config.put("indexUrl", ControllerUtil.getPortalUrlString(request) + TelsAuthenticationProcessingFilter.TEACHER_DEFAULT_TARGET_PATH);
@@ -1013,6 +1368,48 @@ public class AuthorProjectController extends AbstractController {
 			}
 		}
 		
+		// check if original author has been set, if not set it
+		String author = metadata.getAuthor();
+		if(author == null || author == ""){
+			JSONObject authorJSON = new JSONObject();
+			
+			// check if root project has been set, if not set it
+			Long rootId = project.getRootProjectId();
+			if(rootId == null){
+				try {
+					rootId = projectService.identifyRootProjectId(project);
+					project.setRootProjectId(rootId);
+				} catch (ObjectNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			try {
+				Project rootP = projectService.getById(rootId);
+				Set<User> owners = rootP.getOwners();
+				for(User owner : owners){
+					MutableUserDetails ownerDetails = (MutableUserDetails)owner.getUserDetails();
+					try {
+						authorJSON.put("username", ownerDetails.getUsername());
+						authorJSON.put("fullname", ownerDetails.getFirstname() + " " + ownerDetails.getLastname());
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				metadata.setAuthor(authorJSON.toString());
+				project.setMetadata(metadata);
+				try {
+					projectService.updateProject(project, user);
+				} catch (NotAuthorizedException e) {
+					e.printStackTrace();
+				}
+			} catch (ObjectNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		response.getWriter().write(metadata.toJSONString());
 		return null;
 	}
@@ -1046,7 +1443,6 @@ public class AuthorProjectController extends AbstractController {
 			} catch (JSONException e) {
 			}	
 		}
-		
 		
 		project.setMetadata(metadata);
 		try {
@@ -1218,5 +1614,12 @@ public class AuthorProjectController extends AbstractController {
 	 */
 	public void setTagger(TaggerController tagger) {
 		this.tagger = tagger;
+	}
+	
+	/**
+	 * @param runService the runService to set
+	 */
+	public void setRunService(RunService runService) {
+		this.runService = runService;
 	}
 }
