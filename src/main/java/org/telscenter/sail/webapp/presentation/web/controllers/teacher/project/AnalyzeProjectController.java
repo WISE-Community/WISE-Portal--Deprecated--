@@ -1,7 +1,10 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.project;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -11,7 +14,6 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,6 +21,9 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.mail.javamail.ConfigurableMimeFileTypeMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -52,6 +57,8 @@ public class AnalyzeProjectController extends AbstractController {
 	private Vector<String> allNodeIds = new Vector<String>();
 	private Vector<String> activeNodeIds = new Vector<String>();
 	private Vector<String> inactiveNodeIds = new Vector<String>();
+	
+	ConfigurableMimeFileTypeMap mimeMap = new ConfigurableMimeFileTypeMap();
 
 	/**
 	 * Clear the variables
@@ -112,6 +119,13 @@ public class AnalyzeProjectController extends AbstractController {
 	 * @return a JSONArray string containing the results
 	 */
 	private String analyze(HttpServletRequest request, HttpServletResponse response) {
+		try{
+			ClassLoader loader = Thread.currentThread().getContextClassLoader(); 
+			InputStream resource = loader.getResourceAsStream("mime.types"); 
+			mimeMap.setMappingLocation(new InputStreamResource(resource));
+		} catch (Exception e){
+		}
+		
 		//the string we will return
 		String results = "";
 		
@@ -416,7 +430,6 @@ public class AnalyzeProjectController extends AbstractController {
 					    filename = regexMatcher.replaceAll(regexMatcher.group(0).toLowerCase());
 					}
 					
-					ConfigurableMimeFileTypeMap mimeMap = new ConfigurableMimeFileTypeMap();
 					String contentType = mimeMap.getContentType(filename);
 					
 					Long fileSize = assetFile.length();
