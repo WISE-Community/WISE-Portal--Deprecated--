@@ -671,7 +671,11 @@ public class BridgeController extends AbstractController {
 			Long workgroupId = workgroup.getId();
 
 			//set the workgroup id into the request so the vlewrapper controller has access to it
-			request.setAttribute("dirName", workgroupId + "");
+			request.setAttribute("dirName", run.getId()+"/"+workgroupId+"/unreferenced");  // looks like /studentuploads/[runId]/[workgroupId]/unreferenced
+			String commandParamter = request.getParameter("command");
+			if (commandParamter != null && "studentAssetCopyForReference".equals(commandParamter)) {
+				request.setAttribute("referencedDirName", run.getId()+"/"+workgroupId+"/referenced");  // if we're copying student asset for reference, also pass along the referenced dir. looks like /studentuploads/[runId]/[workgroupId]/referenced				
+			}
 			if (studentuploads_base_dir != null) {
 				request.setAttribute("studentuploads_base_dir", studentuploads_base_dir);
 			}

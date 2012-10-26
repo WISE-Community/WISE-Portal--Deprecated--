@@ -197,7 +197,7 @@ public final class CredentialManager extends AbstractController{
 			accessPath = accessPath.replace("curriculum", "vle/all");
 		}
 		
-		if("studentAssetUpload".equals(request.getParameter("cmd"))) {
+		if("studentAssetUpload".equals(request.getParameter("cmd")) || "studentAssetCopyForReference".equals(request.getParameter("command"))) {
 			accessPath = portalProperties.getProperty("studentuploads_base_dir");
 		}
 		
