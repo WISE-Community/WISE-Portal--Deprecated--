@@ -456,22 +456,31 @@ public class AuthorProjectController extends AbstractController {
 			 HashMap<String, User> allLoggedInUsers = (HashMap<String, User>) currentUserSession.getServletContext()
 				.getAttribute(PasSessionListener.ALL_LOGGED_IN_USERS);
 			
-			String otherUsersAlsoEditingProject = "";
+			//String otherUsersAlsoEditingProject = "";
+			JSONArray editors = new JSONArray();
 			for (String sessionId : sessions) {
 				if (sessionId != currentUserSession.getId()) {
 					user = allLoggedInUsers.get(sessionId);
 					if (user != null) {
-						otherUsersAlsoEditingProject += user.getUserDetails().getUsername() + ",";
+						JSONObject editor = new JSONObject();
+						//otherUsersAlsoEditingProject += user.getUserDetails().getUsername() + ",";
+						MutableUserDetails userDetails = (MutableUserDetails)user.getUserDetails();
+						String userFullName = userDetails.getFirstname() + ' ' + userDetails.getLastname();
+						String username = userDetails.getUsername();
+						editor.put("username", username);
+						editor.put("userFullName",userFullName);
+						editors.put(editor);
 					}
 				}
 			}
 			
 			/* strip off trailing comma */
-			if(otherUsersAlsoEditingProject.contains(",")){
-				otherUsersAlsoEditingProject = otherUsersAlsoEditingProject.substring(0, otherUsersAlsoEditingProject.length() - 1);
-			}
+			//if(otherUsersAlsoEditingProject.contains(",")){
+				//otherUsersAlsoEditingProject = otherUsersAlsoEditingProject.substring(0, otherUsersAlsoEditingProject.length() - 1);
+			//}
 			
-			response.getWriter().write(otherUsersAlsoEditingProject);
+			//response.getWriter().write(otherUsersAlsoEditingProject);
+			response.getWriter().write(editors.toString());
 			return null;
 		} else {
 			return new ModelAndView(new RedirectView("accessdenied.html"));
