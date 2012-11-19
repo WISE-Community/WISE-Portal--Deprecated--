@@ -155,7 +155,7 @@ public class ShareProjectController extends SimpleFormController {
     	}  else {
     		User signedInUser = ControllerUtil.getSignedInUser();
     		if (params.getPermission().equals(UserDetailsService.PROJECT_SHARE_ROLE)) {
-    			if (!params.getProject().getOwners().contains(signedInUser)) {
+    			if (!params.getProject().getOwners().contains(signedInUser) && !signedInUser.isAdmin()) {
     	    		modelAndView = new ModelAndView(new RedirectView(request.getRequestURI()));
     		    	modelAndView.addObject(PROJECTID_PARAM_NAME, params.getProject().getId());
     		    	modelAndView.addObject("message", "You cannot give sharing permissions because you are not the actual owner of this project.");
