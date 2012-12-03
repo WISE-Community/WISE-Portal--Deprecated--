@@ -871,6 +871,7 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.InfoController">
 		<property name="userService" ref="userService"/>
 		<property name="studentService" ref="studentService"/>
+		<property name="runService" ref="runService" />
 	</bean>
 	
 	<bean id="viewAllUsersController"

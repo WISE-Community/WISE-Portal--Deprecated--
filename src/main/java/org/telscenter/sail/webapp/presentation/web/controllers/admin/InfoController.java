@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,8 +34,10 @@ import net.sf.sail.webapp.service.UserService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
+import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.student.StudentService;
 
 /**
@@ -45,6 +49,8 @@ public class InfoController extends AbstractController{
 	private UserService userService;
 	
 	private StudentService studentService;
+	
+	private RunService runService;
 
 	protected final static String USER_INFO_MAP = "userInfoMap";
 	
@@ -63,6 +69,21 @@ public class InfoController extends AbstractController{
 			MutableUserDetails userDetails = (MutableUserDetails) infoUser.getUserDetails();
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject(USER_INFO_MAP, userDetails.getInfo());
+			
+			if(infoUser.getUserDetails().hasGrantedAuthority(UserDetailsService.STUDENT_ROLE)) {
+				//the user we are looking up is a student
+				modelAndView.addObject("isStudent", true);
+				
+				//get all the runs this student is in
+				List<Run> runList = runService.getRunList(infoUser);
+				
+				//set the run list into the model
+				modelAndView.addObject("runList", runList);
+			} else {
+				//the user we are looking up is a teacher
+				modelAndView.addObject("isStudent", false);
+			}
+			
 	        return modelAndView;
 		} else {
 			return new ModelAndView(new RedirectView("/webapp/accessdenied.html"));
@@ -81,6 +102,13 @@ public class InfoController extends AbstractController{
 	 */
 	public void setStudentService(StudentService studentService) {
 		this.studentService = studentService;
+	}
+
+	/**
+	 * @param runService the runService to set
+	 */
+	public void setRunService(RunService runService) {
+		this.runService = runService;
 	}
 
 }
