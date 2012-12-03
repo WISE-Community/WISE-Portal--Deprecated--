@@ -219,6 +219,12 @@ public class ListStudentNamesController extends AbstractController {
 			}
 		}
 		
+		/*
+		 * set the content type to an excel xls so the user is prompted to save
+		 * the file as an excel xls
+		 */
+		response.setContentType("application/vnd.ms-excel");
+		
 		//set the content type and file name to save it as
 		response.setHeader("Content-Disposition", "attachment; filename=\"" + projectName + "-" + runId + "-student-names.xls\"");
 		

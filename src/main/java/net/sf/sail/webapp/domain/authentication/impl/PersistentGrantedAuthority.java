@@ -62,6 +62,21 @@ public class PersistentGrantedAuthority implements MutableGrantedAuthority {
     private String authority;
 
     /**
+     * Default Constructor
+     * @param role
+     */
+    public PersistentGrantedAuthority() {
+    }
+    
+    /**
+     * Constructor
+     * @param role
+     */
+    public PersistentGrantedAuthority(String role) {
+        this.authority = role;
+    }
+    
+    /**
      * @see net.sf.sail.webapp.domain.authentication.MutableGrantedAuthority#setAuthority(java.lang.String)
      */
     public void setAuthority(String role) {
@@ -128,9 +143,4 @@ public class PersistentGrantedAuthority implements MutableGrantedAuthority {
             return false;
         return true;
     }
-
-	public int compareTo(Object arg0) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }

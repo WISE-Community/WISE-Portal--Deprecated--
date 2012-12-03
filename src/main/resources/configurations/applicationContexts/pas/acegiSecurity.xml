@@ -776,13 +776,13 @@
         class="org.springframework.security.acls.domain.AclAuthorizationStrategyImpl">
         <constructor-arg>
             <list>
-                <bean class="org.springframework.security.core.authority.SimpleGrantedAuthority">
+                <bean class="net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority">
                     <constructor-arg value="ROLE_ADMINISTRATOR" />
                 </bean>
-                <bean class="org.springframework.security.core.authority.SimpleGrantedAuthority">
+                <bean class="net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority">
                     <constructor-arg value="ROLE_ADMINISTRATOR" />
                 </bean>
-                <bean class="org.springframework.security.core.authority.SimpleGrantedAuthority">
+                <bean class="net.sf.sail.webapp.domain.authentication.impl.PersistentGrantedAuthority">
                     <constructor-arg value="ROLE_ADMINISTRATOR" />
                 </bean>
             </list>
