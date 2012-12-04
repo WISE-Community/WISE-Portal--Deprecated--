@@ -139,8 +139,33 @@ public class ContactWISEGeneral implements ContactWISE {
 	}
 
 	public String[] getMailRecipients() {
-		String[] recipients = 
-				emaillisteners.getProperty(this.issuetype.name().toLowerCase()).split(",");
+		String[] recipients = new String[0];
+		
+		if(this.issuetype != null) {
+			//get the email recipient for the issue type
+			String emailForIssueType = emaillisteners.getProperty(this.issuetype.name().toLowerCase());
+			
+			if(emailForIssueType != null && !emailForIssueType.equals("")) {
+				//we have an email address for the issue type
+				recipients = emailForIssueType.split(",");
+			}
+		}
+		
+		if(recipients.length == 0) {
+			/*
+			 * we did not have an email address for the issue type so we will try
+			 * to use the uber_admin email address
+			 */
+			
+			//get the uber_admin email address
+			String uberAdminEmailAddress = emaillisteners.getProperty("uber_admin");
+			
+			if(uberAdminEmailAddress != null && !uberAdminEmailAddress.equals("")) {
+				//set the uber_admin email address into the recipients
+				recipients = uberAdminEmailAddress.split(",");
+			}
+		}
+				
 		return recipients;
 	}
 	
