@@ -53,9 +53,10 @@ import edu.emory.mathcs.backport.java.util.Collections;
 
 /**
  * TELS Portal can offer multiple types of projects, including:
- *  POD Projects
- *  POTrunk Projects
- *  OTrunk Projects
+ *  Learning-Design-inspired LD Projects
+ *  POD Projects (no longer supported)
+ *  POTrunk Projects (no longer supported)
+ *  OTrunk Projects (no longer supported)
  *  
  * There is a service for handling each type of project. ProjectServiceImpl
  * uses a factory pattern to determine which projectservice to use at runtime.

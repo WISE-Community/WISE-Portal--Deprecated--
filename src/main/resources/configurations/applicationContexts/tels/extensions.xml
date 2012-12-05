@@ -212,54 +212,11 @@
 	
 	<bean id="projectServiceFactory"
 	    class="org.telscenter.sail.webapp.service.project.ProjectServiceFactory">
-	    <property name="podProjectService" ref="podProjectService" />
-	    <property name="potrunkProjectService" ref="potrunkProjectService" />
-	    <property name="otrunkProjectService" ref="otrunkProjectService" />
 	    <property name="externalProjectService" ref="externalProjectService" />
  	    <property name="ldProjectService" ref="ldProjectService"/>
 	    <property name="moduleService" ref="curnitService"/>
 	</bean>
 	
-    <bean id="podProjectService"
-        class="org.telscenter.sail.webapp.service.project.impl.PodProjectServiceImpl">
-        <property name="curnitService" ref="curnitService" />
-        <property name="jnlpService" ref="jnlpService" />
-        <property name="projectDao" ref="projectDao" />
-        <property name="runService" ref="runService" />
-        <property name="workgroupService" ref="wiseWorkgroupService" />
-        <property name="userService" ref="userService" />
-        <property name="modifier" ref="authoringjnlpmodifier" />
-        <property name="authoringToolJnlpUrl" value="http://tels-develop.soe.berkeley.edu:8080/jnlp/org/telscenter/jnlp/authoring-everything-snapshot/authoring-everything-snapshot.jnlp" />
-        <property name="aclService" ref="aclServiceImpl" />
-    </bean>
-    
-    <bean id="potrunkProjectService"
-	    class="org.telscenter.sail.webapp.service.project.impl.POTrunkProjectServiceImpl">
-        <property name="curnitService" ref="curnitService" />
-        <property name="jnlpService" ref="jnlpService" />
-        <property name="projectDao" ref="projectDao" />
-        <property name="runService" ref="runService" />
-        <property name="workgroupService" ref="wiseWorkgroupService" />
-        <property name="userService" ref="userService" />
-        <property name="modifier" ref="authoringjnlpmodifier" />
-        <property name="authoringToolJnlpUrl" value="http://tels-develop.soe.berkeley.edu:8080/jnlp/org/telscenter/jnlp/authoring-everything-snapshot/authoring-everything-snapshot.jnlp" />
-        <property name="aclService" ref="aclServiceImpl" /> 
-        <property name="moduleService" ref="curnitService"/>               
-	</bean>
-
-	<bean id="otrunkProjectService"
-	    class="org.telscenter.sail.webapp.service.project.impl.OTrunkProjectServiceImpl">
-        <property name="curnitService" ref="curnitService" />
-        <property name="jnlpService" ref="jnlpService" />
-        <property name="projectDao" ref="projectDao" />
-        <property name="runService" ref="runService" />
-        <property name="workgroupService" ref="wiseWorkgroupService" />
-        <property name="userService" ref="userService" />
-        <property name="modifier" ref="authoringjnlpmodifier" />
-        <property name="authoringToolJnlpUrl" value="http://tels-develop.soe.berkeley.edu:8080/jnlp/org/telscenter/jnlp/authoring-everything-snapshot/authoring-everything-snapshot.jnlp" />
-        <property name="aclService" ref="aclServiceImpl" />
-	</bean>
-
 	<bean id="ldProjectService"
 	    class="org.telscenter.sail.webapp.service.project.impl.LdProjectServiceImpl">
 	    <property name="curnitService" ref="curnitService"/>

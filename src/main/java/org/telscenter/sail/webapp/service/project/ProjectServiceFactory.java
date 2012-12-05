@@ -25,7 +25,6 @@ package org.telscenter.sail.webapp.service.project;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
 
-import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.UrlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
@@ -40,15 +39,7 @@ import org.telscenter.sail.webapp.service.module.ModuleService;
  */
 public class ProjectServiceFactory {
 	
-	private ProjectService podProjectService;
-	
-	private ProjectService potrunkProjectService;
-	
-	private ProjectService otrunkProjectService;
-	
 	private ExternalProjectService externalProjectService;
-	
-	private ProjectService rooloProjectService;
 	
 	private ProjectService ldProjectService;
 	
@@ -63,7 +54,7 @@ public class ProjectServiceFactory {
 	 * @return <code>ProjectService</code> to serve the specified project.
 	 */
 	public ProjectService getProjectService(Project project) {
-		ProjectService projectService = null;
+		ProjectService projectService = ldProjectService;
 
 		if(project==null){
 			return ldProjectService;
@@ -81,13 +72,9 @@ public class ProjectServiceFactory {
 		}catch(Exception e){
 			//System.out.println(e);
 		}
-		if (curnit instanceof OtmlModuleImpl) {
-			projectService = potrunkProjectService;
-		} else if (curnit instanceof UrlModuleImpl) {
+		if (curnit instanceof UrlModuleImpl) {
 			projectService = ldProjectService;
-		} else {
-			projectService = podProjectService;
-		}		
+		} 	
 		return projectService;
 	}
 	
@@ -102,40 +89,12 @@ public class ProjectServiceFactory {
 	public ProjectService getProjectService(ProjectType projectType) {
 		ProjectService projectService = null;
 
-		if (projectType == ProjectType.OTRUNK) {
-			projectService = otrunkProjectService;
-		} else if (projectType == ProjectType.POTRUNK) {
-			projectService = potrunkProjectService;
-		} else if (projectType == ProjectType.ROLOO) {
-			projectService = rooloProjectService;
-		} else if (projectType == ProjectType.LD){
+		if (projectType == ProjectType.LD){
 			projectService = ldProjectService;
-		} else {
-			projectService = podProjectService;
-		}
+		} 
 		return projectService;
 	}
 
-	/**
-	 * @param podProjectService the podProjectService to set
-	 */
-	public void setPodProjectService(ProjectService podProjectService) {
-		this.podProjectService = podProjectService;
-	}
-
-	/**
-	 * @param potrunkProjectService the potrunkProjectService to set
-	 */
-	public void setPotrunkProjectService(ProjectService potrunkProjectService) {
-		this.potrunkProjectService = potrunkProjectService;
-	}
-
-	/**
-	 * @param otrunkProjectService the otrunkProjectService to set
-	 */
-	public void setOtrunkProjectService(ProjectService otrunkProjectService) {
-		this.otrunkProjectService = otrunkProjectService;
-	}
 
 	/**
 	 * @param externalProjectService the externalProjectService to set
@@ -152,12 +111,6 @@ public class ProjectServiceFactory {
 		this.moduleService = moduleService;
 	}
 
-	/**
-	 * @param rooloProjectService the rooloProjectService to set
-	 */
-	public void setRooloProjectService(ProjectService rooloProjectService) {
-		this.rooloProjectService = rooloProjectService;
-	}
 
 	/**
 	 * @param ldProjectService the ldProjectService to set

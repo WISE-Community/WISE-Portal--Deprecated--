@@ -242,7 +242,6 @@
 				/teacher/projects/bookmarkedprojects.html=bookmarkedProjectController
 				/teacher/projects/bookmark.html=bookmarkController
 				/teacher/projects/customized/public.html=publicController
-				/teacher/projects/copyproject.html=copyProjectController
 				/teacher/projects/deleteproject.html=deleteProjectController
 				/teacher/projects/analyzeproject.html=analyzeProjectController
 				/teacher/projects/minifyproject.html=minifyProjectController

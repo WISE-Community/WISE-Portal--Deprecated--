@@ -38,16 +38,6 @@
 		class="org.telscenter.sail.webapp.domain.impl.ModuleParameters"
 		scope="prototype" />
 
-    <bean id="createRooloOtmlModuleParameters"
-        class="org.telscenter.sail.webapp.domain.impl.CreateRooloOtmlModuleParameters"
-        scope="prototype">
-    </bean>
-
-	  <bean id="createRooloLOROtmlModuleParameters"
-        class="org.telscenter.sail.webapp.domain.impl.CreateRooloLOROtmlModuleParameters"
-        scope="prototype">
-    </bean>
-
     <bean id="createUrlModuleParameters"
 		class="org.telscenter.sail.webapp.domain.impl.CreateUrlModuleParameters"
 		scope="prototype" />

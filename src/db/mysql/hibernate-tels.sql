@@ -147,13 +147,6 @@
         primary key (id)
     ) type=InnoDB;
 
-    create table otmlmodules (
-        otml longblob,
-        retrieveotmlurl varchar(255),
-        id bigint not null,
-        primary key (id)
-    ) type=InnoDB;
-
     create table portal (
         id bigint not null auto_increment,
         address varchar(255),
@@ -239,13 +232,6 @@
         projects_fk bigint not null,
         shared_owners_fk bigint not null,
         primary key (projects_fk, shared_owners_fk)
-    ) type=InnoDB;
-
-    create table roolootmlmodules (
-        roolomoduleuri varchar(255),
-        roolorepositoryurl varchar(255),
-        id bigint not null,
-        primary key (id)
     ) type=InnoDB;
 
     create table runs (
@@ -536,12 +522,6 @@
         foreign key (sds_offering_fk) 
         references sds_offerings (id);
 
-    alter table otmlmodules 
-        add index FK7DBC1CC39627A0C6 (id), 
-        add constraint FK7DBC1CC39627A0C6 
-        foreign key (id) 
-        references modules (id);
-
     alter table premadecommentlists 
         add index FKF237B2CEF4421937 (run), 
         add constraint FKF237B2CEF4421937 
@@ -637,12 +617,6 @@
         add constraint FK19A2B02FAC92FD99 
         foreign key (projects_fk) 
         references projects (id);
-
-    alter table roolootmlmodules 
-        add index FKCB4BDACE9627A0C6 (id), 
-        add constraint FKCB4BDACE9627A0C6 
-        foreign key (id) 
-        references modules (id);
 
     alter table runs 
         add index FK3597486F1ED29A (project_fk), 

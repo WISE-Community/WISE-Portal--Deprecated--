@@ -48,13 +48,6 @@
     	<property name="validator" ref="curnitParametersValidator" />
     </bean-->
     
-    <bean id="registerOtmlModuleController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.author.module.RegisterOtmlModuleController">
-    	<property name="curnitService" ref="curnitService" />
-    	<property name="commandName" value="otmlFile" />
-    	<property name="commandClass"
-			value="org.telscenter.sail.webapp.domain.admin.OtmlFileUpload" />    </bean>
-    
 
     <!-- JSP with optional JSTL views -->
     <bean id="viewResolver"
@@ -140,7 +133,6 @@
     		    /student/index.html=scyStudentIndexController
     		    /student/vle/vle.html=studentVLEController
     		    /student/vle/studentdata.html=studentDataController
-    		    /student/vle/basic_example_otml.html=basicExampleController
     		    /student/selectteam.html=selectteamController
     		    /student/teamsignin.html=teamSignInController
     		    /student/addproject.html=addProjectController
@@ -239,8 +231,6 @@
 				/teacherinfo.html=infoController
 				/dwr/*=dwrController -->
 				<!--/author/registermodule.html=registerCurnitController
-				/author/registerotmlmodule.html=registerOtmlModuleController
-     			/author/registerroolootmlmodule.html=registerRooloOtmlModuleController
 				/author/registerjnlp.html=registerJnlpController
 				/author/createproject.html=createProjectController
 				/author/createrooloproject.html=createRooloProjectController
@@ -252,7 +242,6 @@
 				/admin/manageallprojects.html=manageAllProjectsController
 				/admin/editproject.html=editProjectController
 				/admin/manageallprojectruns.html=manageAllProjectRunsController
-				/admin/uploadotml.html=uploadOtmlController
 				/admin/findprojectruns.html=findProjectRunsController
 				/admin/manageproject.html=listProjectsController
 				/admin/managenewsitems.html=listNewsItemsController
@@ -270,7 +259,6 @@
 				/admin/portal/manageportal.html=managePortalController
 				/newsarchive.html=listNewsItemsController
 				/teacher/management/changestudentperiod.html=changeStudentPeriodController
-				/repository/retrieveotml.html=retrieveOtmlController   -->
 				<!--/teacher/reports/stepactivitygraph.html=stepActivityGraphController
 				/teacher/reports/totaltimeperstep.html=totalTimePerStepController
 				/teacher/run/announcement/manageannouncement.html=manageAnnouncementController
