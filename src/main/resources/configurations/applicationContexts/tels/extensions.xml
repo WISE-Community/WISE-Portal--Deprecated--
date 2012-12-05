@@ -425,33 +425,6 @@
 		<property name="newsItemDao" ref="newsItemDao" />
 	</bean>
 	
-	<bean id="brainstorm" scope="prototype"
-	    class="org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl">
-	</bean>
-	
-	<bean id="brainstormquestion" scope="prototype"
-	    class="org.telscenter.sail.webapp.domain.brainstorm.question.impl.QuestionImpl">
-	</bean>
-
-	<bean id="brainstormanswer" scope="prototype"
-	    class="org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl">
-	</bean>
-	
-	<bean id="brainstormService"
-	    class="org.telscenter.sail.webapp.service.brainstorm.impl.BrainstormServiceImpl">
-	    <property name="brainstormDao" ref="brainstormDao" />
-	    <property name="answerDao" ref="answerDao" />
-	</bean>
-	
-	<bean id="brainstormDao"
-	    class="org.telscenter.sail.webapp.dao.brainstorm.impl.HibernateBrainstormDao">
-        <property name="sessionFactory" ref="sessionFactory" />	    
-	</bean>
-
-	<bean id="answerDao"
-	    class="org.telscenter.sail.webapp.dao.brainstorm.answer.impl.HibernateAnswerDao">
-        <property name="sessionFactory" ref="sessionFactory" />	    
-	</bean>	
 	
 	<bean id="announcementDao"
 		class="org.telscenter.sail.webapp.dao.announcement.impl.HibernateAnnouncementDao">

@@ -51,9 +51,7 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.AbstractModelAndViewTests;
 import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
-import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
@@ -72,8 +70,6 @@ public class RunListControllerTest extends AbstractModelAndViewTests {
 
 	private RunService mockRunService;
 	
-	private BrainstormService mockBrainstormService;
-
 	private WorkgroupService mockWorkgroupService;
 
 	private List<Run> expectedRunList;
@@ -95,7 +91,6 @@ public class RunListControllerTest extends AbstractModelAndViewTests {
 		this.request.setSession(mockSession);
 
 		this.mockRunService = EasyMock.createMock(RunService.class);
-		this.mockBrainstormService = EasyMock.createMock(BrainstormService.class);
 		this.mockWorkgroupService = EasyMock.createMock(WorkgroupService.class);
 		SdsOffering sdsOffering = new SdsOffering();
 
@@ -122,8 +117,6 @@ public class RunListControllerTest extends AbstractModelAndViewTests {
 		this.runListController = new RunListController();
 		this.runListController
 		.setRunService(this.mockRunService);
-		this.runListController
-		.setBrainstormService(this.mockBrainstormService);
 		this.runListController
 		.setWorkgroupService(this.mockWorkgroupService);
 		this.runListController
@@ -153,13 +146,9 @@ public class RunListControllerTest extends AbstractModelAndViewTests {
 				this.mockWorkgroupService.getWorkgroupListByOfferingAndUser(
 						offering, this.user)).andReturn(emptyWorkgroupList);
 		
-		EasyMock.expect(
-				this.mockBrainstormService.getBrainstormsByRun((Run) offering))
-				.andReturn(new TreeSet<Brainstorm>());
 
 		EasyMock.replay(this.mockRunService);
 		EasyMock.replay(this.mockWorkgroupService);
-		EasyMock.replay(this.mockBrainstormService);
 
 		ModelAndView modelAndView = runListController
 		.handleRequestInternal(request, response);
@@ -176,7 +165,6 @@ public class RunListControllerTest extends AbstractModelAndViewTests {
 		assertModelAttributeValue(modelAndView, RunListController.GRADING_PARAM, RunListController.FALSE);
 		EasyMock.verify(this.mockRunService);
 		EasyMock.verify(this.mockWorkgroupService);
-		EasyMock.verify(this.mockBrainstormService);		
 	}
 
 	public void testHandleRequestInternal_NoOfferings() throws Exception {

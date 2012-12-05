@@ -53,18 +53,11 @@ import org.springframework.web.servlet.mvc.AbstractWizardFormController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
-import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
-import org.telscenter.sail.webapp.domain.brainstorm.answer.Answer;
-import org.telscenter.sail.webapp.domain.brainstorm.answer.PreparedAnswer;
-import org.telscenter.sail.webapp.domain.brainstorm.answer.Revision;
-import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl;
-import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.RevisionImpl;
 import org.telscenter.sail.webapp.domain.impl.DefaultPeriodNames;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
-import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
@@ -94,8 +87,6 @@ public class CreateRunController extends AbstractWizardFormController {
 	private WISEWorkgroupService workgroupService = null;
 
 	private ProjectService projectService = null;
-	
-	private BrainstormService brainstormService = null;
 	
 	private static final String COMPLETE_VIEW_NAME = "teacher/run/create/createrunfinish";
 	
@@ -409,25 +400,6 @@ public class CreateRunController extends AbstractWizardFormController {
 			// create a workgroup for the owners of the run (teacher)
 			WISEWorkgroup teacherWISEWorkgroup = workgroupService.createWISEWorkgroup("teacher", runParameters.getOwners(), run, null);
 			
-			// if the project has brainstorms, instantiate them and add them to the run
-			Set<Brainstorm> brainstormsForProject = brainstormService.getParentBrainstormsForProject(run.getProject());
-			for (Brainstorm brainstorm : brainstormsForProject) {
-				Brainstorm brainstormCopy = brainstorm.getCopy();
-				brainstormCopy.setRun(run);
-				// post preparedAnswers
-				Set<PreparedAnswer> preparedAnswers = brainstorm.getPreparedAnswers();
-				for (PreparedAnswer preparedAnswer : preparedAnswers) {
-					Answer answer = new AnswerImpl();
-					Revision revision = new RevisionImpl();
-					answer.setWorkgroup(teacherWISEWorkgroup);
-					revision.setBody(preparedAnswer.getBody());
-					revision.setTimestamp(new Date());
-					revision.setDisplayname(preparedAnswer.getDisplayname());
-					answer.addRevision(revision);
-					brainstormCopy.addAnswer(answer);
-				}
-				brainstormService.createBrainstorm(brainstormCopy);
-			}
 		} catch (ObjectNotFoundException e) {
 			errors.rejectValue("curnitId", "error.curnit-not_found",
 					new Object[] { runParameters.getCurnitId() }, 
@@ -631,12 +603,5 @@ public class CreateRunController extends AbstractWizardFormController {
 	 */
 	public void setWorkgroupService(WISEWorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
-	}
-	
-	/**
-	 * @param brainstormService the brainstormService to set
-	 */
-	public void setBrainstormService(BrainstormService brainstormService) {
-		this.brainstormService = brainstormService;
 	}
 }

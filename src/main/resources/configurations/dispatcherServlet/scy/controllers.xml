@@ -97,13 +97,7 @@
 	<bean id="announcementParametersValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.AnnouncementParametersValidator"/>
 
-
-	<bean id="createSingleChoiceBrainstormParametersValidator"
-		class="org.telscenter.sail.webapp.presentation.validators.brainstorm.CreateSingleChoiceBrainstormParametersValidator"/>
-
-	<bean id="createOpenResponseBrainstormParametersValidator"
-		class="org.telscenter.sail.webapp.presentation.validators.brainstorm.CreateOpenResponseBrainstormParametersValidator"/>
-
+	
 	<bean
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TestController" />
 
@@ -306,7 +300,6 @@
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StudentIndexController">
 	    <property name="runService" ref="runService" />
 	    <property name="studentService" ref="studentService" />
-		<property name="brainstormService" ref="brainstormService" />
 	    <property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
@@ -343,7 +336,6 @@
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StudentDataController">
 	    <property name="runService" ref="runService" />
 	    <property name="studentService" ref="studentService" />
-		<property name="brainstormService" ref="brainstormService" />
 	    <property name="workgroupService" ref="wiseWorkgroupService" />
     	<property name="moduleService" ref="curnitService"/>
 		<property name="httpRestTransport" ref="httpRestTransport" />
@@ -353,7 +345,6 @@
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.BasicExampleController">
 	    <property name="runService" ref="runService" />
 	    <property name="studentService" ref="studentService" />
-		<property name="brainstormService" ref="brainstormService" />
 	    <property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
@@ -364,7 +355,6 @@
 		<property name="moduleService" ref="curnitService" />
         <property name="projectService" ref="projectService" />
         <property name="workgroupService" ref="wiseWorkgroupService" />
-        <property name="brainstormService" ref="brainstormService" />
 		<property name="commandName" value="runParameters" />
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.impl.RunParameters" />
@@ -379,7 +369,6 @@
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListController">
 		<property name="runService" ref="runService" />
 		<property name="projectService" ref="projectService" />
-		<property name="brainstormService" ref="brainstormService" />
 		<property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
@@ -1063,63 +1052,6 @@
     	<property name="validator" ref="lookupParametersValidator"/>
     </bean>
 
-    <bean id="studentBrainstormController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.StudentBrainstormController">
-        <property name="brainstormService" ref="brainstormService" />
-        <property name="workgroupService" ref="wiseWorkgroupService"/>
-    </bean>
-
-    <bean id="testStudentBrainstormController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.TestStudentBrainstormController">
-        <property name="brainstormService" ref="brainstormService" />
-    </bean>
-
-    <bean id="createBrainstormController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brainstorm.CreateBrainstormController">
-        <property name="brainstormService" ref="brainstormService" />
-        <property name="runService" ref="runService" />
-    </bean>
-
-    <bean id="createBrainstormQuestionController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.author.brainstorm.CreateBrainstormQuestionController">
-        <property name="brainstormService" ref="brainstormService" />
-        <property name="projectService" ref="projectService" />
-    </bean>
-
-    <bean id="manageBrainstormController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brainstorm.ManageBrainstormController">
-        <property name="brainstormService" ref="brainstormService" />
-        <property name="workgroupService" ref="wiseWorkgroupService"/>
-    </bean>
-
-<!--     <bean id="testPostBrainstormAnswerController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.TestPostBrainstormAnswerController">
-        <property name="brainstormService" ref="brainstormService" />
-        <property name="workgroupService" ref="wiseWorkgroupService" />
-        <property name="commandName" value="revision"/>
-    	<property name="commandClass"
-    		value="org.telscenter.sail.webapp.domain.brainstorm.answer.impl.RevisionImpl"/>
-
-    </bean>  -->
-
-    <bean id="brainstormResponseController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.BrainstormResponseController">
-    	<property name="brainstormService" ref="brainstormService"/>
-        <property name="workgroupService" ref="wiseWorkgroupService"/>
-    </bean>
-
-    <bean id="addCommentController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.AddCommentController">
-    	<property name="brainstormService" ref="brainstormService"/>
-        <property name="workgroupService" ref="wiseWorkgroupService"/>
-    </bean>
-
-    <bean id="addRevisionController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.AddRevisionController">
-    	<property name="brainstormService" ref="brainstormService"/>
-        <property name="workgroupService" ref="wiseWorkgroupService"/>
-    </bean>
-
     <bean id="stepActivityGraphController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.reports.StepActivityGraphController">
 		<property name="runService" ref="runService"/>
@@ -1132,51 +1064,6 @@
 		<property name="workgroupService" ref="wiseWorkgroupService"/>
 		<property name="gradingService" ref="gradingService"/>
 	</bean>
-
-	<bean id="postResponseController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.PostResponseController">
-		<property name="brainstormService" ref="brainstormService"/>
-		<property name="workgroupService" ref="wiseWorkgroupService"/>
-	</bean>
-
-	<bean id="postCommentController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.PostCommentController">
-		<property name="brainstormService" ref="brainstormService"/>
-		<property name="workgroupService" ref="wiseWorkgroupService"/>
-	</bean>
-
-    <bean id="postRevisionController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.PostRevisionController">
-		<property name="brainstormService" ref="brainstormService"/>
-		<property name="workgroupService" ref="wiseWorkgroupService"/>
-	</bean>
-
-    <bean id="markAnswerHelpfulController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.MarkAnswerHelpfulController">
-		<property name="brainstormService" ref="brainstormService"/>
-		<property name="workgroupService" ref="wiseWorkgroupService"/>
-	</bean>
-
-    <bean id="requestHelpController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.RequestHelpController">
-		<property name="brainstormService" ref="brainstormService"/>
-		<property name="workgroupService" ref="wiseWorkgroupService"/>
-	</bean>
-
-    <bean id="editPreparedAnswerController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.EditPreparedAnswerController">
-		<property name="brainstormService" ref="brainstormService"/>
-	</bean>
-
-	<bean id="getAllPostsController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.GetAllPostsController">
-    	<property name="brainstormService" ref="brainstormService"/>
-    </bean>
-
-    <bean id="pollNewPostsController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.PollNewPostsController">
-    	<property name="brainstormService" ref="brainstormService"/>
-    </bean>
 
     <bean id="workgroupNavLog"
     	class="org.telscenter.sail.webapp.presentation.util.impl.WorkgroupNavLogImpl">
@@ -1251,52 +1138,6 @@
 		<property name="curnitService" ref="curnitService"/>
 	</bean>
 
-	    <bean id="pollInstantPollController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.PollInstantPollController">
-    	<property name="brainstormService" ref="brainstormService"/>
-    </bean>
-
-    <bean id="resultsGraphController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.brainstorm.ResultsGraphController">
-    	<property name="brainstormService" ref="brainstormService"/>
-    </bean>
-
-    <bean id="createNewBrainstormController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brainstorm.CreateNewBrainstormController">
-    </bean>
-
-    <bean id="createOpenResponseBrainstormParameters"
-    	class="org.telscenter.sail.webapp.domain.brainstorm.CreateOpenResponseBrainstormParameters">
-    </bean>
-
-    <bean id="createOpenResponseBrainstormController"
-     	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brainstorm.CreateOpenResponseBrainstormController">
-    	<property name="brainstormService" ref="brainstormService" />
-    	<property name="runService" ref="runService"/>
-    	<property name="projectService" ref="projectService"/>
-     	<property name="commandName" value="createOpenResponseBrainstormParameters"/>
-    	<property name="commandClass"
-    		value="org.telscenter.sail.webapp.domain.brainstorm.CreateOpenResponseBrainstormParameters"/>
- <!--     	<property name="validator" ref="createOpenResponseBrainstormParametersValidator"/>  -->
-    	<property name="sessionForm" value="true"/>
-    </bean>
-
-    <bean id="createSingleChoiceBrainstormParameters"
-    	class="org.telscenter.sail.webapp.domain.brainstorm.CreateSingleChoiceBrainstormParameters">
-    </bean>
-
-    <bean id="createSingleChoiceBrainstormController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.brainstorm.CreateSingleChoiceBrainstormController">
-   		<property name="brainstormService" ref="brainstormService" />
-    	<property name="runService" ref="runService"/>
-    	<property name="projectService" ref="projectService"/>
-     	<property name="commandName" value="createSingleChoiceBrainstormParameters"/>
-    	<property name="commandClass"
-    		value="org.telscenter.sail.webapp.domain.brainstorm.CreateSingleChoiceBrainstormParameters"/>
-    	 <!--<property name="validator" ref="createSingleChoiceBrainstormParametersValidator"/>-->
-    	<property name="sessionForm" value="true"/>
-    </bean>
-
     <bean id="createHierarchyTypeController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.CreateHierarchyTypeController">
     	<!-- <property name="nodeService" ref="nodeService"/> -->
@@ -1347,16 +1188,6 @@
          class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.PostProjectController">
          <property name="projectService" ref="projectService" />
          <property name="moduleService" ref="curnitService" />
-    </bean>
-
-    <bean id="authorBrainstormController"
-         class="org.telscenter.sail.webapp.presentation.web.controllers.author.brainstorm.AuthorBrainstormController">
-         <property name="brainstormService" ref="brainstormService" />
-     	<property name="commandName" value="brainstorm"/>
-    	<property name="commandClass"
-    		value="org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl"/>
-    	<property name="successView" value="author/brainstorm/authorbrainstorm.html" />
-		<property name="formView" value="author/brainstorm/authorbrainstorm" />
     </bean>
 
     <bean id="managePortalController"

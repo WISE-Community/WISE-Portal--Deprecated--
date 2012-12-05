@@ -353,15 +353,6 @@
         <property name="projectService" ref="projectService" />
 	</bean>
 
-	<bean id="studentDataController" 
-	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StudentDataController">
-	    <property name="runService" ref="runService" />
-	    <property name="studentService" ref="studentService" />
-	    <property name="workgroupService" ref="wiseWorkgroupService" />
-    	<property name="moduleService" ref="curnitService"/>
-		<property name="httpRestTransport" ref="httpRestTransport" />
-	</bean>
-	
 	<bean id="runInfoController" 
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.RunInfoController">
 	    <property name="runService" ref="runService" />
