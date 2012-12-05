@@ -103,7 +103,6 @@
     		    /student/selectteam.html=selectteamController
     		    /student/teamsignin.html=teamSignInController
     		    /student/addproject.html=addProjectController
-    		    /student/changeperiodteam.html=changePeriodTeamController
     		    /student/startproject.html=startProjectController
     		    /student/registerstudent.html=registerstudentController
     		    /student/getannotationbundle.html=getAnnotationBundleController
