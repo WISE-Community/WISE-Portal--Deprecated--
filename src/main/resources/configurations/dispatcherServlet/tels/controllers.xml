@@ -268,10 +268,6 @@
     	<property name="successView" value="student/addprojectsuccess" />
     </bean>
     
-    <bean id="changePeriodTeamController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.student.ChangePeriodTeamController">
-    </bean>
-    
      <bean id="projectRunReportController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.reports.ProjectRunReportController">
         <property name="runService" ref="runService" />
