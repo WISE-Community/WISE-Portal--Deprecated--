@@ -99,7 +99,6 @@
     		    /getportalstatistics.html=portalStatisticsController
     		    /student/index.html=studentIndexController
     		    /student/vle/vle.html=studentVLEController
-    		    /student/vle/studentdata.html=studentDataController
     		    /student/selectteam.html=selectteamController
     		    /student/teamsignin.html=teamSignInController
     		    /student/addproject.html=addProjectController

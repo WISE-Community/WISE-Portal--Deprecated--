@@ -285,14 +285,6 @@
 								    	<sec:accesscontrollist domainObject="${run}" hasPermission="16">
 								      		<li><a href="/webapp/teacher/run/announcement/manageannouncement.html?runId=${run.id}" target="_top"><spring:message code="teacher.run.myprojectruns.50"/></a></li>
 								        </sec:accesscontrollist>			    	
-								    	<!-- 
-								    	<li><a href="../run/brainstorm/createbrainstorm.html?runId=${run.id}" target="_top">Create Q&A Discussion</a></li>
-								    	<c:if test="${not empty run.brainstorms}" >
-								            <c:forEach var="brainstorm" items="${run.brainstorms}" varStatus="brainstormVS" >
-								                <li class="qaBullet"><a href="../run/brainstorm/managebrainstorm.html?brainstormId=${brainstorm.id}">Manage Q&A #${brainstormVS.index+1}</a></li>
-								            </c:forEach>
-								    	</c:if>
-								    	 -->		
 										<li><a href="/webapp/contactwiseproject.html?projectId=${run.project.id}" target="_top"><spring:message code="teacher.run.myprojectruns.22"/></a></li>
 					                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
 								    	  <li><a onclick="javascript:popup('/webapp/teacher/run/manage/archiveRun.html?runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />')"><spring:message code="teacher.run.myprojectruns.51"/></a></li>

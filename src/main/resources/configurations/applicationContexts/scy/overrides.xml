@@ -124,7 +124,6 @@
                 /author/**/*.html=ROLE_TEACHER,ROLE_ADMINISTRATOR
                 /author/publishproject.html=ROLE_ADMINISTRATOR
                 /author/project/postproject.html=ROLE_ANONYMOUS,ROLE_USER
-                /author/brainstorm/*.html=ROLE_ANONYMOUS,ROLE_USER
                 /bridge/authoringtool/*.html=ROLE_ANONYMOUS,ROLE_USER
                 /bridge/*.html=ROLE_USER
                 /*.html=ROLE_USER

@@ -40,7 +40,6 @@ import org.junit.runners.Suite;
     org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.AllTests.class,
     org.telscenter.sail.webapp.presentation.web.controllers.general.contactwise.AllTests.class,
     org.telscenter.sail.webapp.presentation.web.controllers.admin.AllTests.class,
-    org.telscenter.sail.webapp.presentation.web.controllers.author.brainstorm.AllTests.class    
 })
 
 public class AllTests {

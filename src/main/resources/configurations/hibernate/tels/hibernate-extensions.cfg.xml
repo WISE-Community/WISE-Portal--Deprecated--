@@ -70,22 +70,6 @@
             class="org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl" />      
 -->
         <mapping
-            class="org.telscenter.sail.webapp.domain.brainstorm.impl.BrainstormImpl" />      
-        <mapping
-            class="org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerImpl" />      
-        <mapping
-            class="org.telscenter.sail.webapp.domain.brainstorm.answer.impl.AnswerTagImpl" />      
-        <mapping
-            class="org.telscenter.sail.webapp.domain.brainstorm.question.impl.QuestionImpl" />
-        <mapping
-            class="org.telscenter.sail.webapp.domain.brainstorm.question.impl.JaxbQuestionImpl" />           
-        <mapping
-            class="org.telscenter.sail.webapp.domain.brainstorm.comment.impl.CommentImpl" />      
-        <mapping
-            class="org.telscenter.sail.webapp.domain.brainstorm.answer.impl.RevisionImpl" />      
-        <mapping
-            class="org.telscenter.sail.webapp.domain.brainstorm.answer.impl.PreparedAnswerImpl" />      
-        <mapping
         	class="org.telscenter.sail.webapp.domain.announcement.impl.AnnouncementImpl"/>
         <mapping
         	class="org.telscenter.sail.webapp.domain.project.impl.ProjectMetadataImpl"/>

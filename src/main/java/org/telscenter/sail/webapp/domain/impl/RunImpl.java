@@ -45,7 +45,6 @@ import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.announcement.Announcement;
 import org.telscenter.sail.webapp.domain.announcement.impl.AnnouncementImpl;
 import org.telscenter.sail.webapp.domain.attendance.StudentAttendance;
-import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
 import org.telscenter.sail.webapp.domain.run.RunStatus;
@@ -208,9 +207,6 @@ public class RunImpl extends OfferingImpl implements Run {
     @Transient
     private List<StudentAttendance> studentAttendance;
     
-    @Transient
-    private Set<Brainstorm> brainstorms = new TreeSet<Brainstorm>();
-    
     @Column(name = RunImpl.COLUMN_NAME_LOGGING_LEVEL)
     private Integer loggingLevel;
     
@@ -360,20 +356,6 @@ public class RunImpl extends OfferingImpl implements Run {
 	 */
 	public void setSharedowners(Set<User> sharedOwners) {
 		this.sharedowners = sharedOwners;		
-	}
-
-	/**
-	 * @return the brainstorms
-	 */
-	public Set<Brainstorm> getBrainstorms() {
-		return brainstorms;
-	}
-
-	/**
-	 * @param brainstorms the brainstorms to set
-	 */
-	public void setBrainstorms(Set<Brainstorm> brainstorms) {
-		this.brainstorms = brainstorms;
 	}
 
 	/**
