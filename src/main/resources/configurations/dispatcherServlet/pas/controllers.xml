@@ -144,17 +144,6 @@
 	
 	<dwr:controller id="dwrController" debug="true"/>
     
-    <bean id="changePasswordController"
-    	class="net.sf.sail.webapp.presentation.web.controllers.ChangePasswordController">
-    	<property name="commandName" value="changePasswordParameters" />
-		<property name="commandClass" value="net.sf.sail.webapp.domain.impl.ChangePasswordParameters" />
- 	    <property name="validator" ref="changePasswordParametersValidator" />
-		<property name="formView" value="changepassword" />
-    	<property name="successView" value="changepasswordsuccess" />
-    	<property name="userService" ref="userService" />
-		<property name="sessionForm" value="true"/>
-    </bean>
-    
     <bean id="controllerUtil"
     	class="net.sf.sail.webapp.presentation.web.controllers.ControllerUtil">
     	<property name="userService" ref="userService"/>
