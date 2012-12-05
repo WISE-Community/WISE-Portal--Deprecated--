@@ -42,9 +42,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.announcement.Announcement;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
-import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
-import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.student.StudentService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
@@ -67,8 +65,6 @@ public class StudentIndexController extends AbstractController {
 
 	private WorkgroupService workgroupService;
 	
-	private BrainstormService brainstormService;
-
 	private HttpRestTransport httpRestTransport;
 	
 	protected final static String CURRENT_STUDENTRUNINFO_LIST_KEY = "current_run_list";
@@ -128,12 +124,6 @@ public class StudentIndexController extends AbstractController {
 				ended_run_list.add(studentRunInfo);
 			} else {
 				current_run_list.add(studentRunInfo);
-			}
-			
-			// get brainstorms that are in this run
-			Set<Brainstorm> brainstormsForRun = brainstormService.getBrainstormsByRun(run);
-			if (brainstormsForRun != null) {
-				run.setBrainstorms(brainstormsForRun);
 			}
 			
 			// check if there are new announcements for this run
@@ -253,12 +243,5 @@ public class StudentIndexController extends AbstractController {
 	@Required
 	public void setWorkgroupService(WorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
-	}
-
-	/**
-	 * @param brainstormService the brainstormService to set
-	 */
-	public void setBrainstormService(BrainstormService brainstormService) {
-		this.brainstormService = brainstormService;
 	}
 }

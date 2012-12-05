@@ -139,8 +139,6 @@
             	<sec:intercept-url pattern="/repository/**/*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
             	<sec:intercept-url pattern="/author/**/*.html" access="ROLE_TEACHER,ROLE_ADMINISTRATOR,ROLE_RESEARCHER"/>
             	<sec:intercept-url pattern="/author/publishproject.html" access="ROLE_ADMINISTRATOR"/>
-            	<sec:intercept-url pattern="/author/project/postproject.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
-            	<sec:intercept-url pattern="/author/brainstorm/*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
             	<sec:intercept-url pattern="/bridge/authoringtool/*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
             	<sec:intercept-url pattern="/bridge/*.html" access="ROLE_USER"/>
             	<sec:intercept-url pattern="/runinfo.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
