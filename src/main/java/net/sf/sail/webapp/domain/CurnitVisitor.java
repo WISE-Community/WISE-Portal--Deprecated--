@@ -23,7 +23,6 @@
 package net.sf.sail.webapp.domain;
 
 import org.telscenter.sail.webapp.domain.Module;
-import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.UrlModuleImpl;
 
 /**
@@ -34,6 +33,5 @@ import org.telscenter.sail.webapp.domain.impl.UrlModuleImpl;
 public interface CurnitVisitor {
 	Object visit(Curnit curnit);
 	Object visit(Module module);
-	Object visit(OtmlModuleImpl otmlModuleImpl);
 	Object visit(UrlModuleImpl urlModuleImpl);
 }

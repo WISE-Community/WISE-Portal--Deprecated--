@@ -166,13 +166,6 @@
         primary key (id)
     ) engine=MyISAM;
 
-    create table otmlmodules (
-        otml longblob,
-        retrieveotmlurl varchar(255),
-        id bigint not null,
-        primary key (id)
-    ) engine=MyISAM;
-
     create table portal (
         id bigint not null auto_increment,
         address varchar(255),
@@ -649,12 +642,6 @@
         add constraint FK73F0F12DAB4F6201 
         foreign key (sds_offering_fk) 
         references sds_offerings (id);
-
-    alter table otmlmodules 
-        add index FK7DBC1CC39627A0C6 (id), 
-        add constraint FK7DBC1CC39627A0C6 
-        foreign key (id) 
-        references modules (id);
 
     alter table premadecommentlists 
         add index FKF237B2CE65E358B0 (owner), 

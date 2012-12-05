@@ -61,7 +61,6 @@ $(document).ready(function() {
 
 <%@ include file="adminheader.jsp"%>
 <%@page import="org.telscenter.sail.webapp.domain.project.impl.ProjectType" %>
-<% pageContext.setAttribute("potrunk", ProjectType.POTRUNK); %>
 
 
 <h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>

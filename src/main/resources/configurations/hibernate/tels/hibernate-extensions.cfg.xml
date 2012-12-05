@@ -46,8 +46,6 @@
         <mapping
             class="org.telscenter.sail.webapp.domain.impl.ModuleImpl" />
         <mapping
-            class="org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl" />
-        <mapping
             class="org.telscenter.sail.webapp.domain.impl.UrlModuleImpl" />
         <mapping
             class="org.telscenter.sail.webapp.domain.project.impl.ProjectImpl" />
@@ -65,10 +63,6 @@
         	class="org.telscenter.sail.webapp.domain.premadecomment.impl.PremadeCommentListImpl" />  
         <mapping
             class="org.telscenter.sail.webapp.domain.newsitem.impl.NewsItemImpl" />      
-            <!--  
-        <mapping
-            class="org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl" />      
--->
         <mapping
         	class="org.telscenter.sail.webapp.domain.announcement.impl.AnnouncementImpl"/>
         <mapping

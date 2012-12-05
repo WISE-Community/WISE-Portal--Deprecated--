@@ -56,7 +56,7 @@ import static org.easymock.EasyMock.*;
  */
 public class ProjectServiceImplTest extends TestCase {
 
-	private PodProjectServiceImpl projectServiceImpl;
+	private LdProjectServiceImpl projectServiceImpl;
 
 	private ProjectDao<Project> mockProjectDao;
 	
@@ -81,13 +81,11 @@ public class ProjectServiceImplTest extends TestCase {
 	@SuppressWarnings("unchecked")
 	protected void setUp() throws Exception {
 		super.setUp();
-		this.projectServiceImpl = new PodProjectServiceImpl();
+		this.projectServiceImpl = new LdProjectServiceImpl();
 		this.mockProjectDao = createMock(ProjectDao.class);
 		this.projectServiceImpl.setProjectDao(mockProjectDao);
 		this.mockCurnitService = createMock(CurnitService.class);
 		this.projectServiceImpl.setCurnitService(mockCurnitService);
-		this.mockJnlpService = createMock(JnlpService.class);
-		this.projectServiceImpl.setJnlpService(mockJnlpService);
 		this.mockRunService = createMock(RunService.class);
 		this.projectServiceImpl.setRunService(mockRunService);
 		this.mockAclService = createMock(AclService.class);
@@ -159,9 +157,9 @@ public class ProjectServiceImplTest extends TestCase {
 		RunParameters expectedRunParameters = new RunParameters();
 		expectedRunParameters.setCurnitId(EXISTING_CURNIT_ID);
 		expectedRunParameters.setJnlpId(EXISTING_JNLP_ID);
-		expectedRunParameters.setName(PodProjectServiceImpl.PREVIEW_RUN_NAME);
+		expectedRunParameters.setName("Preview Run Name");
 		expectedRunParameters.setOwners(null);
-		expectedRunParameters.setPeriodNames(PodProjectServiceImpl.PREVIEW_PERIOD_NAMES);
+		expectedRunParameters.setPeriodNames(null);
 		expectedRunParameters.setProject(projectToCreate);
 		Run expectedPreviewRun = new RunImpl();
 		expect(this.mockRunService.createRun(expectedRunParameters)).andReturn(expectedPreviewRun );

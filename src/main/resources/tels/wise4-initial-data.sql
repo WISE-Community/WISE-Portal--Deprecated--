@@ -206,15 +206,6 @@ LOCK TABLES `offerings` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping data for table `otmlmodules`
---
-
-LOCK TABLES `otmlmodules` WRITE;
-/*!40000 ALTER TABLE `otmlmodules` DISABLE KEYS */;
-/*!40000 ALTER TABLE `otmlmodules` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping data for table `portal`
 --
 

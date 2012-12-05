@@ -442,28 +442,6 @@ LOCK TABLES `offerings` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `otmlmodules`
---
-
-DROP TABLE IF EXISTS `otmlmodules`;
-CREATE TABLE `otmlmodules` (
-  `otml` longblob,
-  `retrieveotmlurl` varchar(255) default NULL,
-  `id` bigint(20) NOT NULL,
-  PRIMARY KEY  (`id`),
-  KEY `FK7DBC1CC39627A0C6` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `otmlmodules`
---
-
-LOCK TABLES `otmlmodules` WRITE;
-/*!40000 ALTER TABLE `otmlmodules` DISABLE KEYS */;
-/*!40000 ALTER TABLE `otmlmodules` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `portal`
 --
 
@@ -680,28 +658,6 @@ CREATE TABLE `projects_related_to_shared_owners` (
 LOCK TABLES `projects_related_to_shared_owners` WRITE;
 /*!40000 ALTER TABLE `projects_related_to_shared_owners` DISABLE KEYS */;
 /*!40000 ALTER TABLE `projects_related_to_shared_owners` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `roolootmlmodules`
---
-
-DROP TABLE IF EXISTS `roolootmlmodules`;
-CREATE TABLE `roolootmlmodules` (
-  `roolomoduleuri` varchar(255) default NULL,
-  `roolorepositoryurl` varchar(255) default NULL,
-  `id` bigint(20) NOT NULL,
-  PRIMARY KEY  (`id`),
-  KEY `FKCB4BDACE9627A0C6` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `roolootmlmodules`
---
-
-LOCK TABLES `roolootmlmodules` WRITE;
-/*!40000 ALTER TABLE `roolootmlmodules` DISABLE KEYS */;
-/*!40000 ALTER TABLE `roolootmlmodules` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

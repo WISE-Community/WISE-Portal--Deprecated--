@@ -116,10 +116,6 @@ public class CurrentScoreController extends AbstractController {
 							.hasNext();) {
 						EStep step = (EStep) stepListIt.next();
 						
-						//if it is a gradeable record the scores
-						//if(GradingToolController.isGradable(step.getType()) ) {
-						//	gradableSteps.put(step.getPodUUID().toString(),step);
-						//}// if
 					}// for
 				}// for
 				

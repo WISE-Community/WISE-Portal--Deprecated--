@@ -954,27 +954,6 @@
         <property name="runService" ref="runService" />
     </bean>
 
-    <bean id="retrieveOtmlController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.repository.RetrieveOtmlController" >
-        <property name="repositoryService" ref="rooloRepositoryService" />
-        <property name="moduleService" ref="curnitService" />
-    </bean>
-
-    <bean id="otmlFileUpload"
-        class="org.telscenter.sail.webapp.domain.admin.OtmlFileUpload" />
-
-    <bean id="uploadOtmlController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.admin.UploadOtmlController" >
-        <property name="projectService" ref="projectService" />
-        <property name="moduleService" ref="curnitService" />
-		<property name="sessionForm" value="true"/>
-		<property name="commandName" value="otmlFile"/>
-		<property name="commandClass"
-			value="org.telscenter.sail.webapp.domain.admin.OtmlFileUpload" />
-		<property name="successView" value="manageallprojects.html" />
-		<property name="formView" value="admin/uploadotml" />
-    </bean>
-
     <bean id="uploadProjectController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.UploadProjectController" >
         <property name="projectService" ref="projectService" />
