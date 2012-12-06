@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../include.jsp"%>
 
 <!DOCTYPE html>
 <html xml:lang="en" lang="en">
@@ -14,7 +14,7 @@
 
 <title><spring:message code="contactwiseproject.1"/></title>
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-<%@ include file="teacher/grading/styles.jsp"%>
+<%@ include file="../teacher/grading/styles.jsp"%>
 </head>
 <body>
 
@@ -88,7 +88,7 @@
 
 <div id="pageWrapper">
 
-	<%@ include file="headermain.jsp"%>
+	<%@ include file="../headermain.jsp"%>
 	
 	<div id="page">
 		
@@ -101,7 +101,7 @@
 					<div class="instructions"><spring:message code="contactwiseproject.4"/></div>
 					<div class="instructions"><spring:message code="contactwiseproject.5a"/><em><spring:message code="contactwiseproject.5b"/></em>&nbsp;<spring:message code="contactwiseproject.5c"/></div>
 					<div class="instructions"><spring:message code="contactwiseproject.6"/></div>
-					<div class="instructions"><spring:message code="contactwiseproject.7a"/><a href="/webapp/contactwisegeneral.html"><spring:message code="contactwiseproject.7b"/></a>.</div>
+					<div class="instructions"><spring:message code="contactwiseproject.7a"/><a href="/webapp/contact/contactwisegeneral.html"><spring:message code="contactwiseproject.7b"/></a>.</div>
 
 					<!-- Support for Spring errors object -->
 					<div id="errorMsgNoBg">
@@ -177,7 +177,7 @@
 		<div style="clear: both;"></div>
 	</div>   <!-- End of page -->
 	
-	<%@ include file="footer.jsp"%>
+	<%@ include file="../footer.jsp"%>
 </div>
 
 

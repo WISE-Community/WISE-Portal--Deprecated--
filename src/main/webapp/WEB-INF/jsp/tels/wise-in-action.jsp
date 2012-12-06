@@ -93,7 +93,7 @@ my colleagues have also started using WISE. It is wonderful to talk and discuss 
 						<div class="featureContent">
 							<div class="featureContentHeader">Administration Partnerships</div>
 							<p>Administrators are central to teacher and student learning with WISE. Integrating WISE into a school's instructional vision, organizing teacher professional development, garnering technology resources, and ensuring exciting science learning opportunities for all students are just a few of the educational leader's many roles. Our research team works closely with school administrators to make sure we understand what it takes to integrate WISE into a district or school science program.</p>
-							<p>There are many ways for administrators to get involved with WISE. Please do not hesitate to <a href="/webapp/contactwisegeneral.html">contact us</a> to begin the discussion!</p>
+							<p>There are many ways for administrators to get involved with WISE. Please do not hesitate to <a href="/webapp/contact/contactwisegeneral.html">contact us</a> to begin the discussion!</p>
 						</div>
 						<div style="clear:both;"></div>
 					</div>

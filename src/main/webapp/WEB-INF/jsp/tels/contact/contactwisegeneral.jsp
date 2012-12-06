@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../include.jsp"%>
 
 <!DOCTYPE html>
 <html xml:lang="en" lang="en">
@@ -13,7 +13,7 @@
 
 <script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
 
-<%@ include file="teacher/grading/styles.jsp"%>
+<%@ include file="../teacher/grading/styles.jsp"%>
 
 </head>
 
@@ -90,7 +90,7 @@
 
 <div id="pageWrapper">
 
-	<%@ include file="headermain.jsp"%>
+	<%@ include file="../headermain.jsp"%>
 	
 	<div id="page">
 		
@@ -172,7 +172,7 @@
 		<div style="clear: both;"></div>
 	</div>   <!-- End of page -->
 	
-	<%@ include file="footer.jsp"%>
+	<%@ include file="../footer.jsp"%>
 </div>
 
 

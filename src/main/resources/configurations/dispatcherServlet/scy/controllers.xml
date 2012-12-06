@@ -322,16 +322,6 @@
 	    <property name="workgroupService" ref="wiseWorkgroupService" />
 	</bean>
 
-	<bean id="smartRoomController"
-	    class="org.telscenter.sail.webapp.presentation.web.controllers.SmartRoomController">
-		<property name="userService" ref="userService" />
-	    <property name="runService" ref="runService" />
-	    <property name="offeringService" ref="offeringService" />
-	    <property name="workgroupService" ref="wiseWorkgroupService" />
-		<property name="groupService" ref="groupService"/>
-        <property name="projectService" ref="projectService" />
-	</bean>
-
 	<bean id="studentDataController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StudentDataController">
 	    <property name="runService" ref="runService" />
@@ -507,8 +497,8 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.ContactWiseController">
 		<property name="commandName" value="contactWISEGeneral" />
     	<property name="validator" ref="contactWISEValidator" />
-    	<property name="formView" value="contactwisegeneral" />
-    	<property name="successView" value="contactwiseconfirm" />
+    	<property name="formView" value="contact/contactwisegeneral" />
+    	<property name="successView" value="contact/contactwiseconfirm" />
     	<!--property name="javaMail" ref="javaMail"/-->
     	<property name="uiHTMLProperties" ref="uihtmlproperties"/>
 	</bean>
@@ -517,8 +507,8 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.ContactWiseProjectController">
 		<property name="commandName" value="contactWISEProject" />
     	<property name="validator" ref="contactWISEValidator" />
-    	<property name="formView" value="contactwiseproject" />
-    	<property name="successView" value="contactwiseconfirm" />
+    	<property name="formView" value="contact/contactwiseproject" />
+    	<property name="successView" value="contact/contactwiseconfirm" />
     	<!--property name="javaMail" ref="javaMail"/-->
     	<property name="uiHTMLProperties" ref="uihtmlproperties"/>
     	<property name="projectService" ref="projectService" />

@@ -65,7 +65,7 @@ public class MessageController extends AbstractController {
 			List<Message> readMessages = messageService.retrieveReadMessages(user);
 			List<Message> unreadMessages = messageService.retrieveUnreadMessages(user);			
 			List<Message> sentMessages = messageService.retrieveSentMessages(user);
-			ModelAndView mav = new ModelAndView("/message/index");
+			ModelAndView mav = new ModelAndView("/teacher/message/index");
 			mav.addObject("readMessages", readMessages);
 			mav.addObject("unreadMessages", unreadMessages);
 			mav.addObject("sentMessages", sentMessages);

@@ -90,11 +90,10 @@
     		    /index.html=urlFilenameViewController
     		    /accessdenied.html=accessDeniedController
     		    /router.html=routerController
-    		    /smartroom/smartroom.html=smartRoomController
     		    /vle/preview.html=previewLDProjectController
-    		    /contactwisegeneral.html=contactWiseController
-    		    /contactwiseproject.html=contactWiseProjectController
-    		    /checkforexistingaccount.html=checkForExistingAccountController
+    		    /contact/contactwisegeneral.html=contactWiseController
+    		    /contact/contactwiseproject.html=contactWiseProjectController
+    		    /contact/checkforexistingaccount.html=checkForExistingAccountController
     		    /statistics.html=statisticsController
     		    /getportalstatistics.html=portalStatisticsController
     		    /student/index.html=studentIndexController

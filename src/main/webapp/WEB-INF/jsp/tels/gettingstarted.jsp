@@ -111,7 +111,7 @@
 					
 					<div class="sectionHead"><spring:message code="gettingstarted.additional-help-header" /></div>
 					<div class="sectionContent">
-						<h5><spring:message code="gettingstarted.additional-help-text" /> <a href="/webapp/contactwisegeneral.html"><spring:message code="gettingstarted.additional-help-text2" /></a> <spring:message code="gettingstarted.additional-help-text3" /></h5>
+						<h5><spring:message code="gettingstarted.additional-help-text" /> <a href="/webapp/contact/contactwisegeneral.html"><spring:message code="gettingstarted.additional-help-text2" /></a> <spring:message code="gettingstarted.additional-help-text3" /></h5>
 					</div>
 				</div>
 			</div>

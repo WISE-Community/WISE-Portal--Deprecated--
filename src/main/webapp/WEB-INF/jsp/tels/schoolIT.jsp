@@ -34,7 +34,7 @@ We have a group for WISE4 developers and server administrators where you can pos
 <a href="https://groups.google.com/forum/#!forum/wise4-dev">WISE4 developer group</a>. 
 <br/>
 You can also ask questions to the maintainer of this particular WISE4 instance by filling out a form here:
-<a href="../contactwisegeneral.html">Contact WISE form</a>.
+<a href="../contact/contactwisegeneral.html">Contact WISE form</a>.
 
 <br/><br/>
 <a href="../index.html">return to homepage</a>

@@ -48,7 +48,7 @@
 						<spring:message code="forgot.teacher.success.4"/>
 					</div>
 					<div>
-						<spring:message code="forgot.teacher.success.6"/> <a href="/webapp/contactwisegeneral.html"> <spring:message code="forgot.teacher.success.7"/></a>
+						<spring:message code="forgot.teacher.success.6"/> <a href="/webapp/contact/contactwisegeneral.html"> <spring:message code="forgot.teacher.success.7"/></a>
 					</div>
 				</div>
 				<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>

@@ -65,7 +65,7 @@
       <p><spring:message code="teacher.termsofuse.7"/></p>
       <p><spring:message code="teacher.termsofuse.8"/></p>
       <p><spring:message code="teacher.termsofuse.9"/></p>
-      <p><spring:message code="teacher.termsofuse.10A"/>&nbsp;(<a href="./contactwisegeneral.html"><spring:message code="teacher.termsofuse.10B"/></a>)&nbsp;<spring:message code="teacher.termsofuse.10C"/></p>
+      <p><spring:message code="teacher.termsofuse.10A"/>&nbsp;(<a href="./contact/contactwisegeneral.html"><spring:message code="teacher.termsofuse.10B"/></a>)&nbsp;<spring:message code="teacher.termsofuse.10C"/></p>
       <p><spring:message code="teacher.termsofuse.11"/></p>      
       <p><spring:message code="teacher.termsofuse.12"/></p>
       <p><spring:message code="teacher.termsofuse.13"/></p>

@@ -1,4 +1,4 @@
-<%@ include file="../include.jsp"%>
+<%@ include file="../../include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -23,7 +23,7 @@
 <html lang="en">
 <head>
 <script type="text/javascript" src="javascript/tels/jquery-1.4.1.min.js" ></script>
-<%@ include file="../teacher/projects/styles.jsp"%>
+<%@ include file="../projects/styles.jsp"%>
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
@@ -223,7 +223,7 @@ function sendReply(originalMessageId) {
 
 <div id="centeredDiv">
 
-<%@ include file="../teacher/headerteacher.jsp"%>
+<%@ include file="../headerteacher.jsp"%>
 
 <div id="navigationSubHeader2">View & Send Messages<span id="navigationSubHeader1">management</span></div>
 
