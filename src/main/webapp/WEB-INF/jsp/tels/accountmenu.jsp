@@ -133,7 +133,7 @@
 							<!--  
 				            <li><a href="#" style="color:#999;">Search the Help Guide</a></li>
 				            -->
-				            <li><a href="/webapp/contactwisegeneral.html"><spring:message code="menu.contact"/></a></li>
+				            <li><a href="/webapp/contact/contactwisegeneral.html"><spring:message code="menu.contact"/></a></li>
 						</ul>
 					</li>
 					

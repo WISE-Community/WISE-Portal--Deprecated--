@@ -136,7 +136,7 @@
 <h4><spring:message code="teacherfaq.wise-2-q" /></h4>
 <ul>
     <li><spring:message code="teacherfaq.wise-2-a1" /></li>
-    <li><a href="../contactwisegeneral.html"><spring:message code="teacherfaq.wise-2-a2" /></a></li>
+    <li><a href="../contact/contactwisegeneral.html"><spring:message code="teacherfaq.wise-2-a2" /></a></li>
     <li><spring:message code="teacherfaq.wise-2-a3" /></li>
 </ul>
 <h4><spring:message code="teacherfaq.num-computers-q" /></h4>

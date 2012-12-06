@@ -74,7 +74,7 @@
 							<input type="submit" name="sendemailAndPwd" id="sendEmailAndPwd" value="<spring:message code="forgot.teacher.index.9"/>" />
 						</div>
 					
-						<div><spring:message code="forgot.teacher.index.10"/><a href="/webapp/contactwisegeneral.html"><spring:message code="forgot.teacher.index.11"/></a></div>
+						<div><spring:message code="forgot.teacher.index.10"/><a href="/webapp/contact/contactwisegeneral.html"><spring:message code="forgot.teacher.index.11"/></a></div>
 					
 					 </form>
 				</div>

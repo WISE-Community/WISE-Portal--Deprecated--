@@ -106,7 +106,7 @@
 					<div class="featuresShowcase">
 						<div class="featureContent">
 							<div class="featureContentHeader">Opportunities for Collaboration</div>
-							<p>We are always looking for new research and development collaborations. If you are interested in connecting with the WISE research community or have any questions, don't hesitate to <a href="/webapp/contactwisegeneral.html">contact us</a>! </p>
+							<p>We are always looking for new research and development collaborations. If you are interested in connecting with the WISE research community or have any questions, don't hesitate to <a href="/webapp/contact/contactwisegeneral.html">contact us</a>! </p>
 						</div>
 						<div style="clear:both;"></div>
 					</div>

@@ -77,7 +77,7 @@
 										<c:when test="${minPostLevel==5}">
 											<br/>
 											The author of this project requires that this run log students' data at the highest level. If you would<br/>
-											like to override this setting, please <a href="webapp/contactwisegeneral.html">contact WISE.</a><br/>
+											like to override this setting, please <a href="webapp/contact/contactwisegeneral.html">contact WISE.</a><br/>
 										</c:when>
 										<c:otherwise>	
 											<c:forEach var='postLevel' items='${implementedPostLevels}'>

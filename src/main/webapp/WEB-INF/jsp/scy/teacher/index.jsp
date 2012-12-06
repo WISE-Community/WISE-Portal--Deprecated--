@@ -604,7 +604,7 @@
 		<div id="linkHeader"><spring:message code="teacher.index.35"/></div> 
 		<ul>
 			<li class="inactivecolor"><spring:message code="teacher.index.36"/></li>
-			<li><a href="../contactwisegeneral.html"><spring:message code="teacher.index.37"/></a></li>
+			<li><a href="../contact/contactwisegeneral.html"><spring:message code="teacher.index.37"/></a></li>
 		</ul>
 	</div>
 

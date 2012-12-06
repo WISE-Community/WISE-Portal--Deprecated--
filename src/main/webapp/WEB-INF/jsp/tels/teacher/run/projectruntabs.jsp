@@ -285,7 +285,7 @@
 								    	<sec:accesscontrollist domainObject="${run}" hasPermission="16">
 								      		<li><a href="/webapp/teacher/run/announcement/manageannouncement.html?runId=${run.id}" target="_top"><spring:message code="teacher.run.myprojectruns.50"/></a></li>
 								        </sec:accesscontrollist>			    	
-										<li><a href="/webapp/contactwiseproject.html?projectId=${run.project.id}" target="_top"><spring:message code="teacher.run.myprojectruns.22"/></a></li>
+										<li><a href="/webapp/contact/contactwiseproject.html?projectId=${run.project.id}" target="_top"><spring:message code="teacher.run.myprojectruns.22"/></a></li>
 					                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
 								    	  <li><a onclick="javascript:popup('/webapp/teacher/run/manage/archiveRun.html?runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />')"><spring:message code="teacher.run.myprojectruns.51"/></a></li>
 								    	</sec:accesscontrollist>

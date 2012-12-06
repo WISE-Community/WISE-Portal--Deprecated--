@@ -126,10 +126,10 @@
     	<property name="mappings">
     		<value>
     		    /index.html=urlFilenameViewController
-    		    <!--/smartroom/smartroom.html=smartRoomController
+    		    <!--
     		    /preview.html=previewLDProjectController
-    		    /contactwisegeneral.html=contactWiseController
-    		    /contactwiseproject.html=contactWiseProjectController
+    		    /contact/contactwisegeneral.html=contactWiseController
+    		    /contact/contactwiseproject.html=contactWiseProjectController
     		    /student/index.html=scyStudentIndexController
     		    /student/vle/vle.html=studentVLEController
     		    /student/vle/studentdata.html=studentDataController

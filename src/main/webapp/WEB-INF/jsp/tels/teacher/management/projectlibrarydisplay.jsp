@@ -1259,7 +1259,7 @@
 																<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.13" /></span> ${project.metadata.keywords}</p></c:if>
 																<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/check.html" target="_blank"><spring:message code="teacher.manage.library.22" /></a>)</p></c:if>
 																<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.15" /></span> ${project.metadata.compTime}</p></c:if>
-																<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
+																<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
 																<!-- <c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.17" /></span> ${project.metadata.author}</p></c:if> -->
 																<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
 																<c:if test="${lastEdited == null || lastEdited == ''}">
@@ -1503,7 +1503,7 @@
 																<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.13" /></span> ${project.metadata.keywords}</p></c:if>
 																<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/check.html" target="_blank"><spring:message code="teacher.manage.library.22" /></a>)</p></c:if>
 																<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.15" /></span> ${project.metadata.compTime}</p></c:if>
-																<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
+																<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
 																<!-- <c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.17" /></span> ${project.metadata.author}</p></c:if> -->
 																<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
 																<c:if test="${lastEdited == null || lastEdited == ''}">
@@ -1707,7 +1707,7 @@
 																<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.13" /></span> ${project.metadata.keywords}</p></c:if>
 																<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/check.html" target="_blank"><spring:message code="teacher.manage.library.22" /></a>)</p></c:if>
 																<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.15" /></span> ${project.metadata.compTime}</p></c:if>
-																<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
+																<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
 																<!-- <c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.17" /></span> ${project.metadata.author}</p></c:if> -->
 																<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
 																<c:if test="${lastEdited == null || lastEdited == ''}">
@@ -1933,7 +1933,7 @@
 																		<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.13" /></span> ${project.metadata.keywords}</p></c:if>
 																		<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/check.html" target="_blank"><spring:message code="teacher.manage.library.22" /></a>)</p></c:if>
 																		<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.15" /></span> ${project.metadata.compTime}</p></c:if>
-																		<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
+																		<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
 																		<!-- <c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.17" /></span> ${project.metadata.author}</p></c:if> -->
 																		<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
 																		<c:if test="${lastEdited == null || lastEdited == ''}">
@@ -2165,7 +2165,7 @@
 																		<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.13" /></span> ${project.metadata.keywords}</p></c:if>
 																		<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/check.html" target="_blank"><spring:message code="teacher.manage.library.22" /></a>)</p></c:if>
 																		<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.15" /></span> ${project.metadata.compTime}</p></c:if>
-																		<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
+																		<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
 																		<!-- <c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.17" /></span> ${project.metadata.author}</p></c:if> -->
 																		<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
 																		<c:if test="${lastEdited == null || lastEdited == ''}">
@@ -2367,7 +2367,7 @@
 																		<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.13" /></span> ${project.metadata.keywords}</p></c:if>
 																		<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/check.html" target="_blank"><spring:message code="teacher.manage.library.22" /></a>)</p></c:if>
 																		<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.15" /></span> ${project.metadata.compTime}</p></c:if>
-																		<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
+																		<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
 																		<!-- <c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.17" /></span> ${project.metadata.author}</p></c:if> -->
 																		<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
 																		<c:if test="${lastEdited == null || lastEdited == ''}">

@@ -11,7 +11,7 @@
 						<li><a href="/webapp/pages/teacher-tools.html"><spring:message code="footer.link7" /></a></li>
 						<li><a href="/webapp/pages/teacherfaq.html"><spring:message code="footer.link10" /></a></li>
 						<li><a href="/webapp/pages/gettingstarted.html"><spring:message code="footer.link9" /></a></li>
-						<li class="last"><a href="/webapp/contactwisegeneral.html"><spring:message code="footer.link2" /></a></li>
+						<li class="last"><a href="/webapp/contact/contactwisegeneral.html"><spring:message code="footer.link2" /></a></li>
 						<!-- <li><a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="footer.link3" /></a></li> -->
 						<!-- <li class="last"><a href="credits.html"><spring:message code="footer.link4" /></a></li> -->
 					</ul>
