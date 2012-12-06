@@ -719,13 +719,13 @@ function DetectFlashVer(reqMajorVer, reqMinorVer, reqRevision)
 function checkContentFiltering() {
 	// test loading of swf file
 	$.ajax({ 
-		url: "flash/tels/WISE_Slideshow.swf", 
+		url: "flash/tels/convection-intro.swf", 
 		context: document.body})
 		.success(function(data, textStatus, jqXHR) {
 			var contentFilterSwfRequirementSatisfied=false;
 			if (jqXHR.status == '200' 
 					&& jqXHR.responseText != ''
-					&& jqXHR.responseText.length >= 1998213) {
+					&& jqXHR.responseText.length > 0) {
 				contentFilterSwfRequirementSatisfied = true;
 			} else {
 				contentFilterSwfRequirementSatisfied = false;
