@@ -23,7 +23,7 @@
 		<div id="pageContent">
 			
 			<div class="contentPanel">
-				<div class="panelHeader"><spring:message code="gettingstarted.teacher-information-sheet" /></div>
+				<div class="panelHeader"><spring:message code="gettingstarted.teacher-information-sheet" /> <span style="float:right;"><a class="printLesson" onClick="window.print();return false"><spring:message code="print" /></a></span></div>
 				<div class="panelContent">
 
 					<div class="sectionHead" style="padding-top:0;"><spring:message code="gettingstarted.technical-requirements" /></div>
