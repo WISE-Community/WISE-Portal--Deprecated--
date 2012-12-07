@@ -1019,10 +1019,6 @@
 		<property name="formView" value="admin/project/uploadproject" />
     </bean>
 
-    <bean id="xmlFileUpload"
-    	class="org.telscenter.sail.webapp.domain.admin.XMLFileUpload">
-    </bean>
-    	
     <bean id="listProjectsController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ListProjectsController">
         <property name="projectService" ref="projectService" />
