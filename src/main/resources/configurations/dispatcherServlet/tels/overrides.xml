@@ -90,7 +90,7 @@
     		    /index.html=urlFilenameViewController
     		    /accessdenied.html=accessDeniedController
     		    /router.html=routerController
-    		    /vle/preview.html=previewLDProjectController
+    		    /preview.html=previewLDProjectController
     		    /contact/contactwisegeneral.html=contactWiseController
     		    /contact/contactwiseproject.html=contactWiseProjectController
     		    /contact/checkforexistingaccount.html=checkForExistingAccountController

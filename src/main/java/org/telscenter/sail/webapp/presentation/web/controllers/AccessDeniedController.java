@@ -40,7 +40,7 @@ public class AccessDeniedController extends AbstractController{
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest reques,
 			HttpServletResponse response) throws Exception {
-		return new ModelAndView();
+		return new ModelAndView("errors/accessdenied");
 	}
 
 }
