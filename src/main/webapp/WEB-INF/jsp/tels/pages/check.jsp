@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../include.jsp"%>
 
 <!-- $Id: signup.jsp 323 2007-04-21 18:08:49Z hiroki $ -->
 
@@ -30,7 +30,7 @@
 
 <div id="pageWrapper">
 
-	<%@ include file="headermain.jsp"%>
+	<%@ include file="../headermain.jsp"%>
 	
 	<div id="page">
 			
@@ -241,7 +241,7 @@
 								</tr> 
 							</tbody></table> 
 						</div>
-						<div style="margin-top:1em;"><a href="pages/schoolIT.html">Resource for school technicians</a></div>
+						<div style="margin-top:1em;"><a href="./schoolIT.html">Resource for school technicians</a></div>
 					</div>
 				</div>
 			</div>
@@ -249,7 +249,7 @@
 		<div style="clear: both;"></div>
 	</div>   <!-- End of page-->
 	
-	<%@ include file="footer.jsp"%>
+	<%@ include file="../footer.jsp"%>
 </div>
 
 </body>

@@ -1,4 +1,4 @@
-<%@ include file="./include.jsp"%>
+<%@ include file="../include.jsp"%>
 <html>
 <head>
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
 
 <div id="pageWrapper">
 
-	<%@ include file="headermain.jsp"%>
+	<%@ include file="../headermain.jsp"%>
 	
 	<div id="page">
 			
@@ -34,7 +34,7 @@
 								or Chrome: <a href="http://www.google.com/chrome/" target="_blank">http://www.google.com/chrome/</a></li>
 							<li><spring:message code="gettingstarted.updated-adobe" />: <a href="http://get.adobe.com/flashplayer/" target="_blank">http://get.adobe.com/flashplayer/</a></li>
 							<li><spring:message code="gettingstarted.updated-java" />: <a href="http://java.sun.com/getjava/download.html" target="_blank">http://java.sun.com/getjava/download.html</a></li>
-							<li><spring:message code="gettingstarted.click-link-compatibility" />: <a href="/webapp/check.html" target="_blank"><spring:message code="gettingstarted.compatibility-test" /> </a></li>
+							<li><spring:message code="gettingstarted.click-link-compatibility" />: <a href="/webapp/pages/check.html" target="_blank"><spring:message code="gettingstarted.compatibility-test" /> </a></li>
 						</ol>
 					</div>
 					
@@ -119,7 +119,7 @@
 		<div style="clear: both;"></div>
 	</div>   <!-- End of page-->
 	
-	<%@ include file="footer.jsp"%>
+	<%@ include file="../footer.jsp"%>
 </div>
 
 
