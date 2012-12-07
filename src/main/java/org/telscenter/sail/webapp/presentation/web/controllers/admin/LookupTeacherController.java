@@ -49,7 +49,7 @@ import org.telscenter.sail.webapp.domain.impl.LookupParameters;
  */
 public class LookupTeacherController extends SimpleFormController {
 
-	private final static String VIEW = "admin/manageusers";
+	private final static String VIEW = "admin/account/manageusers";
 		
 	private UserService userService;
 

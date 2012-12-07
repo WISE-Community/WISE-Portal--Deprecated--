@@ -237,7 +237,6 @@
 				/author/project/postproject.html=postProjectController
 				<!--/admin/manageusers.html=viewAllUsersController
 				/admin/scenarios.html=viewScenariosController
-				/admin/lookupuser.html=lookupUserController
 				/admin/manageallprojects.html=manageAllProjectsController
 				/admin/editproject.html=editProjectController
 				/admin/manageallprojectruns.html=manageAllProjectRunsController

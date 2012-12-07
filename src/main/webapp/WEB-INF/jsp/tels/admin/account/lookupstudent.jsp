@@ -1,4 +1,4 @@
-<%@ include file="../include.jsp"%>
+<%@ include file="../../include.jsp"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
 <html xml:lang="en" lang="en">
@@ -6,12 +6,13 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
 
-<link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-<link href="../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
-<link href="../<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
     
-<script src="../javascript/tels/general.js" 			type="text/javascript"> </script>
+<script src="../../javascript/tels/general.js" 			type="text/javascript"> </script>
+
     
 <title><spring:message code="application.title" /></title>
 
@@ -31,7 +32,9 @@ function lookupFieldChanged() {
 
 <body onload="document.getElementById('lookupData').focus();">
 
-<h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>
+<div id="page">
+<div id="pageContent">
+<h5 style="color:#0000CC;"><a href="../index.html">Return to Main Menu</a></h5>
 <br>
 
 <!-- Support for Spring errors object -->
@@ -43,8 +46,8 @@ function lookupFieldChanged() {
 	</spring:bind>
 </div>
 
-<form:form method="post" action="lookupteacher.html" commandName="lookupParameters" id="lookupTeacher" autocomplete='off'>
-	<form:label path="lookupField">Search for all teachers by  </form:label>
+<form:form method="post" action="lookupstudent.html" commandName="lookupParameters" id="lookupStudent" autocomplete='off'>
+	<form:label path="lookupField">Search for all students by  </form:label>
 	<form:select path="lookupField" id="lookupField" onchange="lookupFieldChanged()">
 		<c:forEach var="field" items="${fields }">
 			<form:option value="${field}">${field }</form:option>
@@ -59,9 +62,11 @@ function lookupFieldChanged() {
 	
 	<form:input path="lookupData" id="lookupData"/>
 	
-	<input type="image" id="save" src="../<spring:theme code="register_save" />" 
+	<input type="image" id="save" src="<spring:theme code="register_save" />" 
     	onmouseover="swapSaveImage('save',1)"onmouseout="swapSaveImage('save',0)"   />
 </form:form>
+</div>
+</div>
 
 </body>
 </html>

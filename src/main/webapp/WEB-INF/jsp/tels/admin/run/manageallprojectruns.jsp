@@ -1,4 +1,4 @@
-<%@ include file="../include.jsp"%>
+<%@ include file="../../include.jsp"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -339,7 +339,7 @@
 
 <div id="pageWrapper">
 
-	<%@ include file="../headermain.jsp"%>
+	<%@ include file="../../headermain.jsp"%>
 	
 	<div id="page">
 		
@@ -454,7 +454,7 @@
 					          </tr>
 					        </table>
 					    </td>
-					    <td style="font-size:.95em;"><c:forEach var="owner" items="${run.owners}"><a href="../j_acegi_switch_user?j_username=${owner.userDetails.username}" title="<spring:message code="admin.manage.runs.13" />">${owner.userDetails.firstname} ${owner.userDetails.lastname}</a><br/>(${owner.userDetails.schoolname}, ${owner.userDetails.city}, ${owner.userDetails.state}, ${owner.userDetails.country})</c:forEach></td>
+					    <td style="font-size:.95em;"><c:forEach var="owner" items="${run.owners}"><a href="../../j_acegi_switch_user?j_username=${owner.userDetails.username}" title="<spring:message code="admin.manage.runs.13" />">${owner.userDetails.firstname} ${owner.userDetails.lastname}</a><br/>(${owner.userDetails.schoolname}, ${owner.userDetails.city}, ${owner.userDetails.state}, ${owner.userDetails.country})</c:forEach></td>
 					    <td class="hidden"><fmt:formatDate value="${run.starttime}" type="both" dateStyle="short" timeStyle="short" /></td>
 					    <td class="hidden"><fmt:formatDate value="${run.endtime}" type="both" dateStyle="short" timeStyle="short" /></td>
 					    <td>
@@ -488,7 +488,7 @@
 			</div>
 		</div>
 	</div>
-	<%@ include file="../footer.jsp"%>
+	<%@ include file="../../footer.jsp"%>
 </div>
 
 <div id="gradingDialog" class="dialog"></div>

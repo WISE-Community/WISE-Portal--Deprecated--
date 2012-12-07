@@ -1,4 +1,4 @@
-<%@ include file="../include.jsp"%>
+<%@ include file="../../include.jsp"%>
 
 <!DOCTYPE html>
 <html xml:lang="en" lang="en">
@@ -17,20 +17,19 @@
     
 <title><spring:message code="admin.manage.runs.title" /></title>
 
-<script type='text/javascript' src='/webapp/dwr/interface/ChangePasswordParametersValidatorJS.js'></script>
-<script type='text/javascript' src='/webapp/dwr/engine.js'></script>
-
 </head>
 
 <body onload="document.getElementById('userName').focus()">
 <div id="pageWrapper">
 
-	<%@ include file="../headermain.jsp"%>
+	<%@ include file="../../headermain.jsp"%>
 	
 	<div id="page">
 		
 		<div id="pageContent">
 			<div class="contentPanel">
+<h5 style="color:#0000CC;"><a href="../index.html">Return to Main Menu</a></h5>
+			
 				<div class="panelHeader"><spring:message code="admin.manage.runs.findbyteacher.1" />
 					<span class="pageTitle"><spring:message code="header.location.admin"/></span>
 				</div>
@@ -58,7 +57,7 @@
 			</div>
 		</div>
 	</div>
-	<%@ include file="../footer.jsp"%>
+	<%@ include file="../../footer.jsp"%>
 </div>
 
 </body>

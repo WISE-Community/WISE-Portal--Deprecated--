@@ -76,9 +76,6 @@
 	<bean id="lostPasswordStudentProjectCodeValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.LostPasswordStudentProjectCodeValidator" />
 		
-	<bean id="lookupUserParametersValidator"
-		class="org.telscenter.sail.webapp.presentation.validators.LookupUserParameteresValidator" />
-		
 	<bean id="findProjectParametersValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.FindProjectParametersValidator">
 		<property name="projectService" ref="projectService"/>
@@ -832,19 +829,6 @@
 		<property name="userService" ref="userService" />
 		<property name="userDetailsService" ref="userDetailsService" />
 	</bean>
-	
-    <bean id="lookupUserController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.LookupUserController">
-		<property name="commandName" value="lookupUserParameters" />
-		<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.LookupUserParameters"/>
-		<property name="validator" ref="lookupUserParametersValidator" />
-		<property name="userService" ref="userService" />
-		<property name="successView" value="admin/founduser" />
-	</bean>
-    
-    <bean id="lookupUserParameters"
-    	class="org.telscenter.sail.webapp.domain.impl.LookupUserParameters">
-    	</bean>
 
     <bean id="enableDisableUserController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.EnableDisableUserController">
@@ -879,8 +863,8 @@
 	<bean id="addNewsItemController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.AddNewsItemController">
 		<property name="newsItemService" ref="newsItemService" />
-		<property name="formView" value="/admin/addnewsitems"/>
-		<property name="successView" value="/admin/success"/>
+		<property name="formView" value="/admin/news/addnewsitems"/>
+		<property name="successView" value="/admin/news/success"/>
 		<property name="commandName" value="newsItemParameters"/>
 		<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.NewsItemParameters"/>
 		<property name="validator" ref="newsItemParametersValidator"/>
@@ -894,8 +878,8 @@
 	<bean id="editNewsItemController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.EditNewsItemController">
 		<property name="newsItemService" ref="newsItemService" />
-		<property name="formView" value="/admin/editnewsitem"/>
-		<property name="successView" value="/admin/success"/>
+		<property name="formView" value="/admin/news/editnewsitem"/>
+		<property name="successView" value="/admin/news/success"/>
 		<property name="sessionForm" value="true"/>
 		<property name="commandName" value="newsItemParameters"/>
 		<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.NewsItemParameters"/>
@@ -905,7 +889,7 @@
 	<bean id="removeNewsItemController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.RemoveNewsItemController">
 		<property name="sessionForm" value="true"/>
-		<property name="formView" value="/admin/removenewssuccess"/>
+		<property name="formView" value="/admin/news/removenewssuccess"/>
 		<property name="newsItemService" ref="newsItemService"/>
 	</bean>
 	
@@ -913,19 +897,6 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.RemoveNewsConfirmController">
 	</bean>
 	
-	<bean id="enableAccountParameters"
-    	class="org.telscenter.sail.webapp.domain.impl.EnableAccountParameters"> 
-    </bean>
-	
-	<bean id="enableAccountController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.EnableAccountController">
-		<property name="userService" ref="userService"/>
-		<property name="commandName" value="enableAccountParameters" />
-		<property name="commandClass"
-			value="org.telscenter.sail.webapp.domain.impl.EnableAccountParameters" />
-		<property name="successView" value="enableaccountsuccess.html" />
-	</bean>
-
     <bean id="shareProjectRunController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ShareProjectRunController">
 		<property name="runService" ref="runService"/>

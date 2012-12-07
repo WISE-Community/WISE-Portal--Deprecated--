@@ -47,7 +47,6 @@ import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.DefaultPeriodNames;
-import org.telscenter.sail.webapp.domain.impl.LookupUserParameters;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.impl.RunPermission;
 import org.telscenter.sail.webapp.domain.project.Project;

@@ -75,9 +75,6 @@
 	<bean id="lostPasswordStudentProjectCodeValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.LostPasswordStudentProjectCodeValidator" />
 
-	<bean id="lookupUserParametersValidator"
-		class="org.telscenter.sail.webapp.presentation.validators.LookupUserParameteresValidator" />
-
 	<bean id="findProjectParametersValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.FindProjectParametersValidator">
 		<property name="projectService" ref="projectService"/>
@@ -771,19 +768,6 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ViewAllUsersController">
 		<property name="userService" ref="userService" />
 	</bean>
-
-    <bean id="lookupUserController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.LookupUserController">
-		<property name="commandName" value="lookupUserParameters" />
-		<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.LookupUserParameters"/>
-		<property name="validator" ref="lookupUserParametersValidator" />
-		<property name="userService" ref="userService" />
-		<property name="successView" value="admin/founduser" />
-	</bean>
-
-    <bean id="lookupUserParameters"
-    	class="org.telscenter.sail.webapp.domain.impl.LookupUserParameters">
-    	</bean>
 
     <!--bean id="selectWorkgroupController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.SelectWorkgroupController">

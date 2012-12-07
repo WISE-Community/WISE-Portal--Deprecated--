@@ -1,25 +1,22 @@
-<%@ include file="../include.jsp"%>
+<%@ include file="../../include.jsp"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
-<link href="../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
-<link href="../<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
     
-<script type="text/javascript" src="../javascript/tels/general.js"></script>
-<script type="text/javascript" src="../javascript/tels/effects.js"></script>
-<script type="text/javascript" src="../javascript/tels/jquery-1.4.1.min.js"></script>
-<script type="text/javascript" src="../javascript/tels/projecttags.js"></script>
-
+<script type="text/javascript" src="../../javascript/tels/general.js"></script>
+<script type="text/javascript" src="../../javascript/tels/effects.js"></script>
+<script type="text/javascript" src="../../javascript/tels/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="../../javascript/tels/projecttags.js"></script>
     
 <title><spring:message code="application.title" /></title>
 
-<script type='text/javascript' src='/webapp/dwr/interface/ChangePasswordParametersValidatorJS.js'></script>
-<script type='text/javascript' src='/webapp/dwr/engine.js'></script>
 <script type='text/javascript'>
 <c:forEach var='project' items="${internal_project_list}">
 	<c:forEach var='tag' items="${project.tags}">
@@ -57,13 +54,14 @@ $(document).ready(function() {
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div id="centeredDiv">
+<div id="page">
+<div id="pageContent" class="contentPanel">
 
-<%@ include file="adminheader.jsp"%>
+<%@ include file="../adminheader.jsp"%>
 <%@page import="org.telscenter.sail.webapp.domain.project.impl.ProjectType" %>
 
 
-<h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>
+<h5 style="color:#0000CC;"><a href="../index.html">Return to Main Menu</a></h5>
 
 <c:out value="${message}" />
 
@@ -126,11 +124,11 @@ $(document).ready(function() {
 			</div>
 		</td>
 		<td>
-		<a href="../author/authorproject.html?projectId=${project.id}">Edit Project (Authoring tool)</a>&nbsp;|&nbsp;
+		<a href="../../author/authorproject.html?projectId=${project.id}">Edit Project (Authoring tool)</a>&nbsp;|&nbsp;
 <!-- 	<a href="editproject.html?projectId=${project.id}">Edit Project Metadata</a>&nbsp;|&nbsp;		 -->	
-		<a href="../previewproject.html?projectId=${project.id}">Preview</a>&nbsp;|&nbsp;
-		<a href="../teacher/projects/customized/shareproject.html?projectId=${project.id}">Manage Ownership/Shared Teachers</a>&nbsp;|&nbsp;
-		<a href="../author/project/exportproject.html?projectId=${project.id}">Export project as Zip</a>&nbsp;|&nbsp;
+		<a href="../../previewproject.html?projectId=${project.id}">Preview</a>&nbsp;|&nbsp;
+		<a href="../../teacher/projects/customized/shareproject.html?projectId=${project.id}">Manage Ownership/Shared Teachers</a>&nbsp;|&nbsp;
+		<a href="../../author/project/exportproject.html?projectId=${project.id}">Export project as Zip</a>&nbsp;|&nbsp;
 		</td>		
 		<!-- 
 		<td><a href="../author/authorproject.html?projectId=${project.id}">Edit Project (Authoring tool)</a></td>		
@@ -165,11 +163,12 @@ $(document).ready(function() {
 		<td>${project.id }</td>
 		<td>${project.current }</td>
 		<td>${project.familytag} (${project.projectType})</td>
-		<td><a href="../author/authorproject.html?projectId=${project.id}">Edit Project (Authoring tool)</a></td>		
-		<td><a href="editproject.html?projectId=${project.id}">Edit Project Metadata</a></td>
-		<td><a href="../previewproject.html?projectId=${project.id}">Preview</a></td>		
+		<td><a href="../../author/authorproject.html?projectId=${project.id}">Edit Project (Authoring tool)</a></td>		
+		<td><a href="../editproject.html?projectId=${project.id}">Edit Project Metadata</a></td>
+		<td><a href="../../previewproject.html?projectId=${project.id}">Preview</a></td>		
 	</tr>
 	</c:forEach>
 </table>
+</div></div>
 </body>
 </html>
