@@ -721,7 +721,7 @@
 	
 	<bean id="changeUserPasswordController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ChangeUserPasswordController">
-		<property name="successView" value="changepasswordsuccess"/>
+		<property name="successView" value="forgotaccount/changepasswordsuccess"/>
 		<property name="userService" ref="userService"/>
 		<property name="studentService" ref="studentService"/>
 		<property name="sessionForm" value="true"/>

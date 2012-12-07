@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../include.jsp"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xml:lang="en" lang="en">
@@ -14,7 +14,7 @@
 
 <!-- FOR LATER REFACTOR <script src="../javascript/tels/custom-yui/changegroupdnd.js" type="text/javascript"> </script> -->
 
-<%@ include file="teacher/grading/styles.jsp"%>
+<%@ include file="./grading/styles.jsp"%>
 <script type="text/javascript" src="./javascript/tels/yui/yahoo/yahoo.js"></script>
 <script type="text/javascript" src="./javascript/tels/yui/event/event.js"></script>  
 <script type="text/javascript" src="./javascript/tels/yui/connection/connection.js"></script> 

@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../include.jsp"%>
 
 <!-- $Id$ -->
 
@@ -222,7 +222,7 @@ $(document).ready(function() {
 <body>
 <div id="pageWrapper">
 
-	<%@ include file="headermain.jsp"%>
+	<%@ include file="../headermain.jsp"%>
 		
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
@@ -358,7 +358,7 @@ $(document).ready(function() {
 		<div id="projectDetailDialog" style="overflow:hidden;" class="dialog"></div>
 	</div>   <!-- End of page -->
 	
-	<%@ include file="footer.jsp"%>
+	<%@ include file="../footer.jsp"%>
 </div>
 
 </body>

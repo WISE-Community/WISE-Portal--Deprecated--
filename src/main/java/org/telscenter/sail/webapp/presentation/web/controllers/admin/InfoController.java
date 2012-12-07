@@ -79,9 +79,13 @@ public class InfoController extends AbstractController{
 				
 				//set the run list into the model
 				modelAndView.addObject("runList", runList);
+				
+				modelAndView.setViewName("student/studentinfo");
 			} else {
 				//the user we are looking up is a teacher
 				modelAndView.addObject("isStudent", false);
+				
+				modelAndView.setViewName("teacher/teacherinfo");
 			}
 			
 	        return modelAndView;

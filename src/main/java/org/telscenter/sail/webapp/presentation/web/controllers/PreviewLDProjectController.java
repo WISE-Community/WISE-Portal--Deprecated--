@@ -94,7 +94,7 @@ public class PreviewLDProjectController extends AbstractController {
 				
 				String vleurl = portalurl + "/vlewrapper/vle/vle.html";
 		
-				ModelAndView modelAndView = new ModelAndView();
+				ModelAndView modelAndView = new ModelAndView("preview/preview");
 		    	modelAndView.addObject("vleurl",vleurl);
 		    	modelAndView.addObject("vleConfigUrl", vleConfigUrl);
 		    	modelAndView.addObject("contentUrl", contentUrl);
