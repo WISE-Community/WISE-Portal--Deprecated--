@@ -140,10 +140,10 @@ function getRequirementSatisfiedIcon(satisfied) {
 	
 	if(satisfied) {
 		//the client satisfies the requirement
-		iconImg = "<img src='./themes/tels/default/images/check_16.gif' />";
+		iconImg = "<img src='../themes/tels/default/images/check_16.gif' />";
 	} else {
 		//the client does not satisfy the requirement
-		iconImg = "<img src='./themes/tels/default/images/error_16.gif' />";
+		iconImg = "<img src='../themes/tels/default/images/error_16.gif' />";
 	}
 	
 	return iconImg;
@@ -169,7 +169,7 @@ function checkJavascript() {
 	document.getElementById('javascriptStatus').innerHTML = 'Required';
 	document.getElementById('javascriptRequiredVersion').innerHTML = 'Enabled';
 	document.getElementById('javascriptYourVersion').innerHTML = 'Enabled';
-	document.getElementById('javascriptRequirementSatisfied').innerHTML = "<img src='./themes/tels/default/images/check_16.gif' />";
+	document.getElementById('javascriptRequirementSatisfied').innerHTML = "<img src='../themes/tels/default/images/check_16.gif' />";
 	document.getElementById('javascriptAdditionalInfo').innerHTML = "<a href='https://www.google.com/support/adsense/bin/answer.py?answer=12654'>How to enable Javascript</a>";
 
 	return true;

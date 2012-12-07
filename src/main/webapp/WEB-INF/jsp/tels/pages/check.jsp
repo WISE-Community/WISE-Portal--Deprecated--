@@ -16,7 +16,7 @@
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="browserdetectsource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="checkcompatibilitysource"/>"></script>
-<script type="text/javascript" src="./javascript/tels/deployJava.js"></script>
+<script type="text/javascript" src="../javascript/tels/deployJava.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   
@@ -57,7 +57,7 @@
 								<td>Required</td>
 								<td>Enabled</td>
 								<td>Disabled</td>
-								<td><img src='./themes/tels/default/images/error_16.gif' /></td>
+								<td><img src='../themes/tels/default/images/error_16.gif' /></td>
 								<td><a href='https://www.google.com/support/adsense/bin/answer.py?answer=12654'>How to enable Javascript</a></td>
 								</tr>
 							</noscript>
