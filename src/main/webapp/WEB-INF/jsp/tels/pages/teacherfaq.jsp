@@ -1,4 +1,4 @@
-<%@ include file="./include.jsp"%>
+<%@ include file="../include.jsp"%>
 <html>
 <head>
 <meta name=Title content="WISE 4 Teacher Information Sheet">
@@ -128,7 +128,7 @@
 <h4><spring:message code="teacherfaq.technical-questions-q" /></h4>
 
 <spring:message code="teacherfaq.technical-questions-a1" />
-<a href="/webapp/check.html"><spring:message code="teacherfaq.compatibility-test" /></a><br/><br/>
+<a href="/webapp/pages/check.html"><spring:message code="teacherfaq.compatibility-test" /></a><br/><br/>
 
 <spring:message code="teacherfaq.technical-questions-a2" />
 <a target=_blank href="http://www.wikihow.com/Clear-Your-Browser's-Cache"><spring:message code="teacherfaq.how-to-clear-cache" /></a>

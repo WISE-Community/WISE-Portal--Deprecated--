@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../include.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -26,7 +26,7 @@
 
 <div id="pageWrapper">
 
-	<%@ include file="headermain.jsp"%>
+	<%@ include file="../headermain.jsp"%>
 	
 	<div id="page">
 		
@@ -40,7 +40,7 @@
 						<img src="/webapp/themes/tels/default/images/features/inquiry-learning.png" alt="inquiry learning" />
 						<div class="featureContentHeader">1. Inquiry-Based Learning</div>
 						<div class="featureContent">
-							<p>WISE projects engage students in the methods of real scientists. Through various <a href="/webapp/pages/features.html">activities and scaffolding tools</a>, students collaborate to explore issues of social importance; they pose relevant questions and make predictions; they experiment with computational models; they work to evaluate and distinguish discrepant information; and they construct evidence-based explanations through reflection and discussion. From WISE's <a href="/webapp/pages/previewprojectlist.html">inquiry-based projects</a>, students not only learn skills that prepare them to be successful in science, they also learn skills necessary to be responsible, critical thinking citizens.</p>
+							<p>WISE projects engage students in the methods of real scientists. Through various <a href="/webapp/pages/features.html">activities and scaffolding tools</a>, students collaborate to explore issues of social importance; they pose relevant questions and make predictions; they experiment with computational models; they work to evaluate and distinguish discrepant information; and they construct evidence-based explanations through reflection and discussion. From WISE's <a href="/webapp/previewprojectlist.html">inquiry-based projects</a>, students not only learn skills that prepare them to be successful in science, they also learn skills necessary to be responsible, critical thinking citizens.</p>
 						</div>
 						<div style="clear:both;"></div>
 					</div>
@@ -124,7 +124,7 @@
 		<div style="clear: both;"></div>
 	</div>   <!-- End of page -->
 	
-	<%@ include file="footer.jsp"%>
+	<%@ include file="../footer.jsp"%>
 </div>
 
 </body>

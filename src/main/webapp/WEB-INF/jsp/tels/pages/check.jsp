@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../include.jsp"%>
 
 <!-- $Id: signup.jsp 323 2007-04-21 18:08:49Z hiroki $ -->
 
@@ -16,7 +16,7 @@
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="browserdetectsource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="checkcompatibilitysource"/>"></script>
-<script type="text/javascript" src="./javascript/tels/deployJava.js"></script>
+<script type="text/javascript" src="../javascript/tels/deployJava.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   
@@ -30,7 +30,7 @@
 
 <div id="pageWrapper">
 
-	<%@ include file="headermain.jsp"%>
+	<%@ include file="../headermain.jsp"%>
 	
 	<div id="page">
 			
@@ -57,7 +57,7 @@
 								<td>Required</td>
 								<td>Enabled</td>
 								<td>Disabled</td>
-								<td><img src='./themes/tels/default/images/error_16.gif' /></td>
+								<td><img src='../themes/tels/default/images/error_16.gif' /></td>
 								<td><a href='https://www.google.com/support/adsense/bin/answer.py?answer=12654'>How to enable Javascript</a></td>
 								</tr>
 							</noscript>
@@ -241,7 +241,7 @@
 								</tr> 
 							</tbody></table> 
 						</div>
-						<div style="margin-top:1em;"><a href="pages/schoolIT.html">Resource for school technicians</a></div>
+						<div style="margin-top:1em;"><a href="./schoolIT.html">Resource for school technicians</a></div>
 					</div>
 				</div>
 			</div>
@@ -249,7 +249,7 @@
 		<div style="clear: both;"></div>
 	</div>   <!-- End of page-->
 	
-	<%@ include file="footer.jsp"%>
+	<%@ include file="../footer.jsp"%>
 </div>
 
 </body>

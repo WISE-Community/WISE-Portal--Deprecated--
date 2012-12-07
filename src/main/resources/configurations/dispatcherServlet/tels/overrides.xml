@@ -253,9 +253,9 @@
 				/bridge/**/*.html=bridgeController
 				/errors/outsideerror.html=outsideErrorController
 				/authorize.html=credentialManager
-				/check.html=compatibilityCheckController
-				/memorymonitor.html=memoryMonitorController
-				/pages/*.html=urlFilenameViewController
+				/pages/check.html=compatibilityCheckController
+				/pages/memorymonitor.html=memoryMonitorController
+				/**/*.html=urlFilenameViewController
     		</value>
     	</property>
     </bean>

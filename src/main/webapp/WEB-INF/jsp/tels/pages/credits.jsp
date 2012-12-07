@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../include.jsp"%>
 
 <!-- $Id: previewproject.jsp 323 2007-04-21 18:08:49Z hiroki $ -->
 
@@ -22,8 +22,6 @@
 <body>
 
 <div id="centeredDiv">
-
-<%@ include file="headermain_returntohomepage.jsp"%>
 
 <h1 id="previewProjectTitle" class="blueText"><spring:message code="credits.2"/></h1>
 

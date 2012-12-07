@@ -10,7 +10,7 @@ We hope this will help you learn more about the WISE technology and what is need
 Thank you for all that you do to make technology work in schools!</div>
 
 <h3>Computer System and Network requirements to run WISE4</h3>
-We've provided a <a href="../check.html">compatibility checker</a> that will run some scripts to help you determine if the computers at your school(s) are
+We've provided a <a href="./check.html">compatibility checker</a> that will run some scripts to help you determine if the computers at your school(s) are
 capable of running WISE4 projects. This page also includes a section on computer system requirements to run WISE4 projects.
 
 <h3>About WISE</h3>
