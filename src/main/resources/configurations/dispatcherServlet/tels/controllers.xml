@@ -117,12 +117,6 @@
 	<bean id="statesController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.StatesController" />
 
-	<bean id="helpController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.HelpController" />
-		
-	<bean id="overviewHelpController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.OverviewHelpController" />
-
 	<bean id="indexController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.IndexController">
 		<property name="newsItemService" ref="newsItemService"/>
@@ -525,16 +519,6 @@
 	
 	<bean id="changeTeacherPasswordSuccessController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ChangeTeacherPasswordSuccessController">
-	</bean>
-	
-<!-- 
-	<bean id="updateTeacherAccountController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.UpdateTeacherAccountController">
-	</bean>
--->
-	
-	<bean id="mainHelpController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.help.MainHelpController">
 	</bean>
 
 	<bean id="contactWiseController"

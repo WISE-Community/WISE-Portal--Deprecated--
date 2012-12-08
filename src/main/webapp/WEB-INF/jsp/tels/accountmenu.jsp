@@ -127,7 +127,6 @@
 			<ul class="sf-menu">
 				<sec:authorize ifNotGranted="ROLE_STUDENT">
 					<li class="level1 menu1">
-						<!-- <a href="/webapp/teacher/help/overview.html"><spring:message code="menu.help"/></a>  -->
 						<a><spring:message code="menu.help"/></a> 
 						<ul>	
 							<li><a href="/webapp/pages/gettingstarted.html"><spring:message code="menu.quickstart"/></a></li>

@@ -171,9 +171,6 @@
     		    /teacher/management/studentlist.html=studentListController
     		    /teacher/management/studentlistexcel.html=listStudentNamesController
     		    /teacher/management/addsharedteacher.html=addSharedTeacherController
-    		    /teacher/help/overview.html=overviewHelpController
-    		    /teacher/help/main.html=mainHelpController
-    		    /teacher/help/contactwise.html=contactWiseController
     		    /teacher/vle/vle.html=studentVLEController
     		    /**/index.html=indexController
     		    /previewproject.html=previewprojectController
