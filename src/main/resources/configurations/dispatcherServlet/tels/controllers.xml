@@ -181,51 +181,12 @@
 	<bean id="curriculumSubjectsController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.CurriculumSubjectsController">
 	</bean>
-		
-	<bean id="currentScoreController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.CurrentScoreController">
-		<property name="gradingService" ref="gradingService" />
-		<property name="annotationBundleService" ref="annotationBundleService" />
-		<property name="workgroupService" ref="workgroupService" />
-		<property name="runService" ref="runService" />
-	</bean>	
-		
-	<bean id="gradeByStepController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeByStepController">
-		<property name="runService" ref="runService" />
-		<property name="gradingService" ref="gradingService" />
-		<property name="portalProperties" ref="portalproperties" />
-	</bean>
 	
 	<bean id="gradeWorkController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeWorkController">
 		<property name="runService" ref="runService" />
 		<property name="gradingService" ref="gradingService" />
 	    <property name="portalProperties" ref="portalproperties"/>
-	</bean>
-	
-	<bean id="gradeOverviewController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeOverviewController">
-	</bean>
-	
-		<bean id="gradingSubmitController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradingSubmitController">
-		<property name="gradingService" ref="gradingService" />
-		<property name="annotationBundleService" ref="annotationBundleService" />
-		<property name="workgroupService" ref="workgroupService" />
-	</bean>
-
-	<bean id="gradingToolController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradingToolController">
-		<property name="gradingService" ref="gradingService" />
-		<property name="runService" ref="runService" />
-	</bean>
-	
-	<bean id="gradingCellInfoController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradingCellInfoController">
-		<property name="gradingService" ref="gradingService"/>
-		<property name="workgroupService" ref="wiseWorkgroupService"/>
-		<property name="runService" ref="runService"/>
 	</bean>
 
 	<bean id="submitWorkgroupChangesController"
@@ -459,34 +420,8 @@
 		<property name="userService" ref="userService" />
 	</bean>
 	
-	<bean id="projectPickerGradingController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.ProjectPickerGradingController">
-		<property name="runService" ref="runService" />
-		<property name="userService" ref="userService" />
-	</bean>
-	
 	<bean id="premadeCommentsController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.PremadeCommentsController">
-		<property name="premadeCommentService" ref="premadeCommentService" />
-	</bean>
-	
-	<bean id="editCommentController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.EditCommentController">
-		<property name="premadeCommentService" ref="premadeCommentService" />
-	</bean>
-	
-	<bean id="createNewCommentListController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.CreateNewCommentListController">
-		<property name="premadeCommentService" ref="premadeCommentService" />
-	</bean>
-	
-	<bean id="addCommentToListController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.AddCommentToListController">
-		<property name="premadeCommentService" ref="premadeCommentService" />
-	</bean>
-	
-	<bean id="deleteCommentListController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.DeleteCommentListController">
 		<property name="premadeCommentService" ref="premadeCommentService" />
 	</bean>
 	
@@ -811,24 +746,6 @@
     <bean id="enableDisableUserController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.EnableDisableUserController">
 		<property name="userService" ref="userService" />
-	</bean>
-    	
-    <bean id="selectWorkgroupController"
-	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.SelectWorkgroupController">
-		<property name="offeringService" ref="runService" />
-		<property name="runService" ref="runService" />
-	</bean>
-	
-		<bean id="gradeByWorkgroupController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeByWorkgroupController">
-		<property name="runService" ref="runService" />
-		<property name="workgroupService" ref="wiseWorkgroupService" />
-		<property name="gradingService" ref="gradingService" />
-	</bean>
-    	
-	<bean id="batchScoreController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.BatchScoreController">
-		<property name="gradingService" ref="gradingService"/>
 	</bean>
 	
 	<bean id="projectInfoController"
