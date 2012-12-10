@@ -144,7 +144,7 @@
 <body>
 
 <div id="pageWrapper">
-	<%@ include file="headermain_announce.jsp"%>
+	<%@ include file="headermain.jsp"%>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c-rt" %>
 	
