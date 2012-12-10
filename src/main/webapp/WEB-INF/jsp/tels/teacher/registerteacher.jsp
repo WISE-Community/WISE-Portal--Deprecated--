@@ -261,14 +261,12 @@ $(document).ready(function(){
 					    	<td><label for="state" id="state1" ><spring:message code="signup.state" /></label> </td>
 							<td><form:input path="userDetails.state" id="teacherState" size="25" maxlength="50" tabindex="5"/>
 						    	<span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span>  
-						    	<!-- <div id="autocomplete_choices_state" class="autocomplete" ></div></td>  -->
 						</tr>
 					                
 					    <tr>
 					    	<td><label for="country" id="country1"><spring:message code="signup.country" /></label></td>
 							<td><form:input path="userDetails.country" id="teacherCountry" size="25" maxlength="50" tabindex="6"/> 
 							    <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> 
-							    <!-- <div id="autocomplete_choices_country" class="autocomplete" ></div></td> -->
 						</tr>
 					            
 					    <tr>

@@ -111,12 +111,6 @@
 	<bean id="registerController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.RegisterController" />
 
-	<bean id="countriesController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.CountriesController" />
-
-	<bean id="statesController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.StatesController" />
-
 	<bean id="indexController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.IndexController">
 		<property name="newsItemService" ref="newsItemService"/>
