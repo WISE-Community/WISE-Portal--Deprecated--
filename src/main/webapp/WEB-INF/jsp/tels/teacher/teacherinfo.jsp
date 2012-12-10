@@ -12,8 +12,6 @@
 
 <title>Teacher Information</title>
 
-<!-- FOR LATER REFACTOR <script src="../javascript/tels/custom-yui/changegroupdnd.js" type="text/javascript"> </script> -->
-
 <%@ include file="./grading/styles.jsp"%>
 <script type="text/javascript" src="./javascript/tels/yui/yahoo/yahoo.js"></script>
 <script type="text/javascript" src="./javascript/tels/yui/event/event.js"></script>  
