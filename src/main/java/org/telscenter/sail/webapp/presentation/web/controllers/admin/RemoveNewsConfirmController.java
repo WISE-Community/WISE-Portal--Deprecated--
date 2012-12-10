@@ -44,7 +44,7 @@ public class RemoveNewsConfirmController extends AbstractController{
 			HttpServletRequest request,
 			HttpServletResponse response){
 		
-		ModelAndView modelAndView = new ModelAndView("admin/removenewsconfirm");
+		ModelAndView modelAndView = new ModelAndView("admin/news/removenewsconfirm");
 		modelAndView.addObject("newsId", request.getParameter("newsId"));
 		modelAndView.addObject("newsTitle", request.getParameter("newsTitle"));
 		return modelAndView;

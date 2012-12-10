@@ -97,7 +97,7 @@ public class PreviewProjectListController extends AbstractController {
 				}
 			}
 			
-		 ModelAndView modelAndView = new ModelAndView();
+		 ModelAndView modelAndView = new ModelAndView("preview/previewprojectlist");
 	     modelAndView.addObject("projectList", currentProjectList);
 	     modelAndView.addObject("projectThumbMap", projectThumbMap);
 		 return modelAndView;

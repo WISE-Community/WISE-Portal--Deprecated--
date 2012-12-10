@@ -34,7 +34,6 @@ import org.junit.runners.Suite;
 	net.sf.sail.webapp.presentation.web.controllers.offerings.OfferingListControllerTest.class,
 	net.sf.sail.webapp.presentation.web.controllers.LoginControllerTest.class,
 	net.sf.sail.webapp.presentation.web.controllers.SignupControllerTest.class,
-	net.sf.sail.webapp.presentation.web.controllers.ChangePasswordControllerTest.class
 })
 
 public class AllTests {

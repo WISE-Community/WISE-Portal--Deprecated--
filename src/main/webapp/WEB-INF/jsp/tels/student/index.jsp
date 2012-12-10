@@ -308,17 +308,10 @@ $(document).ready(function() {
 																id='${studentRunInfo.run.id}' class="wisebutton"><spring:message code="student.index.17"/></a></li>
 														</c:otherwise>														
 													</c:choose>
-													<!--  
-													<c:if test="${not empty studentRunInfo.run.brainstorms}" >
-					            						<c:forEach var="brainstorm" items="${studentRunInfo.run.brainstorms}">
-					                						<li><a href="brainstorm/studentbrainstorm.html?brainstormId=${brainstorm.id}">View Q&amp;A Discussion</a></li>
-					            						</c:forEach>
-					    							</c:if>	
-					    							-->
 												</c:otherwise>
 											</c:choose>
 											<li class="announcements"><a id="viewAnnouncements_${studentRunInfo.run.id}" class="viewAnnouncements"><spring:message code="student.index.34"/></a></li> <!-- TODO: i18n -->
-											<li><a href="/webapp/contactwiseproject.html?projectId=${studentRunInfo.run.project.id}"><spring:message code="student.index.20"/></a></li>
+											<li><a href="/webapp/contact/contactwiseproject.html?projectId=${studentRunInfo.run.project.id}"><spring:message code="student.index.20"/></a></li>
 										</ul>
 								 	</td>
 								</tr>

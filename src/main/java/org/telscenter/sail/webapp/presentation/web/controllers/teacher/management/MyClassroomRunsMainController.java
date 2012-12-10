@@ -48,10 +48,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectTypeVisitor;
-import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
@@ -81,8 +79,6 @@ public class MyClassroomRunsMainController extends AbstractController {
 
 	private HttpRestTransport httpRestTransport;
 	
-	private BrainstormService brainstormService;
-
 	protected final static String IS_XMPP_ENABLED = "isXMPPEnabled";
 
 	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
@@ -165,12 +161,6 @@ public class MyClassroomRunsMainController extends AbstractController {
 			if (result.equals("ExternalProject")) {
 				external_project_runs.add(run);
 			}
-			
-			// get brainstorms that are in this run
-			Set<Brainstorm> brainstormsForRun = brainstormService.getBrainstormsByRun(run);
-			if (brainstormsForRun != null) {
-				run.setBrainstorms(brainstormsForRun);
-			}
 		}
 		
 		Collections.sort(current_run_list, CREATED_ORDER);
@@ -232,11 +222,4 @@ public class MyClassroomRunsMainController extends AbstractController {
 		this.workgroupService = workgroupService;
 	}
 	
-	/**
-	 * @param brainstormService the brainstormService to set
-	 */
-	public void setBrainstormService(BrainstormService brainstormService) {
-		this.brainstormService = brainstormService;
-	}
-
 }

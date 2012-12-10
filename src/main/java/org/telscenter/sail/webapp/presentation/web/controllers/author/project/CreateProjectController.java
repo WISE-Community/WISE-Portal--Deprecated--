@@ -40,7 +40,6 @@ import net.sf.sail.webapp.service.jnlp.JnlpService;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.UrlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
@@ -89,13 +88,9 @@ public class CreateProjectController extends SimpleFormController {
     	
     	try {
     		Curnit curnit = curnitService.getById(projectParameters.getCurnitId());
-    		if (curnit instanceof OtmlModuleImpl){
-    			projectParameters.setProjectType(ProjectType.POTRUNK);    			
-    		} else if (curnit instanceof UrlModuleImpl){
+    		if (curnit instanceof UrlModuleImpl){
     			projectParameters.setProjectType(ProjectType.LD);
-    		} else {
-    			projectParameters.setProjectType(ProjectType.POD);
-    		}
+    		} 
     		
 			// add the current user as an owner of the project
 			User user = ControllerUtil.getSignedInUser();

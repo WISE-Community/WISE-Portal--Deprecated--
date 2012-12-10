@@ -1259,7 +1259,15 @@ form {margin:0px; padding:0px;}
 #contentFooter a:hover {
 	text-decoration:underline;
 }
-	
+
+a.printLesson {
+	background: url("/webapp/themes/tels/default/images/print.png") no-repeat scroll left center transparent;
+    color: #00748F;
+    font-family: Arial,Helvetica,Tahoma,sans-serif;
+    font-size: 0.9em;
+    margin-right: 0.25em;
+    padding-left: 28px;
+}
 	
 .alignLeft 	{text-align:left;}
 .alignCenter {text-align:center;}

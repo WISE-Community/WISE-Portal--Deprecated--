@@ -476,9 +476,9 @@ public class LdProjectServiceImpl implements ProjectService {
 		
 		String launchVLEUrl;
 		if(versionId != null && versionId != ""){
-			launchVLEUrl = "/vle/preview.html?projectId=" + project.getId() + "&versionId=" + versionId;
+			launchVLEUrl = "/preview.html?projectId=" + project.getId() + "&versionId=" + versionId;
 		} else {
-			launchVLEUrl = "/vle/preview.html?projectId=" + project.getId();
+			launchVLEUrl = "/preview.html?projectId=" + project.getId();
 		}
 		
 		String isConstraintsDisabledStr = request.getParameter("isConstraintsDisabled");

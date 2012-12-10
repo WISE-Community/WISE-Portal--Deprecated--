@@ -55,7 +55,7 @@ public class ViewAllUsersController extends AbstractController{
 	
 	private UserDetailsService userDetailsService;
 
-	protected static final String VIEW_NAME = "admin/manageusers";
+	protected static final String VIEW_NAME = "admin/account/manageusers";
 
 	protected static final String TEACHERS = "teachers";
 

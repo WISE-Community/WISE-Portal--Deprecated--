@@ -47,7 +47,7 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
  */
 public class FindProjectRunsController extends SimpleFormController{
 	
-	private final static String VIEW = "admin/manageallprojectruns";
+	private final static String VIEW = "admin/run/manageallprojectruns";
 	
 	private RunService runService;
 	

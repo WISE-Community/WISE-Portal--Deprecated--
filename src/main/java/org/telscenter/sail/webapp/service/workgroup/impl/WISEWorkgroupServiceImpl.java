@@ -53,7 +53,6 @@ import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.domain.workgroup.impl.WISEWorkgroupImpl;
 import org.telscenter.sail.webapp.service.grading.GradingService;
 import org.telscenter.sail.webapp.service.offering.RunService;
-import org.telscenter.sail.webapp.service.project.impl.PodProjectServiceImpl;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 
 /**
@@ -201,8 +200,7 @@ public class WISEWorkgroupServiceImpl extends WorkgroupServiceImpl implements
 	public String generateWorkgroupWorkPdfUrlString(
 			HttpRestTransport httpRestTransport, HttpServletRequest request,
 			WISEWorkgroup workgroup) {
-		String previewProjectUrlString = PodProjectServiceImpl.generatePreviewProjectUrlString(httpRestTransport, (Run) workgroup.getOffering(), workgroup);
-		String workgroupWorkPdfUrlString = previewProjectUrlString + "?generateReportOnly=true&" + PodProjectServiceImpl.generateRetrieveAnnotationBundleParamRequestString(request, workgroup);
+		String workgroupWorkPdfUrlString = "";
 		return workgroupWorkPdfUrlString;
 	}
 	

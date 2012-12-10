@@ -24,7 +24,8 @@ package org.telscenter.sail.webapp.domain.project.impl;
 
 /**
  * Enumeration of Project types.
- * 
+ * Only LD is currently supported. All other types are no longer supported 
+ * and are listed for backward-compatibility purpose.
  * @author Hiroki Terashima
  * @version $Id$
  */

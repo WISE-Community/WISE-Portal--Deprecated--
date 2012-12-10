@@ -284,15 +284,6 @@ a.viewLesson:hover {
 	display:none;
 }
 
-a.printLesson {
-	background: url("/webapp/themes/tels/default/images/print.png") no-repeat scroll left center transparent;
-    color: #00748F;
-    font-family: Arial,Helvetica,Tahoma,sans-serif;
-    font-size: 0.9em;
-    margin-right: 0.25em;
-    padding-left: 28px;
-}
-
 .runTable, .projectOverview {
 	border-collapse:collapse;
 	width:100%;

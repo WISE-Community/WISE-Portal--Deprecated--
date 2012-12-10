@@ -140,10 +140,10 @@ function getRequirementSatisfiedIcon(satisfied) {
 	
 	if(satisfied) {
 		//the client satisfies the requirement
-		iconImg = "<img src='./themes/tels/default/images/check_16.gif' />";
+		iconImg = "<img src='../themes/tels/default/images/check_16.gif' />";
 	} else {
 		//the client does not satisfy the requirement
-		iconImg = "<img src='./themes/tels/default/images/error_16.gif' />";
+		iconImg = "<img src='../themes/tels/default/images/error_16.gif' />";
 	}
 	
 	return iconImg;
@@ -169,7 +169,7 @@ function checkJavascript() {
 	document.getElementById('javascriptStatus').innerHTML = 'Required';
 	document.getElementById('javascriptRequiredVersion').innerHTML = 'Enabled';
 	document.getElementById('javascriptYourVersion').innerHTML = 'Enabled';
-	document.getElementById('javascriptRequirementSatisfied').innerHTML = "<img src='./themes/tels/default/images/check_16.gif' />";
+	document.getElementById('javascriptRequirementSatisfied').innerHTML = "<img src='../themes/tels/default/images/check_16.gif' />";
 	document.getElementById('javascriptAdditionalInfo').innerHTML = "<a href='https://www.google.com/support/adsense/bin/answer.py?answer=12654'>How to enable Javascript</a>";
 
 	return true;
@@ -719,13 +719,13 @@ function DetectFlashVer(reqMajorVer, reqMinorVer, reqRevision)
 function checkContentFiltering() {
 	// test loading of swf file
 	$.ajax({ 
-		url: "flash/tels/WISE_Slideshow.swf", 
+		url: "flash/tels/convection-intro.swf", 
 		context: document.body})
 		.success(function(data, textStatus, jqXHR) {
 			var contentFilterSwfRequirementSatisfied=false;
 			if (jqXHR.status == '200' 
 					&& jqXHR.responseText != ''
-					&& jqXHR.responseText.length >= 1998213) {
+					&& jqXHR.responseText.length > 0) {
 				contentFilterSwfRequirementSatisfied = true;
 			} else {
 				contentFilterSwfRequirementSatisfied = false;

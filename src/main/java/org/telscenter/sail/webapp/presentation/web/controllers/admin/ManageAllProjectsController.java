@@ -44,7 +44,7 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
  */
 public class ManageAllProjectsController extends AbstractController {
 	
-	private static final String VIEW_NAME = "admin/manageallprojects";
+	private static final String VIEW_NAME = "admin/project/manageallprojects";
 
 	private static final String INTERNAL_PROJECT_LIST_PARAM_NAME = "internal_project_list";
 

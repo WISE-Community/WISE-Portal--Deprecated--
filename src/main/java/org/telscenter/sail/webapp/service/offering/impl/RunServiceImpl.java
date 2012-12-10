@@ -50,7 +50,6 @@ import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.announcement.Announcement;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
-import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.ExternalProject;
@@ -262,13 +261,6 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		}
 		sdsOffering.setSdsJnlp(jnlp.getSdsJnlp());
 		
-		// if this is an OTrunk project or POTrunk project, set the retrieveotmlurl
-		// so that it gets passed to the generatecurnitmap request and the proper
-		// curnitmap can be created.
-		if (curnit instanceof OtmlModuleImpl) {
-			sdsOffering.setRetrieveContentUrl(((OtmlModuleImpl) curnit).getRetrieveotmlurl());
-		}
-			
 		this.sdsOfferingDao.save(sdsOffering);
 		return sdsOffering;
 	}

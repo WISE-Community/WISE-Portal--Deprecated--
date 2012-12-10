@@ -63,29 +63,28 @@
 
 					<div class="sectionHead" style="padding-top:0;"><spring:message code='admin.index.usermanagement'/></div>
 					<div class="sectionContent"> 
-						<h5><spring:message code='admin.index.usermanagement.list'/>: <a href="manageusers.html?userType=teacher"><spring:message code='admin.index.usermanagement.allteachers'/></a> | 
-								  <a href="manageusers.html?userType=student"><spring:message code='admin.index.usermanagement.allstudents'/></a> 
+						<h5><spring:message code='admin.index.usermanagement.list'/>: <a href="account/manageusers.html?userType=teacher"><spring:message code='admin.index.usermanagement.allteachers'/></a> | 
+								  <a href="account/manageusers.html?userType=student"><spring:message code='admin.index.usermanagement.allstudents'/></a> 
 								   <sec:authorize ifAnyGranted="ROLE_ADMINISTRATOR">
 								   |
-								  <a href="manageusers.html?onlyShowLoggedInUser=true"><spring:message code='admin.index.usermanagement.allcurrentlyloggedinusers'/></a> |
-								  <a href="manageusers.html?onlyShowUsersWhoLoggedInToday=true"><spring:message code='admin.index.usermanagement.alluserswhologgedintoday'/></a>
+								  <a href="account/manageusers.html?onlyShowLoggedInUser=true"><spring:message code='admin.index.usermanagement.allcurrentlyloggedinusers'/></a> |
+								  <a href="account/manageusers.html?onlyShowUsersWhoLoggedInToday=true"><spring:message code='admin.index.usermanagement.alluserswhologgedintoday'/></a>
 						   	 	  </sec:authorize>
 								  
 						</h5>
-						<h5><spring:message code='admin.index.usermanagement.find'/>: <a href="lookupteacher.html"><spring:message code='admin.index.usermanagement.teacher'/></a> | <a href="lookupstudent.html"><spring:message code='admin.index.usermanagement.student'/></a></h5>
-						<h5><a href="enabledisableuser.html"><spring:message code='admin.index.usermanagement.enabledisableuser'/></a></h5>
-						<!-- <h5><a href="lookupuser.html">Look up User</a></h5>-->
+						<h5><spring:message code='admin.index.usermanagement.find'/>: <a href="account/lookupteacher.html"><spring:message code='admin.index.usermanagement.teacher'/></a> | <a href="account/lookupstudent.html"><spring:message code='admin.index.usermanagement.student'/></a></h5>
+						<h5><a href="account/enabledisableuser.html"><spring:message code='admin.index.usermanagement.enabledisableuser'/></a></h5>
 					</div>
 						
 					<div class="sectionHead"><spring:message code='admin.index.projectrunmanagement'/></div>
 					<div class="sectionContent">
-						<h5><spring:message code='admin.index.projectrunmanagement.listrunsrun'/> (<a href="runstats.html?command=today"><spring:message code='admin.index.projectrunmanagement.today'/></a> | <a href="runstats.html?command=week"><spring:message code='admin.index.projectrunmanagement.thisweek'/></a> | <a href="runstats.html?command=month"><spring:message code='admin.index.projectrunmanagement.thismonth'/></a>) | <a href="runstats.html?command=activity"><spring:message code='admin.index.projectrunmanagement.runsbyactivity'/></a></h5>
+						<h5><spring:message code='admin.index.projectrunmanagement.listrunsrun'/> (<a href="run/runstats.html?command=today"><spring:message code='admin.index.projectrunmanagement.today'/></a> | <a href="run/runstats.html?command=week"><spring:message code='admin.index.projectrunmanagement.thisweek'/></a> | <a href="run/runstats.html?command=month"><spring:message code='admin.index.projectrunmanagement.thismonth'/></a>) | <a href="run/runstats.html?command=activity"><spring:message code='admin.index.projectrunmanagement.runsbyactivity'/></a></h5>
 					
-						<h5><spring:message code='admin.index.projectrunmanagement.manageprojectruns'/>: <a href="manageallprojectruns.html?q=current"><spring:message code='admin.index.projectrunmanagement.current'/></a> | 
-												 <a href="manageallprojectruns.html?q=archived"><spring:message code='admin.index.projectrunmanagement.archived'/></a>
+						<h5><spring:message code='admin.index.projectrunmanagement.manageprojectruns'/>: <a href="run/manageallprojectruns.html?q=current"><spring:message code='admin.index.projectrunmanagement.current'/></a> | 
+												 <a href="run/manageallprojectruns.html?q=archived"><spring:message code='admin.index.projectrunmanagement.archived'/></a>
 												 </h5>
 						<h5><spring:message code='admin.index.projectrunmanagement.findprojectrunsby'/> 
-							<a href="findprojectrunsbyteacher.html"><spring:message code='admin.index.usermanagement.teacher'/></a> | <a href='findprojectrunsbyprojectid.html'><spring:message code='admin.index.projectrunmanagement.projectid'/></a> | <a href='findprojectrunsbyrunid.html'><spring:message code='admin.index.projectrunmanagement.runid'/></a>
+							<a href="run/findprojectrunsbyteacher.html"><spring:message code='admin.index.usermanagement.teacher'/></a> | <a href='run/findprojectrunsbyprojectid.html'><spring:message code='admin.index.projectrunmanagement.projectid'/></a> | <a href='run/findprojectrunsbyrunid.html'><spring:message code='admin.index.projectrunmanagement.runid'/></a>
 						</h5>
 					</div>
 					
@@ -93,8 +92,8 @@
 					<sec:authorize ifAnyGranted="ROLE_ADMINISTRATOR">
 						<div class="sectionHead"><spring:message code='admin.index.projectmanagement'/></div>
 						<div class="sectionContent">
-							    <spring:message code='admin.index.projectmanagement.byprojectid'/>: <form action="manageallprojects.html" method="GET" style="display:inline"><input type="text" name="projectId" size="5"></input><input type="Submit" value="Go"></input></form><br/>
-							<h5><a href="manageallprojects.html"><spring:message code='admin.index.projectmanagement.allprojects'/></a></h5>
+							    <spring:message code='admin.index.projectmanagement.byprojectid'/>: <form action="project/manageallprojects.html" method="GET" style="display:inline"><input type="text" name="projectId" size="5"></input><input type="Submit" value="Go"></input></form><br/>
+							<h5><a href="project/manageallprojects.html"><spring:message code='admin.index.projectmanagement.allprojects'/></a></h5>
 							<h5><a href="project/uploadproject.html"><spring:message code='admin.index.projectmanagement.importproject'/></a></h5>
 							<h5><a href="project/currentlyAuthoredProjects.html"><spring:message code='admin.index.projectmanagement.viewcurrentauthors'/></a></h5>
 						</div>
@@ -103,7 +102,7 @@
 					<sec:authorize ifAnyGranted="ROLE_ADMINISTRATOR">
 						<div class="sectionHead"><spring:message code='admin.index.newsmanagement'/></div>
 						<div class="sectionContent">
-							<h5><a href="managenewsitems.html"><spring:message code='admin.index.newsmanagement.workwithnewsitems'/></a></h5>
+							<h5><a href="news/managenewsitems.html"><spring:message code='admin.index.newsmanagement.workwithnewsitems'/></a></h5>
 						</div>
 					
 						<div class="sectionHead"><spring:message code='admin.index.portalmanagement'/></div>

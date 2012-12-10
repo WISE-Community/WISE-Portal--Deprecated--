@@ -191,7 +191,7 @@
 						<p><a href="/webapp/pages/features.html">Learning Environment +</a></p>
 						<p><a href="/webapp/pages/teacher-tools.html">Teacher Tools +</a></p>
 						<p><a href="/webapp/pages/gettingstarted.html">Getting Started +</a></p>
-						<p id="checkCompatibility"><a href="/webapp/check.html">Check Compatibility +</a></p>
+						<p id="checkCompatibility"><a href="/webapp/pages/check.html">Check Compatibility +</a></p>
 					</div>
 				</div>
 				<div id="projectShowcase">

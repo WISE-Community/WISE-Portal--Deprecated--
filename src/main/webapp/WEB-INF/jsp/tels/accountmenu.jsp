@@ -1,3 +1,5 @@
+<script src="<spring:theme code="jquerysource"/>" type="text/javascript"></script>
+<script src="<spring:theme code="jqueryuisource"/>" type="text/javascript"></script>
 <script type="text/javascript" src="<spring:theme code="superfishsource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="jquerycookiesource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="jqueryuisource"/>"></script>
@@ -125,7 +127,6 @@
 			<ul class="sf-menu">
 				<sec:authorize ifNotGranted="ROLE_STUDENT">
 					<li class="level1 menu1">
-						<!-- <a href="/webapp/teacher/help/overview.html"><spring:message code="menu.help"/></a>  -->
 						<a><spring:message code="menu.help"/></a> 
 						<ul>	
 							<li><a href="/webapp/pages/gettingstarted.html"><spring:message code="menu.quickstart"/></a></li>
@@ -133,7 +134,7 @@
 							<!--  
 				            <li><a href="#" style="color:#999;">Search the Help Guide</a></li>
 				            -->
-				            <li><a href="/webapp/contactwisegeneral.html"><spring:message code="menu.contact"/></a></li>
+				            <li><a href="/webapp/contact/contactwisegeneral.html"><spring:message code="menu.contact"/></a></li>
 						</ul>
 					</li>
 					

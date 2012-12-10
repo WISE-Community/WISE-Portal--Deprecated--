@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,16 +39,11 @@ import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.beans.factory.annotation.Required;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectTypeVisitor;
-import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
@@ -78,8 +72,6 @@ public class ClassroomRunListController extends AbstractController {
 
 	private HttpRestTransport httpRestTransport;
 	
-	private BrainstormService brainstormService;
-
 	protected final static String IS_XMPP_ENABLED = "isXMPPEnabled";
 
 	protected final static String HTTP_TRANSPORT_KEY = "http_transport";
@@ -159,12 +151,6 @@ public class ClassroomRunListController extends AbstractController {
 			if (result.equals("ExternalProject")) {
 				external_project_runs.add(run);
 			}
-			
-			// get brainstorms that are in this run
-			Set<Brainstorm> brainstormsForRun = brainstormService.getBrainstormsByRun(run);
-			if (brainstormsForRun != null) {
-				run.setBrainstorms(brainstormsForRun);
-			}
 		}
 
 		modelAndView.addObject(GRADING_PARAM, gradingParam);
@@ -191,13 +177,6 @@ public class ClassroomRunListController extends AbstractController {
 	 */
 	public void setPortalProperties(Properties portalProperties) {
 		this.portalProperties = portalProperties;
-	}
-
-	/**
-	 * @param brainstormService the brainstormService to set
-	 */
-	public void setBrainstormService(BrainstormService brainstormService) {
-		this.brainstormService = brainstormService;
 	}
 
 	/**

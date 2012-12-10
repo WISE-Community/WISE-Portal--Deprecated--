@@ -1,14 +1,3 @@
-<script type="text/javascript" src="<spring:theme code="superfishsource"/>"></script>
-<link rel="stylesheet" type="text/css" href="<spring:theme code="superfishstylesheet"/>" media="screen">
-
-<script type="text/javascript">
-	// initialise menu
-	$(function(){
-	    $('ul.sf-menu').superfish({
-	    	autoArrows:  false
-	    });
-	});
-</script>
 <div id="header">
 	<div id="bannerArea1" class="banner">
 		<a href="/webapp/index.html">

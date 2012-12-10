@@ -28,16 +28,7 @@
     <bean id="themeSource"
         class="org.springframework.ui.context.support.ResourceBundleThemeSource">
         <property name="basenamePrefix" value="themes/tels/" />
-    </bean>
-    
-    <bean id="registerCurnitController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.author.module.RegisterModuleController">
-    	<property name="curnitService" ref="curnitService" />
-    	<property name="commandName" value="curnitParameters" />
-    	<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.CreateUrlModuleParameters" />
-    	<property name="validator" ref="curnitParametersValidator" />
-    </bean>
-        
+    </bean>           
 
     <!-- JSP with optional JSTL views -->
     <bean id="viewResolver"
@@ -99,37 +90,21 @@
     		    /index.html=urlFilenameViewController
     		    /accessdenied.html=accessDeniedController
     		    /router.html=routerController
-    		    /smartroom/smartroom.html=smartRoomController
-    		    /vle/preview.html=previewLDProjectController
-    		    /contactwisegeneral.html=contactWiseController
-    		    /contactwiseproject.html=contactWiseProjectController
-    		    /checkforexistingaccount.html=checkForExistingAccountController
+    		    /preview.html=previewLDProjectController
+    		    /contact/contactwisegeneral.html=contactWiseController
+    		    /contact/contactwiseproject.html=contactWiseProjectController
+    		    /contact/checkforexistingaccount.html=checkForExistingAccountController
     		    /statistics.html=statisticsController
     		    /getportalstatistics.html=portalStatisticsController
     		    /student/index.html=studentIndexController
     		    /student/vle/vle.html=studentVLEController
-    		    /student/vle/studentdata.html=studentDataController
     		    /student/selectteam.html=selectteamController
     		    /student/teamsignin.html=teamSignInController
     		    /student/addproject.html=addProjectController
-    		    /student/changeperiodteam.html=changePeriodTeamController
     		    /student/startproject.html=startProjectController
     		    /student/registerstudent.html=registerstudentController
     		    /student/getannotationbundle.html=getAnnotationBundleController
 				/student/changestudentpassword.html=changeUserPasswordController
-				/student/brainstorm/studentbrainstorm.html=studentBrainstormController
-				/student/brainstorm/brainstormresponse.html=brainstormResponseController
-				/student/brainstorm/addcomment.html=addCommentController
-				/student/brainstorm/postresponse.html=postResponseController
-				/student/brainstorm/postcomment.html=postCommentController
-				/student/brainstorm/postrevision.html=postRevisionController
-				/student/brainstorm/addrevision.html=addRevisionController
-				/student/brainstorm/markanswerhelpful.html=markAnswerHelpfulController
-				/student/brainstorm/requesthelp.html=requestHelpController
-				/student/brainstorm/pollnewposts.html=pollNewPostsController
-				/student/brainstorm/getallposts.html=getAllPostsController
-				/student/brainstorm/resultsgraph.html=resultsGraphController
-				/student/brainstorm/pollinstantpoll.html=pollInstantPollController
 				/student/service/workgroup.html=studentWorkgroupServiceController
 				/teacher/index.html=teacherIndexController
     		    /teacher/termsofuse.html=termsOfUseController
@@ -164,23 +139,6 @@
     		    /teacher/run/createRun.html=createRunController
     		    /teacher/run/updaterun.html=updateRunController
     		    /teacher/run/editrun.html=editRunController
-    		    /teacher/run/brainstorm/createbrainstorm.html=createBrainstormController
-    		    /teacher/run/brainstorm/managebrainstorm.html=manageBrainstormController
-				/teacher/run/brainstorm/getallposts.html=getAllPostsController
-				/teacher/run/brainstorm/brainstormresponse.html=brainstormResponseController
-				/teacher/run/brainstorm/addcomment.html=addCommentController
-				/teacher/run/brainstorm/postresponse.html=postResponseController
-				/teacher/run/brainstorm/postcomment.html=postCommentController
-				/teacher/run/brainstorm/postrevision.html=postRevisionController
-				/teacher/run/brainstorm/addrevision.html=addRevisionController
-				/teacher/run/brainstorm/markanswerhelpful.html=markAnswerHelpfulController
-				/teacher/run/brainstorm/requesthelp.html=requestHelpController
-				/teacher/run/brainstorm/pollnewposts.html=pollNewPostsController
-				/teacher/run/brainstorm/resultsgraph.html=resultsGraphController
-				/teacher/run/brainstorm/pollinstantpoll.html=pollInstantPollController
-				/teacher/run/brainstorm/createnewbrainstorm.html=createNewBrainstormController
-				/teacher/run/brainstorm/createopenresponsebrainstorm.html=createOpenResponseBrainstormController
-				/teacher/run/brainstorm/createsinglechoicebrainstorm.html=createSingleChoiceBrainstormController
 				/teacher/run/report.html=projectRunReportController
     		    /teacher/grading/overview.html=gradeOverviewController
     		    /teacher/grading/gradebystep.html=gradeByStepController
@@ -213,9 +171,6 @@
     		    /teacher/management/studentlist.html=studentListController
     		    /teacher/management/studentlistexcel.html=listStudentNamesController
     		    /teacher/management/addsharedteacher.html=addSharedTeacherController
-    		    /teacher/help/overview.html=overviewHelpController
-    		    /teacher/help/main.html=mainHelpController
-    		    /teacher/help/contactwise.html=contactWiseController
     		    /teacher/vle/vle.html=studentVLEController
     		    /**/index.html=indexController
     		    /previewproject.html=previewprojectController
@@ -244,43 +199,31 @@
 				/teacher/management/classmonitormeaning.html=classMonitorMeaningController
 				/teacherinfo.html=infoController
 				/dwr/*=dwrController
-				/author/registermodule.html=registerCurnitController
-				/author/registerjnlp.html=registerJnlpController
-				/author/createproject.html=createProjectController
-				/author/publishproject.html=publishProjectController
 				/author/authorproject.html=authorProjectController
-				/author/brainstorm/createbrainstorm.html=createBrainstormQuestionController
-				/author/brainstorm/editpreparedanswer.html=editPreparedAnswerController
-				/author/project/postproject.html=postProjectController
 				/author/project/exportproject.html=exportProjectController
-				/author/brainstorm/authorbrainstorm.html=authorBrainstormController
 				/admin/project/uploadproject.html=uploadProjectController
-				/admin/manageusers.html=viewAllUsersController
-				/admin/lookupuser.html=lookupUserController
-				/admin/enabledisableuser.html=enableDisableUserController
-				/admin/manageallprojects.html=manageAllProjectsController
-				/admin/editproject.html=editProjectController
-				/admin/manageallprojectruns.html=manageAllProjectRunsController
-				/admin/findprojectrunsbyprojectid.html=findProjectRunsController
-				/admin/findprojectrunsbyteacher.html=findProjectRunsController
-				/admin/findprojectrunsbyrunid.html=findProjectRunsController
-				/admin/manageproject.html=listProjectsController
-				/admin/managenewsitems.html=listNewsItemsController
-				/admin/addnewsitems.html=addNewsItemController
-				/admin/editnewsitem.html=editNewsItemController
-				/admin/removenewssuccess.html=removeNewsItemController
-				/admin/removenewsconfirm.html=removeNewsConfirmController
-				/admin/lookupteacher.html=lookupTeacherController
-				/admin/lookupstudent.html=lookupStudentController
+				/admin/account/manageusers.html=viewAllUsersController
+				/admin/account/enabledisableuser.html=enableDisableUserController
+				/admin/account/lookupteacher.html=lookupTeacherController
+				/admin/account/lookupstudent.html=lookupStudentController
+				/admin/project/manageallprojects.html=manageAllProjectsController
+				/admin/run/manageallprojectruns.html=manageAllProjectRunsController
+				/admin/run/findprojectrunsbyprojectid.html=findProjectRunsController
+				/admin/run/findprojectrunsbyteacher.html=findProjectRunsController
+				/admin/run/findprojectrunsbyrunid.html=findProjectRunsController
+				/admin/run/runstats.html=runStatisticsController				
+				/admin/news/managenewsitems.html=listNewsItemsController
+				/admin/news/addnewsitems.html=addNewsItemController
+				/admin/news/editnewsitem.html=editNewsItemController
+				/admin/news/removenewssuccess.html=removeNewsItemController
+				/admin/news/removenewsconfirm.html=removeNewsConfirmController
 				/admin/project/importexternalproject.html=importExternalProjectController
 				/admin/project/getallexternalprojects.html=getAllExternalProjectsController
 				/admin/project/viewprojectcommunicators.html=projectCommunicatorController
 				/admin/project/manageprojectcommunicator.html=projectCommunicatorController
 				/admin/project/currentlyAuthoredProjects.html=currentlyAuthoredProjectsController
+				/admin/project/tagger.html=taggerController
 				/admin/portal/manageportal.html=managePortalController
-				/admin/enableaccount.html=enableAccountController
-				/admin/runstats.html=runStatisticsController
-				/admin/tagger.html=taggerController
 				/newsarchive.html=listNewsItemsController
 				/teacher/management/changestudentperiod.html=changeStudentPeriodController
 				/teacher/run/announcement/manageannouncement.html=manageAnnouncementController
@@ -291,7 +234,6 @@
 				/teacher/projects/bookmarkedprojects.html=bookmarkedProjectController
 				/teacher/projects/bookmark.html=bookmarkController
 				/teacher/projects/customized/public.html=publicController
-				/teacher/projects/copyproject.html=copyProjectController
 				/teacher/projects/deleteproject.html=deleteProjectController
 				/teacher/projects/analyzeproject.html=analyzeProjectController
 				/teacher/projects/minifyproject.html=minifyProjectController
@@ -306,9 +248,9 @@
 				/bridge/**/*.html=bridgeController
 				/errors/outsideerror.html=outsideErrorController
 				/authorize.html=credentialManager
-				/check.html=compatibilityCheckController
-				/memorymonitor.html=memoryMonitorController
-				/pages/*.html=urlFilenameViewController
+				/pages/check.html=compatibilityCheckController
+				/pages/memorymonitor.html=memoryMonitorController
+				/**/*.html=urlFilenameViewController
     		</value>
     	</property>
     </bean>

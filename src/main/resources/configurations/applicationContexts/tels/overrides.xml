@@ -108,9 +108,9 @@
             	<sec:intercept-url pattern="/signup.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
             	<sec:intercept-url pattern="/check.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
             	<sec:intercept-url pattern="/metadata.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
-            	<sec:intercept-url pattern="/contactwisegeneral.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
-            	<sec:intercept-url pattern="/contactwiseproject.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
-            	<sec:intercept-url pattern="/contactwiseconfirm.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/contact/contactwisegeneral.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/contact/contactwiseproject.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/contact/contactwiseconfirm.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
             	<sec:intercept-url pattern="/checkforexistingaccount.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
             	<sec:intercept-url pattern="/statistics.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
             	<sec:intercept-url pattern="/getportalstatistics.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
@@ -139,18 +139,15 @@
             	<sec:intercept-url pattern="/repository/**/*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
             	<sec:intercept-url pattern="/author/**/*.html" access="ROLE_TEACHER,ROLE_ADMINISTRATOR,ROLE_RESEARCHER"/>
             	<sec:intercept-url pattern="/author/publishproject.html" access="ROLE_ADMINISTRATOR"/>
-            	<sec:intercept-url pattern="/author/project/postproject.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
-            	<sec:intercept-url pattern="/author/brainstorm/*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
             	<sec:intercept-url pattern="/bridge/authoringtool/*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
             	<sec:intercept-url pattern="/bridge/*.html" access="ROLE_USER"/>
             	<sec:intercept-url pattern="/runinfo.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
             	<sec:intercept-url pattern="/message.html" access="ROLE_TEACHER,ROLE_ADMINISTRATOR,ROLE_RESEARCHER"/>
             	<sec:intercept-url pattern="/authorize.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
             	<sec:intercept-url pattern="/request/info.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
+            	<sec:intercept-url pattern="/pages/memorymonitor.html" access="ROLE_ADMINISTRATOR"/>
             	<sec:intercept-url pattern="/pages/*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
             	<sec:intercept-url pattern="/pages/**/*.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
-            	<sec:intercept-url pattern="/memorymonitor.html" access="ROLE_ADMINISTRATOR"/>
-            	<sec:intercept-url pattern="/smartroom/smartroom.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
             	<sec:intercept-url pattern="/vle/preview.html" access="ROLE_ANONYMOUS,ROLE_USER"/>
             	<sec:intercept-url pattern="/*.html" access="ROLE_USER"/>
             	<sec:intercept-url pattern="/**/*.html" access="ROLE_USER"/>

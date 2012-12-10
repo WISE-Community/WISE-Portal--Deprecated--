@@ -45,9 +45,9 @@ public class RunStatisticsController extends AbstractController {
 	
 	private StudentAttendanceService studentAttendanceService;
 	
-	private final static String RUNS_WITHIN_VIEW = "/admin/runswithinperiod";
+	private final static String RUNS_WITHIN_VIEW = "/admin/run/runswithinperiod";
 	
-	private final static String RUNS_BY_ACTIVITY_VIEW = "/admin/runsactivity";
+	private final static String RUNS_BY_ACTIVITY_VIEW = "/admin/run/runsactivity";
 	
 	private final static String RUNS = "runs";
 	

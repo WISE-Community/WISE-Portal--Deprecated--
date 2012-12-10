@@ -29,7 +29,6 @@ import java.util.Set;
 
 import org.telscenter.sail.webapp.domain.announcement.Announcement;
 import org.telscenter.sail.webapp.domain.attendance.StudentAttendance;
-import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.run.RunStatus;
 
@@ -178,21 +177,6 @@ public interface Run extends Offering {
 	 * @param <cod>String</code> name of the run to save
 	 */
 	public void setName(String name);
-
-	
-	/**
-	 * Gets all Brainstorms that are in this run.
-	 * 
-	 * @return the brainstorms
-	 */
-	public Set<Brainstorm> getBrainstorms();
-
-	/**
-	 * Sets all Brainstorms that are in this run.
-	 * 
-	 * @param brainstorms the brainstorms to set
-	 */
-	public void setBrainstorms(Set<Brainstorm> brainstorms);
 	
 	/**
 	 * @return <code>Set<Announcement></code> all announcements for this run.
