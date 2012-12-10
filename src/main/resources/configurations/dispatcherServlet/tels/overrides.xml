@@ -207,8 +207,6 @@
 				/admin/account/lookupteacher.html=lookupTeacherController
 				/admin/account/lookupstudent.html=lookupStudentController
 				/admin/project/manageallprojects.html=manageAllProjectsController
-				/admin/project/editproject.html=editProjectController
-				/admin/project/manageproject.html=listProjectsController
 				/admin/run/manageallprojectruns.html=manageAllProjectRunsController
 				/admin/run/findprojectrunsbyprojectid.html=findProjectRunsController
 				/admin/run/findprojectrunsbyteacher.html=findProjectRunsController

@@ -947,16 +947,6 @@
 	<bean id="projectInfoParameters"
 		class="org.telscenter.sail.webapp.domain.impl.ProjectInfoParameters" />
 	
-	<bean id="editProjectController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.EditProjectController">
-		<property name="projectService" ref="projectService" />
-		<property name="commandName" value="project" />
-		<property name="commandClass"
-			value="org.telscenter.sail.webapp.domain.project.impl.ProjectImpl" />
-		<property name="successView" value="manageallprojects.html" />
-		<property name="formView" value="admin/editproject" />
-	</bean>
-	
 	<!-- controllers for admin -->
 	<bean id="manageAllProjectRunsController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ManageAllProjectRunsController">
@@ -1003,11 +993,6 @@
 		<property name="formView" value="admin/project/uploadproject" />
     </bean>
 
-    <bean id="listProjectsController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ListProjectsController">
-        <property name="projectService" ref="projectService" />
-    </bean>
-    
     <bean id="findProjectRunsController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.admin.FindProjectRunsController">
 		<property name="commandName" value="findProjectParameters"/>
