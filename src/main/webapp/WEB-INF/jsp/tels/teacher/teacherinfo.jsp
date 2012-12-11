@@ -13,11 +13,6 @@
 <title>Teacher Information</title>
 
 <%@ include file="./grading/styles.jsp"%>
-<script type="text/javascript" src="./javascript/tels/yui/yahoo/yahoo.js"></script>
-<script type="text/javascript" src="./javascript/tels/yui/event/event.js"></script>  
-<script type="text/javascript" src="./javascript/tels/yui/connection/connection.js"></script> 
-<script type="text/javascript" src="./javascript/tels/utils.js"></script>
-<script type="text/javascript" src="./javascript/tels/teacher/management/viewmystudents.js"></script>
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
@@ -28,14 +23,7 @@
 
 <body class="yui-skin-sam">
 
-	<c:choose>
-		<c:when test="${isStudent == true}">
-			<h3>Student Information</h3>
-		</c:when>
-		<c:otherwise>
-			<h3>Teacher Information</h3>
-		</c:otherwise>
-	</c:choose>
+	<h3>Teacher Information</h3>
 
 	<table id="teacherInfoTable" border="2" cellpadding="2" cellspacing="0" align="center">
 	<tr>
@@ -98,57 +86,6 @@
 		<th>Last Login</th>
 		<td><fmt:formatDate value="${userInfoMap['Last Login']}" type="both" dateStyle="short" timeStyle="short"/></td>
 	</tr>
-
-	<c:if test="${isStudent == true}">
-		<tr>
-			<th><hr></hr></th>
-			<td><hr></hr></td>
-		</tr>
-
-		<tr>
-			<th><u>Run List</u></th>
-			<td></td>
-		</tr>
-
-		<tr>
-			<th><hr></hr></th>
-			<td><hr></hr></td>
-		</tr>
-
-		<c:forEach var="run" items="${runList}">
-			<tr>
-				<th>Run Id</th>
-				<td><c:out value="${run.id}"></c:out></td>
-			</tr>
-
-			<tr>
-				<th>Run Name</th>
-				<td><c:out value="${run.name}"></c:out></td>
-			</tr>
-
-			<tr>
-				<th>Run Start Time</th>
-				<td><c:out value="${run.starttime}"></c:out></td>
-			</tr>
-
-			<c:forEach var="owner" items="${run.owners}">
-				<tr>
-					<th>Teacher Username</th>
-					<td><c:out value="${owner.userDetails.username}"></c:out></td>
-				</tr>
-
-				<tr>
-					<th>Teacher Email</th>
-					<td><c:out value="${owner.userDetails.emailAddress}"></c:out></td>
-				</tr>
-			</c:forEach>
-
-			<tr>
-				<th><hr></hr></th>
-				<td><hr></hr></td>
-			</tr>
-		</c:forEach>
-	</c:if>
 </table>
 <br>
 

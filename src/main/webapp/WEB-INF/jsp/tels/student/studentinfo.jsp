@@ -26,7 +26,7 @@
 				</tr>
 				<tr>
 					<th><spring:message code="teacher.manage.studentinfo.4"/></th>
-					<td><c:out value="${userInfoMap['username']}"/></td>
+					<td><c:out value="${userInfoMap['Username']}"/></td>
 				</tr>
 				<tr>
 					<th><spring:message code="teacher.manage.studentinfo.5"/></th>
@@ -48,6 +48,45 @@
 					<th><spring:message code="teacher.manage.studentinfo.9"/></th>
 					<td><c:out value="${userInfoMap['Number of Logins']}"/></td>
 				</tr>
+			</table>
+			<br>
+			<table style="margin: 0 auto;">
+				<tr>
+					<th colspan="2"><u>Run List</u></th>
+				</tr>
+
+				<c:forEach var="run" items="${runList}">
+					<tr>
+						<th>Run Id</th>
+						<td><c:out value="${run.id}"></c:out></td>
+					</tr>
+
+					<tr>
+						<th>Run Name</th>
+						<td><c:out value="${run.name}"></c:out></td>
+					</tr>
+
+					<tr>
+						<th>Run Start Time</th>
+						<td><c:out value="${run.starttime}"></c:out></td>
+					</tr>
+
+					<c:forEach var="owner" items="${run.owners}">
+						<tr>
+							<th>Teacher Username</th>
+							<td><c:out value="${owner.userDetails.username}"></c:out></td>
+						</tr>
+
+						<tr>
+							<th>Teacher Email</th>
+							<td><c:out value="${owner.userDetails.emailAddress}"></c:out></td>
+						</tr>
+					</c:forEach>
+
+					<tr>
+						<th colspan="2"><hr></hr></th>
+					</tr>
+				</c:forEach>
 			</table>
 		</div>
 	</div>
