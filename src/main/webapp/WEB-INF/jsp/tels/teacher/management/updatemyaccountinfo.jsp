@@ -102,19 +102,11 @@ function checkIfLegalAcknowledged (form, id) {
 						    <dt><label for="state" id="state1" ><spring:message code="signup.state" /></label> </dt>
 							<dd><form:input path="userDetails.state" id="teacherState" size="25" maxlength="25" tabindex="6"/>
 						    	<span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span>  
-						    	<div id="autocomplete_choices_state" class="autocomplete" ></div>
-								<script type="text/javascript">  
-									new Ajax.Autocompleter('state', 'autocomplete_choices_state', 'states.html', {paramName: 'sofar'}); 	   		
-								</script>  
 						    </dd>
 						                
 						    <dt><label for="country" id="country1"><spring:message code="signup.country" /></label></dt>
 							<dd><form:input path="userDetails.country" id="teacherCountry" size="25" maxlength="25" tabindex="7"/> 
 						    <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> 
-						    <div id="autocomplete_choices_country" class="autocomplete" ></div>
-								<script type="text/javascript">  
-							new Ajax.Autocompleter('country', 'autocomplete_choices_country', 'countries.html', {paramName: 'sofar'}); 	   		
-								</script>
 						    </dd>
 						            
 						    <dt>    <label for="schoolname" id="schoolname1"><spring:message code="signup.schoolname" /></label></dt>

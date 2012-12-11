@@ -39,7 +39,6 @@ import org.junit.runners.Suite;
 	org.telscenter.sail.webapp.presentation.web.controllers.admin.FindProjectRunsByTeacherControllerTest.class,
 	org.telscenter.sail.webapp.presentation.web.controllers.admin.FindProjectRunsControllerTest.class,
 	org.telscenter.sail.webapp.presentation.web.controllers.admin.InfoControllerTest.class,
-	org.telscenter.sail.webapp.presentation.web.controllers.admin.ListProjectsControllerTest.class,
 	org.telscenter.sail.webapp.presentation.web.controllers.admin.ManageAllProjectRunsControllerTest.class,
 	org.telscenter.sail.webapp.presentation.web.controllers.admin.RemoveNewsItemControllerTest.class,
 	org.telscenter.sail.webapp.presentation.web.controllers.admin.LookupTeacherControllerTest.class,
