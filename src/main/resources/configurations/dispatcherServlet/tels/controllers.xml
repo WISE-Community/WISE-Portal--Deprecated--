@@ -372,30 +372,6 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.LanguageTranslationsController">
 	</bean>
 	
-	<bean id="projectOptionsController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library.ProjectOptionsController">
-	</bean>
-	
-	<bean id="studentMessageController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.StudentMessageController">
-	</bean>
-	
-	<bean id="studentMessageInputController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.StudentMessageInputController">
-	</bean>
-	
-	<bean id="studentMessageOptionsController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.StudentMessageOptionsController">
-	</bean>
-	
-	<bean id="studentMessageConfirmController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.StudentMessageConfirmController">
-	</bean>
-
-	<bean id="reportProblemController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.ReportProblemController">
-	</bean>
-	
 	<bean id="archivedRunManagerController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ArchivedRunManagerController">
 	</bean>
@@ -636,35 +612,6 @@
         <property name="projectService" ref="projectService" />
         <property name="userService" ref="userService" />
         <property name="runService" ref="runService" />
-        <property name="portalProperties" ref="portalproperties" />
-    </bean>
-    
-    <bean id="projectLibraryController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library.ProjectLibraryController">
-        <property name="projectService" ref="projectService" />
-        <property name="runService" ref="runService" />
-        <property name="commandName" value="searchProjectLibraryParameters"/>
-        <property name="commandClass" value="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library.SearchProjectLibraryParameters"/>
-        <property name="formView" value="/teacher/projects/projectlibrary"/>
-        <property name="portalProperties" ref="portalproperties" />
-    </bean>
-    
-    <bean id="searchProjectLibraryParameters"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library.SearchProjectLibraryParameters">
-    </bean>
-    
-    <bean id="telsProjectLibraryController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library.TelsProjectLibraryController">
-        <property name="projectService" ref="projectService" />
-        <property name="runService" ref="runService"/>
-        <property name="portalProperties" ref="portalproperties" />
-    </bean>
-    
- 	<bean id="customizedIndexController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.customized.CustomizedIndexController">
-        <property name="projectService" ref="projectService" />
-        <property name="userService" ref="userService" />
-        <property name="runService" ref="runService"/>
         <property name="portalProperties" ref="portalproperties" />
     </bean>
     
@@ -951,23 +898,12 @@
     	class="org.telscenter.sail.webapp.presentation.web.controllers.student.ViewAnnouncementsController">
     	<property name="runService" ref="runService"/>
     </bean>
-    
-	<bean id="bookmarkedProjectController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.bookmarked.BookmarkedProjectController">
-		<property name="projectService" ref="projectService" />
-	</bean>
 	
 	<bean id="bookmarkController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.bookmarked.BookmarkController">
 		<property name="projectService" ref="projectService"/>
 		<property name="userService" ref="userService"/>
-	</bean>
-	
-	<bean id="publicController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.customized.PublicController">
-		<property name="projectService" ref="projectService"/>
-	</bean>
-	
+	</bean>	
 	
 	<bean id="deleteProjectController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.DeleteProjectController">
