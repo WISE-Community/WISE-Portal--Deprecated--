@@ -359,10 +359,6 @@
 		<property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
-
-	<bean id="projectOverviewController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.ProjectOverviewController">
-	</bean>	
 	
 	<bean id="projectRunManagerController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.ProjectRunManagerController">
@@ -408,25 +404,9 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ManagementOverviewController">
 	</bean>
 	
-	<bean id="projectPickerManagementController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ProjectPickerManagementController">
-		<property name="runService" ref="runService" />
-		<property name="userService" ref="userService" />
-	</bean>
-
-	<bean id="projectPickerClassMonitorController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ProjectPickerClassMonitorController">
-		<property name="runService" ref="runService" />
-		<property name="userService" ref="userService" />
-	</bean>
-	
 	<bean id="premadeCommentsController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.PremadeCommentsController">
 		<property name="premadeCommentService" ref="premadeCommentService" />
-	</bean>
-	
-	<bean id="exportsAndReportsController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ExportsAndReportsController">
 	</bean>
 	
 	<bean id="manageStudentsController"
@@ -609,14 +589,6 @@
 	    <property name="runService" ref="runService" />
 		<property name="workgroupService" ref="wiseWorkgroupService" />
 	</bean>
-
-	<bean id="classMonitorController"
-	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ClassMonitorController">
-		<property name="runService" ref="runService" />
-	</bean>
-
-	<bean id="classMonitorMeaningController"
-	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ClassMonitorMeaningController"/>
 
 	<bean id="batchStudentChangePasswordController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.BatchStudentChangePasswordController">

@@ -23,14 +23,6 @@
 		</div>
 		<div class="sectionContent">
 			<table style="margin:0 auto;">
-				<!-- <tr>
-					<th><spring:message code="teacher.manage.changeperiod.2"/></th>
-					<td>${changePeriodParameters.student.sdsUser.firstName} ${changePeriodParameters.student.sdsUser.lastName}</td>
-				</tr>
-				<tr>
-					<th><spring:message code="teacher.manage.changeperiod.3"/></th>
-					<td>${changePeriodParameters.student.sdsUser.userName}</td>
-				</tr> -->
 				<tr>
 					<th><spring:message code="teacher.manage.changeperiod.4"/></th>
 					<td>${changePeriodParameters.projectcode}</td>

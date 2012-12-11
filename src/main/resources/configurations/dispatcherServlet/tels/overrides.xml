@@ -110,7 +110,6 @@
     		    /teacher/termsofuse.html=termsOfUseController
     		    /teacher/registerteacher.html=registerteacherController
     		    /teacher/curriculumsubjects.html=curriculumSubjectsController
-    		    /teacher/projects/overview.html=projectOverviewController
     		    /teacher/projects/runmanager.html=projectRunManagerController
     		    /teacher/projects/changeperiods.html=changePeriodsController
     		    /teacher/projects/languagetranslations.html=languageTranslationsController
@@ -141,8 +140,6 @@
     		    /teacher/grading/gradework.html=gradeWorkController
 				/teacher/grading/premadeComments.html=premadeCommentsController
     		    /teacher/management/overview.html=managementOverviewController
-    		    /teacher/management/projectPickerManagement.html=projectPickerManagementController
-    		    /teacher/management/exportsandreports.html=exportsAndReportsController
     		    /teacher/management/managemystudents.html=manageStudentsController
     		    /teacher/management/updatemyaccount.html=updateMyAccountController
     		    /teacher/management/library.html=libraryController
@@ -177,9 +174,6 @@
 				/teacher/management/changeworkgroup.html=changeWorkgroupController
 				/teacher/management/removestudentfromrun.html=removeStudentFromRunController
 				/teacher/management/updatemyaccountinfo.html=updateMyAccountInfoController
-				/teacher/management/projectpickerclassmonitor.html=projectPickerClassMonitorController
-				/teacher/management/classmonitor.html=classMonitorController
-				/teacher/management/classmonitormeaning.html=classMonitorMeaningController
 				/teacherinfo.html=infoController
 				/dwr/*=dwrController
 				/author/authorproject.html=authorProjectController

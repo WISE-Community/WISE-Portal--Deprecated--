@@ -145,7 +145,6 @@
 				            <!-- <li><a href="#"><spring:message code="menu.setuprun"/></a></li>  -->
 				            <li><a href="/webapp/teacher/management/library.html"><spring:message code="menu.library"/></a></li>
 				            <li><a href="/webapp/teacher/management/classroomruns.html"><spring:message code="menu.runs"/></a></li>
-				            <!-- <li><a href="/webapp/teacher/management/projectPickerManagement.html"><spring:message code="menu.managestudents"/></a></li> -->
 							<li><a href="/webapp/author/authorproject.html"><spring:message code="menu.authoring"/></a></li>
 							<li><a onclick="editPremadeComments()"><spring:message code="menu.editpremadecomments"/></a></li>
 				        </ul>
