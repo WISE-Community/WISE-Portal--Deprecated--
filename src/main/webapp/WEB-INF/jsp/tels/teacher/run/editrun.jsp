@@ -104,16 +104,7 @@
 		Run Title: <input id="editRunTitleInput" class="dialogTextInput" type="text" size="40" value="<c:out value='${run.name}' />"/><input type="button" value="Update Title" onclick="updateRunTitle('${run.id}')"/>
 	</div>
 	<div id='runInfo' class="dialogSection">
-		<c:choose>
-			<c:when test="${run.ideaManagerEnabled}">
-				<input id='enableIdeaManager' class='runInfoOption' type="checkbox" checked="checked" ></input>Enable Idea Manager
-			</c:when>
-			<c:otherwise>
-				<input id='enableIdeaManager' class='runInfoOption' type="checkbox" ></input>Enable Idea Manager
-			</c:otherwise>
-		</c:choose>
-		<br/>
-		<c:choose>
+		<!-- <c:choose>
 			<c:when test="${run.studentAssetUploaderEnabled}">
 				<input id='enableStudentAssetUploader' class='runInfoOption' type="checkbox" checked="checked"></input>Enable Student File Uploader
 			</c:when>
@@ -121,13 +112,13 @@
 				<input id='enableStudentAssetUploader' class='runInfoOption' type="checkbox"></input>Enable Student File Uploader
 			</c:otherwise>
 		</c:choose>
-		<br/>
+		<br/> -->
 		<c:choose>
 			<c:when test="${run.XMPPEnabled}">
-				<input id='enableXMPP' class='runInfoOption' type="checkbox" checked="checked"></input>Enable Real-Time Classroom
+				<input id='enableXMPP' class='runInfoOption' type="checkbox" checked="checked"></input>Enable Real-Time Classroomm Monitor
 			</c:when>
 			<c:otherwise>
-				<input id='enableXMPP' class='runInfoOption' type="checkbox"></input>Enable Real-Time Classroom
+				<input id='enableXMPP' class='runInfoOption' type="checkbox"></input>Enable Real-Time Classroom Monitor
 			</c:otherwise>
 		</c:choose>
 	</div>

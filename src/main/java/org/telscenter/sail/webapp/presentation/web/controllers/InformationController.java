@@ -442,9 +442,6 @@ public class InformationController extends AbstractController{
 	    	
 	    	//get the url to post annotations
 	    	String postAnnotationsUrl = portalurl + "/webapp/bridge/request.html?type=annotation&runId=" + run.getId().toString();
-			
-	    	//get the url to post max scores
-	    	String postMaxScoreUrl = portalurl + "/webapp/teacher/grading/gradebystep.html?action=postMaxScore&runId=" + run.getId().toString();
 	    	
 	    	//get the url to post journal data
 	    	String postJournalDataUrl = portalurl + "/webapp/bridge/postdata.html?type=journal";
@@ -533,7 +530,6 @@ public class InformationController extends AbstractController{
 					config.put("postPremadeCommentsUrl", postPremadeCommentsUrl);
 					config.put("postFlagsUrl", postFlagsUrl);
 					config.put("postInappropriateFlagsUrl", postInappropriateFlagsUrl);
-					config.put("postMaxScoreUrl", postMaxScoreUrl);
 					config.put("getXLSExportUrl", getXLSExportUrl);
 					config.put("getSpecialExportUrl", getSpecialExportUrl);
 					config.put("getStudentListUrl", getStudentListUrl);
