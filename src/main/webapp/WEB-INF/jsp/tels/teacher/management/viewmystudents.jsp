@@ -344,7 +344,15 @@ var postChanges = function(tabIndex){
    	// on successful posts, reload page
    	var handleSuccess = function(data, textStatus, xhr){
    		unsavedChanges = false;
-   		var newHREF= window.location.href + "&tabIndex=" + data + "&refreshRequired=" + refreshRequired;
+
+   		var tabIndex = "0";
+   			
+   		if(xhr != null) {
+   			//get the tab index from the response text
+   			tabIndex = xhr.responseText;
+   		}
+   		
+   		var newHREF= window.location.href + "&tabIndex=" + tabIndex + "&refreshRequired=" + refreshRequired;
    	 	setTimeout("window.location.href='" +newHREF +"'", 500);
    	};
 
