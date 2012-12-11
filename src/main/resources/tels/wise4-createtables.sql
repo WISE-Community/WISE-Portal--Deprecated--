@@ -4,7 +4,7 @@
         class varchar(255) not null unique,
         OPTLOCK integer,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table acl_entry (
         id bigint not null auto_increment,
@@ -18,7 +18,7 @@
         acl_object_identity bigint not null,
         primary key (id),
         unique (acl_object_identity, ace_order)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table acl_object_identity (
         id bigint not null auto_increment,
@@ -31,7 +31,7 @@
         parent_object bigint,
         primary key (id),
         unique (object_id_class, object_id_identity)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table acl_sid (
         id bigint not null auto_increment,
@@ -40,7 +40,7 @@
         OPTLOCK integer,
         primary key (id),
         unique (sid, principal)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table annotationbundles (
         id bigint not null auto_increment,
@@ -48,7 +48,7 @@
         OPTLOCK integer,
         workgroup_fk bigint not null,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table announcements (
         id bigint not null auto_increment,
@@ -56,7 +56,7 @@
         timestamp datetime not null,
         title varchar(255) not null,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table curnits (
         id bigint not null auto_increment,
@@ -64,28 +64,28 @@
         OPTLOCK integer,
         sds_curnit_fk bigint unique,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table diyprojectcommunicators (
         diyportalhostname varchar(255),
         previewdiyprojectsuffix varchar(255),
         id bigint not null,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table externalprojects (
         external_id bigint,
         id bigint not null,
         projectcommunicator_fk bigint,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table granted_authorities (
         id bigint not null auto_increment,
         authority varchar(255) not null unique,
         OPTLOCK integer,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table groups (
         id bigint not null auto_increment,
@@ -93,27 +93,27 @@
         OPTLOCK integer,
         parent_fk bigint,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table groups_related_to_users (
         group_fk bigint not null,
         user_fk bigint not null,
         primary key (group_fk, user_fk)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table jnlps (
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_jnlp_fk bigint unique,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table message_recipient (
         id bigint not null auto_increment,
         isRead bit,
         recipient_fk bigint not null,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table messages (
         id bigint not null auto_increment,
@@ -123,14 +123,14 @@
         originalMessage bigint,
         sender bigint not null,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table messages_related_to_message_recipients (
         messages_fk bigint not null,
         recipients_fk bigint not null,
         primary key (messages_fk, recipients_fk),
         unique (recipients_fk)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table modules (
         authors varchar(255),
@@ -142,13 +142,13 @@
         total_time bigint,
         id bigint not null,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table modules_related_to_owners (
         module_fk bigint not null,
         owners_fk bigint not null,
         primary key (module_fk, owners_fk)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table newsitem (
         id bigint not null auto_increment,
@@ -157,14 +157,14 @@
         title varchar(255) not null,
         owner bigint not null,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table offerings (
         id bigint not null auto_increment,
         OPTLOCK integer,
         sds_offering_fk bigint unique,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table portal (
         id bigint not null auto_increment,
@@ -177,7 +177,7 @@
         settings text,
         OPTLOCK integer,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table portal_statistics (
         id bigint not null auto_increment,
@@ -190,31 +190,31 @@
         totalNumberTeacherLogins bigint,
         totalNumberTeachers bigint,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table premadecommentlists (
         id bigint not null auto_increment,
         global bit,
+        label varchar(255) not null,
         projectId bigint,
-        label varchar(255) not null,        
         owner bigint,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table premadecomments (
         id bigint not null auto_increment,
         comment varchar(255) not null,
-        listposition bigint,
         labels varchar(255),
+        listposition bigint,
         owner bigint,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table premadecomments_related_to_premadecommentlists (
         premadecommentslist_fk bigint not null,
         premadecomments_fk bigint not null,
         primary key (premadecommentslist_fk, premadecomments_fk)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table project_metadata (
         id bigint not null auto_increment,
@@ -227,22 +227,22 @@
         last_cleaned datetime,
         last_edited datetime,
         last_minified datetime,
-        lesson_plan mediumtext,
+        lesson_plan text,
         max_scores varchar(255),
+        nav_mode varchar(255),
         post_level bigint,
         project_fk bigint,
         standards text,
         subject varchar(255),
         summary varchar(255),
         tech_reqs varchar(255),
+        theme varchar(255),
         title varchar(255),
-        tools text,
+        tools varchar(255),
         total_time varchar(255),
         version_id varchar(255),
-        nav_mode varchar(50),
-        theme varchar(50),
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table projectcommunicators (
         id bigint not null auto_increment,
@@ -252,13 +252,15 @@
         longitude varchar(255),
         OPTLOCK integer,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table projects (
         id bigint not null auto_increment,
         datecreated datetime not null,
+        dateDeleted datetime,
         familytag integer,
         iscurrent bit,
+        isDeleted bit,
         ispublic bit,
         name varchar(255),
         parentprojectid bigint,
@@ -268,34 +270,32 @@
         jnlp_fk bigint,
         metadata_fk bigint unique,
         run_fk bigint unique,
-        isDeleted bit(1) DEFAULT b'0',
-        dateDeleted timestamp NULL DEFAULT NULL,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table projects_related_to_bookmarkers (
         projects_fk bigint not null,
         bookmarkers bigint not null,
         primary key (projects_fk, bookmarkers)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table projects_related_to_owners (
         projects_fk bigint not null,
         owners_fk bigint not null,
         primary key (projects_fk, owners_fk)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table projects_related_to_shared_owners (
         projects_fk bigint not null,
         shared_owners_fk bigint not null,
         primary key (projects_fk, shared_owners_fk)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table projects_related_to_tags (
         project_fk bigint not null,
         tag_fk bigint not null,
         primary key (project_fk, tag_fk)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table runs (
         archive_reminder datetime not null,
@@ -314,33 +314,33 @@
         id bigint not null,
         project_fk bigint not null,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table runs_related_to_announcements (
         runs_fk bigint not null,
         announcements_fk bigint not null,
         primary key (runs_fk, announcements_fk),
         unique (announcements_fk)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table runs_related_to_groups (
         runs_fk bigint not null,
         groups_fk bigint not null,
         primary key (runs_fk, groups_fk),
         unique (groups_fk)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table runs_related_to_owners (
         runs_fk bigint not null,
         owners_fk bigint not null,
         primary key (runs_fk, owners_fk)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table runs_related_to_shared_owners (
         runs_fk bigint not null,
         shared_owners_fk bigint not null,
         primary key (runs_fk, shared_owners_fk)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table sds_curnits (
         id bigint not null auto_increment,
@@ -349,7 +349,7 @@
         url varchar(255) not null,
         OPTLOCK integer,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table sds_jnlps (
         id bigint not null auto_increment,
@@ -358,7 +358,7 @@
         url varchar(255) not null,
         OPTLOCK integer,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table sds_offerings (
         id bigint not null auto_increment,
@@ -369,7 +369,7 @@
         sds_curnit_fk bigint not null,
         sds_jnlp_fk bigint not null,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table sds_users (
         id bigint not null auto_increment,
@@ -378,7 +378,7 @@
         user_id bigint not null unique,
         OPTLOCK integer,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table sds_workgroups (
         id bigint not null auto_increment,
@@ -388,13 +388,13 @@
         OPTLOCK integer,
         sds_offering_fk bigint not null,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table sds_workgroups_related_to_sds_users (
         sds_workgroup_fk bigint not null,
         sds_user_fk bigint not null,
         primary key (sds_workgroup_fk, sds_user_fk)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table student_attendance (
         id bigint not null auto_increment,
@@ -404,7 +404,7 @@
         runId bigint,
         workgroupId bigint,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table student_user_details (
         accountanswer varchar(255) not null,
@@ -418,13 +418,13 @@
         signupdate datetime not null,
         id bigint not null,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table tags (
         id bigint not null auto_increment,
         name varchar(255),
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table teacher_user_details (
         city varchar(255),
@@ -443,13 +443,13 @@
         state varchar(255),
         id bigint not null,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table urlmodules (
         module_url varchar(255),
         id bigint not null,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table user_details (
         id bigint not null auto_increment,
@@ -466,13 +466,13 @@
         username varchar(255) not null unique,
         OPTLOCK integer,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table user_details_related_to_roles (
         user_details_fk bigint not null,
         granted_authorities_fk bigint not null,
         primary key (user_details_fk, granted_authorities_fk)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table users (
         id bigint not null auto_increment,
@@ -480,7 +480,7 @@
         sds_user_fk bigint unique,
         user_details_fk bigint not null unique,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table wiseworkgroups (
         externalId bigint,
@@ -488,7 +488,7 @@
         id bigint not null,
         period bigint,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     create table workgroups (
         id bigint not null auto_increment,
@@ -497,7 +497,7 @@
         offering_fk bigint not null,
         sds_workgroup_fk bigint unique,
         primary key (id)
-    ) engine=MyISAM;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
     alter table acl_entry 
         add index FK5302D47DC9975936 (acl_object_identity), 
