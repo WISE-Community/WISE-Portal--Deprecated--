@@ -417,11 +417,6 @@
 			<version>49.1</version>
 		</dependency>
 		<dependency>
-			<groupId>displaytag</groupId>
-			<artifactId>displaytag</artifactId>
-			<version>1.1</version>
-		</dependency>
-		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 			<version>1.4</version>
