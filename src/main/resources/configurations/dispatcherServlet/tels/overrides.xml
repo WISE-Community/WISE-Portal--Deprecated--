@@ -150,8 +150,6 @@
     		    /forgotaccount/teacher/index.html=forgotAccountTeacherIndexController
     		    /forgotaccount/teacher/success.html=forgotAccountTeacherSuccessController
     		    /forgotaccount/teacher/error.html=forgotAccountTeacherErrorController
-    		    /forgotaccount/student/username.html=forgotAccountStudentUsernameController
-				/forgotaccount/student/password.html=forgotAccountStudentPasswordController
 	  			/forgotaccount/student/passwordreminder*.html=forgotAccountStudentPasswordReminderWizardController
 				/forgotaccount/student/enterprojectcode.html=forgotAccountStudentCheckProjectCodeController
 				/forgotaccount/student/searchforstudentusername.html=searchForStudentUserNameController
