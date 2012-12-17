@@ -127,7 +127,6 @@
     	<li><a href="#archivedRuns"><spring:message code="teacher.run.myprojectruns.1B"/>  (${fn:length(ended_run_list)})</a></li>
         <li><a href="#currentRuns"><spring:message code="teacher.run.myprojectruns.1A"/>  (${fn:length(current_run_list)})</a></li>
     </ul>            
-    <!-- <div class="yui-content" id="currentrunWrapper"> -->
     <div id="currentRuns">
        	<div class="ui-state-highlight ui-corner-all" style="margin:0 auto 0.5em;"> 
 			<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>

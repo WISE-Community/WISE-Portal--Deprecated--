@@ -79,7 +79,7 @@ public class ChangePasswordParametersValidator implements Validator {
 	
 	public void validatePasswd1(Errors errors, ChangePasswordParameters params) {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "passwd1",
-		"error.no-password");
+		"error.password-not-specified");
 		
 		if( errors.getErrorCount() != 0 )
 			return;
@@ -88,7 +88,7 @@ public class ChangePasswordParametersValidator implements Validator {
 	
 	public void validatePasswd2(Errors errors, ChangePasswordParameters params) {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "passwd2",
-		"error.no-password");
+		"error.password-not-specified");
 		
 		if( errors.getErrorCount() != 0 )
 			return;

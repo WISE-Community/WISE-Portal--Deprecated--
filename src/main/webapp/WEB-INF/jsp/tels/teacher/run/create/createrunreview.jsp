@@ -19,8 +19,6 @@
 <script src="<spring:theme code="jqueryuisource"/>" type="text/javascript"></script>
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 
-<%@ include file="../../grading/styles.jsp"%>
-
 <title><spring:message code="teacher.setup-project-run-step-four" /></title>
 
 <script type="text/javascript">
@@ -31,57 +29,6 @@
     		loadingImage = new Image();
     		loadingImage.src = "/webapp/themes/tels/default/images/rel_interstitial_loading.gif";
     	}
-    	
-        YAHOO.namespace("example.container");
-
-        function init() {
-
-            if (!YAHOO.example.container.wait) {
-
-                // Initialize the temporary Panel to display while waiting for external content to load
-
-                YAHOO.example.container.wait = 
-                        new YAHOO.widget.Panel("wait",  
-                                                        { width: "240px", 
-                                                          fixedcenter: true, 
-                                                          close: false, 
-                                                          draggable: false, 
-                                                          zindex:4,
-                                                          modal: true,
-                                                          visible: false
-                                                        } 
-                                                    );
-
-                //YAHOO.example.container.wait.setHeader("Loading, please wait...");
-                YAHOO.example.container.wait.setBody("<table><tr align='center'>Loading, please wait...</tr><tr align='center'><img src=/webapp/themes/tels/default/images/rel_interstitial_loading.gif /></tr><table>");
-                YAHOO.example.container.wait.render(document.body);
-
-            }
-
-            // Define the callback object for Connection Manager that will set the body of our content area when the content has loaded
-
-
-
-            var callback = {
-                success : function(o) {
-                    //content.innerHTML = o.responseText;
-                    //content.style.visibility = "visible";
-                    YAHOO.example.container.wait.hide();
-                },
-                failure : function(o) {
-                    //content.innerHTML = o.responseText;
-                    //content.style.visibility = "visible";
-                    //content.innerHTML = "CONNECTION FAILED!";
-                    YAHOO.example.container.wait.hide();
-                }
-            }
-        
-            // Show the Panel
-            YAHOO.example.container.wait.show();
-            
-            // Connect to our data source and load the data
-            //var conn = YAHOO.util.Connect.asyncRequest("GET", "assets/somedata.php?r=" + new Date().getTime(), callback);
-        };
         
     	/**
 		 * copies project and then create run with the new project
@@ -155,12 +102,6 @@
    	   	   	   	   		error:function(returnData){alert('Could not copy project folder.');}
    	   			});
 			    return isSuccess;   	   			
-   			} else {
-   				var callback = {
-   					success:function(o){alert(o.responseText);},
-   					failure:function(o){alert('copy: failed update to server');}
-   				};
-   				YAHOO.util.Connect.asyncRequest('GET', 'copyproject.html?projectId=' + pID, callback);
    			};
     	};
     	

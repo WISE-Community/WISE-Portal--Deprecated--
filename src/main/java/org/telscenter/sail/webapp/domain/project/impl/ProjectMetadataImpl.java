@@ -150,8 +150,8 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	@Column(name = COLUMN_NAME_TECH_REQS)
 	private String techReqs;
 
-	@Column(name = COLUMN_NAME_TOOLS)
-	private String tools;
+	@Column(name = COLUMN_NAME_TOOLS, length = 32768)
+	private String tools;   // text (blob) 2^15
 
 	@Column(name = COLUMN_NAME_LESSON_PLAN, length = 32768)
 	private String lessonPlan;  // text (blob) 2^15

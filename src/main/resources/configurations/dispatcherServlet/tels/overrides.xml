@@ -110,7 +110,6 @@
     		    /teacher/termsofuse.html=termsOfUseController
     		    /teacher/registerteacher.html=registerteacherController
     		    /teacher/curriculumsubjects.html=curriculumSubjectsController
-    		    /teacher/projects/overview.html=projectOverviewController
     		    /teacher/projects/changeperiods.html=changePeriodsController
     		    /teacher/projects/languagetranslations.html=languageTranslationsController
     		    /teacher/projects/projectinfo.html=projectInfoController
@@ -131,8 +130,6 @@
     		    /teacher/grading/gradework.html=gradeWorkController
 				/teacher/grading/premadeComments.html=premadeCommentsController
     		    /teacher/management/overview.html=managementOverviewController
-    		    /teacher/management/projectPickerManagement.html=projectPickerManagementController
-    		    /teacher/management/exportsandreports.html=exportsAndReportsController
     		    /teacher/management/managemystudents.html=manageStudentsController
     		    /teacher/management/updatemyaccount.html=updateMyAccountController
     		    /teacher/management/library.html=libraryController
@@ -153,8 +150,6 @@
     		    /forgotaccount/teacher/index.html=forgotAccountTeacherIndexController
     		    /forgotaccount/teacher/success.html=forgotAccountTeacherSuccessController
     		    /forgotaccount/teacher/error.html=forgotAccountTeacherErrorController
-    		    /forgotaccount/student/username.html=forgotAccountStudentUsernameController
-				/forgotaccount/student/password.html=forgotAccountStudentPasswordController
 	  			/forgotaccount/student/passwordreminder*.html=forgotAccountStudentPasswordReminderWizardController
 				/forgotaccount/student/enterprojectcode.html=forgotAccountStudentCheckProjectCodeController
 				/forgotaccount/student/searchforstudentusername.html=searchForStudentUserNameController
@@ -167,9 +162,6 @@
 				/teacher/management/changeworkgroup.html=changeWorkgroupController
 				/teacher/management/removestudentfromrun.html=removeStudentFromRunController
 				/teacher/management/updatemyaccountinfo.html=updateMyAccountInfoController
-				/teacher/management/projectpickerclassmonitor.html=projectPickerClassMonitorController
-				/teacher/management/classmonitor.html=classMonitorController
-				/teacher/management/classmonitormeaning.html=classMonitorMeaningController
 				/teacherinfo.html=infoController
 				/dwr/*=dwrController
 				/author/authorproject.html=authorProjectController

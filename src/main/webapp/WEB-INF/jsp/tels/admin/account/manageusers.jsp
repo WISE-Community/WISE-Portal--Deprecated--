@@ -157,7 +157,7 @@ Students who logged in today (${fn:length(studentsWhoLoggedInSinceYesterday)}):
 			<td><a href="../../j_acegi_switch_user?j_username=${username}">Log
 			in as this user</a></td>
 			<td><a href="#"
-				onclick="javascript:popup640('../../teacherinfo.html?userName=${username}');">info</a></td>
+				onclick="javascript:popup640('../../studentinfo.html?userName=${username}');">info</a></td>
 		</tr>
 	</c:forEach>
 </table>
