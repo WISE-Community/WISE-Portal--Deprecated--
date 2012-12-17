@@ -1,74 +1,6 @@
-<script src="<spring:theme code="jquerysource"/>" type="text/javascript"></script>
-<script src="<spring:theme code="jqueryuisource"/>" type="text/javascript"></script>
-<script type="text/javascript" src="<spring:theme code="superfishsource"/>"></script>
-<script type="text/javascript" src="<spring:theme code="jquerycookiesource"/>"></script>
-<script type="text/javascript" src="<spring:theme code="jqueryuisource"/>"></script>
 <link rel="stylesheet" type="text/css" href="<spring:theme code="jquerystylesheet"/>">
 <link rel="stylesheet" type="text/css" href="<spring:theme code="superfishstylesheet"/>" media="screen">
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<script type="text/javascript">
-	
-	//$.cookie("lastLoginTime",lastLogin,{path:"/"});
-
-	// initialise menu, set last login time and unread messages
-	$(function(){
-		$('ul.sf-menu').superfish({ });
-		if($.cookie("unreadMessages") != null && typeof $.cookie("unreadMessages") == "string"){
-			var unreadMessages = " (" + $.cookie("unreadMessages") + ")";
-			$('#unreadMsg').text(unreadMessages);
-		}
-		<c:choose>
-			<c:when test="${user.userDetails.lastLoginTime == null}">
-				var lastLogin = "";
-			</c:when>
-			<c:otherwise>
-				var lastLogin = "<fmt:formatDate value="${user.userDetails.lastLoginTime}" type="both" dateStyle="medium" timeStyle="short" />";
-				$.cookie("lastLoginTime",lastLogin, {path:"/"});
-			</c:otherwise>
-		</c:choose>
-		if($.cookie("lastLoginTime") != null && $.cookie("lastLoginTime") != "" && typeof $.cookie("lastLoginTime") == "string"){
-			$('#lastLogin').text($.cookie("lastLoginTime"));
-		}
-	});
-	
-	/**
-	 * the user has clicked "Edit Premade Comments" from the drop down on
-	 * the teacher home page.
-	 */
-	function editPremadeComments() {
-
-		//create a popup for the loading premade comments message
-		$('#editPremadeCommentsLoadingDiv').dialog({
-			autoOpen:false
-		});
-		
-		//display the loading premade comments message
-		$('#editPremadeCommentsLoadingDiv').dialog('open');
-		
-		//create a div with an iframe in it so we can load the vle in it
-		var div = $('#editPremadeCommentsDiv').html('<iframe id="editPremadeCommentsIfrm" width="100%" height="100%" style="overflow-y:hidden;"></iframe>');
-		
-		/*
-		 * the path to open the authoring tool that will automatically
-		 * open the premade comments. this will not display the authoring
-		 * tool. we are only loading the authoring tool so that the vle
-		 * is loaded and can then open the premade comments editing view.
-		 */
-		var path = '/webapp/author/authorproject.html?editPremadeComments=true';
-		
-		//set the path to start loading the authoring tool
-		$("#editPremadeCommentsIfrm").attr('src',path);
-	}
-	
-	/**
-	 * Close the loading premade comments message
-	 */
-	function closeLoadingPremadeCommentsDialog() {
-		$('#editPremadeCommentsLoadingDiv').dialog('close');
-	}
-
-</script>
 
 <sec:authorize ifNotGranted="ROLE_USER">
 	<div id="userInfoBlock">
@@ -167,3 +99,71 @@
 
 <div id="editPremadeCommentsDiv" style="display:none;"></div>
 <div id="editPremadeCommentsLoadingDiv" style="display:none;"><h5 style="text-align:center">Loading Premade Comments...</h5></div>
+
+<script src="<spring:theme code="jquerysource"/>" type="text/javascript"></script>
+<script src="<spring:theme code="jqueryuisource"/>" type="text/javascript"></script>
+<script type="text/javascript" src="<spring:theme code="superfishsource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="jquerycookiesource"/>"></script>
+
+<script type="text/javascript">
+	
+	//$.cookie("lastLoginTime",lastLogin,{path:"/"});
+
+	// initialise menu, set last login time and unread messages
+	$(function(){
+		$('ul.sf-menu').superfish({ });
+		if($.cookie("unreadMessages") != null && typeof $.cookie("unreadMessages") == "string"){
+			var unreadMessages = " (" + $.cookie("unreadMessages") + ")";
+			$('#unreadMsg').text(unreadMessages);
+		}
+		<c:choose>
+			<c:when test="${user.userDetails.lastLoginTime == null}">
+				var lastLogin = "";
+			</c:when>
+			<c:otherwise>
+				var lastLogin = "<fmt:formatDate value="${user.userDetails.lastLoginTime}" type="both" dateStyle="medium" timeStyle="short" />";
+				$.cookie("lastLoginTime",lastLogin, {path:"/"});
+			</c:otherwise>
+		</c:choose>
+		if($.cookie("lastLoginTime") != null && $.cookie("lastLoginTime") != "" && typeof $.cookie("lastLoginTime") == "string"){
+			$('#lastLogin').text($.cookie("lastLoginTime"));
+		}
+	});
+	
+	/**
+	 * the user has clicked "Edit Premade Comments" from the drop down on
+	 * the teacher home page.
+	 */
+	function editPremadeComments() {
+
+		//create a popup for the loading premade comments message
+		$('#editPremadeCommentsLoadingDiv').dialog({
+			autoOpen:false
+		});
+		
+		//display the loading premade comments message
+		$('#editPremadeCommentsLoadingDiv').dialog('open');
+		
+		//create a div with an iframe in it so we can load the vle in it
+		var div = $('#editPremadeCommentsDiv').html('<iframe id="editPremadeCommentsIfrm" width="100%" height="100%" style="overflow-y:hidden;"></iframe>');
+		
+		/*
+		 * the path to open the authoring tool that will automatically
+		 * open the premade comments. this will not display the authoring
+		 * tool. we are only loading the authoring tool so that the vle
+		 * is loaded and can then open the premade comments editing view.
+		 */
+		var path = '/webapp/author/authorproject.html?editPremadeComments=true';
+		
+		//set the path to start loading the authoring tool
+		$("#editPremadeCommentsIfrm").attr('src',path);
+	}
+	
+	/**
+	 * Close the loading premade comments message
+	 */
+	function closeLoadingPremadeCommentsDialog() {
+		$('#editPremadeCommentsLoadingDiv').dialog('close');
+	}
+
+</script>
