@@ -27,77 +27,23 @@
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="jquerystylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
-<%@ include file="styles.jsp"%>
+
+<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="jqueryuisource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 
 <title><spring:message code="application.title" /></title>
 
-
-</head>
-
-<body class="yui-skin-sam" style="background-color:#333333;">
+<style>
+/* hides the close button on the loading modal dialog so students can't close it
+.ui-dialog-titlebar-close {
+  visibility: hidden;
+}
+</style>
 
 <script type="text/javascript">
-
-	//preload image if browser is not IE because animated gif will just freeze if user is using IE
-
-	if(navigator.appName != "Microsoft Internet Explorer") {
-		loadingImage = new Image();
-		loadingImage.src = "/webapp/themes/tels/default/images/rel_interstitial_loading.gif";
-	}
-	
-    YAHOO.namespace("example.container");
-
-    function init() {
-
-        if (!YAHOO.example.container.wait) {
-
-            // Initialize the temporary Panel to display while waiting for external content to load
-
-            YAHOO.example.container.wait = 
-                    new YAHOO.widget.Panel("wait",  
-                                                    { width: "240px", 
-                                                      fixedcenter: true, 
-                                                      close: false, 
-                                                      draggable: false, 
-                                                      zindex:4,
-                                                      modal: true,
-                                                      visible: false
-                                                    } 
-                                                );
-
-            //YAHOO.example.container.wait.setHeader("Loading, please wait...");
-            YAHOO.example.container.wait.setBody("<table><tr align='center'>Loading, please wait...</tr><tr align='center'><img src=/webapp/themes/tels/default/images/rel_interstitial_loading.gif /></tr><table>");
-            YAHOO.example.container.wait.render(document.body);
-
-        }
-
-        // Define the callback object for Connection Manager that will set the body of our content area when the content has loaded
-
-
-
-        var callback = {
-            success : function(o) {
-                //content.innerHTML = o.responseText;
-                //content.style.visibility = "visible";
-                YAHOO.example.container.wait.hide();
-            },
-            failure : function(o) {
-                //content.innerHTML = o.responseText;
-                //content.style.visibility = "visible";
-                //content.innerHTML = "CONNECTION FAILED!";
-                YAHOO.example.container.wait.hide();
-            }
-        }
-    
-        // Show the Panel
-        YAHOO.example.container.wait.show();
-        
-        // Connect to our data source and load the data
-        //var conn = YAHOO.util.Connect.asyncRequest("GET", "assets/somedata.php?r=" + new Date().getTime(), callback);
-    }
-
-    YAHOO.util.Event.on("runproject", "click", init);
 
     /**
      * Called when the student clicks on the "absent today" link
@@ -106,8 +52,26 @@
         //clear the username from the form
 		document.getElementById("username" + teammateAbsentIndex).value = "";
     }
+    
+    $(document).ready(function() {
+    	$("#runproject").click(function() {
+    	// show a loading dialog while the form is being submitted.
+    	if ($("#loadingDialog").length == 0) {
+    		var loadingDialog = $("<div>").attr("id","loadingDialog").attr("title", "Loading...").html("Loading...Please wait");
+    		$(document).append(loadingDialog);
+    		loadingDialog.dialog({
+                height: 140,
+                modal: true,
+                draggable: false
+            });
+    	}
+    })
+    });
 </script>
 
+</head>
+
+<body style="background-color:#333333;">
 <c:if test="${closeokay}">
 <c:out value="hi" />
 </c:if>
@@ -153,7 +117,7 @@
 		  </c:forEach>
 			</table>
 			
-	<div><a href="../forgotaccount/student/index.html" id="forgotlink"><spring:message code="student.teamsignin.8"/></a>  </div>
+	<div><a href="../forgotaccount/student/passwordreminder.html" id="forgotlink"><spring:message code="student.teamsignin.8"/></a>  </div>
 	
 	 <div id="finalRunProjectButton" onclick="setTimeout('self.close()', 15000);">
  	    <input type="submit" class="wisebutton" name="_finish" value="Run Project" id="runproject" />
