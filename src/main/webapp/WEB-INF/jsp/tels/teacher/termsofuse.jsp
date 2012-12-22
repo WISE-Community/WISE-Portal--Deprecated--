@@ -10,28 +10,28 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
-<title><spring:message code="teacher.termsofuse.1"/></title>
+<title><spring:message code="teacher.termsofuse.termsOfUse"/></title>
 </head>
 
 <body style="background:#FFF;">
 
 <div class="dialogContent">		
 
-	<div class="sectionHead"><spring:message code="teacher.termsofuse.2"/></div>
+	<div class="sectionHead"><spring:message code="teacher.termsofuse.wiseUsageAgreement"/></div>
 	
-	<div class="sectionContent"><p class="info"><spring:message code="teacher.termsofuse.3"/></p></div>
+	<div class="sectionContent"><p class="info"><spring:message code="teacher.termsofuse.theFollowingInformation"/></p></div>
 
 	<div class="sectionContent">
-		<p><spring:message code="teacher.termsofuse.5"/></p>
-		<p><spring:message code="teacher.termsofuse.6"/></p> 
-		<p><spring:message code="teacher.termsofuse.7"/></p>
-		<p><spring:message code="teacher.termsofuse.8"/></p>
-		<p><spring:message code="teacher.termsofuse.9"/></p>
-		<p><spring:message code="teacher.termsofuse.10A"/>&nbsp;(<a href="/webapp/contact/contactwisegeneral.html" target="_blank"><spring:message code="teacher.termsofuse.10B"/></a>)&nbsp;<spring:message code="teacher.termsofuse.10C"/></p>
-		<p><spring:message code="teacher.termsofuse.11"/></p>      
-		<p><spring:message code="teacher.termsofuse.12"/></p>
-		<p><spring:message code="teacher.termsofuse.13"/></p>
-		<p><spring:message code="teacher.termsofuse.14"/> &nbsp;<a href="mailto:mclinn@berkeley.edu">email</a></p>
+		<p><spring:message code="teacher.termsofuse.beforeProceeding"/></p>
+		<p><spring:message code="teacher.termsofuse.byJoining"/></p> 
+		<p><spring:message code="teacher.termsofuse.byChecking"/></p>
+		<p><spring:message code="teacher.termsofuse.weDoNotAnticipate"/></p>
+		<p><spring:message code="teacher.termsofuse.weWillNotReleaseYourIdentity"/></p>
+		<p><spring:message code="teacher.termsofuse.inTheInterest"/>&nbsp;(<a href="/webapp/contact/contactwisegeneral.html" target="_blank"><spring:message code="teacher.termsofuse.contactWise"/></a>)&nbsp;<spring:message code="teacher.termsofuse.andWeWillInvestigate"/></p>
+		<p><spring:message code="teacher.termsofuse.finallyYourParticipation"/></p>      
+		<p><spring:message code="teacher.termsofuse.weValueYourEnthusiastic"/></p>
+		<p><spring:message code="teacher.termsofuse.sincerely"/></p>
+		<p><spring:message code="teacher.termsofuse.marciaLinnProjectDirector"/> &nbsp;<a href="mailto:mclinn@berkeley.edu">email</a></p>
 	</div>
 </div>
 

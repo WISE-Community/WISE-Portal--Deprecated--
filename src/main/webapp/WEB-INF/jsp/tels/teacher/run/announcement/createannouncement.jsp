@@ -19,7 +19,7 @@
 <body style="background:#FFFFFF;">
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	<div class="dialogContent">
-		<div class="sectionHead">Send New Announcement to Students</div>
+		<div class="sectionHead"><spring:message code="teacher.run.announcement.createannouncement.sendNewAnnouncement"/></div>
 		<div class="dialogSection">
 			<div class="errorMsgNoBg">
 				<!-- Support for Spring errors object -->
@@ -30,12 +30,12 @@
 				</spring:bind>
 			</div>
 			<form:form method="post" action="createannouncement.html" commandName="announcementParameters" id="createannouncement" autocomplete='off'>
-				<div><label for="titleField">Title: </label> <form:input path="title" id="titleField" size="50"/></div><br />
+				<div><label for="titleField"><spring:message code="teacher.run.announcement.createannouncement.title"/> </label> <form:input path="title" id="titleField" size="50"/></div><br />
 				<div>
-					<label for="announcementField">Content: </label>
+					<label for="announcementField"><spring:message code="teacher.run.announcement.createannouncement.content"/></label>
 					<form:textarea path="announcement" rows="8" cols="84" id="announcementField"/>
 				</div>
-				<div><input type="submit" id="save" value="Save" />   <a href="manageannouncement.html?runId=<c:out value='${param.runId}' />">Cancel</a></div>
+				<div><input type="submit" id="save" value="Save" />   <a href="manageannouncement.html?runId=<c:out value='${param.runId}' />"><spring:message code="teacher.run.announcement.createannouncement.cancel"/></a></div>
 			</form:form>
 		</div>
 	</div>

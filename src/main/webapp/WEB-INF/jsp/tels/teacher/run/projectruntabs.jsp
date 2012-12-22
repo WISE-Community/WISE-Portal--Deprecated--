@@ -124,13 +124,13 @@
 
 <div id="runTabs" class="panelTabs">
     <ul>
-    	<li><a href="#archivedRuns"><spring:message code="teacher.run.myprojectruns.1B"/>  (${fn:length(ended_run_list)})</a></li>
-        <li><a href="#currentRuns"><spring:message code="teacher.run.myprojectruns.1A"/>  (${fn:length(current_run_list)})</a></li>
+    	<li><a href="#archivedRuns"><spring:message code="teacher.run.projectruntabs.archived"/>  (${fn:length(ended_run_list)})</a></li>
+        <li><a href="#currentRuns"><spring:message code="teacher.run.projectruntabs.current"/>  (${fn:length(current_run_list)})</a></li>
     </ul>            
     <div id="currentRuns">
        	<div class="ui-state-highlight ui-corner-all" style="margin:0 auto 0.5em;"> 
 			<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-			<spring:message code="teacher.run.myprojectruns.2" /></p>
+			<spring:message code="teacher.run.projectruntabs.classroomRunsBelowAreActive" /></p>
 		</div>
 		
 		<c:choose>
@@ -140,14 +140,14 @@
 					<table id="currentRunTable" class="runTable" border="1" cellpadding="0" cellspacing="0">
 						<thead>
 						    <tr>
-						       <th style="width:250px;"class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.3"/></th>
-						       <th style="width:140px;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.4" /></th>      
-						       <th style="width:290px;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.5" /></th>
-						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58A" /></th>
-						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58B" /></th>
-						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58C" /></th>
-						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58D" /></th>
-						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58E" /></th>
+						       <th style="width:250px;"class="tableHeaderMain"><spring:message code="teacher.run.projectruntabs.activeRuns"/></th>
+						       <th style="width:140px;" class="tableHeaderMain"><spring:message code="teacher.run.projectruntabs.students" /></th>      
+						       <th style="width:290px;" class="tableHeaderMain"><spring:message code="teacher.run.projectruntabs.gradingAndTools" /></th>
+						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.projectruntabs.runCreated" /></th>
+						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.projectruntabs.runEnded" /></th>
+						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.projectruntabs.source" /></th>
+						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.projectruntabs.ownership" /></th>
+						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.projectruntabs.periods" /></th>
 						    </tr>
 						</thead>
 						<tbody>
@@ -161,7 +161,7 @@
 										<c:forEach var="sharedowner" items="${run.sharedowners}">
 								    	    <c:if test="${sharedowner == user}">
 								    	    	<c:set var="ownership" value="shared" />
-								    	    	<div class="sharedTeacherMsg1"><spring:message code="teacher.run.myprojectruns.6"/>
+								    	    	<div class="sharedTeacherMsg1"><spring:message code="teacher.run.projectruntabs.ownedBy"/>
 								    	    	<c:forEach var="owner" items="${run.owners}">
 								    	    		${owner.userDetails.firstname} ${owner.userDetails.lastname}
 								    	    	</c:forEach>
@@ -171,44 +171,44 @@
 							     
 									<table class="runTitleTable">
 							      			<tr>
-												<th><spring:message code="teacher.run.myprojectruns.8" /></th>
+												<th><spring:message code="teacher.run.projectruntabs.studentAccessCode" /></th>
 												<td class="accesscode">${run.runcode}</td>
 											</tr>
 											
 							      			<tr>
-							      				<th><spring:message code="teacher.run.myprojectruns.11" /></th>
+							      				<th><spring:message code="teacher.run.projectruntabs.runId" /></th>
 							      				<td>${run.id}</td>
 							      			</tr>
 							      			<tr>
-							      				<th><spring:message code="teacher.run.myprojectruns.13"/></th>
+							      				<th><spring:message code="teacher.run.projectruntabs.runCreated2"/></th>
 							      				<td><fmt:formatDate value="${run.starttime}" type="date" dateStyle="medium" /></td>
 							      			</tr>
 							      			<tr>
-							      				<th><spring:message code="teacher.run.myprojectruns.12"/></th>
+							      				<th><spring:message code="teacher.run.projectruntabs.projectSource"/></th>
 							      				<c:set var="source" value="custom" />
 							      				<c:choose>
 							      				<c:when test="${run.project.familytag == 'TELS'}"> <!-- TODO: modify this to include ALL library projects (not just TELS) -->
 								      				<c:set var="source" value="library" />
-								      				<td><spring:message code="teacher.run.myprojectruns.43"/></td>
+								      				<td><spring:message code="teacher.run.projectruntabs.wiseLibraryProject"/></td>
 							      				</c:when>
 							      				<c:otherwise>
-								      				<td><spring:message code="teacher.run.myprojectruns.44"/></td>
+								      				<td><spring:message code="teacher.run.projectruntabs.customProject"/></td>
 							      				</c:otherwise>
 							      				</c:choose>
 							      			</tr>
 											<tr>
-							      				<th><spring:message code="teacher.run.myprojectruns.11A"/></th>
+							      				<th><spring:message code="teacher.run.projectruntabs.projectId"/></th>
 							      				<td><a href='/webapp/teacher/projects/projectinfo.html?projectId=${run.project.id}'>${run.project.id}</a></td>
 							      			</tr>
 							      			<tr>
 							      				<c:if test="${run.project.parentProjectId != null}">
-							      				<th><spring:message code="teacher.run.myprojectruns.40"/></th>
+							      				<th><spring:message code="teacher.run.projectruntabs.copyOfProject"/></th>
 												<td><a href='/webapp/teacher/projects/projectinfo.html?projectId=${run.project.parentProjectId}'>${run.project.parentProjectId}</a></td>
 												</c:if>
 							      			</tr>
 							      			<tr>
 							      				<td colspan="2" style="padding-top:.5em;">
-							      				<a href="/webapp/teacher/run/editrun.html?runId=${run.id}" target="_top"><spring:message code="teacher.run.myprojectruns.48"/></a>
+							      				<a href="/webapp/teacher/run/editrun.html?runId=${run.id}" target="_top"><spring:message code="teacher.run.projectruntabs.editRunSettings"/></a>
 							      				</td>
 							      			</tr>
 									</table>
@@ -218,16 +218,16 @@
 							    <td style="vertical-align:top; padding:0;" >
 							    	<table class="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
 							          <tr>
-							            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.29"/></th>
-							            <th style="display:none;" class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.8"/></th>
-							            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.9"/></th>
+							            <th class="tableInnerHeader"><spring:message code="teacher.run.projectruntabs.period"/></th>
+							            <th style="display:none;" class="tableInnerHeader"><spring:message code="teacher.run.projectruntabs.studentAccessCode"/></th>
+							            <th class="tableInnerHeader"><spring:message code="teacher.run.projectruntabs.students"/></th>
 							          </tr>
 							          <c:forEach var="period" items="${run.periods}">
 							            <tr>
 							              <td style="width:20%;" class="tableInnerData">${period.name}</td>
 							              <td style="display:none;"  style="width:45%;" class="tableInnerData">${run.runcode}</td>
 							              <td style="width:35%;" class="tableInnerDataRight">
-							                <a href="/webapp/teacher/management/viewmystudents.html?runId=${run.id}&periodName=${period.name}" target="_top">${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.myprojectruns.10"/></a></td>
+							                <a href="/webapp/teacher/management/viewmystudents.html?runId=${run.id}&periodName=${period.name}" target="_top">${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.projectruntabs.registered"/></a></td>
 							            </tr>
 							          </c:forEach>
 							        </table>
@@ -244,32 +244,32 @@
 								           <c:choose>
 								               <c:when test="${isExternalProject == 1}">
 								               	  <ul class="actionList">
-								                  	<li><spring:message code="teacher.run.myprojectruns.45"/> <c:forEach var="periodInRun" items="${run.periods}"><a href="report.html?runId=${run.id}&groupId=${periodInRun.id}">${periodInRun.name}</a>&nbsp;</c:forEach></li>
+								                  	<li><spring:message code="teacher.run.projectruntabs.periodReports"/> <c:forEach var="periodInRun" items="${run.periods}"><a href="report.html?runId=${run.id}&groupId=${periodInRun.id}">${periodInRun.name}</a>&nbsp;</c:forEach></li>
 								               	  </ul>
 								               </c:when>
 								               <c:otherwise>
 											    <ul class="actionList">
 											        <li>
-											        	<spring:message code="teacher.run.myprojectruns.46"/>&nbsp;<a href="/webapp/previewproject.html?projectId=${run.project.id}" target="_blank"><spring:message code="teacher.run.myprojectruns.46A"/></a>
-										    			|&nbsp;<a href="/webapp/teacher/projects/projectinfo.html?projectId=${run.project.id}" target="_top"><spring:message code="teacher.run.myprojectruns.46B"/></a>
+											        	<spring:message code="teacher.run.projectruntabs.project"/>&nbsp;<a href="/webapp/previewproject.html?projectId=${run.project.id}" target="_blank"><spring:message code="teacher.run.projectruntabs.preview"/></a>
+										    			|&nbsp;<a href="/webapp/teacher/projects/projectinfo.html?projectId=${run.project.id}" target="_top"><spring:message code="teacher.run.projectruntabs.info"/></a>
 											        	<sec:accesscontrollist domainObject="${run.project}" hasPermission="16">
-											        		|&nbsp;<a onclick="if(confirm('<spring:message code="teacher.run.myprojectruns.47"/>')){window.top.location='../../author/authorproject.html?projectId=${run.project.id}&versionId=${run.versionId}';} return true;"><spring:message code="teacher.run.myprojectruns.46C"/></a>
+											        		|&nbsp;<a onclick="if(confirm('<spring:message code="teacher.run.projectruntabs.warningYouWillBeEditingProject"/>')){window.top.location='../../author/authorproject.html?projectId=${run.project.id}&versionId=${run.versionId}';} return true;"><spring:message code="teacher.run.projectruntabs.editContent"/></a>
 											        	</sec:accesscontrollist>
 											        </li>
 											    </ul>
 											    <ul class="actionList">
-													<li><spring:message code="teacher.run.myprojectruns.16"/>: <a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=step&getRevisions=false" target="_top"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=step&getRevisions=true" target="_top"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
-							  	                        <li><spring:message code="teacher.run.myprojectruns.17"/>: <a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=team&getRevisions=false" target="_top"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=team&getRevisions=true" target="_top"><spring:message code="teacher.run.myprojectruns.41"/></a></li>				    	
-								                    <li><a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=team" target="_top"><spring:message code="teacher.run.myprojectruns.49"/></a></li>
+													<li><spring:message code="teacher.run.projectruntabs.gradeByStep"/>: <a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=step&getRevisions=false" target="_top"><spring:message code="teacher.run.projectruntabs.latestWork"/></a>&nbsp;|&nbsp;<a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=step&getRevisions=true" target="_top"><spring:message code="teacher.run.projectruntabs.allRevisions"/></a></li>
+							  	                        <li><spring:message code="teacher.run.projectruntabs.gradeByTeam"/>: <a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=team&getRevisions=false" target="_top"><spring:message code="teacher.run.projectruntabs.latestWork"/></a>&nbsp;|&nbsp;<a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=team&getRevisions=true" target="_top"><spring:message code="teacher.run.projectruntabs.allRevisions"/></a></li>				    	
+								                    <li><a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=team" target="_top"><spring:message code="teacher.run.projectruntabs.scoresSummary"/></a></li>
 		                    						<c:choose>
 		                    							<c:when test="${isXMPPEnabled && run.XMPPEnabled}">
-		                    								<li><a href="../grading/gradework.html?runId=${run.id}&gradingType=monitor" target="_top">Classroom Monitor</a></li>
+		                    								<li><a href="../grading/gradework.html?runId=${run.id}&gradingType=monitor" target="_top"><spring:message code="teacher.run.projectruntabs.classroomMonitor"/></a></li>
 		                    							</c:when>
 		                    							<c:otherwise>
-		                    								<li><a href="../grading/gradework.html?runId=${run.id}&gradingType=monitor" target="_top" style="display:none">Classroom Monitor</a></li>
+		                    								<li><a href="../grading/gradework.html?runId=${run.id}&gradingType=monitor" target="_top" style="display:none"><spring:message code="teacher.run.projectruntabs.classroomMonitor"/></a></li>
 		                    							</c:otherwise>
 		                    						</c:choose>
-		                    						<li><a href="../grading/gradework.html?runId=${run.id}&gradingType=export" target="_top">Researcher Tools</a></li>
+		                    						<li><a href="../grading/gradework.html?runId=${run.id}&gradingType=export" target="_top"><spring:message code="teacher.run.projectruntabs.researcherTools"/></a></li>
 								               </ul>
 								               </c:otherwise>
 								           </c:choose>
@@ -277,16 +277,16 @@
 									<ul class="actionList actionList2">
 				
 										<sec:accesscontrollist domainObject="${run}" hasPermission="16">
-				   					      <li><a href="/webapp/teacher/run/shareprojectrun.html?runId=${run.id}" target="_top"><spring:message code="teacher.run.myprojectruns.18"/></a></li> 
+				   					      <li><a href="/webapp/teacher/run/shareprojectrun.html?runId=${run.id}" target="_top"><spring:message code="teacher.run.projectruntabs.shareWithAnotherTeacher"/></a></li> 
 				 	                    	</sec:accesscontrollist>
 								    	
 								    	<c:set var="isExternalProject" value="0"/>
 								    	<sec:accesscontrollist domainObject="${run}" hasPermission="16">
-								      		<li><a href="/webapp/teacher/run/announcement/manageannouncement.html?runId=${run.id}" target="_top"><spring:message code="teacher.run.myprojectruns.50"/></a></li>
+								      		<li><a href="/webapp/teacher/run/announcement/manageannouncement.html?runId=${run.id}" target="_top"><spring:message code="teacher.run.projectruntabs.manageAnnouncements"/></a></li>
 								        </sec:accesscontrollist>			    	
-										<li><a href="/webapp/contact/contactwiseproject.html?projectId=${run.project.id}" target="_top"><spring:message code="teacher.run.myprojectruns.22"/></a></li>
+										<li><a href="/webapp/contact/contactwiseproject.html?projectId=${run.project.id}" target="_top"><spring:message code="teacher.run.projectruntabs.reportAProblem"/></a></li>
 					                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
-								    	  <li><a onclick="javascript:popup('/webapp/teacher/run/manage/archiveRun.html?runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />')"><spring:message code="teacher.run.myprojectruns.51"/></a></li>
+								    	  <li><a onclick="javascript:popup('/webapp/teacher/run/manage/archiveRun.html?runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />')"><spring:message code="teacher.run.projectruntabs.archiveEndRun"/></a></li>
 								    	</sec:accesscontrollist>
 								    	
 								    </ul>
@@ -307,11 +307,7 @@
 				</div>
 			</c:when>
 		<c:otherwise>
-			<p class="info"><spring:message code="teacher.run.myprojectruns.52"/> <a href="/webapp/teacher/projects/telsprojectlibrary.html">
-				<spring:message code="teacher.run.myprojectruns.52A"/></a> <spring:message code="teacher.run.myprojectruns.52B"/> 
-				<a href="/webapp/teacher/projects/customized/index.html"> <spring:message code="teacher.run.myprojectruns.52C"/> 
-				</a> <spring:message code="teacher.run.myprojectruns.52D"/>	<a href="/webapp/author/authorproject.html">
-				<spring:message code="teacher.run.myprojectruns.52E"/></a>.</p>
+			<p class="info"><spring:message code="teacher.run.projectruntabs.noActiveProjectRuns"/> <a href\="/webapp/teacher/management/library.html"><spring:message code="teacher.run.projectruntabs.wiseLibraryProject"/></a> <spring:message code="teacher.run.projectruntabs.andClickStartNewRun"/> <a href\="/webapp/author/authorproject.html"><spring:message code="teacher.run.projectruntabs.d"/></a></p>
 		</c:otherwise>
 	</c:choose>
 	</div><!-- end current runs tab -->
@@ -319,7 +315,7 @@
 	<div id="archivedRuns">
 		<div class="ui-state-highlight ui-corner-all" style="margin:0 auto 0.5em;"> 
 			<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-			<spring:message code="teacher.run.myprojectruns.54"/></p>
+			<spring:message code="teacher.run.projectruntabs.wantMoreInformationAboutCompletedRun"/></p>
 		</div>
 		
 		<c:choose>
@@ -330,14 +326,14 @@
 					<table id="archivedRunTable" class="runTable" border="1" cellpadding="0" cellspacing="0" >
 						<thead>
 						    <tr>
-						       <th style="width:250px;"class="tableHeaderMain archive"><spring:message code="teacher.run.myprojectruns.3A"/></th>
-						       <th style="width:140px;" class="tableHeaderMain archive"><spring:message code="teacher.run.myprojectruns.4"/></th>      
-						       <th style="width:290px;" class="tableHeaderMain archive"><spring:message code="teacher.run.myprojectruns.5"/></th>
-						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58A" /></th>
-						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58B" /></th>
-						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58C" /></th>
-						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58D" /></th>
-						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.myprojectruns.58E" /></th>
+						       <th style="width:250px;"class="tableHeaderMain archive"><spring:message code="teacher.run.projectruntabs.completedRuns"/></th>
+						       <th style="width:140px;" class="tableHeaderMain archive"><spring:message code="teacher.run.projectruntabs.students"/></th>      
+						       <th style="width:290px;" class="tableHeaderMain archive"><spring:message code="teacher.run.projectruntabs.gradingAndTools"/></th>
+						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.projectruntabs.runCreated" /></th>
+						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.projectruntabs.runEnded" /></th>
+						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.projectruntabs.source" /></th>
+						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.projectruntabs.ownership" /></th>
+						       <th style="display:none;" class="tableHeaderMain"><spring:message code="teacher.run.projectruntabs.periods" /></th>
 						    </tr>
 						</thead>
 						<tbody>				
@@ -351,7 +347,7 @@
 						    			<c:forEach var="sharedowner" items="${run.sharedowners}">
 								    	    <c:if test="${sharedowner == user}">
 								    	    	<c:set var="ownership" value="shared" />
-								    	    	<div class="sharedTeacherMsg1"><spring:message code="teacher.run.myprojectruns.6"/>
+								    	    	<div class="sharedTeacherMsg1"><spring:message code="teacher.run.projectruntabs.ownedBy"/>
 								    	    	<c:forEach var="owner" items="${run.owners}">
 								    	    		${owner.userDetails.firstname} ${owner.userDetails.lastname}
 								    	    	</c:forEach>
@@ -360,42 +356,42 @@
 							     
 										<table class="runTitleTable">
 							      			<tr>
-												<th><spring:message code="teacher.run.myprojectruns.8"/></th>
+												<th><spring:message code="teacher.run.projectruntabs.studentAccessCode"/></th>
 												<td>${run.runcode}</td>
 											</tr>
 											
 							      			<tr>
-							      				<th><spring:message code="teacher.run.myprojectruns.11"/></hd>
+							      				<th><spring:message code="teacher.run.projectruntabs.runId"/></hd>
 							      				<td>${run.id}</td>
 							      			</tr>
 							      			<tr>
-							      				<th><spring:message code="teacher.run.myprojectruns.13"/></th>
+							      				<th><spring:message code="teacher.run.projectruntabs.runCreated2"/></th>
 							      				<td class="archivedDate"><fmt:formatDate value="${run.starttime}" type="date" dateStyle="short" /></td>
 							      			</tr>
 											 <tr>
-							      				<th><spring:message code="teacher.run.myprojectruns.55"/></th>
+							      				<th><spring:message code="teacher.run.projectruntabs.archived2"/></th>
 							      				<td class="archivedDate"><fmt:formatDate value="${run.endtime}" type="date" dateStyle="short" /></td>
 							      			</tr>
 							      			<tr>
-							      				<th><spring:message code="teacher.run.myprojectruns.12"/></th>
+							      				<th><spring:message code="teacher.run.projectruntabs.projectSource"/></th>
 							      				<c:set var="source" value="custom" />
 							      				<c:choose>
 							      				<c:when test="${run.project.familytag == 'TELS'}">
 							      					<c:set var="source" value="library" />
-								      				<td><spring:message code="teacher.run.myprojectruns.43"/></td>
+								      				<td><spring:message code="teacher.run.projectruntabs.wiseLibraryProject"/></td>
 							      				</c:when>
 							      				<c:otherwise>
-								      				<td><spring:message code="teacher.run.myprojectruns.44"/></td>
+								      				<td><spring:message code="teacher.run.projectruntabs.customProject"/></td>
 							      				</c:otherwise>
 							      				</c:choose>
 							      			</tr>
 											<tr>
-							      				<th><spring:message code="teacher.run.myprojectruns.11A"/></th>
+							      				<th><spring:message code="teacher.run.projectruntabs.projectId"/></th>
 							      				<td><a href='/webapp/teacher/projects/projectinfo.html?projectId=${run.project.id}'>${run.project.id}</a></td>
 							      			</tr>
 							      			<tr>
 							      				<c:if test="${run.project.parentProjectId != null}">
-							      				<th><spring:message code="teacher.run.myprojectruns.40"/></th>
+							      				<th><spring:message code="teacher.run.projectruntabs.copyOfProject"/></th>
 												<td><a href='/webapp/teacher/projects/projectinfo.html?projectId=${run.project.parentProjectId}'>${run.project.parentProjectId}</a></td>
 												</c:if>
 							      			</tr>
@@ -405,29 +401,29 @@
 									<td style="vertical-align:top; padding:0px;" >
 							    		<table class="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
 							          		<tr>
-							            		<th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.7"/></th>
-							            		<th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.9"/></th>
+							            		<th class="tableInnerHeader"><spring:message code="teacher.run.projectruntabs.period"/></th>
+							            		<th class="tableInnerHeader"><spring:message code="teacher.run.projectruntabs.students"/></th>
 							          		</tr>
 							          		<c:forEach var="period" items="${run.periods}">
 								            <tr>
 									        	<td style="width:20%;" class="tableInnerData">${period.name}</td>
 									        	<td style="width:35%;" class="tableInnerDataRight archivedNumberStudents">
-									        	${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.myprojectruns.10"/></td>
+									        	${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.projectruntabs.registered"/></td>
 								            </tr>
 							          		</c:forEach>
 										</table>
 									</td> 
 									<td style="vertical-align:top; padding: 0.25em 0;">
 									    <ul class="actionList">
-								        	<li><a href="/webapp/previewproject.html?projectId=${run.project.id}&versionId=${run.versionId}" target="_blank">View the Project</a></li>
+								        	<li><a href="/webapp/previewproject.html?projectId=${run.project.id}&versionId=${run.versionId}" target="_blank"><spring:message code="teacher.run.projectruntabs.viewTheProject"/</a></li>
 								        </ul>
 								        <ul class="actionList">	
-								        	<li><spring:message code="teacher.run.myprojectruns.16"/>: <a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=step&getRevisions=false" target="_top"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=step&getRevisions=true" target="_top"><spring:message code="teacher.run.myprojectruns.41"/></a></li>
-					 	                    <li><spring:message code="teacher.run.myprojectruns.17"/>: <a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=team&getRevisions=false" target="_top"><spring:message code="teacher.run.myprojectruns.42"/></a>&nbsp;|&nbsp;<a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=team&getRevisions=true" target="_top"><spring:message code="teacher.run.myprojectruns.41"/></a></li>		
+								        	<li><spring:message code="teacher.run.projectruntabs.gradeByStep"/>: <a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=step&getRevisions=false" target="_top"><spring:message code="teacher.run.projectruntabs.latestWork"/></a>&nbsp;|&nbsp;<a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=step&getRevisions=true" target="_top"><spring:message code="teacher.run.projectruntabs.allRevisions"/></a></li>
+					 	                    <li><spring:message code="teacher.run.projectruntabs.gradeByTeam"/>: <a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=team&getRevisions=false" target="_top"><spring:message code="teacher.run.projectruntabs.latestWork"/></a>&nbsp;|&nbsp;<a href="/webapp/teacher/grading/gradework.html?runId=${run.id}&gradingType=team&getRevisions=true" target="_top"><spring:message code="teacher.run.projectruntabs.allRevisions"/></a></li>		
 					                    </ul>
 					                    <ul class="actionList actionList2">
 					                    	<sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
-								    	  		<li><a onclick="javascript:popup('/webapp/teacher/run/manage/startRun.html?runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />')"><spring:message code="teacher.run.myprojectruns.56"/></a></li>
+								    	  		<li><a onclick="javascript:popup('/webapp/teacher/run/manage/startRun.html?runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />')"><spring:message code="teacher.run.projectruntabs.restoreReActivateRun"/></a></li>
 								    		</sec:accesscontrollist>							
 										</ul>
 									</td>
@@ -446,7 +442,7 @@
 				</div>
 			</c:when>
 		<c:otherwise>
-			<p class="info"><spring:message code="teacher.run.myprojectruns.57"/></p>
+			<p class="info"><spring:message code="teacher.run.projectruntabs.noCompletedRuns"/></p>
 		</c:otherwise>
 	</c:choose>
 	</div> <!-- End of archived runs tab -->

@@ -15,7 +15,7 @@
 <link href="<spring:theme code="jquerystylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
-<title><spring:message code="teacher.run.myprojectruns.title" /></title>
+<title><spring:message code="teacher.run.myprojectruns.myClassroomRuns" /></title>
 
 <!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
 <!--[if lt IE 7]>
@@ -42,8 +42,8 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 			<div class="contentPanel">
 			
 				<div class="panelHeader">
-					<spring:message code="teacher.run.myprojectruns.title" />
-					<span class="pageTitle"><spring:message code="header.location.teacher.management"/></span>
+					<spring:message code="teacher.run.myprojectruns.myClassroomRuns" />
+					<span class="pageTitle"><spring:message code="teacher.run.myprojectruns.management"/></span>
 				</div>
 				
 				<div class="panelContent">

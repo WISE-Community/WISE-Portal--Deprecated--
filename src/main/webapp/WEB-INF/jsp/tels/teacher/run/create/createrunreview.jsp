@@ -19,7 +19,7 @@
 <script src="<spring:theme code="jqueryuisource"/>" type="text/javascript"></script>
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 
-<title><spring:message code="teacher.setup-project-run-step-four" /></title>
+<title><spring:message code="teacher.run.create.createrunreview.settingUpAProjectRunStep4" /></title>
 
 <script type="text/javascript">
         var doneClicked=false;
@@ -44,7 +44,7 @@
             	doneClicked=true;
     			var result = copy(pID, type, projectName, fileName);
     			if (!result) {
-        			alert('There was an error creating the run. Please contact WISE.');
+        			alert('<spring:message code="teacher.run.create.createrunreview.errorCreatingRun" />');
     			}
     			return result;
         	}
@@ -96,10 +96,10 @@
    	   								$("#newProjectId").attr("value", newProjectId);
 									//alert('The LD project has been successfully copied with the name Copy of ' + projectName + '. The project can be found in the My Projects section.');
 								},
-   	   	   						error:function(returnData){alert('Project files were copied but the project was not successfully registered in the portal.');}
+   	   	   						error:function(returnData){alert('<spring:message code="teacher.run.create.createrunreview.projectCopiedButNotRegistered" />');}
    							});
    						},
-   	   	   	   	   		error:function(returnData){alert('Could not copy project folder.');}
+   	   	   	   	   		error:function(returnData){alert('<spring:message code="teacher.run.create.createrunreview.couldNotCopyProjectFolder" />');}
    	   			});
 			    return isSuccess;   	   			
    			};
@@ -144,33 +144,33 @@
 			
 			<div class="contentPanel">
 				<div class="panelHeader">
-					<spring:message code="teacher.setup-project-classroom-run" />
-					<span class="pageTitle"><spring:message code="header.location.teacher.management"/></span>
+					<spring:message code="teacher.run.create.createrunreview.setupAClassroomRun" />
+					<span class="pageTitle"><spring:message code="teacher.run.create.createrunreview.management"/></span>
 				</div>
 				<div class="panelContent">
 					<div id="reviewRunBox">
-						<div id="stepNumber" class="sectionHead"><spring:message code="teacher.run.setup.32"/>&nbsp;<spring:message code="teacher.run.setup.33"/></div>
+						<div id="stepNumber" class="sectionHead"><spring:message code="teacher.run.create.createrunreview.step5Of5"/>&nbsp;<spring:message code="teacher.run.create.createrunreview.reviewTheProject"/></div>
 						<div class="sectionContent">
 	
-							<h5 style="color:red;"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></h5>
+							<h5 style="color:red;"><spring:message code="teacher.run.create.createrunreview.effectiveWhenTeacherFamiliarWithContent" htmlEscape="true" /></h5>
 	
 							<ol>
-								<li><spring:message code="teacher.run.setup.34"/> <a id="projectDetail_${projectId}" class="projectDetail" title="Project Details"><spring:message code="teacher.run.setup.35"/></a>&nbsp;<spring:message code="teacher.run.setup.36"/></li>
+								<li><spring:message code="teacher.run.create.createrunreview.please"/> <a id="projectDetail_${projectId}" class="projectDetail" title="Project Details"><spring:message code="teacher.run.create.createrunreview.reviewTheProjectDetails"/></a>&nbsp;<spring:message code="teacher.run.create.createrunreview.beforeRunningProject"/></li>
 							
-								<li><spring:message code="teacher.run.setup.52"/> <a href="<c:url value="/previewproject.html"><c:param name="projectId" value="${projectId}"/></c:url>" target="_blank">
-										<spring:message code="teacher.run.setup.53"/></a> <spring:message code="teacher.run.setup.54"/></li>
+								<li><spring:message code="teacher.run.create.createrunreview.weHighlyRecommend"/> <a href="<c:url value="/previewproject.html"><c:param name="projectId" value="${projectId}"/></c:url>" target="_blank">
+										<spring:message code="teacher.run.create.createrunreview.previewTheProject"/></a> <spring:message code="teacher.run.create.createrunreview.beforeRunningInClassroom"/></li>
 									
-								<li><spring:message code="teacher.run.setup.55"/></li>
+								<li><spring:message code="teacher.run.create.createrunreview.firstTimeCarryingRun"/></li>
 							</ol>
 	
-							<h5><spring:message code="teacher.run.setup.45"/></h5>
+							<h5><spring:message code="teacher.run.create.createrunreview.whenYoureReady"/></h5>
 						</div>
 					</div>
 	
 					<form method="post" class="center" onSubmit="return createRun('${projectId}','${projectType}','<c:out value="${projectName}" />','${projectJSONFilename}')">
-						<input type="submit" name="_target3" value="<spring:message code="navigate.back" />" />
-						<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
-						<input type="submit" id="submit_form" name="_finish" value="<spring:message code="navigate.done" />" />
+						<input type="submit" name="_target3" value="<spring:message code="teacher.run.create.createrunreview.back" />" />
+						<input type="submit" name="_cancel" value="<spring:message code="teacher.run.create.createrunreview.cancel" />" />
+						<input type="submit" id="submit_form" name="_finish" value="<spring:message code="teacher.run.create.createrunreview.done" />" />
 						<input type="hidden" id="newProjectId" name="newProjectId" value="" />
 					</form>
 				</div>

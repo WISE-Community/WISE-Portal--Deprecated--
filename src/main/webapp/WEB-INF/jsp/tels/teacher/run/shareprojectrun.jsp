@@ -15,7 +15,7 @@
 
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
  
-<title><spring:message code="teacher.run.shareprojectrun.1"/></title>
+<title><spring:message code="teacher.run.shareprojectrun.sharingPermissions"/></title>
 
 <script type="text/javascript">
 //extend Array prototype
@@ -65,7 +65,7 @@ function findStringsContaining(what, all_array) {
 
 //when remove user is clicked, confirm with user
 function removeSharedUserClicked() {
-  return confirm('<spring:message code="teacher.run.shareprojectrun.21"/>');
+  return confirm('<spring:message code="teacher.run.shareprojectrun.areYouSureYouWantToRemoveSharedTeacher"/>');
 }
 </script>
 
@@ -75,10 +75,10 @@ function removeSharedUserClicked() {
 
 <div class="dialogContent">		
 
-	<div id="sharingSearchBoxHelp" class="dialogSection"><spring:message code="teacher.run.shareprojectrun.17"/></div>
+	<div id="sharingSearchBoxHelp" class="dialogSection"><spring:message code="teacher.run.shareprojectrun.toShareRunWithAnotherTeacher"/></div>
 	<div id="sharingSearchSelect">
 		<form:form method="post" commandName="addSharedTeacherParameters" autocomplete='off'>
-			<spring:message code="teacher.run.shareprojectrun.20"/> <form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="populatePossibilities(this.value)" size="30"/>
+			<spring:message code="teacher.run.shareprojectrun.wiseUser"/> <form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="populatePossibilities(this.value)" size="30"/>
 		    <input type="submit" value="Save" />
 		</form:form>
 		<ul id="matchedUsernames"></ul>
@@ -87,9 +87,9 @@ function removeSharedUserClicked() {
 	<table id="sharedProjectPermissions" class='wisetable'>
 	
 		<tr>
-			<th><spring:message code="teacher.run.shareprojectrun.9"/></th>
-			<th><spring:message code="teacher.run.shareprojectrun.10"/></th> 
-			<th><spring:message code="teacher.run.shareprojectrun.11"/></th>
+			<th><spring:message code="teacher.run.shareprojectrun.username"/></th>
+			<th><spring:message code="teacher.run.shareprojectrun.permissionLevel"/></th> 
+			<th><spring:message code="teacher.run.shareprojectrun.options"/></th>
 		</tr>
 		<!--  display owners of the run -->
 		<c:choose>
@@ -99,7 +99,7 @@ function removeSharedUserClicked() {
 				<c:forEach var="owner" items="${run.owners}">
 					<tr>
 					    <td class="emph">${owner.userDetails.username}</td>
-						<td><spring:message code="teacher.run.shareprojectrun.12"/></td>
+						<td><spring:message code="teacher.run.shareprojectrun.ownerOfProjectRun"/></td>
 						<td></td>
 				    </tr>
 				</c:forEach>
@@ -113,8 +113,8 @@ function removeSharedUserClicked() {
 				    <td align="left">
 				    	<form:form method="post" id="${sharedowner.userDetails.username}" commandName="${sharedowner.userDetails.username}" autocomplete='off'>
 	            			<form:hidden path="sharedOwnerUsername" />
-				        	<form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_READ" /> <spring:message code="teacher.run.shareprojectrun.14"/><br />
-				    	    <form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_GRADE" /> <spring:message code="teacher.run.shareprojectrun.15"/>
+				        	<form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_READ" /> <spring:message code="teacher.run.shareprojectrun.canViewProjectRun"/><br />
+				    	    <form:radiobutton path="permission" onclick="javscript:this.form.submit();" value="ROLE_RUN_GRADE" /> <spring:message code="teacher.run.shareprojectrun.canViewAndGradeProjectRun"/>
 				    	</form:form>			        
 					</td>
 					<td><form:form method="post" id="${sharedowner.userDetails.username}" commandName="${sharedowner.userDetails.username}" autocomplete='off'>
@@ -122,7 +122,7 @@ function removeSharedUserClicked() {
 	            		<input type="hidden" name="removeUserFromRun" value="true"></input>
 						<input type="submit" value="Remove this User" onclick="return removeSharedUserClicked();"></input>
 				    	</form:form>			        
-					    <!-- <a href='#' onclick="alert('Remove Shared Teacher is not yet implemented.');"><spring:message code="teacher.run.shareprojectrun.16"/></a> -->
+					    <!-- <a href='#' onclick="alert('Remove Shared Teacher is not yet implemented.');"><spring:message code="teacher.run.shareprojectrun.removeThisUser"/></a> -->
 					</td>
 				</tr>
 		</c:forEach>

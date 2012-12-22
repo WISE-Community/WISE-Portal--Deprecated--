@@ -10,7 +10,7 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
-<title><spring:message code="teacher.run.manage.archiverun.6"/></title>
+<title><spring:message code="teacher.run.manage.endRunSuccess.archiveRunSuccess"/></title>
 
 <script type='text/javascript'>
 var refreshRequired = true;
@@ -23,8 +23,8 @@ var refreshRequired = true;
 	<div class="dialogContent">
 		<div class="dialogSection">
 			<div class="errorMsgNoBg">
-				<p><spring:message code="teacher.run.manage.archiverun.7"/></p>
-				<p><spring:message code="teacher.run.manage.archiverun.8"/></p>
+				<p><spring:message code="teacher.run.manage.endRunSuccess.classroomRunSuccessfullyEnded"/></p>
+				<p><spring:message code="teacher.run.manage.endRunSuccess.runMovedToArchivedSection"/></p>
 			</div>
 		</div>
 	</div>

@@ -57,7 +57,7 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
             $('.extendReminderLink').live('click',function(){
             	var link = $(this);
             	var id = $(this).attr('id').replace('extendReminder_','');
-            	var updatingText = $('<span style="color: #DDCDB5;"> Updating...</span>');
+            	var updatingText = $('<span style="color: #DDCDB5;"> ' + '<spring:message code="teacher.index.updating"/>' + '</span>');
             	link.parent().append(updatingText);
             	$.ajax({
 					type: 'post',
@@ -65,12 +65,12 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 					success: function(request){
 						updatingText.remove();
 						link.css('text-decoration','strike-through');
-						link.parent().append('<span style="color: #DDCDB5;"> Success! You will be reminded to archive project run ' + id + ' again in 30 days.</span>');
+						link.parent().append('<span style="color: #DDCDB5;"> ' + '<spring:message code="teacher.index.youWillBeReminded"/>' + ' ' + id + ' ' + '<spring:message code="teacher.index.in30Days"/>');
 						setTimeout(function(){link.parent().fadeOut();},5000);
 					},
 					error: function(request,error){
 						updatingText.remove();
-						link.parent().append('<span style="color: #DD2424;"> Sorry, unable to update project run ' + id + ' on server. Please try again later.</span>');
+						link.parent().append('<span style="color: #DD2424;"> ' + '<spring:message code="teacher.index.unableToUpdateRun"/>' + id + ' ' + '<spring:message code="teacher.index.tryAgainLater"/>' + '</span>');
 					}
             	});
             });
@@ -81,7 +81,7 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
             $('.runArchiveLink').live('click',function(){
             	var link = $(this);
             	var id = $(this).attr('id').replace('archiveRun_','');
-            	var updatingText = $('<span style="color: #DDCDB5;"> Updating...</span>');
+            	var updatingText = $('<span style="color: #DDCDB5;"> ' + '<spring:message code="teacher.index.updating"/>' + '</span>');
             	link.parent().append(updatingText);
             	$.ajax({
 					type: 'post',
@@ -89,12 +89,12 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 					success: function(request){
 						updatingText.remove();
 						link.css('text-decoration','strike-through');
-						link.parent().append('<span style="color: #DDCDB5;"> Project run ' + id + ' has been archived. Run listing will now refresh.</span>');
+						link.parent().append('<span style="color: #DDCDB5;"> ' + '<spring:message code="teacher.index.projectRun"/>' + ' ' + id + ' ' + '<spring:message code="teacher.index.hasBeenArchivedWillRefresh"/>' + '</span>');
 						setTimeout(function(){window.location.reload();},2000);
 					},
 					error: function(request,error){
 						updatingText.remove();
-						link.parent().append('<span style="color: #DD2424;"> Sorry, unable to archive project run ' + id + ' on server. Please try again later.</span>');
+						link.parent().append('<span style="color: #DD2424;"> ' + '<spring:message code="teacher.index.unableToArchiveRun"/>' + ' ' + id + ' ' + '<spring:message code="teacher.index.tryAgainLater"/>' + '</span>');
 					}
             	});
             });
@@ -104,7 +104,7 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
              **/
             function archiveMessage(messageId, sender) {
 				var messageDiv = $('#message_' + messageId);
-				messageDiv.html('Archiving message...');
+				messageDiv.html('<spring:message code="teacher.index.archivingMessage"/>');
 				
 				$.ajax({
 					type: 'post',
@@ -112,19 +112,19 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 					success: function(request){
 						/* update message on teacher index page announcements section */
 						messageDiv.remove();
-						$("#message_confirm_div_" + messageId).html('<span style="color: #24DD24;">Message from ' + sender + ' has been archived.</span>');
+						$("#message_confirm_div_" + messageId).html('<span style="color: #24DD24;">' + '<spring:message code="teacher.index.messageFrom"/>' + ' ' + sender + ' ' + '<spring:message code="teacher.index.hasBeenArchived"/>' + '</span>');
 						/* update count of new message in message count div */
 						var messageCountDiv = $("#newMessageCount");
 						var messages = $("#messageDiv");
 						if (messages.length == 1) {
-							messageCountDiv.html("You have " + messages.length + " new message.");
+							messageCountDiv.html('<spring:message code="teacher.index.youHave"/>' + " " + messages.length + " " + '<spring:message code="teacher.index.newMessage"/>');
 						} else {
-							messageCountDiv.html("You have " + messages.length + " new messages.");
+							messageCountDiv.html('<spring:message code="teacher.index.youHave"/>' + " " + messages.length + " " + '<spring:message code="teacher.index.newMessage"/>');
 						}
 					},
 					error: function(request,error){
 						/* set failure message */
-						messageDiv.html('<span style="color: #992244;">Unable to archive message! Refresh this page and try again.</span>');
+						messageDiv.html('<span style="color: #992244;">' + '<spring:message code="teacher.index.unableToArchiveMessage"/>' + '</span>');
 					}
 				});
             }
@@ -141,26 +141,26 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 		<div id="pageContent">
 			<div class="sidebar sidebarLeft">
 				<div class="sidePanel">
-					<div class="panelHeader"><spring:message code="teacher.index.1" /></div>
+					<div class="panelHeader"><spring:message code="teacher.index.rememberYourUsername" /></div>
 					
 					<div class="panelContent">
 				
 						<table id="teacherQuickLinks">
 							<tr>
-								<td><a href="/webapp/pages/gettingstarted.html" target="_blank"><spring:message code="menu.quickstart"/></a></td>
+								<td><a href="/webapp/pages/gettingstarted.html" target="_blank"><spring:message code="teacher.index.quickstartGuide"/></a></td>
 							</tr>
 							<tr>
-								<td><a href="/webapp/teacher/management/library.html"><spring:message code="menu.library"/></a></td>
+								<td><a href="/webapp/teacher/management/library.html"><spring:message code="teacher.index.browseWISEProjects"/></a></td>
 							</tr>
 							<tr>
-								<td><a href="/webapp/teacher/management/classroomruns.html"><spring:message code="menu.runs"/></a></td>
+								<td><a href="/webapp/teacher/management/classroomruns.html"><spring:message code="teacher.index.gradeAndManageClassroomRuns"/></a></td>
 							</tr>
 						</table>
 					</div>
 				</div>
 				
 				<div class='sidePanel'>
-					<div class="panelHeader"><spring:message code="teacher.index.1A" /></div>
+					<div class="panelHeader"><spring:message code="teacher.index.messages" /></div>
 					
 					<div class="panelContent">
 			
@@ -171,90 +171,60 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 									<c:set var="current_date" value="<%= new java.util.Date() %>" />
 									<c:choose>
 										<c:when test="${(current_date.hours>=4) && (current_date.hours<5)}">
-												<spring:message code="teacher.index.7A" />
+												<spring:message code="teacher.index.benjaminFranklinQuote" />
 										</c:when>
 										<c:when test="${(current_date.hours>=5) && (current_date.hours<6)}">
-												<spring:message code="teacher.index.7C" />
+												<spring:message code="teacher.index.topOfTheMorning" />
 										</c:when>
 										<c:when test="${(current_date.hours>=6) && (current_date.hours<6.5)}">
-												"Each morning we are born again.  What we do today is what matters most."  (Guatama Siddharta)
+												<spring:message code="teacher.index.guatamaSiddhartaQuote" />
 										</c:when>
 										<c:when test="${(current_date.hours>=6.5) && (current_date.hours<7)}">
-												<spring:message code="teacher.index.7D" />
+												<spring:message code="teacher.index.hopeHavingGoodMorning" />
 										</c:when>
 										<c:when test="${(current_date.hours>=7) && (current_date.hours<9)}">
-												<spring:message code="teacher.index.7B" />
+												<spring:message code="teacher.index.goodMorning" />
 										</c:when>
 										<c:when test="${(current_date.hours>=9) && (current_date.hours<10)}">
-												<spring:message code="teacher.index.7E" />
+												<spring:message code="teacher.index.robertFrostQuote" />
 										</c:when>
 										<c:when test="${(current_date.hours>=10) && (current_date.hours<11)}">
-												<spring:message code="teacher.index.7F" />
+												<spring:message code="teacher.index.milesDavisQuote" />
 										</c:when>
 										<c:when test="${(current_date.hours>=11) && (current_date.hours<11.5)}">
-												<spring:message code="teacher.index.7G" />
+												<spring:message code="teacher.index.aaMilneQuote" />
 										</c:when>
 										<c:when test="${(current_date.hours>=11.5) && (current_date.hours<12)}">
-												"Time flies like an arrow.  Fruit flies like a banana."  (Groucho Marx)
+												<spring:message code="teacher.index.teacher.index.grouchoMarxQuote" />
 										</c:when>
 										<c:when test="${(current_date.hours>=12) && (current_date.hours<15)}">
-												<spring:message code="teacher.index.8A" />
+												<spring:message code="teacher.index.goodAfternoon" />
 										</c:when>
 										<c:when test="${(current_date.hours>=15) && (current_date.hours<18)}">
-												<spring:message code="teacher.index.8B" />
+												<spring:message code="teacher.index.productiveAfternoon" />
 										</c:when>
 										<c:when test="${(current_date.hours>=18) && (current_date.hours<22)}">
-												<spring:message code="teacher.index.8C" />
+												<spring:message code="teacher.index.goodEvening" />
 										</c:when>
 										<c:when test="${(current_date.hours>=22) && (current_date.hours<23)}">
-												<spring:message code="teacher.index.9A" />
+												<spring:message code="teacher.index.georgeCarlinQuote" />
 										</c:when>
 										<c:when test="${(current_date.hours>=23) && (current_date.hours<24)}">
-												<spring:message code="teacher.index.9B" />
+												<spring:message code="teacher.index.marilynVosSavantQuote" />
 										</c:when>
 										<c:otherwise>
-												<spring:message code="teacher.index.9C" />
+												<spring:message code="teacher.index.helloNightOwl" />
 										</c:otherwise>
 									</c:choose>
 								</div>
-								<!-- <div class="messageContainer">
-									<c:choose>
-										<c:when test="${fn:length(unreadMessages) == 1}">
-											<div id="newMessageCount"><spring:message code="teacher.index.50" />  <c:out value="${fn:length(unreadMessages)}" /> <spring:message code="teacher.index.50B" /></div>
-										</c:when>
-										<c:otherwise>
-											<div id="newMessageCount"><spring:message code="teacher.index.50" />  <c:out value="${fn:length(unreadMessages)}" /> <spring:message code="teacher.index.50A" /></div>
-										</c:otherwise>
-									</c:choose>
-									<c:if test="${fn:length(unreadMessages) > 0}">
-										<c:forEach var="message" items="${unreadMessages}">
-										    <div class="messageDiv" id="message_${message.id}">
-										    <table class='messageDisplayTable'>
-											<tr><th>Date:</th><td><fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /></td></tr>
-											<tr><th>From:</th><td><c:out value="${message.sender.userDetails.username}"/></td></tr>
-											<tr><th>Subject:</th><td><c:out value="${message.subject}"/></td></tr>
-											<tr><td colspan='2' class='messageBody'><c:out value="${message.body}" /></td></tr>
-											<tr><td colspan='2'>
-												<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}');"><spring:message code="teacher.index.51" /></a> | 
-												<a class="messageReplyLink" href="/webapp/message.html?action=index"><spring:message code="teacher.index.51A" /></a></td></tr>
-											</table>
-											<div class="msgConfirm" id="message_confirm_div_${message.id}"></div>
-											</div>
-										</c:forEach>
-									</c:if> 
-									
-									<div class="msgLink">
-										<a href="/webapp/message.html?action=index"><spring:message code="teacher.index.52" /></a>
-									</div> 
-								</div> -->
 								<ul class="reminders">
 									<c:forEach var="run" items="${current_run_list1}">
 										<sec:accesscontrollist domainObject="${run}" hasPermission="16">
 											<c:if test='${(run.archiveReminderTime.time - current_date.time) < 0}'>
-												<li><spring:message code="teacher.index.46" /> <span style="font-weight:bold;">${run.name} (${run.id})</span> <spring:message code="teacher.index.47" />
+												<li><spring:message code="teacher.index.yourProjectRun" /> <span style="font-weight:bold;">${run.name} (${run.id})</span> <spring:message code="teacher.index.hasBeenOpenSince" />
 													<fmt:formatDate value="${run.starttime}" type="date" dateStyle="medium" timeStyle="short" />.
-													 <spring:message code="teacher.index.48" />  [<a class="runArchiveLink"
-															id='archiveRun_${run.id}'><spring:message code="teacher.index.49" /></a> / <a class="extendReminderLink" id='extendReminder_${run.id}'><spring:message code="teacher.index.49A" /></a>]</li>
+													 <spring:message code="teacher.index.doYouWantToArchive" />  [<a class="runArchiveLink"
+															id='archiveRun_${run.id}'><spring:message code="teacher.index.yes" /></a> / <a class="extendReminderLink" id='extendReminder_${run.id}'><spring:message code="teacher.index.remindMeLater" /></a>]</li>
 											</c:if>
 										</sec:accesscontrollist>
 									</c:forEach>
@@ -264,26 +234,12 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 						</table>
 					</div>
 				</div>
-				
-				<!--  
-						<div class="panelStyleCommunity">
-								<div id="headerTeacherHome">Community Tools</div>
-								<ul>
-										<li>Launch your <a href="#" class="lineThrough">Community Overview</a></li>
-										<li>Launch <a href="#" class="lineThrough">MyShared Projects Forum</a></li>
-										<li>Launch <a href="#" class="lineThrough">SharedWithMe Forum</a></li>
-										<li>Launch <a href="#" class="lineThrough">Mentor Forum</a></li>
-										<li>Launch <a href="#" class="lineThrough">Professional Development Forum</a></li>
-								</ul>
-						</div>
-				-->
-				
 			</div>
 			
 			<div class="contentPanel contentRight">
 				<div class="panelHeader">
-					<spring:message code="teacher.index.22" />
-					<span class="pageTitle"><spring:message code="header.location.teacher"/></span>
+					<spring:message code="teacher.index.recentActivity" />
+					<span class="pageTitle"><spring:message code="teacher.index.teacherHome"/></span>
 				</div>
 				
 				<div class="panelContent">
