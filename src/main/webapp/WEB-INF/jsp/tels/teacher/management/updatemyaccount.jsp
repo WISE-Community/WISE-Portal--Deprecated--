@@ -29,10 +29,7 @@
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
-<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
-
-<title><spring:message code="teacher.manage.account.1"/></title>
+<title><spring:message code="teacher.management.updatemyaccount.title"/></title>
 </head>
 
 <body>
@@ -47,20 +44,20 @@
 			
 			<div class="contentPanel">
 			
-				<div class="panelHeader"><spring:message code="teacher.manage.overview.15" /></div>
+				<div class="panelHeader"><spring:message code="teacher.management.updatemyaccount.header" /></div>
 				
 				<div class="panelContent">
-					<div class="sectionHead"><spring:message code="teacher.manage.overview.20" /></div>
+					<div class="sectionHead"><spring:message code="teacher.management.updatemyaccount.accountInfo" /></div>
 					<div class="sectionContent"> 
-						<h5><a href="changepassword.html"><spring:message code="teacher.manage.account.3"/></a> - <spring:message code="teacher.manage.account.4"/></h5>
-						<h5><a href="updatemyaccountinfo.html"><spring:message code="teacher.manage.account.5"/></a> - <spring:message code="teacher.manage.account.6"/></h5>
+						<h5><a href="changepassword.html"><spring:message code="teacher.management.updatemyaccount.changePassword"/></a> - <spring:message code="teacher.management.updatemyaccount.changePasswordInfo"/></h5>
+						<h5><a href="updatemyaccountinfo.html"><spring:message code="teacher.management.updatemyaccount.editRegistration"/></a> - <spring:message code="teacher.management.updatemyaccount.editRegistrationInfo"/></h5>
 					</div>
 				</div>
 				<!-- <div class="panelContent">
 					<div class="sectionHead">Preferences</div>
 					<div class="sectionContent">
-						<h5><a href="#"><spring:message code="teacher.manage.account.7"/></a> - <spring:message code="teacher.manage.account.8"/></h5>
-						<h5><a href="#"><spring:message code="teacher.manage.account.9"/></a> - <spring:message code="teacher.manage.account.10"/></h5>
+						<h5><a href="#"><spring:message code="teacher.management.updatemyaccount.editPrefernces"/></a> - <spring:message code="teacher.management.updatemyaccount.editPreferncesInfo"/></h5>
+						<h5><a href="#"><spring:message code="teacher.management.updatemyaccount.editLanguage"/></a> - <spring:message code="teacher.management.updatemyaccount.editLanguageInfo"/></h5>
  					</div> -->
 			</div>
 		</div>

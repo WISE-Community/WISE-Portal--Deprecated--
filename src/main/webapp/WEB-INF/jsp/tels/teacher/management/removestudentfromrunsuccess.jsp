@@ -10,7 +10,7 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
-<title><spring:message code="teacher.manage.removestudentsuccess.1"/></title>
+<title><spring:message code="teacher.management.removestudentfromrun.title"/></title>
 
 <script type="text/javascript">
 var refreshRequired = true;
@@ -22,7 +22,7 @@ var refreshRequired = true;
 
 	<div class="dialogContent">
 		<div class="dialogSection">
-			<div class="errorMsgNoBg"><p><spring:message code="teacher.manage.removestudentsuccess.2"/></p></div>
+			<div class="errorMsgNoBg"><p><spring:message code="teacher.management.removestudentfromrunsuccess.success"/></p></div>
 		</div>
 	</div>
 

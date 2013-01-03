@@ -167,20 +167,7 @@ function createAccount() {
 	$('#teacherRegForm').submit();
 };
 
-/**
- * Toggle show/hide of the curriculum box
- */
-function showSubjects() {
-	var posx = /*$('#toggleSubjects').offset().left +*/ $('#toggleSubjects').width() + 30 + 'px';
-	var posy = /*$('#toggleSubjects').offset().top*/ -1*$('#curriculumSubjectsBox').height()*.5 + 'px';
-	$('#curriculumSubjectsBox').css({'top':posy,'left':posx}).fadeToggle();
-};
-
 $(document).ready(function(){
-	$('#closeSubjects').click(function(){
-		$('#curriculumSubjectsBox').fadeOut();
-	});
-	
 	/*
 	 * Set up terms of use dialog
 	 */
@@ -277,7 +264,7 @@ $(document).ready(function(){
 					    <tr>
 					    	<td><label for="schoollevel" id="schoollevel1"><spring:message code="teacher.registerteacher.schoolLevel" /></label></td>
 							<td>
-								<form:select path="userDetails.schoollevel" id="schoollevel" onfocus="Effect.toggle('showSchoolLevelInfo','appear');" onblur="Effect.toggle('showSchoolLevelInfo','appear');">           
+								<form:select path="userDetails.schoollevel" id="schoollevel">           
 						    		<c:forEach items="${schoollevels}" var="schoollevel">
 						            	<form:option value="${schoollevel}"><spring:message code="teacher.registerteacher.${schoollevel}" /></form:option>
 						          	</c:forEach>
@@ -287,17 +274,16 @@ $(document).ready(function(){
 					                 
 					    <tr>
 					    	<td><label for="curriculumsubjects" id="curriculumsubjects1"><spring:message code="teacher.registerteacher.curriculumSubjects" /></label></td>
-							<td style="position:relative;">
-							    <a onclick="showSubjects();" id="toggleSubjects"><spring:message code="teacher.registerteacher.showHideSubjects"/></a> 
+							<td>
+							    <a id="toggleSubjects"><spring:message code="teacher.registerteacher.showHideSubjects"/></a> 
 							   
-							   	<div id="curriculumSubjectsBox" style="display:none;"> 
-							          <div style="font-weight:bold;"><spring:message code="teacher.registerteacher.selectCurriculumSubjects"/></div>
-									  <div><spring:message code="teacher.registerteacher.describeScienceTopics"/></div>
+							   	<div id="curriculumSubjectsBox"> 
+							           <div><spring:message code="teacher.registerteacher.describeScienceTopics"/></div>
 									  
 							          <table id="textCurriculumBox">
 							          <tr>
-							          <td class="width166"><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects1" value="Biology"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.biology"/></td>
-							          <td class="width122"><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects2" value="APBiology"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.apBiology"/></td>
+							          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects1" value="Biology"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.biology"/></td>
+							          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects2" value="APBiology"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.apBiology"/></td>
 							          </tr>
 							          <tr>
 							          <td><form:checkbox path="userDetails.curriculumsubjects" id="userDetails.curriculumsubjects3" value="EnvironmentalScience"/><input type="hidden" value="on"/><spring:message code="teacher.registerteacher.environmentalScience"/></td>
