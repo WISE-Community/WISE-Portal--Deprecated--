@@ -121,60 +121,65 @@ function insertTooltips(target,options){
 };
 
 
-/*These two functions are used for the FORM HINT functionality on registration pages*/
-
-function addLoadEvent(func) {
-  var oldonload = window.onload;
-  if (typeof window.onload != 'function') {
-    window.onload = func;
-  } else {
-    window.onload = function() {
-      oldonload();
-      func();
-    }
-  }
-}
-
+/**
+ * These three functions are used for the FORM HINT functionality on registration pages
+ * TODO: remove and use jQuery form plugin for input hints
+ */
 function prepareInputsForHints() {
-  var inputs = document.getElementsByTagName("input");
+  var inputs = $('input');
   for (var i=0; i<inputs.length; i++){
-    inputs[i].onfocus = function () {
-    	if (this.parentNode.getElementsByClassName("hint").length > 0) {
-    		var hint = this.parentNode.getElementsByClassName("hint")[0];
-    		var xpos = $(this).offset().left + $(this).width() + 15 + 'px';
-    		var ypos = $(this).offset().top + 'px';
-    		$(hint).css({'display':'block','left':xpos,'top':ypos});
-    		//this.parentNode.getElementsByTagName("span")[0].style.display = "inline";
-    	}
-    }
-    inputs[i].onblur = function () {
-    	if (this.parentNode.getElementsByClassName("hint").length > 0) {
-    		this.parentNode.getElementsByClassName("hint")[0].style.display = "none";
-    	}
-    }
+    $(inputs[i]).on('focus', function () {
+		var hint = $('.hint', $(this).parent());
+		var xpos = $(this).offset().left + $(this).width() + 15 + 'px';
+		var ypos = $(this).offset().top + 'px';
+		hint.css({'left':xpos,'top':ypos}).show();
+    });
+    $(inputs[i]).on('blur', function () {
+    	$('.hint', $(this).parent()).hide();
+    });
   }
-  var selects = document.getElementsByTagName("select");
+  var selects = $('select');
   for (var k=0; k<selects.length; k++){
-    selects[k].onfocus = function () {
-    	if (this.parentNode.getElementsByClassName("hint").length > 0) {
-    		var hint = this.parentNode.getElementsByClassName("hint")[0];
-    		var xpos = $(this).offset().left + $(this).width() + 35 + 'px';
-    		var ypos = $(this).offset().top + 'px';
-    		$(hint).css({'display':'block','left':xpos,'top':ypos});
-    		//this.parentNode.getElementsByTagName("span")[0].style.display = "inline";
-    	}
-    }
-    selects[k].onblur = function () {
-    	if (this.parentNode.getElementsByClassName("hint").length > 0) {
-    		this.parentNode.getElementsByClassName("hint")[0].style.display = "none";
-    	}
-    }
+	 $(selects[i]).on('focus', function () {
+		var hint = $('.hint', this.parent());
+		var xpos = $(this).offset().left + $(this).width() + 35 + 'px';
+		var ypos = $(this).offset().top + 'px';
+		hint.css({'left':xpos,'top':ypos}).show();
+    });
+	 $(selects[i]).on('blur', function () {
+    	$('.hint', $(this).parent()).hide();
+    })
   }
 }
-addLoadEvent(prepareInputsForHints);
+
+function prepareSubjectsSelect(){
+	$('#closeSubjects').on('click',function(){
+		$('#curriculumSubjectsBox').fadeOut();
+	});
+	
+	$('#toggleSubjects').on('click',function(){
+		showSubjectsSelect();
+	});
+}
+
+/**
+ * Toggle show/hide of the curriculum box
+ */
+function showSubjectsSelect() {
+	var xpos = $('#toggleSubjects').offset().left + $('#toggleSubjects').width() + 50 + 'px';
+	var ypos = $('#toggleSubjects').offset().top - 3*$('#curriculumSubjectsBox').height()/4 + 'px';
+	$('#curriculumSubjectsBox').css({'left':xpos,'top':ypos}).fadeToggle();
+};
+
+$(document).ready(function(){
+	prepareInputsForHints();
+	prepareSubjectsSelect();
+});
 
 
-// Added my MattFish to handle special Pop-Up Windows on Teacher Dashboard pages //
+/* Added my MattFish to handle special Pop-Up Windows on Teacher Dashboard pages 
+** TODO: remove 
+*/
 
 function popupSpecial(mylink, windowname)
 		{

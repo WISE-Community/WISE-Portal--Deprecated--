@@ -110,17 +110,12 @@
     		    /teacher/termsofuse.html=termsOfUseController
     		    /teacher/registerteacher.html=registerteacherController
     		    /teacher/curriculumsubjects.html=curriculumSubjectsController
-    		    /teacher/projects/changeperiods.html=changePeriodsController
     		    /teacher/projects/languagetranslations.html=languageTranslationsController
     		    /teacher/projects/projectinfo.html=projectInfoController
     		    /teacher/projects/customized/shareproject.html=shareProjectController
     		    /teacher/projects/customized/unshareproject.html=unShareProjectController
     		    /teacher/run/shareprojectrun.html=shareProjectRunController
     		    /teacher/run/unshareprojectrun.html=unShareProjectRunController
-    		    /teacher/run/myprojectruns.html=myProjectRunsMainController
-    		    /teacher/run/projectruntabs.html=myProjectRunsController
-    		    /teacher/run/myarchivedruns.html=myArchivedRunsController
-    		    /teacher/run/archivedrunmanager.html=archivedRunManagerController
     		    /teacher/run/manage/archiveRun.html=endRunController
     		    /teacher/run/manage/startRun.html=startRunController
     		    /teacher/run/createRun.html=createRunController

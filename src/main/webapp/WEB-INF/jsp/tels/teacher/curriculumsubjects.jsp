@@ -32,52 +32,52 @@
 </head>
 
 <body>
-<h3 align="center"><spring:message code="teacher.curriculum.1a"/></h3>
-<p><spring:message code="teacher.curriculum.1b"/></p>
+<h3 align="center"><spring:message code="teacher.curriculumsubjects.selectYourSubjects"/></h3>
+<p><spring:message code="teacher.curriculumsubjects.selectScienceTopics"/></p>
 <table style="font-style:bold;font-size:1.1em;">
 <tr>
 <td> 
-<spring:message code="teacher.curriculum.2"/> 
+<spring:message code="teacher.curriculumsubjects.biology"/> 
 </td>
-<td><spring:message code="teacher.curriculum.3"/></td>
-<td><spring:message code="teacher.curriculum.4"/></td>
+<td><spring:message code="teacher.curriculumsubjects.apBiology"/></td>
+<td><spring:message code="teacher.curriculumsubjects.environmentalScience"/></td>
 </tr>
 <tr>
 <td>
-<spring:message code="teacher.curriculum.5"/></td>
+<spring:message code="teacher.curriculumsubjects.chemistry"/></td>
 <td>
-<spring:message code="teacher.curriculum.6"/></td>
+<spring:message code="teacher.curriculumsubjects.apChemistry"/></td>
 <td>
-<spring:message code="teacher.curriculum.7"/></td>
+<spring:message code="teacher.curriculumsubjects.astronomy"/></td>
 </tr>
 <tr>
 <td>
-<spring:message code="teacher.curriculum.8"/></td>
+<spring:message code="teacher.curriculumsubjects.physics"/></td>
 <td>
-<spring:message code="teacher.curriculum.9"/></td>
+<spring:message code="teacher.curriculumsubjects.apPhysics"/></td>
 <td>
-<spring:message code="teacher.curriculum.10"/></td>
+<spring:message code="teacher.curriculumsubjects.anatomy"/></td>
 </tr>
 <tr>
 <td>
-<spring:message code="teacher.curriculum.11"/></td>
+<spring:message code="teacher.curriculumsubjects.earthScience"/></td>
 <td>
-<spring:message code="teacher.curriculum.12"/></td>
+<spring:message code="teacher.curriculumsubjects.biotechnology"/></td>
 <td>
-<spring:message code="teacher.curriculum.13"/></td>
+<spring:message code="teacher.curriculumsubjects.geology"/></td>
 </tr>
 <tr>
 <td>
-<spring:message code="teacher.curriculum.14"/></td>
+<spring:message code="teacher.curriculumsubjects.integratedScience"/></td>
 <td>
-<spring:message code="teacher.curriculum.15"/></td>
+<spring:message code="teacher.curriculumsubjects.advancedIntegratedScience"/></td>
 <td>
-<spring:message code="teacher.curriculum.16"/></td>
+<spring:message code="teacher.curriculumsubjects.other"/></td>
 </tr>
 </table> 
 
 <div align="center" style="position:relative;top:30px;">
-<spring:message code="teacher.curriculum.17"/>
+<spring:message code="teacher.curriculumsubjects.note"/>
 <br />
 <a href="#">
  <img border="0px;" align="center" src="../<spring:theme code="register_save" />" />

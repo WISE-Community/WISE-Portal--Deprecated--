@@ -20,7 +20,7 @@
 <script src="/webapp/javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="/webapp/javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
-<title><spring:message code="teacher.setup-project-run-step-two" /></title>
+<title><spring:message code="teacher.run.create.createrunarchive.settingUpAProjectRunStep2" /></title>
 
 </head>
 
@@ -38,33 +38,33 @@
 			
 			<div class="contentPanel">
 				<div class="panelHeader">
-					<spring:message code="teacher.setup-project-classroom-run" />
-					<span class="pageTitle"><spring:message code="header.location.teacher.management"/></span>
+					<spring:message code="teacher.run.create.createrunarchive.setupAClassroomRun" />
+					<span class="pageTitle"><spring:message code="teacher.run.create.createrunarchive.management"/></span>
 				</div>
 				<form:form method="post" commandName="runParameters" autocomplete='off'>
 					<div class="panelContent">
 						<div id="setUpRunBox">
-							<div id="stepNumber" class="sectionHead"><spring:message code="teacher.run.setup.12"/>&nbsp;<spring:message code="teacher.run.setup.13"/></div>
+							<div id="stepNumber" class="sectionHead"><spring:message code="teacher.run.create.createrunarchive.step2Of5"/>&nbsp;<spring:message code="teacher.run.create.createrunarchive.archiveExistingProjectRuns"/></div>
 							<div class="sectionContent">
 	
-								<h5><spring:message code="teacher.run.setup.14"/></h5>
-								<h5><spring:message code="teacher.run.setup.15a"/></h5>
-								<h5><spring:message code="teacher.run.setup.15b"/></h5>
+								<h5><spring:message code="teacher.run.create.createrunarchive.yourActiveClassroomRuns"/></h5>
+								<h5><spring:message code="teacher.run.create.createrunarchive.whenYouArchive"/></h5>
+								<h5><spring:message code="teacher.run.create.createrunarchive.archiveRunInformation"/></h5>
 	
 								<c:choose>
 									<c:when test="${fn:length(existingRunList) == 0}">
-								      <h5 style="font-weight:bold;"><spring:message code="teacher.run.setup.16"/></h5>
+								      <h5 style="font-weight:bold;"><spring:message code="teacher.run.create.createrunarchive.youAreNotRunningAny"/></h5>
 									</c:when>
 									<c:otherwise>
 										<div id="setupProjectTableContainer">
 											<table  id="setupProjectTable" class="wisetable">
 												<thead>
 													<tr>
-														<th><spring:message code="teacher.run.setup.17"/></th>
-														<th><spring:message code="teacher.run.setup.18"/></th>
-														<th><spring:message code="teacher.run.setup.19"/></th>
-														<th><spring:message code="teacher.run.setup.20"/></th>
-														<th><spring:message code="teacher.run.setup.21"/></th>
+														<th><spring:message code="teacher.run.create.createrunarchive.checkToArchive"/></th>
+														<th><spring:message code="teacher.run.create.createrunarchive.projectTitle"/></th>
+														<th><spring:message code="teacher.run.create.createrunarchive.runId"/></th>
+														<th><spring:message code="teacher.run.create.createrunarchive.runCreatedOn"/></th>
+														<th><spring:message code="teacher.run.create.createrunarchive.lastRevisionOn"/></th>
 													</tr>
 												</thead>
 											    <c:forEach var="run" items="${existingRunList}">
@@ -86,7 +86,7 @@
 												</c:forEach>
 											</table>
 										</div>
-										<h5><spring:message code="teacher.run.setup.22"/>&nbsp;<em><spring:message code="teacher.run.setup.23"/></em>&nbsp;<spring:message code="teacher.run.setup.24"/></h5>
+										<h5><spring:message code="teacher.run.create.createrunarchive.ifYouDoNotWish"/>&nbsp;<em><spring:message code="teacher.run.create.createrunarchive.next"/></em>&nbsp;<spring:message code="teacher.run.create.createrunarchive.toContinue"/></h5>
 									</c:otherwise>
 									
 								</c:choose>
@@ -94,9 +94,9 @@
 							</div>
 						</div> <!-- /* End setUpRunBox */-->
 						<div class="center">
-							<input type="submit" name="_target0" value="<spring:message code="navigate.back" />" />
-							<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
-							<input type="submit" name="_target2" value="<spring:message code="navigate.next" />" />
+							<input type="submit" name="_target0" value="<spring:message code="teacher.run.create.createrunarchive.back" />" />
+							<input type="submit" name="_cancel" value="<spring:message code="teacher.run.create.createrunarchive.cancel" />" />
+							<input type="submit" name="_target2" value="<spring:message code="teacher.run.create.createrunarchive.next" />" />
 						</div>
 					</div>
 				</form:form>

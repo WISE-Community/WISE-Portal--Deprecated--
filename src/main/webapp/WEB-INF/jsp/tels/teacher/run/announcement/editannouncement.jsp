@@ -19,7 +19,7 @@
 <body style="background:#FFFFFF;">
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	<div class="dialogContent">
-		<div class="sectionHead">Edit Announcement</div>
+		<div class="sectionHead"><spring:message code="teacher.run.announcement.editannouncement.editAnnouncement"/></div>
 		<div class="dialogSection">
 			<div class="errorMsgNoBg">
 				<!-- Support for Spring errors object -->
@@ -31,13 +31,13 @@
 			</div>
 			<form:form method="post" action="editannouncement.html" commandName="announcementParameters" id="editannouncement" autocomplete='off'>
 				<div>
-					<label for="titleField">Title: </label><form:input path="title" id="titleField"/>
+					<label for="titleField"><spring:message code="teacher.run.announcement.editannouncement.title"/> </label><form:input path="title" id="titleField"/>
 				</div><br />
-				<div><label for="announcementField">Message: </label></div>
+				<div><label for="announcementField"><spring:message code="teacher.run.announcement.editannouncement.message"/> </label></div>
 				<div><form:textarea path="announcement" rows="7" cols="90" id="announcementField"/></div>
 				<br />
 				<% String runId = request.getParameter( "runId" ); %>
-				<div><input type="submit" id="save" value="Save" />  <a href="manageannouncement.html?runId=<c:out value='${param.runId}' />">Cancel</a></div>
+				<div><input type="submit" id="save" value="Save" />  <a href="manageannouncement.html?runId=<c:out value='${param.runId}' />"><spring:message code="teacher.run.announcement.editannouncement.cancel"/></a></div>
 			</form:form>
 		</div>
 	</div>

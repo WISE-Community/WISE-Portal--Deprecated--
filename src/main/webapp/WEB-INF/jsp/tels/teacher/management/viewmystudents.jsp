@@ -40,8 +40,7 @@ $(document).ready(function(){
 	});
 	
 	if (${workgroupsWithoutPeriod != ""}) {
-		alert("You have workgroups that are not associated with periods. "
-				+" Please talk to a WISE staff to fix this problem. ID: ${workgroupsWithoutPeriod}");
+		alert('<spring:escapeBody javaScriptEscape="true"><spring:message code="teacher.management.viewmystudents.unassignedWorkgroups"/></spring:escapeBody> ${workgroupsWithoutPeriod}');
 	}
 	
 	$(window).resize(function(){
@@ -236,8 +235,8 @@ var createNewWorkgroup = function(periodId, runId) {
 	var workareaDiv = document.getElementById("div_for_new_workgroups_"+periodId);
 	workareaDiv.innerHTML += "<div class='workarea' id='newgroup_div_"+periodId+"_"+newWorkgroupId+"'>"
                           +"<ul id='ul_"+periodId+"_newgroup_"+newWorkgroupId+"' class='draglist'>"
-                          +"<li class='workgroupHeader newWorkgroupHeader'><spring:message code='teacher.manage.viewstudents.27'/></li>"+
-                          "<li class='emptyGroup'><spring:message code='teacher.manage.viewstudents.28'/></li></ul>"
+                          +"<li class='workgroupHeader newWorkgroupHeader'><spring:message code='teacher.management.viewmystudents.newTeamHeader'/></li>"+
+                          "<li class='emptyGroup'><spring:message code='teacher.management.viewmystudents.newTeamInstructions'/></li></ul>"
                           +"</div>";
                          
 	setSortable(); // re-register sortable elements to include new workgroup
@@ -302,11 +301,11 @@ var registerWorkgroupChange = function(event, ui){
    		// if workgroupFrom and workgroupTo are different, notify user that student data will change
    		if(workgroupFrom != 'groupless') { // student was groupless, no need to warn of data loss
 	   		if(workgroupTo == 'groupless'){
-	   			var notifyMsg = "<spring:message code='teacher.manage.viewstudents.notify.2'/>";
+	   			var notifyMsg = "<spring:message code='teacher.management.viewmystudents.moveStudentWarning_groupless'/>";
 	   		} else if (parseInt(workgroupTo)<0){
-	   			var notifyMsg = "<spring:message code='teacher.manage.viewstudents.notify.3'/>";
+	   			var notifyMsg = "<spring:message code='teacher.management.viewmystudents.moveStudentWarning_newGroup'/>";
 	   		} else {
-	   			var notifyMsg = "<spring:message code='teacher.manage.viewstudents.notify.1'/>";
+	   			var notifyMsg = "<spring:message code='teacher.management.viewmystudents.moveStudentWarning_differentGroup'/>";
 	   		}
    		
 		   	// TODO: add notification if change results in an empty workgroup
@@ -359,7 +358,7 @@ var postChanges = function(tabIndex){
    	// on post error, alert user
    	var handleError = function(jqXHR, textStatus, errorThrown){
    		$('#loading').dialog('close');
-   		alert('<spring:message code="teacher.manage.viewstudents.error.1"/>');
+   		alert('<spring:message code="teacher.management.viewmystudents.saveError"/>');
    	};
    	
    	var postDataStrings = new Array();
@@ -396,7 +395,7 @@ var displayNotification = function(message){
 	}
 	var notificationDiv = $('<div id="notifications"></div>');
 	var notificationSpan = $('<span></span>');
-	var content = '<spring:message code="teacher.manage.viewstudents.notify"/> ' + message;
+	var content = '<spring:message code="teacher.management.viewmystudents.notice"/> ' + message;
 	notificationSpan.text(content);
 	notificationSpan.appendTo(notificationDiv);
 	notificationDiv.css({'top':top,"left":0,"right":0,"position":"absolute"}).appendTo($('.manageStudents'));
@@ -423,20 +422,20 @@ var displayNotification = function(message){
 			<div class="gradingTools">
 				<div id="fixedGradingHeader" class="gradingHeader">
 					<div>
-						<a href="studentlist.html?runId=${run.id}" target="_blank"><img class="icon" alt="print" src="/webapp/themes/tels/default/images/icons/teal/print.png" /><span><spring:message code="teacher.manage.viewstudents.20"/></span></a>
-						<a href="studentlistexcel.html?runId=${run.id}"><img class="icon" alt="excel" src="/webapp/themes/tels/default/images/icons/teal/addressbook.png" /><span><spring:message code="teacher.manage.viewstudents.22"/></span></a>
+						<a href="studentlist.html?runId=${run.id}" target="_blank"><img class="icon" alt="print" src="/webapp/themes/tels/default/images/icons/teal/print.png" /><span><spring:message code="teacher.management.viewmystudents.print"/></span></a>
+						<a href="studentlistexcel.html?runId=${run.id}"><img class="icon" alt="excel" src="/webapp/themes/tels/default/images/icons/teal/addressbook.png" /><span><spring:message code="teacher.management.viewmystudents.export"/></span></a>
 					</div>
 					<div style="float:right;">
-						<a class="saveButton disabled" id="saveButton" onclick=""><spring:message code="teacher.manage.viewstudents.24"/></a>
+						<a class="saveButton disabled" id="saveButton" onclick=""><spring:message code="teacher.management.viewmystudents.save"/></a>
 					</div>
 				</div>
 				
 				<div id="periodSelect" class="gradingHeader">
 					<div id="periodTabs" style="float:left;">
 						<ul>
-						<li><a style="color:#FFF;padding: 2px 0;text-decoration: none !important;cursor: text !important;margin-left: 0;"><spring:message code="teacher.manage.viewstudents.25"/> </a></li>
+						<li><a style="color:#FFF;padding: 2px 0;text-decoration: none !important;cursor: text !important;margin-left: 0;"><spring:message code="teacher.management.viewmystudents.changePeriodLabel"/> </a></li>
 						<c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">
-							<li><a href="#period_${viewmystudentsperiod.period.name}" class="periodChoice"><spring:message code="teacher.manage.viewstudents.23"/> ${viewmystudentsperiod.period.name}</a></li>
+							<li><a href="#period_${viewmystudentsperiod.period.name}" class="periodChoice"><spring:message code="run_period"/> ${viewmystudentsperiod.period.name}</a></li>
 						</c:forEach>
 						</ul>
 					</div>
@@ -450,28 +449,28 @@ var displayNotification = function(message){
 						<c:when test="${fn:length(viewmystudentsperiod.period.members) == 0}">
 							<div class="gradingHeader studentManageHeader">
 								<ul id="periodHeaderBar">
-						    		<li><span class="manageDataStyle"><spring:message code="teacher.manage.viewstudents.23"/>: ${viewmystudentsperiod.period.name}</span></li>
-							    	<li><spring:message code="teacher.manage.viewstudents.3"/>&nbsp;<span class="manageDataStyle">${fn:length(viewmystudentsperiod.period.members)}</span></li>
-							    	<li><spring:message code="teacher.manage.viewstudents.4"/>&nbsp;<span class="manageDataStyle">${fn:length(viewmystudentsperiod.workgroups)}</span></li>
-							    	<li><spring:message code="teacher.manage.viewstudents.5"/>&nbsp;<span class="manageDataStyle">${viewmystudentsperiod.run.runcode}</span></li>
+						    		<li><span class="manageDataStyle"><spring:message code="run_period_label"/> ${viewmystudentsperiod.period.name}</span></li>
+							    	<li><spring:message code="student_plural_label"/>&nbsp;<span class="manageDataStyle">${fn:length(viewmystudentsperiod.period.members)}</span></li>
+							    	<li><spring:message code="teacher.management.viewmystudents.teamsLabel"/>&nbsp;<span class="manageDataStyle">${fn:length(viewmystudentsperiod.workgroups)}</span></li>
+							    	<li><spring:message code="teacher.management.viewmystudents.accessCode"/>&nbsp;<span class="manageDataStyle">${viewmystudentsperiod.run.runcode}</span></li>
 							    </ul>
 							</div>
 							<div class="gradingContent">
-								<p class="info" style="font-size:1em;"><spring:message code="teacher.manage.viewstudents.2"/></p>
+								<p class="info" style="font-size:1em;"><spring:message code="teacher.management.viewmystudents.emptyPeriod"/></p>
 							</div>
 						</c:when>
 						<c:otherwise>
 						    <!--  there are students in this period  -->
 						    <div class="gradingHeader studentManageHeader">
 						    	<ul id="periodHeaderBar">
-						    		<li><span class="manageDataStyle"><spring:message code="teacher.manage.viewstudents.23"/>: ${viewmystudentsperiod.period.name}</span></li>
-							    	<li><spring:message code="teacher.manage.viewstudents.3"/>&nbsp;<span class="manageDataStyle">${fn:length(viewmystudentsperiod.period.members)}</span></li>
-							    	<li><spring:message code="teacher.manage.viewstudents.4"/>&nbsp;<span class="manageDataStyle">${fn:length(viewmystudentsperiod.workgroups)}</span></li>
-							    	<li><spring:message code="teacher.manage.viewstudents.5"/>&nbsp;<span class="manageDataStyle">${viewmystudentsperiod.run.runcode}</span></li>
+						    		<li><span class="manageDataStyle"><spring:message code="run_period"/>: ${viewmystudentsperiod.period.name}</span></li>
+							    	<li><spring:message code="student_plural_label"/>&nbsp;<span class="manageDataStyle">${fn:length(viewmystudentsperiod.period.members)}</span></li>
+							    	<li><spring:message code="teacher.management.viewmystudents.teamsLabel"/>&nbsp;<span class="manageDataStyle">${fn:length(viewmystudentsperiod.workgroups)}</span></li>
+							    	<li><spring:message code="teacher.management.viewmystudents.accessCode"/>&nbsp;<span class="manageDataStyle">${viewmystudentsperiod.run.runcode}</span></li>
 							    	<li style="float:right;">
-							    		<a onclick="createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});"><img class="icon" alt="new team" src="/webapp/themes/tels/default/images/icons/teal/multi-agents.png" /><span><spring:message code="teacher.manage.viewstudents.6"/></span></a>
-							     		<a class="changeAllPasswords" id="changeAllPasswords_groupId=${viewmystudentsperiod.period.id}&runId=${viewmystudentsperiod.run.id}" title="<spring:message code="teacher.manage.viewstudents.36"/> <spring:message code="teacher.manage.viewstudents.23"/> ${viewmystudentsperiod.period.name}"><img class="icon" alt="password" src="/webapp/themes/tels/default/images/icons/teal/shield.png" /><span><spring:message code="teacher.manage.viewstudents.7"/></span></a>
-							       		<a><spring:message code="teacher.manage.viewstudents.8"/></a>
+							    		<a onclick="createNewWorkgroup(${viewmystudentsperiod.period.id}, ${viewmystudentsperiod.run.id});"><img class="icon" alt="new team" src="/webapp/themes/tels/default/images/icons/teal/multi-agents.png" /><span><spring:message code="teacher.management.viewmystudents.createNewTeam"/></span></a>
+							     		<a class="changeAllPasswords" id="changeAllPasswords_groupId=${viewmystudentsperiod.period.id}&runId=${viewmystudentsperiod.run.id}" title="<spring:message code="teacher.management.viewmystudents.changeAllPasswords"/>: <spring:message code="run_period"/> ${viewmystudentsperiod.period.name}"><img class="icon" alt="password" src="/webapp/themes/tels/default/images/icons/teal/shield.png" /><span><spring:message code="teacher.management.viewmystudents.changeAllPasswords"/></span></a>
+							       		<a><spring:message code="help"/></a>
 							       	</li>
 							    </ul>
 							</div>
@@ -481,18 +480,18 @@ var displayNotification = function(message){
 									<td>
 									<div class="workarea" id="groupless_div_${viewmystudentsperiod.period.id}">
 									  <ul id="ul_${viewmystudentsperiod.period.id}_workgroup_groupless" class="draglist">
-									    <li class="grouplessHeader"><spring:message code="teacher.manage.viewstudents.17"/></li>
+									    <li class="grouplessHeader"><spring:message code="teacher.management.viewmystudents.unassignedStudents"/></li>
 						
 						                <c:forEach var="mem" items="${viewmystudentsperiod.grouplessStudents}">
 									      <li class="grouplesslist" id="li_${mem.id}_groupless">
 									      
 									         <span class="userNameWithinView">${mem.userDetails.firstname} ${mem.userDetails.lastname} (${mem.userDetails.username})</span>
 						    			     <span class="userLinksBar">
-						    			     <a class="userLinks studentInfo" id="studentInfo_${mem.userDetails.username}" title="<spring:message code="teacher.manage.viewstudents.32"/> ${mem.userDetails.username}"><spring:message code="teacher.manage.viewstudents.29"/></a>
-						    			     <a class="userLinks changePassword" id="changePassword_${mem.userDetails.username}" title="<spring:message code="teacher.manage.viewstudents.33"/> ${mem.userDetails.username}"><spring:message code="teacher.manage.viewstudents.30"/></a>
-						    			     <a class="userLinks changePeriod" id="changePeriod_userId=${mem.id}&runId=${viewmystudentsperiod.run.id}&projectCode=${viewmystudentsperiod.period.name}" title="<spring:message code="teacher.manage.viewstudents.34"/> ${mem.userDetails.username}"><spring:message code="teacher.manage.viewstudents.23"/></a>
-						    			     <a class="userLinks removeStudent" id="removeStudent_runId=${viewmystudentsperiod.run.id}&userId=${mem.id}" title="<spring:message code="teacher.manage.viewstudents.35"/> ${mem.userDetails.username}"><spring:message code="teacher.manage.viewstudents.31"/></a>
-						    			     </span>
+							    			     <a class="userLinks studentInfo" id="studentInfo_${mem.userDetails.username}" title="<spring:message code="teacher.management.viewmystudents.studentInfoTitle"/> ${mem.userDetails.username}"><spring:message code="teacher.management.viewmystudents.studentInfo"/></a>
+							    			     <a class="userLinks changePassword" id="changePassword_${mem.userDetails.username}" title="<spring:message code="teacher.management.viewmystudents.changeStudentPasswordTitle"/> ${mem.userDetails.username}"><spring:message code="teacher.management.viewmystudents.changeStudentPassword"/></a>
+							    			     <a class="userLinks changePeriod" id="changePeriod_userId=${mem.id}&runId=${viewmystudentsperiod.run.id}&projectCode=${viewmystudentsperiod.period.name}" title="<spring:message code="teacher.management.viewmystudents.changeStudentPeriodTitle"/> ${mem.userDetails.username}"><spring:message code="teacher.management.viewmystudents.changeStudentPeriod"/></a>
+							    			     <a class="userLinks removeStudent" id="removeStudent_runId=${viewmystudentsperiod.run.id}&userId=${mem.id}" title="<spring:message code="teacher.management.viewmystudents.removeStudentTitle"/> ${mem.userDetails.username}"><spring:message code="teacher.management.viewmystudents.removeStudent"/></a>
+							    			 </span>
 						    			  </li>
 									    </c:forEach>
 						  			  </ul>
@@ -507,8 +506,7 @@ var displayNotification = function(message){
 						                <td>
 						              <div class="workarea" id="div_${workgroupInPeriod.id}">
 									    <ul id="ul_${viewmystudentsperiod.period.id}_workgroup_${workgroupInPeriod.id}" class="draglist">  
-									      <li class="workgroupHeader"><spring:message code="teacher.manage.viewstudents.26"/> ${workgroupInPeriod.id}
-									        <!-- <a class="createPdfLink" href="${workgroupInPeriod.workPDFUrl}"><spring:message code="teacher.manage.viewstudents.18"/></a>   -->
+									      <li class="workgroupHeader"><spring:message code="teacher.management.viewmystudents.team"/> ${workgroupInPeriod.id}
 									      </li>
 									      
 									      <c:forEach var="workgroupMember" items="${workgroupInPeriod.members}">
@@ -516,10 +514,10 @@ var displayNotification = function(message){
 									        <li class="workgrouplist" id="li_${workgroupMember.id}_${workgroupInPeriod.id}">
 									         <span class="userNameWithinView">${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname} (${workgroupMember.userDetails.username})</span>
 						    			     <span class="userLinksBar">
-						    			     <a class="userLinks studentInfo" id="studentInfo_${workgroupMember.userDetails.username}" title="<spring:message code="teacher.manage.viewstudents.32"/> ${workgroupMember.userDetails.username}"><spring:message code="teacher.manage.viewstudents.29"/></a>
-						    			     <a class="userLinks changePassword" id="changePassword_${workgroupMember.userDetails.username}" title="<spring:message code="teacher.manage.viewstudents.33"/> ${workgroupMember.userDetails.username}"><spring:message code="teacher.manage.viewstudents.30"/></a>
-						    			     <a class="userLinks changePeriod" id="changePeriod_userId=${workgroupMember.id}&runId=${viewmystudentsperiod.run.id}&projectCode=${viewmystudentsperiod.period.name}" title="<spring:message code="teacher.manage.viewstudents.34"/> ${workgroupMember.userDetails.username}"><spring:message code="teacher.manage.viewstudents.23"/></a>
-						    			     <a class="userLinks removeStudent" id="removeStudent_runId=${viewmystudentsperiod.run.id}&userId=${workgroupMember.id}" title="<spring:message code="teacher.manage.viewstudents.35"/> ${workgroupMember.userDetails.username}"><spring:message code="teacher.manage.viewstudents.31"/></a>
+							    			     <a class="userLinks studentInfo" id="studentInfo_${workgroupMember.userDetails.username}" title="<spring:message code="teacher.management.viewmystudents.studentInfoTitle"/> ${workgroupMember.userDetails.username}"><spring:message code="teacher.management.viewmystudents.studentInfo"/></a>
+							    			     <a class="userLinks changePassword" id="changePassword_${workgroupMember.userDetails.username}" title="<spring:message code="teacher.management.viewmystudents.changeStudentPasswordTitle"/> ${workgroupMember.userDetails.username}"><spring:message code="teacher.management.viewmystudents.changeStudentPassword"/></a>
+							    			     <a class="userLinks changePeriod" id="changePeriod_userId=${workgroupMember.id}&runId=${viewmystudentsperiod.run.id}&projectCode=${viewmystudentsperiod.period.name}" title="<spring:message code="teacher.management.viewmystudents.changeStudentPeriodTitle"/> ${workgroupMember.userDetails.username}"><spring:message code="teacher.management.viewmystudents.changeStudentPeriod"/></a>
+							    			     <a class="userLinks removeStudent" id="removeStudent_runId=${viewmystudentsperiod.run.id}&userId=${workgroupMember.id}" title="<spring:message code="teacher.management.viewmystudents.removeStudentTitle"/> ${workgroupMember.userDetails.username}"><spring:message code="teacher.management.viewmystudents.removeStudent"/></a>
 						    			     </span>
 									        </li>
 									      </c:forEach>
@@ -545,7 +543,7 @@ var displayNotification = function(message){
 		</div>
 	</div>
  	<div id="loading" style="display:none;">
-        <div class="hd"><spring:message code="teacher.manage.viewstudents.message.1"/></div>
+        <div class="hd"><spring:message code="teacher.management.viewmystudents.saveMessage"/></div>
         <div class="bd"><img src="/vlewrapper/vle/images/loading.gif"></div>
         <div class="ft">
         </div>

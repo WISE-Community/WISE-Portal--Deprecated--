@@ -21,7 +21,7 @@
 <script src="/webapp/javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
 
-<title><spring:message code="teacher.setup-project-run-step-three" /></title>
+<title><spring:message code="teacher.run.create.createrunconfigure.settingUpAProjectRunStep3" /></title>
 
 </head>
 
@@ -54,30 +54,30 @@
 			
 			<div class="contentPanel">
 				<div class="panelHeader">
-					<spring:message code="teacher.setup-project-classroom-run" />
-					<span class="pageTitle"><spring:message code="header.location.teacher.management"/></span>
+					<spring:message code="teacher.run.create.createrunconfigure.setupAClassroomRun" />
+					<span class="pageTitle"><spring:message code="teacher.run.create.createrunconfigure.management"/></span>
 				</div>
 				<form:form method="post" commandName="runParameters" autocomplete='off'>
 					<div class="panelContent">
 						<div id="setUpRunBox">
-							<div id="stepNumber" class="sectionHead"><spring:message code="teacher.run.setup.28.1"/>&nbsp;<spring:message code="teacher.run.setup.28.2"/></div>
+							<div id="stepNumber" class="sectionHead"><spring:message code="teacher.run.create.createrunconfigure.step4Of5"/>&nbsp;<spring:message code="teacher.run.create.createrunconfigure.configureTheRun"/></div>
 							<div class="sectionContent">
 
-								<h5><spring:message code="teacher.run.setup.28.3"/><spring:message code="teacher.run.setup.28.4"/>.</h5>
+								<h5><spring:message code="teacher.run.create.createrunconfigure.selectNumberStudentsInWorkgroup"/><spring:message code="teacher.run.create.createrunconfigure.next"/>.</h5>
 
 
 								<h5 style="margin:.5em;">
-									How many students per computer during the project?<br/>
-									<form:radiobutton path="maxWorkgroupSize" value='1'/>Always 1 student per computer.<br/>
-									<form:radiobutton path="maxWorkgroupSize" value='${maxWorkgroupSize}'/>1~${maxWorkgroupSize} students per computer.
+									<spring:message code="teacher.run.create.createrunconfigure.howManyStudentsPerComputer"/><br/>
+									<form:radiobutton path="maxWorkgroupSize" value='1'/><spring:message code="teacher.run.create.createrunconfigure.always1"/><br/>
+									<form:radiobutton path="maxWorkgroupSize" value='${maxWorkgroupSize}'/><spring:message code="teacher.run.create.createrunconfigure.1to"/>${maxWorkgroupSize} <spring:message code="teacher.run.create.createrunconfigure.studentsPerComputer"/>
 								</h5>
 								<h5 style="margin:.5em;">
-									Select the storage level for this run<br/>
+									<spring:message code="teacher.run.create.createrunconfigure.selectStorageLevel"/><br/>
 									<c:choose>
 										<c:when test="${minPostLevel==5}">
 											<br/>
-											The author of this project requires that this run log students' data at the highest level. If you would<br/>
-											like to override this setting, please <a href="webapp/contact/contactwisegeneral.html">contact WISE.</a><br/>
+											<spring:message code="teacher.run.create.createrunconfigure.requiresLogStudentDataHighestLevel"/><br/>
+											<spring:message code="teacher.run.create.createrunconfigure.likeToOverrideThisSetting"/> <a href="webapp/contact/contactwisegeneral.html"><spring:message code="teacher.run.create.createrunconfigure.contactWise"/></a><br/>
 										</c:when>
 										<c:otherwise>	
 											<c:forEach var='postLevel' items='${implementedPostLevels}'>
@@ -91,9 +91,9 @@
 							</div>
 						</div>
 						<div class="center">
-							<input type="submit" name="_target2" value="<spring:message code="navigate.back"/>" />
-							<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel"/>" />
-							<input type="submit" name="_target4" value="<spring:message code="navigate.next"/>" />
+							<input type="submit" name="_target2" value="<spring:message code="teacher.run.create.createrunconfigure.back"/>" />
+							<input type="submit" name="_cancel" value="<spring:message code="teacher.run.create.createrunconfigure.cancel"/>" />
+							<input type="submit" name="_target4" value="<spring:message code="teacher.run.create.createrunconfigure.next"/>" />
 						</div>
 					</div>
 				</form:form>

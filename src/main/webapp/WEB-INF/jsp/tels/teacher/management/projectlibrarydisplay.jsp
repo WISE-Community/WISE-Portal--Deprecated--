@@ -3,12 +3,6 @@
 <link href="<spring:theme code="facetedfilter.css"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="tiptip.css"/>" media="screen" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src="<spring:theme code="tiptip.js"/>"></script>
-<script type="text/javascript" src="<spring:theme code="jquerydatatables.js"/>"></script>
-<script type="text/javascript" src="<spring:theme code="datatables.fngetfilterednodes.js"/>"></script>
-<script type="text/javascript" src="<spring:theme code="facetedfilter.js"/>"></script>
-<script type="text/javascript" src="<spring:theme code="jqueryprintelement.js"/>"></script>
-
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -16,15 +10,15 @@
 
 <div id="projectTabs" class="panelTabs">
     <ul>
-    	<li><a href="#activeProjects"><spring:message code="teacher.run.myprojectruns.1A"/>  (${totalActiveProjects})</a></li>
-    	<li><a href="#archivedProjects"><spring:message code="teacher.run.myprojectruns.1B"/>  (${totalArchivedProjects})</a></li>
+    	<li><a href="#activeProjects"><spring:message code="current"/>  (${totalActiveProjects})</a></li>
+    	<li><a href="#archivedProjects"><spring:message code="archived"/>  (${totalArchivedProjects})</a></li>
     </ul>
     <div id="activeProjects">
     	<div class="runBox">
 			<table id="myProjects" class="projectTable">
 				<thead class="tableHeaderMain">
 					<tr>
-						<th><spring:message code="teacher.manage.library.1" /> (${totalActiveProjects})</th>
+						<th>total available projects: (${totalActiveProjects})</th>
 						<th>root project</th>
 						<th>source</th>
 						<th>subject</th>
@@ -99,31 +93,31 @@
 																	<c:set var="bookmarked" value="true" />
 																</c:if>
 															</c:forEach>
-															<a data-id="${project.id}" class="bookmark ${bookmarked} tooltip" title="<spring:message code="teacher.manage.library.2" />"></a>
+															<a data-id="${project.id}" class="bookmark ${bookmarked} tooltip" title="<spring:message code="toggleFavorite" />"></a>
 															<a class="projectTitle" data-id="${project.id}">${projectName}</a>
-															<span>(<spring:message code="teacher.manage.library.4" /> ${project.id})</span>
+															<span>(<spring:message code="id_label" /> ${project.id})</span>
 														</div>
 														<div class="projectTools">
 															<c:if test="${isChild || isChildNoRoot}">
 																<c:choose>
 																	<c:when test="${hasRun}">
-																		<span class="childDate runCopy"><spring:message code="teacher.manage.library.3a" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /></span>
+																		<span class="childDate runCopy"><spring:message code="teacher.management.projectlibrarydisplay.createdForRun" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /></span>
 																	</c:when>
 																	<c:otherwise>
-																		<span class="childDate"><spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></span>
+																		<span class="childDate"><spring:message code="teacher.management.projectlibrarydisplay.created" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></span>
 																	</c:otherwise>
 																</c:choose>
 															</c:if>
 															<ul class="actions">
-																<li><a class="tooltip" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" title="<spring:message code="teacher.manage.library.6a" />" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" />
-																	<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="teacher.manage.library.6" /></span></a>&nbsp;|
+																<li><a class="tooltip" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" title="<spring:message code="preview_tip" />" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" />
+																	<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="preview" /></span></a>&nbsp;|
 																</li>
 																<sec:accesscontrollist domainObject="${project}" hasPermission="16">
-																	<li><a title="<spring:message code="teacher.manage.library.7a" />" data-id="${project.id}" class="shareProject tooltip" dialog-title="<spring:message code="teacher.manage.library.7" /> ${project.name} (<spring:message code="teacher.manage.library.5" /> ${project.id})"><img class="icon" alt="share" src="/webapp/themes/tels/default/images/icons/teal/agent.png" /><span><spring:message code="teacher.manage.library.8" /></span></a>&nbsp;|</li>
+																	<li><a title="<spring:message code="share_tip" />" data-id="${project.id}" class="shareProject tooltip" dialog-title="<spring:message code="share_permissionsTitle" /> ${project.name} (<spring:message code="id" /> ${project.id})"><img class="icon" alt="share" src="/webapp/themes/tels/default/images/icons/teal/agent.png" /><span><spring:message code="share" /></span></a>&nbsp;|</li>
 																</sec:accesscontrollist>
-																<li><a class="tooltip" title="<spring:message code="teacher.manage.library.9a" />" onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" ><img class="icon" alt="copy" src="/webapp/themes/tels/default/images/icons/teal/copy-item.png" /><span><spring:message code="teacher.manage.library.9" /></span></a>&nbsp;|</li>
+																<li><a class="tooltip" title="<spring:message code="teacher.management.projectlibrarydisplay.copy_tip" />" onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" ><img class="icon" alt="copy" src="/webapp/themes/tels/default/images/icons/teal/copy-item.png" /><span><spring:message code="copy" /></span></a>&nbsp;|</li>
 																<sec:accesscontrollist domainObject="${project}" hasPermission="2">
-																	<li><a class="tooltip" title="<spring:message code="teacher.manage.library.10a" />" href="/webapp/author/authorproject.html?projectId=${project.id}"><img class="icon" alt="edit" src="/webapp/themes/tels/default/images/icons/teal/edit.png" /><span><spring:message code="teacher.manage.library.10" /></span></a>&nbsp;|</li>
+																	<li><a class="tooltip" title="<spring:message code="teacher.management.projectlibrarydisplay.edit_tip" />" href="/webapp/author/authorproject.html?projectId=${project.id}"><img class="icon" alt="edit" src="/webapp/themes/tels/default/images/icons/teal/edit.png" /><span><spring:message code="edit" /></span></a>&nbsp;|</li>
 																</sec:accesscontrollist>
 																<!-- <li><a style="color:#666;">Archive</a>
 																<input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
@@ -134,11 +128,11 @@
 																	</c:if>
 																</c:forEach>
 																<c:if test="${isOwner == 'true'}">
-																	<li><a class="tooltip" title="<spring:message code="teacher.manage.library.archive.tooltip" />" onclick="archiveProject('<spring:escapeBody javaScriptEscape="true">${project.name}</spring:escapeBody>', ${project.id})"><img class="icon" alt="archive" src="/webapp/themes/tels/default/images/icons/teal/lock.png" />
-																	<span><spring:message code="teacher.manage.library.archive" /></span></a>&nbsp;|</li>												
+																	<li><a class="tooltip" title="<spring:message code="teacher.management.projectlibrarydisplay.archive_tip" />" onclick="archiveProject('<spring:escapeBody javaScriptEscape="true">${project.name}</spring:escapeBody>', ${project.id})"><img class="icon" alt="archive" src="/webapp/themes/tels/default/images/icons/teal/lock.png" />
+																	<span><spring:message code="teacher.management.projectlibrarydisplay.archive" /></span></a>&nbsp;|</li>												
 																</c:if>
-																<li><a class="setupRun tooltip" title="<spring:message code="teacher.manage.library.11a" />" href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>"><img class="icon" alt="new run" src="/webapp/themes/tels/default/images/icons/teal/computer.png" />
-																	<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="teacher.manage.library.11" /></span></a>
+																<li><a class="setupRun tooltip" title="<spring:message code="teacher.management.projectlibrarydisplay.startRun_tip" />" href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>"><img class="icon" alt="new run" src="/webapp/themes/tels/default/images/icons/teal/computer.png" />
+																	<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="teacher.management.projectlibrarydisplay.startRun" /></span></a>
 																</li>
 															</ul>
 														</div>
@@ -149,16 +143,16 @@
 														<div class="summaryInfo">
 															<div class="basicInfo">
 																<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-																<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
+																<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.projects.projectinfo.meta_grades" /> ${project.metadata.gradeRange} | </c:if>
 																<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">${project.metadata.totalTime} | </c:if>
 																<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
 																<div style="float:right;">
 																	<c:choose>
 																		<c:when test="${hasRun && (isChild || isChildNoRoot)}">
-																			<span class="runCopy"><spring:message code="teacher.manage.library.3a" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.manage.library.help.runcopy" />" data-tooltip-anchor="left" data-tooltip-class="info" data-tooltip-title="<spring:message code="teacher.manage.library.help.runcopytitle" />" alt="help" />
+																			<span class="runCopy"><spring:message code="teacher.management.projectlibrarydisplay.createdForRun" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy" />" data-tooltip-anchor="left" data-tooltip-class="info" data-tooltip-title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy_title" />" alt="help" />
 																		</c:when>
 																		<c:otherwise>
-																			<spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
+																			<spring:message code="teacher.management.projectlibrarydisplay.created" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
 																		</c:otherwise>
 																	</c:choose>
 																</div>
@@ -170,50 +164,47 @@
 																		<c:set var="length" value="${fn:length(project.metadata.summary)}" />
 																		<c:set var="summary" value="${fn:substring(project.metadata.summary,0,170)}" />
 																		<c:set var="truncated" value="${fn:substring(project.metadata.summary,170,length)}" />
-																		<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
+																		<span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_summary" /></span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
 																	</c:when>
 																	<c:otherwise>
-																		<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${project.metadata.summary}
+																		<span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_summary" /></span> ${project.metadata.summary}
 																	</c:otherwise>
 																</c:choose>
 															</c:if>
 															</div>
 															<div class="details" data-id="${project.id}">
-																<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.13" /></span> ${project.metadata.keywords}</p></c:if>
-																<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/pages/check.html" target="_blank"><spring:message code="teacher.manage.library.22" /></a>)</p></c:if>
-																<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.15" /></span> ${project.metadata.compTime}</p></c:if>
-																<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
-																<!-- <c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.17" /></span> ${project.metadata.author}</p></c:if> -->
+																<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tags" /></span> ${project.metadata.keywords}</p></c:if>
+																<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tech" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/pages/check.html" target="_blank"><spring:message code="teacher.projects.projectinfo.checkCompatibility" /></a>)</p></c:if>
+																<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_compTime" /></span> ${project.metadata.compTime}</p></c:if>
+																<p><span style="font-weight:bold;"><spring:message code="teacher.management.projectlibrarydisplay.projectContact" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="contact_wise" /></a></p>
 																<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
 																<c:if test="${lastEdited == null || lastEdited == ''}">
 																	<c:set var="lastEdited" value="${project.dateCreated}" />
 																</c:if>
-																<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.18" /></span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
+																<p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_lastUpdated" /></span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
 																<c:if test="${project.parentProjectId != null}">
-																	<p><span style="font-weight:bold"><spring:message code="teacher.run.myprojectruns.40"/></span> <a data-id="${project.parentProjectId}" class="projectDetail" title="Project Details">${project.parentProjectId}</a></p>
+																	<p><span style="font-weight:bold"><spring:message code="teacher.projects.projectinfo.copyLabel"/></span> <a data-id="${project.parentProjectId}" class="projectDetail" title="<spring:message code="project_details" />">${project.parentProjectId}</a></p>
 																</c:if>
 																<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
 																	(project.metadata.standards != null && project.metadata.standards != '')}">
-																	<div class="viewLesson"><a class="viewLesson" data-id="${project.id}" title="<spring:message code="teacher.manage.library.23" />"><spring:message code="teacher.manage.library.24" /></a></div>
-																	<div class="lessonPlan" data-id="${project.id}" title="<spring:message code="teacher.manage.library.24" />">
-																		<div class="panelHeader">${project.name} (<spring:message code="teacher.manage.library.4" /> ${project.id})
+																	<div class="viewLesson"><a class="viewLesson" data-id="${project.id}" title="<spring:message code="teacher.projects.projectinfo.tipsAndStandards_tip" />"><spring:message code="teacher.projects.projectinfo.tipsAndStandards" /></a></div>
+																	<div class="lessonPlan" data-id="${project.id}" title="<spring:message code="teacher.projects.projectinfo.tipsAndStandards" />">
+																		<div class="panelHeader">${project.name} (<spring:message code="id_label" /> ${project.id})
 																			<span style="float:right;"><a class="printLesson" data-id="${project.id}"><spring:message code="print" /></a></span>
 																		</div>
 																		<c:if test="${project.metadata.lessonPlan != null && project.metadata.lessonPlan != ''}">
 																			<div class="basicInfo sectionContent">
 																				<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-																				<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
-																				<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.manage.library.21" /> ${project.metadata.totalTime} | </c:if>
+																				<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.projects.projectinfo.meta_grades" /> ${project.metadata.gradeRange} | </c:if>
+																				<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.projects.projectinfo.meta_duration" /> ${project.metadata.totalTime} | </c:if>
 																				<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
-																				<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString}</p></c:if>
+																				<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tech" /></span> ${project.metadata.techDetailsString}</p></c:if>
 																			</div>
-																			<div class="sectionHead"><spring:message code="teacher.manage.library.25" /></div>
-																			<div class="lessonHelp"><spring:message code="teacher.manage.library.25a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
+																			<div class="sectionHead"><spring:message code="teacher.projects.projectinfo.meta_tips" /></div>
 																			<div class="sectionContent">${project.metadata.lessonPlan}</div>
 																		</c:if>
 																		<c:if test="${project.metadata.standards != null && project.metadata.standards != ''}">
-																			<div class="sectionHead"><spring:message code="teacher.manage.library.26" /></div>
-																			<div class="lessonHelp"><spring:message code="teacher.manage.library.26a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
+																			<div class="sectionHead"><spring:message code="teacher.projects.projectinfo.meta_standards" /></div>
 																			<div class="sectionContent">${project.metadata.standards}</div>
 																		</c:if>
 																	</div>
@@ -221,7 +212,7 @@
 																<c:if test="${fn:length(project.sharedowners) > 0}">
 																	<div class="sharedIcon">
 																		<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
-																		<spring:message code="teacher.manage.library.27" /> 
+																		<spring:message code="teacher.management.projectlibrarydisplay.sharedWith" /> 
 																		<span style="font-weight:normal"><c:forEach var="sharedowner" items="${project.sharedowners}" varStatus="status">
 																		  <c:out value="${sharedowner.userDetails.firstname}"/>
 																		  <c:out value="${sharedowner.userDetails.lastname}"/>${not status.last ? ', ' : ''}
@@ -234,7 +225,7 @@
 													<div style="clear:both;"></div>
 													<div class="detailsLinks">
 														<div style="float:right; text-align:right">
-															<a data-id="${project.id}" class="detailsToggle"><spring:message code="teacher.manage.library.28" /></a>
+															<a data-id="${project.id}" class="detailsToggle"><spring:message code="teacher.management.projectlibrarydisplay.detailsShow" /></a>
 														</div>
 														<div style="clear:both;"></div>
 													</div>
@@ -341,37 +332,37 @@
 																	<c:set var="bookmarked" value="true" />
 																</c:if>
 															</c:forEach>
-															<a data-id="${project.id}" class="bookmark ${bookmarked} tooltip" title="<spring:message code="teacher.manage.library.2" />"></a>
+															<a data-id="${project.id}" class="bookmark ${bookmarked} tooltip" title="<spring:message code="toggleFavorite" />"></a>
 															<a class="projectTitle" data-id="${project.id}">${project.name}</a>
-															<span>(<spring:message code="teacher.manage.library.4" /> ${project.id})</span>
+															<span>(<spring:message code="id_label" /> ${project.id})</span>
 														</div>
 														<div class="projectTools">
 															<c:if test="${isChild || isChildNoRoot}">
 																<c:choose>
 																	<c:when test="${hasRun}">
-																		<span class="childDate runCopy"><spring:message code="teacher.manage.library.3a" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /></span>
+																		<span class="childDate runCopy"><spring:message code="teacher.management.projectlibrarydisplay.createdForRun" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /></span>
 																	</c:when>
 																	<c:otherwise>
-																		<span class="childDate"><spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></span>
+																		<span class="childDate"><spring:message code="teacher.management.projectlibrarydisplay.created" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></span>
 																	</c:otherwise>
 																</c:choose>
 															</c:if>
 															<ul class="actions">
-																<li><a class="tooltip" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" title="<spring:message code="teacher.manage.library.6a" />" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" />
-																	<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="teacher.manage.library.6" /></span></a>&nbsp;|
+																<li><a class="tooltip" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" title="<spring:message code="preview_tip" />" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" />
+																	<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="preview" /></span></a>&nbsp;|
 																</li>
 																<sec:accesscontrollist domainObject="${project}" hasPermission="16">
-																	<li><a title="<spring:message code="teacher.manage.library.7a" />" data-id="${project.id}" class="shareProject tooltip" dialog-title="<spring:message code="teacher.manage.library.7" /> ${project.name} (<spring:message code="teacher.manage.library.5" /> ${project.id})"><img class="icon" alt="share" src="/webapp/themes/tels/default/images/icons/teal/agent.png" /><span><spring:message code="teacher.manage.library.8" /></span></a>&nbsp;|</li>
+																	<li><a title="<spring:message code="share_tip" />" data-id="${project.id}" class="shareProject tooltip" dialog-title="<spring:message code="share_permissionsTitle" /> ${project.name} (<spring:message code="id" /> ${project.id})"><img class="icon" alt="share" src="/webapp/themes/tels/default/images/icons/teal/agent.png" /><span><spring:message code="share" /></span></a>&nbsp;|</li>
 																</sec:accesscontrollist>
-																<li><a class="tooltip" title="<spring:message code="teacher.manage.library.9a" />" onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" ><img class="icon" alt="copy" src="/webapp/themes/tels/default/images/icons/teal/copy-item.png" /><span><spring:message code="teacher.manage.library.9" /></span></a>&nbsp;|</li>
+																<li><a class="tooltip" title="<spring:message code="teacher.management.projectlibrarydisplay.copy_tip" />" onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" ><img class="icon" alt="copy" src="/webapp/themes/tels/default/images/icons/teal/copy-item.png" /><span><spring:message code="copy" /></span></a>&nbsp;|</li>
 																<sec:accesscontrollist domainObject="${project}" hasPermission="2">
-																	<li><a class="tooltip" title="<spring:message code="teacher.manage.library.10a" />" href="/webapp/author/authorproject.html?projectId=${project.id}"><img class="icon" alt="edit" src="/webapp/themes/tels/default/images/icons/teal/edit.png" /><span><spring:message code="teacher.manage.library.10" /></span></a>&nbsp;|</li>
+																	<li><a class="tooltip" title="<spring:message code="teacher.management.projectlibrarydisplay.edit_tip" />" href="/webapp/author/authorproject.html?projectId=${project.id}"><img class="icon" alt="edit" src="/webapp/themes/tels/default/images/icons/teal/edit.png" /><span><spring:message code="edit" /></span></a>&nbsp;|</li>
 																</sec:accesscontrollist>
 																
 																<!-- <li><a style="color:#666;">Archive</a>
 																<input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
-																<li><a class="setupRun tooltip" title="<spring:message code="teacher.manage.library.11a" />" href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>"><img class="icon" alt="new run" src="/webapp/themes/tels/default/images/icons/teal/computer.png" />
-																	<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="teacher.manage.library.11" /></span></a>
+																<li><a class="setupRun tooltip" title="<spring:message code="teacher.management.projectlibrarydisplay.startRun_tip" />" href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>"><img class="icon" alt="new run" src="/webapp/themes/tels/default/images/icons/teal/computer.png" />
+																	<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="teacher.management.projectlibrarydisplay.startRun" /></span></a>
 																</li>
 															</ul>
 														</div>
@@ -383,26 +374,26 @@
 															<div class="sharedIcon">
 															<c:if test="${fn:length(project.sharedowners) > 0}">
 																<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
-																<spring:message code="teacher.manage.library.27a" /> 
+																<spring:message code="teacher.management.projectlibrarydisplay.ownedBy" /> 
 																<c:forEach var="projectowner" items="${project.owners}" varStatus="status">
 																	<c:out value="${projectowner.userDetails.firstname}" />
 										  							<c:out value="${projectowner.userDetails.lastname}" />
 																</c:forEach>
-																<a class="unshare" onclick="unshareFromProject('${project.id}','<spring:escapeBody javaScriptEscape="true">${project.name}</spring:escapeBody>')"><spring:message code="teacher.manage.library.unshare.linkText" /></a>
+																<a class="unshare" onclick="unshareFromProject('${project.id}','<spring:escapeBody javaScriptEscape="true">${project.name}</spring:escapeBody>')"><spring:message code="teacher.management.projectlibrarydisplay.unshare" /></a>
 															</c:if>
 															</div>
 															<div class="basicInfo">
 																<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-																<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
+																<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.projects.projectinfo.meta_grades" /> ${project.metadata.gradeRange} | </c:if>
 																<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">${project.metadata.totalTime} | </c:if>
 																<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
 																<div style="float:right;">
 																	<c:choose>
 																		<c:when test="${hasRun && (isChild || isChildNoRoot)}">
-																			<span class="runCopy"><spring:message code="teacher.manage.library.3a" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.manage.library.help.runcopy" />" data-tooltip-anchor="left" data-tooltip-class="info" data-tooltip-title="<spring:message code="teacher.manage.library.help.runcopytitle" />" alt="help" />
+																			<span class="runCopy"><spring:message code="teacher.management.projectlibrarydisplay.createdForRun" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy" />" data-tooltip-anchor="left" data-tooltip-class="info" data-tooltip-title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy_title" />" alt="help" />
 																		</c:when>
 																		<c:otherwise>
-																			<spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
+																			<spring:message code="teacher.management.projectlibrarydisplay.created" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
 																		</c:otherwise>
 																	</c:choose>
 																</div>
@@ -414,50 +405,47 @@
 																		<c:set var="length" value="${fn:length(project.metadata.summary)}" />
 																		<c:set var="summary" value="${fn:substring(project.metadata.summary,0,170)}" />
 																		<c:set var="truncated" value="${fn:substring(project.metadata.summary,170,length)}" />
-																		<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
+																		<span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_summary" /></span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
 																	</c:when>
 																	<c:otherwise>
-																		<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${project.metadata.summary}
+																		<span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_summary" /></span> ${project.metadata.summary}
 																	</c:otherwise>
 																</c:choose>
 															</c:if>
 															</div>
 															<div class="details" data-id="${project.id}">
-																<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.13" /></span> ${project.metadata.keywords}</p></c:if>
-																<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/pages/check.html" target="_blank"><spring:message code="teacher.manage.library.22" /></a>)</p></c:if>
-																<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.15" /></span> ${project.metadata.compTime}</p></c:if>
-																<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
-																<!-- <c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.17" /></span> ${project.metadata.author}</p></c:if> -->
+																<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tags" /></span> ${project.metadata.keywords}</p></c:if>
+																<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tech" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/pages/check.html" target="_blank"><spring:message code="teacher.projects.projectinfo.checkCompatibility" /></a>)</p></c:if>
+																<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_compTime" /></span> ${project.metadata.compTime}</p></c:if>
+																<p><span style="font-weight:bold;"><spring:message code="teacher.management.projectlibrarydisplay.projectContact" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="contact_wise" /></a></p>
 																<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
 																<c:if test="${lastEdited == null || lastEdited == ''}">
 																	<c:set var="lastEdited" value="${project.dateCreated}" />
 																</c:if>
-																<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.18" /></span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
+																<p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_lastUpdated" /></span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
 																<c:if test="${project.parentProjectId != null}">
-																	<p><span style="font-weight:bold"><spring:message code="teacher.run.myprojectruns.40"/></span> <a data-id="${project.parentProjectId}" class="projectDetail" title="Project Details">${project.parentProjectId}</a></p>
+																	<p><span style="font-weight:bold"><spring:message code="teacher.projects.projectinfo.copyLabel"/></span> <a data-id="${project.parentProjectId}" class="projectDetail" title="<spring:message code="project_details"/>">${project.parentProjectId}</a></p>
 																</c:if>
 																<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
 																	(project.metadata.standards != null && project.metadata.standards != '')}">
-																	<div class="viewLesson"><a class="viewLesson" data-id="${project.id}" title="<spring:message code="teacher.manage.library.23" />"><spring:message code="teacher.manage.library.24" /></a></div>
-																	<div class="lessonPlan" data-id="${project.id}" title="<spring:message code="teacher.manage.library.24" />">
-																		<div class="panelHeader">${project.name} (<spring:message code="teacher.manage.library.4" /> ${project.id})
+																	<div class="viewLesson"><a class="viewLesson" data-id="${project.id}" title="<spring:message code="teacher.projects.projectinfo.tipsAndStandards_tip" />"><spring:message code="teacher.projects.projectinfo.tipsAndStandards" /></a></div>
+																	<div class="lessonPlan" data-id="${project.id}" title="<spring:message code="teacher.projects.projectinfo.tipsAndStandards" />">
+																		<div class="panelHeader">${project.name} (<spring:message code="id_label" /> ${project.id})
 																			<span style="float:right;"><a class="printLesson" data-id="${project.id}"><spring:message code="print" /></a></span>
 																		</div>
 																		<c:if test="${project.metadata.lessonPlan != null && project.metadata.lessonPlan != ''}">
 																			<div class="basicInfo sectionContent">
 																				<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-																				<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
-																				<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.manage.library.21" /> ${project.metadata.totalTime} | </c:if>
+																				<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.projects.projectinfo.meta_grades" /> ${project.metadata.gradeRange} | </c:if>
+																				<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.projects.projectinfo.meta_duration" /> ${project.metadata.totalTime} | </c:if>
 																				<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
-																				<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString}</p></c:if>
+																				<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tech" /></span> ${project.metadata.techDetailsString}</p></c:if>
 																			</div>
-																			<div class="sectionHead"><spring:message code="teacher.manage.library.25" /></div>
-																			<div class="lessonHelp"><spring:message code="teacher.manage.library.25a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
+																			<div class="sectionHead"><spring:message code="teacher.projects.projectinfo.meta_tips" /></div>
 																			<div class="sectionContent">${project.metadata.lessonPlan}</div>
 																		</c:if>
 																		<c:if test="${project.metadata.standards != null && project.metadata.standards != ''}">
-																			<div class="sectionHead"><spring:message code="teacher.manage.library.26" /></div>
-																			<div class="lessonHelp"><spring:message code="teacher.manage.library.26a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
+																			<div class="sectionHead"><spring:message code="teacher.projects.projectinfo.meta_standards" /></div>
 																			<div class="sectionContent">${project.metadata.standards}</div>
 																		</c:if>
 																	</div>
@@ -465,7 +453,7 @@
 																<c:if test="${fn:length(project.sharedowners) > 0}">
 																	<div class="sharedIcon">
 																		<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
-																		<spring:message code="teacher.manage.library.27" /> 
+																		<spring:message code="teacher.management.projectlibrarydisplay.sharedWith" /> 
 																		<span style="font-weight:normal"><c:forEach var="sharedowner" items="${project.sharedowners}" varStatus="status">
 																		  <c:out value="${sharedowner.userDetails.firstname}"/>
 																		  <c:out value="${sharedowner.userDetails.lastname}"/>${not status.last ? ', ' : ''}
@@ -478,7 +466,7 @@
 													<div style="clear:both;"></div>
 													<div class="detailsLinks">
 														<div style="float:right; text-align:right">
-															<a data-id="${project.id}" class="detailsToggle"><spring:message code="teacher.manage.library.28" /></a>
+															<a data-id="${project.id}" class="detailsToggle"><spring:message code="teacher.management.projectlibrarydisplay.detailsShow" /></a>
 														</div>
 														<div style="clear:both;"></div>
 													</div>
@@ -563,26 +551,26 @@
 																	<c:set var="bookmarked" value="true" />
 																</c:if>
 															</c:forEach>
-															<a data-id="${project.id}" class="bookmark ${bookmarked} tooltip" title="<spring:message code="teacher.manage.library.2" />"></a>
+															<a data-id="${project.id}" class="bookmark ${bookmarked} tooltip" title="<spring:message code="toggleFavorite" />"></a>
 															<a class="projectTitle" data-id="${project.id}">${project.name}</a>
-															<span>(<spring:message code="teacher.manage.library.4" /> ${project.id})</span>
+															<span>(<spring:message code="id_label" /> ${project.id})</span>
 														</div>
 														<div class="projectTools">
 															<ul class="actions">
-																<li><a class="tooltip" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" title="<spring:message code="teacher.manage.library.6a" />" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" />
-																	<span style="font-weight:bold;"><spring:message code="teacher.manage.library.6" /></span></a>&nbsp;|
+																<li><a class="tooltip" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" title="<spring:message code="preview_tip" />" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" />
+																	<span style="font-weight:bold;"><spring:message code="preview" /></span></a>&nbsp;|
 																</li>
 																<sec:accesscontrollist domainObject="${project}" hasPermission="16">
-																	<li><a title="<spring:message code="teacher.manage.library.7a" />" data-id="${project.id}" class="shareProject tooltip" dialog-title="<spring:message code="teacher.manage.library.7" /> ${project.name} (<spring:message code="teacher.manage.library.5" /> ${project.id})"><img class="icon" alt="share" src="/webapp/themes/tels/default/images/icons/teal/agent.png" /><span><spring:message code="teacher.manage.library.8" /></span></a>&nbsp;|</li>
+																	<li><a title="<spring:message code="share_tip" />" data-id="${project.id}" class="shareProject tooltip" dialog-title="<spring:message code="share_permissionsTitle" /> ${project.name} (<spring:message code="id" /> ${project.id})"><img class="icon" alt="share" src="/webapp/themes/tels/default/images/icons/teal/agent.png" /><span><spring:message code="share" /></span></a>&nbsp;|</li>
 																</sec:accesscontrollist>
-																<li><a class="tooltip" title="<spring:message code="teacher.manage.library.9a" />" onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" ><img class="icon" alt="copy" src="/webapp/themes/tels/default/images/icons/teal/copy-item.png" /><span><spring:message code="teacher.manage.library.9" /></span></a>&nbsp;|</li>
+																<li><a class="tooltip" title="<spring:message code="teacher.management.projectlibrarydisplay.copy_tip" />" onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" ><img class="icon" alt="copy" src="/webapp/themes/tels/default/images/icons/teal/copy-item.png" /><span><spring:message code="copy" /></span></a>&nbsp;|</li>
 																<sec:accesscontrollist domainObject="${project}" hasPermission="2">
-																	<li><a class="tooltip" title="<spring:message code="teacher.manage.library.10a" />" href="/webapp/author/authorproject.html?projectId=${project.id}"><img class="icon" alt="edit" src="/webapp/themes/tels/default/images/icons/teal/edit.png" /><span><spring:message code="teacher.manage.library.10" /></span></a>&nbsp;|</li>
+																	<li><a class="tooltip" title="<spring:message code="teacher.management.projectlibrarydisplay.edit_tip" />" href="/webapp/author/authorproject.html?projectId=${project.id}"><img class="icon" alt="edit" src="/webapp/themes/tels/default/images/icons/teal/edit.png" /><span><spring:message code="edit" /></span></a>&nbsp;|</li>
 																</sec:accesscontrollist>
 																<!-- <li><a style="color:#666;">Archive</a>
 																<input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
-																<li><a class="setupRun tooltip" title="<spring:message code="teacher.manage.library.11a" />" href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>"><img class="icon" alt="new run" src="/webapp/themes/tels/default/images/icons/teal/computer.png" />
-																	<span style="font-weight:bold;"><spring:message code="teacher.manage.library.11" /></span></a>
+																<li><a class="setupRun tooltip" title="<spring:message code="teacher.management.projectlibrarydisplay.startRun_tip" />" href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>"><img class="icon" alt="new run" src="/webapp/themes/tels/default/images/icons/teal/computer.png" />
+																	<span style="font-weight:bold;"><spring:message code="teacher.management.projectlibrarydisplay.startRun" /></span></a>
 																</li>
 															</ul>
 														</div>
@@ -594,21 +582,21 @@
 															<c:if test="${fn:length(project.sharedowners) > 0}">
 																<div class="sharedIcon" style="float:right;">
 																	<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
-																	<spring:message code="teacher.manage.library.27a" /> 
+																	<spring:message code="teacher.management.projectlibrarydisplay.ownedBy" /> 
 																	<c:forEach var="projectowner" items="${project.owners}" varStatus="status">
 																		<c:out value="${projectowner.userDetails.firstname}" />
 											  							<c:out value="${projectowner.userDetails.lastname}" />
 																	</c:forEach>
 																</div>
 															</c:if>
-															<div class="libraryIcon"><img src="/webapp/themes/tels/default/images/open_book.png" alt="library project" /> <spring:message code="teacher.manage.library.32" /></div>
+															<div class="libraryIcon"><img src="/webapp/themes/tels/default/images/open_book.png" alt="library project" /> <spring:message code="teacher.management.projectlibrarydisplay.libraryProject" /></div>
 															<div class="basicInfo">
 																<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-																<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
+																<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.projects.projectinfo.meta_grades" /> ${project.metadata.gradeRange} | </c:if>
 																<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">${project.metadata.totalTime} | </c:if>
 																<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
 																<div style="float:right;">
-																	<spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
+																	<spring:message code="teacher.management.projectlibrarydisplay.created" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
 																</div>
 															</div>
 															<div data-id="${project.id}" class="summaryText">
@@ -618,47 +606,44 @@
 																		<c:set var="length" value="${fn:length(project.metadata.summary)}" />
 																		<c:set var="summary" value="${fn:substring(project.metadata.summary,0,170)}" />
 																		<c:set var="truncated" value="${fn:substring(project.metadata.summary,170,length)}" />
-																		<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
+																		<span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_summary" /></span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
 																	</c:when>
 																	<c:otherwise>
-																		<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${project.metadata.summary}
+																		<span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_summary" /></span> ${project.metadata.summary}
 																	</c:otherwise>
 																</c:choose>
 															</c:if>
 															</div>
 															<div class="details" data-id="${project.id}">
-																<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.13" /></span> ${project.metadata.keywords}</p></c:if>
-																<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/pages/check.html" target="_blank"><spring:message code="teacher.manage.library.22" /></a>)</p></c:if>
-																<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.15" /></span> ${project.metadata.compTime}</p></c:if>
-																<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
-																<!-- <c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.17" /></span> ${project.metadata.author}</p></c:if> -->
+																<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tags" /></span> ${project.metadata.keywords}</p></c:if>
+																<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tech" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/pages/check.html" target="_blank"><spring:message code="teacher.projects.projectinfo.checkCompatibility" /></a>)</p></c:if>
+																<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_compTime" /></span> ${project.metadata.compTime}</p></c:if>
+																<p><span style="font-weight:bold;"><spring:message code="teacher.management.projectlibrarydisplay.projectContact" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="contact_wise" /></a></p>
 																<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
 																<c:if test="${lastEdited == null || lastEdited == ''}">
 																	<c:set var="lastEdited" value="${project.dateCreated}" />
 																</c:if>
-																<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.18" /></span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
+																<p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_lastUpdated" /></span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
 																<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
 																	(project.metadata.standards != null && project.metadata.standards != '')}">
-																	<div class="viewLesson"><a class="viewLesson" data-id="${project.id}" title="<spring:message code="teacher.manage.library.23" />"><spring:message code="teacher.manage.library.24" /></a></div>
-																	<div class="lessonPlan" data-id="${project.id}" title="<spring:message code="teacher.manage.library.24" />">
-																		<div class="panelHeader">${project.name} (<spring:message code="teacher.manage.library.4" /> ${project.id})
+																	<div class="viewLesson"><a class="viewLesson" data-id="${project.id}" title="<spring:message code="teacher.projects.projectinfo.tipsAndStandards_tip" />"><spring:message code="teacher.projects.projectinfo.tipsAndStandards" /></a></div>
+																	<div class="lessonPlan" data-id="${project.id}" title="<spring:message code="teacher.projects.projectinfo.tipsAndStandards" />">
+																		<div class="panelHeader">${project.name} (<spring:message code="id_label" /> ${project.id})
 																			<span style="float:right;"><a class="printLesson" data-id="${project.id}"><spring:message code="print" /></a></span>
 																		</div>
 																		<c:if test="${project.metadata.lessonPlan != null && project.metadata.lessonPlan != ''}">
 																			<div class="basicInfo sectionContent">
 																				<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-																				<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
-																				<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.manage.library.21" /> ${project.metadata.totalTime} | </c:if>
+																				<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.projects.projectinfo.meta_grades" /> ${project.metadata.gradeRange} | </c:if>
+																				<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.projects.projectinfo.meta_duration" /> ${project.metadata.totalTime} | </c:if>
 																				<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
-																				<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString}</p></c:if>
+																				<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tech" /></span> ${project.metadata.techDetailsString}</p></c:if>
 																			</div>
-																			<div class="sectionHead"><spring:message code="teacher.manage.library.25" /></div>
-																			<div class="lessonHelp"><spring:message code="teacher.manage.library.25a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
+																			<div class="sectionHead"><spring:message code="teacher.projects.projectinfo.meta_tips" /></div>
 																			<div class="sectionContent">${project.metadata.lessonPlan}</div>
 																		</c:if>
 																		<c:if test="${project.metadata.standards != null && project.metadata.standards != ''}">
-																			<div class="sectionHead"><spring:message code="teacher.manage.library.26" /></div>
-																			<div class="lessonHelp"><spring:message code="teacher.manage.library.26a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
+																			<div class="sectionHead"><spring:message code="teacher.projects.projectinfo.meta_standards" /></div>
 																			<div class="sectionContent">${project.metadata.standards}</div>
 																		</c:if>
 																	</div>
@@ -669,7 +654,7 @@
 													<div style="clear:both;"></div>
 													<div class="detailsLinks">
 														<div style="float:right; text-align:right">
-															<a data-id="${project.id}" class="detailsToggle"><spring:message code="teacher.manage.library.28" /></a>
+															<a data-id="${project.id}" class="detailsToggle"><spring:message code="teacher.management.projectlibrarydisplay.detailsShow" /></a>
 														</div>
 														<div style="clear:both;"></div>
 													</div>
@@ -703,13 +688,13 @@
 	<div id="archivedProjects">
 		<c:choose>
 			<c:when test="${totalArchivedProjects > 0}">
-				<p class="info"><spring:message code="teacher.manage.library.archive.intro" /></p>
+				<p class="info"><spring:message code="teacher.management.projectlibrarydisplay.archive_intro" /></p>
 				
 				<div class="runBox">
 					<table id="myArchivedProjects" class="projectTable">
 						<thead class="tableHeaderMain">
 							<tr>
-								<th><spring:message code="teacher.manage.library.1" /> (${totalArchivedProjects})</th>
+								<th>total available projects: (${totalArchivedProjects})</th>
 								<th>root project</th>
 								<th>source</th>
 								<th>subject</th>
@@ -784,26 +769,26 @@
 																			<c:set var="bookmarked" value="true" />
 																		</c:if>
 																	</c:forEach>
-																	<a data-id="${project.id}" class="bookmark ${bookmarked} tooltip" title="<spring:message code="teacher.manage.library.2" />"></a>
+																	<a data-id="${project.id}" class="bookmark ${bookmarked} tooltip" title="<spring:message code="toggleFavorite" />"></a>
 																	<a class="projectTitle" data-id="${project.id}">${projectName}</a>
-																	<span>(<spring:message code="teacher.manage.library.4" /> ${project.id})</span>
+																	<span>(<spring:message code="id_label" /> ${project.id})</span>
 																</div>
 																<div class="projectTools">
 																	<c:if test="${isChild || isChildNoRoot}">
 																		<c:choose>
 																			<c:when test="${hasRun}">
-																				<span class="childDate runCopy"><spring:message code="teacher.manage.library.3a" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /></span>
+																				<span class="childDate runCopy"><spring:message code="teacher.management.projectlibrarydisplay.createdForRun" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /></span>
 																			</c:when>
 																			<c:otherwise>
-																				<span class="childDate"><spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></span>
+																				<span class="childDate"><spring:message code="teacher.management.projectlibrarydisplay.created" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></span>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:if>
 																	<ul class="actions">
-																		<li><a class="tooltip" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" title="<spring:message code="teacher.manage.library.6a" />" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" />
-																			<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="teacher.manage.library.6" /></span></a>&nbsp;|
+																		<li><a class="tooltip" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" title="<spring:message code="preview_tip" />" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" />
+																			<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="preview" /></span></a>&nbsp;|
 																		</li>
-																		<li><a class="tooltip" title="<spring:message code="teacher.manage.library.9a" />" onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" ><img class="icon" alt="copy" src="/webapp/themes/tels/default/images/icons/teal/copy-item.png" /><span><spring:message code="teacher.manage.library.9" /></span></a>&nbsp;|</li>
+																		<li><a class="tooltip" title="<spring:message code="teacher.management.projectlibrarydisplay.copy_tip" />" onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" ><img class="icon" alt="copy" src="/webapp/themes/tels/default/images/icons/teal/copy-item.png" /><span><spring:message code="copy" /></span></a>&nbsp;|</li>
 																		<c:set var="isOwner" value="false" />
 																		<c:forEach var="owner" items="${project.owners}">
 																			<c:if test="${owner.id == user.id}">
@@ -811,8 +796,8 @@
 																			</c:if>
 																		</c:forEach>
 																		<c:if test="${isOwner == 'true'}">
-																			<li><a class="tooltip" title="<spring:message code="teacher.manage.library.restore.tooltip" />" onclick="archiveProject('<spring:escapeBody javaScriptEscape="true">${project.name}</spring:escapeBody>', ${project.id}, true)"><img class="icon" alt="restore" src="/webapp/themes/tels/default/images/icons/teal/unlock.png" />
-																			<span><spring:message code="teacher.manage.library.restore" /></span></a></li>												
+																			<li><a class="tooltip" title="<spring:message code="teacher.management.projectlibrarydisplay.restore_tip" />" onclick="archiveProject('<spring:escapeBody javaScriptEscape="true">${project.name}</spring:escapeBody>', ${project.id}, true)"><img class="icon" alt="restore" src="/webapp/themes/tels/default/images/icons/teal/unlock.png" />
+																			<span><spring:message code="teacher.management.projectlibrarydisplay.restore" /></span></a></li>												
 																		</c:if>
 																	</ul>
 																</div>
@@ -823,16 +808,16 @@
 																<div class="summaryInfo">
 																	<div class="basicInfo">
 																		<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-																		<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
+																		<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.projects.projectinfo.meta_grades" /> ${project.metadata.gradeRange} | </c:if>
 																		<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">${project.metadata.totalTime} | </c:if>
 																		<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
 																		<div style="float:right;">
 																			<c:choose>
 																				<c:when test="${hasRun && (isChild || isChildNoRoot)}">
-																					<span class="runCopy"><spring:message code="teacher.manage.library.3a" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.manage.library.help.runcopy" />" data-tooltip-anchor="left" data-tooltip-class="info" data-tooltip-title="<spring:message code="teacher.manage.library.help.runcopytitle" />" alt="help" />
+																					<span class="runCopy"><spring:message code="teacher.management.projectlibrarydisplay.createdForRun" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy" />" data-tooltip-anchor="left" data-tooltip-class="info" data-tooltip-title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy_title" />" alt="help" />
 																				</c:when>
 																				<c:otherwise>
-																					<spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
+																					<spring:message code="teacher.management.projectlibrarydisplay.created" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
 																				</c:otherwise>
 																			</c:choose>
 																		</div>
@@ -844,50 +829,47 @@
 																				<c:set var="length" value="${fn:length(project.metadata.summary)}" />
 																				<c:set var="summary" value="${fn:substring(project.metadata.summary,0,170)}" />
 																				<c:set var="truncated" value="${fn:substring(project.metadata.summary,170,length)}" />
-																				<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
+																				<span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_summary" /></span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
 																			</c:when>
 																			<c:otherwise>
-																				<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${project.metadata.summary}
+																				<span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_summary" /></span> ${project.metadata.summary}
 																			</c:otherwise>
 																		</c:choose>
 																	</c:if>
 																	</div>
 																	<div class="details" data-id="${project.id}">
-																		<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.13" /></span> ${project.metadata.keywords}</p></c:if>
-																		<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/pages/check.html" target="_blank"><spring:message code="teacher.manage.library.22" /></a>)</p></c:if>
-																		<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.15" /></span> ${project.metadata.compTime}</p></c:if>
-																		<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
-																		<!-- <c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.17" /></span> ${project.metadata.author}</p></c:if> -->
+																		<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tags" /></span> ${project.metadata.keywords}</p></c:if>
+																		<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tech" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/pages/check.html" target="_blank"><spring:message code="teacher.projects.projectinfo.checkCompatibility" /></a>)</p></c:if>
+																		<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_compTime" /></span> ${project.metadata.compTime}</p></c:if>
+																		<p><span style="font-weight:bold;"><spring:message code="teacher.management.projectlibrarydisplay.projectContact" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="contact_wise" /></a></p>
 																		<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
 																		<c:if test="${lastEdited == null || lastEdited == ''}">
 																			<c:set var="lastEdited" value="${project.dateCreated}" />
 																		</c:if>
-																		<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.18" /></span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
+																		<p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_lastUpdated" /></span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
 																		<c:if test="${project.parentProjectId != null}">
-																			<p><span style="font-weight:bold"><spring:message code="teacher.run.myprojectruns.40"/></span> <a data-id="${project.parentProjectId}" class="projectDetail" title="Project Details">${project.parentProjectId}</a></p>
+																			<p><span style="font-weight:bold"><spring:message code="teacher.projects.projectinfo.copyLabel"/></span> <a data-id="${project.parentProjectId}" class="projectDetail" title="Project Details">${project.parentProjectId}</a></p>
 																		</c:if>
 																		<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
 																			(project.metadata.standards != null && project.metadata.standards != '')}">
-																			<div class="viewLesson"><a class="viewLesson" data-id="${project.id}" title="<spring:message code="teacher.manage.library.23" />"><spring:message code="teacher.manage.library.24" /></a></div>
-																			<div class="lessonPlan" data-id="${project.id}" title="<spring:message code="teacher.manage.library.24" />">
-																				<div class="panelHeader">${project.name} (<spring:message code="teacher.manage.library.4" /> ${project.id})
+																			<div class="viewLesson"><a class="viewLesson" data-id="${project.id}" title="<spring:message code="teacher.projects.projectinfo.tipsAndStandards_tip" />"><spring:message code="teacher.projects.projectinfo.tipsAndStandards" /></a></div>
+																			<div class="lessonPlan" data-id="${project.id}" title="<spring:message code="teacher.projects.projectinfo.tipsAndStandards" />">
+																				<div class="panelHeader">${project.name} (<spring:message code="id_label" /> ${project.id})
 																					<span style="float:right;"><a class="printLesson" data-id="${project.id}"><spring:message code="print" /></a></span>
 																				</div>
 																				<c:if test="${project.metadata.lessonPlan != null && project.metadata.lessonPlan != ''}">
 																					<div class="basicInfo sectionContent">
 																						<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-																						<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
-																						<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.manage.library.21" /> ${project.metadata.totalTime} | </c:if>
+																						<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.projects.projectinfo.meta_grades" /> ${project.metadata.gradeRange} | </c:if>
+																						<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.projects.projectinfo.meta_duration" /> ${project.metadata.totalTime} | </c:if>
 																						<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
-																						<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString}</p></c:if>
+																						<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tech" /></span> ${project.metadata.techDetailsString}</p></c:if>
 																					</div>
-																					<div class="sectionHead"><spring:message code="teacher.manage.library.25" /></div>
-																					<div class="lessonHelp"><spring:message code="teacher.manage.library.25a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
+																					<div class="sectionHead"><spring:message code="teacher.projects.projectinfo.meta_tips" /></div>
 																					<div class="sectionContent">${project.metadata.lessonPlan}</div>
 																				</c:if>
 																				<c:if test="${project.metadata.standards != null && project.metadata.standards != ''}">
-																					<div class="sectionHead"><spring:message code="teacher.manage.library.26" /></div>
-																					<div class="lessonHelp"><spring:message code="teacher.manage.library.26a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
+																					<div class="sectionHead"><spring:message code="teacher.projects.projectinfo.meta_standards" /></div>
 																					<div class="sectionContent">${project.metadata.standards}</div>
 																				</c:if>
 																			</div>
@@ -895,7 +877,7 @@
 																		<c:if test="${fn:length(project.sharedowners) > 0}">
 																			<div class="sharedIcon">
 																				<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
-																				<spring:message code="teacher.manage.library.27" /> 
+																				<spring:message code="teacher.management.projectlibrarydisplay.sharedWith" /> 
 																				<span style="font-weight:normal"><c:forEach var="sharedowner" items="${project.sharedowners}" varStatus="status">
 																				  <c:out value="${sharedowner.userDetails.firstname}"/>
 																				  <c:out value="${sharedowner.userDetails.lastname}"/>${not status.last ? ', ' : ''}
@@ -908,7 +890,7 @@
 															<div style="clear:both;"></div>
 															<div class="detailsLinks">
 																<div style="float:right; text-align:right">
-																	<a data-id="${project.id}" class="detailsToggle"><spring:message code="teacher.manage.library.28" /></a>
+																	<a data-id="${project.id}" class="detailsToggle"><spring:message code="teacher.management.projectlibrarydisplay.detailsShow" /></a>
 																</div>
 																<div style="clear:both;"></div>
 															</div>
@@ -1015,26 +997,26 @@
 																			<c:set var="bookmarked" value="true" />
 																		</c:if>
 																	</c:forEach>
-																	<a data-id="${project.id}" class="bookmark ${bookmarked} tooltip" title="<spring:message code="teacher.manage.library.2" />"></a>
+																	<a data-id="${project.id}" class="bookmark ${bookmarked} tooltip" title="<spring:message code="toggleFavorite" />"></a>
 																	<a class="projectTitle" data-id="${project.id}">${project.name}</a>
-																	<span>(<spring:message code="teacher.manage.library.4" /> ${project.id})</span>
+																	<span>(<spring:message code="id_label" /> ${project.id})</span>
 																</div>
 																<div class="projectTools">
 																	<c:if test="${isChild || isChildNoRoot}">
 																		<c:choose>
 																			<c:when test="${hasRun}">
-																				<span class="childDate runCopy"><spring:message code="teacher.manage.library.3a" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /></span>
+																				<span class="childDate runCopy"><spring:message code="teacher.management.projectlibrarydisplay.createdForRun" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /></span>
 																			</c:when>
 																			<c:otherwise>
-																				<span class="childDate"><spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></span>
+																				<span class="childDate"><spring:message code="teacher.management.projectlibrarydisplay.created" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></span>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:if>
 																	<ul class="actions">
-																		<li><a class="tooltip" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" title="<spring:message code="teacher.manage.library.6a" />" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" />
-																			<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="teacher.manage.library.6" /></span></a>&nbsp;|
+																		<li><a class="tooltip" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" title="<spring:message code="preview_tip" />" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" />
+																			<span<c:if test="${!isChild && !isChildNoRoot}"> style="font-weight:bold;"</c:if>><spring:message code="preview" /></span></a>&nbsp;|
 																		</li>
-																		<li><a class="tooltip" title="<spring:message code="teacher.manage.library.9a" />" onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" ><img class="icon" alt="copy" src="/webapp/themes/tels/default/images/icons/teal/copy-item.png" /><span><spring:message code="teacher.manage.library.9" /></span></a></li>
+																		<li><a class="tooltip" title="<spring:message code="teacher.management.projectlibrarydisplay.copy_tip" />" onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" ><img class="icon" alt="copy" src="/webapp/themes/tels/default/images/icons/teal/copy-item.png" /><span><spring:message code="copy" /></span></a></li>
 																	</ul>
 																</div>
 																<div style="clear:both;"></div>
@@ -1045,26 +1027,26 @@
 																	<div class="sharedIcon">
 																	<c:if test="${fn:length(project.sharedowners) > 0}">
 																		<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
-																		<spring:message code="teacher.manage.library.27a" /> 
+																		<spring:message code="teacher.management.projectlibrarydisplay.ownedBy" /> 
 																		<c:forEach var="projectowner" items="${project.owners}" varStatus="status">
 																			<c:out value="${projectowner.userDetails.firstname}" />
 												  							<c:out value="${projectowner.userDetails.lastname}" />
 																		</c:forEach>
-																		<a class="unshare" onclick="unshareFromProject('${project.id}','<spring:escapeBody javaScriptEscape="true">${project.name}</spring:escapeBody>')"><spring:message code="teacher.manage.library.unshare.linkText" /></a>
+																		<a class="unshare" onclick="unshareFromProject('${project.id}','<spring:escapeBody javaScriptEscape="true">${project.name}</spring:escapeBody>')"><spring:message code="teacher.management.projectlibrarydisplay.unshare" /></a>
 																	</c:if>
 																	</div>
 																	<div class="basicInfo">
 																		<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-																		<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
+																		<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.projects.projectinfo.meta_grades" /> ${project.metadata.gradeRange} | </c:if>
 																		<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">${project.metadata.totalTime} | </c:if>
 																		<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
 																		<div style="float:right;">
 																			<c:choose>
 																				<c:when test="${hasRun && (isChild || isChildNoRoot)}">
-																					<span class="runCopy"><spring:message code="teacher.manage.library.3a" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.manage.library.help.runcopy" />" data-tooltip-anchor="left" data-tooltip-class="info" data-tooltip-title="<spring:message code="teacher.manage.library.help.runcopytitle" />" alt="help" />
+																					<span class="runCopy"><spring:message code="teacher.management.projectlibrarydisplay.createdForRun" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy" />" data-tooltip-anchor="left" data-tooltip-class="info" data-tooltip-title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy_title" />" alt="help" />
 																				</c:when>
 																				<c:otherwise>
-																					<spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
+																					<spring:message code="teacher.management.projectlibrarydisplay.created" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
 																				</c:otherwise>
 																			</c:choose>
 																		</div>
@@ -1076,50 +1058,47 @@
 																				<c:set var="length" value="${fn:length(project.metadata.summary)}" />
 																				<c:set var="summary" value="${fn:substring(project.metadata.summary,0,170)}" />
 																				<c:set var="truncated" value="${fn:substring(project.metadata.summary,170,length)}" />
-																				<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
+																				<span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_summary" /></span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
 																			</c:when>
 																			<c:otherwise>
-																				<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${project.metadata.summary}
+																				<span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_summary" /></span> ${project.metadata.summary}
 																			</c:otherwise>
 																		</c:choose>
 																	</c:if>
 																	</div>
 																	<div class="details" data-id="${project.id}">
-																		<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.13" /></span> ${project.metadata.keywords}</p></c:if>
-																		<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/pages/check.html" target="_blank"><spring:message code="teacher.manage.library.22" /></a>)</p></c:if>
-																		<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.15" /></span> ${project.metadata.compTime}</p></c:if>
-																		<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
-																		<!-- <c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.17" /></span> ${project.metadata.author}</p></c:if> -->
+																		<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tags" /></span> ${project.metadata.keywords}</p></c:if>
+																		<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tech" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/pages/check.html" target="_blank"><spring:message code="teacher.projects.projectinfo.checkCompatibility"/></a>)</p></c:if>
+																		<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_compTime" /></span> ${project.metadata.compTime}</p></c:if>
+																		<p><span style="font-weight:bold;"><spring:message code="teacher.management.projectlibrarydisplay.projectContact" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="contact_wise" /></a></p>
 																		<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
 																		<c:if test="${lastEdited == null || lastEdited == ''}">
 																			<c:set var="lastEdited" value="${project.dateCreated}" />
 																		</c:if>
-																		<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.18" /></span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
+																		<p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_lastUpdated" /></span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
 																		<c:if test="${project.parentProjectId != null}">
-																			<p><span style="font-weight:bold"><spring:message code="teacher.run.myprojectruns.40"/></span> <a data-id="${project.parentProjectId}" class="projectDetail" title="Project Details">${project.parentProjectId}</a></p>
+																			<p><span style="font-weight:bold"><spring:message code="teacher.projects.projectinfo.copyLabel"/></span> <a data-id="${project.parentProjectId}" class="projectDetail" title="Project Details">${project.parentProjectId}</a></p>
 																		</c:if>
 																		<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
 																			(project.metadata.standards != null && project.metadata.standards != '')}">
-																			<div class="viewLesson"><a class="viewLesson" data-id="${project.id}" title="<spring:message code="teacher.manage.library.23" />"><spring:message code="teacher.manage.library.24" /></a></div>
-																			<div class="lessonPlan" data-id="${project.id}" title="<spring:message code="teacher.manage.library.24" />">
-																				<div class="panelHeader">${project.name} (<spring:message code="teacher.manage.library.4" /> ${project.id})
+																			<div class="viewLesson"><a class="viewLesson" data-id="${project.id}" title="<spring:message code="teacher.projects.projectinfo.tipsAndStandards_tip" />"><spring:message code="teacher.projects.projectinfo.tipsAndStandards" /></a></div>
+																			<div class="lessonPlan" data-id="${project.id}" title="<spring:message code="teacher.projects.projectinfo.tipsAndStandards" />">
+																				<div class="panelHeader">${project.name} (<spring:message code="id_label" /> ${project.id})
 																					<span style="float:right;"><a class="printLesson" data-id="${project.id}"><spring:message code="print" /></a></span>
 																				</div>
 																				<c:if test="${project.metadata.lessonPlan != null && project.metadata.lessonPlan != ''}">
 																					<div class="basicInfo sectionContent">
 																						<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-																						<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
-																						<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.manage.library.21" /> ${project.metadata.totalTime} | </c:if>
+																						<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.projects.projectinfo.meta_grades" /> ${project.metadata.gradeRange} | </c:if>
+																						<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.projects.projectinfo.meta_duration" /> ${project.metadata.totalTime} | </c:if>
 																						<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
-																						<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString}</p></c:if>
+																						<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tech" /></span> ${project.metadata.techDetailsString}</p></c:if>
 																					</div>
-																					<div class="sectionHead"><spring:message code="teacher.manage.library.25" /></div>
-																					<div class="lessonHelp"><spring:message code="teacher.manage.library.25a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
+																					<div class="sectionHead"><spring:message code="teacher.projects.projectinfo.meta_tips" /></div>
 																					<div class="sectionContent">${project.metadata.lessonPlan}</div>
 																				</c:if>
 																				<c:if test="${project.metadata.standards != null && project.metadata.standards != ''}">
-																					<div class="sectionHead"><spring:message code="teacher.manage.library.26" /></div>
-																					<div class="lessonHelp"><spring:message code="teacher.manage.library.26a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
+																					<div class="sectionHead"><spring:message code="teacher.projects.projectinfo.meta_standards" /></div>
 																					<div class="sectionContent">${project.metadata.standards}</div>
 																				</c:if>
 																			</div>
@@ -1127,7 +1106,7 @@
 																		<c:if test="${fn:length(project.sharedowners) > 0}">
 																			<div class="sharedIcon">
 																				<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
-																				<spring:message code="teacher.manage.library.27" /> 
+																				<spring:message code="teacher.management.projectlibrarydisplay.sharedWith" /> 
 																				<span style="font-weight:normal"><c:forEach var="sharedowner" items="${project.sharedowners}" varStatus="status">
 																				  <c:out value="${sharedowner.userDetails.firstname}"/>
 																				  <c:out value="${sharedowner.userDetails.lastname}"/>${not status.last ? ', ' : ''}
@@ -1140,7 +1119,7 @@
 															<div style="clear:both;"></div>
 															<div class="detailsLinks">
 																<div style="float:right; text-align:right">
-																	<a data-id="${project.id}" class="detailsToggle"><spring:message code="teacher.manage.library.28" /></a>
+																	<a data-id="${project.id}" class="detailsToggle"><spring:message code="teacher.management.projectlibrarydisplay.detailsShow" /></a>
 																</div>
 																<div style="clear:both;"></div>
 															</div>
@@ -1225,16 +1204,16 @@
 																			<c:set var="bookmarked" value="true" />
 																		</c:if>
 																	</c:forEach>
-																	<a data-id="${project.id}" class="bookmark ${bookmarked} tooltip" title="<spring:message code="teacher.manage.library.2" />"></a>
+																	<a data-id="${project.id}" class="bookmark ${bookmarked} tooltip" title="<spring:message code="toggleFavorite" />"></a>
 																	<a class="projectTitle" data-id="${project.id}">${project.name}</a>
-																	<span>(<spring:message code="teacher.manage.library.4" /> ${project.id})</span>
+																	<span>(<spring:message code="id_label" /> ${project.id})</span>
 																</div>
 																<div class="projectTools">
 																	<ul class="actions">
-																		<li><a class="tooltip" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" title="<spring:message code="teacher.manage.library.6a" />" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" />
-																			<span style="font-weight:bold;"><spring:message code="teacher.manage.library.6" /></span></a>&nbsp;|
+																		<li><a class="tooltip" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" title="<spring:message code="preview_tip" />" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" />
+																			<span style="font-weight:bold;"><spring:message code="preview" /></span></a>&nbsp;|
 																		</li>
-																		<li><a class="tooltip" title="<spring:message code="teacher.manage.library.9a" />" onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" ><img class="icon" alt="copy" src="/webapp/themes/tels/default/images/icons/teal/copy-item.png" /><span><spring:message code="teacher.manage.library.9" /></span></a>&nbsp;|</li>
+																		<li><a class="tooltip" title="<spring:message code="teacher.management.projectlibrarydisplay.copy_tip" />" onclick="copy('${project.id}','${project.projectType}','${projectNameEscaped}','${filenameMap[project.id]}','${urlMap[project.id]}')" ><img class="icon" alt="copy" src="/webapp/themes/tels/default/images/icons/teal/copy-item.png" /><span><spring:message code="copy" /></span></a>&nbsp;|</li>
 																		<c:set var="isOwner" value="false" />
 																		<c:forEach var="owner" items="${project.owners}">
 																			<c:if test="${owner.id == user.id}">
@@ -1242,7 +1221,7 @@
 																			</c:if>
 																		</c:forEach>
 																		<c:if test="${isOwner == 'true'}">
-																			<li><a onclick="archiveProject('<spring:escapeBody javaScriptEscape="true">${project.name}</spring:escapeBody>', ${project.id}, true)"><span><spring:message code="teacher.manage.library.restore" /></span></a></li>												
+																			<li><a onclick="archiveProject('<spring:escapeBody javaScriptEscape="true">${project.name}</spring:escapeBody>', ${project.id}, true)"><span><spring:message code="teacher.management.projectlibrarydisplay.restore" /></span></a></li>												
 																		</c:if>
 																	</ul>
 																</div>
@@ -1254,21 +1233,21 @@
 																	<c:if test="${fn:length(project.sharedowners) > 0}">
 																		<div class="sharedIcon" style="float:right;">
 																			<img src="/webapp/themes/tels/default/images/shared.png" alt="shared project" />
-																			<spring:message code="teacher.manage.library.27a" /> 
+																			<spring:message code="teacher.management.projectlibrarydisplay.ownedBy" /> 
 																			<c:forEach var="projectowner" items="${project.owners}" varStatus="status">
 																				<c:out value="${projectowner.userDetails.firstname}" />
 													  							<c:out value="${projectowner.userDetails.lastname}" />
 																			</c:forEach>
 																		</div>
 																	</c:if>
-																	<div class="libraryIcon"><img src="/webapp/themes/tels/default/images/open_book.png" alt="library project" /> <spring:message code="teacher.manage.library.32" /></div>
+																	<div class="libraryIcon"><img src="/webapp/themes/tels/default/images/open_book.png" alt="library project" /> <spring:message code="teacher.projects.projectinfo.libraryProject" /></div>
 																	<div class="basicInfo">
 																		<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-																		<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
+																		<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.projects.projectinfo.meta_grades" /> ${project.metadata.gradeRange} | </c:if>
 																		<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}">${project.metadata.totalTime} | </c:if>
 																		<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
 																		<div style="float:right;">
-																			<spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
+																			<spring:message code="teacher.management.projectlibrarydisplay.created" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
 																		</div>
 																	</div>
 																	<div data-id="${project.id}" class="summaryText">
@@ -1278,47 +1257,44 @@
 																				<c:set var="length" value="${fn:length(project.metadata.summary)}" />
 																				<c:set var="summary" value="${fn:substring(project.metadata.summary,0,170)}" />
 																				<c:set var="truncated" value="${fn:substring(project.metadata.summary,170,length)}" />
-																				<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
+																				<span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_summary" /></span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
 																			</c:when>
 																			<c:otherwise>
-																				<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${project.metadata.summary}
+																				<span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_summary" /></span> ${project.metadata.summary}
 																			</c:otherwise>
 																		</c:choose>
 																	</c:if>
 																	</div>
 																	<div class="details" data-id="${project.id}">
-																		<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.13" /></span> ${project.metadata.keywords}</p></c:if>
-																		<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/pages/check.html" target="_blank"><spring:message code="teacher.manage.library.22" /></a>)</p></c:if>
-																		<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.15" /></span> ${project.metadata.compTime}</p></c:if>
-																		<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
-																		<!-- <c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.17" /></span> ${project.metadata.author}</p></c:if> -->
+																		<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tags" /></span> ${project.metadata.keywords}</p></c:if>
+																		<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tech" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/pages/check.html" target="_blank"><spring:message code="teacher.projects.projectinfo.checkCompatibility" /></a>)</p></c:if>
+																		<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_compTime" /></span> ${project.metadata.compTime}</p></c:if>
+																		<p><span style="font-weight:bold;"><spring:message code="teacher.management.projectlibrarydisplay.projectContact" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="contact_wise" /></a></p>
 																		<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
 																		<c:if test="${lastEdited == null || lastEdited == ''}">
 																			<c:set var="lastEdited" value="${project.dateCreated}" />
 																		</c:if>
-																		<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.18" /></span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
+																		<p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_lastUpdated" /></span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
 																		<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
 																			(project.metadata.standards != null && project.metadata.standards != '')}">
-																			<div class="viewLesson"><a class="viewLesson" data-id="${project.id}" title="<spring:message code="teacher.manage.library.23" />"><spring:message code="teacher.manage.library.24" /></a></div>
-																			<div class="lessonPlan" data-id="${project.id}" title="<spring:message code="teacher.manage.library.24" />">
-																				<div class="panelHeader">${project.name} (<spring:message code="teacher.manage.library.4" /> ${project.id})
+																			<div class="viewLesson"><a class="viewLesson" data-id="${project.id}" title="<spring:message code="teacher.projects.projectinfo.tipsAndStandards_tip" />"><spring:message code="teacher.projects.projectinfo.tipsAndStandards" /></a></div>
+																			<div class="lessonPlan" data-id="${project.id}" title="<spring:message code="teacher.projects.projectinfo.tipsAndStandards" />">
+																				<div class="panelHeader">${project.name} (<spring:message code="id_label" /> ${project.id})
 																					<span style="float:right;"><a class="printLesson" data-id="${project.id}"><spring:message code="print" /></a></span>
 																				</div>
 																				<c:if test="${project.metadata.lessonPlan != null && project.metadata.lessonPlan != ''}">
 																					<div class="basicInfo sectionContent">
 																						<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-																						<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
-																						<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.manage.library.21" /> ${project.metadata.totalTime} | </c:if>
+																						<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.projects.projectinfo.meta_grades" /> ${project.metadata.gradeRange} | </c:if>
+																						<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.projects.projectinfo.meta_duration" /> ${project.metadata.totalTime} | </c:if>
 																						<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
-																						<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString}</p></c:if>
+																						<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tech" /></span> ${project.metadata.techDetailsString}</p></c:if>
 																					</div>
-																					<div class="sectionHead"><spring:message code="teacher.manage.library.25" /></div>
-																					<div class="lessonHelp"><spring:message code="teacher.manage.library.25a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
+																					<div class="sectionHead"><spring:message code="teacher.projects.projectinfo.meta_tips" /></div>
 																					<div class="sectionContent">${project.metadata.lessonPlan}</div>
 																				</c:if>
 																				<c:if test="${project.metadata.standards != null && project.metadata.standards != ''}">
-																					<div class="sectionHead"><spring:message code="teacher.manage.library.26" /></div>
-																					<div class="lessonHelp"><spring:message code="teacher.manage.library.26a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
+																					<div class="sectionHead"><spring:message code="teacher.projects.projectinfo.meta_standards" /></div>
 																					<div class="sectionContent">${project.metadata.standards}</div>
 																				</c:if>
 																			</div>
@@ -1329,7 +1305,7 @@
 															<div style="clear:both;"></div>
 															<div class="detailsLinks">
 																<div style="float:right; text-align:right">
-																	<a data-id="${project.id}" class="detailsToggle"><spring:message code="teacher.manage.library.28" /></a>
+																	<a data-id="${project.id}" class="detailsToggle"><spring:message code="teacher.management.projectlibrarydisplay.detailsShow" /></a>
 																</div>
 																<div style="clear:both;"></div>
 															</div>
@@ -1362,7 +1338,7 @@
 			</c:when>
 			<c:otherwise>
 				<p class="info">
-					<spring:message code="teacher.manage.library.archive.intro.empty"/>
+					<spring:message code="teacher.management.projectlibrarydisplay.archive_introEmpty"/>
 				</p>
 			</c:otherwise>
 		</c:choose>
@@ -1374,8 +1350,13 @@
 <div id="unshareDialog" class="dialog"></div>
 <div id="archiveDialog" class="dialog"></div>
 
-<!-- Page-specific script, TODO: move to external js - will need client-side i18n support -->
+<script type="text/javascript" src="<spring:theme code="tiptip.js"/>"></script>
+<script type="text/javascript" src="<spring:theme code="jquerydatatables.js"/>"></script>
+<script type="text/javascript" src="<spring:theme code="datatables.fngetfilterednodes.js"/>"></script>
+<script type="text/javascript" src="<spring:theme code="facetedfilter.js"/>"></script>
+<script type="text/javascript" src="<spring:theme code="jqueryprintelement.js"/>"></script>
 
+<!-- Page-specific script, TODO: move to external js - will need client-side i18n support -->
 <script type="text/javascript">
 	// TODO: convert to prototype format: ProjectLibrary.js (requires js i18n)
 
@@ -1428,7 +1409,7 @@
 				otable.fnUpdate( updateString, updateRow, updateColumn, false, true );
 			},
 			error: function(request,error){
-				alert('Error: failed to update favorite');
+				alert('<spring:message code="toggleFavoriteError"/>');
 			}
 		});
 	};
@@ -1442,23 +1423,23 @@
 	 * @param relativeProjectFilePathUrl the relative project file path e.g. "/513/wise4.project.json" 
 	 */
 	function copy(pID, type, name, fileName, relativeProjectFilePathUrl){
-		var $copyDialog = '<div id="copyDialog" class="dialog"><p><spring:message code="teacher.manage.library.copy.2" /></p>' +
-			'<p><spring:message code="teacher.manage.library.copy.3" /></p></div>';
+		var $copyDialog = '<div id="copyDialog" class="dialog"><p><spring:message code="teacher.management.projectlibrarydisplay.copy_info" /></p>' +
+			'<p><spring:message code="teacher.management.projectlibrarydisplay.copy_confirm" /></p></div>';
 		
 		var agreed = false;
 		$($copyDialog).dialog({
 			modal: true,
-			title: '<spring:message code="teacher.manage.library.copy.1" /> ' + name,
+			title: '<spring:message code="teacher.management.projectlibrarydisplay.copy_title" /> ' + name,
 			width: '500',
 			closeOnEscape: false,
 			beforeclose : function() { return agreed; },
-			buttons: {
-				Cancel: function(){
+			buttons: [
+			    { text: '<spring:message code="cancel" />', click: function(){
 					agreed = true;
 					$(this).dialog('close');
-				},
-				OK: function(){
-					var $copyingDialog = '<p><spring:message code="teacher.manage.library.copy.4" /></p>' + 
+				} },
+				{ text: '<spring:message code="ok" />', click: function(){
+					var $copyingDialog = '<p><spring:message code="teacher.management.projectlibrarydisplay.copy_processing" /></p>' + 
 						'<p><img src="/webapp/themes/tels/default/images/rel_interstitial_loading.gif" /></p>';
 					$('#copyDialog').css('text-align','center');
 					$('#copyDialog').html($copyingDialog);
@@ -1491,18 +1472,18 @@
 									data: 'command=createProject&parentProjectId='+pID+'&projectPath=' + projectPath + '&projectName=' + escapedName,
 									dataType:'text',
 									success: function(response){
-										var successText = '<p><spring:message code="teacher.manage.library.copy.5" /> ' + name + '<spring:message code="teacher.manage.library.copy.6" /></p><p><spring:message code="teacher.manage.library.copy.7" /></p>';
+										var successText = '<spring:message code="teacher.management.projectlibrarydisplay.copy_success" />';
 										processCopyResult(this,successText,true);
 									},
 									error: function(response){
-										var failureText = '<p><spring:message code="teacher.manage.library.copy.8" /></p>';
+										var failureText = '<spring:message code="teacher.management.projectlibrarydisplay.copy_failure" />';
 										processCopyResult(this,failureText,false);
 									},
 									context: this
 								});								
 							},
 							error: function(response){
-								var failureText = '<p><spring:message code="teacher.manage.library.copy.9" /></p><p><spring:message code="teacher.manage.library.copy.10" /></p>';
+								var failureText = '<spring:message code="teacher.management.projectlibrarydisplay.copy_error" />';
 								processCopyResult(this,failureText,false);
 							},
 							context: this
@@ -1512,17 +1493,17 @@
 							type: 'get',
 							url: 'copyproject.html?projectId=' + pID,
 							success: function(response){//alert(o.responseText);
-								var successText = '<p><spring:message code="teacher.manage.library.copy.5" /> ' + name + '<spring:message code="teacher.manage.library.copy.6" /></p><p><spring:message code="teacher.manage.library.copy.7" /></p>'
+								var successText = '<spring:message code="teacher.management.projectlibrarydisplay.copy_success" />'
 								processCopyResult(this,successText,true);
 							},
 							error: function(response){
-								var failureText = '<p><spring:message code="teacher.manage.library.copy.11" /><p></p><spring:message code="teacher.manage.library.copy.10" /></p>';
+								var failureText = '<spring:message code="teacher.management.projectlibrarydisplay.copy_error" />';
 								processCopyResult(this,failureText,false);
 							}
 						});
 					}
-				}
-			}
+				} }
+			]
 		});
 		
 		function processCopyResult(item,message,success){
@@ -1637,16 +1618,16 @@
 				var numChildren = projectChildren.length;
 				if(numChildren > 0){
 					rootIds.push(id);
-					var copyLabel = ' <spring:message code="teacher.manage.library.30" />';
+					var copyLabel = ' <spring:message code="copy_plural" />';
 					if($(this).hasClass('missingRoot')){
 						if(numChildren==1){
-							copyLabel = ' <spring:message code="teacher.manage.library.sibling.label" />';
+							copyLabel = ' <spring:message code="teacher.management.projectlibrarydisplay.sibling" />';
 						} else {
-							copyLabel = ' <spring:message code="teacher.manage.library.sibling.labelPlural" />';
+							copyLabel = ' <spring:message code="teacher.management.projectlibrarydisplay.sibling_plural" />';
 						}
 					} else {
 						if (numChildren == 1) {
-							copyLabel = ' <spring:message code="teacher.manage.library.31" />';
+							copyLabel = ' <spring:message code="copy" />';
 						}
 					}
 					var $childLink = $('<div style="float:left;"><a data-id="' + id + '" class="childToggle">' + numChildren + copyLabel + ' +</a></div>');
@@ -1733,11 +1714,11 @@
 				title: title,
 				position: 'center',
 				close: function(){ $(this).html(''); },
-				buttons: {
-					Close: function(){
-						$(this).dialog('close');
+				buttons: [ {
+						text: '<spring:message code="close" />', 
+						click: function(){ $(this).dialog('close'); }
 					}
-				}
+				]
 			});
 			$("#projectDetailDialog > #projectIfrm").attr('src',path);
 		});
@@ -1748,7 +1729,11 @@
 			$('.lessonPlan[data-id="' + id + '"]').dialog({
 				width: 800,
 				height: 400, // TODO: modify so height is set to 'auto', but if content results in dialog taller than window on load, set height smaller than window
-				buttons: { "Close": function() { $(this).dialog("close"); } }
+				buttons: [ {
+						text: '<spring:message code="close" />', 
+						click: function(){ $(this).dialog('close'); }
+					}
+				]
 			});
 		});
 		
@@ -1775,9 +1760,11 @@
 				title: title,
 				position: 'center',
 				close: function(){ $(this).html('');},
-				buttons: {
-					Close: function(){$(this).dialog('close');}
-				}
+				buttons: [ {
+						text: '<spring:message code="close" />', 
+						click: function(){ $(this).dialog('close'); }
+					}
+				]
 			});
 			$("#shareDialog > #shareIfrm").attr('src',path);
 		});
@@ -1789,22 +1776,20 @@
 			"aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
 			"aaSorting": [ [11,'desc'], [12,'asc'], [8,'desc'] ],
 			"oLanguage": {
-				"sInfo": "_TOTAL_ <spring:message code="teacher.datatables.16"/>",
-				// TODO: Mofidy these entries in ui-html.properties (make separate entries for datatables - not teacher.datatables.1, for ex.)
-				//"sInfo": "<spring:message code="teacher.datatables.1"/> _START_-_END_ <spring:message code="teacher.datatables.2"/> _TOTAL_ <spring:message code="teacher.datatables.16"/>",
-				"sInfoEmpty": "<spring:message code="teacher.datatables.3"/>",
-				"sInfoFiltered": "<spring:message code="teacher.datatables.17"/> _MAX_ <spring:message code="teacher.datatables.18"/>", // (from _MAX_ total)
-				"sLengthMenu": "<spring:message code="teacher.datatables.5"/> _MENU_ <spring:message code="teacher.manage.library.projectfamilies"/> <spring:message code="teacher.datatables.6"/>",
-				"sProcessing": "<spring:message code="teacher.datatables.7"/>",
-				"sZeroRecords": "<spring:message code="teacher.datatables.8"/>",
-				"sInfoPostFix":  "<spring:message code="teacher.datatables.9"/>",
-				"sSearch": "<spring:message code="teacher.datatables.10"/>",
-				"sUrl": "<spring:message code="teacher.datatables.11"/>",
+				"sInfo": "_TOTAL_ <spring:message code="project_plural"/>",
+				"sInfoEmpty": "<spring:message code="datatable_info_empty"/>",
+				"sInfoFiltered": "<spring:message code="datatable_info_filtered_pre"/> _MAX_ <spring:message code="datatable_info_filtered_post"/>", // (from _MAX_ total)
+				"sLengthMenu": "<spring:message code="datatable_lengthLabel"/> _MENU_ <spring:message code="teacher.management.projectlibrarydisplay.projectFamilies"/> <spring:message code="datatable_perPage"/>",
+				"sProcessing": "<spring:message code="processing"/>",
+				"sZeroRecords": "<spring:message code="datatable_noMatch"/>",
+				"sInfoPostFix":  "",
+				"sSearch": "<spring:message code="datatable_search"/>",
+				"sUrl": "",
 				"oPaginate": {
-					"sFirst":    "<spring:message code="teacher.datatables.12"/>",
-					"sPrevious": "<spring:message code="teacher.datatables.13"/>",
-					"sNext":     "<spring:message code="teacher.datatables.14"/>",
-					"sLast":     "<spring:message code="teacher.datatables.15"/>"
+					"sFirst":    "<spring:message code="datatable_paginate_first"/>",
+					"sPrevious": "<spring:message code="datatable_paginate_previous"/>",
+					"sNext":     "<spring:message code="datatable_paginate_next"/>",
+					"sLast":     "<spring:message code="datatable_paginate_last"/>"
 				}
 			},
 			"fnDrawCallback": function ( oSettings ) {
@@ -1893,12 +1878,12 @@
 		// define sort options
 		var sortParams = {
 			"items": [
-				{"label": "<spring:message code="teacher.datatables.sort.2a"/>", "columns": [11,12,8], "directions": ["desc","asc","desc"] },
-				{"label": "<spring:message code="teacher.datatables.sort.2b"/>", "columns": [8], "directions": ["desc"] },
-				{"label": "<spring:message code="teacher.datatables.sort.2c"/>", "columns": [8], "directions": ["asc"] },
-				{"label": "<spring:message code="teacher.datatables.sort.2d"/>", "columns": [14], "directions": ["desc"] },
-				{"label": "<spring:message code="teacher.datatables.sort.2e"/>", "columns": [0], "directions": ["asc"] },
-				{"label": "<spring:message code="teacher.datatables.sort.2f"/>", "columns": [0], "directions": ["desc"] }
+				{"label": "<spring:message code="teacher.management.projectlibrarydisplay.public"/>", "columns": [11,12,8], "directions": ["desc","asc","desc"] },
+				{"label": "<spring:message code="teacher.management.projectlibrarydisplay.sort_NewOld"/>", "columns": [8], "directions": ["desc"] },
+				{"label": "<spring:message code="teacher.management.projectlibrarydisplay.sort_OldNew"/>", "columns": [8], "directions": ["asc"] },
+				{"label": "<spring:message code="teacher.management.projectlibrarydisplay.sort_recent"/>", "columns": [14], "directions": ["desc"] },
+				{"label": "<spring:message code="teacher.management.projectlibrarydisplay.sort_AZ"/>", "columns": [0], "directions": ["asc"] },
+				{"label": "<spring:message code="teacher.management.projectlibrarydisplay.sort_ZA"/>", "columns": [0], "directions": ["desc"] }
 			]
 		}
 		var i;
@@ -1911,10 +1896,10 @@
 			// Define FacetedFilter options for datatable objects
 			var facets = new FacetedFilter( table, {
 				"bScroll": false,
-				"sClearFilterLabel": "<spring:message code="teacher.datatables.filter.clear"/>",
-				"sClearSearchLabel": "<spring:message code="teacher.datatables.search.clear"/>",
-				"sFilterLabel": "<spring:message code="teacher.datatables.filter.label"/>",
-				"sSearchLabel": "<spring:message code="teacher.datatables.search.label"/>",
+				"sClearFilterLabel": "<spring:message code="datatable_ff_filter_clear"/>",
+				"sClearSearchLabel": "<spring:message code="datatable_ff_search_clear"/>",
+				"sFilterLabel": "<spring:message code="datatable_ff_filter_label"/>",
+				"sSearchLabel": "<spring:message code="datatable_ff_search_label"/>",
 				"fnCallback": function(){
 					$('div.projectBox').each(function(){setTitleWidth($(this));});
 				},
@@ -1924,66 +1909,67 @@
 				},
 				"aSearchOpts": [
 					{
-						"identifier": "<spring:message code="teacher.datatables.search.1a"/>", "label": "<spring:message code="teacher.datatables.search.1b"/> ", "column": 0, "maxlength": 50
+						"identifier": "keyword", "label": "<spring:message code="datatable_ff_keyword_label"/> ", "column": 0, "maxlength": 50
 					}
 				 ],
 				"aFilterOpts": [
 					{
-						"identifier": "bookmark", "label": "<spring:message code="teacher.datatables.filter.3a"/>", "column": 9,
+						"identifier": "bookmark", "label": "<spring:message code="teacher.management.projectlibrarydisplay.filter_favorites"/>", "column": 9,
 						"options": [
-							{"query": "true", "display": "<spring:message code="teacher.datatables.filter.3b"/>"} // TODO: modify FacetedFilter plugin to only require a query for each filter, use query as display if display option is not set
+							{"query": "true", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_favorites_star"/>"} // TODO: modify FacetedFilter plugin to only require a query for each filter, use query as display if display option is not set
 						]
 					},
 					{
-						"identifier": "source", "label": "<spring:message code="teacher.datatables.filter.4a"/>", "column": 2,
+						"identifier": "source", "label": "<spring:message code="teacher.management.projectlibrarydisplay.filter_source"/>", "column": 2,
 						"options": [
-							{"query": "library", "display": "<spring:message code="teacher.datatables.filter.4b"/>"}, // TODO: modify FacetedFilter plugin to only require a query for each filter, use query as display if display option is not set
-							{"query": "owned", "display": "<spring:message code="teacher.datatables.filter.4c"/>"},
-							{"query": "shared", "display": "<spring:message code="teacher.datatables.filter.4d"/>"}
+							{"query": "library", "display": "<spring:message code="teacher.management.projectlibrarydisplay.public"/>"}, // TODO: modify FacetedFilter plugin to only require a query for each filter, use query as display if display option is not set
+							{"query": "owned", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_source_owned"/>"},
+							{"query": "shared", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_source_shared"/>"}
 						]
 					},
 					{
-						"identifier": "subject", "label": "<spring:message code="teacher.datatables.filter.5a"/>", "column": 3,
+						"identifier": "subject", "label": "<spring:message code="teacher.management.projectlibrarydisplay.filter_subject"/>", "column": 3,
 						"options": [
-							{"query": "<spring:message code="teacher.datatables.filter.5b"/>", "display": "<spring:message code="teacher.datatables.filter.5b"/>"}, // TODO: modify FacetedFilter plugin to only require a query for each filter, use query as display if display option is not set
-							{"query": "<spring:message code="teacher.datatables.filter.5c"/>", "display": "<spring:message code="teacher.datatables.filter.5c"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.5d"/>", "display": "<spring:message code="teacher.datatables.filter.5d"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.5e"/>", "display": "<spring:message code="teacher.datatables.filter.5e"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.5f"/>", "display": "<spring:message code="teacher.datatables.filter.5f"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.5g"/>", "display": "<spring:message code="teacher.datatables.filter.5g"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.5h"/>", "display": "<spring:message code="teacher.datatables.filter.5h"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.5i"/>", "display": "<spring:message code="teacher.datatables.filter.5i"/>"}
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_subject_genScience"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_subject_genScience"/>"}, // TODO: modify FacetedFilter plugin to only require a query for each filter, use query as display if display option is not set
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_subject_earthScience"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_subject_earthScience"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_subject_lifeScience"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_subject_lifeScience"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_subject_physicalScience"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_subject_physicalScience"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_subject_biology"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_subject_biology"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_subject_chemistry"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_subject_chemistry"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_subject_physics"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_subject_physics"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_subject_research"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_subject_research"/>"}
 						]
 					},
 					{
-						"identifier": "grade", "label": "<spring:message code="teacher.datatables.filter.6a"/>", "column": 4,
+						"identifier": "grade", "label": "<spring:message code="teacher.management.projectlibrarydisplay.filter_grade"/>", "column": 4,
 						"options": [
-							{"query": "<spring:message code="teacher.datatables.filter.6b"/>", "display": "<spring:message code="teacher.datatables.filter.6b"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.6c"/>", "display": "<spring:message code="teacher.datatables.filter.6c"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.6d"/>", "display": "<spring:message code="teacher.datatables.filter.6d"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.6e"/>", "display": "<spring:message code="teacher.datatables.filter.6e"/>"}
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_grade_3-5"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_grade_3-5"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_grade_6-8"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_grade_6-8"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_grade_6-12"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_grade_6-12"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_grade_9-12"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_grade_9-12"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_grade_12+"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_grade_12+"/>"}
 						]
 					},
 					{
-						"identifier": "duration", "label": "<spring:message code="teacher.datatables.filter.7a"/>", "column": 5,
+						"identifier": "duration", "label": "<spring:message code="teacher.management.projectlibrarydisplay.filter_time"/>", "column": 5,
 						"options": [
-							{"query": "<spring:message code="teacher.datatables.filter.7b"/>", "display": "<spring:message code="teacher.datatables.filter.7b"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.7c"/>", "display": "<spring:message code="teacher.datatables.filter.7c"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.7d"/>", "display": "<spring:message code="teacher.datatables.filter.7d"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.7e"/>", "display": "<spring:message code="teacher.datatables.filter.7e"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.7f"/>", "display": "<spring:message code="teacher.datatables.filter.7f"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.7g"/>", "display": "<spring:message code="teacher.datatables.filter.7g"/>"}
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_time_2-3h"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_time_2-3h"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_time_4-5h"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_time_4-5h"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_time_6-7h"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_time_6-7h"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_time_8-9h"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_time_8-9h"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_time_10-11h"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_time_10-11h"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_time_12h+"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_time_12h+"/>"}
 						]
 					},
 					{
-						"identifier": "language", "label": "<spring:message code="teacher.datatables.filter.8a"/>", "column": 7,
+						"identifier": "language", "label": "<spring:message code="teacher.management.projectlibrarydisplay.filter_language"/>", "column": 7,
 						"options": [
-							{"query": "<spring:message code="teacher.datatables.filter.8b"/>", "display": "<spring:message code="teacher.datatables.filter.8b"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.8c"/>", "display": "<spring:message code="teacher.datatables.filter.8c"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.8d"/>", "display": "<spring:message code="teacher.datatables.filter.8d"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.8e"/>", "display": "<spring:message code="teacher.datatables.filter.8e"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.8f"/>", "display": "<spring:message code="teacher.datatables.filter.8f"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.8g"/>", "display": "<spring:message code="teacher.datatables.filter.8g"/>"}
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_language_chinese"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_language_chinese"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_language_dutch"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_language_dutch"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_language_english"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_language_english"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_language_hebrew"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_language_hebrew"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_language_japanese"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_language_japanese"/>"},
+							{"query": "<spring:message code="teacher.management.projectlibrarydisplay.filter_language_spanish"/>", "display": "<spring:message code="teacher.management.projectlibrarydisplay.filter_language_spanish"/>"}
 						]
 					}
 				]
@@ -2019,7 +2005,7 @@
 		function setSort(index,sortParams,wrapper) {
 			if(sortParams.items.length){
 				// insert sort options into DOM
-				var sortHtml = '<div class="dataTables_sort"><spring:message code="teacher.datatables.sort.label"/> <select id="' + 'datatablesSort_' + index + '"  size="1">';
+				var sortHtml = '<div class="dataTables_sort"><spring:message code="datatable_sort"/> <select id="' + 'datatablesSort_' + index + '"  size="1">';
 				$.each(sortParams.items,function(){
 					sortHtml += '<option>' + this.label + '</option>';
 				});
@@ -2129,7 +2115,7 @@
 					summary.find('.truncated').slideDown('fast');
 					summary.find('.truncated').css('display','inline');
 				}
-				detailsToggle.addClass('expanded').text('<spring:message code="teacher.manage.library.29" />');
+				detailsToggle.addClass('expanded').text('<spring:message code="teacher.management.projectlibrarydisplay.detailsHide" />');
 				details.slideDown('fast');
 			} else {
 				if(box.hasClass('childProject')){
@@ -2159,7 +2145,7 @@
 				} else {
 					details.slideUp('fast');
 				}
-				detailsToggle.removeClass('expanded').text('<spring:message code="teacher.manage.library.28" />');
+				detailsToggle.removeClass('expanded').text('<spring:message code="teacher.management.projectlibrarydisplay.detailsShow" />');
 			}
 		};
 		
@@ -2302,12 +2288,12 @@
 			}
 			if(filtered){
 				var numResults = $items.length;
-				$info.html('<spring:message code="teacher.datatables.1"/> ' + 
-						numResults + ' <spring:message code="teacher.datatables.16"/> ' + 
-						'<spring:message code="teacher.datatables.17"/> ' +
-						totalProjects + ' <spring:message code="teacher.datatables.18"/>');
+				$info.html('<spring:message code="datatable_info_showing"/> ' + 
+						numResults + ' <spring:message code="project_plural"/> ' + 
+						'<spring:message code="datatable_info_filtered_pre"/> ' +
+						totalProjects + ' <spring:message code="datatable_info_filtered_post"/>');
 			} else {
-				$info.html(totalProjects + ' <spring:message code="teacher.datatables.16"/>');
+				$info.html(totalProjects + ' <spring:message code="project_plural"/>');
 			}
 		};
 		
@@ -2321,14 +2307,14 @@
 	 */
 	function archiveProject(projectTitle, projectId, restore){
 		var agreed = false, revive = 'false',
-			dialogContent = '<spring:message code="teacher.manage.library.archive.dialog.confirm" htmlEscape="false" />',
-			title = '<spring:message code="teacher.manage.library.archive.dialog.title" /> ' + projectTitle + ' (<spring:message code="id" />: ' + projectId + ')',
-			processing = '<spring:message code="teacher.manage.library.archive.dialog.processing" />';
+			dialogContent = '<spring:message code="teacher.management.projectlibrarydisplay.archive_confirm" htmlEscape="false" />',
+			title = '<spring:message code="teacher.management.projectlibrarydisplay.archive_title" /> ' + projectTitle + ' (<spring:message code="id" />: ' + projectId + ')',
+			processing = '<spring:message code="teacher.management.projectlibrarydisplay.archive_processing" />';
 		if(restore){
 			revive = 'true';
-			dialogContent = '<spring:message code="teacher.manage.library.restore.dialog.confirm" htmlEscape="false" />';
-			title = '<spring:message code="teacher.manage.library.restore.dialog.title" /> ' + projectTitle + ' (<spring:message code="id" />: ' + projectId + ')',
-			processing = '<spring:message code="teacher.manage.library.restore.dialog.processing" />';
+			dialogContent = '<spring:message code="teacher.management.projectlibrarydisplay.restore_confirm" htmlEscape="false" />';
+			title = '<spring:message code="teacher.management.projectlibrarydisplay.restore_title" /> ' + projectTitle + ' (<spring:message code="id" />: ' + projectId + ')',
+			processing = '<spring:message code="teacher.management.projectlibrarydisplay.restore_processing" />';
 		}
 		$('#archiveDialog').html(dialogContent).dialog({
 			modal: true,
@@ -2336,12 +2322,12 @@
 			width: '600',
 			closeOnEscape: false,
 			beforeclose : function() { return agreed; },
-			buttons: {
-				'<spring:message code="cancel" />': function(){
+			buttons: [
+				{ text: '<spring:message code="cancel" />', click: function(){
 					agreed = true;
 					$(this).dialog('close');
-				},
-				'<spring:message code="ok" />': function(){
+				} },
+				{ text: '<spring:message code="ok" />', click: function(){
 					var processingHtml = '<p>' + processing + '</p>' + 
 						'<p><img src="/webapp/themes/tels/default/images/rel_interstitial_loading.gif" /></p>';
 					$('#archiveDialog').css('text-align','center');
@@ -2356,22 +2342,22 @@
 							var success = false;
 							if(text == 'success') {
 								success = true;
-								var successMsg = '<spring:message code="teacher.manage.library.archive.dialog.success" />';
+								var successMsg = '<spring:message code="teacher.management.projectlibrarydisplay.archive_success" />';
 								if(restore){
-									successMsg = '<spring:message code="teacher.manage.library.restore.dialog.success" />';
+									successMsg = '<spring:message code="teacher.management.projectlibrarydisplay.restore_success" />';
 								}
 								// the project was successfully archived or restored, so we will display the success message to the user
-								$('#archiveDialog').html('<p>' + successMsg + ' ' + projectTitle + ' (<spring:message code="id" />: ' + projectId + ')</p><p><spring:message code="teacher.manage.library.reloadmessage" /></p>');
+								$('#archiveDialog').html('<p>' + successMsg + ' ' + projectTitle + ' (<spring:message code="id" />: ' + projectId + ')</p><p><spring:message code="teacher.management.projectlibrarydisplay.reloadmessage" /></p>');
 							} else if(text == 'failure: not owner') {
 								//the user is not the owner of the project so the project was not deleted
-								restore ? $('#archiveDialog').html('<p><spring:message code="teacher.manage.library.restore.dialog.failure.onwer" /></p>') :
-									$('#archiveDialog').html('<p><spring:message code="teacher.manage.library.archive.dialog.failure.onwer" /></p>');
+								restore ? $('#archiveDialog').html('<p><spring:message code="teacher.management.projectlibrarydisplay.restore_failPermission" /></p>') :
+									$('#archiveDialog').html('<p><spring:message code="teacher.management.projectlibrarydisplay.archive_failPermission" /></p>');
 							} else if(text == 'failure: invalid project id' || text == 'failure: project does not exist') {
-								restore ? $('#archiveDialog').html('<p><spring:message code="teacher.manage.library.restore.dialog.failure.id" /></p>') :
-									$('#archiveDialog').html('<p><spring:message code="teacher.manage.library.archive.dialog.failure.id" /></p>');
+								restore ? $('#archiveDialog').html('<p><spring:message code="teacher.management.projectlibrarydisplay.restore_failId" /></p>') :
+									$('#archiveDialog').html('<p><spring:message code="teacher.management.projectlibrarydisplay.archive_failId" /></p>');
 							} else if(text == 'failure') {
-								restore ? $('#archiveDialog').html('<p><spring:message code="teacher.manage.library.restore.dialog.failure" /></p>') :
-									$('#archiveDialog').html('<p><spring:message code="teacher.manage.library.archive.dialog.failure" /></p>');
+								restore ? $('#archiveDialog').html('<p><spring:message code="teacher.management.projectlibrarydisplay.restore_fail" /></p>') :
+									$('#archiveDialog').html('<p><spring:message code="teacher.management.projectlibrarydisplay.archive_fail" /></p>');
 							}
 							$('button:eq(1)',$('#archiveDialog').parent()).show().click(function(){
 								agreed = true;
@@ -2386,36 +2372,36 @@
 						},
 						error: function(data, text, xml){
 							// an error occured, so we will display an error message to the user
-							restore ? $('#archiveDialog').html('<p><spring:message code="teacher.manage.library.restore.dialog.failure" /></p>') :
-								$('#archiveDialog').html('<p><spring:message code="teacher.manage.library.archive.dialog.failure" /></p>');
+							restore ? $('#archiveDialog').html('<p><spring:message code="teacher.management.projectlibrarydisplay.restore_fail" /></p>') :
+								$('#archiveDialog').html('<p><spring:message code="teacher.management.projectlibrarydisplay.archive_fail" /></p>');
 							$('button:eq(1)',$('#archiveDialog').parent()).show().click(function(){
 								agreed = true;
 								$('#archiveDialog').dialog('close');
 							});
 						}
 					});
-				}
-			}
+				} }
+			]
 		});
 	};
 	
 	function unshareFromProject(projectId,projectTitle) {
 		var agreed = false,
-			dialogContent = '<spring:message code="teacher.manage.library.unshare.dialog.confirm" htmlEscape="false" />',
-			title = '<spring:message code="teacher.manage.library.unshare.dialog.title" /> ' + projectTitle + ' (<spring:message code="id" />: ' + projectId + ')',
-			processing = '<spring:message code="teacher.manage.library.unshare.dialog.processing" />';
+			dialogContent = '<spring:message code="teacher.management.projectlibrarydisplay.unshare_confirm" htmlEscape="false" />',
+			title = '<spring:message code="teacher.management.projectlibrarydisplay.unshare_title" /> ' + projectTitle + ' (<spring:message code="id" />: ' + projectId + ')',
+			processing = '<spring:message code="teacher.management.projectlibrarydisplay.unshare_processing" />';
 		$('#unshareDialog').html(dialogContent).dialog({
 			modal: true,
 			title: title,
 			width: '500',
 			closeOnEscape: false,
 			beforeclose : function() { return agreed; },
-			buttons: {
-				'<spring:message code="cancel" />': function(){
+			buttons: [
+				{ text: '<spring:message code="cancel" />', click: function(){
 					agreed = true;
 					$(this).dialog('close');
-				},
-				'<spring:message code="ok" />': function(){
+				} },
+				{ text: '<spring:message code="ok" />', click: function(){
 					var processingHtml = '<p>' + processing + '</p>' + 
 						'<p><img src="/webapp/themes/tels/default/images/rel_interstitial_loading.gif" /></p>';
 					$('#unshareDialog').css('text-align','center');
@@ -2428,7 +2414,7 @@
 						type:"POST",
 						data:{"projectId":projectId},
 						success: function(data, text, xml){
-							$('#unshareDialog').html("<p><spring:message code='teacher.manage.library.unshare.dialog.success' /></p><p><spring:message code='teacher.manage.library.reloadmessage' /></p>");
+							$('#unshareDialog').html("<p><spring:message code='teacher.management.projectlibrarydisplay.unshare_success' /></p><p><spring:message code='teacher.management.projectlibrarydisplay.reloadmessage' /></p>");
 							$('button:eq(1)',$('#unshareDialog').parent()).show().click(function(){
 								agreed = true;
 								$('#unshareDialog').dialog('close');
@@ -2441,15 +2427,15 @@
 						},
 						error: function(data, text, xml){
 							// an error occured, so we will display an error message to the user
-							$('#unshareDialog').html('<p><spring:message code="teacher.manage.library.unshare.dialog.failure" /></p>');
+							$('#unshareDialog').html('<p><spring:message code="teacher.management.projectlibrarydisplay.unshare_fail" /></p>');
 							$('button:eq(1)',$('#unshareDialog').parent()).show().click(function(){
 								agreed = true;
 								$('#unshareDialog').dialog('close');
 							});
 						}
 					});
-				}
-			}
+				} }
+			]
 		});
 	};
 </script>

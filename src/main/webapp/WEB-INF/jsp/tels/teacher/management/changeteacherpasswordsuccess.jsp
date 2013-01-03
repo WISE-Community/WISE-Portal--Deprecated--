@@ -32,7 +32,7 @@
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
  
-<title><spring:message code="teacher.manage.account.1"/></title>
+<title><spring:message code="manageAccount"/></title>
 </head>
 
 <body>
@@ -44,14 +44,14 @@
  
 <div id="overviewContent"> 
 
-<div id="overviewHeader"><spring:message code="teacher.manage.account.3"/></div>
+<div id="overviewHeader"><spring:message code="changePassword"/></div>
 	
 <div style="text-align:center;">
 
-	<h2><spring:message code="changepassword.passwordchanged" /></h2>
+	<h2><spring:message code="changePassword_success" /></h2>
 
 	<div>
-		<a href="updatemyaccount.html"><spring:message code="changepassword.return" /></a>
+		<a href="updatemyaccount.html"><spring:message code="returnToAccount" /></a>
 	</div>
 	
 <br/>

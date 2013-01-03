@@ -11,22 +11,22 @@
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
   
-<title><spring:message code="teacher.manage.removestudent.1"/></title>
+<title><spring:message code="teacher.management.removestudentfromrun.title"/></title>
 </head>
 
 <body style="background:#FFF;">
 
 <div class="dialogContent">		
 
-	<div class="sectionHead"><spring:message code="teacher.manage.removestudent.2"/></div>
+	<div class="sectionHead"><spring:message code="teacher.management.removestudentfromrun.title"/></div>
 	
-	<div class="sectionContent"><spring:message code="teacher.manage.removestudent.7"/></div>
+	<div class="sectionContent"><spring:message code="teacher.management.removestudentfromrun.confirm"/></div>
 	
-	<div class="sectionContent"><span style="color:red;"><spring:message code="teacher.manage.removestudent.8"/></span></div>
+	<div class="sectionContent"><span style="color:red;"><spring:message code="teacher.management.removestudentfromrun.warning"/></span></div>
 	
 	<div class="sectionContent">
-		<p class="info"><spring:message code="teacher.manage.removestudent.9"/></p>
-		<p class="info"><spring:message code="teacher.manage.removestudent.10"/></p>
+		<p class="info"><spring:message code="teacher.management.removestudentfromrun.alternate"/></p>
+		<p class="info"><spring:message code="teacher.management.removestudentfromrun.info"/></p>
 	</div>
 	
 	<!-- Support for Spring errors object -->
@@ -49,7 +49,7 @@
 		 </div>
 	
 		<div class="sectionContent">
-		    <input type="submit" value="<spring:message code="teacher.manage.removestudent.11"/>" />
+		    <input type="submit" value="<spring:message code="teacher.management.removestudentfromrun"/>" />
 		</div>
 	</form:form>
 

@@ -73,7 +73,6 @@
 
 #teacherRegForm dl {
 	text-align:left;
-	position: relative;
 	width:420px; 
 	font-size: .9em;
 	margin: 0 auto;
@@ -104,7 +103,7 @@
 
 .regTable {
 	width:450px;
-	margin:0 auto;
+	margin:0 auto 1em;
 }
 
 .regTable tr td {
@@ -138,13 +137,12 @@
   /*right: -180px;
   width: 175px;
   margin-top: -2px;*/
-  padding: 10px 12px;
+  padding: .25em .5em;
   color:#FFFFFF;
-  font-size: 1em;
+  font-size: .9em;
   line-height:130%;
-  word-spacing:1px;
   background: #4e94a2;
-  width:200px;
+  max-width:200px;
 }
 
 .hint .hint-pointer {
@@ -255,10 +253,7 @@
 	color:#330033;
 	font-weight:bold;
 	padding-bottom:30px;
-	}
-	
-.width122 {width:122px;}
-.width166 {width:166px;}
+}
 
 #buttonText1 {
 	text-align:center;
@@ -274,8 +269,8 @@
 	font-size: .9em;
 	}
 
-#curriculumSubjectsBox{
-	width: 260px;
+#curriculumSubjectsBox {
+	width: 280px;
 	position: absolute;
 	display:none;
 	line-height: 110%;
@@ -286,7 +281,7 @@
 	border-radius: 6px;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
-	font-size:.9em;
+	font-size:.8em;
 }
 
 #curriculumSubjectsBox div {
@@ -294,7 +289,7 @@
 }
 	
 #textCurriculumBox {
-	font-size:.9em;
+	font-size:.95em;
 	color:#fff;
 }
 

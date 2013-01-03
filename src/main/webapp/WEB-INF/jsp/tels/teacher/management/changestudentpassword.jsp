@@ -8,7 +8,7 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
     
-<title><spring:message code="wise.change-password" /></title>
+<title><spring:message code="changePassword" /></title>
 
 <script type='text/javascript' src='/webapp/dwr/interface/ChangePasswordParametersValidatorJS.js'></script>
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
@@ -22,15 +22,15 @@
 
 <div class="dialogContent">		
 
-	<div class="sectionHead"><spring:message code="wise.change-password" /></div>
+	<div class="sectionHead"><spring:message code="changePassword" /></div>
 
 	<form:form method="post" action="changestudentpassword.html" commandName="changeStudentPasswordParameters" id="changestudentpassword" autocomplete='off'>
 		<div class="sectionContent">
-			<label><spring:message code="changepassword.password1" /></label>
+			<label><spring:message code="changePassword_new" /></label>
 			<form:password path="passwd1"/>
 		</div>
 		<div class="sectionContent">
-			<label><spring:message code="changepassword.password2" /></label>
+			<label><spring:message code="changePassword_confirm" /></label>
 			<form:password path="passwd2"/>
 		</div>
 		
@@ -43,7 +43,7 @@
 			</spring:bind>
 		</div>
 
-	    <div class="sectionContent"><input type="submit" value="<spring:message code="wise.save-changes"/>"/></div>
+	    <div class="sectionContent"><input type="submit" value="<spring:message code="saveChanges"/>"/></div>
 	</form:form>
 </div>
 	

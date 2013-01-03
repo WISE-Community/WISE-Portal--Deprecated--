@@ -22,7 +22,7 @@
 <script src="/webapp/javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="/webapp/javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
-<title><spring:message code="teacher.setup-project-run-step-one" /></title>
+<title><spring:message code="teacher.run.create.createrunconfirm.settingUpAProjectRunStep1" /></title>
 
 <script type="text/javascript">
 
@@ -69,9 +69,9 @@
 	/* displays the html to run cleaing for this project */
 	function enableCleaning(){
 		var cleaning = document.getElementById('cleaningDisplayDiv');
-		cleaning.innerHTML = 'We have detected that the project has not been cleaned since it was last edited.<br/>' +
-			'Before setting up a run the project must be cleaned. To continue <a onclick="runCleaning(\'true\')"><font color="blue">Clean the Project</font></a> ' +
-			'For any problems detected during cleaning, you will be prompted to resolve them, otherwise, run setup will continue normally';
+		cleaning.innerHTML = '<spring:message code="teacher.run.create.createrunconfirm.weHaveDetectedNotCleaned" /><br/>' +
+			'<spring:message code="teacher.run.create.createrunconfirm.beforeRunProjectMustBeCleaned" /> <a onclick="runCleaning(\'true\')"><font color="blue"><spring:message code="teacher.run.create.createrunconfirm.cleanTheProject" /></font></a> ' +
+			'<spring:message code="teacher.run.create.createrunconfirm.forAnyProblemsDetected" />';
 	};
 
 	/* processes the results an allows the appropriate action based on the results */
@@ -81,32 +81,31 @@
 		
 		cleaning.innerHTML = html;
 
-		var displayHtml = '<b>Cleaning Results: </b><br/><table><tbody><tr><td></td><td># Problems Detected</td><td># Problems Resolved</td></tr>' +
-		'<tr><td>Severe:</td><td>' + results.severe.detected + '</td><td>' + results.severe.resolved + '</td></tr>' +
-		'<tr><td>Warning:</td><td>' + results.warning.detected + '</td><td>' + results.warning.resolved + '</td></tr>' +
-		'<tr><td>Notifications:</td><td>' + results.notification.detected + '</td><td>' + results.notification.resolved + '</td></tr></tbody></table><br/><br/>'
+		var displayHtml = '<b><spring:message code="teacher.run.create.createrunconfirm.cleaningResults" /> </b><br/><table><tbody><tr><td></td><td><spring:message code="teacher.run.create.createrunconfirm.numberProblemsDetected" /></td><td><spring:message code="teacher.run.create.createrunconfirm.numberProblemsResolved" /></td></tr>' +
+		'<tr><td><spring:message code="teacher.run.create.createrunconfirm.severe" /></td><td>' + results.severe.detected + '</td><td>' + results.severe.resolved + '</td></tr>' +
+		'<tr><td><spring:message code="teacher.run.create.createrunconfirm.warning" /></td><td>' + results.warning.detected + '</td><td>' + results.warning.resolved + '</td></tr>' +
+		'<tr><td><spring:message code="teacher.run.create.createrunconfirm.notifications" /></td><td>' + results.notification.detected + '</td><td>' + results.notification.resolved + '</td></tr></tbody></table><br/><br/>'
 	
 		/* determine appropriate display based on results */
 		if('${isAllowedToClean}'==='true'){
 			/* if any severe problems detected equals resolved then we can proceed */
 			if(results.severe.detected==results.severe.resolved){
-				displayHtml += 'The cleaning process was completed and any severe problems were resolved. Continue to ' +
-					'<a onclick="enableRunCreation()"><font color="blue">Set up a Run</font></a>.';
+				displayHtml += '<spring:message code="teacher.run.create.createrunconfirm.cleaningCompletedAllResolved" /> ' +
+					'<a onclick="enableRunCreation()"><font color="blue"><spring:message code="teacher.run.create.createrunconfirm.setUpARun" /></font></a>.';
 			/* otherwise, they need to re-run cleaning to continue */
 			} else {
-				displayHtml += 'The cleaning process was completed but not all severe problems were resolved. These must be resolved before ' +
-					'continuing to set up a run.<br/><br/>' +
-					'<a onclick="runCleaning(\'true\')"><font color="blue">Re-Run Cleaning</font></a>';
+				displayHtml += '<spring:message code="teacher.run.create.createrunconfirm.cleaningCompletedNotAllResolved" /> ' +
+					'<spring:message code="teacher.run.create.createrunconfirm.continuingToSetUpARun" /><br/><br/>' +
+					'<a onclick="runCleaning(\'true\')"><font color="blue"><spring:message code="teacher.run.create.createrunconfirm.reRunCleaning" /></font></a>';
 			};
 		/* non-owner but severe detected, needs to contact run owner */
 		} else if(results.severe.detected>0){
-			displayHtml += 'Severe problems were detected. Run set up cannot continue. <a onclick="sendCleanMessage()"><font color="blue">' +
-					'Send a message</font></a> to the owner(s) of the project and system administrator requesting cleaning of the project. ' +
-					'NOTE: The owner(s) will be made aware of your username so that they may respond when the project is cleaned. If your ' +
-					'email address for this account is valid, an email will be generated and sent to that address as well.';
+			displayHtml += '<spring:message code="teacher.run.create.createrunconfirm.severeProblems" /> <a onclick="sendCleanMessage()"><font color="blue">' +
+					'<spring:message code="teacher.run.create.createrunconfirm.sendAMessage" /></font></a> <spring:message code="teacher.run.create.createrunconfirm.toTheOwner" /> ' +
+					'<spring:message code="teacher.run.create.createrunconfirm.note" />';
 		/* non-owner but no severe detected, can continue to set up run */
 		} else {
-			displayHtml += 'No severe problems detected, continue to <a onclick="enableRunCreation()"><font color="blue">Set up a Run</font></a>.';
+			displayHtml += '<spring:message code="teacher.run.create.createrunconfirm.noSevereProblems" /> <a onclick="enableRunCreation()"><font color="blue"><spring:message code="teacher.run.create.createrunconfirm.setUpARun" /></font></a>.';
 		};
 
 		/* display the html */
@@ -127,21 +126,21 @@
 
 		var projectName = '<c:out value="${project.name}" />';
 		
-		var body = 'Hello, I am ${currentUsername} and would like to request a cleaning for the project ' + projectName +
-				' with project ID ${project.id} so that I may set up a run with this project. Thank you.';
-		var postData = 'recipient=${projectOwners}&subject=Request for project cleaning&body=' + body;
+		var body = '<spring:message code="teacher.run.create.createrunconfirm.helloIAm" /> ${currentUsername} <spring:message code="teacher.run.create.createrunconfirm.wouldLikeToRequestCleaning" /> ' + projectName +
+				' <spring:message code="teacher.run.create.createrunconfirm.withProjectId" /> ${project.id} <spring:message code="teacher.run.create.createrunconfirm.soThatIMaySetUpRun" />';
+		var postData = 'recipient=${projectOwners}&subject=<spring:message code="teacher.run.create.createrunconfirm.requestForProjectCleaning" />&body=' + body;
 		var callback = {
 				success:function(o){
 					if(o.responseText != null && o.responseText == 'success'){
-						var msg = '<font color="green">Message was sent to the project owner(s).</font>';
+						var msg = '<font color="green"><spring:message code="teacher.run.create.createrunconfirm.messageWasSent" /></font>';
 					} else {
-						var msg = '<font color="red">Error sending message to the owner(s)! Please contact a wise administrator.</font>';
+						var msg = '<font color="red"><spring:message code="teacher.run.create.createrunconfirm.errorSendingMessage" /></font>';
 					};
 					
 					document.getElementById('cleaningDisplayDiv').innerHTML = msg;
 				},
 				failure:function(o){
-					document.getElementById('cleaningDisplayDiv').innerHTML = '<font color="red">Error sending message to the owner(s)! Please contact a wise administrator.</font>';
+					document.getElementById('cleaningDisplayDiv').innerHTML = '<font color="red"><spring:message code="teacher.run.create.createrunconfirm.errorSendingMessage" /></font>';
 				},
 				scope:this
 		};
@@ -180,15 +179,15 @@
 			
 			<div class="contentPanel">
 				<div class="panelHeader">
-					<spring:message code="teacher.setup-project-classroom-run" />
-					<span class="pageTitle"><spring:message code="header.location.teacher.management"/></span>
+					<spring:message code="teacher.run.create.createrunconfirm.setupAClassroomRun" />
+					<span class="pageTitle"><spring:message code="teacher.run.create.createrunconfirm.management"/></span>
 				</div>
 				<div class="panelContent">
 					<div id="setUpRunBox" style='display:none;'>
-						<div id="stepNumber" class="sectionHead" style="padding-top:0;"><spring:message code="teacher.run.setup.1"/>&nbsp;<spring:message code="teacher.run.setup.2"/></div>
+						<div id="stepNumber" class="sectionHead" style="padding-top:0;"><spring:message code="teacher.run.create.createrunconfirm.step1Of5"/>&nbsp;<spring:message code="teacher.run.create.createrunconfirm.confirmProject"/></div>
      	    	    	<div class="sectionContent">
-     	    	    		<h5><spring:message code="teacher.run.setup.3"/>&nbsp;<spring:message code="teacher.run.setup.4"/>&nbsp;<spring:message code="teacher.run.setup.5"/><spring:message code="teacher.run.setup.6"/></h5>
-							<h5><spring:message code="teacher.run.setup.7"/>&nbsp;<spring:message code="teacher.run.setup.8"/></h5>
+     	    	    		<h5><spring:message code="teacher.run.create.createrunconfirm.thisProcessWillHelp"/>&nbsp;<spring:message code="teacher.run.create.createrunconfirm.classroomRun"/>&nbsp;<spring:message code="teacher.run.create.createrunconfirm.studentsWillBeAbleToRun"/><spring:message code="teacher.run.create.createrunconfirm.youCanCancel"/></h5>
+							<h5><spring:message code="teacher.run.create.createrunconfirm.youHaveSelected"/>&nbsp;<spring:message code="teacher.run.create.createrunconfirm.projectToRun"/></h5>
 							
 							<div class="projectSummary projectBox">
 								<div class="projectTitle">${project.name} (ID: ${project.id})</div> <!-- TODO: Add thumb, library icon and tag if library project, shared info -->
@@ -216,17 +215,14 @@
 								</div>
 							</div>
 							<h5>
-								<spring:message code="teacher.run.setup.9"/>&nbsp;<em><spring:message code="teacher.run.setup.10"/></em>&nbsp;<spring:message code="teacher.run.setup.11"/>
+								<spring:message code="teacher.run.create.createrunconfirm.ifThisIsCorrectProject"/>&nbsp;<em><spring:message code="teacher.run.create.createrunconfirm.next"/></em>&nbsp;<spring:message code="teacher.run.create.createrunconfirm.below"/>
 							</h5>
      	    	    	</div>
      	    	    </div> <!-- /* End setUpRunBox */-->
 
 					<div id='cleaningDiv' style='display:none;'>
 						<div id='notAllowedButCleaningNeededDiv' style='display:none;' class='cleaner'>
-							We detected that this project needs to be cleaned before a run can be set up with it. You can run the cleaning process to ensure that
-							the run you are setting up will run properly. However, you are not the owner nor are you a shared owner of the project. If any severe
-							problems are detected, you will need to contact the owner or shared owner to resolve the problem before setting up a run. If there are no
-							severe errors, you can continue to set up a run. <a onclick='runCleaning("false")'><font color="blue">Clean the Project</font></a>
+							<spring:message code="teacher.run.create.createrunconfirm.weDetectedProjectNeedsCleaning"/> <a onclick='runCleaning("false")'><font color="blue"><spring:message code="teacher.run.create.createrunconfirm.cleanTheProject"/></font></a>
 						</div>
 						<div id='cleaningAllowedDiv' style='display:none;'>
 							<div id='cleaningDisplayDiv' class='cleaner'></div>
@@ -240,9 +236,9 @@
 					
 					<div style="text-align:center;">
 						<form method="post">
-							<input type="submit" name="_target0" class="disabled" disabled value="<spring:message code="navigate.back" /> " style="display:none;" id='prevButt'/>
-							<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
-							<input type="submit" name="_target1" value="<spring:message code="navigate.next" />" style="display:none;" id='nextButt'/>
+							<input type="submit" name="_target0" class="disabled" disabled value="<spring:message code="teacher.run.create.createrunconfirm.back" /> " style="display:none;" id='prevButt'/>
+							<input type="submit" name="_cancel" value="<spring:message code="teacher.run.create.createrunconfirm.cancel" />" />
+							<input type="submit" name="_target1" value="<spring:message code="teacher.run.create.createrunconfirm.next" />" style="display:none;" id='nextButt'/>
 						</form>
 					
 					</div>

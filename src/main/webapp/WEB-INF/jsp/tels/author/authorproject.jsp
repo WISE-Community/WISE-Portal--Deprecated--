@@ -27,5 +27,8 @@ function loaded(){
 <iframe id="authorfrm" src="${vleAuthorUrl}" name="authorfrm" scrolling="auto" width="100%" height="100%" frameborder="0">
  [Iframes not enabled]
 </iframe>
+</iframe>
+<div id="hiddenLogoutDiv" style="display:none"><a id="hiddenLogoutLink" onclick="window.location='/webapp/index.html'"></a></div>
+</body>
 </body>
 </html>

@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="chrome=1" />
 
-<title>Edit Run</title>
+<title><spring:message code="teacher.run.editrun.editRun"/></title>
 
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
@@ -25,7 +25,7 @@
 
 		/* validate user entered value */
 		if(!val || val==''){
-			writeMessage('You must specify a value for the title of the run');
+			writeMessage('<spring:message code="teacher.run.editrun.mustSpecifyTitle"/>');
 			return;
 		}
 
@@ -38,13 +38,13 @@
 
 		/* validate user entered value */
 		if(!val || val==''){
-			writeMessage('You must specify a value for the period');
+			writeMessage('<spring:message code="teacher.run.editrun.mustSpecifyPeriod"/>');
 			return;
 		} else if (val != val.match( /[A-Za-z0-9 ]*/ )) {
-			writeMessage('The period name must be alphanumeric.');
+			writeMessage('<spring:message code="teacher.run.editrun.periodMustBeAlphanumeric"/>');
 			return;
 		} else if ($("#period_"+val+"").length > 0) {
-			writeMessage('You already have a period with this name.');
+			writeMessage('<spring:message code="teacher.run.editrun.alreadyHavePeriodWithThisName"/>');
 			return;			
 		}
 
@@ -57,23 +57,23 @@
 	}
 
 	function updateSuccess(){
-		writeMessage('Successfully updated run settings!');
+		writeMessage('<spring:message code="teacher.run.editrun.successfullyUpdatedRunSettings"/>');
 	}
 	
 	function updateTitleSuccess(){
 		runUpdated = true;
-		writeMessage('Successfully updated run title!');
+		writeMessage('<spring:message code="teacher.run.editrun.successfullyUpdatedRunTitle"/>');
 	}
 
 	function updateFailure(){
-		writeMessage('Error contacting server to update run information, please try again.');
+		writeMessage('<spring:message code="teacher.run.editrun.errorUpdatingRunInformation"/>');
 	}
 
 	function updatePeriodSuccess(){
 		runUpdated = true;
 		var val = $('#editRunPeriodsInput').val();
-		$('#existingPeriodsList').append('<li>Period Name: <span id="period_'+val+'">' + val + "</span></li>");
-		writeMessage('Period successfully added to run!');
+		$('#existingPeriodsList').append('<li><spring:message code="teacher.run.editrun.periodName"/> <span id="period_'+val+'">' + val + "</span></li>");
+		writeMessage('<spring:message code="teacher.run.editrun.periodSuccessfullyAdded"/>');
 	}
 
 	$(document).ready(function() {		
@@ -101,7 +101,7 @@
 	<div id="runId" style="display:none;">${run.id}</div>
 	<div id='msgDiv'></div>
 	<div id="editRunTitleDiv" class="dialogSection">
-		Run Title: <input id="editRunTitleInput" class="dialogTextInput" type="text" size="40" value="<c:out value='${run.name}' />"/><input type="button" value="Update Title" onclick="updateRunTitle('${run.id}')"/>
+		<spring:message code="teacher.run.editrun.runTitle"/> <input id="editRunTitleInput" class="dialogTextInput" type="text" size="40" value="<c:out value='${run.name}' />"/><input type="button" value="<spring:message code="teacher.run.editrun.updateTitle"/>" onclick="updateRunTitle('${run.id}')"/>
 	</div>
 	<div id='runInfo' class="dialogSection">
 		<!-- <c:choose>
@@ -115,27 +115,27 @@
 		<br/> -->
 		<c:choose>
 			<c:when test="${run.XMPPEnabled}">
-				<input id='enableXMPP' class='runInfoOption' type="checkbox" checked="checked"></input>Enable Real-Time Classroomm Monitor
+				<input id='enableXMPP' class='runInfoOption' type="checkbox" checked="checked"></input><spring:message code="teacher.run.editrun.enableClassroomMonitor"/>
 			</c:when>
 			<c:otherwise>
-				<input id='enableXMPP' class='runInfoOption' type="checkbox"></input>Enable Real-Time Classroom Monitor
+				<input id='enableXMPP' class='runInfoOption' type="checkbox"></input><spring:message code="teacher.run.editrun.enableClassroomMonitor"/>
 			</c:otherwise>
 		</c:choose>
 	</div>
-	<div class="sectionHead">Existing Class Periods</div>
+	<div class="sectionHead"><spring:message code="teacher.run.editrun.existingClassPeriods"/></div>
 	<div id="editRunPeriodsDiv" class="dialogSection">
 		<div id="editRunPeriodsExistingPeriodsDiv">
 			<ul id="existingPeriodsList">
 				<c:forEach var="period" items="${run.periods}">
-					<li>Period Name: <span id="period_${period.name}">${period.name}</span></li>
+					<li><spring:message code="teacher.run.editrun.periodName"/> <span id="period_${period.name}">${period.name}</span></li>
 				</c:forEach>
 			</ul>
 		</div>
 	</div>
-	<div class="sectionHead">Add a New Period:</div>
+	<div class="sectionHead"><spring:message code="teacher.run.editrun.addANewPeriod"/></div>
 	<div class="dialogSection">
 		<div id="editRunPeriodsAddPeriodDiv">
-			<div>Enter period name (e.g. for period 4, enter ONLY 4): <input id="editRunPeriodsInput" class="dialogTextInput" type="text" size="10"/><input type="button" value="Add Period" onclick="updateRunPeriod('${run.id}')"/></div>
+			<div><spring:message code="teacher.run.editrun.enterPeriodName"/> <input id="editRunPeriodsInput" class="dialogTextInput" type="text" size="10"/><input type="button" value="<spring:message code="teacher.run.editrun.addPeriod"/>" onclick="updateRunPeriod('${run.id}')"/></div>
 		</div>
 		<div class="buffer"></div>
 	</div>

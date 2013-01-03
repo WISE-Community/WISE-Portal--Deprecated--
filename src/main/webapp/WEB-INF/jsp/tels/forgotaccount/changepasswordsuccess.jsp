@@ -8,7 +8,7 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"    type="text/css" />
 
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="change-password" /></title>
 </head>
 
 <body style="background:#fff;">
@@ -16,7 +16,7 @@
 <div class="dialogContent">
 
 	<div class="dialogSection">
-		<div class="errorMsgNoBg"><p><spring:message code="changepassword.passwordchanged" /></p></div>
+		<div class="errorMsgNoBg"><p><spring:message code="change-password_success" /></p></div>
 	</div>
 </div>
 

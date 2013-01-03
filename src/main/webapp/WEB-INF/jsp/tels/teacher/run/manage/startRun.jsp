@@ -10,18 +10,18 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
     
-<title><spring:message code="teacher.run.manage.startrun.1"/></title>
+<title><spring:message code="teacher.run.manage.startRun.restoreClassroomRun"/></title>
 </head>
 
 <body style="background:#FFF;">
 
 <div class="dialogContent">		
 
-	<div class="sectionHead"><spring:message code="teacher.run.manage.startrun.1"/></div>
+	<div class="sectionHead"><spring:message code="teacher.run.manage.startRun.restoreClassroomRun"/></div>
 
 	<form:form method="post" action="startRun.html" commandName="startRunParameters" id="startRun" autocomplete='off'>
 	  <div class="sectionContent">
-	  	<label for="runId"><spring:message code="teacher.run.manage.startrun.5"/></label>
+	  	<label for="runId"><spring:message code="teacher.run.manage.startRun.reActivateRunId"/></label>
 	    <form:input disabled="true" path="runId" id="runId"/>
 	    <form:errors path="runId" />
 	  </div>
@@ -37,7 +37,7 @@
 		</div>
 
 		<div class="sectionContent">
-			<input type="submit" name="cancelarchive" value="<spring:message code="teacher.run.manage.startrun.6"/>" />
+			<input type="submit" name="cancelarchive" value="<spring:message code="teacher.run.manage.startRun.reActivateRun"/>" />
 		</div>
 		
 	</form:form>

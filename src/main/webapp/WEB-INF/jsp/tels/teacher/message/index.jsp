@@ -23,7 +23,6 @@
 <html lang="en">
 <head>
 <script type="text/javascript" src="javascript/tels/jquery-1.4.1.min.js" ></script>
-<%@ include file="../projects/styles.jsp"%>
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
@@ -58,28 +57,28 @@ function archiveMessage(messageId, sender, isRead) {
 			if (isRead=="true") {   // move from new->archived
 				var message_text_div = document.getElementById("message_action_div_"+messageId);
 				message_text_div.innerHTML = 		
-					"<a class=\"messageArchiveLink\" onclick=\"archiveMessage('"+messageId+"', '"+sender+"', 'false');\">Mark as Unread</a> | "+ 
-					"<a class=\"messageReplyLink\" onclick=\"alert('Sorry, replying to a message is not yet implemented');\">Reply</a><br/><br/>";
+					"<a class=\"messageArchiveLink\" onclick=\"archiveMessage('"+messageId+"', '"+sender+"', 'false');\">" + "<spring:message code="teacher.message.index.markAsUnread"/>" + "</a> | "+ 
+					"<a class=\"messageReplyLink\" onclick=\"alert('" + "<spring:message code="teacher.message.index.replyingNotImplented"/>" + "');\">" + "<spring:message code="teacher.message.index.reply"/>" + "</a><br/><br/>";
 				document.getElementById("newMessageDiv").removeChild(messageDiv);				
 				document.getElementById("archivedMessageDiv").appendChild(messageDiv);
 			} else {  // move from archived->new
 				var message_text_div = document.getElementById("message_action_div_"+messageId);
 				message_text_div.innerHTML = 		
-					"<a class=\"messageArchiveLink\" onclick=\"archiveMessage('"+messageId+"', '"+sender+"', 'true');\">Archive</a> | "+ 
-					"<a class=\"messageReplyLink\" onclick=\"alert('Sorry, replying to a message is not yet implemented');\">Reply</a><br/><br/>";
+					"<a class=\"messageArchiveLink\" onclick=\"archiveMessage('"+messageId+"', '"+sender+"', 'true');\">" + "<spring:message code="teacher.message.index.archive"/>" + "</a> | "+ 
+					"<a class=\"messageReplyLink\" onclick=\"alert('" + "<spring:message code="teacher.message.index.replyingNotImplented"/>" + "');\">" + "<spring:message code="teacher.message.index.reply"/>" + "</a><br/><br/>";
 				document.getElementById("archivedMessageDiv").removeChild(messageDiv);
 				document.getElementById("newMessageDiv").appendChild(messageDiv);
 			}
 
 			// update the counters for both new and archived messages
 			var newMessageCount = document.getElementById("newMessageDiv").getElementsByClassName("messageDiv").length;
-			document.getElementById("newMessageCountDiv").innerHTML = "You have "+newMessageCount+" new message(s).";
+			document.getElementById("newMessageCountDiv").innerHTML = "<spring:message code="teacher.message.index.youHave"/>" + " "+newMessageCount+" " + "<spring:message code="teacher.message.index.newMessage"/>";
 			var archivedMessageCount = document.getElementById("archivedMessageDiv").getElementsByClassName("messageDiv").length;
-			document.getElementById("archivedMessageCountDiv").innerHTML = "You have "+archivedMessageCount+" archived message(s).";
+			document.getElementById("archivedMessageCountDiv").innerHTML = "<spring:message code="teacher.message.index.youHave"/>" + " "+archivedMessageCount+" " + "<spring:message code="teacher.message.index.archivedMessage"/>";
 		},
 		failure:function(o){
 			/* set failure message */
-			messageDiv.innerHTML = '<font color="992244">Unable to update message on server! Refresh this page to try again.</font>';
+			messageDiv.innerHTML = '<font color="992244">' + "<spring:message code="teacher.message.index.unableToUpdate"/>" + '</font>';
 		},
 		scope:this
 	};	
@@ -116,10 +115,10 @@ function sendMessage(originalMessageId) {
 				if (o.responseText != null && o.responseText == "success") {
 					if (originalMessageId == "-1") {
 						clearComposeMessageForm();
-						$("#composeMessageFeedbackDiv").html("message to " + recipient + " was sent successfully!");
+						$("#composeMessageFeedbackDiv").html("<spring:message code="teacher.message.index.messageTo"/>" + " " + recipient + " " + "<spring:message code="teacher.message.index.sentSuccessfully"/>");
 					} else {
 						showReplyForm(originalMessageId, false);
-						$("#replyFeedbackDiv_"+originalMessageId).html("reply to " + recipient + " was sent successfully!");
+						$("#replyFeedbackDiv_"+originalMessageId).html("<spring:message code="teacher.message.index.messageTo"/>" + " " + recipient + " " + "<spring:message code="teacher.message.index.sentSuccessfully"/>");
 												
 					}
 					// add the message to sentMessagesDiv.
@@ -128,16 +127,16 @@ function sendMessage(originalMessageId) {
 					var sentMessageDiv = document.createElement("div");
 					sentMessageDiv.setAttribute("class", "messageDiv");
 					sentMessageDiv.innerHTML = "<div id=\"message_text_div_10\">" +
-			  	  	"Date: "+dateString+"<br/>" +
-			  	  	"To: "+recipient+"<br/>" +
-					"Subject: <span>"+subject+"</span><br/>"+
+					"<spring:message code="teacher.message.index.date"/>" + ": "+dateString+"<br/>" +
+					"<spring:message code="teacher.message.index.to"/>" + ": "+recipient+"<br/>" +
+					"<spring:message code="teacher.message.index.subject"/>" + ": <span>"+subject+"</span><br/>"+
 			    	body+"</div>";
 			    	document.getElementById("sentMessageDiv").appendChild(sentMessageDiv);					
 				} else {
 					if (o.responseText != null && o.responseText == "recipient not found") {
-						alert("The recipient could not be found. Please verify that you have entered the recipient's exact username.");
+						alert("<spring:message code="teacher.message.index.recipientCouldNotBeFound"/>");
 					} else {
-						alert("Unknown problem sending message. Please talk to WISE staff.");
+						alert("<spring:message code="teacher.message.index.unknownProblem"/>");
 					}
 				}
 			},
@@ -168,9 +167,9 @@ function getDateString() {
 	}
 	var amPm = "";
 	if(hours > 11){
-		amPm = "PM";
+		amPm = "<spring:message code="teacher.message.index.pm"/>";
 	} else {
-	 	amPm = "AM";
+	 	amPm = "<spring:message code="teacher.message.index.am"/>";
 	}
 	return month + "/" + day + "/" + year + " " +
 		hours + ":" + minutes + " " + amPm;
@@ -224,32 +223,32 @@ function sendReply(originalMessageId) {
 
 <%@ include file="../headerteacher.jsp"%>
 
-<div id="navigationSubHeader2">View & Send Messages<span id="navigationSubHeader1">management</span></div>
+<div id="navigationSubHeader2"><spring:message code="teacher.message.index.viewAndSendMessages"/><span id="navigationSubHeader1"><spring:message code="teacher.message.index.management"/></span></div>
 
 <div class="panelStyleMessage">
-	<div id="messageHeader">Incoming Messages</div>
+	<div id="messageHeader"><spring:message code="teacher.message.index.incomingMessages"/></div>
 	<div id="messageContent">
-		<div id="newMessageCountDiv"><c:out value="You have ${fn:length(unreadMessages)} new message(s)."></c:out></div>
+		<div id="newMessageCountDiv"><spring:message code="teacher.message.index.youHave"/><c:out value=" ${fn:length(unreadMessages)} "></c:out><spring:message code="teacher.message.index.newMessage"/></div>
 		<div id="newMessageDiv">
 		<c:forEach var="message" items="${unreadMessages}" >
 		    <div class="messageDiv" id="message_${message.id}">
 		    	<div id="message_text_div_${message.id}">
 		  	  	<table class='messageDisplayTable2'>
-				<tr><th>Date:</th><td><fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /></td></tr>
-				<tr><th>From:</th><td><span id="message_from_${message.id}">${message.sender.userDetails.username}</span></td></tr>
-				<tr><th>Subject:</th><td><span id="message_subject_${message.id}">${message.subject}</span></td>
-				<tr><th>Msg:</th><td class='messageBody'><c:out value="${message.body}" /></td></tr>
+				<tr><th><spring:message code="teacher.message.index.date"/></th><td><fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /></td></tr>
+				<tr><th><spring:message code="teacher.message.index.from"/></th><td><span id="message_from_${message.id}">${message.sender.userDetails.username}</span></td></tr>
+				<tr><th><spring:message code="teacher.message.index.subject"/></th><td><span id="message_subject_${message.id}">${message.subject}</span></td>
+				<tr><th><spring:message code="teacher.message.index.msg"/></th><td class='messageBody'><c:out value="${message.body}" /></td></tr>
 				</table>
 				</div>
 				<div id="message_action_div_${message.id}" class='messageActionLinks'>
-					<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}', 'true');">Archive</a> | 
+					<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}', 'true');"><spring:message code="teacher.message.index.archive"/></a> | 
 					<a class="messageReplyLink" onclick="showReplyForm('${message.id}', true);">Reply</a><br/><br/>
 				</div>
 				<div class="replyDiv" id="replyDiv_${message.id}">
 					Subject: <span id="reply_subject_${message.id}">Re: ${message.subject}</span><br/>
 					<textarea cols="75" rows="5" id="reply_body_${message.id}" ></textarea>
-					<input type="button" value="Send" onclick="sendReply('${message.id}')" />
-					<input type="button" value="Cancel" onclick="showReplyForm('${message.id}',false)" />
+					<input type="button" value=<spring:message code="teacher.message.index.send"/> onclick="sendReply('${message.id}')" />
+					<input type="button" value=<spring:message code="teacher.message.index.cancel"/> onclick="showReplyForm('${message.id}',false)" />
 				</div>
 				<div class="replyFeedbackDiv" id="replyFeedbackDiv_${message.id}"></div>
 			</div>
@@ -259,15 +258,15 @@ function sendReply(originalMessageId) {
 </div>
 
 <div class="panelStyleMessage secondPlus">
-	<div id="messageHeader">Send a New Message</div>
+	<div id="messageHeader"><spring:message code="teacher.message.index.sendNewMessage"/></div>
 	<div id="messageContent">
 		<div id="composeMessageFeedbackDiv"></div>
 		<div id="composeMessageDiv">
 			<input type="hidden" id="compose_originalMessageId" value="-1" />
 			<table>
-				<tr><td>To:</td><td><input type="text" id="compose_recipient"/></td></tr>
-				<tr><td>Subject:</td><td><input type="text" id="compose_subject" /></td></tr>
-				<tr><td>Message:</td><td><textarea cols="75" rows="10" id="compose_body" ></textarea></td></tr>
+				<tr><td><spring:message code="teacher.message.index.to"/></td><td><input type="text" id="compose_recipient"/></td></tr>
+				<tr><td><spring:message code="teacher.message.index.subject"/></td><td><input type="text" id="compose_subject" /></td></tr>
+				<tr><td><spring:message code="teacher.message.index.message"/></td><td><textarea cols="75" rows="10" id="compose_body" ></textarea></td></tr>
 			</table>
 			<br/>
 			<input type="button" value="Send" onclick="sendMessage('-1')" />
@@ -276,31 +275,31 @@ function sendReply(originalMessageId) {
 </div>
 
 <div class="panelStyleMessage secondPlus">
-	<div id="messageHeader">Archive of Incoming Messages
-		<a id="hideShowLink" href="#" onclick="toggleDetails()">Hide/Show Archived Messages</a>
+	<div id="messageHeader"><spring:message code="teacher.message.index.archiveIncomingMessages"/>
+		<a id="hideShowLink" href="#" onclick="toggleDetails()"><spring:message code="teacher.message.index.hideShowArchivedMessages"/></a>
 	</div>
 	<div id="messageContentArchived" style="display:none;">
-		<div id="archivedMessageCountDiv"><c:out value="You have ${fn:length(readMessages)} archived message(s)."></c:out></div>
+		<div id="archivedMessageCountDiv"><spring:message code="teacher.message.index.youHave"/><c:out value=" ${fn:length(readMessages)} "></c:out><spring:message code="teacher.message.index.archivedMessage"/></div>
 		<div id="archivedMessageDiv">
 		<c:forEach var="message" items="${readMessages}" >
 		    <div class="messageDiv" id="message_${message.id}">
 		    	<div id="message_text_div_${message.id}">
 		  	  	<table class='messageDisplayTable2'>
-				<tr><th>Date:</th><td><fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /></td></tr>
-				<tr><th>From:</th><td><span id="message_from_${message.id}">${message.sender.userDetails.username}</span></td></tr>
-				<tr><th>Subject:</th><td><span id="message_subject_${message.id}">${message.subject}</span></td></tr>
-				<tr><th>Msg:</th><td class='messageBody'><c:out value="${message.body}" /></td></tr>
+				<tr><th><spring:message code="teacher.message.index.date"/></th><td><fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /></td></tr>
+				<tr><th><spring:message code="teacher.message.index.from"/></th><td><span id="message_from_${message.id}">${message.sender.userDetails.username}</span></td></tr>
+				<tr><th><spring:message code="teacher.message.index.subject"/></th><td><span id="message_subject_${message.id}">${message.subject}</span></td></tr>
+				<tr><th><spring:message code="teacher.message.index.msg"/></th><td class='messageBody'><c:out value="${message.body}" /></td></tr>
 				</table>
 				</div>
 				<div id="message_action_div_${message.id}" class='messageActionLinks'>
-					<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}', 'false');">Mark as Unread</a> | 
-					<a class="messageReplyLink" onclick="showReplyForm('${message.id}', true);">Reply</a><br/><br/>
+					<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}', 'false');"><spring:message code="teacher.message.index.markAsUnread"/></a> | 
+					<a class="messageReplyLink" onclick="showReplyForm('${message.id}', true);"><spring:message code="teacher.message.index.reply"/></a><br/><br/>
 				</div>
 				<div class="replyDiv" id="replyDiv_${message.id}">
-					Subject: <span id="reply_subject_${message.id}">Re: ${message.subject}</span><br/>
+					<spring:message code="teacher.message.index.subject"/> <span id="reply_subject_${message.id}">Re: ${message.subject}</span><br/>
 					<textarea cols="75" rows="5" id="reply_body_${message.id}" ></textarea>
-					<input type="button" value="Send" onclick="sendReply('${message.id}')" />
-					<input type="button" value="Cancel" onclick="showReplyForm('${message.id}',false)" />
+					<input type="button" value=<spring:message code="teacher.message.index.send"/> onclick="sendReply('${message.id}')" />
+					<input type="button" value=<spring:message code="teacher.message.index.cancel"/> onclick="showReplyForm('${message.id}',false)" />
 				</div>
 				<div class="replyFeedbackDiv" id="replyFeedbackDiv_${message.id}"></div>
 			</div>
@@ -310,25 +309,25 @@ function sendReply(originalMessageId) {
 </div>
 
 <div class="panelStyleMessage secondPlus">
-	<div id="messageHeader">Archive of Sent Messages
-	<a id="hideShowLink" href="#" onclick="toggleDetails2()">Hide/Show Sent Messages</a>
+	<div id="messageHeader"><spring:message code="teacher.message.index.archiveOfSentMessages"/>
+	<a id="hideShowLink" href="#" onclick="toggleDetails2()"><spring:message code="teacher.message.index.hideShowSentMessages"/></a>
 	</div>
 	<div id="messageContentSent" style="display:none;">
-		<div id="sentMessageCountDiv"><c:out value="You have ${fn:length(sentMessages)} sent message(s)."></c:out></div>
+		<div id="sentMessageCountDiv"><spring:message code="teacher.message.index.youHave"/><c:out value=" ${fn:length(sentMessages)} "></c:out><spring:message code="teacher.message.index.sentMessage"/></div>
 		<div id="sentMessageDiv">
 		<c:forEach var="message" items="${sentMessages}" >
 		    <div class="messageDiv" id="message_${message.id}">
 		    	<div id="message_text_div_${message.id}">
 	  	  		<table class='messageDisplayTable2'>
-				<tr><th>Date:</th><td><fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /></td></tr>
-				<tr><th>To:</th><td>
+				<tr><th><spring:message code="teacher.message.index.date"/></th><td><fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /></td></tr>
+				<tr><th><spring:message code="teacher.message.index.to"/></th><td>
 					<c:forEach var="messageRecipient" varStatus='messageRecipientStatus' items="${message.recipients}">
 						<c:out value="${messageRecipient.recipient.userDetails.username}"/>
 						<c:if test='${messageRecipientStatus.last=="false"}'>, </c:if>
 					</c:forEach>
 				</td></tr>
-				<tr><th>Subject:</th><td><span id="message_subject_${message.id}">${message.subject}</span></td></tr>
-				<tr><th>Msg:</th><td><c:out value="${message.body}" /></td></tr>
+				<tr><th><spring:message code="teacher.message.index.subject"/></th><td><span id="message_subject_${message.id}">${message.subject}</span></td></tr>
+				<tr><th><spring:message code="teacher.message.index.msg"/></th><td><c:out value="${message.body}" /></td></tr>
 				</table>
 				</div>
 			</div>

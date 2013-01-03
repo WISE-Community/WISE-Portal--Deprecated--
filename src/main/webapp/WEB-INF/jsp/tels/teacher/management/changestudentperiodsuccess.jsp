@@ -9,7 +9,7 @@
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"
     type="text/css" />
     
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="teacher.management.changestudentperiod.header" /></title>
 <script type='text/javascript'>
 function refreshParent(){
 	if(window.opener){
@@ -28,7 +28,7 @@ var refreshRequired = true;
 
 	<div class="dialogContent">
 		<div class="dialogSection">
-			<div class="errorMsgNoBg"><p><spring:message code="teacher.manage.changeperiod.6"/></p></div>
+			<div class="errorMsgNoBg"><p><spring:message code="teacher.management.changestudentperiodsuccess.success"/></p></div>
 		</div>
 	</div>
 

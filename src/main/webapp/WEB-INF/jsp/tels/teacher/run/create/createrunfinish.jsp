@@ -36,47 +36,47 @@
 			
 			<div class="contentPanel">
 				<div class="panelHeader">
-					<spring:message code="teacher.setup-project-classroom-run" />
-					<span class="pageTitle"><spring:message code="header.location.teacher.management"/></span>
+					<spring:message code="teacher.run.create.createrunfinish.setupAClassroomRun" />
+					<span class="pageTitle"><spring:message code="teacher.run.create.createrunfinish.management"/></span>
 				</div>
 				
 				<div class="panelContent">
 
 					<div>
-						<div class="sectionHead"><spring:message code="teacher.run.setup.48"/></div>
+						<div class="sectionHead"><spring:message code="teacher.run.create.createrunfinish.classroomRunCreated"/></div>
 						<div class="sectionContent">
 		
-							<h5><spring:message code="teacher.run.setup.49"/>&nbsp;<a href="/webapp/teacher/management/classroomruns.html"><spring:message code="menu.runs"/></a>&nbsp;<spring:message code="teacher.run.setup.51"/></h5>
+							<h5><spring:message code="teacher.run.create.createrunfinish.newRunHasBeenPlaced"/>&nbsp;<a href="/webapp/teacher/management/classroomruns.html"><spring:message code="teacher.run.create.createrunfinish.gradeAndManageClassroomRuns"/></a>&nbsp;<spring:message code="teacher.run.create.createrunfinish.section"/></h5>
 			
 							<table id="projectRunConfirmTable">
 								<tr>
-									<td style="font-weight:bold;"><spring:message code="setuprun.confirmation.run.title" /></td>
+									<td style="font-weight:bold;"><spring:message code="teacher.run.create.createrunfinish.title" /></td>
 									<td><c:out value="${run.project.name}" /></td>
 								</tr>
 								<tr>
-									<td style="font-weight:bold;"><spring:message code="setuprun.confirmation.run.projectid" /></td>
-									<td><c:out value="${run.project.id}" /> <span class="instructions"><spring:message code="setuprun.confirmation.aboutprojectids.text" /></span></td>
+									<td style="font-weight:bold;"><spring:message code="teacher.run.create.createrunfinish.projectId" /></td>
+									<td><c:out value="${run.project.id}" /> <span class="instructions"><spring:message code="teacher.run.create.createrunfinish.everyProjectHasUniqueId" /></span></td>
 								</tr>
 								<tr>
-									<td style="font-weight:bold;"><spring:message code="setuprun.confirmation.run.runid" /></td>
-									<td><strong><c:out value="${run.id}" /></strong> <span class="instructions"><spring:message code="setuprun.confirmation.aboutrunids.text" /></span></td>
+									<td style="font-weight:bold;"><spring:message code="teacher.run.create.createrunfinish.runId" /></td>
+									<td><strong><c:out value="${run.id}" /></strong> <span class="instructions"><spring:message code="teacher.run.create.createrunfinish.everyRunHasUniqueId" /></span></td>
 								</tr>
 								<tr>
-									<td style="font-weight:bold;"><spring:message code="setuprun.confirmation.run.createdtime" /></td>
+									<td style="font-weight:bold;"><spring:message code="teacher.run.create.createrunfinish.runCreated" /></td>
 									<td><strong><c:out value="${run.starttime}" /></strong></td>
 								</tr>
 								<tr>
-									<td style="font-weight:bold; width:170px;"><spring:message code="setuprun.confirmation.run.projectcodes" /></td>
+									<td style="font-weight:bold; width:170px;"><spring:message code="teacher.run.create.createrunfinish.studentAccessCode" /></td>
 									<td style="color: #FF563F;">
 								    	<div id="runCode" style="font-weight:bold; font-size:1.25em; margin-top:0;"><c:out value="${run.runcode}" /></div>
-								    	<span><spring:message code="setuprun.confirmation.aboutprojectcodes.text" /></span>
+								    	<span><spring:message code="teacher.run.create.createrunfinish.everyRunHasUniqueAccessCode" /></span>
 								    </td>
 								</tr>
 							</table>
 						</div>
 					</div>
 					<div style="margin-top:1em;">
-						<a class="wisebutton" style="margin:0 auto;" href="/webapp/teacher/management/classroomruns.html"><spring:message code="setuprun.confirmation.myprojectruns"/></a>
+						<a class="wisebutton" style="margin:0 auto;" href="/webapp/teacher/management/classroomruns.html"><spring:message code="teacher.run.create.createrunfinish.myClassroomRuns"/></a>
 					</div>
 				</div>
 			</div>

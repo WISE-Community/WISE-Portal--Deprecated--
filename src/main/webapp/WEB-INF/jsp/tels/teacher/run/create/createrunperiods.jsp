@@ -37,7 +37,7 @@ function checkIfTextAreaEmpty (form) {
 }
 </script>
 
-<title><spring:message code="teacher.setup-project-run-step-three" /></title>
+<title><spring:message code="teacher.run.create.createrunperiods.settingUpAProjectRunStep3" /></title>
 
 </head>
 
@@ -70,38 +70,38 @@ function checkIfTextAreaEmpty (form) {
 			
 			<div class="contentPanel">
 				<div class="panelHeader">
-					<spring:message code="teacher.setup-project-classroom-run" />
-					<span class="pageTitle"><spring:message code="header.location.teacher.management"/></span>
+					<spring:message code="teacher.run.create.createrunperiods.setupAClassroomRun" />
+					<span class="pageTitle"><spring:message code="teacher.run.create.createrunperiods.management"/></span>
 				</div>
 				<form:form method="post" commandName="runParameters" autocomplete='off'>
 					<div class="panelContent">
 						<div id="setUpRunBox">
-							<div id="stepNumber" class="sectionHead"><spring:message code="teacher.run.setup.25"/>&nbsp;<spring:message code="teacher.run.setup.26"/></div>
+							<div id="stepNumber" class="sectionHead"><spring:message code="teacher.run.create.createrunperiods.step3Of5"/>&nbsp;<spring:message code="teacher.run.create.createrunperiods.selectPeriods"/></div>
 							<div class="sectionContent">
-								<h5><spring:message code="teacher.run.setup.27"/><spring:message code="teacher.run.setup.28"/>.</h5>
+								<h5><spring:message code="teacher.run.create.createrunperiods.selectPeriods"/><spring:message code="teacher.run.create.createrunperiods.next"/>.</h5>
 								
 							    <div style="margin:1em;">
 							          <div id="periodBoxes">
 							          	<c:forEach items="${periodNames}" var="periodName">
 							            <div>
 							            	<form:checkbox path="periodNames" value="${periodName}" id="${periodName}"/>
-							            	<label for="${periodName}"><spring:message code="defaultPeriodNames.${periodName}" /></label>
+							            	<label for="${periodName}"><spring:message code="teacher.run.create.createrunperiods.${periodName}" /></label>
 							            </div>
 							          	</c:forEach>
 							          </div>      
 							    </div>
 								<div>
-									<div style="line-height: 1em; margin-bottom: 1em;; font-size: .9em;"><spring:message code="teacher.run.setup.29"/>
+									<div style="line-height: 1em; margin-bottom: 1em;; font-size: .9em;"><spring:message code="teacher.run.create.createrunperiods.orManuallyEnterPeriods"/>
 										<form:textarea path="manuallyEnteredPeriods" id="manualperiodsinput" rows="1" cols="40"/>
 									</div>
-									<h5>(<spring:message code="teacher.run.setup.30"/>.&nbsp;<spring:message code="teacher.run.setup.31"/>)</h5>
+									<h5>(<spring:message code="teacher.run.create.createrunperiods.separatePeriodsWithCommas"/>.&nbsp;<spring:message code="teacher.run.create.createrunperiods.periodNamesNoMoreThan16Chars"/>)</h5>
 								</div>
 							</div>
 						</div> <!--end of SetUpRunBox -->
 						<div class="center">
-							<input type="submit" name="_target1" value="<spring:message code="navigate.back"/>" />
-							<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel"/>" />
-							<input type="submit" name="_target3" value="<spring:message code="navigate.next"/>" />
+							<input type="submit" name="_target1" value="<spring:message code="teacher.run.create.createrunperiods.back"/>" />
+							<input type="submit" name="_cancel" value="<spring:message code="teacher.run.create.createrunperiods.cancel"/>" />
+							<input type="submit" name="_target3" value="<spring:message code="teacher.run.create.createrunperiods.next"/>" />
 						</div>
 					</div>
 				</form:form>

@@ -9,7 +9,7 @@
 <link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<title>Manage Announcements</title>
+<title><spring:message code="teacher.run.announcement.manageannouncement.manageAnnouncements"/></title>
 
 </head>
 
@@ -17,7 +17,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="dialogContent">
-	<div class="sectionHead">Existing Announcements</div>
+	<div class="sectionHead"><spring:message code="teacher.run.announcement.manageannouncement.existingAnnouncements"/></div>
 	<div id="existingAnnouncements" class="dialogSection">
 		<c:choose>
 			<c:when test="${fn:length(run.announcements) > 0}">
@@ -30,28 +30,28 @@
 										${announcement.title}
 									</c:when>
 									<c:otherwise>
-										[No Title]
+										[<spring:message code="teacher.run.announcement.manageannouncement.noTitle"/>]
 									</c:otherwise>
 								</c:choose>
 							</span> <span class="aDate">(<fmt:formatDate value="${announcement.timestamp}" type="both" timeStyle="short" dateStyle="medium" />)</span>
-							<a href="viewannouncement.html?runId=${run.id}&announcementId=${announcement.id}">View</a>
-							<a href="editannouncement.html?runId=${run.id}&announcementId=${announcement.id}">Edit</a>
-							<a href="removeannouncement.html?runId=${run.id}&announcementId=${announcement.id}">Delete</a>
+							<a href="viewannouncement.html?runId=${run.id}&announcementId=${announcement.id}"><spring:message code="teacher.run.announcement.manageannouncement.view"/></a>
+							<a href="editannouncement.html?runId=${run.id}&announcementId=${announcement.id}"><spring:message code="teacher.run.announcement.manageannouncement.edit"/></a>
+							<a href="removeannouncement.html?runId=${run.id}&announcementId=${announcement.id}"><spring:message code="teacher.run.announcement.manageannouncement.delete"/></a>
 						</li>
 					</c:forEach>
 				</ul>
 			</c:when>
 			<c:otherwise>
-				No announcements found for this run.
+				<spring:message code="teacher.run.announcement.manageannouncement.noAnnouncements"/>
 			</c:otherwise>
 		</c:choose>
 	</div>
 	
 	<div class="dialogSection">
-		<input type="button" value="New Announcement +" onClick="window.location='createannouncement.html?runId=${run.id}'"/> 
+		<input type="button" value="<spring:message code="teacher.run.announcement.manageannouncement.newAnnouncement"/>" onClick="window.location='createannouncement.html?runId=${run.id}'"/> 
 	</div>
 	<div class="dialogSection">
-		<p class="info">New announcements will be shown to all students in this classroom run the next time they log in to WISE. Students can also review old announcements for each run by clicking the 'View Announcements' button on the student home page.</p>
+		<p class="info"><spring:message code="teacher.run.announcement.manageannouncement.newAnnouncementsWillBeShown"/></p>
 	</div>
 
 </div>

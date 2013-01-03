@@ -29,10 +29,7 @@
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
-<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
-
-<title><spring:message code="teacher.manage.account.1"/></title>
+<title><spring:message code="manageAccount"/></title>
 </head>
 
 <body>
@@ -46,7 +43,7 @@
 		<div id="pageContent">
 		
 			<div class="infoContent">
-				<div class="panelHeader"><spring:message code="teacher.manage.account.3"/></div>
+				<div class="panelHeader"><spring:message code="changePassword"/></div>
 				<div class="infoContentBox">
 	
 					<div class="errorMsgNoBg">
@@ -62,17 +59,17 @@
 						<form:form method="post" action="changestudentpassword.html" commandName="changeStudentPasswordParameters" id="changestudentpassword" autocomplete='off'>
 						<table style="margin:0 auto;">
 							<tr>
-							<td><label for="changestudentpassword"><spring:message code="changepassword.password1" /></label></td>
+							<td><label for="changestudentpassword"><spring:message code="changePassword_new" /></label></td>
 					      	<td><form:password path="passwd1" /></td>
 							</tr>
 							<tr>
-							<td><label for="changestudentpassword"><spring:message code="changepassword.password2" /></label></td>
+							<td><label for="changestudentpassword"><spring:message code="changePassword_confirm" /></label></td>
 							<td><form:password path="passwd2" /></td>
 							</tr>
 						</table>
 								
-					    <div><input type="submit" value="<spring:message code="wise.save-changes"/>"/></div>
-						<div><a href="updatemyaccount.html"><spring:message code="navigate.cancel"/></a></div>
+					    <div><input type="submit" value="<spring:message code="saveChanges"/>"/></div>
+						<div><a href="updatemyaccount.html"><spring:message code="cancel"/></a></div>
 					
 						</form:form>
 					 	

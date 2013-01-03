@@ -8,14 +8,14 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="teacher.management.batchstudentchangepassword.header" /></title>
 </head>
 
 <body style="background:#FFF;">
 
 	<div class="dialogContent">
 		<div class="dialogSection">
-			<div class="errorMsgNoBg"><p><spring:message code="teacher.manage.batchpassword.5"/></p></div>
+			<div class="errorMsgNoBg"><p><spring:message code="teacher.management.batchstudentchangepasswordsuccess.success"/></p></div>
 		</div>
 	</div>
 
