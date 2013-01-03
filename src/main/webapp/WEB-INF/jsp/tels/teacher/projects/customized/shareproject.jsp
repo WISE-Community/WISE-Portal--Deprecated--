@@ -13,18 +13,9 @@
 
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
  
-<title><spring:message code="teacher.pro.custom.sharepro.1"/></title>
+<title><spring:message code="teacher.projects.customized.shareproject.title"/></title>
+
 <script type="text/javascript">
-//extend Array prototype
-Array.prototype.contains = function(obj) {
-	  var i = this.length;
-	  while (i--) {
-	    if (this[i] === obj) {
-	      return true;
-	    }
-	  }
-	  return false;
-}
 
 var teacherUsernamesString = "${teacher_usernames}";
 var teacherUsernames = teacherUsernamesString.split(":");
@@ -61,7 +52,7 @@ function findStringsContaining(what, all_array) {
 
 // when remove user is clicked, confirm with user
 function removeSharedUserClicked() {
-  return confirm('<spring:message code="teacher.pro.custom.sharepro.18"/>');
+  return confirm('<spring:message code="teacher.projects.customized.shareproject.confirm"/>');
 }
 </script>
 
@@ -71,12 +62,12 @@ function removeSharedUserClicked() {
 
 <div class="dialogContent">		
 
-	<div id="sharingSearchBoxHelp" class="dialogSection"><spring:message code="teacher.pro.custom.sharepro.12"/></div>
+	<div id="sharingSearchBoxHelp" class="dialogSection"><spring:message code="teacher.projects.customized.shareproject.instructions"/></div>
 	
 	<div id="sharingSearchSelect">
 		<form:form method="post" commandName="addSharedTeacherParameters" autocomplete='off'>
-			<spring:message code="teacher.pro.custom.sharepro.17"/> <form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="populatePossibilities(this.value)" size="25"/>
-			<input type="submit" value="<spring:message code="teacher.pro.custom.sharepro.13"/>"></input>
+			<spring:message code="teacher.projects.customized.shareproject.searchLabel"/> <form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="populatePossibilities(this.value)" size="25"/>
+			<input type="submit" value="<spring:message code="save"/>"></input>
 		</form:form>
 		<ul id="matchedUsernames"></ul>
 	</div>	
@@ -84,9 +75,9 @@ function removeSharedUserClicked() {
 	<table id="sharedProjectPermissions" class="wisetable">
 	
 		<tr>
-			<th><spring:message code="teacher.pro.custom.sharepro.5"/></th>
-			<th><spring:message code="teacher.pro.custom.sharepro.6"/></th> 
-			<th><spring:message code="teacher.pro.custom.sharepro.16"/></th> 
+			<th><spring:message code="teacher.projects.customized.shareproject.usernameHeader"/></th>
+			<th><spring:message code="teacher.projects.customized.shareproject.permissionHeader"/></th> 
+			<th><spring:message code="teacher.projects.customized.shareproject.optionsHeader"/></th> 
 		</tr>
 		<tr>
 			<c:choose>
@@ -95,7 +86,7 @@ function removeSharedUserClicked() {
 				<c:otherwise>
 					<c:forEach var="owner" items="${project.owners }">
 						<td class="emph">${owner.userDetails.username}</td>
-						<td><spring:message code="teacher.pro.custom.sharepro.7"/></td>
+						<td><spring:message code="teacher.projects.customized.shareproject.owner"/></td>
 						<td></td>
 					</c:forEach>
 				</c:otherwise>
@@ -115,18 +106,18 @@ function removeSharedUserClicked() {
 								<form:hidden path="sharedOwnerUsername" />
 							
 								<form:radiobutton path="permission"
-									onclick="javscript:this.form.submit();" value="ROLE_READ_PROJECT" /><spring:message code="teacher.pro.custom.sharepro.8"/><br />
+									onclick="javscript:this.form.submit();" value="ROLE_READ_PROJECT" /><spring:message code="teacher.projects.customized.shareproject.canView"/><br />
 								<form:radiobutton path="permission"
-									onclick="javscript:this.form.submit();" value="ROLE_WRITE_PROJECT" /><spring:message code="teacher.pro.custom.sharepro.9"/><br />
+									onclick="javscript:this.form.submit();" value="ROLE_WRITE_PROJECT" /><spring:message code="teacher.projects.customized.shareproject.canEdit"/><br />
 								<sec:authorize ifAnyGranted="ROLE_USER">
 								   <sec:authorize ifAnyGranted="ROLE_ADMINISTRATOR">
 									<form:radiobutton path="permission"
-										onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" /><spring:message code="teacher.pro.custom.sharepro.10"/><br />
+										onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" /><spring:message code="teacher.projects.customized.shareproject.canShare"/><br />
 									</sec:authorize>
 								   <sec:authorize ifNotGranted="ROLE_ADMINISTRATOR">
 										<sec:accesscontrollist domainObject="${project}" hasPermission="16">												
 								        	<form:radiobutton path="permission"
-									    	    onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" /><spring:message code="teacher.pro.custom.sharepro.10"/><br />								
+									    	    onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" /><spring:message code="teacher.projects.customized.shareproject.canShare"/><br />								
 										</sec:accesscontrollist>					
 									</sec:authorize>							
 						    	</sec:authorize>

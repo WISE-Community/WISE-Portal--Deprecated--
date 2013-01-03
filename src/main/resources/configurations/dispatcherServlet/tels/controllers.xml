@@ -308,25 +308,6 @@
 		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 	
-	<bean id="myProjectRunsMainController"
-	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.MyProjectRunsMainController">
-	    <property name="runService" ref="runService" />
-		<property name="userService" ref="userService" />
-		<property name="projectService" ref="projectService" />
-		<property name="workgroupService" ref="wiseWorkgroupService" />
-		<property name="httpRestTransport" ref="httpRestTransport" />
-	</bean>
-
-	<bean id="myProjectRunsController"
-	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.RunListController">
-		<property name="portalProperties" ref="portalproperties" />
-		<property name="runService" ref="runService" />
-		<property name="userService" ref="userService" />
-		<property name="projectService" ref="projectService" />
-		<property name="workgroupService" ref="wiseWorkgroupService" />
-		<property name="httpRestTransport" ref="httpRestTransport" />
-	</bean>
-	
 	<bean id="myClassroomRunsMainController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.MyClassroomRunsMainController">
 	    <property name="runService" ref="runService" />
@@ -352,28 +333,8 @@
 		<property name="projectService" ref="projectService"/>
 	</bean>
 	
-	<bean id="myArchivedRunsController"
-	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ArchivedRunListController">
-		<property name="runService" ref="runService" />
-		<property name="userService" ref="userService" />
-		<property name="workgroupService" ref="wiseWorkgroupService" />
-		<property name="httpRestTransport" ref="httpRestTransport" />
-	</bean>
-	
-	<bean id="projectRunManagerController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.ProjectRunManagerController">
-	</bean>
-	
-	<bean id="changePeriodsController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.ChangePeriodsController">
-	</bean>
-	
 	<bean id="languageTranslationsController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.LanguageTranslationsController">
-	</bean>
-	
-	<bean id="archivedRunManagerController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ArchivedRunManagerController">
 	</bean>
 	 
 	<bean id="managementOverviewController"

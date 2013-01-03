@@ -8,17 +8,14 @@
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="<spring:theme code="jquerystylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="teacherhomepagestylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
 <script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
-<script type="text/javascript" src="<spring:theme code="jquerycookiesource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
-<script type="text/javascript" src="<spring:theme code="jqueryuisource"/>"></script>
 
 
-<title><spring:message code="teacher.pro.projinfo.1"/></title>
+<title><spring:message code="teacher.projects.projectinfo.title"/></title>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -64,7 +61,7 @@
 <div class="projectSummary">
 	<div class="projectInfoDisplay">
 		<div class="panelHeader">${project.name} (ID: ${project.id})
-			<span style="float:right;"><a href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" /><span>Preview</span></a></span>
+			<span style="float:right;"><a href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" target="_blank"><img class="icon" alt="preview" src="/webapp/themes/tels/default/images/icons/teal/screen.png" /><span><spring:message code="preview"/></span></a></span>
 		</div>
 		<div class="projectThumb" thumbUrl="${projectThumbPath}"><img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></div>
 		<div class="summaryInfo">
@@ -76,38 +73,32 @@
 				<div style="float:right;">Created: <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></div>
 			</div>
 			<div id="summaryText_${project.id}" class="summaryText">
-				<span style="font-weight:bold;">Summary:</span> ${project.metadata.summary}
+				<span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_summary"/></span> ${project.metadata.summary}
 			</div>
 			<div class="details" id="details_${project.id}">
 				<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;">Tags:</span> ${project.metadata.keywords}</p></c:if>
-				<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;">Tech Requirements:</span> ${project.metadata.techDetailsString}</p></c:if>
-				<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;">Computer Time:</span> ${project.metadata.compTime}</p></c:if>
-				<p><span style="font-weight:bold;">Questions/Comments:</span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}" target="_blank">Contact WISE</a></p>
-				<!-- <c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;">Contributors:</span> ${project.metadata.author}</p></c:if> -->
+				<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tech" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/pages/check.html" target="_blank"><spring:message code="teacher.projects.projectinfo.checkCompatibility" /></a>)</p></c:if>
+				<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_compTime" /></span> ${project.metadata.compTime}</p></c:if>
+				<p><span style="font-weight:bold;">Questions/Comments:</span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}" target="_blank"><spring:message code="contact_wise" /></a></p>
+				<!-- <c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;">Original Owner:</span> ${project.metadata.author}</p></c:if> -->
 				<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
 				<c:if test="${lastEdited == null || lastEdited == ''}">
 					<c:set var="lastEdited" value="${project.dateCreated}" />
 				</c:if>
 				<p><span style="font-weight:bold;">Last Updated:</span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
 				<c:if test="${project.parentProjectId != null}">
-					<p><span style="font-weight:bold"><spring:message code="teacher.run.myprojectruns.40"/></span> ${project.parentProjectId}</p>
+					<p><span style="font-weight:bold"><spring:message code="teacher.projects.projectinfo.copyLabel"/></span> ${project.parentProjectId}</p>
 				</c:if>
 				<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
 					(project.metadata.standards != null && project.metadata.standards != '')}">
-					<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="Review Teaching Tips and Content Standards for this project">Teaching Tips & Standards</a></div>
-					<div class="lessonPlan" style="display:none;" id="lessonPlan_${project.id}" title="Teaching Tips & Content Standards">
+					<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="<spring:message code="teacher.projects.projectinfo.tipsAndStandards_tip"/>"><spring:message code="teacher.projects.projectinfo.tipsAndStandards"/></a></div>
+					<div class="lessonPlan" style="display:none;" id="lessonPlan_${project.id}">
 						<c:if test="${project.metadata.lessonPlan != null && project.metadata.lessonPlan != ''}">
-							<div class="sectionHead">Teaching Tips</div>
-							<div class="lessonHelp">(Outlines technical or classroom requirements for the project's activities, 
-								common misconceptions/mistakes students may encounter, as well as suggestions for maximizing the project's effectiveness and student learning.)
-							</div><!-- TODO: remove this, convert to global info/help rollover popup -->
+							<div class="sectionHead"><spring:message code="teacher.projects.projectinfo.meta_tips"/></div>
 							<div class="sectionContent">${project.metadata.lessonPlan}</div>
 						</c:if>
 						<c:if test="${project.metadata.standards != null && project.metadata.standards != ''}">
-							<div class="sectionHead">Learning Goals and Standards</div>
-							<div class="lessonHelp">(Outlines the curriculum standards covered by the project, the
-	     											project's overall learning goals, and the goals of each activity in the project.)
-							</div><!-- TODO: remove this, convert to global info/help rollover popup -->
+							<div class="sectionHead"><spring:message code="teacher.projects.projectinfo.meta_standards"/></div>
 							<div class="sectionContent">${project.metadata.standards}</div>
 						</c:if>
 					</div>
