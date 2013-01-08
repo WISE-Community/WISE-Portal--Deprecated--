@@ -16,7 +16,7 @@
 <script type="text/javascript" src="<spring:theme code="jqueryuisource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 
-<title><spring:message code="student.signup.title" /></title>
+<title><spring:message code="student.registerstudent.studentRegistration" /></title>
 <script type="text/javascript">
 $(document).ready(function(){
 	
@@ -34,10 +34,10 @@ function findPeriods() {
 		  	// or "1,2,3,4,5,...", a comma-separated values of period names
 		  	var responseText = o;
 		  	if (responseText == "not found" || responseText.length < 2) {
-		  		alert("The Access Code is invalid. Please talk with your teacher");
+		  		alert("<spring:message code='student.addproject.invalidAccessCode'/>");
 		  	} else {
 			  	var op = document.createElement('option');
-			  	op.appendChild(document.createTextNode("Select your class period..."));
+			  	op.appendChild(document.createTextNode("<spring:message code='student.addproject.selectClassPeriod'/>"));
 			  	op.value = 'none';
   				periodSelect.appendChild(op);
 			  	
@@ -55,7 +55,7 @@ function findPeriods() {
 		  	}
 		  };
 		  var failureCallback = function(o) {
-			  alert('failure');
+			  alert("<spring:message code='student.addproject.serverError' />");
 		  };
 	var runcode = document.getElementById("runCode_part1").value;
 	if (runcode != null && runcode != "") {
@@ -66,7 +66,7 @@ function findPeriods() {
 			error:failureCallback
 		});
 	} else {
-		alert("Please enter an access code. Get this from your teacher.");
+		alert("<spring:message code='student.addproject.enterAccessCode' />");
 	}
 }
 
@@ -91,14 +91,14 @@ function checkForExistingAccountsAndCreateAccount() {
 		//the message to display in the popup
 		var existingAccountsHtml = "";
 		
-		existingAccountsHtml += "<h1 style='color:red;text-align:center'><spring:message code='student.registerstudent.31'/></h1>";
+		existingAccountsHtml += "<h1 style='color:red;text-align:center'><spring:message code='warning_all_caps'/></h1>";
 		
 		if(existingAccountsArray.length > 1) {
 			//message to display if we found multiple accounts
-			existingAccountsHtml += "<p style='color:red'><spring:message code='student.registerstudent.32'/></p>";
+			existingAccountsHtml += "<p style='color:red'><spring:message code='student.registerstudent.accountAlreadyExists'/></p>";
 		} else {
 			//message to display if we found a single account
-			existingAccountsHtml += "<p style='color:red'><spring:message code='student.registerstudent.23'/></p>";
+			existingAccountsHtml += "<p style='color:red'><spring:message code='student.registerstudent.accountAlreadyExists'/></p>";
 		}
 		
 		existingAccountsHtml += "<br>";
@@ -118,10 +118,10 @@ function checkForExistingAccountsAndCreateAccount() {
 
 		existingAccountsHtml += "<p style='text-align:center'>------------------------------------------------------------</p><br>";
 
-		existingAccountsHtml += "<p><spring:message code='student.registerstudent.33'/></p>";
+		existingAccountsHtml += "<p><spring:message code='student.registerstudent.forceCreateNewAccount'/></p>";
 		
 		//add the button that will create a brand new account if none of the existing accounts belongs to the user
-		existingAccountsHtml += "<table style='width:100%'><tr><td style='width:100%' align='center'><a onclick='checkIfReallyWantToCreateAccount()' class='wisebutton'><spring:message code='student.registerstudent.24'/></a></td</tr></table>";
+		existingAccountsHtml += "<table style='width:100%'><tr><td style='width:100%' align='center'><a onclick='checkIfReallyWantToCreateAccount()' class='wisebutton'><spring:message code='student.registerstudent.createNewAccount'/></a></td</tr></table>";
 
 		existingAccountsHtml += "<br>";
 		
@@ -129,7 +129,7 @@ function checkForExistingAccountsAndCreateAccount() {
 		$('#existingAccountsDialog').html(existingAccountsHtml);
 
 		//display the popup
-		$('#existingAccountsDialog').dialog({title: "<spring:message code='student.registerstudent.25'/>",width:500, height:500});
+		$('#existingAccountsDialog').dialog({title: "<spring:message code='student.registerstudent.accountAlreadyExists'/>",width:500, height:500});
 	} else {
 		//account does not exist, create the account
 		createAccount();
@@ -184,7 +184,7 @@ function checkForExistingAccounts() {
  */
 function checkIfReallyWantToCreateAccount() {
 	//ask the student again 
-	var answer = confirm("Please do not create duplicate accounts. Are you really sure you have never created an account before?");
+	var answer = confirm("<spring:message code='student.registerstudent.confirmNoPreviousAccount' />");
 	
 	if(answer) {
 		//create the account if they answered 'OK'
@@ -200,23 +200,23 @@ function createAccount() {
 	
 	if(!/^[a-zA-Z]*$/.test(firstname)) {
 		//first name contains characters that are not letters
-		alert('First Name can only contain letters');
+		alert("<spring:message code='student.registerstudent.firstNameOnlyLetters' />");
 	} else if(!/^[a-zA-Z]*$/.test(lastname)) {
 		//last name contains characters that are not letters
-		alert('Last Name can only contain letters');
+		alert("<spring:message code='student.registerstudent.lastNameOnlyLetters' />");
 	} else if (runcode == null || runcode == "") {
-		alert('Please enter project code');		
+		alert("<spring:message code='student.addproject.enterAccessCode'/>");		
 			var periodSelect = document.getElementById("runCode_part2");
 			periodSelect.innerHTML = "";
 	  		periodSelect.disabled = true;
 	} else if ((period != null && period == "none") || period == null || period == "") {
-		alert('Please click SHOW CLASS PERIODS. Then select a period from the menu.');
+		alert("<spring:message code='student.addproject.selectClassPeriod' />");
 	} else if (runcode != null && period != null && period != "none") {
 		var projectCode = document.getElementById("projectCode");
 		projectCode.value = runcode + "-" + period;
 		document.getElementById("studentRegForm").submit();		
 	} else {
-		alert('Invalid project code. Please talk to your teacher');
+		alert("<spring:message code='student.addproject.invalidAccessCode' />");
 	}
 }
 
@@ -238,13 +238,13 @@ function setup() {
 		
 		<div id="pageContent" style="min-height:400px;">
 			<div id="headerSmall">
-				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+				<a id="name" href="/webapp/index.html" title="WISE Homepage"><spring:message code="wise" /></a>
 			</div>
 			
 			<div class="infoContent">
-				<div class="panelHeader"><spring:message code="student.registerstudent.1"/></div>
+				<div class="panelHeader"><spring:message code="student.registerstudent.studentRegistration"/></div>
 				<div class="infoContentBox">
-					<div><spring:message code="student.registerstudent.2"/> <spring:message code="student.registerstudent.3"/></div>
+					<div><spring:message code="student.registerstudent.formInstructions"/></div>
       
 					<!-- Support for Spring errors object -->
 					<div class="errorMsgNoBg">
@@ -259,23 +259,23 @@ function setup() {
 					  
 					  <table class="regTable">
 					  	<tr>
-					  		<td><label for="studentFirstName"><spring:message code="student.registerstudent.4"/></label></td>	    
+					  		<td><label for="studentFirstName"><spring:message code="student.registerstudent.firstName"/></label></td>	    
 					  	  	<td><form:input path="userDetails.firstname" id="firstname" size="25" maxlength="25" tabindex="1"/>
 							    <form:errors path="userDetails.firstname" />
-						    	<span class="hint"><spring:message code="student.registerstudent.5"/><span class="hint-pointer"></span></span> 
+						    	<span class="hint"><spring:message code="student.registerstudent.firstNameOnlyLetters"/><span class="hint-pointer"></span></span> 
 					   		</td>
 					   	</tr>
 					
 					  	<tr>
-					  		<td><label for="studentLastName"><spring:message code="student.registerstudent.6"/></label></td>
+					  		<td><label for="studentLastName"><spring:message code="student.registerstudent.lastName"/></label></td>
 							<td><form:input path="userDetails.lastname" id="lastname" size="25" maxlength="25" tabindex="2"/>
 							    <form:errors path="userDetails.lastname" />
-						    	<span class="hint"><spring:message code="student.registerstudent.7"/><span class="hint-pointer"></span></span> 
+						    	<span class="hint"><spring:message code="student.registerstudent.lastNameOnlyLetters"/><span class="hint-pointer"></span></span> 
 						   	</td>
 						</tr>
 					            
 					  	<tr>
-					  		<td><label for="studentGender"><spring:message code="student.registerstudent.8"/></label></td>
+					  		<td><label for="studentGender"><spring:message code="student.registerstudent.gender"/></label></td>
 							<td><form:select path="userDetails.gender" id="gender" tabindex="3">       
 						          <c:forEach items="${genders}" var="genderchoice">
 						            <form:option value="${genderchoice}">
@@ -283,12 +283,12 @@ function setup() {
 						            </form:option>
 						          </c:forEach>
 						      	</form:select> 
-						        <span class="hint"><spring:message code="student.registerstudent.9"/><span class="hint-pointer"></span></span> 
+						        <span class="hint"><spring:message code="student.registerstudent.genderSelectChoice"/><span class="hint-pointer"></span></span> 
 					    	</td>
 					    </tr>
 					            
 					    <tr>
-					    	<td><label for="studentBirthMonth"><spring:message code="student.registerstudent.10"/></label></td>
+					    	<td><label for="studentBirthMonth"><spring:message code="student.registerstudent.birthMonth"/></label></td>
 							<td><form:select path="birthmonth" id="birthmonth" tabindex="4">
 								<form:errors path="birthmonth" />
 								<c:forEach var="month" begin="1" end="12" step="1">
@@ -297,12 +297,12 @@ function setup() {
 									</form:option>
 								</c:forEach>
 							    </form:select>
-						        <span class="hint"><spring:message code="student.registerstudent.11"/><span class="hint-pointer"></span></span> 
+						        <span class="hint"><spring:message code="student.registerstudent.birthDayHelp"/><span class="hint-pointer"></span></span> 
 					    	</td>
 					    </tr>
 					        
 						<tr>
-							<td><label for="studentBirthDate"><spring:message code="student.registerstudent.12"/></label></td>
+							<td><label for="studentBirthDate"><spring:message code="student.registerstudent.birthDate"/></label></td>
 					  		<td><form:select path="birthdate" id="birthdate" tabindex="5">
 							    <form:errors path="birthdate" />
 									<c:forEach var="date" begin="1" end="31" step="1">
@@ -315,23 +315,23 @@ function setup() {
 						</tr>
 				                   
 					 	<tr>
-					 		<td><label for="studentPassword"><spring:message code="student.registerstudent.13"/></label></td>
+					 		<td><label for="studentPassword"><spring:message code="student.registerstudent.typePassword"/></label></td>
 					  		<td><form:password path="userDetails.password" id="password" size="25" maxlength="25" tabindex="6"/>
 								<!-- <form:errors path="userDetails.password"/> -->
-					      		<span class="hint"><spring:message code="student.registerstudent.14"/><span class="hint-pointer"></span></span> 
+					      		<span class="hint"><spring:message code="student.registerstudent.passwordHelp"/><span class="hint-pointer"></span></span> 
 				            </td>
 				        </tr>
 				
 					    <tr>
-					    	<td><label for="studentPasswordRepeat"><spring:message code="student.registerstudent.15"/></label></td>
+					    	<td><label for="studentPasswordRepeat"><spring:message code="student.registerstudent.verifyPassword"/></label></td>
 						  	<td><form:password path="repeatedPassword" id="repeatedPassword" size="25" maxlength="25" tabindex="7"/> 
 					            <form:errors path="repeatedPassword" />      	  
-						        <span class="hint"><spring:message code="student.registerstudent.16"/><span class="hint-pointer"></span></span>
+						        <span class="hint"><spring:message code="student.registerstudent.verifyPasswordHelp"/><span class="hint-pointer"></span></span>
 				            </td>
 				        </tr>
 				      
 					  	<tr>
-					  		<td><label for="reminderQuestion"><spring:message code="student.registerstudent.17"/></label></td>
+					  		<td><label for="reminderQuestion"><spring:message code="student.registerstudent.securityQuestion"/></label></td>
 					  		<td><form:select path="userDetails.accountQuestion" id="accountQuestion" tabindex="8" >  
 					            <form:errors path="userDetails.accountQuestion" />
 						        	<c:forEach items="${accountQuestions}" var="questionchoice">
@@ -340,35 +340,35 @@ function setup() {
 							            </form:option>
 							        </c:forEach>
 						        </form:select>
-						         <span class="hint"><spring:message code="student.registerstudent.18"/><span class="hint-pointer"></span></span>
+						         <span class="hint"><spring:message code="student.registerstudent.securityQuestionHelp"/><span class="hint-pointer"></span></span>
 							</td>
 						</tr>
 				
 					  	<tr>
-					  		<td><label for="reminderAnswer" id="reminderAnswer"><spring:message code="student.registerstudent.19"/></label></td>
+					  		<td><label for="reminderAnswer" id="reminderAnswer"><spring:message code="student.registerstudent.securityQuestionAnswer"/></label></td>
 							<td><form:input path="userDetails.accountAnswer" id="accountAnswer" size="25" maxlength="25" tabindex="9"/>
-								<span class="hint"><spring:message code="student.registerstudent.20"/><span class="hint-pointer"></span></span>			
+								<span class="hint"><spring:message code="student.registerstudent.securityQuestionAnswerHelp"/><span class="hint-pointer"></span></span>			
 						    </td>
 						</tr>
 				
 						<tr>
-							<td><label for="runCode_part1" id="runCode_part1_label"><spring:message code="student.registerstudent.21"/></label></td>
+							<td><label for="runCode_part1" id="runCode_part1_label"><spring:message code="student.registerstudent.accessCode"/></label></td>
 							<td><form:input path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="10"/>
 						       	  <form:errors path="runCode_part1" />
-						          <span class="hint"><spring:message code="student.registerstudent.22"/><span class="hint-pointer"></span></span>
+						          <span class="hint"><spring:message code="student.registerstudent.accessCodeHelp"/><span class="hint-pointer"></span></span>
 						    </td>
 						</tr>
 						
 						<tr>
 							<td><label for="runCode_part1" id="runCode_part1_label"></label></td>
-					  		<td><a style="font-weight:1.1em;" onclick="findPeriods();"><spring:message code="student.registerstudent.28"/></a></td>
+					  		<td><a style="font-weight:1.1em;" onclick="findPeriods();"><spring:message code="student.registerstudent.showClassPeriods"/></a></td>
 					  	</tr>
 				
 				      	<tr>
-				      		<td><label for="runCode_part2" id="runCode_part2_label"><spring:message code="student.registerstudent.29"/></label></td>
+				      		<td><label for="runCode_part2" id="runCode_part2_label"><spring:message code="student.registerstudent.classPeriod"/></label></td>
 					  		<td><form:select path="runCode_part2" id="runCode_part2" tabindex="11" disabled="true"></form:select>
 					       	  <form:errors path="runCode_part2" />
-					          <span class="hint"><spring:message code="student.registerstudent.30"/><span class="hint-pointer"></span></span>
+					          <span class="hint"><spring:message code="student.registerstudent.selectPeriodHelp"/><span class="hint-pointer"></span></span>
 					        </td>
 					    </tr>
 				      
@@ -378,8 +378,8 @@ function setup() {
 					      
 					      
 				  	<div style="margin-top:1em;">
-				 	  	<a style="margin-bottom:1em;" class="wisebutton" onclick="checkForExistingAccountsAndCreateAccount()"><spring:message code="student.registerstudent.26"/></a>
-				 	  	<a href="/webapp/index.html"><spring:message code="student.registerstudent.27"/></a>
+				 	  	<a style="margin-bottom:1em;" class="wisebutton" onclick="checkForExistingAccountsAndCreateAccount()"><spring:message code="student.registerstudent.createAccount"/></a>
+				 	  	<a href="/webapp/index.html"><spring:message code="cancel"/></a>
 					 </div> 
 					 
 					 </form:form>
