@@ -7,50 +7,52 @@
 		<form id="home" method="post" action="/webapp/j_acegi_security_check" autocomplete="off">
 			<div id="signinForm">
 				<div>
-					<label for="username"><spring:message code="username" /></label><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60" />
+					<label for="username"><spring:message code="usernameLabel" /></label><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60" />
 				</div>
 				<div>
-					<label for="password"><spring:message code="password" /></label><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30" />
+					<label for="password"><spring:message code="passwordLabel" /></label><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30" />
 				</div>
 			</div>
 			<div id="submitSignIn">
-				<input type="submit" id="signInButton" name="signInButton" class="wisebutton smallbutton" value="<spring:message code="signinbutton"/>"></input>
-				<div id="forgotLogin"><a href="forgotaccount/selectaccounttype.html"><spring:message code="forgotaccountinfo" /></a></div>
+				<input type="submit" id="signInButton" name="signInButton" class="wisebutton smallbutton" value="<spring:message code="signIn"/>"></input>
+				<div id="forgotLogin"><a href="forgotaccount/selectaccounttype.html"><spring:message code="accountmenu.forgot" /></a></div>
 			</div>
 		</form>
 	</div>
 	
 	<div id="accountMenu" class="guest">
 		<ul class="welcome-menu">
-			<li><spring:message code="header.welcome"/> <spring:message code="header.signup1"/> <spring:message code="header.signup2"/> <spring:message code="header.signup3"/></li>
+			<li><spring:message code="accountmenu.welcomeNewToWise"/></li>
 		</ul>
-		<a id="createAccountButton" href="signup.html" class="wisebutton signup" title="<spring:message code="createaccounttitle"/>"><spring:message code="createaccountlink"/></a>
+		<a id="createAccountButton" href="signup.html" class="wisebutton signup" title="<spring:message code="accountmenu.createAccountTitle"/>"><spring:message code="accountmenu.createAccount"/></a>
 	</div>
 </sec:authorize>
 
 <sec:authorize ifAnyGranted="ROLE_USER">
 	<div id="userInfoBlock" class="userInfo">
-		<a id="signOut" class="wisebutton minibutton" href="<c:url value="/j_spring_security_logout"/>" title="<spring:message code="log.out"/>"><spring:message code="log.out"/></a>
+		<a id="signOut" class="wisebutton minibutton" href="<c:url value="/j_spring_security_logout"/>" title="<spring:message code="signOutTitle"/>"><spring:message code="signOut"/></a>
 		<div id="userName">
-			<span>Welcome, <sec:authentication property="principal.firstname" /> <sec:authentication property="principal.lastname" />!</span>
+			<c:set var="firstName"><sec:authentication property="principal.firstname" /></c:set>
+			<c:set var="lastName"><sec:authentication property="principal.lastname" /></c:set>
+			<span><spring:message code="accountmenu.welcome" arguments="${firstName},${lastName}"/></span>
 		</div>
-		<div<sec:authorize ifAnyGranted="ROLE_STUDENT"> style="margin-top:1.25em;"</sec:authorize>>
-			<spring:message code="teacher.index.4" /> <span id="lastLogin"></span>
+		<div<sec:authorize ifAnyGranted="ROLE_STUDENT"></sec:authorize>>
+			<spring:message code="accountmenu.lastVisit" /> <span id="lastLogin"></span>
 		</div>
 		<sec:authorize ifNotGranted="ROLE_STUDENT">
 			<div>
-				<a href="/webapp/teacher/management/updatemyaccount.html"><spring:message code="teacher.index.44" /></a>
-				<!-- <a href="/webapp/message.html?action=index" ><spring:message code="menu.messages"/><span id="unreadMsg"></span></a>  -->
+				<a href="/webapp/teacher/management/updatemyaccount.html"><spring:message code="accountmenu.myAccount" /></a>
+				<!-- <a href="/webapp/message.html?action=index" ><spring:message code="accountmenu.messages"/><span id="unreadMsg"></span></a>  -->
 			</div>
 		</sec:authorize>
 		<sec:authorize ifAnyGranted="ROLE_ADMINISTRATOR">
-			<a id="adminTools" class="wisebutton smallbutton-wide" href="/webapp/admin/index.html" ><spring:message code="menu.admin"/></a>
+			<a id="adminTools" class="wisebutton smallbutton-wide" href="/webapp/admin/index.html" ><spring:message code="accountmenu.admin"/></a>
 		</sec:authorize>
 		<sec:authorize ifAnyGranted="ROLE_RESEARCHER">
-			<a id="researchTools" class="wisebutton smallbutton-wide" href="/webapp/admin/index.html" ><spring:message code="menu.researcher"/></a>
+			<a id="researchTools" class="wisebutton smallbutton-wide" href="/webapp/admin/index.html" ><spring:message code="accountmenu.research"/></a>
 		</sec:authorize>
 		<sec:authorize ifAnyGranted="ROLE_STUDENT">
-			<a id="researchTools" class="wisebutton smallbutton-wide" href="/webapp/student/index.html" ><spring:message code="menu.student"/></a>
+			<a id="researchTools" class="wisebutton smallbutton-wide" href="/webapp/student/index.html" ><spring:message code="accountmenu.student"/></a>
 		</sec:authorize>
 	</div>
 	
@@ -59,29 +61,28 @@
 			<ul class="sf-menu">
 				<sec:authorize ifNotGranted="ROLE_STUDENT">
 					<li class="level1 menu1">
-						<a><spring:message code="menu.help"/></a> 
+						<a><spring:message code="accountmenu.help"/></a> 
 						<ul>	
-							<li><a href="/webapp/pages/gettingstarted.html"><spring:message code="menu.quickstart"/></a></li>
-							<li><a href="/webapp/pages/teacherfaq.html"><spring:message code="menu.faq"/></a></li>
+							<li><a href="/webapp/pages/gettingstarted.html"><spring:message code="accountmenu.quickstart"/></a></li>
+							<li><a href="/webapp/pages/teacherfaq.html"><spring:message code="accountmenu.faq"/></a></li>
 							<!--  
 				            <li><a href="#" style="color:#999;">Search the Help Guide</a></li>
 				            -->
-				            <li><a href="/webapp/contact/contactwisegeneral.html"><spring:message code="menu.contact"/></a></li>
+				            <li><a href="/webapp/contact/contactwisegeneral.html"><spring:message code="accountmenu.contact"/></a></li>
 						</ul>
 					</li>
 					
 					<li class="level1 menu2">
-						<!-- <a href="/webapp/teacher/management/overview.html"><spring:message code="menu.management"/></a> -->
-						<a><spring:message code="menu.management"/></a>
+						<a><spring:message code="accountmenu.management"/></a>
 					    <ul>
 				            <!-- <li><a href="#"><spring:message code="menu.setuprun"/></a></li>  -->
-				            <li><a href="/webapp/teacher/management/library.html"><spring:message code="menu.library"/></a></li>
-				            <li><a href="/webapp/teacher/management/classroomruns.html"><spring:message code="menu.runs"/></a></li>
-							<li><a href="/webapp/author/authorproject.html"><spring:message code="menu.authoring"/></a></li>
-							<li><a onclick="editPremadeComments()"><spring:message code="menu.editpremadecomments"/></a></li>
+				            <li><a href="/webapp/teacher/management/library.html"><spring:message code="accountmenu.library"/></a></li>
+				            <li><a href="/webapp/teacher/management/classroomruns.html"><spring:message code="accountmenu.runs"/></a></li>
+							<li><a href="/webapp/author/authorproject.html"><spring:message code="accountmenu.authoring"/></a></li>
+							<li><a onclick="editPremadeComments()"><spring:message code="accountmenu.editpremadecomments"/></a></li>
 				        </ul>
 						</li>
-					<li class="level1 menu3"><a href="/webapp/teacher/index.html" ><spring:message code="menu.teacher"/></a></li>
+					<li class="level1 menu3"><a href="/webapp/teacher/index.html" ><spring:message code="accountmenu.teacherHome"/></a></li>
 					
 				</sec:authorize>
 	   	</ul>
@@ -90,15 +91,15 @@
 	<sec:authorize ifAnyGranted="ROLE_STUDENT">
 		<div id="accountMenu" class="guest">
 		<ul class="welcome-menu">
-			<li><spring:message code="header.welcome"/> <spring:message code="header.signup1"/> <spring:message code="header.signup2"/> <spring:message code="header.signup3"/></li>
+			<li><spring:message code="accountmenu.welcomeNewToWise"/></li>
 		</ul>
-		<a id="createAccountButton" href="/webapp/signup.html" class="wisebutton signup" title="<spring:message code="createaccounttitle"/>"><spring:message code="createaccountlink"/></a>
+		<a id="createAccountButton" href="/webapp/signup.html" class="wisebutton signup" title="<spring:message code="accountmenu.createAccountTitle"/>"><spring:message code="accountmenu.createAccount"/></a>
 	</div>
 	</sec:authorize>
 </sec:authorize>
 
 <div id="editPremadeCommentsDiv" style="display:none;"></div>
-<div id="editPremadeCommentsLoadingDiv" style="display:none;"><h5 style="text-align:center">Loading Premade Comments...</h5></div>
+<div id="editPremadeCommentsLoadingDiv" style="display:none;"><h5 style="text-align:center"><spring:message code="accountmenu.loadingPremadeComments"/></h5></div>
 
 <script src="<spring:theme code="jquerysource"/>" type="text/javascript"></script>
 <script src="<spring:theme code="jqueryuisource"/>" type="text/javascript"></script>
@@ -133,6 +134,7 @@
 	/**
 	 * the user has clicked "Edit Premade Comments" from the drop down on
 	 * the teacher home page.
+	 * TODO: move to external js file
 	 */
 	function editPremadeComments() {
 

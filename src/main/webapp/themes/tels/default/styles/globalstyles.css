@@ -663,6 +663,7 @@ a#name {
 
 #userName {
 	font-size:.9em;
+	margin-bottom:.25em;
 }
 
 #userName span {

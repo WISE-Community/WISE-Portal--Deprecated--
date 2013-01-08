@@ -22,7 +22,7 @@
 
 <link rel="shortcut icon" href="<spring:theme code="favicon"/>" />
 
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="wiseTitle" /></title>
 
 <!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
 <!--[if lt IE 7]>
@@ -52,18 +52,18 @@
 					<div class="slider-wrapper theme-wise">
    				 		<div class="ribbon"></div>
 						<div id="showcaseSlider">
-						    <img src="/webapp/themes/tels/default/images/home/whatiswise.png" alt="<spring:message code="whatiswiseheader" />" />
-						    <img src="/webapp/themes/tels/default/images/home/curriculumbased.png" alt="<spring:message code="curriculumbasedheader" />" />
-						    <img src="/webapp/themes/tels/default/images/home/inquiry.png" alt="<spring:message code="inquiryprojectsheader" />" />
-						    <img src="/webapp/themes/tels/default/images/home/engagement.png" alt="<spring:message code="studentengagementheader" />" />
-						    <img src="/webapp/themes/tels/default/images/home/interactive.png" alt="<spring:message code="interactivemodelsheader" />" />
-						    <img src="/webapp/themes/tels/default/images/home/teachertools.png" alt="<spring:message code="teachertoolsheader" />" />
-						    <img src="/webapp/themes/tels/default/images/home/opensource.png" alt="<spring:message code="freeandopensourceheader" />" />
+						    <img src="/webapp/themes/tels/default/images/home/whatiswise.png" alt="<spring:message code="index.whatIsWise" />" />
+						    <img src="/webapp/themes/tels/default/images/home/curriculumbased.png" alt="<spring:message code="index.curriculumBased" />" />
+						    <img src="/webapp/themes/tels/default/images/home/inquiry.png" alt="<spring:message code="index.inquiryProjects" />" />
+						    <img src="/webapp/themes/tels/default/images/home/engagement.png" alt="<spring:message code="index.studentEngagement" />" />
+						    <img src="/webapp/themes/tels/default/images/home/interactive.png" alt="<spring:message code="index.interactiveModels" />" />
+						    <img src="/webapp/themes/tels/default/images/home/teachertools.png" alt="<spring:message code="index.teacherTools" />" />
+						    <img src="/webapp/themes/tels/default/images/home/opensource.png" alt="<spring:message code="index.openSource" />" />
 						</div>
 					</div>
 				</div>
 				<div id="news">
-					<div class="panelHead"><spring:message code="home.latestnewslabel" /><!-- <a class="panelLink" title="News Archive">more news +</a> --></div>
+					<div class="panelHead"><spring:message code="index.newsTitle" /><!-- <a class="panelLink" title="News Archive"><spring:message code="index.newsMore" /></a> --></div>
 					<div id="newsContent">
 						<c:forEach var="newsItem" items="${newsItems}">
 							<p class="newsTitle">${newsItem.title}<span class="newsDate"><fmt:formatDate value="${newsItem.date}" type="date" dateStyle="medium" /></span></p>
@@ -71,27 +71,27 @@
 						</c:forEach>
 					</div>
 					<div id="socialLinks">
-						<a href="http://www.facebook.com/pages/WISE-4/150541171679054" title="Find us on Facebook"><img src="/webapp/themes/tels/default/images/home/facebook.png" alt="facebook" /></a>
-						<a href="https://twitter.com/#!/WISETELS" title="Follow us on Twitter" ><img src="/webapp/themes/tels/default/images/home/twitter.png" alt="twitter" /></a>
+						<a href="http://www.facebook.com/pages/WISE-4/150541171679054" title="<spring:message code="index.facebookTitle" />"><img src="/webapp/themes/tels/default/images/home/facebook.png" alt="facebook" /></a>
+						<a href="https://twitter.com/#!/WISETELS" title="<spring:message code="index.twitterTitle" />" ><img src="/webapp/themes/tels/default/images/home/twitter.png" alt="twitter" /></a>
 					</div>
 				</div>
 			</div>
 			
 			<div class="showcase">
-				<div id="projectHeader" class="feature"><span class="featureContent">WISE Projects</span><a class="projectsLink" href="/webapp/previewprojectlist.html" title="WISE Project Library">Browse WISE Curricula +</a></div>
+				<div id="projectHeader" class="feature"><span class="featureContent"><spring:message code="index.projects" /></span><a class="projectsLink" href="/webapp/previewprojectlist.html" title="<spring:message code="index.projects" />"><spring:message code="index.browseCurricula" /></a></div>
 				<div id="features">
-					<div id="featureHeader" class="feature"><span class="featureContent">WISE Features</span></div>
+					<div id="featureHeader" class="feature"><span class="featureContent"><spring:message code="index.features" /></span></div>
 					<div id="featuresContent">
-						<p><a href="/webapp/pages/features.html">Learning Environment +</a></p>
-						<p><a href="/webapp/pages/teacher-tools.html">Teacher Tools +</a></p>
-						<p><a href="/webapp/pages/gettingstarted.html">Getting Started +</a></p>
-						<p id="checkCompatibility"><a href="/webapp/pages/check.html">Check Compatibility +</a></p>
+						<p><a href="/webapp/pages/features.html"><spring:message code="index.features_learningEnvironment" /></a></p>
+						<p><a href="/webapp/pages/teacher-tools.html"><spring:message code="index.features_teacherTools" /></a></p>
+						<p><a href="/webapp/pages/gettingstarted.html"><spring:message code="index.features_gettingStarted" /></a></p>
+						<p id="checkCompatibility"><a href="/webapp/pages/check.html"><spring:message code="index.features_checkCompatibility" /></a></p>
 					</div>
 				</div>
 				<div id="projectShowcase">
-					<div id="project-showcase">
+					<div id="project-showcase"> <!-- TODO: populate this section using auto-generated list of library subjects (remove hard-coded section labels and list items) -->
 						<dl>
-							<dt>Earth Science</dt>
+							<dt><spring:message code="index.projects_earthScience" /></dt>
 						    <dd>
 						    	<div class="tinycarousel">
 							    	<a href="#" class="buttons prev">&#9650;</a>
@@ -105,7 +105,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details"><spring:message code="index.projects_moreDetails" /></a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank"><spring:message code="preview" /></a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -118,7 +118,7 @@
 								    </ul>
 							    </div>
 						    </dd>
-						    <dt>Life Science</dt>
+						    <dt><spring:message code="index.projects_lifeScience" /></dt>
 						    <dd>
 						    	<div class="tinycarousel">
 							    	<a href="#" class="buttons prev">&#9650;</a>
@@ -132,7 +132,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details"><spring:message code="index.projects_moreDetails" /></a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank"><spring:message code="preview" /></a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -145,7 +145,7 @@
 								    </ul>
 							    </div>
 						    </dd>
-						    <dt>Physical Science</dt>
+						    <dt><spring:message code="index.projects_physicalScience" /></dt>
 						    <dd>
 						    	<div class="tinycarousel">
 							    	<a href="#" class="buttons prev">&#9650;</a>
@@ -159,7 +159,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details"><spring:message code="index.projects_moreDetails" /></a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank"><spring:message code="preview" /></a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -172,7 +172,7 @@
 								    </ul>
 							    </div>
 						    </dd>
-						    <dt>Biology</dt>
+						    <dt><spring:message code="index.projects_biology" /></dt>
 						    <dd>
 						    	<div class="tinycarousel">
 							    	<a href="#" class="buttons prev">&#9650;</a>
@@ -186,7 +186,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details"><spring:message code="index.projects_moreDetails" /></a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank"><spring:message code="preview" /></a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -199,7 +199,7 @@
 								    </ul>
 							    </div>
 						    </dd>
-						    <dt>Chemistry</dt>
+						    <dt><spring:message code="index.projects_chemistry" /></dt>
 						    <dd>
 						    	<div class="tinycarousel">
 							    	<a href="#" class="buttons prev">&#9650;</a>
@@ -213,7 +213,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details"><spring:message code="index.projects_moreDetails" /></a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank"><spring:message code="preview" /></a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -226,7 +226,7 @@
 								    </ul>
 							    </div>
 						    </dd>
-						    <dt>Physics</dt>
+						    <dt><spring:message code="index.projects_physics" /></dt>
 						    <dd>
 						    	<div class="tinycarousel">
 							    	<a href="#" class="buttons prev">&#9650;</a>
@@ -240,7 +240,7 @@
 								      					<p class="metadata">Grades ${project.metadata.gradeRange} | ${project.metadata.totalTime} | ${project.metadata.language}</p>
 								      					<p class="summary">${project.metadata.summary}</p>
 								      				</div>
-								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details">More Details +</a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank">Preview</a></div>
+								      				<div class="projectLink"><a id="projectDetail_${project.id}" class="projectDetail" title="Project Details"><spring:message code="index.projects_moreDetails" /></a><a href="/webapp/previewproject.html?projectId=${project.id}" target="_blank"><spring:message code="preview" /></a></div>
 									    		</li>
 									    	</c:forEach>
 									    </ul>
@@ -261,27 +261,27 @@
 			
 			<div class="showcase">
 				<a id="wiseAdvantage" href="/webapp/pages/wise-advantage.html" class="panelSection">
-					<div class="panelHead"><span>The WISE Advantage</span><span class="panelLink">+</span></div>
-					<div class="panelContent"><img src="/webapp/themes/tels/default/images/home/wise-in-classroom.png" alt="WISE in Classroom" /></div>
+					<div class="panelHead"><span><spring:message code="index.wiseAdvantage" /></span><span class="panelLink">+</span></div>
+					<div class="panelContent"><img src="/webapp/themes/tels/default/images/home/wise-in-classroom.png" alt="<spring:message code="index.wiseAdvantageTitle" />" /></div>
 				</a>
 				<a id="wiseInAction" href="/webapp/pages/wise-in-action.html" class="panelSection">
-					<div class="panelHead"><span>WISE In Action</span><span class="panelLink">+</span></div>
-					<div class="panelContent"><img src="/webapp/themes/tels/default/images/home/wise-teaching.png" alt="WISE Students & Teacher" /></div>
+					<div class="panelHead"><span><spring:message code="index.wiseInAction" /></span><span class="panelLink">+</span></div>
+					<div class="panelContent"><img src="/webapp/themes/tels/default/images/home/wise-teaching.png" alt="<spring:message code="index.wiseInActionTitle" />" /></div>
 				</a>
 				<a id="researchTech" href="/webapp/pages/research-tech.html" class="panelSection">
-					<div class="panelHead"><span>Research & Technology</span><span class="panelLink">+</span></div>
-					<div class="panelContent"><img src="/webapp/themes/tels/default/images/home/wise-research.png" alt="WISE Research" /></div>
+					<div class="panelHead"><span><spring:message code="index.wiseResearchAndTech" /></span><span class="panelLink">+</span></div>
+					<div class="panelContent"><img src="/webapp/themes/tels/default/images/home/wise-research.png" alt="<spring:message code="index.wiseResearchAndTechTitle" />" /></div>
 				</a>
 				<div style="clear:both;"></div>
 			</div>
 			
 			<div id="bottomLinks" class="showcase">
 				<div id="telsLink"><a href="http://telscenter.org" target="_blank"><img src="/webapp/themes/tels/default/images/home/tels.png"/></a></div>
-				<div id="telsLinkLabel">Powered by the TELS Community</div>
+				<div id="telsLinkLabel"><spring:message code="index.telsCommunity" /></div>
 				<div id="openSourceHeader" class="feature">
-					<span class="featureContent">WISE Open Source Partnerships</span>
+					<span class="featureContent"><spring:message code="index.openSourcePartnerships" /></span>
 				</div>
-				<div id="openSourceContent">WISE software is free to use and open source. Visit <a href="http://wise4.org" target="_blank">http://wise4.org</a> to learn about partnership opportunities.</div>
+				<div id="openSourceContent"><spring:message code="index.openSourceInfo" /></div>
 			</div>
 		</div>
 	</div>
