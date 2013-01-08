@@ -27,7 +27,7 @@
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 
-<title><spring:message code="forgot.teacher.success.1"/></title>
+<title><spring:message code="forgotaccount.teacher.success.teacherForgottenPasswordConfirmationScreen"/></title>
 </head>
 
 <body>
@@ -38,20 +38,20 @@
 		
 		<div id="pageContent" style="min-height:400px;">
 			<div id="headerSmall">
-				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+				<a id="name" href="/webapp/index.html" title="<spring:message code="wiseHomepage" />"><spring:message code="wise" /></a>
 			</div>
 			
 			<div class="infoContent">
-				<div class="panelHeader"><spring:message code="forgot.teacher.success.2"/></div>
+				<div class="panelHeader"><spring:message code="forgotaccount.teacher.success.lostUsernamePassword"/></div>
 				<div class="infoContentBox">
 					<div>
-						<spring:message code="forgot.teacher.success.4"/>
+						<spring:message code="forgotaccount.teacher.success.anEmailHasBeenSent"/>
 					</div>
 					<div>
-						<spring:message code="forgot.teacher.success.6"/> <a href="/webapp/contact/contactwisegeneral.html"> <spring:message code="forgot.teacher.success.7"/></a>
+						<spring:message code="forgotaccount.teacher.success.ifYouHaveAnyOtherProblemsOrQuestions"/> <a href="/webapp/contact/contactwisegeneral.html"> <spring:message code="forgotaccount.teacher.success.contactWISE"/></a>
 					</div>
 				</div>
-				<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>
+				<a href="/webapp/index.html" title="<spring:message code="wiseHome" />"><spring:message code="returnToHomePage"/></a>
 			</div>
 		</div>
 	</div>

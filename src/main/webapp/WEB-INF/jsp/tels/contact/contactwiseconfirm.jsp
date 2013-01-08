@@ -9,7 +9,7 @@
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
     
-<title><spring:message code="contactwise.1" /></title>
+<title><spring:message code="contact.contactwiseconfirm.contactWISEGeneralIssues" /></title>
 </head>
 <body>
 
@@ -22,13 +22,13 @@
 		<div id="pageContent">
 		
 			<div class="infoContent">
-				<div class="panelHeader"><spring:message code="contactwise.2"/></div>
+				<div class="panelHeader"><spring:message code="contact.contactwiseconfirm.contactWISE"/></div>
 				<div class="infoContentBox">
-					<div><spring:message code="contactwise.3" /></div>
-					<div><spring:message code="contactwise.4" /></div>
-					<div><spring:message code="contactwise.5" /></div>
+					<div><spring:message code="contact.contactwiseconfirm.messageSent" /></div>
+					<div><spring:message code="contact.contactwiseconfirm.messageSuccessfullySent" /></div>
+					<div><spring:message code="contact.contactwiseconfirm.weWillRespondQuicklyAsPossible" /></div>
 				</div>
-				<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>
+				<a href="/webapp/index.html" title="WISE Home"><spring:message code="returnToHomePage"/></a>
 			</div>
 		</div>
 		<div style="clear: both;"></div>

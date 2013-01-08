@@ -27,7 +27,7 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="wiseHomepage" /></title>
 </head>
 
 <body>
@@ -38,17 +38,17 @@
 		
 		<div id="pageContent" style="min-height:400px;">
 			<div id="headerSmall">
-				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+				<a id="name" href="/webapp/index.html" title="<spring:message code="wiseHomepage" />"><spring:message code="wise" /></a>
 			</div>
 			
 			<div class="infoContent">
 				<div class="infoContentBox">
 					<div class="errorMsgNoBg">
-						<p>We're sorry, but the server has encountered an error.</p>
-						<p>The staff has been informed about this problem.</p>
+						<p><spring:message code="errors.friendlyError.serverEncounteredError" /></p>
+						<p><spring:message code="errors.friendlyError.staffHasBeenInformed" /></p>
 					</div>
 				</div>
-				<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>
+				<a href="/webapp/index.html" title="<spring:message code="wiseHome" />"><spring:message code="returnToHomePage"/></a>
 			</div>
 		</div>
 	</div>
