@@ -10,7 +10,7 @@ var defaultRequirements = {
 	requiredInternetExplorerVersion:'7.0',
 	requiredChromeVersion:'5.0',
 	requiredSafariVersion:'3.0',
-	requiredQuickTimeVersion:'5.0',
+	requiredQuickTimeVersion:'7.0',
 	requiredFlashVersion:'10.0',
 	requiredJavaVersion:'1.5'
 }
