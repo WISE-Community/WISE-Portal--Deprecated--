@@ -28,7 +28,7 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />  
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
-<title>Password Reminder Step 3</title>
+<title><spring:message code="forgotaccount.student.passwordreminder3.passwordReminderStep3"/></title>
 </head>
 
 <body>
@@ -39,25 +39,25 @@
 		
 		<div id="pageContent" style="min-height:400px;">
 			<div id="headerSmall">
-				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+				<a id="name" href="/webapp/index.html" title="<spring:message code="wiseHomepage"/>"><spring:message code="wise"/></a>
 			</div>
 			
 			<div class="infoContent">
-				<div class="panelHeader"><spring:message code="forgot.student.passremind.2"/></div>
+				<div class="panelHeader"><spring:message code="forgotaccount.student.passwordreminder3.studentLostUsernamePassword"/></div>
 				<div class="infoContentBox">
-					<div class="errorMsgNoBg"><spring:message code="forgot.student.passremind.10"/></div>
+					<div class="errorMsgNoBg"><spring:message code="forgotaccount.student.passwordreminder3.thatAnswerIsCorrect"/></div>
 					<div>
 						<form id="submittedAccountPasswords" method="post" commandName="reminderParameters" autocomplete='off'>
 							<table id="submittedAccountPasswordTable" style="margin:0 auto;">
 							<tr>
-								<td><label id="passwordform" for="send_passwords"><spring:message code="lostpassword.student.new-password" /></label></td>
+								<td><label id="passwordform" for="send_passwords"><spring:message code="forgotaccount.student.passwordreminder3.newPassword" />:</label></td>
 								<td><input type="password" name="newPassword" id="newPassword" size="25" tabindex="1" /></td>
 									<!-- 			Special script pulls focus onto immediately preceding Input field-->
 					 				<script type="text/javascript">document.getElementById('newPassword').focus();
 									</script>
 								</tr>
 							<tr>
-								<td><label id="passwordform2" for="answer"><spring:message code="lostpassword.student.verify-password" /></label></td>
+								<td><label id="passwordform2" for="answer"><spring:message code="forgotaccount.student.passwordreminder3.verifyPassword" /></label></td>
 								<td><input id="verifyPassword" name="verifyPassword" type="password" size="25" tabindex="2" /></td>
 							</tr>
 							<tr>
@@ -81,7 +81,7 @@
 					</spring:bind>
 				</div>
 			</div>
-			<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>
+			<a href="/webapp/index.html" title="WISE Home"><spring:message code="returnToHomePage"/></a>
 		</div>
 	</div>
 </div>

@@ -24,7 +24,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="wiseHomepage" /></title>
 </head>
 
 <body>
@@ -35,17 +35,17 @@
 		
 		<div id="pageContent" style="min-height:400px;">
 			<div id="headerSmall">
-				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+				<a id="name" href="/webapp/index.html" title="<spring:message code="wiseHomepage" />"><spring:message code="wise" /></a>
 			</div>
 			
 			<div class="infoContent">
 				<div class="infoContentBox">
 					<div class="errorMsgNoBg">
-						<p>We're sorry, but WISE has encountered an error which prevents it from proceeding.</p>
-						<p>The staff has been informed about this problem.</p>
+						<p><spring:message code="errors.outsideError.encounteredError" /></p>
+						<p><spring:message code="errors.outsideError.staffHasBeenInformed" /></p>
 					</div>
 				</div>
-				<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>
+				<a href="/webapp/index.html" title="<spring:message code="wiseHome" />"><spring:message code="returnToHomePage"/></a>
 			</div>
 		</div>
 	</div>
