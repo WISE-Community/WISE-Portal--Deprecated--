@@ -32,11 +32,11 @@
 		<div id="pageContent">
 		
 			<div class="infoContent">
-				<div class="panelHeader"><spring:message code="contactwisegeneral.1"/></div>
+				<div class="panelHeader"><spring:message code="contact.contactwisegeneral.contactWISEGeneralIssues"/></div>
 				<div class="infoContentBox">
-					<h4><spring:message code="contactwisegeneral.2"/></h4>
-					<div class="instructions"><spring:message code="contactwisegeneral.3"/><spring:message code="contactwisegeneral.4"/>&nbsp;<spring:message code="contactwisegeneral.5"/></div>
-					<div class="instructions"><spring:message code="contactwisegeneral.6"/></div>
+					<h4><spring:message code="contact.contactwisegeneral.pleaseDescribeYourIssue"/></h4>
+					<div class="instructions"><spring:message code="contact.contactwisegeneral.ifEncounteringErrorPleaseIncludeText"/><spring:message code="contact.contactwisegeneral.detailedDescription"/>&nbsp;<spring:message code="contact.contactwisegeneral.boxBelow"/></div>
+					<div class="instructions"><spring:message code="contact.contactwisegeneral.pleaseIndicateURLAddressForProblem"/></div>
 
 					<!-- Support for Spring errors object -->
 					<div class="errorMsgNoBg">
@@ -52,56 +52,56 @@
 					  <dl>
 					  
 					    <sec:authorize ifAllGranted="ROLE_ANONYMOUS">
-					  	<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span><spring:message code="contactwisegeneral.7"/></label></dt>
+					  	<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span><spring:message code="contact.contactwisegeneral.name"/></label></dt>
 					    <dd><form:input path="name"  id="name" size="50" tabindex="1"/></dd>
 					    </sec:authorize>
 					    
 					  	<sec:authorize ifAllGranted="ROLE_TEACHER">
-					  	<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span><spring:message code="contactwisegeneral.7"/></label></dt>
+					  	<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span><spring:message code="contact.contactwisegeneral.name"/></label></dt>
 					    <dd><form:input path="name"  id="name" size="50" tabindex="1"/></dd>
 					    </sec:authorize>
 					    
 					  	<sec:authorize ifAllGranted="ROLE_STUDENT">
-					  	<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span><spring:message code="contactwisegeneral.7"/></label></dt>
+					  	<dt><label for="NameContact" id="NameContact"><span class="asterix">* </span><spring:message code="contact.contactwisegeneral.name"/></label></dt>
 					    <dd><form:input path="name"  id="name" size="50" tabindex="1" disabled="true"/></dd>
 					    </sec:authorize>
 					
 						<sec:authorize ifAllGranted="ROLE_ANONYMOUS">
-							<dt><label for="emailContact" id="emailContact"><span class="asterix">* </span><spring:message code="contactwisegeneral.8"/></label></dt>
+							<dt><label for="emailContact" id="emailContact"><span class="asterix">* </span><spring:message code="contact.contactwisegeneral.email"/></label></dt>
 							<dd><form:input path="email" id="email" size="50" tabindex="2"/> </dd>
 						</sec:authorize>
 					
 						<sec:authorize ifAllGranted="ROLE_TEACHER">
-							<dt><label for="emailContact" id="emailContact"><span class="asterix">* </span><spring:message code="contactwisegeneral.8"/></label></dt>
+							<dt><label for="emailContact" id="emailContact"><span class="asterix">* </span><spring:message code="contact.contactwisegeneral.email"/></label></dt>
 							<dd><form:input path="email" id="email" size="50" tabindex="2"/> </dd>
 						</sec:authorize>
 						   
-					    <dt><label for="issueTypeContact" id="emailContact"><span class="asterix">* </span><spring:message code="contactwisegeneral.9"/></label> </dt>
+					    <dt><label for="issueTypeContact" id="emailContact"><span class="asterix">* </span><spring:message code="contact.contactwisegeneral.issueType"/></label> </dt>
 						<dd><form:select path="issuetype" id="issuetype"  tabindex="3">
 						      <c:forEach items="${issuetypes}" var="issuetype">
 					            <form:option value="${issuetype.name}">
-					            	<spring:message code="issuetypes.${issuetype.name}" />
+					            	<spring:message code="contact.contactwisegeneral.${issuetype.name}" />
 					            </form:option>
 					          </c:forEach>
 							</form:select>
 						</dd>
 					
-						<dt><label for="summaryContact" id="summaryContact"><span class="asterix">* </span><spring:message code="contactwisegeneral.10"/></label></dt>
+						<dt><label for="summaryContact" id="summaryContact"><span class="asterix">* </span><spring:message code="contact.contactwisegeneral.issueSummary"/></label></dt>
 						<dd style="color:#3333CC;"><form:input path="summary" id="summary" size="50" tabindex="6"/></dd>
 						
-						<dt><label for="descriptionContact" id="descriptionContact"><span class="asterix">* </span><spring:message code="contactwisegeneral.11"/></label></dt>
+						<dt><label for="descriptionContact" id="descriptionContact"><span class="asterix">* </span><spring:message code="contact.contactwisegeneral.detailedDescription"/></label></dt>
 						<dd><form:textarea path="description" id="description" tabindex="7" rows="9" cols="65"></form:textarea></dd>
 					      
 					    <form:hidden path="usersystem" id="usersystem" />
 					  </dl>  
 					    
-					     <div id="asterixWarning" class="instructions"><spring:message code="contactwisegeneral.12"/></div>  
+					     <div id="asterixWarning" class="instructions"><spring:message code="contact.contactwisegeneral.itemsWithStarAreRequired"/></div>  
 					        
-					    <div><input type="submit" onclick="detectUserSystem()" id="sendMessageButton" value="<spring:message code="contactwisegeneral.13"/>"></input></div>
+					    <div><input type="submit" onclick="detectUserSystem()" id="sendMessageButton" value="<spring:message code="contact.contactwisegeneral.sendMessage"/>"></input></div>
 					                  
 					</form:form>
 				</div>
-				<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>
+				<a href="/webapp/index.html" title="<spring:message code="wiseHome"/>"><spring:message code="returnHome"/></a>
 			</div>
 		</div>
 		<div style="clear: both;"></div>

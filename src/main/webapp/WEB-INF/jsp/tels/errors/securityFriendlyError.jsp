@@ -26,7 +26,7 @@
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 
-<title><spring:message code="access.denied" /> <spring:message code="title.separator" /> <spring:message code="application.title" /></title>
+<title><spring:message code="errors.securityFriendlyError.accessDenied" /> <spring:message code="wiseHomepage" /></title>
 </head>
 
 <body>
@@ -37,16 +37,16 @@
 		
 		<div id="pageContent" style="min-height:400px;">
 			<div id="headerSmall">
-				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+				<a id="name" href="/webapp/index.html" title="<spring:message code="wiseHomepage" />"><spring:message code="wise" /></a>
 			</div>
 			
 			<div class="infoContent">
 				<div class="infoContentBox">
 					<div class="errorMsgNoBg">
-						<p><spring:message code="error.security.message" /></p>
+						<p><spring:message code="errors.securityFriendlyError.accessDeniedNotEnoughPermissions" /></p>
 					</div>
 				</div>
-				<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>
+				<a href="/webapp/index.html" title="<spring:message code="wiseHome" />"><spring:message code="wiseHomepage"/></a>
 			</div>
 		</div>
 	</div>

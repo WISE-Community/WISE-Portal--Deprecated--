@@ -6,16 +6,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-<title><spring:message code="application.title" /></title>
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="studenthomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
-<title><spring:message code="student.announcements.1" /></title>
-
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
+
+<title><spring:message code="student.viewannouncements.viewAnnouncements" /></title>
+
 
 </head>
 
@@ -28,7 +28,7 @@
 	<div class="dialogContent">
 
 		<c:forEach var="run" items="${runs}">
-		<div class="sectionHead"><spring:message code="student.announcements.2" /> ${run.name}</div>
+		<div class="sectionHead"><spring:message code="student.viewannouncements.announcementsFor" /> ${run.name}</div>
 		
 		<div class="dialogSection">
 			<c:choose>
@@ -38,7 +38,8 @@
 							<c:choose>
 							    <c:when test="${user.userDetails.lastLoginTime < announcement.timestamp || user.userDetails.lastLoginTime == null || previousLoginTime < announcement.timestamp}">
 									<li class="new">
-										<div><span class="aTitle">${announcement.title}</span> <span class="aDate">(<fmt:formatDate value="${announcement.timestamp}" type="both" dateStyle="medium" timeStyle="short" />)</span> <span class="newTag"><spring:message code="student.announcements.4" /></span></div>
+										<div><span class="aTitle">${announcement.title}</span> <span class="aDate">(<fmt:formatDate value="${announcement.timestamp}" type="both" dateStyle="medium" timeStyle="short" />)</span> 
+										<span class="newTag"><spring:message code="student.viewannouncements.newAnnouncement" /></span></div>
 										<div class="aMessage">${fn:replace(announcement.announcement, newLineChar, "<br />")}</div>
 									</li>
 								</c:when>
@@ -55,7 +56,7 @@
 					</ul>
 				</c:when>
 				<c:otherwise>
-					<div class="noMessages"><spring:message code="student.announcements.3" /></div>
+					<div class="noMessages"><spring:message code="student.viewannouncements.noAnnouncements" /></div>
 				</c:otherwise>
 			</c:choose>
 		</div>

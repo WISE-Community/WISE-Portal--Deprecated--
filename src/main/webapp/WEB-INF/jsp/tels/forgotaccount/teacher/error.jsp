@@ -25,7 +25,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />	
-<title><spring:message code="forgot.teacher.error.1"/></title>
+<title><spring:message code="forgotaccount.teacher.error.forgotUsernameOrPassword"/></title>
 </head>
 
 <body>
@@ -36,18 +36,18 @@
 		
 		<div id="pageContent" style="min-height:400px;">
 			<div id="headerSmall">
-				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+				<a id="name" href="/webapp/index.html" title="<spring:message code="wiseHomepage" />"><spring:message code="wise" /></a>
 			</div>
 			
 			<div class="infoContent">
-				<div class="panelHeader"><spring:message code="forgot.teacher.error.2"/></div>
+				<div class="panelHeader"><spring:message code="forgotaccount.teacher.error.lostUsernameOrPassword"/></div>
 				<div class="infoContentBox">
 					<div class="errorMsgNoBg"> 
-						<p><span style="font-weight:bold;">${email}${username}:</span> <spring:message code="forgot.teacher.error.4"/></p>
+						<p><span style="font-weight:bold;">${email}${username}:</span> <spring:message code="forgotaccount.teacher.error.usernameEmailDoesNotMatch"/></p>
 					</div>
-					<div><a href="index.html"><spring:message code="lostpassword.teacher.try-again"/></a></div>
+					<div><a href="index.html"><spring:message code="forgotaccount.teacher.error.tryAgain"/></a></div>
 				</div>
-				<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>
+				<a href="/webapp/index.html" title="<spring:message code="wiseHome" />"><spring:message code="returnHome"/></a>
 			</div>
 		</div>
 	</div>

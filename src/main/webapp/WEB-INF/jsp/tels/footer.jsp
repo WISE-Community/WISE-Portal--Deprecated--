@@ -40,7 +40,7 @@
 				</div>
 				<div id="footerText">
 					<p><spring:message code="footer.nsfSupport" /></p>
-					<p>&copy; <spring:message code="footer.copyright" /></p>
+					<p>&copy; <spring:message code="legalCopyright" /></p>
 				</div>
 				<div style="clear:both; padding:0;"></div>
 	 		</div>

@@ -26,7 +26,7 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" /> 
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />	
 
-<title><spring:message code="student.enterprojectcode.1"/></title>
+<title><spring:message code="forgotaccount.student.searchforstudentusername.searchForUsernameViaProjectCode"/></title>
 
 </head>
 
@@ -38,44 +38,44 @@
 		
 		<div id="pageContent" style="min-height:400px;">
 			<div id="headerSmall">
-				<a id="name" href="/webapp/index.html" title="WISE Homepage">WISE</a>
+				<a id="name" href="/webapp/index.html" title="<spring:message code="wiseHomepage" />"><spring:message code="wise" /></a>
 			</div>
 			
 			<div class="infoContent">
-				<div class="panelHeader"><spring:message code="student.enterprojectcode.2"/></div>
+				<div class="panelHeader"><spring:message code="forgotaccount.student.searchforstudentusername.studentLostUsernamePassword"/></div>
 				<div class="infoContentBox">
-					<div><spring:message code="student.enterprojectcode.3"/></div>
-					<div class="instructions"><spring:message code="searchforstudentusername.1"/></div>
+					<div><spring:message code="forgotaccount.student.searchforstudentusername.searchForUsername"/></div>
+					<div class="instructions"><spring:message code="forgotaccount.student.searchforstudentusername.fillInInformationAndSearch"/></div>
 					<div>
 						<form:form name="projectCode" method="post" commandName="reminderParameters" autocomplete='off'>
 							<table width="100%" style="border-collapse:separate;border-spacing:10px">
 								<tr>
-									<td align="right"><label id="firstNameLabel" for="firstName"><spring:message code="signup.firstname"/></label></td>
+									<td align="right"><label id="firstNameLabel" for="firstName"><spring:message code="forgotaccount.student.searchforstudentusername.firstName"/>:</label></td>
 									<td align="left"><form:input path="firstName" id="firstName" tabindex="1"/></td>	
 								</tr>
 								<tr>
-									<td align="right"><label id="lastNameLabel" for="lastName"><spring:message code="signup.lastname"/></label></td>
+									<td align="right"><label id="lastNameLabel" for="lastName"><spring:message code="forgotaccount.student.searchforstudentusername.lastName"/>:</label></td>
 									<td align="left"><form:input path="lastName" id="lastName" tabindex="2" /></td>
 								</tr>
 								<tr>
-									<td align="right"><label for="birthMonth"><spring:message code="searchforstudentusername.2"/></label></td>
+									<td align="right"><label for="birthMonth"><spring:message code="forgotaccount.student.searchforstudentusername.birthMonth"/>:</label></td>
 									<td align="left">
 										<form:select path="birthMonth" id="birthMonth" tabindex="3">
 										<c:forEach var="month" begin="1" end="12" step="1">
 											<option value="${month}">
-												<spring:message code="birthmonths.${month}" />
+												<spring:message code="forgotaccount.student.searchforstudentusername.birthmonths.${month}" />
 											</option>
 										</c:forEach>
 									    </form:select>
 									</td>
 								</tr>
 								<tr>
-									<td align="right"><label for="birthDay"><spring:message code="searchforstudentusername.3"/></label></td>
+									<td align="right"><label for="birthDay"><spring:message code="forgotaccount.student.searchforstudentusername.birthDay"/>:</label></td>
 									<td align="left">
 										<form:select path="birthDay" id="birthDay" tabindex="4">
 											 <c:forEach var="date" begin="1" end="31" step="1">
 												  <option value="${date}">
-												  		<spring:message code="birthdates.${date}" />
+												  		<spring:message code="forgotaccount.student.searchforstudentusername.birthdates.${date}" />
 											  	  </option>
 										  </c:forEach>
 									    </form:select>
@@ -94,7 +94,7 @@
 						</spring:bind>
 					</div>
 				</div>
-				<a href="/webapp/index.html" title="WISE Home"><spring:message code="selectaccounttype.7"/></a>
+				<a href="/webapp/index.html" title="<spring:message code="wiseHome" />"><spring:message code="returnHome"/></a>
 			</div>
 		</div>
 	</div>
