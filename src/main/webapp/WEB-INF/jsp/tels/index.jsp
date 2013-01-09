@@ -48,7 +48,7 @@
 		
 			<div class="showcase">
 				<div id="about">
-					<div class="panelHead"><span><spring:message code="whatiswiseheader" /></span></div>
+					<div class="panelHead"><span><spring:message code="index.whatIsWise" /></span></div>
 					<div class="slider-wrapper theme-wise">
    				 		<div class="ribbon"></div>
 						<div id="showcaseSlider">
