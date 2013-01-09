@@ -75,7 +75,6 @@
 					<li class="level1 menu2">
 						<a><spring:message code="accountmenu.management"/></a>
 					    <ul>
-				            <!-- <li><a href="#"><spring:message code="menu.setuprun"/></a></li>  -->
 				            <li><a href="/webapp/teacher/management/library.html"><spring:message code="accountmenu.library"/></a></li>
 				            <li><a href="/webapp/teacher/management/classroomruns.html"><spring:message code="accountmenu.runs"/></a></li>
 							<li><a href="/webapp/author/authorproject.html"><spring:message code="accountmenu.authoring"/></a></li>
