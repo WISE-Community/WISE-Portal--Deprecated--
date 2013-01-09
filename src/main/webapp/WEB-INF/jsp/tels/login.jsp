@@ -18,7 +18,7 @@
 
 <link rel="shortcut icon" href="<spring:theme code="favicon"/>" />
 
-<title><spring:message code="login.title" /></title>
+<title><spring:message code="signIn" /></title>
 
 </head>
 
@@ -27,7 +27,7 @@
 <div id="pageWrapper" style="min-width:550px; background:transparent;">
 			
 			<div class="infoContent loginContent">
-				<div class="panelHeader"><spring:message code="login.title"/></div>
+				<div class="panelHeader"><spring:message code="signIn"/></div>
 				<div>
 					<form id="home" method="post" action="j_acegi_security_check" autocomplete="off">
 						<div id="signinForm">
