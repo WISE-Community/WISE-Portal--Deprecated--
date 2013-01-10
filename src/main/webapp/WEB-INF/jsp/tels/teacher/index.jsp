@@ -70,7 +70,7 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 					},
 					error: function(request,error){
 						updatingText.remove();
-						link.parent().append('<span style="color: #DD2424;"> ' + '<spring:message code="teacher.index.unableToUpdateRun"/>' + id + ' ' + '<spring:message code="teacher.index.tryAgainLater"/>' + '</span>');
+						link.parent().append('<span style="color: #DD2424;"> ' + '<spring:message code="teacher.index.unableToUpdateRun"/> ' + id + ' ' + '<spring:message code="teacher.index.tryAgainLater"/>' + '</span>');
 					}
             	});
             });
@@ -141,7 +141,7 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 		<div id="pageContent">
 			<div class="sidebar sidebarLeft">
 				<div class="sidePanel">
-					<div class="panelHeader"><spring:message code="teacher.index.rememberYourUsername" /></div>
+					<div class="panelHeader"><spring:message code="teacher.index.quickLinks" /></div>
 					
 					<div class="panelContent">
 				

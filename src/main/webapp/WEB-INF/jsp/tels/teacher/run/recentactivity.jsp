@@ -302,7 +302,7 @@
 						      				<td>${run.id}</td>
 						      			</tr>
 						      			<tr>
-						      				<th><spring:message code="teacher.run.recentactivity.runCreated"/></th>
+						      				<th><spring:message code="teacher.run.recentactivity.runCreated2"/></th>
 						      				<td><fmt:formatDate value="${run.starttime}" type="date" dateStyle="medium" /></td>
 						      			</tr>
 						      			<!-- <tr>
