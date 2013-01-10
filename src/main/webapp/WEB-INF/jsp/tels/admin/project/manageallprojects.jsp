@@ -10,9 +10,7 @@
 <link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
     
-<script type="text/javascript" src="../../javascript/tels/general.js"></script>
-<script type="text/javascript" src="../../javascript/tels/effects.js"></script>
-<script type="text/javascript" src="../../javascript/tels/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="../../javascript/tels/jquery/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="../../javascript/tels/projecttags.js"></script>
     
 <title><spring:message code="application.title" /></title>
@@ -49,6 +47,24 @@ $(document).ready(function() {
 	        });
   });
 });
+
+function updateMaxTotalAssetsSize(projectId, newMaxTotalAssetsSize) {
+	var projectId = parseInt(projectId);
+	var newMaxTotalAssetsSize = parseInt(newMaxTotalAssetsSize);
+	if (isNaN(newMaxTotalAssetsSize)) {
+		alert("Error updating max total assets size. Please make sure that you entered a number.");
+	} else {
+		$.ajax(
+				{
+					type:'POST',
+					url:'manageallprojects.html',
+					data:{attr:"maxTotalAssetsSize",projectId:projectId,val:newMaxTotalAssetsSize},
+    	    		error:function(){alert('error: please talk to wise administrator.');}, 
+    	    		success:function(){}						
+				}
+				);		
+	}
+}
 </script>
 <body>
 
@@ -70,10 +86,8 @@ $(document).ready(function() {
 	<tr>
 		<th> Project Id</th>
 		<th> Project Title </th>
-		<th> IsCurrent?</th>
-		<!-- 
-		<th> familytag</th>
-		 -->
+		<th> Is Current</th>
+		<th> Max Assets Size (in bytes) <a onClick="alert('Empty=Use System Default Value, usually 10MB\n10MB=10485760 bytes\n15MB=15728640 bytes\n20MB=20971520 bytes\n100MB=104857600 bytes')">Help</a></th>
 		<th> Tags </th>
 		<th> Actions </th>
 		<!--
@@ -86,8 +100,7 @@ $(document).ready(function() {
 	<tr>
 		<td>${project.id}</td>
 		<td>${project.name}</td>
-<!-- 		<td>${project.current }</td>   -->
-	    <td>Is Public:
+	    <td>Is Current:
 	    	<select class="isCurrent_select" id="isCurrent_select_${project.id}">
 	    		<c:choose>
 	    			<c:when test="${project.current}">
@@ -100,7 +113,9 @@ $(document).ready(function() {
 	    			</c:otherwise>
 	    		</c:choose>
 	    	</select></td>
-		<!-- <td>${project.familytag} (${project.projectType})</td>   -->
+	    <td>
+			<input id="maxTotalAssetsSize_${project.id}" type='text' size=8 value='${project.maxTotalAssetsSize}' onblur="updateMaxTotalAssetsSize(${project.id},this.value)" '/>
+	    </td>
 		<td>
 			<div class="existingTagsDiv">
 				<div>Existing Tags</div>
@@ -130,17 +145,6 @@ $(document).ready(function() {
 		<a href="../../teacher/projects/customized/shareproject.html?projectId=${project.id}">Manage Ownership/Shared Teachers</a>&nbsp;|&nbsp;
 		<a href="../../author/project/exportproject.html?projectId=${project.id}">Export project as Zip</a>&nbsp;|&nbsp;
 		</td>		
-		<!-- 
-		<td><a href="../author/authorproject.html?projectId=${project.id}">Edit Project (Authoring tool)</a></td>		
-		<td><a href="editproject.html?projectId=${project.id}">Edit Project Metadata</a></td>
-		<td>
-		    <ul>
-		        <li><a href="../previewproject.html?projectId=${project.id}">Preview</a></li>
-		        <li><a href="../teacher/projects/customized/shareproject.html?projectId=${project.id}">Manage Ownership/Shared Teachers</a></li>
-		        <li><a href="../author/project/exportproject.html?projectId=${project.id}">Export project as Zip</a></li>
-		    </ul>
-		</td>		
-		 -->
 	</tr>
 	</c:forEach>
 </table>

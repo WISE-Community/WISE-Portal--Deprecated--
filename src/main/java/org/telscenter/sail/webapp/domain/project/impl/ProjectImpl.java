@@ -154,6 +154,9 @@ public class ProjectImpl implements Project {
     @Transient
     private static final String COLUMN_NAME_DATE_DELETED = "dateDeleted";
 
+    @Transient
+	private static final String COLUMN_NAME_MAX_TOTAL_ASSETS_SIZE = "maxTotalAssetsSize";
+
 	@Transient
 	public ProjectInfo projectinfo = new ProjectInfoImpl();
 	
@@ -233,6 +236,9 @@ public class ProjectImpl implements Project {
     @Column(name = ProjectImpl.COLUMN_NAME_DATE_DELETED, nullable=true)
     protected Date dateDeleted;
 
+    @Column(name = ProjectImpl.COLUMN_NAME_MAX_TOTAL_ASSETS_SIZE, nullable = true)
+    protected Long maxTotalAssetsSize;
+    
 	/**
 	 * @see org.telscenter.sail.webapp.domain.project.Project#getCurnit()
 	 */
@@ -601,5 +607,13 @@ public class ProjectImpl implements Project {
 	 */
 	public void setDateDeleted(Date dateDeleted) {
 		this.dateDeleted = dateDeleted;
+	}
+
+	public Long getMaxTotalAssetsSize() {
+		return maxTotalAssetsSize;
+	}
+
+	public void setMaxTotalAssetsSize(Long maxTotalAssetsSize) {
+		this.maxTotalAssetsSize = maxTotalAssetsSize;
 	}
 }
