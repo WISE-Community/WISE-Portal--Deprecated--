@@ -51,7 +51,7 @@
 						<spring:message code="forgotaccount.teacher.success.ifYouHaveAnyOtherProblemsOrQuestions"/> <a href="/webapp/contact/contactwisegeneral.html"> <spring:message code="forgotaccount.teacher.success.contactWISE"/></a>
 					</div>
 				</div>
-				<a href="/webapp/index.html" title="<spring:message code="wiseHome" />"><spring:message code="returnToHomePage"/></a>
+				<a href="/webapp/index.html" title="<spring:message code="wiseHome" />"><spring:message code="returnHome"/></a>
 			</div>
 		</div>
 	</div>

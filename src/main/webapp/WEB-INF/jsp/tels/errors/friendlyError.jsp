@@ -48,7 +48,7 @@
 						<p><spring:message code="errors.friendlyError.staffHasBeenInformed" /></p>
 					</div>
 				</div>
-				<a href="/webapp/index.html" title="<spring:message code="wiseHome" />"><spring:message code="returnToHomePage"/></a>
+				<a href="/webapp/index.html" title="<spring:message code="wiseHome" />"><spring:message code="returnHome"/></a>
 			</div>
 		</div>
 	</div>

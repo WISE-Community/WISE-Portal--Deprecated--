@@ -47,7 +47,7 @@
 					</div>
 					<div><a href="index.html"><spring:message code="forgotaccount.teacher.error.tryAgain"/></a></div>
 				</div>
-				<a href="/webapp/index.html" title="<spring:message code="wiseHome" />"><spring:message code="returnToHomePage"/></a>
+				<a href="/webapp/index.html" title="<spring:message code="wiseHome" />"><spring:message code="returnHome"/></a>
 			</div>
 		</div>
 	</div>

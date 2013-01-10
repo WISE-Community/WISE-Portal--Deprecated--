@@ -31,7 +31,7 @@
     	<property name="commandName" value="studentAccountForm" />
     	<property name="validator" ref="studentAccountFormValidator" />
     	<property name="formView" value="student/registerstudent" />
-    	<property name="successView" value="student/registerStudentConfirm" />
+    	<property name="successView" value="student/registerstudentsuccess" />
     </bean>
     
         <bean id="registerteacherController"
