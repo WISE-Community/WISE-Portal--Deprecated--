@@ -141,7 +141,7 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 		<div id="pageContent">
 			<div class="sidebar sidebarLeft">
 				<div class="sidePanel">
-					<div class="panelHeader"><spring:message code="teacher.index.rememberYourUsername" /></div>
+					<div class="panelHeader"><spring:message code="teacher.index.quickLinks" /></div>
 					
 					<div class="panelContent">
 				

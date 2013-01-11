@@ -1,8 +1,18 @@
+<%@ include file="../include.jsp"%>
 <html>
 <head>
-<script src="./javascript/tels/flot/jquery.js" type="text/javascript"></script>
-<script src="./javascript/tels/flot/jquery.flot.js" type="text/javascript"></script>
-<script src="./javascript/tels/flot/excanvas.js" type="text/javascript"></script>
+<!DOCTYPE html>
+<html xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+<title><spring:message code="pages.statistics.title" /></title>
+
+<script src="/webapp/javascript/tels/flot/jquery.js" type="text/javascript"></script>
+<script src="/webapp/javascript/tels/flot/jquery.flot.js" type="text/javascript"></script>
+<script src="/webapp/javascript/tels/flot/excanvas.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 
@@ -35,57 +45,57 @@ graphIds.push('totalNumberAnnotationTypesComparison');
 
 //the labels of the graphs for the radio buttons
 var graphLabels = [];
-graphLabels.push('Students Over Time');
-graphLabels.push('Student Logins Over Time');
-graphLabels.push('Teachers Over Time');
-graphLabels.push('Teacher Logins Over Time');
-graphLabels.push('Projects Over Time');
-graphLabels.push('Runs Over Time');
-graphLabels.push('Times "Run Project" Was Clicked Over Time');
+graphLabels.push('<spring:message code="pages.statistics.studentsTime" />');
+graphLabels.push('<spring:message code="pages.statistics.studentLoginsTime" />');
+graphLabels.push('<spring:message code="pages.statistics.teachersTime" />');
+graphLabels.push('<spring:message code="pages.statistics.teacherLoginsTime" />');
+graphLabels.push('<spring:message code="pages.statistics.projectsTime" />');
+graphLabels.push('<spring:message code="pages.statistics.runsTime" />');
+graphLabels.push('<spring:message code="pages.statistics.runClickedTime" />');
 graphLabels.push('break');
-graphLabels.push('New Students Per Month');
-graphLabels.push('Student Logins Per Month');
-graphLabels.push('New Teachers Per Month');
-graphLabels.push('Teacher Logins Per Month');
-graphLabels.push('New Projects Per Month');
-graphLabels.push('New Runs Per Month');
-graphLabels.push('Times "Run Project" Was Clicked Per Month');
+graphLabels.push('<spring:message code="pages.statistics.newStudentsMonth" />');
+graphLabels.push('<spring:message code="pages.statistics.studentLoginsMonth" />');
+graphLabels.push('<spring:message code="pages.statistics.newTeachersMonth" />');
+graphLabels.push('<spring:message code="pages.statistics.teacherLoginsMonth" />');
+graphLabels.push('<spring:message code="pages.statistics.projectsMonth" />');
+graphLabels.push('<spring:message code="pages.statistics.runsMonth" />');
+graphLabels.push('<spring:message code="pages.statistics.runClickedMonth" />');
 graphLabels.push('break');
-graphLabels.push('Student Work Over Time');
-graphLabels.push('Steps Created Over Time');
-graphLabels.push('Annotations Over Time');
-graphLabels.push('Hint Views Over Time');
+graphLabels.push('<spring:message code="pages.statistics.studentWorkTime" />');
+graphLabels.push('<spring:message code="pages.statistics.stepsCreatedTime" />');
+graphLabels.push('<spring:message code="pages.statistics.feedbackTime" />');
+graphLabels.push('<spring:message code="pages.statistics.hintsTime" />');
 graphLabels.push('break');
-graphLabels.push('Step Types (Comparison Between Types)');
-graphLabels.push('Student Work for Step Types (Comparison Between Types)');
-graphLabels.push('Annotation Types (Comparison Between Types)');
+graphLabels.push('<spring:message code="pages.statistics.stepTypes" />');
+graphLabels.push('<spring:message code="pages.statistics.workByStepType" />');
+graphLabels.push('<spring:message code="pages.statistics.feedbackByStepType" />');
 
 //the mappings from graph ids to titles
 var graphIdToTitles = {};
-graphIdToTitles['totalNumberStudentsOverTime'] = 'Total Number of Students Over Time';
-graphIdToTitles['totalNumberStudentLoginsOverTime'] = 'Total Number of Student Logins Over Time';
-graphIdToTitles['totalNumberTeachersOverTime'] = 'Total Number of Teachers Over Time';
-graphIdToTitles['totalNumberTeacherLoginsOverTime'] = 'Total Number of Teacher Logins Over Time';
-graphIdToTitles['totalNumberProjectsOverTime'] = 'Total Number of Projects Over Time';
-graphIdToTitles['totalNumberRunsOverTime'] = 'Total Number of Runs Over Time';
-graphIdToTitles['totalNumberTimesRunProjectClickedOverTime'] = 'Total Number of Times "Run Project" Was Clicked Over Time';
+graphIdToTitles['totalNumberStudentsOverTime'] = '<spring:message code="pages.statistics.studentsTime" />';
+graphIdToTitles['totalNumberStudentLoginsOverTime'] = '<spring:message code="pages.statistics.studentLoginsTime" />';
+graphIdToTitles['totalNumberTeachersOverTime'] = '<spring:message code="pages.statistics.teachersTime" />';
+graphIdToTitles['totalNumberTeacherLoginsOverTime'] = '<spring:message code="pages.statistics.teacherLoginsTime" />';
+graphIdToTitles['totalNumberProjectsOverTime'] = '<spring:message code="pages.statistics.projectsTime" />';
+graphIdToTitles['totalNumberRunsOverTime'] = '<spring:message code="pages.statistics.runsTime" />';
+graphIdToTitles['totalNumberTimesRunProjectClickedOverTime'] = '<spring:message code="pages.statistics.runClickedTime" />';
 
-graphIdToTitles['totalNumberStudentsPerMonth'] = 'Total Number of New Students Per Month';
-graphIdToTitles['totalNumberStudentLoginsPerMonth'] = 'Total Number of Student Logins Per Month';
-graphIdToTitles['totalNumberTeachersPerMonth'] = 'Total Number of New Teachers Per Month';
-graphIdToTitles['totalNumberTeacherLoginsPerMonth'] = 'Total Number of Teacher Logins Per Month';
-graphIdToTitles['totalNumberProjectsPerMonth'] = 'Total Number of New Projects Per Month';
-graphIdToTitles['totalNumberRunsPerMonth'] = 'Total Number of New Runs Per Month';
-graphIdToTitles['totalNumberTimesRunProjectClickedPerMonth'] = 'Total Number of Times "Run Project" Was Clicked Per Month';
+graphIdToTitles['totalNumberStudentsPerMonth'] = '<spring:message code="pages.statistics.newStudentsMonth" />';
+graphIdToTitles['totalNumberStudentLoginsPerMonth'] = '<spring:message code="pages.statistics.studentLoginsMonth" />';
+graphIdToTitles['totalNumberTeachersPerMonth'] = '<spring:message code="pages.statistics.newTeachersMonth" />';
+graphIdToTitles['totalNumberTeacherLoginsPerMonth'] = '<spring:message code="pages.statistics.teacherLoginsMonth" />';
+graphIdToTitles['totalNumberProjectsPerMonth'] = '<spring:message code="pages.statistics.projectsMonth" />';
+graphIdToTitles['totalNumberRunsPerMonth'] = '<spring:message code="pages.statistics.runsMonth" />';
+graphIdToTitles['totalNumberTimesRunProjectClickedPerMonth'] = '<spring:message code="pages.statistics.runClickedMonth" />';
 
-graphIdToTitles['totalNumberStepWorksOverTime'] = 'Total Number of Student Work Over Time';
-graphIdToTitles['totalNumberStepsOverTime'] = 'Total Number of Steps Created Over Time';
-graphIdToTitles['totalNumberAnnotationsOverTime'] = 'Total Number of Annotations Over Time';
-graphIdToTitles['totalNumberHintViewsOverTime'] = 'Total Number of Hint Views Over Time';
+graphIdToTitles['totalNumberStepWorksOverTime'] = '<spring:message code="pages.statistics.studentWorkTime" />';
+graphIdToTitles['totalNumberStepsOverTime'] = '<spring:message code="pages.statistics.stepsCreatedTime" />';
+graphIdToTitles['totalNumberAnnotationsOverTime'] = '<spring:message code="pages.statistics.feedbackTime" />';
+graphIdToTitles['totalNumberHintViewsOverTime'] = '<spring:message code="pages.statistics.hintsTime" />';
 
-graphIdToTitles['totalNumberStepTypesComparison'] = 'Total Number of Step Types (Comparison Between Types)';
-graphIdToTitles['totalNumberStepWorkStepTypesComparison'] = 'Total Number of Student Work for Step Types (Comparison Between Types)';
-graphIdToTitles['totalNumberAnnotationTypesComparison'] = 'Total Number of Annotation Types (Comparison Between Types)';
+graphIdToTitles['totalNumberStepTypesComparison'] = '<spring:message code="pages.statistics.stepTypes" />';
+graphIdToTitles['totalNumberStepWorkStepTypesComparison'] = '<spring:message code="pages.statistics.workByStepType" />';
+graphIdToTitles['totalNumberAnnotationTypesComparison'] = '<spring:message code="pages.statistics.feedbackByStepType" />';
 
 //the number of days in each month 1-12
 var numberDaysInMonth = [];
@@ -104,18 +114,18 @@ numberDaysInMonth[12] = 31;
 
 //the names of each month 1-12
 var monthNames = [];
-monthNames[1] = "Jan";
-monthNames[2] = "Feb";
-monthNames[3] = "Mar";
-monthNames[4] = "Apr";
-monthNames[5] = "May";
-monthNames[6] = "Jun";
-monthNames[7] = "Jul";
-monthNames[8] = "Aug";
-monthNames[9] = "Sep";
-monthNames[10] = "Oct";
-monthNames[11] = "Nov";
-monthNames[12] = "Dec";
+monthNames[1] = "<spring:message code="month_jan_short"/>";
+monthNames[2] = "<spring:message code="month_feb_short"/>";
+monthNames[3] = "<spring:message code="month_mar_short"/>";
+monthNames[4] = "<spring:message code="month_apr_short"/>";
+monthNames[5] = "<spring:message code="month_may_short"/>";
+monthNames[6] = "<spring:message code="month_jun_short"/>";
+monthNames[7] = "<spring:message code="month_jul_short"/>";
+monthNames[8] = "<spring:message code="month_aug_short"/>";
+monthNames[9] = "<spring:message code="month_sep_short"/>";
+monthNames[10] = "<spring:message code="month_oct_short"/>";
+monthNames[11] = "<spring:message code="month_nov_short"/>";
+monthNames[12] = "<spring:message code="month_dec_short"/>";
 
 /**
  * Is the hour the first hour of the day
@@ -1024,7 +1034,7 @@ function setGraphTitle(graphTitle) {
  */
 function generateRadioButtonsDivs() {
 	//text at the top
-	var radioButtonsHtml = "Total Number of ...<br><br>";
+	var radioButtonsHtml = "<spring:message code="pages.statistics.totalNoOf"/><br><br>";
 
 	//loop through all the graph ids
 	for(var x=0; x<graphIds.length; x++) {
@@ -1071,7 +1081,7 @@ $(document).ready(function() {
 </head>
 <body>
 	<div id="parentDiv" align="center">
-		<div id="loadingStatisticsMessageDiv">Loading Statistics...</div>
+		<div id="loadingStatisticsMessageDiv"><spring:message code="pages.statistics.loading"/></div>
 		<table>
 			<tr>
 				<td><div id="graphTitleDiv" align="center"></div><div id="graphDiv" style="width:600px;height:500px;"></div></td>

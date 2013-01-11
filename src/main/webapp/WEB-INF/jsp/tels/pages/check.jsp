@@ -20,7 +20,7 @@
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   
-<title><spring:message code="checkcompatibility.title" /></title>
+<title><spring:message code="pages.check.title" /></title>
 
 <link rel="shortcut icon" href="./themes/tels/default/images/favicon_panda.ico" /> 
 
@@ -37,211 +37,232 @@
 		<div id="pageContent">
 			
 			<div class="contentPanel">
-				<div class="panelHeader">WISE4 System Check</div>
+				<div class="panelHeader"><spring:message code="pages.check.header" /></div>
 				<div class="panelContent">
 
-					<div class="sectionHead" style="padding-top:0;">Browser Compatibility Check</div>
+					<div class="sectionHead"><spring:message code="pages.check.browser" /></div>
 					<div class="sectionContent"> 
-						<div><table>
-							<tr>
-								<th>Resource</th>
-								<th>Status</th>
-								<th>Required Version</th>
-								<th>Your Version</th>
-								<th>Requirement Satisfied</th>
-								<th>Additional Info</th>
-							</tr>
-							<noscript>
+						<div>
+							<table class="compatibility">
 								<tr>
-								<td>Javascript</td>
-								<td>Required</td>
-								<td>Enabled</td>
-								<td>Disabled</td>
-								<td><img src='../themes/tels/default/images/error_16.gif' /></td>
-								<td><a href='https://www.google.com/support/adsense/bin/answer.py?answer=12654'>How to enable Javascript</a></td>
+									<th><spring:message code="pages.check.browser_resource" /></th>
+									<th><spring:message code="pages.check.browser_status" /></th>
+									<th><spring:message code="pages.check.browser_requiredVersion" /></th>
+									<th><spring:message code="pages.check.browser_userVersion" /></th>
+									<th><spring:message code="pages.check.browser_requirementSatisfied" /></th>
+									<th><spring:message code="pages.check.browser_info" /></th>
 								</tr>
-							</noscript>
-							<tr>
-								<td id='javascriptResource'></td>
-								<td id='javascriptStatus'></td>
-								<td id='javascriptRequiredVersion'></td>
-								<td id='javascriptYourVersion'></td>
-								<td id='javascriptRequirementSatisfied'></td>
-								<td id='javascriptAdditionalInfo'></td>
-							</tr>
-							<tr>
-								<td id='browserResource'></td>
-								<td id='browserStatus'></td>
-								<td id='browserRequiredVersion'></td>
-								<td id='browserYourVersion'></td>
-								<td id='browserRequirementSatisfied'></td>
-								<td id='browserAdditionalInfo'></td>
-							</tr>
-							<tr>
-								<td id='quickTimeResource'></td>
-								<td id='quickTimeStatus'></td>
-								<td id='quickTimeRequiredVersion'></td>
-								<td id='quickTimeYourVersion'></td>
-								<td id='quickTimeRequirementSatisfied'></td>
-								<td id='quickTimeAdditionalInfo'></td>
-							</tr>
-							<tr>
-								<td id='flashResource'></td>
-								<td id='flashStatus'></td>
-								<td id='flashRequiredVersion'></td>
-								<td id='flashYourVersion'></td>
-								<td id='flashRequirementSatisfied'></td>
-								<td id='flashAdditionalInfo'></td>
-							</tr>
-							<tr>
-								<td id='javaResource'></td>
-								<td id='javaStatus'></td>
-								<td id='javaRequiredVersion'></td>
-								<td id='javaYourVersion'></td>
-								<td id='javaRequirementSatisfied'></td>
-								<td id='javaAdditionalInfo'></td>
-							</tr>
-						</table></div>
+								<noscript>
+								<tr>
+									<td><spring:message code="pages.check.browser_javascript" /></td>
+									<td><spring:message code="pages.check.required" /></td>
+									<td><spring:message code="pages.check.enabled" /></td>
+									<td><spring:message code="pages.check.disabled" /></td>
+									<td><img src='../themes/tels/default/images/error_16.gif' /></td>
+									<td><a href='https://www.google.com/support/adsense/bin/answer.py?answer=12654'><spring:message code="pages.check.browser_howToEnabledJS" /></a></td>
+								</tr>
+								</noscript>
+								<tr>
+									<td id='javascriptResource'><spring:message code="pages.check.browser_javascript" /></td>
+									<td id='javascriptStatus'><spring:message code="pages.check.required" /></td>
+									<td id='javascriptRequiredVersion'><spring:message code="pages.check.enabled" /></td>
+									<td id='javascriptYourVersion'>
+										<span id="jsEnabled" style="display:none;"><spring:message code="pages.check.enabled" /></span>
+										<noscript>
+											<span><spring:message code="pages.check.disabled" /></span>
+										</noscript>
+									</td>
+									<td id='javascriptRequirementSatisfied'></td>
+									<td id='javascriptAdditionalInfo'><a href='https://www.google.com/support/adsense/bin/answer.py?answer=12654'><spring:message code="pages.check.browser_howToEnabledJS" /></a></td>
+								</tr>
+								<tr>
+									<td id='browserResource'></td>
+									<td id='browserStatus'><spring:message code="pages.check.required" /></td>
+									<td id='browserRequiredVersion'></td>
+									<td id='browserYourVersion'></td>
+									<td id='browserRequirementSatisfied'></td>
+									<td id='browserAdditionalInfo'>
+										<a id='upgradeFirefox' href='http://www.mozilla.org/firefox'><spring:message code="pages.check.browser_upgradeFirefox" /></a>
+										<a id='upgradeChrome' href='http://www.google.com/chrome'><spring:message code="pages.check.browser_upgradeChrome" /></a>
+										<a id='upgradeSafari' href='http://www.apple.com/safari/'><spring:message code="pages.check.browser_upgradeSafari" /></a>
+										<a id='upgradeIE' href='http://windows.microsoft.com/en-US/internet-explorer/download-ie'><spring:message code="pages.check.browser_upgradeIE" /></a>
+									</td>
+								</tr>
+								<tr>
+									<td id='quickTimeResource'><spring:message code="pages.check.browser_qt" /></td>
+									<td id='quickTimeStatus'><spring:message code="pages.check.recommended" /></td>
+									<td id='quickTimeRequiredVersion'></td>
+									<td id='quickTimeYourVersion'></td>
+									<td id='quickTimeRequirementSatisfied'></td>
+									<td id='quickTimeAdditionalInfo'><a href='http://www.apple.com/quicktime/download/'><spring:message code="pages.check.browser_upgradeQT" /></a></td>
+								</tr>
+								<tr>
+									<td id='flashResource'><spring:message code="pages.check.browser_flash" /></td>
+									<td id='flashStatus'><spring:message code="pages.check.recommended" /></td>
+									<td id='flashRequiredVersion'></td>
+									<td id='flashYourVersion'></td>
+									<td id='flashRequirementSatisfied'></td>
+									<td id='flashAdditionalInfo'><a href='http://get.adobe.com/flashplayer/'><spring:message code="pages.check.browser_upgradeFlash" /></a></td>
+								</tr>
+								<tr>
+									<td id='javaResource'><spring:message code="pages.check.browser_java" /></td>
+									<td id='javaStatus'><spring:message code="pages.check.recommended" /></td>
+									<td id='javaRequiredVersion'></td>
+									<td id='javaYourVersion'></td>
+									<td id='javaRequirementSatisfied'></td>
+									<td id='javaAdditionalInfo'><a href='http://www.java.com/download/'><spring:message code="pages.check.browser_upgradeJava" /></a></td>
+								</tr>
+							</table>
+						</div>
 						<noscript>
-						<div>Browser Compatibility Check Result: You can not run WISE4</div>
-						<div class='checkCompatibilityWarning'>Warning: you must enable Javascript in order to run Wise 4, please click the "How to enable Javascript" link to find out how to enable Javascript.</div></noscript>
-						<div id='compatibilityCheckResult' style="font-weight:bold;"></div>
-						<div id='compatibilityCheckMessages'></div>
-					</div>
-					
-					<div id='contentFilter' class="sectionHead" style="padding-top:0;">Network Compatibility Check (Firewall/Proxy)</div>
-					<div class="sectionContent"> 
-						<div>You should not be behind firewall/proxy if possible when running WISE projects.  Parts or all of the WISE may not load 
-		     depending on your school's firewall settings. This section checks if you are
-			 restricted from accessing certain resources on the WISE server. 
-			 If you see any X's below, WISE may not function properly. Please talk to your school technician.</div>
-						<div id='contentFilterMessageSwf'>
-							<span>Can Retrieve Flash objects (.swf):</span><span id='contentFilterSwfRequirementSatisfied'>checking...</span><br/><br/>
-							<span>Can Retrieve Java archives (.jar):</span><span id='contentFilterJarRequirementSatisfied'>checking...</span>
+						<div class='checkCompatibilityWarning'><spring:message code="pages.check.browser_jsDisabled" /></div>
+						</noscript>
+						<div id='browserFail' style="font-weight:bold; display:none;"><spring:message code="pages.check.browser_fail" /></div>
+						<div id='browserPass' style="font-weight:bold; display:none;"><spring:message code="pages.check.browser_pass" /></div>
+						<div id='compatibilityCheckMessages'>
+							<p id='browserFailMsg' class='checkCompatibilityWarning'><spring:message code="pages.check.browser_oldWarning" /></p>
+							<p id='browserFailMsgUnsupported' class='checkCompatibilityWarning'><spring:message code="pages.check.browser_oldWarning" /> <spring:message code="pages.check.browser_switchWarning" /></p>
+							<p id='qtMsg' class='checkCompatibilityCaution'><spring:message code="pages.check.browser_qtWarning" /></p>
+							<p id='javaMsg' class='checkCompatibilityCaution'><spring:message code="pages.check.browser_javaWarning" /></p>
+							<p id='flashMsg' class='checkCompatibilityCaution'><spring:message code="pages.check.browser_flashWarning" /></p>
 						</div>
 					</div>
 					
-					<div id='contentFilter' class="sectionHead" style="padding-top:0;">Browser Recommendation</div>
+					<div id='contentFilter' class="sectionHead" style="padding-top:0;"><spring:message code="pages.check.network" /></div>
 					<div class="sectionContent"> 
-						<div>Use this section to choose which browser to use to run WISE.</div>
-						<div><table>
-							<tr>
-								<th>Browser, Version, Operating System</th>
-								<th>Known Issues</th>
-								<th>Recommendation Level</th>
-							</tr>
-							<tr>
-								<td>Firefox 3.5/3.6 or higher on OSX and Windows</td>
-								<td>none</td>
-								<td>Strongly Recommended</td>
-							</tr>
-							<tr>
-								<td>Chrome 10 or higher on OSX and Windows</td>
-								<td>none</td>
-								<td>Recommended</td>
-							</tr>
-							<tr>
-								<td>Safari 4.0 or higher on OSX</td>
-								<td>none</td>
-								<td>Recommended</td>
-							</tr>
-							<tr>
-								<td>IE 7,8,9 on Windows</td>
-								<td>Drawing and MySystem steps do not work, some usability issues in student+teacher pages</td>
-								<td>Least Recommended</td>
-							</tr>
-							<tr>
-								<td colspan="3">Other browsers are not yet recommended</td>
-							</tr>
-						</table></div>
+						<div><spring:message code="pages.check.network_info" /></div>
+						<div id='contentFilterMessageSwf'>
+							<span><spring:message code="pages.check.network_flash" /></span><span id='contentFilterSwfRequirementSatisfied'><spring:message code="pages.check.processing" /></span><br/><br/>
+							<span><spring:message code="pages.check.network_java" /></span><span id='contentFilterJarRequirementSatisfied'><spring:message code="pages.check.processing" /></span>
+						</div>
 					</div>
 					
-					<div id='contentFilter' class="sectionHead" style="padding-top:0;">Computer System Requirements</div>
+					<div id='contentFilter' class="sectionHead"><spring:message code="pages.check.browserRecs" /></div>
 					<div class="sectionContent"> 
-						<div>Fully supported configuration:</div>
+						<div><spring:message code="pages.check.browserRecs_info" /></div>
 						<div>
-							<table class='confluenceTable'><tbody> 
-								<tr> 
-								<td class='confluenceTd'>Operating system</td> 
-								<td class='confluenceTd'>OS X &gt;=10.5 or Windows XP/2k, Vista, 7</td> 
-								</tr> 
-								<tr> 
-								<td class='confluenceTd'>RAM</td> 
-								<td class='confluenceTd'>512MB or more</td> 
-								</tr> 
-								<tr> 
-								<td class='confluenceTd'>Java</td> 
-								<td class='confluenceTd'>1.6.0 or later</td> 
-								</tr> 
-								<tr> 
-								<td class='confluenceTd'>Flash</td> 
-								<td class='confluenceTd'>10.0 or later</td> 
-								</tr> 
-								<tr> 
-								<td class='confluenceTd'>Firewall</td> 
-								<td class='confluenceTd'>no firewall</td> 
-								</tr> 
-								<tr> 
-								<td class='confluenceTd'>Proxy</td> 
-								<td class='confluenceTd'>no proxy</td> 
-								</tr> 
-								<tr> 
-								<td class='confluenceTd'>Execution</td> 
-								<td class='confluenceTd'>User have permissions to run (<a href="http://javatechniques.com/blog/launching-java-webstart-from-the-command-line" rel="nofollow">javaws</a>)</td> 
-								</tr> 
-								<tr> 
-								<td class='confluenceTd'>Storage</td> 
-								<td class='confluenceTd'>Users can write to system disk</td> 
-								</tr> 
-								<tr> 
-								<td class='confluenceTd'>Peristence</td> 
-								<td class='confluenceTd'>Writes to disk persist all week</td> 
-								</tr> 
+							<table class="compatibility">
+								<tr>
+									<th><spring:message code="pages.check.browserRecs_option" /></th>
+									<th><spring:message code="pages.check.browserRecs_issues" /></th>
+									<th><spring:message code="pages.check.browserRecs_level" /></th>
+								</tr>
+								<tr>
+									<td><spring:message code="pages.check.browserRecs_firefox" /></td>
+									<td><spring:message code="pages.check.browserRecs_noIssues" /></td>
+									<td><spring:message code="pages.check.browserRecs_strong" /></td>
+								</tr>
+								<tr>
+									<td><spring:message code="pages.check.browserRecs_chrome" /></td>
+									<td><spring:message code="pages.check.browserRecs_noIssues" /></td>
+									<td><spring:message code="pages.check.browserRecs_strong" /></td>
+								</tr>
+								<tr>
+									<td><spring:message code="pages.check.browserRecs_safari" /></td>
+									<td><spring:message code="pages.check.browserRecs_noIssues" /></td>
+									<td><spring:message code="pages.check.browserRecs_medium" /></td>
+								</tr>
+								<tr>
+									<td><spring:message code="pages.check.browserRecs_ie" /></td>
+									<td><spring:message code="pages.check.browserRecs_ieIssues" /></td>
+									<td><spring:message code="pages.check.browserRecs_weak" /></td>
+								</tr>
+								<tr>
+									<td colspan="3"><spring:message code="pages.check.browserRecs_other" /></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					
+					<div id='contentFilter' class="sectionHead"><spring:message code="pages.check.system" /></div>
+					<div class="sectionContent"> 
+						<div><spring:message code="pages.check.system_fullSupport" /></div>
+						<div>
+							<table class="compatibility">
+								<tbody> 
+									<tr> 
+										<td><spring:message code="pages.check.system_os" /></td> 
+										<td><spring:message code="pages.check.system_osFull" /></td> 
+									</tr> 
+									<tr> 
+										<td><spring:message code="pages.check.system_ram" /></td> 
+										<td><spring:message code="pages.check.system_ramFull" /></td> 
+									</tr> 
+									<tr> 
+										<td><spring:message code="pages.check.system_java" /></td> 
+										<td><spring:message code="pages.check.system_javaFull" /></td> 
+									</tr> 
+									<tr> 
+										<td><spring:message code="pages.check.system_flash" /></td> 
+										<td><spring:message code="pages.check.system_flashFull" /></td> 
+									</tr> 
+									<tr> 
+										<td><spring:message code="pages.check.system_firewall" /></td> 
+										<td><spring:message code="pages.check.system_firewallFull" /></td> 
+									</tr> 
+									<tr> 
+										<td><spring:message code="pages.check.system_proxy" /></td> 
+										<td><spring:message code="pages.check.system_proxyFull" /></td> 
+									</tr> 
+									<tr> 
+										<td><spring:message code="pages.check.system_execution" /></td> 
+										<td><spring:message code="pages.check.system_executionFull" /> <a href="http://javatechniques.com/blog/launching-java-webstart-from-the-command-line" rel="nofollow">javaws</a></td> 
+									</tr> 
+									<tr> 
+										<td><spring:message code="pages.check.system_storage" /></td> 
+										<td><spring:message code="pages.check.system_storageFull" /></td> 
+									</tr> 
+									<tr> 
+										<td><spring:message code="pages.check.system_persistence" /></td> 
+										<td><spring:message code="pages.check.system_persistenceFull" /></td> 
+									</tr> 
 								</tbody>
 							</table>
 						</div>
-						<div style="margin-top:1em;">Partially supported configuration:</div>
+						<div style="margin-top:1em;"><spring:message code="pages.check.system_partialSupport" /></div>
 						<div>
-							<table class='confluenceTable'><tbody> 
-								<tr> 
-								<td class='confluenceTd'>Operating system</td> 
-								<td class='confluenceTd'>OS X &gt;=10.4 or Windows XP,Vista, 7</td> 
-								</tr> 
-								<tr> 
-								<td class='confluenceTd'>RAM</td> 
-								<td class='confluenceTd'>256MB or more</td> 
-								</tr> 
-								<tr> 
-								<td class='confluenceTd'>Java</td> 
-								<td class='confluenceTd'>1.5.0 or later</td> 
-								</tr> 
-								<tr> 
-								<td class='confluenceTd'>Flash</td> 
-								<td class='confluenceTd'>10.0 or later</td> 
-								</tr> 
-								<tr> 
-								<td class='confluenceTd'>Firewall</td> 
-								<td class='confluenceTd'>no firewall</td> 
-								</tr> 
-								<tr> 
-								<td class='confluenceTd'>Proxy</td> 
-								<td class='confluenceTd'>some proxies okay</td> 
-								</tr> 
-								<tr> 
-								<td class='confluenceTd'>Execution</td> 
-								<td class='confluenceTd'>User have permissions to run javaws</td> 
-								</tr> 
-								<tr> 
-								<td class='confluenceTd'>Storage</td> 
-								<td class='confluenceTd'>Users can write to system disk</td> 
-								</tr> 
-								<tr> 
-								<td class='confluenceTd'>Peristence</td> 
-								<td class='confluenceTd'>without persistence, downloads take place each session</td> 
-								</tr> 
-							</tbody></table> 
+							<table class="compatibility">
+								<tbody> 
+									<tr> 
+										<td><spring:message code="pages.check.system_os" /></td> 
+										<td><spring:message code="pages.check.system_osPartial" /></td> 
+									</tr> 
+									<tr> 
+										<td><spring:message code="pages.check.system_ram" /></td> 
+										<td><spring:message code="pages.check.system_ramPartial" /></td> 
+									</tr>  
+									<tr> 
+										<td><spring:message code="pages.check.system_java" /></td> 
+										<td><spring:message code="pages.check.system_javaPartial" /></td> 
+									</tr> 
+									<tr> 
+										<td><spring:message code="pages.check.system_flash" /></td> 
+										<td><spring:message code="pages.check.system_flashPartial" /></td> 
+									</tr>
+									<tr> 
+										<td><spring:message code="pages.check.system_firewall" /></td> 
+										<td><spring:message code="pages.check.system_firewallPartial" /></td> 
+									</tr> 
+									<tr> 
+										<td><spring:message code="pages.check.system_proxy" /></td> 
+										<td><spring:message code="pages.check.system_proxyPartial" /></td> 
+									</tr> 
+									<tr> 
+										<td><spring:message code="pages.check.system_execution" /></td> 
+										<td><spring:message code="pages.check.system_executionPartial" /></td> 
+									</tr> 
+									<tr> 
+										<td><spring:message code="pages.check.system_storage" /></td> 
+										<td><spring:message code="pages.check.system_storagePartial" /></td> 
+									</tr> 
+									<tr> 
+										<td><spring:message code="pages.check.system_persistence" /></td> 
+										<td><spring:message code="pages.check.system_persistencePartial" /></td> 
+									</tr> 
+								</tbody>
+							</table> 
 						</div>
-						<div style="margin-top:1em;"><a href="./schoolIT.html">Resource for school technicians</a></div>
+						<div style="margin-top:1em;"><a href="./schoolIT.html"><spring:message code="pages.check.schoolTech" /></a></div>
 					</div>
 				</div>
 			</div>

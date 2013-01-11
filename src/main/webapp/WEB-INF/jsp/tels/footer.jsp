@@ -16,7 +16,7 @@
 					</ul>
 	 			</div>
 				<div id="wiseOpenSource">
-					<spring:message code="footer.poweredBy" />
+					<spring:message code="footer.poweredBy" htmlEscape="false" />
 				</div>
 				<div style="clear:both; padding:0;"></div>
 	 		</div>
