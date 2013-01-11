@@ -19,7 +19,7 @@
 
 <link rel="shortcut icon" href="<spring:theme code="favicon"/>" />
 
-<title>WISE Learning Environment</title>
+<title><spring:message code="pages.teacher-tools.wiseLearningEnvironment" /></title>
 
 </head>
 
@@ -35,53 +35,53 @@
 			<div class="contentPanel">
 			
 				<div class="panelHeader">
-					Teaching With WISE
+					<spring:message code="pages.teacher-tools.teachingWithWISE" />
 				</div>
 				
 				<div class="panelContent">
 					<div class="featuresShowcase right">
-						<img src="/webapp/themes/tels/default/images/features/wise-teacher.png" alt="Teaching with WISE" />
+						<img src="/webapp/themes/tels/default/images/features/wise-teacher.png" alt="<spring:message code="pages.teacher-tools.teachingWithWISE" />" />
 						<div class="featureContent">
-							<div class="featureContentHeader">WISE Teacher Tools</div>
-							<p>To guide students through inquiry-based WISE curricula, teachers survey students' ideas on an individual or small group basis and periodically address the whole class about course content. WISE provides teachers with a suite of integrated tools for efficiently managing and promoting student learning with WISE. Teachers monitor students' real-time progress, provide immediate feedback on student work, and grade more efficiently using automated scoring systems. </p>
-							<p>By more effectively facilitating classroom management tasks, teachers are free to focus on diverse students' learning needs by interacting with individual students and gaining insights about classroom learning as a whole.</p>
-							<p>WISE provides a wide range of one-week long inquiry units that address key concepts consistent with California and national standards. WISE units can not only fit with teachers' excising curricula across science topics, but can also be specifically customized for classroom use.</p>
+							<div class="featureContentHeader"><spring:message code="pages.teacher-tools.wiseTeacherTools" /></div>
+							<p><spring:message code="pages.teacher-tools.wiseTeacherToolsParagraph1" /></p>
+							<p><spring:message code="pages.teacher-tools.wiseTeacherToolsParagraph2" /></p>
+							<p><spring:message code="pages.teacher-tools.wiseTeacherToolsParagraph3" /></p>
 						</div>
 						<div style="clear:both;"></div>
 					</div>
-					<div class="featureContentHeader">Highlighted Features</div>
+					<div class="featureContentHeader"><spring:message code="pages.teacher-tools.highlightedFeatures" /></div>
 					<div class="featuresShowcase right">
-						<img src="/webapp/themes/tels/default/images/features/teacher-manage.png" alt="management" />
+						<img src="/webapp/themes/tels/default/images/features/teacher-manage.png" alt="<spring:message code="pages.teacher-tools.managementAlt" />" />
 						<div class="featureContent">
-							<p class="featureHeader">Managing, Pacing, & Engaging with Students</p>
+							<p class="featureHeader"><spring:message code="pages.teacher-tools.managingPacingEngagingStudents" /></p>
 							<ul>
-								<li><span style="font-weight:bold;">Progress Monitor:</span> View student work online in real-time with the Classroom Monitor. The tool allows teachers to quickly assess the progress of each student group and determine whether individualized or class-wide interventions are necessary.</li>
-								<li><span style="font-weight:bold;">Step Completion Display:</span> See the percentage of students who have completed particular steps and activities in WISE projects. This feature provides a quick and simple way of determining how the class is progressing through a project.</li>
-								<li><span style="font-weight:bold;">Pause Screens:</span> Pause work on student computers simultaneously. This feature can be used to focus student attention on a particular activity for a class discussion or to control the pacing of student progress through a WISE project.</li>
-								<li><span style="font-weight:bold;">Flag Student Work:</span> Select specific student responses to share, discuss, or review (anonymously) with the whole class. Carefully chosen student examples can serve as an effective basis for reviewing key ideas or generating criteria for evaluating work.</li>
+								<li><span style="font-weight:bold;"><spring:message code="pages.teacher-tools.progressMonitor" /></span> <spring:message code="pages.teacher-tools.progressMonitorText" /></li>
+								<li><span style="font-weight:bold;"><spring:message code="pages.teacher-tools.stepCompletionDisplay" /></span> <spring:message code="pages.teacher-tools.stepCompletionDisplayText" /></li>
+								<li><span style="font-weight:bold;"><spring:message code="pages.teacher-tools.pauseScreens" /></span> <spring:message code="pages.teacher-tools.pauseScreensText" /></li>
+								<li><span style="font-weight:bold;"><spring:message code="pages.teacher-tools.flagStudentWork" /></span> <spring:message code="pages.teacher-tools.flagStudentWorkText" /></li>
 							</ul>
 						</div>
 						<div style="clear:both;"></div>
 					</div>
 					<div class="featuresShowcase left">
-						<img src="/webapp/themes/tels/default/images/features/teacher-grading.png" alt="grading and feedback" />
+						<img src="/webapp/themes/tels/default/images/features/teacher-grading.png" alt="<spring:message code="pages.teacher-tools.gradingAndFeedbackAlt" />" />
 						<div class="featureContent">
-							<p class="featureHeader">Grading & Feedback</p>
+							<p class="featureHeader"><spring:message code="pages.teacher-tools.gradingAndFeedback" /></p>
 							<ul>
-								<li><span style="font-weight:bold;">Grade Student Work & Provide Feedback:</span> Easily view student work to submit scores and comments that students can review and reflect on. Teachers can grade student work by curriculum step or by student team. </li>
-								<li><span style="font-weight:bold;">Pre-Made Comments:</span> Edit and use templates for commonly utilized feedback comments on student work. Teachers can creat pre-made comments to streamline the process of generating feedback for hundreds of student responses.</li>
-								<li><span style="font-weight:bold;">Autoscoring Assessments:</span> Score student work using WISE's autoscoring algorithms. This new and developing feature will aim to assist teachers with quickly and accurately assessing student work on key curriculum steps.</li>
+								<li><span style="font-weight:bold;"><spring:message code="pages.teacher-tools.gradeStudentWorkProvideFeedback" /></span> <spring:message code="pages.teacher-tools.gradeStudentWorkProvideFeedbackText" /></li>
+								<li><span style="font-weight:bold;"><spring:message code="pages.teacher-tools.preMadeComments" /></span> <spring:message code="pages.teacher-tools.preMadeCommentsText" /></li>
+								<li><span style="font-weight:bold;"><spring:message code="pages.teacher-tools.autoscoringAssessments" /></span> <spring:message code="pages.teacher-tools.autoscoringAssessmentsText" /></li>
 							</ul>
 						</div>
 						<div style="clear:both;"></div>
 					</div>
 					<div class="featuresShowcase right">
-						<img src="/webapp/themes/tels/default/images/features/teacher-customization.png" alt="customization" />
+						<img src="/webapp/themes/tels/default/images/features/teacher-customization.png" alt="<spring:message code="pages.teacher-tools.customizationAlt" />" />
 						<div class="featureContent">
-							<p class="featureHeader">Customizing Curricula</p>
+							<p class="featureHeader"><spring:message code="pages.teacher-tools.customizingCurricula" /></p>
 							<ul>
-								<li><span style="font-weight:bold;">WISE Authoring Tool:</span> Create customized curriculum projects targeted to specific classroom contexts. The WISE authoring features allow for flexibility and creativity with designing curriculum pages and embedded assessments. Curriculum authors can tailor existing WISE projects for their specific needs and even create brand new projects on any topic they want.</li>
-								<li><span style="font-weight:bold;">Sharing Projects:</span> Provide access to other WISE teachers. WISE users can share projects with other teachers who may want to run the projects in their classrooms and/or further customize them. By sharing projects, curriculum authors can collaboratively edit and refine WISE units.
+								<li><span style="font-weight:bold;"><spring:message code="pages.teacher-tools.wiseAuthoringTool" /></span> <spring:message code="pages.teacher-tools.wiseAuthoringToolText" /></li>
+								<li><span style="font-weight:bold;"><spring:message code="pages.teacher-tools.sharingProjects" /></span> <spring:message code="pages.teacher-tools.sharingProjectsText" /></li>
 							</ul>
 						</div>
 						<div style="clear:both;"></div>

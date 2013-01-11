@@ -1,155 +1,155 @@
 <%@ include file="../include.jsp"%>
 <html>
 <head>
-<meta name=Title content="WISE 4 Teacher Information Sheet">
+<meta name=Title content="<spring:message code="pages.teacherfaq.wise4TeacherInformationSheet" />">
 <meta name=Keywords content="">
 <meta http-equiv=Content-Type content="text/html; charset=macintosh">
 </head>
 
 <body>
-<h1 align=center style='text-align:center'><spring:message code="teacherfaq.title" /></h1>
+<h1 align=center style='text-align:center'><spring:message code="pages.teacherfaq.wiseTeacherFrequentlyAskedQuestions" /></h1>
 
-<h2><spring:message code="teacherfaq.student-management" /></h2>
-<h4><spring:message code="teacherfaq.register-student-q" /></h4>
-<p><spring:message code="teacherfaq.register-student-a1" /></p> 
+<h2><spring:message code="pages.teacherfaq.studentManagement" /></h2>
+<h4><spring:message code="pages.teacherfaq.shouldIRegisterStudentsQuestion" /></h4>
+<p><spring:message code="pages.teacherfaq.shouldIRegisterStudentsAnswerPart1" /></p> 
 <ul>
-    <li><spring:message code="teacherfaq.register-student-a2" /></li>
-    <li><spring:message code="teacherfaq.register-student-a3" /></li>
+    <li><spring:message code="pages.teacherfaq.shouldIRegisterStudentsAnswerPart2" /></li>
+    <li><spring:message code="pages.teacherfaq.shouldIRegisterStudentsAnswerPart3" /></li>
 </ul>
 
-<h4><spring:message code="teacherfaq.student-forgets-username-q" /></h4>
+<h4><spring:message code="pages.teacherfaq.studentForgotUsernameOrPasswordQuestion" /></h4>
 
 <ul>
-    <li><spring:message code="teacherfaq.student-forgets-username-a1" /></li>
-    <li><spring:message code="teacherfaq.student-forgets-username-a2" /></li>
-    <li><spring:message code="teacherfaq.student-forgets-username-a3" /></li>
+    <li><spring:message code="pages.teacherfaq.studentForgotUsernameOrPasswordAnswerPart1" /></li>
+    <li><spring:message code="pages.teacherfaq.studentForgotUsernameOrPasswordAnswerPart2" /></li>
+    <li><spring:message code="pages.teacherfaq.studentForgotUsernameOrPasswordAnswerPart3" /></li>
 </ul>
 
-<h4><spring:message code="teacherfaq.change-team-q" /></h4>
+<h4><spring:message code="pages.teacherfaq.howChangeStudentTeamQuestion" /></h4>
 
 <ul>
-    <li><spring:message code="teacherfaq.change-team-a1" /></li>
-    <li><spring:message code="teacherfaq.change-team-a2" /></li>
-    <li><spring:message code="teacherfaq.change-team-a3" /></li>
-    <li><spring:message code="teacherfaq.change-team-a4" /></li>
-    <li><spring:message code="teacherfaq.change-team-a5" /></li>
-    <li><spring:message code="teacherfaq.change-team-a6" /></li>
-    <li><spring:message code="teacherfaq.change-team-a7" /></li>
-    <li><spring:message code="teacherfaq.change-team-a8" /></li>
+    <li><spring:message code="pages.teacherfaq.howChangeStudentTeamAnswerPart1" /></li>
+    <li><spring:message code="pages.teacherfaq.howChangeStudentTeamAnswerPart2" /></li>
+    <li><spring:message code="pages.teacherfaq.howChangeStudentTeamAnswerPart3" /></li>
+    <li><spring:message code="pages.teacherfaq.howChangeStudentTeamAnswerPart4" /></li>
+    <li><spring:message code="pages.teacherfaq.howChangeStudentTeamAnswerPart5" /></li>
+    <li><spring:message code="pages.teacherfaq.howChangeStudentTeamAnswerPart6" /></li>
+    <li><spring:message code="pages.teacherfaq.howChangeStudentTeamAnswerPart7" /></li>
+    <li><spring:message code="pages.teacherfaq.howChangeStudentTeamAnswerPart8" /></li>
 </ul>
-<h4><spring:message code="teacherfaq.change-student-password-q" /></h4>
+<h4><spring:message code="pages.teacherfaq.howChangeStudentPasswordQuestion" /></h4>
 
 <ul>
-    <li><spring:message code="teacherfaq.change-student-password-a1" /></li>
-    <li><spring:message code="teacherfaq.change-student-password-a2" />
+    <li><spring:message code="pages.teacherfaq.howChangeStudentPasswordAnswerPart1" /></li>
+    <li><spring:message code="pages.teacherfaq.howChangeStudentPasswordAnswerPart2" />
           <ul>
-            <li><spring:message code="teacherfaq.change-student-password-a3" /></li>
-            <li><spring:message code="teacherfaq.change-student-password-a4" /></li>
-            <li><spring:message code="teacherfaq.change-student-password-a5" /></li>
-            <li><spring:message code="teacherfaq.change-student-password-a6" /></li>
+            <li><spring:message code="pages.teacherfaq.howChangeStudentPasswordAnswerPart3" /></li>
+            <li><spring:message code="pages.teacherfaq.howChangeStudentPasswordAnswerPart4" /></li>
+            <li><spring:message code="pages.teacherfaq.howChangeStudentPasswordAnswerPart5" /></li>
+            <li><spring:message code="pages.teacherfaq.howChangeStudentPasswordAnswerPart6" /></li>
           </ul>
     </li>
 </ul>
-<h4><spring:message code="teacherfaq.forgot-access-code-q" /></h4>
+<h4><spring:message code="pages.teacherfaq.iDoNotRememberAccessCodeQuestion" /></h4>
 <ul>
-    <li><spring:message code="teacherfaq.forgot-access-code-a1" /></li>
-    <li><spring:message code="teacherfaq.forgot-access-code-a2" /></li>
-    <li><spring:message code="teacherfaq.forgot-access-code-a3" /></li>
+    <li><spring:message code="pages.teacherfaq.iDoNotRememberAccessCodeAnswerPart1" /></li>
+    <li><spring:message code="pages.teacherfaq.iDoNotRememberAccessCodeAnswerPart2" /></li>
+    <li><spring:message code="pages.teacherfaq.iDoNotRememberAccessCodeAnswerPart3" /></li>
 </ul>
 
-<h2><spring:message code="teacherfaq.project-management" /></h2> 
-<h4><spring:message code="teacherfaq.when-set-up-run-q" /></h4>
+<h2><spring:message code="pages.teacherfaq.projectManagement" /></h2> 
+<h4><spring:message code="pages.teacherfaq.whenShouldISetUpRunQuestion" /></h4>
 
-<spring:message code="teacherfaq.when-set-up-run-a" />
+<spring:message code="pages.teacherfaq.whenShouldISetUpRunAnswer" />
 
-<h4><spring:message code="teacherfaq.how-long-run-project-q" /></h4>
+<h4><spring:message code="pages.teacherfaq.howLongRunTakeQuestion" /></h4>
 
-<spring:message code="teacherfaq.how-long-run-project-a" />
+<spring:message code="pages.teacherfaq.howLongRunTakeAnswer" />
 
-<h4><spring:message code="teacherfaq.can-shorten-run-q" /></h4>
+<h4><spring:message code="pages.teacherfaq.canIShortenProjectQuestion" /></h4>
 
-<spring:message code="teacherfaq.can-shorten-run-a" />
+<spring:message code="pages.teacherfaq.canIShortenProjectAnswer" />
 
-<h4><spring:message code="teacherfaq.review-grade-work-q" /></h4>
+<h4><spring:message code="pages.teacherfaq.howReviewAndGradeWorkQuestion" /></h4>
 <ul>
-    <li><spring:message code="teacherfaq.review-grade-work-a1" /></li>
-    <li><spring:message code="teacherfaq.review-grade-work-a2" /></li>
-    <li><spring:message code="teacherfaq.review-grade-work-a3" /></li>
+    <li><spring:message code="pages.teacherfaq.howReviewAndGradeWorkAnswerPart1" /></li>
+    <li><spring:message code="pages.teacherfaq.howReviewAndGradeWorkAnswerPart2" /></li>
+    <li><spring:message code="pages.teacherfaq.howReviewAndGradeWorkAnswerPart3" /></li>
 </ul>
 
-<h4><spring:message code="teacherfaq.students-see-comments-q" /></h4>
+<h4><spring:message code="pages.teacherfaq.howStudentsSeeMyCommentsAndScoresQuestion" /></h4>
 <ul>
-    <li><spring:message code="teacherfaq.students-see-comments-a1" /></li>
-    <li><spring:message code="teacherfaq.students-see-comments-a2" /></li>
-    <li><spring:message code="teacherfaq.students-see-comments-a3" /></li>
-    <li><spring:message code="teacherfaq.students-see-comments-a4" /></li>
+    <li><spring:message code="pages.teacherfaq.howStudentsSeeMyCommentsAndScoresAnswerPart1" /></li>
+    <li><spring:message code="pages.teacherfaq.howStudentsSeeMyCommentsAndScoresAnswerPart2" /></li>
+    <li><spring:message code="pages.teacherfaq.howStudentsSeeMyCommentsAndScoresAnswerPart3" /></li>
+    <li><spring:message code="pages.teacherfaq.howStudentsSeeMyCommentsAndScoresAnswerPart4" /></li>
 </ul>
 
-<h4><spring:message code="teacherfaq.where-lesson-plan-q" /></h4>
-<spring:message code="teacherfaq.where-lesson-plan-a1" />
+<h4><spring:message code="pages.teacherfaq.whereFindLessonPlansAndStandardsQuestion" /></h4>
+<spring:message code="pages.teacherfaq.whereFindLessonPlansAndStandardsAnswer" />
 
-<h4><spring:message code="teacherfaq.where-lesson-plan-a2" /></h4>
+<h4><spring:message code="pages.teacherfaq.howFitProjectIntoMyCurriculumQuestion" /></h4>
 
-<spring:message code="teacherfaq.where-lesson-plan-a3" />
-
-
-<h4><spring:message code="teacherfaq.out-of-time-q" /></h4>
-<spring:message code="teacherfaq.out-of-time-a1" />
+<spring:message code="pages.teacherfaq.howFitProjectIntoMyCurriculumAnswer" />
 
 
-<h4><spring:message code="teacherfaq.forgot-access-code-q" /></h4>
-<spring:message code="teacherfaq.forgot-access-code-a" />
+<h4><spring:message code="pages.teacherfaq.whatIfRunOutOfLabTimeQuestion" /></h4>
+<spring:message code="pages.teacherfaq.whatIfRunOutOfLabTimeAnswer" />
 
-<h4><spring:message code="teacherfaq.nav-bar-disappear-q" /></h4>
 
-<spring:message code="teacherfaq.nav-bar-disappear-a" /> 
+<h4><spring:message code="pages.teacherfaq.iDoNotRememberTeacherAccessCodeQuestion" /></h4>
+<spring:message code="pages.teacherfaq.iDoNotRememberTeacherAccessCodeAnswer" />
 
-<h2><spring:message code="teacherfaq.assess-student-work" /></h2>
+<h4><spring:message code="pages.teacherfaq.whyIsNavigationBarDisappearingQuestion" /></h4>
 
-<h4><spring:message code="teacherfaq.where-is-student-work-q" /></h4>
+<spring:message code="pages.teacherfaq.whyIsNavigationBarDisappearingAnswer" /> 
+
+<h2><spring:message code="pages.teacherfaq.assessmentOfStudentWork" /></h2>
+
+<h4><spring:message code="pages.teacherfaq.whereFindStudentWorkQuestion" /></h4>
 <ul>
-    <li><spring:message code="teacherfaq.where-is-student-work-a1" /></li>
-    <li><spring:message code="teacherfaq.where-is-student-work-a2" /></li>
+    <li><spring:message code="pages.teacherfaq.whereFindStudentWorkAnswerPart1" /></li>
+    <li><spring:message code="pages.teacherfaq.whereFindStudentWorkAnswerPart2" /></li>
 </ul>
-<h4><spring:message code="teacherfaq.rubric-q" /></h4>
+<h4><spring:message code="pages.teacherfaq.whatShouldILookForInStudentAnswersQuestion" /></h4>
 
-<spring:message code="teacherfaq.rubric-a1" /> 
-<a href="/webapp/themes/tels/default/images/SampleRubric.png"><spring:message code="teacherfaq.rubric-a2" /></a>
+<spring:message code="pages.teacherfaq.whatShouldILookForInStudentAnswersAnswer" /> 
+<a href="/webapp/themes/tels/default/images/SampleRubric.png"><spring:message code="pages.teacherfaq.sampleRubric" /></a>
 
-<h4><spring:message code="teacherfaq.encorage-students-review-q" /></h4>
+<h4><spring:message code="pages.teacherfaq.howEncourageStudentsReviewNotesAndCommentsQuestion" /></h4>
 
- <spring:message code="teacherfaq.encorage-students-review-a" />
+ <spring:message code="pages.teacherfaq.howEncourageStudentsReviewNotesAndCommentsAnswer" />
 
-<h4><spring:message code="teacherfaq.find-time-grade-q" /></h4>
+<h4><spring:message code="pages.teacherfaq.howFindTimeToGradeAllStudentWorkQuestion" /></h4>
 
-<spring:message code="teacherfaq.find-time-grade-a1" />
-<h2><spring:message code="teacherfaq.technical-questions" /></h2>
+<spring:message code="pages.teacherfaq.howFindTimeToGradeAllStudentWorkAnswer" />
+<h2><spring:message code="pages.teacherfaq.technicalQuestions" /></h2>
 
-<h4><spring:message code="teacherfaq.technical-questions-q" /></h4>
+<h4><spring:message code="pages.teacherfaq.websiteWontLoadQuestion" /></h4>
 
-<spring:message code="teacherfaq.technical-questions-a1" />
-<a href="/webapp/pages/check.html"><spring:message code="teacherfaq.compatibility-test" /></a><br/><br/>
+<spring:message code="pages.teacherfaq.websiteWontLoadAnswerPart1" />
+<a href="/webapp/pages/check.html"><spring:message code="pages.teacherfaq.wiseCompatibilityTest" /></a><br/><br/>
 
-<spring:message code="teacherfaq.technical-questions-a2" />
-<a target=_blank href="http://www.wikihow.com/Clear-Your-Browser's-Cache"><spring:message code="teacherfaq.how-to-clear-cache" /></a>
+<spring:message code="pages.teacherfaq.websiteWontLoadAnswerPart2" />
+<a target=_blank href="http://www.wikihow.com/Clear-Your-Browser's-Cache"><spring:message code="pages.teacherfaq.howToClearCache" /></a>
 
-<h4><spring:message code="teacherfaq.wise-2-q" /></h4>
+<h4><spring:message code="pages.teacherfaq.canIRunWISE2ProjectsInWISE4Question" /></h4>
 <ul>
-    <li><spring:message code="teacherfaq.wise-2-a1" /></li>
-    <li><a href="../contact/contactwisegeneral.html"><spring:message code="teacherfaq.wise-2-a2" /></a></li>
-    <li><spring:message code="teacherfaq.wise-2-a3" /></li>
+    <li><spring:message code="pages.teacherfaq.canIRunWISE2ProjectsInWISE4AnswerPart1" /> (<a href="<spring:message code="pages.teacherfaq.wise2Link" />"><spring:message code="pages.teacherfaq.wise2Link" /></a>)</li>
+    <li><a href="../contact/contactwisegeneral.html"><spring:message code="pages.teacherfaq.canIRunWISE2ProjectsInWISE4AnswerPart2" /></a></li>
+    <li><spring:message code="pages.teacherfaq.canIRunWISE2ProjectsInWISE4AnswerPart3" /></li>
 </ul>
-<h4><spring:message code="teacherfaq.num-computers-q" /></h4>
-<spring:message code="teacherfaq.num-computers-a1" />
+<h4><spring:message code="pages.teacherfaq.howManyComputersDoINeedQuestion" /></h4>
+<spring:message code="pages.teacherfaq.howManyComputersDoINeedAnswer" />
 
-<h4><spring:message code="teacherfaq.trouble-logging-in-q" /></h4>
+<h4><spring:message code="pages.teacherfaq.whatIfTroubleLoggingInQuestion" /></h4>
 <ul>
-    <li><spring:message code="teacherfaq.trouble-logging-in-a1" /></li>
-    <li><spring:message code="teacherfaq.trouble-logging-in-a2" /></li>
+    <li><spring:message code="pages.teacherfaq.whatIfTroubleLoggingInAnswerPart1" /></li>
+    <li><spring:message code="pages.teacherfaq.whatIfTroubleLoggingInAnswerPart2" /></li>
 </ul>
 
-<h4><spring:message code="teacherfaq.contact-q" /></h4>
-<spring:message code="teacherfaq.contact-a" />
+<h4><spring:message code="pages.teacherfaq.whoContactWhenHaveProblemQuestion" /></h4>
+<spring:message code="pages.teacherfaq.whoContactWhenHaveProblemAnswer" />
 
  </body>
  </html>
