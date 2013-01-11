@@ -89,6 +89,10 @@ public class ManageAllProjectsController extends AbstractController {
 					project.setCurrent(Boolean.valueOf(request.getParameter("val")));
 				} else if (attr.equals("familyTag")) {
 					project.setFamilytag(FamilyTag.valueOf(request.getParameter("val")));
+				} else if (attr.equals("maxTotalAssetsSize")) {
+					String maxTotalAssetsSizeStr = request.getParameter("val");
+					Long maxTotalAssetsSize = Long.parseLong(maxTotalAssetsSizeStr);
+					project.setMaxTotalAssetsSize(maxTotalAssetsSize);
 				}
 				User user = ControllerUtil.getSignedInUser();
 				if (user.isAdmin()) {

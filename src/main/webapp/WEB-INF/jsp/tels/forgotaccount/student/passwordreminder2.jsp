@@ -44,7 +44,7 @@
 			<div class="infoContent">
 				<div class="panelHeader"><spring:message code="forgotaccount.student.passwordreminder2.studentLostUsernamePassword"/></div>
 				<div class="infoContentBox">
-					<div><spring:message code="forgotaccount.student.passwordreminder2.step2"/>:</div>
+					<div><spring:message code="forgotaccount.student.passwordreminder2.step2"/></div>
 					<div><spring:message code="forgotaccount.student.passwordreminder2.hello"/>, ${username}. <spring:message code="forgotaccount.student.passwordreminder2.answerPasswordReminderQuestion"/></div>
 					<form id="submittedAccountAnswer" method="post" commandName="reminderParameters" autocomplete='off'>
 						<div><spring:message code="forgotaccount.student.passwordreminder2.question"/>: <spring:message code="forgotaccount.student.passwordreminder2.${accountQuestion}"/></div>

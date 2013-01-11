@@ -11,7 +11,7 @@
 <link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<title><spring:message code="teacher.run.announcement.viewannouncement.editAnnouncement"/></title>
+<title><spring:message code="teacher.run.announcement.viewannouncement.viewAnnouncement"/></title>
 
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 </head>

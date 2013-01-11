@@ -34,7 +34,7 @@
 <link href="<spring:theme code="jquerystylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
-<title><spring:message code="teacher.title" /></title>
+<title><spring:message code="teacher.index.wiseTeacherDashboard" /></title>
 
 <!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
 <!--[if lt IE 7]>
@@ -70,7 +70,7 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 					},
 					error: function(request,error){
 						updatingText.remove();
-						link.parent().append('<span style="color: #DD2424;"> ' + '<spring:message code="teacher.index.unableToUpdateRun"/>' + id + ' ' + '<spring:message code="teacher.index.tryAgainLater"/>' + '</span>');
+						link.parent().append('<span style="color: #DD2424;"> ' + '<spring:message code="teacher.index.unableToUpdateRun"/> ' + id + ' ' + '<spring:message code="teacher.index.tryAgainLater"/>' + '</span>');
 					}
             	});
             });

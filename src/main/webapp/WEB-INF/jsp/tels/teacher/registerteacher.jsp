@@ -325,7 +325,7 @@ $(document).ready(function(){
 					     	<td><label for="legalAcknowledged" id="legalAcknowledged1"><spring:message code="teacher.registerteacher.legal" /></label></td>
 							<td id="termsOfUse">
 							     <form:checkbox path="legalAcknowledged" id="legalAcknowledged"/> 
-						     	 <spring:message code="teacher.registerteacher.iAgreeToThe"/>&nbsp;<a id="terms"><spring:message code="teacher.registerteacher.termsOfUse"/></a>
+						     	 <spring:message code="teacher.registerteacher.iAgreeToThe"/>&nbsp;<a id="terms"><spring:message code="teacher.registerteacher.termsOfUse2"/></a>
 						    </td>
 						 </tr>
 						 

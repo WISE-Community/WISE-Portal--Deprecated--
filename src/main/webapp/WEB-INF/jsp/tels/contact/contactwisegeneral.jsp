@@ -35,7 +35,7 @@
 				<div class="panelHeader"><spring:message code="contact.contactwisegeneral.contactWISEGeneralIssues"/></div>
 				<div class="infoContentBox">
 					<h4><spring:message code="contact.contactwisegeneral.pleaseDescribeYourIssue"/></h4>
-					<div class="instructions"><spring:message code="contact.contactwisegeneral.ifEncounteringErrorPleaseIncludeText"/><spring:message code="contact.contactwisegeneral.detailedDescription"/>&nbsp;<spring:message code="contact.contactwisegeneral.boxBelow"/></div>
+					<div class="instructions"><spring:message code="contact.contactwisegeneral.ifEncounteringErrorPleaseIncludeText"/>&nbsp;<spring:message code="contact.contactwisegeneral.detailedDescription"/>&nbsp;<spring:message code="contact.contactwisegeneral.boxBelow"/></div>
 					<div class="instructions"><spring:message code="contact.contactwisegeneral.pleaseIndicateURLAddressForProblem"/></div>
 
 					<!-- Support for Spring errors object -->

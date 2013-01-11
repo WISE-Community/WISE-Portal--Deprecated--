@@ -21,7 +21,7 @@
 <script src="/webapp/javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
 
-<title><spring:message code="teacher.run.create.createrunconfigure.settingUpAProjectRunStep3" /></title>
+<title><spring:message code="teacher.run.create.createrunconfigure.settingUpAProjectRunStep4" /></title>
 
 </head>
 
@@ -63,7 +63,7 @@
 							<div id="stepNumber" class="sectionHead"><spring:message code="teacher.run.create.createrunconfigure.step4Of5"/>&nbsp;<spring:message code="teacher.run.create.createrunconfigure.configureTheRun"/></div>
 							<div class="sectionContent">
 
-								<h5><spring:message code="teacher.run.create.createrunconfigure.selectNumberStudentsInWorkgroup"/><spring:message code="teacher.run.create.createrunconfigure.next"/>.</h5>
+								<h5><spring:message code="teacher.run.create.createrunconfigure.selectNumberStudentsInWorkgroup"/>&nbsp;<spring:message code="teacher.run.create.createrunconfigure.next"/>.</h5>
 
 
 								<h5 style="margin:.5em;">
