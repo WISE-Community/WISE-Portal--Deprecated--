@@ -6,8 +6,8 @@
 
 //the default requirements
 var defaultRequirements = {
-	requiredFirefoxVersion:'3.0',
-	requiredInternetExplorerVersion:'7.0',
+	requiredFirefoxVersion:'3.5',
+	requiredInternetExplorerVersion:'9.0',
 	requiredChromeVersion:'5.0',
 	requiredSafariVersion:'3.0',
 	requiredQuickTimeVersion:'7.0',
@@ -95,9 +95,9 @@ function checkCompatibility(specificRequirements) {
 	recommendedResources = checkJava(combinedRequirements.requiredJavaVersion) && recommendedResources;
 	
 	if(requiredResources) {
-		document.getElementById('compatibilityCheckResult').innerHTML = '<br><b>Compatibility Check Result: You can run Wise 4</b>';
+		$('#browserPass').show();
 	} else {
-		document.getElementById('compatibilityCheckResult').innerHTML = '<br><b>Compatibility Check Result: You can not run Wise 4</b>';
+		$('#browserFail').show();
 	}
 	
 	checkContentFiltering();
@@ -140,10 +140,10 @@ function getRequirementSatisfiedIcon(satisfied) {
 	
 	if(satisfied) {
 		//the client satisfies the requirement
-		iconImg = "<img src='../themes/tels/default/images/check_16.gif' />";
+		iconImg = "<img alt='check' src='../themes/tels/default/images/check_16.gif' />";
 	} else {
 		//the client does not satisfy the requirement
-		iconImg = "<img src='../themes/tels/default/images/error_16.gif' />";
+		iconImg = "<img alt='error' src='../themes/tels/default/images/error_16.gif' />";
 	}
 	
 	return iconImg;
@@ -165,12 +165,8 @@ function getOS() {
  * in the check.jsp will display javascript as disabled.
  */
 function checkJavascript() {
-	document.getElementById('javascriptResource').innerHTML = 'Javascript';
-	document.getElementById('javascriptStatus').innerHTML = 'Required';
-	document.getElementById('javascriptRequiredVersion').innerHTML = 'Enabled';
-	document.getElementById('javascriptYourVersion').innerHTML = 'Enabled';
-	document.getElementById('javascriptRequirementSatisfied').innerHTML = "<img src='../themes/tels/default/images/check_16.gif' />";
-	document.getElementById('javascriptAdditionalInfo').innerHTML = "<a href='https://www.google.com/support/adsense/bin/answer.py?answer=12654'>How to enable Javascript</a>";
+	$('#jsEnabled').show();
+	document.getElementById('javascriptRequirementSatisfied').innerHTML = "<img alt='check' src='../themes/tels/default/images/check_16.gif' />";
 
 	return true;
 }
@@ -190,7 +186,6 @@ function checkJavascript() {
  */
 function checkBrowser(requirements) {
 	document.getElementById('browserResource').innerHTML = getBrowserName();
-	document.getElementById('browserStatus').innerHTML = getBrowserStatus();
 	document.getElementById('browserRequiredVersion').innerHTML = getBrowserRequiredVersion(requirements);
 	document.getElementById('browserYourVersion').innerHTML = getBrowserVersion();
 	
@@ -201,7 +196,8 @@ function checkBrowser(requirements) {
 	var requirementSatisfiedIcon = getRequirementSatisfiedIcon(browserPassed);
 	
 	document.getElementById('browserRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
-	document.getElementById('browserAdditionalInfo').innerHTML = getBrowserAdditionalInfo();
+	showBrowserAdditionalInfo();
+	//document.getElementById('browserAdditionalInfo').innerHTML = getBrowserAdditionalInfo();
 	
 	if(browserPassed) {
 		return true;
@@ -209,23 +205,14 @@ function checkBrowser(requirements) {
 		//browser version is too old so we will display a warning message about the browser
 		
 		var browserName = getBrowserName();
-		if(browserName == 'Firefox') {
-			document.getElementById('compatibilityCheckMessages').innerHTML += "<br><p class='checkCompatibilityWarning'>Warning: the version of " + browserName + " you are running is too old to run Wise 4, please update " + browserName + ".</p>";
+		if(browserName == ('Firefox' || 'Chrome')) {
+			$('#browserFailMsg').show();
 		} else {
-			document.getElementById('compatibilityCheckMessages').innerHTML += "<br><p class='checkCompatibilityWarning'>Warning: the version of " + browserName + " you are running is too old to run Wise 4, please update " + browserName + ". We suggest switching to Firefox as Firefox is the most stable browser to run Wise 4.</p>";			
+			$('#browserFailMsgUnsupported').show();
 		}
 		
 		return false;
 	}
-}
-
-/**
- * Obtain the requirement status of the browser
- * 'Required' or 'Recommended'
- * @return a string specifying the requirement status
- */
-function getBrowserStatus() {
-	return "Required";
 }
 
 /**
@@ -319,14 +306,22 @@ function getBrowserVersion() {
 }
 
 /**
- * The link that we will display on the browser row for users
- * to upgrade their browser. This will be a link to firefox
- * regardless of which browser they are currently using because
- * firefox is the most stable browser to run wise4 in.
- * @return an a element containing a link to the firefox page
+ * Shows the link that we will display on the browser row for users
+ * to upgrade their browser.
  */
-function getBrowserAdditionalInfo() {
-	return "<a href='http://www.mozilla.com/firefox/'>Upgrade Firefox</a>";
+function showBrowserAdditionalInfo() {
+	var browserName = getBrowserName();
+	
+	//show the correct link for the browser user is running (show Firefox link by default)
+	if(browserName == 'Internet Explorer') {
+		$('#upgradeIE').show();
+	} else if(browserName == 'Chrome') {
+		$('#upgradeChrome').show();
+	} else if(browserName == 'Safari') {
+		$('#upgradeSafari').show();
+	} else {
+		$('#upgradeFirefox').show();
+	}
 }
 
 /**
@@ -338,8 +333,6 @@ function getBrowserAdditionalInfo() {
  * @param requiredQuickTimeVersion the required version of quicktime
  */
 function checkQuickTime(requiredQuickTimeVersion) {
-	document.getElementById('quickTimeResource').innerHTML = getQuickTimeName();
-	document.getElementById('quickTimeStatus').innerHTML = getQuickTimeStatus();
 	document.getElementById('quickTimeRequiredVersion').innerHTML = requiredQuickTimeVersion;
 	document.getElementById('quickTimeYourVersion').innerHTML = getQuickTimeVersion();
 	
@@ -350,33 +343,15 @@ function checkQuickTime(requiredQuickTimeVersion) {
 	var requirementSatisfiedIcon = getRequirementSatisfiedIcon(quickTimePassed);
 	
 	document.getElementById('quickTimeRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
-	document.getElementById('quickTimeAdditionalInfo').innerHTML = getQuickTimeAdditionalInfo();
 	
 	if(quickTimePassed) {
 		return true;
 	} else {
 		//quicktime version is too old so we will display a warning message about quicktime
-		document.getElementById('compatibilityCheckMessages').innerHTML += "<br><p class='checkCompatibilityCaution'>Caution: you may not be able to watch some QuickTime videos unless you update QuickTime.</p>";
+		$('#qtMsg').show();
 		
 		return false;
 	}
-}
-
-/**
- * Obtain the requirement status of quicktime
- * 'Required' or 'Recommended'
- * @return a string specifying the requirement status
- */
-function getQuickTimeStatus() {
-	return "Recommended";
-}
-
-/**
- * Get the value to display for the resource column for the quicktime row.
- * @return the value to display for the resource column for the quicktime row
- */
-function getQuickTimeName() {
-	return "QuickTime";
 }
 
 /**
@@ -400,7 +375,7 @@ function checkQuickTimeVersion(requiredQuickTimeVersion) {
  * @return the version of quicktime that the client is currently using
  */
 function getQuickTimeVersion() {
-	var qtVersion = 'Not Installed';
+	var qtVersion = '-';
 	
 	if (navigator.plugins) {
 		//loop through all the browser plugins
@@ -425,23 +400,12 @@ function getQuickTimeVersion() {
 }
 
 /**
- * The link that we will display on the quicktime row for users
- * to upgrade their quicktime.
- * @return an a element containing a link to the quicktime page
- */
-function getQuickTimeAdditionalInfo() {
-	return "<a href='http://www.apple.com/quicktime/download/'>Upgrade QuickTime</a>";
-}
-
-/**
  * Checks if the java version the user is currently using meets
  * or surpasses the required version of java. It will
  * fill in the values in the compatibility check table for
  * the java row.
  */
 function checkJava(requiredJavaVersion) {
-	document.getElementById('javaResource').innerHTML = getJavaName();
-	document.getElementById('javaStatus').innerHTML = getJavaStatus();
 	document.getElementById('javaRequiredVersion').innerHTML = requiredJavaVersion;
 	document.getElementById('javaYourVersion').innerHTML = getJavaVersion();
 	
@@ -452,33 +416,15 @@ function checkJava(requiredJavaVersion) {
 	var requirementSatisfiedIcon = getRequirementSatisfiedIcon(javaPassed);
 	
 	document.getElementById('javaRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
-	document.getElementById('javaAdditionalInfo').innerHTML = getJavaAdditionalInfo();
 
 	if(javaPassed) {
 		return true;
 	} else {
 		//java version is too old so we will display a warning message about java
-		document.getElementById('compatibilityCheckMessages').innerHTML += "<br><p class='checkCompatibilityCaution'>Caution: you may not be able to run some Java applets unless you update Java.</p>";
+		$('#javaMsg').show();
 		
 		return false;
 	}
-}
-
-/**
- * Obtain the requirement status of java
- * 'Required' or 'Recommended'
- * @return a string specifying the requirement status
- */
-function getJavaStatus() {
-	return "Recommended";
-}
-
-/**
- * Get the value to display for the resource column for the java row.
- * @return the value to display for the resource column for the java row
- */
-function getJavaName() {
-	return "Java";
 }
 
 /**
@@ -509,7 +455,7 @@ function getJavaVersion() {
 	
 	if(javaVersion == '') {
 		//set the java version to 'Not Installed' if we did not find any jres
-		javaVersion = 'Not Installed';
+		javaVersion = '-';
 	}
 	
 	return javaVersion;
@@ -532,23 +478,12 @@ function checkJavaVersion(requiredJavaVersion) {
 }
 
 /**
- * The link that we will display on the java row for users
- * to upgrade their java.
- * @return an a element containing a link to the java page
- */
-function getJavaAdditionalInfo() {
-	return "<a href='http://www.java.com/download/'>Upgrade Java</a>";
-}
-
-/**
  * Checks if the flash version the user is currently using meets
  * or surpasses the required version of flash. It will
  * fill in the values in the compatibility check table for
  * the flash row.
  */
 function checkFlash(requiredFlashVersion) {
-	document.getElementById('flashResource').innerHTML = getFlashName();
-	document.getElementById('flashStatus').innerHTML = getFlashStatus();
 	document.getElementById('flashRequiredVersion').innerHTML = requiredFlashVersion;
 	document.getElementById('flashYourVersion').innerHTML = getFlashVersion();
 	
@@ -559,33 +494,15 @@ function checkFlash(requiredFlashVersion) {
 	var requirementSatisfiedIcon = getRequirementSatisfiedIcon(flashPassed);
 	
 	document.getElementById('flashRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
-	document.getElementById('flashAdditionalInfo').innerHTML = getFlashAdditionalInfo();
 	
 	if(flashPassed) {
 		return true;
 	} else {
 		//flash version is too old so we will display a warning message about flash
-		document.getElementById('compatibilityCheckMessages').innerHTML += "<br><p class='checkCompatibilityCaution'>Caution: you may not be able to run some Flash animations unless you update Flash.</p>";
+		$('#flashMsg').show();
 		
 		return false;
 	}
-}
-
-/**
- * Obtain the requirement status of flash
- * 'Required' or 'Recommended'
- * @return a string specifying the requirement status
- */
-function getFlashStatus() {
-	return "Recommended";
-}
-
-/**
- * Get the value to display for the resource column for the flash row.
- * @return the value to display for the resource column for the flash row
- */
-function getFlashName() {
-	return "Flash";
 }
 
 /**
@@ -593,7 +510,7 @@ function getFlashName() {
  * @return the version of flash that the client is currently using
  */
 function getFlashVersion() {
-	var flashVersion = 'Not Installed';
+	var flashVersion = '-';
 	
 	var getFlashVersion = JSGetSwfVer();
 	
@@ -618,15 +535,6 @@ function checkFlashVersion(requiredFlashVersion) {
 	var yourVersion = getFlashVersion();
 	
 	return requiredVersionSatisfied(yourVersion, requiredVersion);
-}
-
-/**
- * The link that we will display on the flash row for users
- * to upgrade their flash.
- * @return an a element containing a link to the flash page
- */
-function getFlashAdditionalInfo() {
-	return "<a href='http://get.adobe.com/flashplayer/'>Upgrade Flash</a>";
 }
 
 //from Macromedia's Flash detection kit
@@ -719,7 +627,7 @@ function DetectFlashVer(reqMajorVer, reqMinorVer, reqRevision)
 function checkContentFiltering() {
 	// test loading of swf file
 	$.ajax({ 
-		url: "flash/tels/convection-intro.swf", 
+		url: "/webapp/flash/tels/convection-intro.swf", 
 		context: document.body})
 		.success(function(data, textStatus, jqXHR) {
 			var contentFilterSwfRequirementSatisfied=false;
@@ -740,7 +648,7 @@ function checkContentFiltering() {
 
 	// test loading of jar file
 	var jqxhr = $.ajax({ 
-		url: "library/jar/commons-logging-1.1.jar", 
+		url: "/webapp/library/jar/commons-logging-1.1.jar", 
 		context: document.body})
 		.success(function(data, textStatus, jqXHR) {			
 			var contentFilterRequirementSatisfied=false;
@@ -764,6 +672,7 @@ function checkContentFiltering() {
 /**
  * If browser is not WISE4 compatible, alert the user
  * Currently, if the user is not using Firefox or Chrome, alert the user
+ * TODO: internationalize in a more standard way
  */
 function alertBrowserCompatibility() {
 	if (getBrowserName() != "Firefox" && getBrowserName() != "Chrome") {

@@ -538,7 +538,7 @@ a#name {
 
 .sectionContent h5, .sectionContent div {
 	margin:.5em 0;
-	font-size:.9em
+	font-size:.9em;
 	line-height:1.2em;
 }
 
@@ -582,39 +582,6 @@ a#name {
 	margin:.5em;
 }
 
-/*#bannerArea2 {
-	position:relative;
-	background-image:url(../images/WISE-Secondary-Banner-Gradient65.png);
-	background-position: center top;
-	width: 100%;
-	height: 65px;
-	margin: 5px 0 10px 0;
-	padding:0px;
-	position:relative;
-}
-
-#bannerArea1 #betaTag  {
-	position:absolute;
-	left:240px;
-	top:-6px;
-	}
-
-#bannerArea2 #betaTag   {
-	position:absolute;
-	left:0px;
-	top:25px;
-	}
-	
-#teacherInterfaceHeader {
-	position:absolute;
-	top:3px;
-	left:390px;
-	font-variant:small-caps;
-	font-weight:bold;
-	letter-spacing:3px;
-	color:#FFE6C6;
-	opacity:50%;
-}*/
 
 /* Loading divs */
 #loading div {
@@ -773,65 +740,6 @@ a.signup {
     right: 28px;
     top: 9px;
 }
-
-/*.welcomeBox {
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
-    background: url(../images/accountBg.png) repeat-x center center;
-    line-height: 28px;
-    margin: 0;
-    padding:0 10px 0 7px;
-    position: absolute;
-    right: 0;
-    text-align: right;
-    top: 0;
-    color:#EEEEEE;
-    font-size:.95em;
-}
-
-.welcomeBox div {
-	border-right: 1px solid #BF778E;
-    display: inline;
-    padding:0 7px 0 3px;
-    font-size:.75em;
-    vertical-align:middle;
-}
-
-.signOutBanner a {
-	border-right: 0 none !important;
-	font-weight:normal !important;
-}
-
-.usernameBanner > a {
-	font-size: 1em !important;
-	margin: .45em 0 !important;
-	padding:0 .5em !important;
-	cursor:pointer;
-	font-weight:bold;
-	max-width:15em;
-	min-width:3em;
-	overflow:hidden;
-	text-overflow:ellipsis;
-}
-
-#accountMenu li.student:hover {
-	background:none !important;
-}
-
-#accountMenu li.student:hover a {
-	cursor:text !important;
-}
-
-.welcomeBox a, #welcomeBox a:visited {
-	color:#FFFFFF;
-	text-decoration:none;
-	height:30px !important;
-}
-
-.welcomeBox a:hover {
-	text-decoration:underline;
-}*/
 
 #pageTitle {
 	color: #F97F6E;
@@ -1079,18 +987,6 @@ form {margin:0px; padding:0px;}
 	background-position: -3px -444px;
 }
 
-.checkCompatibilityWarning {
-	font-size:1.0em;
-	text-align:left;
-	color:red
-}
-
-.checkCompatibilityCaution {
-	font-size:1.0em;
-	text-align:left;
-	color:blue
-}
-
 .ui-dialog {
 	background:white;
 }
@@ -1174,6 +1070,7 @@ form {margin:0px; padding:0px;}
 }
 
 /* FOOTER Styling   */
+
 #contentFooter {
 	display:block;
 	border: 0 none;
@@ -1268,6 +1165,32 @@ a.printLesson {
     font-size: 0.9em;
     margin-right: 0.25em;
     padding-left: 28px;
+}
+
+/* Compatibility Check Page */
+
+table.compatibility {
+	width:100%;
+}
+
+#browserAdditionalInfo a {
+	display:none;
+}
+
+#compatibilityCheckMessages p {
+	display:none;
+}
+
+.checkCompatibilityWarning {
+	font-size:1.0em;
+	text-align:left;
+	color:red
+}
+
+.checkCompatibilityCaution {
+	font-size:1.0em;
+	text-align:left;
+	color:blue
 }
 	
 .alignLeft 	{text-align:left;}
