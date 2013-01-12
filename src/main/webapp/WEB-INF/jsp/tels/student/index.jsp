@@ -399,7 +399,7 @@ $(document).ready(function() {
 									</td>
 									</tr>
 								<tr>
-									<td class="rowLabel"><spring:message code="period"/></td>
+									<td class="rowLabel"><spring:message code="run_period"/></td>
 									<td>${studentRunInfo.group.name}</td>
 							  	
 							  	</tr>

@@ -212,12 +212,12 @@ public class RegisterTeacherController extends SignupController {
 
 			String[] recipients = (String[]) ArrayUtils.addAll(userEmailAddress, emaillisteners.getProperty("uber_admin").split(","));
 
-			String defaultSubject = messageSource.getMessage("welcome.new.teacher.subject", null, Locale.US);
-			String subject = messageSource.getMessage("welcome.new.teacher.subject", null, defaultSubject, this.locale);
+			String defaultSubject = messageSource.getMessage("presentation.web.controllers.teacher.registerTeacherController.welcomeTeacherEmailSubject", null, Locale.US);
+			String subject = messageSource.getMessage("presentation.web.controllers.teacher.registerTeacherController.welcomeTeacherEmailSubject", null, defaultSubject, this.locale);
 			String portalbaseurl = portalProperties.getProperty("portal_baseurl");
 			String gettingStartedUrl = portalbaseurl + "/pages/gettingstarted.html";
-			String defaultBody = messageSource.getMessage("welcome.new.teacher.body", new Object[] {userUsername,gettingStartedUrl}, Locale.US);
-			String message = messageSource.getMessage("welcome.new.teacher.body", new Object[] {userUsername,gettingStartedUrl}, defaultBody, this.locale);
+			String defaultBody = messageSource.getMessage("presentation.web.controllers.teacher.registerTeacherController.welcomeTeacherEmailBody", new Object[] {userUsername,gettingStartedUrl}, Locale.US);
+			String message = messageSource.getMessage("presentation.web.controllers.teacher.registerTeacherController.welcomeTeacherEmailBody", new Object[] {userUsername,gettingStartedUrl}, defaultBody, this.locale);
 			String fromEmail = emaillisteners.getProperty("portalemailaddress");
 
 			try {
