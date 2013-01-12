@@ -198,8 +198,8 @@
 
 	function unshareFromRun(runId,runName) {
 		var agreed = false,
-			dialogContent = '<p><spring:message code="teacher.run.recentactivity.warningRemoveYourselfFromSharedTeachers" /></p>',
-			title = '<spring:message code="teacher.run.recentactivity.removeSelf" /> ' + runName + ' (<spring:message code="teacher.run.recentactivity.id" />: ' + runId + ')',
+			dialogContent = '<spring:message code="teacher.run.recentactivity.warningRemoveYourselfFromSharedTeachers" htmlEscape="false" />',
+			title = '<spring:message code="teacher.run.recentactivity.unshare" /> ' + runName + ' (<spring:message code="teacher.run.recentactivity.id" />: ' + runId + ')',
 			processing = '<spring:message code="teacher.run.recentactivity.updatingRunPermissions" />';
 		$('#unshareDialog').html(dialogContent).dialog({
 			modal: true,
