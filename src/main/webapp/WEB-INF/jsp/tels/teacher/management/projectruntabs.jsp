@@ -66,7 +66,7 @@
 							      				<td><fmt:formatDate value="${run.starttime}" type="date" dateStyle="medium" /></td>
 							      			</tr>
 							      				<c:set var="source" value="custom" />
-							      				<if test="${run.project.familytag == 'TELS'}"> <!-- TODO: modify this to show when a run was generated from a library project -->
+							      				<c:if test="${run.project.familytag == 'TELS'}"> <!-- TODO: modify this to show when a run was generated from a library project -->
 								      				<c:set var="source" value="library" />
 							      				</c:if>
 											<tr>
