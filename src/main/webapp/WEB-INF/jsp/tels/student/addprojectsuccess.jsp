@@ -1,4 +1,4 @@
-<%@ include file="../include.jsp"%>
+<%@ include file="include.jsp"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,9 +14,7 @@
 <body style="background:#FFFFFF;" onload="window.parent.location.reload();">
 	<div class="dialogContent">
 
-		<h5><spring:message code="student.addprojectsuccess.1"/></h5>
-		
-		<h5><spring:message code="student.addprojectsuccess.2"/></h5>
+		<h5><spring:message code="student.addprojectsuccess"/></h5>
 	</div>
 
 </body>

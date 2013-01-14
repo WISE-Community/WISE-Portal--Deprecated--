@@ -1,5 +1,5 @@
 <!-- 
- * Copyright (c) 2011 Regents of the University of California (Regents). Created
+ * Copyright (c) 2013 Regents of the University of California (Regents). Created
  * by WISE, Graduate School of Education, University of California, Berkeley.
  *
  * This software is distributed under the GNU Lesser General Public License, v3,

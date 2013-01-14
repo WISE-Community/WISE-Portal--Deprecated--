@@ -268,4 +268,16 @@ public interface Project extends Persistable {
 	 * @param dateDeleted
 	 */
 	public void setDateDeleted(Date dateDeleted);
+	
+	/**
+	 * Gets the maximum total asset size
+	 * @return
+	 */
+	public Long getMaxTotalAssetsSize();
+	
+	/**
+	 * Sets the maximum total asset size
+	 * @return
+	 */
+	public void setMaxTotalAssetsSize(Long maxTotalAssetsSize);
 }

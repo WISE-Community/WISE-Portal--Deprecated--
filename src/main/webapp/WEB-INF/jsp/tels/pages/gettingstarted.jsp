@@ -9,11 +9,12 @@
 <script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<title><spring:message code="gettingstarted.teacher-information-sheet" /></title>
+<title><spring:message code="pages.gettingstarted.title" /></title>
 </head>
 
 <body>
-
+<spring:htmlEscape defaultHtmlEscape="false">
+<spring:escapeBody htmlEscape="false">
 <div id="pageWrapper">
 
 	<%@ include file="../headermain.jsp"%>
@@ -23,95 +24,90 @@
 		<div id="pageContent">
 			
 			<div class="contentPanel">
-				<div class="panelHeader"><spring:message code="gettingstarted.teacher-information-sheet" /> <span style="float:right;"><a class="printLesson" onClick="window.print();return false"><spring:message code="print" /></a></span></div>
+				<div class="panelHeader"><spring:message code="pages.gettingstarted.title" /> <span style="float:right;"><a class="printLesson" onClick="window.print();return false"><spring:message code="print" /></a></span></div>
 				<div class="panelContent">
 
-					<div class="sectionHead" style="padding-top:0;"><spring:message code="gettingstarted.technical-requirements" /></div>
+					<div class="sectionHead"><spring:message code="pages.gettingstarted.technical" /></div>
 					<div class="sectionContent"> 
 						<ol>
-							<li><spring:message code="gettingstarted.internet-connection" /></li>
-							<li><spring:message code="gettingstarted.updated-browser" />: <a href="http://www.firefox.com/" target="_blank">http://www.firefox.com/</a> 
-								or Chrome: <a href="http://www.google.com/chrome/" target="_blank">http://www.google.com/chrome/</a></li>
-							<li><spring:message code="gettingstarted.updated-adobe" />: <a href="http://get.adobe.com/flashplayer/" target="_blank">http://get.adobe.com/flashplayer/</a></li>
-							<li><spring:message code="gettingstarted.updated-java" />: <a href="http://java.sun.com/getjava/download.html" target="_blank">http://java.sun.com/getjava/download.html</a></li>
-							<li><spring:message code="gettingstarted.click-link-compatibility" />: <a href="/webapp/pages/check.html" target="_blank"><spring:message code="gettingstarted.compatibility-test" /> </a></li>
+							<li><spring:message code="pages.gettingstarted.technical_internet" /></li>
+							<li><spring:message code="pages.gettingstarted.technical_browser" /></li>
+							<li><spring:message code="pages.gettingstarted.technical_flash" /> <a href="http://get.adobe.com/flashplayer/" target="_blank">http://get.adobe.com/flashplayer/</a></li>
+							<li><spring:message code="pages.gettingstarted.technical_java" /> <a href="http://java.sun.com/getjava/download.html" target="_blank">http://java.sun.com/getjava/download.html</a></li>
+							<li><spring:message code="pages.gettingstarted.technical_compatibility" /> <a href="/webapp/pages/check.html" target="_blank"><spring:message code="pages.gettingstarted.technical_compatibility_link" /> </a></li>
 						</ol>
 					</div>
 					
-					<div class="sectionHead" style="padding-top:0;"><spring:message code="gettingstarted.registration" /></div>
+					<div class="sectionHead"><spring:message code="pages.gettingstarted.registration" /></div>
 					<div class="sectionContent">
 						<ol>
 							
-							<li><spring:message code="gettingstarted.select-create-new" /> <a href="/webapp/signup.html">Sign Up</a></li>
+							<li><spring:message code="pages.gettingstarted.registration_createAccount" /> <a href="/webapp/signup.html"><spring:message code="signUp" /></a></li>
 							
-							<li><spring:message code="gettingstarted.select-teacher-account" /></li>
+							<li><spring:message code="pages.gettingstarted.registration_selectTeacher" /></li>
 							
-							<li><spring:message code="gettingstarted.fill-in-form" /></li>
+							<li><spring:message code="pages.gettingstarted.registration_fillForm" /></li>
 							
-							<li><spring:message code="gettingstarted.username-note" /></li>
+							<li><spring:message code="pages.gettingstarted.registration_username" /></li>
 						
 						</ol>
 					</div>
 					
-					<div class="sectionHead"><spring:message code="gettingstarted.set-up-new-run" /></div>
+					<div class="sectionHead"><spring:message code="pages.gettingstarted.run" /></div>
 					<div class="sectionContent">
 						<ol>
-							<li><a href="/webapp/login.html"><spring:message code="gettingstarted.log-in-new-account" /> </a> <spring:message code="gettingstarted.log-in-new-account2" /></li>
+							<li><spring:message code="pages.gettingstarted.run_signIn" /></li>
 							
-							<li><spring:message code="gettingstarted.select-browse-project" /> <a href="/webapp/teacher/management/library.html"><spring:message code="gettingstarted.select-browse-project2" /></a></li>
+							<li><spring:message code="pages.gettingstarted.run_browseLibrary" /></li>
 							
-							<li><spring:message code="gettingstarted.select-preview" /></li>
+							<li><spring:message code="pages.gettingstarted.run_select" /></li>
 							
-							<li><spring:message code="gettingstarted.set-up-run-next" /></li>
+							<li><spring:message code="pages.gettingstarted.run_confirm" /></li>
 							
-							<li><spring:message code="gettingstarted.archive-projects-next" /></li>
+							<li><spring:message code="pages.gettingstarted.run_archive" /></li>
 							
-							<li><spring:message code="gettingstarted.select-period-next" /></li>
+							<li><spring:message code="pages.gettingstarted.run_periods" /></li>
 							
-							<li><spring:message code="gettingstarted.configure-run" /></li>
+							<li><spring:message code="pages.gettingstarted.run_configure" /></li>
 							
-							<li><spring:message code="gettingstarted.recommend-preview" /></li>
+							<li><spring:message code="pages.gettingstarted.run_preview" /></li>
 							
-							<li><spring:message code="gettingstarted.new-run-created" /> <a href="/webapp/teacher/management/classroomruns.html"><spring:message code="gettingstarted.new-run-created2" /></a></li>
+							<li><spring:message code="pages.gettingstarted.run_created" /></li>
 							
-							<li><spring:message code="gettingstarted.note-access-code" /></li>
+							<li><spring:message code="pages.gettingstarted.run_accessCode" /></li>
 						
 						</ol>
 					</div>
 
-					<div class="sectionHead"><spring:message code="gettingstarted.set-up-test-student" /></div>
+					<div class="sectionHead"><spring:message code="pages.gettingstarted.student" /></div>
 					<div class="sectionContent">
 						<ol>
-							<li><spring:message code="gettingstarted.recommend-test-student" /></li>
+							<li><spring:message code="pages.gettingstarted.student_recommended" /></li>
 							
-							<li><spring:message code="gettingstarted.click-wise-logo" /> <a href="/webapp/index.html"><spring:message code="gettingstarted.click-wise-logo2" /></a></li>
+							<li><spring:message code="pages.gettingstarted.student_goHome" /></li>
 							
-							<li><spring:message code="gettingstarted.click-create-account" /></li>
+							<li><spring:message code="pages.gettingstarted.student_createAccount" /></li>
 							
-							<li><spring:message code="gettingstarted.fill-out-student-form" /></li>
+							<li><spring:message code="pages.gettingstarted.student_fillForm" /></li>
 							
-							<li><spring:message code="gettingstarted.note-student-username" /></li>
+							<li><spring:message code="pages.gettingstarted.student_username" /></li>
 							
-							<li><spring:message code="gettingstarted.note-student-username2" /></li>
+							<li><spring:message code="pages.gettingstarted.student_accessCodes" /></li>
 							
-							<li><spring:message code="gettingstarted.note-student-username3" /></li>
+							<li><spring:message code="pages.gettingstarted.student_signIn" /></li>
 							
-							<li><spring:message code="gettingstarted.note-student-username4" /></li>
-							
-							<li><spring:message code="gettingstarted.after-login-student" /></li>
-							
-							<li><spring:message code="gettingstarted.student-explore-project" /></li>
+							<li><spring:message code="pages.gettingstarted.student_explore" /></li>
 							</ol>
 					</div>
 
-					<div class="sectionHead"><spring:message code="gettingstarted.faq" /></div>
+					<div class="sectionHead"><spring:message code="pages.gettingstarted.faq" /></div>
 					<div class="sectionContent">
-						<h5><spring:message code="gettingstarted.faq-teacher" /> <a href="teacherfaq.html"><spring:message code="gettingstarted.faq-teacher2" /></a>.</h5>
+						<h5><spring:message code="pages.gettingstarted.faq_visit" /> <a href="teacherfaq.html"><spring:message code="pages.gettingstarted.faq_link" /></a></h5>
 					</div>
 					
-					<div class="sectionHead"><spring:message code="gettingstarted.additional-help-header" /></div>
+					<div class="sectionHead"><spring:message code="pages.gettingstarted.help" /></div>
 					<div class="sectionContent">
-						<h5><spring:message code="gettingstarted.additional-help-text" /> <a href="/webapp/contact/contactwisegeneral.html"><spring:message code="gettingstarted.additional-help-text2" /></a> <spring:message code="gettingstarted.additional-help-text3" /></h5>
+						<h5><spring:message code="pages.gettingstarted.help_info" /></h5>
 					</div>
 				</div>
 			</div>
@@ -121,8 +117,8 @@
 	
 	<%@ include file="../footer.jsp"%>
 </div>
-
-
+</spring:escapeBody>
+</spring:htmlEscape>
 </body>
 
 </html>

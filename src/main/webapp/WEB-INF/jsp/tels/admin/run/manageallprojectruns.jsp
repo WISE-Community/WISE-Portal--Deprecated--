@@ -390,19 +390,10 @@
 					      				<td class="archivedDate"><fmt:formatDate value="${run.endtime}" type="date" dateStyle="medium" /></td>
 					      			</tr>
 					      		</c:if>
-				      			<!-- <tr>
-				      				<th><spring:message code="teacher.run.myprojectruns.12"/></th> TODO: decide whether to include or not -->
 				      				<c:set var="source" value="custom" />
-				      				<c:choose>
-				      				<c:when test="${run.project.familytag == 'TELS'}"> <!-- TODO: modify this to include ALL library projects (not just TELS) -->
+				      				<c:if test="${run.project.familytag == 'TELS'}"> <!-- TODO: modify this to include ALL library projects (not just TELS) -->
 					      				<c:set var="source" value="library" />
-					      				<!-- <td><spring:message code="teacher.run.myprojectruns.43"/></td> -->
-				      				</c:when>
-				      				<c:otherwise>
-					      				<!-- <td><spring:message code="teacher.run.myprojectruns.44"/></td> -->
-				      				</c:otherwise>
-				      				</c:choose>
-				      			<!-- </tr>  -->
+				      				</c:if>
 								<tr>
 				      				<th><spring:message code="teacher.run.myprojectruns.11A"/></th>
 				      				<td><a id="projectDetail_${run.project.id}" class="projectDetail" title="Project Details">${run.project.id}</a></td>

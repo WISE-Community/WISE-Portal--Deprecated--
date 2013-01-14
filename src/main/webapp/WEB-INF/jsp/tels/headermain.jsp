@@ -6,7 +6,7 @@
 			<div class="announce">
 				<spring:htmlEscape defaultHtmlEscape="false">
 					<spring:escapeBody htmlEscape="false">
-						<spring:message code="home.announce.newurl" />
+						<spring:message code="headermain.newUrl" />
 					</spring:escapeBody>
 				</spring:htmlEscape>
 			</div>
@@ -15,7 +15,7 @@
 				alt="announcement" />
 		</c:if>
 
-		<a id="name" href="/webapp/" title="WISE Homepage">WISE <!-- <img src="<spring:theme code="wiselogonew"/>" alt="WISE Logo" border="0" id="wise-logo" />  -->
+		<a id="name" href="/webapp/" title="WISE Homepage">WISE
 		</a>
 
 		<%@ include file="accountmenu.jsp"%>

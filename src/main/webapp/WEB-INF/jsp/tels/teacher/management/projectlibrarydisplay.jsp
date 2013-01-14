@@ -1472,7 +1472,7 @@
 									data: 'command=createProject&parentProjectId='+pID+'&projectPath=' + projectPath + '&projectName=' + escapedName,
 									dataType:'text',
 									success: function(response){
-										var successText = '<spring:message code="teacher.management.projectlibrarydisplay.copy_success" />';
+										var successText = '<p><spring:message code="teacher.management.projectlibrarydisplay.copy_success" /></p><p><spring:message code="teacher.management.projectlibrarydisplay.copy_click" /></p>';
 										processCopyResult(this,successText,true);
 									},
 									error: function(response){
@@ -1483,7 +1483,7 @@
 								});								
 							},
 							error: function(response){
-								var failureText = '<spring:message code="teacher.management.projectlibrarydisplay.copy_error" />';
+								var failureText = '<p><spring:message code="teacher.management.projectlibrarydisplay.copy_error" /></p><p><spring:message code="teacher.management.projectlibrarydisplay.copy_please" /></p>';
 								processCopyResult(this,failureText,false);
 							},
 							context: this
@@ -1493,11 +1493,11 @@
 							type: 'get',
 							url: 'copyproject.html?projectId=' + pID,
 							success: function(response){//alert(o.responseText);
-								var successText = '<spring:message code="teacher.management.projectlibrarydisplay.copy_success" />'
+								var successText = '<p><spring:message code="teacher.management.projectlibrarydisplay.copy_success" /></p><p><spring:message code="teacher.management.projectlibrarydisplay.copy_click" /></p>';
 								processCopyResult(this,successText,true);
 							},
 							error: function(response){
-								var failureText = '<spring:message code="teacher.management.projectlibrarydisplay.copy_error" />';
+								var failureText = '<p><spring:message code="teacher.management.projectlibrarydisplay.copy_error" /></p><p><spring:message code="teacher.management.projectlibrarydisplay.copy_please" /></p>';
 								processCopyResult(this,failureText,false);
 							}
 						});

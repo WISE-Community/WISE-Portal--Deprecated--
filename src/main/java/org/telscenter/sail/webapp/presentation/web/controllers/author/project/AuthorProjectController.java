@@ -86,33 +86,34 @@ public class AuthorProjectController extends AbstractController {
 	private static final String PROJECT_THUMB_PATH = "/assets/project_thumb.png";
 		
 	private static final String PROJECT_ID_PARAM_NAME = "projectId";
-	
+
 	private static final String FORWARD = "forward";
-	
+
 	private static final String COMMAND = "command";
 
 	private ProjectService projectService;
-	
+
 	private Properties portalProperties = null;
-	
+
 	private HttpRestTransport httpRestTransport;
-	
+
 	private CurnitService curnitService;
-	
+
 	private TaggerController tagger;
-	
+
 	private final static List<String> filemanagerProjectlessRequests;
-	
+
 	private final static List<String> minifierProjectlessRequests;
 
 	private RunService runService;
-		static {
-			filemanagerProjectlessRequests = new ArrayList<String>();
-			filemanagerProjectlessRequests.add("createProject");
-			
-			minifierProjectlessRequests = new ArrayList<String>();
-			minifierProjectlessRequests.add("getTimestamp");
-		}
+	
+	static {
+		filemanagerProjectlessRequests = new ArrayList<String>();
+		filemanagerProjectlessRequests.add("createProject");
+		
+		minifierProjectlessRequests = new ArrayList<String>();
+		minifierProjectlessRequests.add("getTimestamp");
+	}
 	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -121,10 +122,10 @@ public class AuthorProjectController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		User user = ControllerUtil.getSignedInUser();
-		
+
 		String projectIdStr = request.getParameter(PROJECT_ID_PARAM_NAME);
 		String forward = request.getParameter(FORWARD);
-		
+
 		Project project;
 		if(projectIdStr != null && !projectIdStr.equals("") && !projectIdStr.equals("none")){
 			//project = projectService.getProjectWithoutMetadata(Long.parseLong(projectIdStr));
@@ -132,47 +133,47 @@ public class AuthorProjectController extends AbstractController {
 		} else {
 			project = null;
 		}
-		
+
 		/* catch forwarding requests, authenticate and forward request upon successful authentication */
 		if(forward != null && !forward.equals("")){
 			ServletContext servletContext = this.getServletContext().getContext("/vlewrapper");
-			
+
 			//get the command
 			String command = request.getParameter("command");
-			
+
 			if(forward.equals("filemanager") || forward.equals("assetmanager")){
-				
+
 				if((this.isProjectlessRequest(request, forward) || this.projectService.canAuthorProject(project, user)) ||
 						("copyProject".equals(command) && project.getFamilytag().equals(FamilyTag.TELS)) ||
 						("retrieveFile".equals(command) && project.getFamilytag().equals(FamilyTag.TELS))){
-					
+
 					if("createProject".equals(command) && !this.hasAuthorPermissions(user)){
 						return new ModelAndView(new RedirectView("accessdenied.html"));
 					}
-					
+
 					if("copyProject".equals(command) && 
 							(project == null || 
-									(!project.getFamilytag().equals(FamilyTag.TELS) && !this.projectService.canAuthorProject(project, user)))){
+							(!project.getFamilytag().equals(FamilyTag.TELS) && !this.projectService.canAuthorProject(project, user)))){
 						return new ModelAndView(new RedirectView("accessdenied.html"));
 					}
-					
+
 					//command is review update project or to update project
 					if("reviewUpdateProject".equals(command) || "updateProject".equals(command)) {
 						//get the curriculum base directory
 						String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
-						
+
 						//get the project url
 						String projectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-						
+
 						//get the parent project id
 						Long parentProjectId = project.getParentProjectId();
-						
+
 						//get the parent project
 						Project parentProject = projectService.getById(parentProjectId);
-						
+
 						//get the parent project url
 						String parentProjectUrl = (String) parentProject.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-						
+
 						//set the attributes so that FileManager.java can access these values in the vlewrapper
 						request.setAttribute("curriculumBaseDir", curriculumBaseDir);
 						request.setAttribute("projectUrl", projectUrl);
@@ -180,28 +181,28 @@ public class AuthorProjectController extends AbstractController {
 					} else if("importSteps".equals(command)) {
 						//get the curriculum base directory
 						String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
-						
+
 						//get the project url
 						String projectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-						
+
 						//set the attributes so that FileManager.java can access these values in the vlewrapper
 						request.setAttribute("curriculumBaseDir", curriculumBaseDir);
 						request.setAttribute("projectUrl", projectUrl);
-						
+
 						//get the from project id string
 						String fromProjectIdStr = request.getParameter("fromProjectId");
-						
+
 						if(fromProjectIdStr != null) {
 							try {
 								//get the from project id
 								long fromProjectId = Long.parseLong(fromProjectIdStr);
-								
+
 								//get the from project
 								Project fromProject = projectService.getById(fromProjectId);
-								
+
 								//get the from project url e.g. /172/wise4.project.json
 								String fromProjectUrl = (String) fromProject.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-								
+
 								//set the from project url into the request so we can have access to it in other controllers
 								request.setAttribute("fromProjectUrl", fromProjectUrl);
 							} catch(Exception e) {
@@ -209,26 +210,26 @@ public class AuthorProjectController extends AbstractController {
 							}
 						}
 					}
-					
+
 					//add any necessary attributes to the request object
 					addRequestAttributeForCommand(request, project, command, forward);
-					
+
 					CredentialManager.setRequestCredentials(request, user);
 					servletContext.getRequestDispatcher("/vle/" + forward + ".html").forward(request, response);
-					
+
 					if("updateFile".equals(command)) {
 						//we have updated a file in a project so we will update the project edited timestamp
-						
+
 						/*
 						 * set the project into the request so the handleProjectEdited 
 						 * function doesn't have to retrieve it again
 						 */
 						request.setAttribute("project", project);
-						
+
 						//update the project edited timestamp
 						handleProjectEdited(request, response);						
 					}
-					
+
 					return null;
 				} else {
 					return new ModelAndView(new RedirectView("accessdenied.html"));
@@ -241,7 +242,7 @@ public class AuthorProjectController extends AbstractController {
 				}
 			}
 		}
-		
+
 		AuthorProjectParameters params = new AuthorProjectParameters();
 		params.setAuthor(user);
 		params.setProject(project);
@@ -250,7 +251,7 @@ public class AuthorProjectController extends AbstractController {
 		params.setHttpRestTransport(httpRestTransport);
 		params.setPortalUrl(Util.getPortalUrl(request));
 		params.setVersionId(request.getParameter("versionId"));
-		
+
 		String command = request.getParameter(COMMAND);
 		if(command != null && command != ""){
 			if(command.equals("launchAuthoring")){
@@ -285,7 +286,7 @@ public class AuthorProjectController extends AbstractController {
 				previewParams.setPortalUrl(Util.getPortalUrl(request));
 				previewParams.setHttpServletRequest(request);
 				previewParams.setHttpRestTransport(this.httpRestTransport);
-				
+
 				return (ModelAndView) this.projectService.previewProject(previewParams);
 			} else if(command.equals("createTag") || command.equals("updateTag") || 
 					command.equals("removeTag") || command.equals("retrieveProjectTags")){
@@ -306,10 +307,10 @@ public class AuthorProjectController extends AbstractController {
 				return handleWelcomeProjectList(request, response);
 			}
 		}
-		
+
 		return (ModelAndView) projectService.authorProject(params);
 	}
-	
+
 	/**
 	 * Add any necessary attributes to the request object
 	 * @param request the request object
@@ -321,7 +322,7 @@ public class AuthorProjectController extends AbstractController {
 		if("retrieveFile".equals(command)) {
 			//get the file name
 			String fileName = request.getParameter("fileName");
-			
+
 			//get the full file path
 			String filePath = getFilePath(project, fileName);
 			request.setAttribute("filePath", filePath);
@@ -341,7 +342,7 @@ public class AuthorProjectController extends AbstractController {
 			//get the full project folder path
 			String projectFolderPath = getProjectFolderPath(project);
 			request.setAttribute("projectFolderPath", projectFolderPath);
-			
+
 			//get the full curriculum base dir
 			String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
 			request.setAttribute("curriculumBaseDir", curriculumBaseDir);
@@ -358,6 +359,10 @@ public class AuthorProjectController extends AbstractController {
 			//get the full project folder path
 			String projectFolderPath = getProjectFolderPath(project);
 			request.setAttribute("projectFolderPath", projectFolderPath);
+
+			// get project asset max size (if overridden by admin) and add it to request
+			Long maxTotalAssetsSize = project.getMaxTotalAssetsSize();
+			request.setAttribute("projectMaxTotalAssetsSize", maxTotalAssetsSize);
 		}
 	}
 
@@ -378,20 +383,20 @@ public class AuthorProjectController extends AbstractController {
 			 * /510/wise4.project.json
 			 */
 			String path = request.getParameter("projectPath");
-			
+
 			//get the name of the project
 			String name = request.getParameter("projectName");
-			
+
 			String parentProjectId = request.getParameter("parentProjectId");
 			Set<User> owners = new HashSet<User>();
 			owners.add(user);
-			
+
 			CreateUrlModuleParameters cParams = new CreateUrlModuleParameters();
 			cParams.setUrl(path);
 			Curnit curnit = curnitService.createCurnit(cParams);
-			
+
 			ProjectParameters pParams = new ProjectParameters();
-			
+
 			pParams.setCurnitId(curnit.getId());
 			pParams.setOwners(owners);
 			pParams.setProjectname(name);
@@ -433,19 +438,19 @@ public class AuthorProjectController extends AbstractController {
 	private ModelAndView handleNotifyProjectOpen(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = ControllerUtil.getSignedInUser();
 		if(this.hasAuthorPermissions(user)){
-			
+
 			//get the project object
 			String projectId = request.getParameter("projectId");
-			
+
 			HttpSession currentUserSession = request.getSession();
 			HashMap<String, ArrayList<String>> openedProjectsToSessions = 
-				(HashMap<String, ArrayList<String>>) currentUserSession.getServletContext().getAttribute("openedProjectsToSessions");
-			
+					(HashMap<String, ArrayList<String>>) currentUserSession.getServletContext().getAttribute("openedProjectsToSessions");
+
 			if (openedProjectsToSessions == null) {
 				openedProjectsToSessions = new HashMap<String, ArrayList<String>>(); 
 				currentUserSession.getServletContext().setAttribute("openedProjectsToSessions", openedProjectsToSessions);
 			}
-			
+
 			if (openedProjectsToSessions.get(projectId) == null) {
 				openedProjectsToSessions.put(projectId, new ArrayList<String>());
 			}
@@ -453,11 +458,13 @@ public class AuthorProjectController extends AbstractController {
 			if (!sessions.contains(currentUserSession.getId())) {
 				sessions.add(currentUserSession.getId());
 			}
-			 HashMap<String, User> allLoggedInUsers = (HashMap<String, User>) currentUserSession.getServletContext()
-				.getAttribute(PasSessionListener.ALL_LOGGED_IN_USERS);
 			
-			//String otherUsersAlsoEditingProject = "";
+			String otherUsersAlsoEditingProject = "";
 			JSONArray editors = new JSONArray();
+
+			HashMap<String, User> allLoggedInUsers = (HashMap<String, User>) currentUserSession.getServletContext()
+					.getAttribute(PasSessionListener.ALL_LOGGED_IN_USERS);
+
 			for (String sessionId : sessions) {
 				if (sessionId != currentUserSession.getId()) {
 					user = allLoggedInUsers.get(sessionId);
@@ -473,7 +480,7 @@ public class AuthorProjectController extends AbstractController {
 					}
 				}
 			}
-			
+
 			/* strip off trailing comma */
 			//if(otherUsersAlsoEditingProject.contains(",")){
 				//otherUsersAlsoEditingProject = otherUsersAlsoEditingProject.substring(0, otherUsersAlsoEditingProject.length() - 1);
@@ -481,12 +488,19 @@ public class AuthorProjectController extends AbstractController {
 			
 			//response.getWriter().write(otherUsersAlsoEditingProject);
 			response.getWriter().write(editors.toString());
+
+			if(otherUsersAlsoEditingProject.contains(",")){
+				otherUsersAlsoEditingProject = otherUsersAlsoEditingProject.substring(0, otherUsersAlsoEditingProject.length() - 1);
+			}
+
+			response.getWriter().write(otherUsersAlsoEditingProject);
+
 			return null;
 		} else {
 			return new ModelAndView(new RedirectView("accessdenied.html"));
 		}
 	}
-	
+
 	/**
 	 * Handles notifications of closed projects
 	 * 
@@ -501,9 +515,9 @@ public class AuthorProjectController extends AbstractController {
 		if(this.hasAuthorPermissions(user)){
 			String projectId = request.getParameter("projectId");
 			HttpSession currentSession = request.getSession();
-			
+
 			Map<String, ArrayList<String>> openedProjectsToSessions = (Map<String, ArrayList<String>>) currentSession.getServletContext().getAttribute("openedProjectsToSessions");
-			
+
 			if(openedProjectsToSessions == null || openedProjectsToSessions.get(projectId) == null){
 				return null;
 			} else {
@@ -524,7 +538,7 @@ public class AuthorProjectController extends AbstractController {
 			return new ModelAndView(new RedirectView("accessdenied.html"));
 		}
 	}
-	
+
 	/**
 	 * Gets other WISE users who are also editing the same project as the logged-in user
 	 * @param request
@@ -535,20 +549,20 @@ public class AuthorProjectController extends AbstractController {
 	@SuppressWarnings("unchecked")	
 	private ModelAndView handleGetEditors(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String projectPath = request.getParameter("param1");
-		
+
 		// get current user session
 		HttpSession currentUserSession = request.getSession();
-		
+
 		// get all sessions of people editing a project.
 		HashMap<String, ArrayList<String>> openedProjectsToSessions = 
-			(HashMap<String, ArrayList<String>>) currentUserSession.getServletContext().getAttribute("openedProjectsToSessions");
-		
+				(HashMap<String, ArrayList<String>>) currentUserSession.getServletContext().getAttribute("openedProjectsToSessions");
+
 		if(openedProjectsToSessions != null){
 			// if there are ppl editing projects, see if there are people editing the same project as logged in user.
 			ArrayList<String> sessions = openedProjectsToSessions.get(projectPath);
 			HashMap<String, User> allLoggedInUsers = (HashMap<String, User>) currentUserSession.getServletContext()
-				.getAttribute(PasSessionListener.ALL_LOGGED_IN_USERS);
-			
+					.getAttribute(PasSessionListener.ALL_LOGGED_IN_USERS);
+
 			String otherUsersAlsoEditingProject = "";
 			if (sessions != null) {
 				for (String sessionId : sessions) {
@@ -560,21 +574,21 @@ public class AuthorProjectController extends AbstractController {
 					}
 				}
 			}
-			
+
 			/* strip off trailing comma */
 			if(otherUsersAlsoEditingProject.contains(",")){
 				otherUsersAlsoEditingProject = otherUsersAlsoEditingProject.substring(0, otherUsersAlsoEditingProject.length() - 1);
 			}
-			
+
 			response.getWriter().write(otherUsersAlsoEditingProject);
 		} else {
 			response.getWriter().write("");
 		}
-		
-		
+
+
 		return null;
 	}
-	
+
 	/**
 	 * Returns some additional info about a project being authored (owner/shared info, whether project is in public library,
 	 * if it's bookmarked, thumbnail url)
@@ -661,9 +675,9 @@ public class AuthorProjectController extends AbstractController {
 	 */
 	private ModelAndView handleProjectList(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String projectTag = request.getParameter("projectTag");
-		
+
 		JSONArray projects = new JSONArray();
-		
+
 		if(projectTag == null) {
 			//get all the projects the current user can author
 			projects = getAuthorableProjects(request, response);
@@ -676,29 +690,29 @@ public class AuthorProjectController extends AbstractController {
 		} else if(projectTag.equals("authorableAndLibrary")) {
 			//get all the projects the current user can author
 			JSONArray authorableProjects = getAuthorableProjects(request, response);
-			
+
 			//get all the library projects
 			JSONArray libraryProjects = getLibraryProjects(request, response);
-			
+
 			//add the authorable projects to the array
 			for(int x=0; x<authorableProjects.length(); x++) {
 				JSONObject authorableProject = authorableProjects.getJSONObject(x);
 				projects.put(authorableProject);
 			}
-			
+
 			//add the library projects to the array
 			for(int y=0; y<libraryProjects.length(); y++) {
 				JSONObject libraryProject = libraryProjects.getJSONObject(y);
 				projects.put(libraryProject);
 			}
 		}
-		
+
 		//write the JSONArray of projects to the response
 		response.getWriter().write(projects.toString());
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Returns a list of projects that the signed in user can author for authoring welcome screen
 	 * @param request
@@ -755,7 +769,7 @@ public class AuthorProjectController extends AbstractController {
 		
 		//an array to hold the information for the projects
 		JSONArray projectArray = new JSONArray();
-		
+
 		//loop through all the projects
 		for(Project project : allAuthorableProjects){
 			if(project.getProjectType()==ProjectType.LD &&
@@ -766,7 +780,7 @@ public class AuthorProjectController extends AbstractController {
 				 * /235/wise4.project.json
 				 */
 				String rawProjectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-				
+
 				if(rawProjectUrl != null) {
 					/*
 					 * create json object to hold project details
@@ -903,11 +917,11 @@ public class AuthorProjectController extends AbstractController {
 				}
 			}
 		}
-		
+
 		//return the JSONArray
 		return projectArray;
 	}
-	
+
 	/**
 	 * Get all the projects the current user can author (for authoring tool welcome screen)
 	 * @param request
@@ -1032,10 +1046,10 @@ public class AuthorProjectController extends AbstractController {
 	 */
 	private JSONArray getLibraryProjects(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<Project> libraryProjects = projectService.getProjectListByTagName("library");
-		
+
 		//an array to hold the information for the projects
 		JSONArray libraryProjectArray = new JSONArray();
-				
+
 		for(Project libraryProject : libraryProjects) {
 			if(libraryProject.getProjectType()==ProjectType.LD) {
 				/*
@@ -1044,10 +1058,10 @@ public class AuthorProjectController extends AbstractController {
 				 * /235/wise4.project.json
 				 */
 				String rawProjectUrl = (String) libraryProject.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-				
+
 				//get the title of the project
 				String title = libraryProject.getName();
-				
+
 				if(rawProjectUrl != null) {
 					/*
 					 * get the project file name
@@ -1055,7 +1069,7 @@ public class AuthorProjectController extends AbstractController {
 					 * /wise4.project.json
 					 */
 					String projectFileName = rawProjectUrl.substring(rawProjectUrl.lastIndexOf("/"));
-					
+
 					/*
 					 * add the project file name, project id, and project title
 					 * to the JSONObject
@@ -1064,17 +1078,17 @@ public class AuthorProjectController extends AbstractController {
 					projectDetails.put("id", libraryProject.getId());
 					projectDetails.put("path", projectFileName);
 					projectDetails.put("title", title);
-					
+
 					//add the JSONObject to our array
 					libraryProjectArray.put(projectDetails);
 				}
 			}
 		}
-		
+
 		//return the JSONArray
 		return libraryProjectArray;
 	}
-	
+
 	/**
 	 * Handles the publish metadata request from the authoring tool
 	 * 
@@ -1089,24 +1103,24 @@ public class AuthorProjectController extends AbstractController {
 		//String versionId = request.getParameter("versionId");
 		String metadataString = request.getParameter("metadata");
 		JSONObject metadata = null;
-		
+
 		try {
 			metadata = new JSONObject(metadataString);
 		} catch (JSONException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		Project project = this.projectService.getById(projectId);
 		User user = ControllerUtil.getSignedInUser();
-		
+
 		/* retrieve the metadata from the file */
 		//JSONObject metadata = this.projectService.getProjectMetadataFile(project, versionId);
-		
+
 		/* set the fields in the ProjectMetadata where appropriate */
 		if(metadata != null){
 			//ProjectMetadata pMeta = this.projectService.getMetadata(projectId, versionId);
 			ProjectMetadata pMeta = project.getMetadata();
-			
+
 			/* if no previous metadata exists for this project, then we want to create one
 			 * and set it in the project */
 			if(pMeta == null){
@@ -1114,48 +1128,48 @@ public class AuthorProjectController extends AbstractController {
 				pMeta.setProjectId(projectId);
 				project.setMetadata(pMeta);
 			}
-			
+
 			Object title = this.getJSONFieldValue(metadata, "title");
 			if(title != null && ((String) title).trim().length() > 0 && !((String) title).equals("null")){
 				pMeta.setTitle((String) title);
 				project.setName((String) title);
 			}
-			
+
 			Object author = this.getJSONFieldValue(metadata, "author");
 			if(author != null){
 				pMeta.setAuthor((String) author);
 			}
-			
+
 			Object subject = this.getJSONFieldValue(metadata, "subject");
 			if(subject != null){
 				pMeta.setSubject((String) subject);
 			}
-			
+
 			Object summary = this.getJSONFieldValue(metadata, "summary");
 			if(summary != null){
 				pMeta.setSummary((String) summary);
 			}
-			
+
 			Object graderange = this.getJSONFieldValue(metadata, "graderange");
 			if(graderange != null){
 				pMeta.setGradeRange((String) graderange);
 			}
-			
+
 			Object contact = this.getJSONFieldValue(metadata, "contact");
 			if(contact != null){
 				pMeta.setContact((String) contact);
 			}
-			
+
 			Object techreqs = this.getJSONFieldValue(metadata, "techreqs");
 			if(techreqs != null){
 				pMeta.setTechReqs((String) techreqs);
 			}
-			
+
 			Object tools = this.getJSONFieldValue(metadata, "tools");
 			if(tools != null){
 				pMeta.setTools((String) tools);
 			}
-			
+
 			Object lessonplan = this.getJSONFieldValue(metadata, "lessonplan");
 			if(lessonplan != null){
 				pMeta.setLessonPlan((String) lessonplan);
@@ -1170,12 +1184,12 @@ public class AuthorProjectController extends AbstractController {
 			if(totaltime != null && !((String) totaltime).equals("")){
 				pMeta.setTotalTime((String) totaltime);
 			} 
-			
+
 			Object comptime = this.getJSONFieldValue(metadata, "comptime");
 			if(comptime != null && !((String) comptime).equals("")){
 				pMeta.setCompTime((String) comptime);
 			}
-			
+
 			Object keywords = this.getJSONFieldValue(metadata, "keywords");
 			if(keywords != null){
 				pMeta.setKeywords((String) keywords);
@@ -1193,17 +1207,17 @@ public class AuthorProjectController extends AbstractController {
 				e.printStackTrace();
 				response.getWriter().write(e.getMessage());
 			}
-			
+
 			/* write success message */
 			response.getWriter().write("Project metadata was successfully published to the portal.");
 		} else {
 			/* write error message that portal could not access metadata file */
 			response.getWriter().write("The portal was unable to access the data in the metadata file. The metadata may be out of sync.");
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Returns the value of the given <code>String</code> field name in the given
 	 * <code>JSONObject</code> if it exists, returns null otherwise. This function
@@ -1222,7 +1236,7 @@ public class AuthorProjectController extends AbstractController {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Checks the request command for the given <code>String</code> servlet and returns
 	 * <code>boolean</code> true if the request's command parameter value is listed as
@@ -1236,14 +1250,14 @@ public class AuthorProjectController extends AbstractController {
 		if(servlet.equals("filemanager")){
 			return filemanagerProjectlessRequests.contains(request.getParameter("command"));
 		}
-		
+
 		if(servlet.equals("minifier")){
 			return minifierProjectlessRequests.contains(request.getParameter("command"));
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
 	 * Returns <code>boolean</code> true if the given <code>User</code> user has sufficient permissions
 	 * to create a project, returns false otherwise.
@@ -1253,9 +1267,9 @@ public class AuthorProjectController extends AbstractController {
 	 */
 	private boolean hasAuthorPermissions(User user){
 		return user.getUserDetails().hasGrantedAuthority(UserDetailsService.AUTHOR_ROLE) || 
-			user.getUserDetails().hasGrantedAuthority(UserDetailsService.TEACHER_ROLE);
+				user.getUserDetails().hasGrantedAuthority(UserDetailsService.TEACHER_ROLE);
 	}
-	
+
 	/**
 	 * Writes the current user's username to the response
 	 * 
@@ -1268,7 +1282,7 @@ public class AuthorProjectController extends AbstractController {
 		response.getWriter().write(user.getUserDetails().getUsername());
 		return null;
 	}
-	
+
 	/**
 	 * Get the url to the curriculum base on the vlewrapper
 	 * e.g.
@@ -1281,13 +1295,13 @@ public class AuthorProjectController extends AbstractController {
 	private ModelAndView handleGetCurriculumBaseUrl(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		//get the curriculum_base_www variable from the portal.properties file
 		String vlewrapperBaseUrl = portalProperties.getProperty("curriculum_base_www");
-		
+
 		//write the curriculum base url to the response
 		response.getWriter().write(vlewrapperBaseUrl);
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Get the config for the authoring tool
 	 * @param request
@@ -1303,34 +1317,34 @@ public class AuthorProjectController extends AbstractController {
 		MutableUserDetails userDetails = (MutableUserDetails)user.getUserDetails();
 		String username = userDetails.getUsername();
 		String userfullname = userDetails.getFirstname() + " " + userDetails.getLastname();
-		
+
 		//get the portal url
 		String portalUrl = ControllerUtil.getBaseUrlString(request);
-		
+
 		//get the url to get and post metadata
 		String projectMetaDataUrl = portalUrl + "/webapp/metadata.html";
-		
+
 		//get the url to make CRater requests
 		String cRaterRequestUrl = portalUrl + "/webapp/bridge/request.html?type=cRater";
-		
+
 		//get the curriculum_base_www variable from the portal.properties file
 		String vlewrapperBaseUrl = portalProperties.getProperty("curriculum_base_www");
-		
+
 		//get the url to make CRater requests
-    	String deleteProjectUrl = portalUrl + "/webapp/deleteproject.html";
-    	
-    	//get the url to make analyze project requests
-    	String analyzeProjectUrl = portalUrl + "/webapp/analyzeproject.html";
-		
-    	//the get url for premade comments
-    	String getPremadeCommentsUrl = portalUrl + "/webapp/teacher/grading/premadeComments.html?action=getData";
-    	
-    	//the post url for premade comments
-    	String postPremadeCommentsUrl = portalUrl + "/webapp/teacher/grading/premadeComments.html?action=postData";
-    	
+		String deleteProjectUrl = portalUrl + "/webapp/deleteproject.html";
+
+		//get the url to make analyze project requests
+		String analyzeProjectUrl = portalUrl + "/webapp/analyzeproject.html";
+
+		//the get url for premade comments
+		String getPremadeCommentsUrl = portalUrl + "/webapp/teacher/grading/premadeComments.html?action=getData";
+
+		//the post url for premade comments
+		String postPremadeCommentsUrl = portalUrl + "/webapp/teacher/grading/premadeComments.html?action=postData";
+
 		//create a JSONObject to contain the config params
 		JSONObject config = new JSONObject();
-		
+
 		try {
 			//set the config variables
 			config.put("username", username);
@@ -1355,18 +1369,18 @@ public class AuthorProjectController extends AbstractController {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
+
 		//set the string value of the JSON object in the response
 		response.getWriter().write(config.toString());
-		
+
 		return null;
 	}
-	
+
 	private ModelAndView handleGetMetadata(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Project project = (Project) request.getAttribute("project");
 		User user = ControllerUtil.getSignedInUser();
 		ProjectMetadata metadata = project.getMetadata();
-		
+
 		if(metadata == null) {
 			metadata = new ProjectMetadataImpl();
 			project.setMetadata(metadata);
@@ -1422,7 +1436,7 @@ public class AuthorProjectController extends AbstractController {
 		response.getWriter().write(metadata.toJSONString());
 		return null;
 	}
-	
+
 	private ModelAndView handlePostMetadata(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Project project = (Project) request.getAttribute("project");
 		User user = ControllerUtil.getSignedInUser();
@@ -1433,8 +1447,8 @@ public class AuthorProjectController extends AbstractController {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
-		
+
+
 		ProjectMetadata metadata = project.getMetadata();
 		if (metadata == null) {
 			metadata = new ProjectMetadataImpl(metadataJSON);
@@ -1452,17 +1466,17 @@ public class AuthorProjectController extends AbstractController {
 			} catch (JSONException e) {
 			}	
 		}
-		
+
 		project.setMetadata(metadata);
 		try {
 			projectService.updateProject(project, user);
 		} catch (NotAuthorizedException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Update the project edited timestamp
 	 * @param request
@@ -1473,20 +1487,20 @@ public class AuthorProjectController extends AbstractController {
 	private ModelAndView handleProjectEdited(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		//get the user
 		User user = ControllerUtil.getSignedInUser();
-		
+
 		//get the project
 		Project project = (Project) request.getAttribute("project");
-		
+
 		if(project != null) {
 			//get the project metadata
 			ProjectMetadata metadata = project.getMetadata();
-			
+
 			//create a new timestamp with the current time
 			Date lastEdited = new Date();
-			
+
 			//set the last edited time
 			metadata.setLastEdited(lastEdited);	
-			
+
 			try {
 				//update the project in the db
 				projectService.updateProject(project, user);
@@ -1494,24 +1508,24 @@ public class AuthorProjectController extends AbstractController {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Handle the review update project
 	 */
 	private ModelAndView handleReviewUpdateProject(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		return handleReviewOrUpdateProject(request, response);
 	}
-	
+
 	/**
 	 * Handle the update project
 	 */
 	private ModelAndView handleUpdateProject(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		return handleReviewOrUpdateProject(request, response);
 	}
-	
+
 	/**
 	 * Handle the review update project or update project 
 	 */
@@ -1519,25 +1533,25 @@ public class AuthorProjectController extends AbstractController {
 		try {
 			//get the service we will forward to, this should be "filemanager"
 			String forward = request.getParameter("forward");
-			
+
 			//get the project id
 			String projectId = request.getParameter("projectId");
-			
+
 			//get the project
 			Project project = this.projectService.getById(projectId);
-			
+
 			//get the signed in user
 			User user = ControllerUtil.getSignedInUser();
-			
+
 			//make sure the signed in user has write access
 			if(this.projectService.canAuthorProject(project, user)) {
 				//get the vlewrapper context
 				ServletContext servletContext = this.getServletContext().getContext("/vlewrapper");
 				CredentialManager.setRequestCredentials(request, user);
-				
+
 				//forward the request to the vlewrapper
 				servletContext.getRequestDispatcher("/vle/" + forward + ".html").forward(request, response);
-				
+
 				//TODO: update the project edited timestamp
 			}
 		} catch (ObjectNotFoundException e) {
@@ -1545,10 +1559,10 @@ public class AuthorProjectController extends AbstractController {
 		} catch (ServletException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Get the full project file path
 	 * @param project the project object
@@ -1562,7 +1576,7 @@ public class AuthorProjectController extends AbstractController {
 		String projectFilePath = curriculumBaseDir + projectUrl;
 		return projectFilePath;
 	}
-	
+
 	/**
 	 * Get the full file path given the project object and a file name
 	 * @param project the project object
@@ -1576,7 +1590,7 @@ public class AuthorProjectController extends AbstractController {
 		String filePath = projectFolderPath + fileName;
 		return filePath;
 	}
-	
+
 	/**
 	 * Get the full project folder path given the project object
 	 * @param project the project object
@@ -1589,14 +1603,14 @@ public class AuthorProjectController extends AbstractController {
 		String projectFolderPath = projectFilePath.substring(0, projectFilePath.lastIndexOf("/"));
 		return projectFolderPath;
 	}
-	
+
 	/**
 	 * @param projectService the projectService to set
 	 */
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
 	}
-	
+
 	/**
 	 * @param httpRestTransport the httpRestTransport to set
 	 */

@@ -19,7 +19,7 @@
 <script src="<spring:theme code="jqueryuisource"/>" type="text/javascript"></script>
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 
-<title><spring:message code="teacher.run.create.createrunreview.settingUpAProjectRunStep4" /></title>
+<title><spring:message code="teacher.run.create.createrunreview.settingUpAProjectRunStep5" /></title>
 
 <script type="text/javascript">
         var doneClicked=false;

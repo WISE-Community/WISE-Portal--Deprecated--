@@ -65,19 +65,10 @@
 							      				<th><spring:message code="teacher.management.projectruntabs.created"/></th>
 							      				<td><fmt:formatDate value="${run.starttime}" type="date" dateStyle="medium" /></td>
 							      			</tr>
-							      			<!-- <tr>
-							      				<th><spring:message code="teacher.run.myprojectruns.12"/></th> TODO: decide whether to include or not -->
 							      				<c:set var="source" value="custom" />
-							      				<c:choose>
-							      				<c:when test="${run.project.familytag == 'TELS'}"> <!-- TODO: modify this to show when a run was generated from a library project -->
+							      				<c:if test="${run.project.familytag == 'TELS'}"> <!-- TODO: modify this to show when a run was generated from a library project -->
 								      				<c:set var="source" value="library" />
-								      				<!-- <td><spring:message code="teacher.run.myprojectruns.43"/></td> -->
-							      				</c:when>
-							      				<c:otherwise>
-								      				<!-- <td><spring:message code="teacher.run.myprojectruns.44"/></td> -->
-							      				</c:otherwise>
-							      				</c:choose>
-							      			<!-- </tr>  -->
+							      				</c:if>
 											<tr>
 							      				<th><spring:message code="project_id"/></th>
 							      				<td><a id="projectDetail_${run.project.id}" class="projectDetail" title="<spring:message code="project_details"/>">${run.project.id}</a></td>
@@ -251,19 +242,10 @@
 							      				<th><spring:message code="teacher.management.projectruntabs.archive_label"/></th>
 							      				<td class="archivedDate"><fmt:formatDate value="${run.endtime}" type="date" dateStyle="short" /></td>
 							      			</tr>
-							      			<!-- <tr>
-							      				<th><spring:message code="teacher.run.myprojectruns.12"/></th> TODO: decide whether to include or not -->
 							      				<c:set var="source" value="custom" />
-							      				<c:choose>
-							      				<c:when test="${run.project.familytag == 'TELS'}">
+							      				<c:if test="${run.project.familytag == 'TELS'}">
 								      				<c:set var="source" value="library" />
-								      				<!-- <td><spring:message code="teacher.run.myprojectruns.43"/></td> -->
-							      				</c:when>
-							      				<c:otherwise>
-								      				<!-- <td><spring:message code="teacher.run.myprojectruns.44"/></td> -->
-							      				</c:otherwise>
-							      				</c:choose>
-							      			<!-- </tr>  -->
+							      				</c:if>
 											<tr>
 							      				<th><spring:message code="project_id_label"/></th>
 							      				<td><a id="projectDetail_${run.project.id}" class="projectDetail" title="<spring:message code="project_details"/>">${run.project.id}</a></td>

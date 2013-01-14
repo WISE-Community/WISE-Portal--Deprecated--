@@ -274,6 +274,7 @@ public class LdProjectServiceImpl implements ProjectService {
 		if(parentProjectId != null) {
 			//get the parent project
 			parentProject = getById(parentProjectId);
+			project.setMaxTotalAssetsSize(parentProject.getMaxTotalAssetsSize());
 		}
 		
 		// set original author (if not sent in as a parameter)
