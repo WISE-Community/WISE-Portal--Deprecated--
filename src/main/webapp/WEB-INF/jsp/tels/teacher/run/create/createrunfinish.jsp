@@ -1,7 +1,5 @@
 <%@ include file="../../../include.jsp"%>
 
-<!-- $Id: setuprunconfirm.jsp 2647 2010-01-08 22:46:32Z supersciencefish $ -->
-
 <!DOCTYPE html>
 <html xml:lang="en" lang="en">
 <head>
@@ -13,7 +11,7 @@
 <link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
-<title><spring:message code="setuprun.confirmation.title" /></title>
+<title><spring:message code="teacher.run.create.createrunfinish.classroomRunCreated" /></title>
 
 <script type="text/javascript" src="/webapp/javascript/pas/utils.js"></script>
 <script type="text/javascript" src="/webapp/javascript/tels/rotator.js"></script>

@@ -29,6 +29,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -46,6 +47,7 @@ import net.sf.sail.webapp.mail.IMailFacade;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.context.MessageSource;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
@@ -98,8 +100,8 @@ public class CreateRunController extends AbstractWizardFormController {
 	
 	private Properties emaillisteners = null;
 	
-	protected Properties uiHTMLProperties = null;
-	
+	private MessageSource messageSource;
+
 	protected Properties portalProperties;
 	
 	/* change this to true if you are testing and do not want to send mail to
@@ -420,8 +422,9 @@ public class CreateRunController extends AbstractWizardFormController {
 		// send email to the recipients in new thread
 		//tries to retrieve the user from the session
 		User user = ControllerUtil.getSignedInUser();
+		Locale locale = request.getLocale();
 		CreateRunEmailService emailService = 
-			new CreateRunEmailService(command, run, user);
+			new CreateRunEmailService(command, run, user, locale);
 		Thread thread = new Thread(emailService);
 		thread.start();
 		
@@ -433,12 +436,14 @@ public class CreateRunController extends AbstractWizardFormController {
 		private Object command;
 		private Run run;
 		private User user;
+		private Locale locale;
 		
 		public CreateRunEmailService(
-				Object command, Run run, User user) {
+				Object command, Run run, User user, Locale locale) {
 			this.command = command;
 			this.run = run;
 			this.user = user;
+			this.locale = locale;
 		}
 
 		public void run() {
@@ -498,26 +503,50 @@ public class CreateRunController extends AbstractWizardFormController {
 			
 			String[] recipients = emaillisteners.getProperty("project_setup").split(",");
 			
-			String subject = uiHTMLProperties.getProperty("setuprun.confirmation.email.subject") 
-			    + " (" + portalProperties.getProperty("portal.name") + ")";		
-			String message = uiHTMLProperties.getProperty("setuprun.confirmation.email.message") + "\n\n" +
-				
-				uiHTMLProperties.getProperty("setuprun.confirmation.email.portal_name") + ": " + portalProperties.getProperty("portal.name") + "\n" +
-			    uiHTMLProperties.getProperty("setuprun.confirmation.email.teacher_name") +": " + teacherName + "\n" +
-				uiHTMLProperties.getProperty("setuprun.confirmation.email.teacher_username") +": " + teacherUserDetails.getUsername() + "\n" +
-				uiHTMLProperties.getProperty("setuprun.confirmation.email.teacher_email") + ": " + teacherEmail + "\n" +
-				uiHTMLProperties.getProperty("setuprun.confirmation.email.school_name") +": " + schoolName + "\n" +
-				uiHTMLProperties.getProperty("setuprun.confirmation.email.school_location") + ": " + schoolCity + ", " + schoolState + "\n" + 
-				uiHTMLProperties.getProperty("setuprun.confirmation.email.school_periods") + ": " + schoolPeriods + "\n" +
-				uiHTMLProperties.getProperty("setuprun.confirmation.email.project_codes") + ": " + projectcodes.toString() + "\n" +
-				uiHTMLProperties.getProperty("setuprun.confirmation.email.project_name") + ": " + run.getProject().getProjectInfo().getName() + "\n" + 
-				uiHTMLProperties.getProperty("setuprun.confirmation.email.project_id") + ": "+ projectID + "\n" +
-				uiHTMLProperties.getProperty("setuprun.confirmation.email.run_id") + ": " + runID + "\n" +
-				uiHTMLProperties.getProperty("setuprun.confirmation.email.run_created") +  ": " + sdf.format(date) + "\n" + 
-
-				"\n\n" + uiHTMLProperties.getProperty("setuprun.confirmation.email.end_blurb");
 			
-			String fromEmail = teacherEmail;
+			String defaultSubject = messageSource.getMessage("presentation.web.controllers.teacher.run.CreateRunController.setupRunConfirmationEmailSubject", 
+						new Object[]{portalProperties.getProperty("portal.name")}, Locale.US);
+			
+			String subject = messageSource.getMessage("presentation.web.controllers.teacher.run.CreateRunController.setupRunConfirmationEmailSubject", 
+					new Object[]{portalProperties.getProperty("portal.name")},defaultSubject, this.locale);
+			
+
+			String defaultMessage = messageSource.getMessage("presentation.web.controllers.teacher.run.CreateRunController.setupRunConfirmationEmailMessage", 
+					new Object[]{
+					portalProperties.getProperty("portal.name"),
+					teacherName,
+					teacherUserDetails.getUsername(),
+					teacherEmail,
+					schoolName,
+					schoolCity,
+					schoolPeriods,
+					projectcodes.toString(),
+					run.getProject().getProjectInfo().getName(),
+					projectID,
+					runID,
+					sdf.format(date)					
+					}, 
+					Locale.US);
+
+			String message = messageSource.getMessage("presentation.web.controllers.teacher.run.CreateRunController.setupRunConfirmationEmailMessage", 
+					new Object[]{
+					portalProperties.getProperty("portal.name"),
+					teacherName,
+					teacherUserDetails.getUsername(),
+					teacherEmail,
+					schoolName,
+					schoolCity,
+					schoolPeriods,
+					projectcodes.toString(),
+					run.getProject().getProjectInfo().getName(),
+					projectID,
+					runID,
+					sdf.format(date)					
+					}, 
+					defaultMessage,
+					this.locale);
+
+			String fromEmail = emaillisteners.getProperty("portalemailaddress");
 			
 			//for testing out the email functionality without spamming the groups
 			if(DEBUG) {
@@ -585,10 +614,10 @@ public class CreateRunController extends AbstractWizardFormController {
 	}
 
 	/**
-	 * @param uiHTMLProperties the uiHTMLProperties to set
+	 * @param messageSource the messageSource to set
 	 */
-	public void setUiHTMLProperties(Properties uiHTMLProperties) {
-		this.uiHTMLProperties = uiHTMLProperties;
+	public void setMessageSource(MessageSource messageSource) {
+		this.messageSource = messageSource;
 	}
 
 	/**
