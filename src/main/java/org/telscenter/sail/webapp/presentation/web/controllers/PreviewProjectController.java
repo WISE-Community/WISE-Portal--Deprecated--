@@ -39,6 +39,8 @@ public class PreviewProjectController extends AbstractController {
 	private static final String PROJECT_COMMUNICATOR_ID_PARAM = "projectCommunicatorId";
 
 	private static final String PROJECT_ID_PARAM_NAME = "projectId";
+	
+	private static final String PROJECT_ID_PARAM_NAME_LOWERCASE = "projectId";
 
 	private static final String RUN_ID_PARAM_NAME = "runId";
 
@@ -74,6 +76,9 @@ public class PreviewProjectController extends AbstractController {
 		}
 		
 		String projectIdStr = request.getParameter(PROJECT_ID_PARAM_NAME);
+		if (projectIdStr == null) {
+			projectIdStr = request.getParameter(PROJECT_ID_PARAM_NAME_LOWERCASE);
+		}
 		String runIdStr = request.getParameter(RUN_ID_PARAM_NAME);
 		Project project = null;
 		if (projectIdStr != null) {
