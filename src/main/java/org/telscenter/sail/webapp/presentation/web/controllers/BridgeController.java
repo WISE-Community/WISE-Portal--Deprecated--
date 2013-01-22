@@ -75,9 +75,10 @@ import edu.emory.mathcs.backport.java.util.Arrays;
 
 /**
  * Controller to bridge GET/POST access to the vlewrapper webapp. Validates
- * logged in user, makes sure they're logged in and has the right
- * permissions, etc, before forwarding the request to the appropriate
- * servlet in the vlewrapper webapp.
+ * logged in user, makes sure they're logged in and has the right permissions,
+ * etc, before forwarding the request to the appropriate servlet in the
+ * vlewrapper webapp.
+ * 
  * @author hirokiterashima
  * @version $Id:$
  */
@@ -89,7 +90,8 @@ public class BridgeController extends AbstractController {
 	private StudentAttendanceService studentAttendanceService;
 
 	/**
-	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
@@ -116,7 +118,7 @@ public class BridgeController extends AbstractController {
 					return null;
 				}
 			} else {
-				response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You are not authorized to access this page");
+				response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You are not authoriHúzed to access this page");
 				return null;
 			}
 		}
@@ -134,44 +136,55 @@ public class BridgeController extends AbstractController {
 	private boolean authorize(HttpServletRequest request) {
 		String method = request.getMethod();
 		User signedInUser = ControllerUtil.getSignedInUser();
-		Collection<? extends GrantedAuthority> authorities = signedInUser.getUserDetails().getAuthorities();
+		Collection<? extends GrantedAuthority> authorities = signedInUser
+				.getUserDetails().getAuthorities();
 		Long signedInUserId = null;
 		for (GrantedAuthority authority : authorities) {
 			if (authority.getAuthority().equals(UserDetailsService.ADMIN_ROLE)) {
 				return true;
-			} else if(authority.getAuthority().equals(UserDetailsService.TEACHER_ROLE)) {
-				//the signed in user is a teacher
-				
+			} else if (authority.getAuthority().equals(
+					UserDetailsService.TEACHER_ROLE)) {
+				// the signed in user is a teacher
+
 				String type = request.getParameter("type");
 				if ("cRater".equals(type)) {
-					//any teacher can make a cRater request
+					// any teacher can make a cRater request
+					return true;
+				} else if ("rstat".equals(type)) { // any request to rapache
+					return true;
+				} else if ("rimage".equals(type)) {
 					return true;
 				}
-				
+
 				Run run = null;
 				try {
-					//get the run object
-					run = runService.retrieveById(new Long(request.getParameter("runId")));
+					// get the run object
+					run = runService.retrieveById(new Long(request
+							.getParameter("runId")));
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				} catch (ObjectNotFoundException e) {
 					e.printStackTrace();
 				}
-				
-				if(run == null) {
-					//we could not find the run
+
+				if (run == null) {
+					// we could not find the run
 					return false;
-				} else if(this.runService.hasRunPermission(run, signedInUser, BasePermission.WRITE)) {
-					//the teacher has write permission for the run so we will allow authorization
+				} else if (this.runService.hasRunPermission(run, signedInUser,
+						BasePermission.WRITE)) {
+					// the teacher has write permission for the run so we will
+					// allow authorization
 					return true;
-				} else if(this.runService.hasRunPermission(run, signedInUser, BasePermission.READ)) {
-					//the teacher only has read permission for the run
-					
-					if(method.equals("GET")) {
-						//we will allow authorization for GET requests
+				} else if (this.runService.hasRunPermission(run, signedInUser,
+						BasePermission.READ)) {
+					// the teacher only has read permission for the run
+
+					if (method.equals("GET")) {
+						// we will allow authorization for GET requests
 						return true;
-					} else if(method.equals("POST")) {
-						//we will deny authorization for POST requests since the teacher only has READ permissions
+					} else if (method.equals("POST")) {
+						// we will deny authorization for POST requests since
+						// the teacher only has READ permissions
 						return false;
 					}
 				}
@@ -179,50 +192,51 @@ public class BridgeController extends AbstractController {
 		}
 		if (method.equals("GET")) {
 			String workgroupIdStr = "";
-			
-			//only used for annotations
+
+			// only used for annotations
 			String fromWorkgroupIdStr = "";
-			
+
 			String type = request.getParameter("type");
-			
+
 			String runIdString = request.getParameter("runId");
 			Long runId = null;
-			
-			if(runIdString != null) {
+
+			if (runIdString != null) {
 				runId = Long.parseLong(runIdString);
 			}
-			
+
 			String periodString = request.getParameter("periodId");
 			Long period = null;
-			if(periodString != null) {
-				period = Long.parseLong(periodString);	
+			if (periodString != null) {
+				period = Long.parseLong(periodString);
 			}
-			
-			
-			if(runId != null) {
+
+			if (runId != null) {
 				try {
-					//get the run
+					// get the run
 					Run offering = runService.retrieveById(runId);
-					
-					//get the workgroup for the signed in user
-					List<Workgroup> workgroupListByOfferingAndUser = workgroupService.getWorkgroupListByOfferingAndUser(offering, signedInUser);
-					
-					//get the workgroup
+
+					// get the workgroup for the signed in user
+					List<Workgroup> workgroupListByOfferingAndUser = workgroupService
+							.getWorkgroupListByOfferingAndUser(offering,
+									signedInUser);
+
+					// get the workgroup
 					Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
-					
-					//get the workgroup id
+
+					// get the workgroup id
 					signedInUserId = workgroup.getId();
 				} catch (ObjectNotFoundException e1) {
 					e1.printStackTrace();
 				}
 			}
-			
-			//whether this GET request can access other workgroup's data
+
+			// whether this GET request can access other workgroup's data
 			boolean canAccessOtherWorkgroups = false;
-			
+
 			if (type == null) {
 				workgroupIdStr = request.getParameter("userId");
-			} else if(type.equals("flag") || type.equals("inappropriateFlag")) {
+			} else if (type.equals("flag") || type.equals("inappropriateFlag")) {
 				workgroupIdStr = request.getParameter("userId");
 				canAccessOtherWorkgroups = true;
 			} else if (type.equals("annotation")) {
@@ -232,31 +246,36 @@ public class BridgeController extends AbstractController {
 					return true;
 				}
 				workgroupIdStr = request.getParameter("toWorkgroup");
-				
-				//get the fromWorkgroup id
+
+				// get the fromWorkgroup id
 				fromWorkgroupIdStr = request.getParameter("fromWorkgroup");
 				canAccessOtherWorkgroups = true;
-			} else if(type.equals("brainstorm")) {
+			} else if (type.equals("brainstorm")) {
 				workgroupIdStr = request.getParameter("userId");
 				canAccessOtherWorkgroups = true;
 			} else if (type.equals("journal")) {
 				workgroupIdStr = request.getParameter("workgroupId");
-			} else if(type.equals("peerreview")) {
-				//return true for now until logic is implemented
+			} else if (type.equals("peerreview")) {
+				// return true for now until logic is implemented
 				return true;
-			} else if(type.equals("xlsexport") || type.equals("specialExport")) {
-				//TODO: need to check user permissions
+			} else if (type.equals("xlsexport") || type.equals("specialExport")) {
+				// TODO: need to check user permissions
 				return true;
-			} else if(type.equals("ideaBasket")) {
+			} else if (type.equals("ideaBasket")) {
 				return true;
-			} else if(type.equals("studentAssetManager")) {
+			} else if (type.equals("studentAssetManager")) {
 				return true;
-			} else if(type.equals("xmppAuthenticate")) {
+			} else if (type.equals("xmppAuthenticate")) {
 				return true;
-			} else if(type.equals("cRater")) {
-				//allow students to make cRater scoring requests
-				String cRaterRequestType = request.getParameter("cRaterRequestType");
-				if("scoring".equals(cRaterRequestType)) {
+			 } else if (type.equals("rstat")) { // authorize requests to rapache
+			 	return true;
+			 } else if (type.equals("rimage")) {
+				 return true;
+			} else if (type.equals("cRater")) {
+				// allow students to make cRater scoring requests
+				String cRaterRequestType = request
+						.getParameter("cRaterRequestType");
+				if ("scoring".equals(cRaterRequestType)) {
 					return true;
 				}
 			} else {
@@ -266,46 +285,52 @@ public class BridgeController extends AbstractController {
 			if (workgroupIdStr == null || workgroupIdStr.equals("")) {
 				return false;
 			}
-			//split up all the workgroup ids
+			// split up all the workgroup ids
 			String[] workgroupIds = workgroupIdStr.split(":");
-			
-			//check if this GET request can access other workgroups
-			if(canAccessOtherWorkgroups) {
-				//this GET request is allowed to access other workgroup work
+
+			// check if this GET request can access other workgroups
+			if (canAccessOtherWorkgroups) {
+				// this GET request is allowed to access other workgroup work
 				try {
-					if(fromWorkgroupIdStr != null && !fromWorkgroupIdStr.equals("") &&
-							fromWorkgroupIdStr.equals(signedInUserId)) {
+					if (fromWorkgroupIdStr != null
+							&& !fromWorkgroupIdStr.equals("")
+							&& fromWorkgroupIdStr.equals(signedInUserId)) {
 						/*
-						 * the signed in user id is the same as the from workgroup id so 
-						 * we will allow it. this basically means the current user is
-						 * requesting the annotations that he/she wrote.
+						 * the signed in user id is the same as the from
+						 * workgroup id so we will allow it. this basically
+						 * means the current user is requesting the annotations
+						 * that he/she wrote.
 						 */
 						return true;
 					} else {
-						//obtain all the workgroups of the classmates of the current user
-						Set<Workgroup> classmateWorkgroups = runService.getWorkgroups(runId, period);
+						// obtain all the workgroups of the classmates of the
+						// current user
+						Set<Workgroup> classmateWorkgroups = runService
+								.getWorkgroups(runId, period);
 
 						/*
-						 * see if the workgroupIds the user is trying to access is
-						 * in the above set of classmate workgroups, if all the 
-						 * workgroupIds beingaccessed are allowed, it will return 
-						 * true and allow it, otherwise it will return false and 
-						 * deny access
+						 * see if the workgroupIds the user is trying to access
+						 * is in the above set of classmate workgroups, if all
+						 * the workgroupIds beingaccessed are allowed, it will
+						 * return true and allow it, otherwise it will return
+						 * false and deny access
 						 */
-						return elementsInCollection(workgroupIds, classmateWorkgroups);
+						return elementsInCollection(workgroupIds,
+								classmateWorkgroups);
 					}
 				} catch (ObjectNotFoundException e) {
 					e.printStackTrace();
 				}
 			} else {
 				/*
-				 * this GET request is not allowed to access other workgroup work
-				 * it can only access the workgroup the current user is in
+				 * this GET request is not allowed to access other workgroup
+				 * work it can only access the workgroup the current user is in
 				 */
-				
-				//obtain all the workgroups that the current user is in
-				List<Workgroup> workgroupsForUser = workgroupService.getWorkgroupsForUser(signedInUser);
-				
+
+				// obtain all the workgroups that the current user is in
+				List<Workgroup> workgroupsForUser = workgroupService
+						.getWorkgroupsForUser(signedInUser);
+
 				/*
 				 * see if the workgroupIds the user is trying to access is in
 				 * the above list of workgroups, if all the workgroupIds being
@@ -314,7 +339,7 @@ public class BridgeController extends AbstractController {
 				 */
 				return elementsInCollection(workgroupIds, workgroupsForUser);
 			}
-			
+
 			return false;
 		} else if (method.equals("POST")) {
 			return true;
@@ -322,144 +347,162 @@ public class BridgeController extends AbstractController {
 		// other request methods are not authorized at this point
 		return false;
 	}
-	
+
 	/**
-	 * Checks whether all the elements in the idsAccessing array are
-	 * found in the idsAllowed Collection
-	 * @param idsAccessing the ids the user is trying to access
-	 * @param idsAllowed the ids the user is allowed to access
+	 * Checks whether all the elements in the idsAccessing array are found in
+	 * the idsAllowed Collection
+	 * 
+	 * @param idsAccessing
+	 *            the ids the user is trying to access
+	 * @param idsAllowed
+	 *            the ids the user is allowed to access
 	 * @return whether all the elements are in the Collection
 	 */
-	private boolean elementsInCollection(String[] idsAccessing, Collection<Workgroup> idsAllowed) {
-		//convert the accessing array to a list
+	private boolean elementsInCollection(String[] idsAccessing,
+			Collection<Workgroup> idsAllowed) {
+		// convert the accessing array to a list
 		List<String> idsAccessingList = Arrays.asList(idsAccessing);
-		
-		//convert the allowed Collection to a list
+
+		// convert the allowed Collection to a list
 		List<String> idsAllowedList = new ArrayList<String>();
 
-		//obtain an iterator for the Collection
+		// obtain an iterator for the Collection
 		Iterator<Workgroup> idsAllowedIter = idsAllowed.iterator();
-		
-		//loop through all the Workgroups in the Collection
-		while(idsAllowedIter.hasNext()) {
-			//obtain the workgroup id from the Workgroup
+
+		// loop through all the Workgroups in the Collection
+		while (idsAllowedIter.hasNext()) {
+			// obtain the workgroup id from the Workgroup
 			String idAllowed = idsAllowedIter.next().getId().toString();
-			
-			//add the workgroup id string to the list of allowed ids
+
+			// add the workgroup id string to the list of allowed ids
 			idsAllowedList.add(idAllowed);
 		}
-		
-		//see if all the elements in the accessing list are in the allowed list
+
+		// see if all the elements in the accessing list are in the allowed list
 		return idsAllowedList.containsAll(idsAccessingList);
 	}
-	
 
 	private ModelAndView handleGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String type = request.getParameter("type");
 		ServletContext servletContext2 = this.getServletContext();
-		ServletContext vlewrappercontext = servletContext2.getContext("/vlewrapper");
-		
+		ServletContext vlewrappercontext = servletContext2
+				.getContext("/vlewrapper");
+
 		User user = ControllerUtil.getSignedInUser();
 		CredentialManager.setRequestCredentials(request, user);
-		
-		//get the run id
+
+		// get the run id
 		String runIdString = request.getParameter("runId");
 		Long runId = null;
-		
-		if(runIdString != null) {
+
+		if (runIdString != null) {
 			runId = Long.parseLong(runIdString);
 		}
-		
+
 		Run run = null;
 		try {
-			if(runId != null) {
-				//get the run object
-				run = runService.retrieveById(runId);				
+			if (runId != null) {
+				// get the run object
+				run = runService.retrieveById(runId);
 			}
 		} catch (ObjectNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		if (type == null) {
 			// get student data
-			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/getdata.html");
+			RequestDispatcher requestDispatcher = vlewrappercontext
+					.getRequestDispatcher("/getdata.html");
 			requestDispatcher.forward(request, response);
-		} else if (type.equals("brainstorm")){
-			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/getdata.html");
+		} else if (type.equals("brainstorm")) {
+			RequestDispatcher requestDispatcher = vlewrappercontext
+					.getRequestDispatcher("/getdata.html");
 			requestDispatcher.forward(request, response);
-		} else if (type.equals("flag") || type.equals("inappropriateFlag") || type.equals("annotation")){			// get flags
+		} else if (type.equals("flag") || type.equals("inappropriateFlag")
+				|| type.equals("annotation")) { // get flags
 			/*
-			 * set the user info JSONObjects into the request so the vlewrapper servlet
-			 * has access to the teacher and classmate info
+			 * set the user info JSONObjects into the request so the vlewrapper
+			 * servlet has access to the teacher and classmate info
 			 */
 			setUserInfos(run, request);
-			
+
 			setCRaterAttributes(request);
-			
-			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/annotations.html");
+
+			RequestDispatcher requestDispatcher = vlewrappercontext
+					.getRequestDispatcher("/annotations.html");
 			requestDispatcher.forward(request, response);
 		} else if (type.equals("journal")) {
-			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/journaldata.html");
+			RequestDispatcher requestDispatcher = vlewrappercontext
+					.getRequestDispatcher("/journaldata.html");
 			requestDispatcher.forward(request, response);
 		} else if (type.equals("peerreview")) {
-			//get the period id
+			// get the period id
 			String periodString = request.getParameter("periodId");
 			Long period = null;
-			if(periodString != null) {
-				period = Long.parseLong(periodString);	
+			if (periodString != null) {
+				period = Long.parseLong(periodString);
 			}
-			
+
 			try {
 				/*
-				 * set the number of students in the class period for when we need
-				 * to calculate peer review opening
+				 * set the number of students in the class period for when we
+				 * need to calculate peer review opening
 				 */
-				Set<Workgroup> classmateWorkgroups = runService.getWorkgroups(runId, period);
-				request.setAttribute("numWorkgroups", classmateWorkgroups.size());
+				Set<Workgroup> classmateWorkgroups = runService.getWorkgroups(
+						runId, period);
+				request.setAttribute("numWorkgroups",
+						classmateWorkgroups.size());
 			} catch (ObjectNotFoundException e) {
 				e.printStackTrace();
 			}
-			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/peerreview.html");
+			RequestDispatcher requestDispatcher = vlewrappercontext
+					.getRequestDispatcher("/peerreview.html");
 			requestDispatcher.forward(request, response);
 		} else if (type.equals("xlsexport") || type.equals("specialExport")) {
-			//set the user info into the request object
+			// set the user info into the request object
 			setUserInfos(run, request);
-			
-			//set the project path into the request object
+
+			// set the project path into the request object
 			setProjectPath(run, request);
-			
-			//set the project meta data into the request object
+
+			// set the project meta data into the request object
 			setProjectMetaData(run, request);
-			
+
 			String requestPath = "";
-			
-			if(type.equals("xlsexport")) {
-				//get the path for regular exports
+
+			if (type.equals("xlsexport")) {
+				// get the path for regular exports
 				requestPath = "/getxls.html";
-			} else if(type.equals("specialExport")) {
-				//get the path for special exports
+			} else if (type.equals("specialExport")) {
+				// get the path for special exports
 				requestPath = "/getSpecialExport.html";
 			}
-			
-			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher(requestPath);
+
+			RequestDispatcher requestDispatcher = vlewrappercontext
+					.getRequestDispatcher(requestPath);
 			requestDispatcher.forward(request, response);
-		} else if(type.equals("ideaBasket")) {
+		} else if (type.equals("ideaBasket")) {
 			handleIdeaBasket(request, response);
-		} else if(type.equals("studentAssetManager")) {
+		} else if (type.equals("studentAssetManager")) {
 			handleStudentAssetManager(request, response);
-		} else if(type.equals("viewStudentAssets")) {
+		} else if (type.equals("viewStudentAssets")) {
 			handleViewStudentAssets(request, response);
 		} else if (type.equals("xmppAuthenticate")) {
 			// check if this portal is xmpp enabled first
-			String isXMPPEnabled = portalProperties.getProperty("isXMPPEnabled");
+			String isXMPPEnabled = portalProperties
+					.getProperty("isXMPPEnabled");
 			if (isXMPPEnabled != null && Boolean.valueOf(isXMPPEnabled)) {
-				handleWISEXMPPAuthenticate(request,response);
+				handleWISEXMPPAuthenticate(request, response);
 			}
-		} else if(type.equals("cRater")) {
+		} else if (type.equals("cRater")) {
 			setCRaterAttributes(request);
-			
-			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/cRater.html");
+
+			RequestDispatcher requestDispatcher = vlewrappercontext
+					.getRequestDispatcher("/cRater.html");
+			requestDispatcher.forward(request, response);
+		} else if (type.equals("rimage")) { // forwarding get request related rapache
+			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/rapache.html");
 			requestDispatcher.forward(request, response);
 		}
 		return null;
@@ -469,74 +512,93 @@ public class BridgeController extends AbstractController {
 			HttpServletResponse response) throws ServletException, IOException {
 		String type = request.getParameter("type");
 		ServletContext servletContext2 = this.getServletContext();
-		ServletContext vlewrappercontext = servletContext2.getContext("/vlewrapper");
+		ServletContext vlewrappercontext = servletContext2
+				.getContext("/vlewrapper");
 		User user = ControllerUtil.getSignedInUser();
 		CredentialManager.setRequestCredentials(request, user);
-		
+
 		if (type == null) {
 			// post student data
-			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/postdata.html");
+			RequestDispatcher requestDispatcher = vlewrappercontext
+					.getRequestDispatcher("/postdata.html");
 			requestDispatcher.forward(request, response);
-		} else if (type.equals("flag") || type.equals("inappropriateFlag") || type.equals("annotation")){
-			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/annotations.html");
+		} else if (type.equals("flag") || type.equals("inappropriateFlag")
+				|| type.equals("annotation")) {
+			RequestDispatcher requestDispatcher = vlewrappercontext
+					.getRequestDispatcher("/annotations.html");
 			requestDispatcher.forward(request, response);
 		} else if (type.equals("journal")) {
-			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/journaldata.html");
+			RequestDispatcher requestDispatcher = vlewrappercontext
+					.getRequestDispatcher("/journaldata.html");
 			requestDispatcher.forward(request, response);
 		} else if (type.equals("peerreview")) {
-			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/peerreview.html");
+			RequestDispatcher requestDispatcher = vlewrappercontext
+					.getRequestDispatcher("/peerreview.html");
 			requestDispatcher.forward(request, response);
-		} else if(type.equals("ideaBasket")) {
+		} else if (type.equals("ideaBasket")) {
 			handleIdeaBasket(request, response);
-		} else if(type.equals("studentAssetManager")) {
+		} else if (type.equals("studentAssetManager")) {
 			handleStudentAssetManager(request, response);
-		} else if(type.equals("viewStudentAssets")) {
+		} else if (type.equals("viewStudentAssets")) {
 			handleViewStudentAssets(request, response);
+		} else if (type.equals("rstat")) { // forwarding post request related rapache
+			 RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/rapache.html");
+			 requestDispatcher.forward(request, response);
 		}
 		return null;
 	}
-	
-	private void handleIdeaBasket(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	private void handleIdeaBasket(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		ServletContext servletContext2 = this.getServletContext();
-		ServletContext vlewrappercontext = servletContext2.getContext("/vlewrapper");
+		ServletContext vlewrappercontext = servletContext2
+				.getContext("/vlewrapper");
 		User user = ControllerUtil.getSignedInUser();
 		String action = request.getParameter("action");
-		
+
 		try {
-			//check if the request is for all idea baskets and the user is not a teacher
-			if(action.equals("getAllIdeaBaskets") && !(user.getUserDetails() instanceof TeacherUserDetails)) {
+			// check if the request is for all idea baskets and the user is not
+			// a teacher
+			if (action.equals("getAllIdeaBaskets")
+					&& !(user.getUserDetails() instanceof TeacherUserDetails)) {
 				/*
-				 * the request is for all idea baskets and the user is not a teacher
-				 * so we will not allow this
+				 * the request is for all idea baskets and the user is not a
+				 * teacher so we will not allow this
 				 */
-				response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You are not authorized to access this page");
+				response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
+						"You are not authorized to access this page");
 			} else {
-				//get the run
+				// get the run
 				String runId = request.getParameter("runId");
 				Run run = runService.retrieveById(new Long(runId));
-				
-				//get the project id
+
+				// get the project id
 				Project project = run.getProject();
 				Serializable projectId = project.getId();
-				
-				//set the project id into the request so the vlewrapper controller has access to it
+
+				// set the project id into the request so the vlewrapper
+				// controller has access to it
 				request.setAttribute("projectId", projectId + "");
 
-				// if admin is requesting all baskets, there is no need to get the workgroupId.
+				// if admin is requesting all baskets, there is no need to get
+				// the workgroupId.
 				if (!user.isAdmin()) {
 
-					//get the workgroup id
-					List<Workgroup> workgroupListByOfferingAndUser = workgroupService.getWorkgroupListByOfferingAndUser(run, user);
+					// get the workgroup id
+					List<Workgroup> workgroupListByOfferingAndUser = workgroupService
+							.getWorkgroupListByOfferingAndUser(run, user);
 					Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
 					Long workgroupId = workgroup.getId();
 
-					//set the workgroup id into the request so the vlewrapper controller has access to it
+					// set the workgroup id into the request so the vlewrapper
+					// controller has access to it
 					request.setAttribute("workgroupId", workgroupId + "");
 				}
-				
-				//forward the request to the vlewrapper controller
-				RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/ideaBasket.html");
-				requestDispatcher.forward(request, response);				
+
+				// forward the request to the vlewrapper controller
+				RequestDispatcher requestDispatcher = vlewrappercontext
+						.getRequestDispatcher("/ideaBasket.html");
+				requestDispatcher.forward(request, response);
 			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
@@ -544,38 +606,44 @@ public class BridgeController extends AbstractController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void handleViewStudentAssets(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ServletContext servletContext2 = this.getServletContext();
-		ServletContext vlewrappercontext = servletContext2.getContext("/vlewrapper");
+		ServletContext vlewrappercontext = servletContext2
+				.getContext("/vlewrapper");
 		User user = ControllerUtil.getSignedInUser();
-		String studentuploads_base_dir = portalProperties.getProperty("studentuploads_base_dir");
-		
+		String studentuploads_base_dir = portalProperties
+				.getProperty("studentuploads_base_dir");
+
 		try {
-			//get the run
+			// get the run
 			String runId = request.getParameter("runId");
 			Run run = runService.retrieveById(new Long(runId));
-			
-			//get the project id
+
+			// get the project id
 			Project project = run.getProject();
 			Serializable projectId = project.getId();
-			
-			//set the project id into the request so the vlewrapper controller has access to it
+
+			// set the project id into the request so the vlewrapper controller
+			// has access to it
 			request.setAttribute("projectId", projectId + "");
 
-			//set the workgroup id into the request so the vlewrapper controller has access to it
+			// set the workgroup id into the request so the vlewrapper
+			// controller has access to it
 			if (studentuploads_base_dir != null) {
-				request.setAttribute("studentuploads_base_dir", studentuploads_base_dir);
+				request.setAttribute("studentuploads_base_dir",
+						studentuploads_base_dir);
 			}
-			
+
 			// workgroups is a ":" separated string of workgroups
 			String workgroups = request.getParameter("workgroups");
-			
+
 			request.setAttribute("dirName", workgroups);
-			
-			//forward the request to the vlewrapper controller
-			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/vle/studentassetmanager.html");
+
+			// forward the request to the vlewrapper controller
+			RequestDispatcher requestDispatcher = vlewrappercontext
+					.getRequestDispatcher("/vle/studentassetmanager.html");
 			requestDispatcher.forward(request, response);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
@@ -583,60 +651,67 @@ public class BridgeController extends AbstractController {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	private void handleStudentAssetManager(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	private void handleStudentAssetManager(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		ServletContext servletContext2 = this.getServletContext();
-		ServletContext vlewrappercontext = servletContext2.getContext("/vlewrapper");
+		ServletContext vlewrappercontext = servletContext2
+				.getContext("/vlewrapper");
 		User user = ControllerUtil.getSignedInUser();
-		String studentuploads_base_dir = portalProperties.getProperty("studentuploads_base_dir");
-		
+		String studentuploads_base_dir = portalProperties
+				.getProperty("studentuploads_base_dir");
+
 		try {
-			//get the run
+			// get the run
 			String runId = request.getParameter("runId");
 			Run run = runService.retrieveById(new Long(runId));
-			
-			//get the project id
+
+			// get the project id
 			Project project = run.getProject();
 			Serializable projectId = project.getId();
-			
-			//set the project id into the request so the vlewrapper controller has access to it
+
+			// set the project id into the request so the vlewrapper controller
+			// has access to it
 			request.setAttribute("projectId", projectId + "");
 
-			//get the workgroup id
-			List<Workgroup> workgroupListByOfferingAndUser = workgroupService.getWorkgroupListByOfferingAndUser(run, user);
+			// get the workgroup id
+			List<Workgroup> workgroupListByOfferingAndUser = workgroupService
+					.getWorkgroupListByOfferingAndUser(run, user);
 			Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
 			Long workgroupId = workgroup.getId();
 
-			//set the workgroup id into the request so the vlewrapper controller has access to it
+			// set the workgroup id into the request so the vlewrapper
+			// controller has access to it
 			request.setAttribute("dirName", workgroupId + "");
 			if (studentuploads_base_dir != null) {
-				request.setAttribute("studentuploads_base_dir", studentuploads_base_dir);
+				request.setAttribute("studentuploads_base_dir",
+						studentuploads_base_dir);
 			}
-			//forward the request to the vlewrapper controller
-			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/vle/studentassetmanager.html");
+			// forward the request to the vlewrapper controller
+			RequestDispatcher requestDispatcher = vlewrappercontext
+					.getRequestDispatcher("/vle/studentassetmanager.html");
 			requestDispatcher.forward(request, response);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (ObjectNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		
+
 	}
-	
 
 	class XMPPCreateUserRestCommand extends AbstractHttpRestCommand {
 		String runId;
 		String workgroupId;
-		
+
 		/**
 		 * Create the MD5 hashed password for the xmpp ejabberd user
+		 * 
 		 * @param workgroupIdString
 		 * @param runIdString
 		 * @return
 		 */
-		private String generateUniqueIdMD5(String workgroupIdString, String runIdString) {
+		private String generateUniqueIdMD5(String workgroupIdString,
+				String runIdString) {
 			String passwordUnhashed = workgroupIdString + "-" + runIdString;
 			MessageDigest m = null;
 			try {
@@ -644,41 +719,47 @@ public class BridgeController extends AbstractController {
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
-		    m.update(passwordUnhashed.getBytes(),0,passwordUnhashed.length());
-		    String uniqueIdMD5 = new BigInteger(1,m.digest()).toString(16);
+			m.update(passwordUnhashed.getBytes(), 0, passwordUnhashed.length());
+			String uniqueIdMD5 = new BigInteger(1, m.digest()).toString(16);
 			return uniqueIdMD5;
 		}
-		
-		
-		public JSONObject run() {
-			//get the username and password for the ejabberd account
-			String username = workgroupId;
-			String password = generateUniqueIdMD5(workgroupId,runId);
-			
-			//get the xmmp server base url e.g. http://wise4.berkeley.edu:5285
-			String xmppServerBaseUrl = portalProperties.getProperty("xmppServerBaseUrl");
 
-			//get the xmpp server host name e.g. wise4.berkeley.edu
-			String xmppServerHostName = ControllerUtil.getHostNameFromUrl(xmppServerBaseUrl);
-			
-			//make the request to register the user in the ejabberd database
-			String bodyData = "register \"" + username + "\" \"" + xmppServerHostName + "\" \"" + password + "\"";
-			HttpPostRequest httpPostRequestData = new HttpPostRequest(REQUEST_HEADERS_CONTENT, EMPTY_STRING_MAP,
-					bodyData, "/rest", HttpStatus.SC_OK);
+		public JSONObject run() {
+			// get the username and password for the ejabberd account
+			String username = workgroupId;
+			String password = generateUniqueIdMD5(workgroupId, runId);
+
+			// get the xmmp server base url e.g. http://wise4.berkeley.edu:5285
+			String xmppServerBaseUrl = portalProperties
+					.getProperty("xmppServerBaseUrl");
+
+			// get the xmpp server host name e.g. wise4.berkeley.edu
+			String xmppServerHostName = ControllerUtil
+					.getHostNameFromUrl(xmppServerBaseUrl);
+
+			// make the request to register the user in the ejabberd database
+			String bodyData = "register \"" + username + "\" \""
+					+ xmppServerHostName + "\" \"" + password + "\"";
+			HttpPostRequest httpPostRequestData = new HttpPostRequest(
+					REQUEST_HEADERS_CONTENT, EMPTY_STRING_MAP, bodyData,
+					"/rest", HttpStatus.SC_OK);
 
 			try {
-				// try to create a user.  if user already exists, xmpp server will throw 500 internal error
-				// otherwise, it will return 200 OK. in either case, we've successfully created a user on xmpp.
+				// try to create a user. if user already exists, xmpp server
+				// will throw 500 internal error
+				// otherwise, it will return 200 OK. in either case, we've
+				// successfully created a user on xmpp.
 				this.transport.post(httpPostRequestData);
 			} catch (HttpStatusCodeException e) {
-				// this might mean that the user already exists on the xmpp server
-				//e.printStackTrace();
+				// this might mean that the user already exists on the xmpp
+				// server
+				// e.printStackTrace();
 			}
 
 			JSONObject xmppUserObject = new JSONObject();
-			
+
 			try {
-				//populate the xmppUserObject fields
+				// populate the xmppUserObject fields
 				xmppUserObject.put("xmppUsername", username);
 				xmppUserObject.put("xmppPassword", password);
 			} catch (JSONException e) {
@@ -688,138 +769,164 @@ public class BridgeController extends AbstractController {
 
 			return xmppUserObject;
 		}
+
 		/**
-		 * @param runId the runId to set
+		 * @param runId
+		 *            the runId to set
 		 */
 		public void setRunId(String runId) {
 			this.runId = runId;
 		}
+
 		/**
-		 * @param workgroupId the workgroupId to set
+		 * @param workgroupId
+		 *            the workgroupId to set
 		 */
 		public void setWorkgroupId(String workgroupId) {
 			this.workgroupId = workgroupId;
 		}
 	}
-	
-	private void handleWISEXMPPAuthenticate(HttpServletRequest request, HttpServletResponse response) {
-		// connect to ejabberd via Connector.java, 
+
+	private void handleWISEXMPPAuthenticate(HttpServletRequest request,
+			HttpServletResponse response) {
+		// connect to ejabberd via Connector.java,
 		// find username/password for logged in user's workgroupId from ejabberd
 		// if not found, create a new user
-		// then return a json obj in the response that looks like this: {"xmppUsername":"abc","xmppPassword":"bla"}
-		String xmppServerBaseUrl = portalProperties.getProperty("xmppServerBaseUrl");
+		// then return a json obj in the response that looks like this:
+		// {"xmppUsername":"abc","xmppPassword":"bla"}
+		String xmppServerBaseUrl = portalProperties
+				.getProperty("xmppServerBaseUrl");
 		if (xmppServerBaseUrl == null) {
 			return;
 		}
-		
+
 		XMPPCreateUserRestCommand restCommand = new XMPPCreateUserRestCommand();
-		
-		//set fields for rest command
+
+		// set fields for rest command
 		String runId = request.getParameter("runId");
 		String workgroupId = request.getParameter("workgroupId");
 		restCommand.setRunId(runId);
 		restCommand.setWorkgroupId(workgroupId);
 
-		//make the rest request
+		// make the rest request
 		HttpRestTransportImpl restTransport = new HttpRestTransportImpl();
-		restTransport.setBaseUrl(xmppServerBaseUrl);		
+		restTransport.setBaseUrl(xmppServerBaseUrl);
 		restCommand.setTransport(restTransport);
-		
-		// xmppUserObject looks like this: {"xmppUsername":"abc","xmppPassword":"bla"}
+
+		// xmppUserObject looks like this:
+		// {"xmppUsername":"abc","xmppPassword":"bla"}
 		JSONObject xmppUserObject = restCommand.run();
 		try {
-			//print the xmppUserObject to the response
+			// print the xmppUserObject to the response
 			response.getWriter().print(xmppUserObject.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	/**
-	 * Sets the classmate, teacher and shared teacher user infos
-	 * into the request object so they can be retrieved by the
-	 * vlewrapper servlets
+	 * Sets the classmate, teacher and shared teacher user infos into the
+	 * request object so they can be retrieved by the vlewrapper servlets
+	 * 
 	 * @param run
 	 * @param request
 	 */
 	private void setUserInfos(Run run, HttpServletRequest request) {
-		//get the signed in user info
-		JSONObject myUserInfoJSONObject = RunUtil.getMyUserInfo(run, workgroupService); 
-			
-		//get the classmate user infos
-		JSONArray classmateUserInfosJSONArray = RunUtil.getClassmateUserInfos(run, workgroupService, runService);
-		
-		//get the teacher info
-		JSONObject teacherUserInfoJSONObject = RunUtil.getTeacherUserInfo(run, workgroupService);
-		
-		//get the shared teacher infos
-		JSONArray sharedTeacherUserInfosJSONArray = RunUtil.getSharedTeacherUserInfos(run, workgroupService);
-		
-		//get the run info
+		// get the signed in user info
+		JSONObject myUserInfoJSONObject = RunUtil.getMyUserInfo(run,
+				workgroupService);
+
+		// get the classmate user infos
+		JSONArray classmateUserInfosJSONArray = RunUtil.getClassmateUserInfos(
+				run, workgroupService, runService);
+
+		// get the teacher info
+		JSONObject teacherUserInfoJSONObject = RunUtil.getTeacherUserInfo(run,
+				workgroupService);
+
+		// get the shared teacher infos
+		JSONArray sharedTeacherUserInfosJSONArray = RunUtil
+				.getSharedTeacherUserInfos(run, workgroupService);
+
+		// get the run info
 		JSONObject runInfoJSONObject = RunUtil.getRunInfo(run);
-		
-		//set the JSON objects to request attributes so the vlewrapper servlet can access them
-		request.setAttribute("myUserInfo", myUserInfoJSONObject.toString());		
-		request.setAttribute("classmateUserInfos", classmateUserInfosJSONArray.toString());
-		request.setAttribute("teacherUserInfo", teacherUserInfoJSONObject.toString());
-		request.setAttribute("sharedTeacherUserInfos", sharedTeacherUserInfosJSONArray.toString());
+
+		// set the JSON objects to request attributes so the vlewrapper servlet
+		// can access them
+		request.setAttribute("myUserInfo", myUserInfoJSONObject.toString());
+		request.setAttribute("classmateUserInfos",
+				classmateUserInfosJSONArray.toString());
+		request.setAttribute("teacherUserInfo",
+				teacherUserInfoJSONObject.toString());
+		request.setAttribute("sharedTeacherUserInfos",
+				sharedTeacherUserInfosJSONArray.toString());
 		request.setAttribute("runInfo", runInfoJSONObject.toString());
-		
-		//get all the student attendance entries for this run
-		List<StudentAttendance> studentAttendanceList = studentAttendanceService.getStudentAttendanceByRunId(run.getId());
+
+		// get all the student attendance entries for this run
+		List<StudentAttendance> studentAttendanceList = studentAttendanceService
+				.getStudentAttendanceByRunId(run.getId());
 		JSONArray studentAttendanceJSONArray = new JSONArray();
-		
+
 		/*
-		 * loop through all the student attendance entries so we can
-		 * create JSONObjects out of them to put in our studentAttendanceJSONArray
+		 * loop through all the student attendance entries so we can create
+		 * JSONObjects out of them to put in our studentAttendanceJSONArray
 		 */
-		for(int x=0; x<studentAttendanceList.size(); x++) {
-			//get a StudenAttendance object
+		for (int x = 0; x < studentAttendanceList.size(); x++) {
+			// get a StudenAttendance object
 			StudentAttendance studentAttendance = studentAttendanceList.get(x);
-			
-			//get the JSONObject representation
-			JSONObject studentAttendanceJSONObj = studentAttendance.toJSONObject();
-			
-			//add it to our array
+
+			// get the JSONObject representation
+			JSONObject studentAttendanceJSONObj = studentAttendance
+					.toJSONObject();
+
+			// add it to our array
 			studentAttendanceJSONArray.put(studentAttendanceJSONObj);
 		}
-		
+
 		/*
 		 * set the student attendance array as an attribute so the vlewrapper
 		 * context can access this data
 		 */
-		request.setAttribute("studentAttendance", studentAttendanceJSONArray.toString());
+		request.setAttribute("studentAttendance",
+				studentAttendanceJSONArray.toString());
 	}
-	
+
 	/**
-	 * Sets the CRater urls and client id so the VLEAnnotationController can make
-	 * requests to the CRater server.
+	 * Sets the CRater urls and client id so the VLEAnnotationController can
+	 * make requests to the CRater server.
+	 * 
 	 * @param request
 	 */
 	private void setCRaterAttributes(HttpServletRequest request) {
-		request.setAttribute("cRaterVerificationUrl", portalProperties.getProperty("cRater_verification_url"));
-		request.setAttribute("cRaterScoringUrl", portalProperties.getProperty("cRater_scoring_url"));
-		request.setAttribute("cRaterClientId", portalProperties.getProperty("cRater_client_id"));
+		request.setAttribute("cRaterVerificationUrl",
+				portalProperties.getProperty("cRater_verification_url"));
+		request.setAttribute("cRaterScoringUrl",
+				portalProperties.getProperty("cRater_scoring_url"));
+		request.setAttribute("cRaterClientId",
+				portalProperties.getProperty("cRater_client_id"));
 	}
-	
+
 	/**
-	 * Set the project path into the request as an attribute so that we can access
-	 * it in other controllers
+	 * Set the project path into the request as an attribute so that we can
+	 * access it in other controllers
+	 * 
 	 * @param run
 	 * @param request
 	 */
 	private void setProjectPath(Run run, HttpServletRequest request) {
-		String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
-		String rawProjectUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());		
+		String curriculumBaseDir = portalProperties
+				.getProperty("curriculum_base_dir");
+		String rawProjectUrl = (String) run.getProject().getCurnit()
+				.accept(new CurnitGetCurnitUrlVisitor());
 		String projectPath = curriculumBaseDir + rawProjectUrl;
-		
+
 		request.setAttribute("projectPath", projectPath);
 	}
-	
+
 	/**
-	 * Set the project meta data into the request as an attribute so that we can access
-	 * it in other controllers
+	 * Set the project meta data into the request as an attribute so that we can
+	 * access it in other controllers
+	 * 
 	 * @param run
 	 * @param request
 	 */
@@ -827,10 +934,10 @@ public class BridgeController extends AbstractController {
 		Project project = run.getProject();
 		ProjectMetadata metadata = project.getMetadata();
 		String projectMetaDataJSONString = metadata.toJSONString();
-		
+
 		request.setAttribute("projectMetaData", projectMetaDataJSONString);
 	}
-	
+
 	/**
 	 * @return the workgroupService
 	 */
@@ -839,12 +946,13 @@ public class BridgeController extends AbstractController {
 	}
 
 	/**
-	 * @param workgroupService the workgroupService to set
+	 * @param workgroupService
+	 *            the workgroupService to set
 	 */
 	public void setWorkgroupService(WISEWorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
 	}
-	
+
 	public RunService getRunService() {
 		return runService;
 	}
@@ -852,9 +960,10 @@ public class BridgeController extends AbstractController {
 	public void setRunService(RunService runService) {
 		this.runService = runService;
 	}
-	
+
 	/**
-	 * @param portalProperties the portalProperties to set
+	 * @param portalProperties
+	 *            the portalProperties to set
 	 */
 	public void setPortalProperties(Properties portalProperties) {
 		this.portalProperties = portalProperties;
