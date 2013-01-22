@@ -304,7 +304,7 @@
 			value="org.telscenter.sail.webapp.domain.impl.RunParameters" />
         <property name="javaMail" ref="javaMail"/>
 		<property name="emaillisteners" ref="emaillisteners" />			
-		<property name="uiHTMLProperties" ref="uihtmlproperties" />		
+		<property name="messageSource" ref="messageSource" />      	
 		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 	
