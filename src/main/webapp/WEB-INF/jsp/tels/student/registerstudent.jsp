@@ -95,10 +95,10 @@ function checkForExistingAccountsAndCreateAccount() {
 		
 		if(existingAccountsArray.length > 1) {
 			//message to display if we found multiple accounts
-			existingAccountsHtml += "<p style='color:red'><spring:message code='student.registerstudent.accountAlreadyExists'/></p>";
+			existingAccountsHtml += "<p style='color:red'><spring:message code='student.registerstudent.accountsAlreadyExistWarning'/></p>";
 		} else {
 			//message to display if we found a single account
-			existingAccountsHtml += "<p style='color:red'><spring:message code='student.registerstudent.accountAlreadyExists'/></p>";
+			existingAccountsHtml += "<p style='color:red'><spring:message code='student.registerstudent.accountAlreadyExistsWarning'/></p>";
 		}
 		
 		existingAccountsHtml += "<br>";
