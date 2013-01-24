@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -45,6 +46,7 @@ import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.context.MessageSource;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -83,6 +85,8 @@ public class ShareProjectRunController extends SimpleFormController {
 	private Properties emaillisteners = null;
 
 	protected Properties portalProperties;	
+
+	private MessageSource messageSource;
 
 	protected static final String RUNID_PARAM_NAME = "runId";
 
@@ -199,7 +203,8 @@ public class ShareProjectRunController extends SimpleFormController {
     			if (newSharedOwner) {
     				User sharer = ControllerUtil.getSignedInUser();
 
-    				ProjectRunEmailService emailService = new ProjectRunEmailService(sharer, retrievedUser,  params.getRun());
+    				Locale locale = request.getLocale();
+    				ProjectRunEmailService emailService = new ProjectRunEmailService(sharer, retrievedUser,  params.getRun(), locale);
     				Thread thread = new Thread(emailService);
     				thread.start();
     			}
@@ -220,11 +225,13 @@ public class ShareProjectRunController extends SimpleFormController {
     	private User sharer;
     	private User sharee;
     	private Run run;
+    	private Locale locale;
     	
-		public ProjectRunEmailService(User sharer, User sharee, Run run) {
+		public ProjectRunEmailService(User sharer, User sharee, Run run, Locale locale) {
 			this.sharer = sharer;
 			this.sharee = sharee;
 			this.run = run;
+			this.locale = locale;
 		}
 
 		public void run() {
@@ -253,7 +260,19 @@ public class ShareProjectRunController extends SimpleFormController {
 			String[] shareeEmailAddress = {shareeDetails.getEmailAddress()};
 			
 			String[] recipients = (String[]) ArrayUtils.addAll(shareeEmailAddress, emaillisteners.getProperty("uber_admin").split(","));
+
+			String defaultSubject = messageSource.getMessage("presentation.web.controllers.teacher.run.ShareProjectRunController.shareProjectRunConfirmationEmailSubject", 
+					new Object[] {sharerName}, Locale.US);
+			String subject = messageSource.getMessage("presentation.web.controllers.teacher.run.ShareProjectRunController.shareProjectRunConfirmationEmailSubject", 
+					new Object[] {sharerName}, defaultSubject, this.locale);
 			
+			String defaultMessage = messageSource.getMessage("presentation.web.controllers.teacher.run.ShareProjectRunController.shareProjectRunConfirmationEmailBody", 
+					new Object[] {sharerName}, Locale.US);
+			String message = messageSource.getMessage("presentation.web.controllers.teacher.run.ShareProjectRunController.shareProjectRunConfirmationEmailBody", 
+					new Object[] {sharerName, run.getName(), run.getId(), run.getProject().getName(), run.getProject().getId(), shareeDetails.getUsername(), sdf.format(date) },
+					defaultMessage, this.locale);
+			
+			/*
 			String subject = sharerName + " shared a project run with you on WISE4";	
 			String message = sharerName + " shared a project run with you on WISE4:\n\n" +
 				"Run Name: " + run.getName() + "\n" +
@@ -264,7 +283,7 @@ public class ShareProjectRunController extends SimpleFormController {
 				"Date this project was shared: " + sdf.format(date) + "\n\n\n" +
 				"Thanks,\n" +
 				"WISE4 Team";
-
+			*/
 			
 			String fromEmail = sharerEmailAddress;
 			
@@ -304,6 +323,10 @@ public class ShareProjectRunController extends SimpleFormController {
 		this.portalProperties = portalProperties;
 	}
 	
+	public void setMessageSource(MessageSource messageSource) {
+		this.messageSource = messageSource;
+	}
+
 	/**
 	 * @param runService the runService to set
 	 */
