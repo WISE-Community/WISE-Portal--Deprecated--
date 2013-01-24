@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -25,6 +26,7 @@ import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.context.MessageSource;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -56,7 +58,9 @@ public class ShareProjectController extends SimpleFormController {
 	private Properties emaillisteners = null;
 
 	protected Properties portalProperties;
-	
+
+	private MessageSource messageSource;
+
 	protected static final String PROJECTID_PARAM_NAME = "projectId";
 
 	protected static final String PROJECT_PARAM_NAME = "project";
@@ -176,8 +180,9 @@ public class ShareProjectController extends SimpleFormController {
     				Project project = projectService.getById(params.getProject().getId());
     				// only send email if this is a new shared owner
     				if (newSharedOwner) {
+    					Locale locale = request.getLocale();
     					ShareProjectEmailService emailService = 
-    						new ShareProjectEmailService(signedInUser, retrievedUser, project, ControllerUtil.getBaseUrlString(request));
+    						new ShareProjectEmailService(signedInUser, retrievedUser, project, ControllerUtil.getBaseUrlString(request),locale);
     					Thread thread = new Thread(emailService);
     					thread.start();
     				}
@@ -201,13 +206,15 @@ public class ShareProjectController extends SimpleFormController {
     	private User sharee;
     	private Project project;
     	private String portalBaseUrlString;
+		private Locale locale;
 
 		public ShareProjectEmailService(User sharer, User sharee,
-				Project project, String portalBaseUrlString) {
+				Project project, String portalBaseUrlString, Locale locale) {
 			this.sharer = sharer;
 			this.sharee = sharee;
 			this.project = project;
 			this.portalBaseUrlString = portalBaseUrlString;
+			this.locale = locale;
 		}
 
 		public void run() {
@@ -235,16 +242,14 @@ public class ShareProjectController extends SimpleFormController {
 
     		String[] recipients = (String[]) ArrayUtils.addAll(shareeEmailAddress, emaillisteners.getProperty("uber_admin").split(","));
     		
-    		String subject = sharerName + " shared a project with you on WISE4";	
-    		String message = sharerName + " shared a project with you on WISE4:\n\n" +
-    		"Project Name: " + project.getName() + "\n" +
-    		"Project ID: " + project.getId() + "\n" +
-    		"Shared with username: " + shareeDetails.getUsername() + "\n" +
-    		"Date this project was shared: " + sdf.format(date) + "\n\n" +
-    		"Go to this URL to preview this project: " + previewProjectUrl + "\n\n" +
-    		"Thanks,\n" +
-    		"WISE4 Team";
-
+			String defaultSubject = messageSource.getMessage("presentation.web.controllers.teacher.project.customized.ShareProjectController.shareProjectConfirmationEmailSubject", 
+					new Object[] {sharerName}, Locale.US);
+			String subject = messageSource.getMessage("presentation.web.controllers.teacher.project.customized.ShareProjectController.shareProjectConfirmationEmailSubject", 
+					new Object[] {sharerName}, defaultSubject, this.locale);
+			String defaultMessage = messageSource.getMessage("presentation.web.controllers.teacher.project.customized.ShareProjectController.shareProjectConfirmationEmailBody", 
+					new Object[] {sharerName,project.getName(),project.getId(),shareeDetails.getUsername(),sdf.format(date), previewProjectUrl}, Locale.US);
+			String message = messageSource.getMessage("presentation.web.controllers.teacher.project.customized.ShareProjectController.shareProjectConfirmationEmailBody", 
+					new Object[] {sharerName,project.getName(),project.getId(),shareeDetails.getUsername(),sdf.format(date), previewProjectUrl}, defaultMessage, this.locale);
 
     		String fromEmail = sharerEmailAddress;
 
@@ -316,5 +321,9 @@ public class ShareProjectController extends SimpleFormController {
 	 */
 	public void setAclService(AclService<Project> aclService) {
 		this.aclService = aclService;
+	}
+
+	public void setMessageSource(MessageSource messageSource) {
+		this.messageSource = messageSource;
 	}
 }
