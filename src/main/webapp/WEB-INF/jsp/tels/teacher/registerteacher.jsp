@@ -152,7 +152,7 @@ function checkIfLegalAcknowledged () {
  */
 function checkIfReallyWantToCreateAccount() {
 	//ask the student again 
-	var answer = confirm('<spring:message code="teacher.registerteacher.pleaseDoNotCreateDuplicateAccounts"/>');
+	var answer = confirm("<spring:message code='teacher.registerteacher.pleaseDoNotCreateDuplicateAccounts'/>");
 	
 	if(answer) {
 		//create the account if they answered 'OK'
