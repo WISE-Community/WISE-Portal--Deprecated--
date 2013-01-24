@@ -8,6 +8,7 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
+<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="utilssource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
   
