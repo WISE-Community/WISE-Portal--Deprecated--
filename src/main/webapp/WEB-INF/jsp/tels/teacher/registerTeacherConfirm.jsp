@@ -10,6 +10,7 @@
   
 <title><spring:message code="teacher.registerTeacherConfirm.createAWiseAccount" /></title>
 
+<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="utilssource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 </head>

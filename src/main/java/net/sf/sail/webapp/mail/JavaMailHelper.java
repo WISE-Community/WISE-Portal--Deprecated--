@@ -60,7 +60,7 @@ public class JavaMailHelper implements IMailFacade {
 		sender.setPassword((String) properties.getProperty("mail.password"));
 		sender.setJavaMailProperties(properties);
 		MimeMessage mimeMessage = sender.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
 		helper.setFrom(from);
 		helper.setText(message);
 		helper.setSubject(subject);

@@ -240,10 +240,16 @@ p.summary {
 }
 
 div.projectLink {
-	/*position:absolute;
-	bottom: .5em;
-	left: 1em;*/
-	margin-left:85px;
+	background-color: #F7F2EA;
+    bottom: 0;
+    padding-left: 85px;
+    padding-top: 2px;
+    position: absolute;
+    width: 100%;
+    -moz-box-shadow: -5px -6px 5px #F7F2EA;
+    -webkit-box-shadow: -5px -6px 5px #F7F2EA;
+    -o-box-shadow: -5px -6px 5px #F7F2EA;
+    box-shadow: -5px -6px 5px #F7F2EA;
 }
 
 div.projectLink a {
@@ -262,7 +268,7 @@ div.projectLink a {
 .tinycarousel .prev {top:8px;}
 .tinycarousel .disable { color:#ddd !important; }
 .tinycarousel .overview { list-style: none; padding: 0; margin: 0;  position: absolute; left: 0; top: 0; }
-.tinycarousel .overview li{ margin: 0; padding: 0; height: 200px; width: 329px;}
+.tinycarousel .overview li{ margin: 0; padding: 0; height: 200px; width: 329px; overflow:hidden; position:relative; }
 
 .tinycarousel .pager { overflow: hidden; list-style: none; margin: 2px 0; width: 20px; position: absolute; top: 30px; right: 9px; }
 .tinycarousel .pager li {  }

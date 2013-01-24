@@ -588,6 +588,7 @@
 			value="org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters" />
         <property name="javaMail" ref="javaMail"/>
 		<property name="emaillisteners" ref="emaillisteners" />			
+		<property name="messageSource" ref="messageSource" />			
 		<property name="portalProperties" ref="portalproperties" />
 		<property name="successView" value="shareproject.html" />
 	 	<property name="formView" value="teacher/projects/customized/shareproject" />
@@ -686,6 +687,7 @@
         <property name="javaMail" ref="javaMail"/>
 		<property name="emaillisteners" ref="emaillisteners" />			
 		<property name="portalProperties" ref="portalproperties" />
+		<property name="messageSource" ref="messageSource" />			
 		<property name="successView" value="shareprojectrun.html" />
 	 	<property name="formView" value="teacher/run/shareprojectrun" />
     </bean>
