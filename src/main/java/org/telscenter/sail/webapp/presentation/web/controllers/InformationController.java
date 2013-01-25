@@ -399,7 +399,11 @@ public class InformationController extends AbstractController{
 			Workgroup workgroup = getWorkgroup(request, run);
 			
 			if(workgroup == null) {
-				//should not go here
+				/*
+				 * the user is not in a workgroup for the run so they should not be
+				 * allowed to access the config
+				 */
+				return;
 			} else if(((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
 				//workgroup is a teacher
 			} else {
@@ -708,30 +712,34 @@ public class InformationController extends AbstractController{
 		//User user = (User) request.getSession().getAttribute(
     	//		User.CURRENT_USER_SESSION_KEY);
 		SecurityContext context = SecurityContextHolder.getContext();
-		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		User user = userService.retrieveUser(userDetails);
 		
-		List<Workgroup> workgroupListByOfferingAndUser 
-		= workgroupService.getWorkgroupListByOfferingAndUser(run, user);
+		if(context.getAuthentication().getPrincipal() instanceof UserDetails) {
+			UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+			User user = userService.retrieveUser(userDetails);
+			
+			List<Workgroup> workgroupListByOfferingAndUser 
+			= workgroupService.getWorkgroupListByOfferingAndUser(run, user);
 
-		if (workgroupListByOfferingAndUser.size() > 0) {
-			workgroup = workgroupListByOfferingAndUser.get(0);
-		} else {
-			String previewRequest = request.getParameter(PREVIEW);
-			if (previewRequest != null && Boolean.valueOf(previewRequest)) {
-				// if this is a preview, workgroupId should be specified, so use
-				// that
-				String workgroupIdStr = request
-						.getParameter(WORKGROUP_ID_PARAM);
-				if (workgroupIdStr != null) {
-					workgroup = workgroupService.retrieveById(Long
-							.parseLong(workgroupIdStr));
-				} else {
-					workgroup = workgroupService
-							.getPreviewWorkgroupForRooloOffering(run, user);
+			if (workgroupListByOfferingAndUser.size() > 0) {
+				workgroup = workgroupListByOfferingAndUser.get(0);
+			} else {
+				String previewRequest = request.getParameter(PREVIEW);
+				if (previewRequest != null && Boolean.valueOf(previewRequest)) {
+					// if this is a preview, workgroupId should be specified, so use
+					// that
+					String workgroupIdStr = request
+							.getParameter(WORKGROUP_ID_PARAM);
+					if (workgroupIdStr != null) {
+						workgroup = workgroupService.retrieveById(Long
+								.parseLong(workgroupIdStr));
+					} else {
+						workgroup = workgroupService
+								.getPreviewWorkgroupForRooloOffering(run, user);
+					}
 				}
 			}
 		}
+
 		return workgroup;
 	}
 	
