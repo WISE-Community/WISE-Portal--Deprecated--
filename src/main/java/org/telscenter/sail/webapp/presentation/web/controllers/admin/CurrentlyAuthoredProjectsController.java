@@ -61,6 +61,13 @@ public class CurrentlyAuthoredProjectsController extends AbstractController {
 		HttpSession currentUserSession = request.getSession();
 		HashMap<String, ArrayList<String>> openedProjectsToSessions = 
 			(HashMap<String, ArrayList<String>>) currentUserSession.getServletContext().getAttribute("openedProjectsToSessions");
+
+		// use a copy to remove unused project ids. this will avoid concurrentmodificationexception. https://github.com/WISE-Community/WISE-Portal/issues/96
+		HashMap<String, ArrayList<String>> openedProjectsToSessionsCopy = new HashMap<String, ArrayList<String>>();
+		if (openedProjectsToSessions != null) {
+			openedProjectsToSessionsCopy.putAll(openedProjectsToSessions);
+		}
+		
 		HashMap<String, User> allLoggedInUsers = (HashMap<String, User>) currentUserSession.getServletContext()
 				.getAttribute(PasSessionListener.ALL_LOGGED_IN_USERS);
 		
@@ -78,7 +85,7 @@ public class CurrentlyAuthoredProjectsController extends AbstractController {
 					openedProjects.put(openedProjectId, project);
 				} else {
 					// otherwise remove this opened project id information from this set because it's not accurate
-					openedProjectsToSessions.remove(openedProjectId);
+					openedProjectsToSessionsCopy.remove(openedProjectId);
 				}
 			}
 		}
@@ -97,7 +104,7 @@ public class CurrentlyAuthoredProjectsController extends AbstractController {
 		mav.addObject("loggedInTeachers", loggedInTeachers);
 		mav.addObject("openedProjectIds", openedProjectIds);
 		mav.addObject("openedProjects", openedProjects);
-		mav.addObject("openedProjectsToSessions", openedProjectsToSessions);
+		mav.addObject("openedProjectsToSessions", openedProjectsToSessionsCopy);
 		return mav;
 	}
 
