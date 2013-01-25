@@ -593,10 +593,12 @@ public class BridgeController extends AbstractController {
 					} else {
 						//run id does not match the run that the student is logged in to
 						response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Run id does not match run that student is logged in to");
+						return;
 					}
 				} else {
 					//session id was not found which means the session probably timed out
 					response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Session no longer valid");
+					return;
 				}
 			}
 			
