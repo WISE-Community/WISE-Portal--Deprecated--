@@ -1,4 +1,4 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../../include.jsp"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +35,7 @@ $(document).ready(function(){
 	
 	// setup tabs
 	$( "#periodTabs" ).tabs({
-		selected: ${tabIndex},
+		active: ${tabIndex},
 		create: function(event, ui) { setTimeout(function(){setGradingContentHeight();},1000); }
 	});
 	
@@ -57,13 +57,13 @@ $(document).ready(function(){
 	// bind save button click to post workgroup changes
 	$('#saveButton').click(function(){
 		if(!$(this).hasClass('disabled')){
-			var selectedTab = $('#periodTabs').tabs("option", "selected"); 
+			var selectedTab = $('#periodTabs').tabs("option", "active"); 
 			postChanges(selectedTab);
 		}
 	});
 	
 	// setup student info dialog
-	$('.studentInfo').live('click',function(){
+	$('.studentInfo').on('click',function(){
 		var title = $(this).attr('title');
 		var username = $(this).attr('id').replace('studentInfo_','');
 		var path = "/webapp/studentinfo.html?userName=" + username;
@@ -84,7 +84,7 @@ $(document).ready(function(){
 	});
 	
 	// setup change password dialog
-	$('.changePassword').live('click',function(){
+	$('.changePassword').on('click',function(){
 		var title = $(this).attr('title');
 		var username = $(this).attr('id').replace('changePassword_','');
 		var path = "changestudentpassword.html?userName=" + username;
@@ -105,7 +105,7 @@ $(document).ready(function(){
 	});
 	
 	// setup change period dialog
-	$('.changePeriod').live('click',function(){
+	$('.changePeriod').on('click',function(){
 		var title = $(this).attr('title');
 		var data = $(this).attr('id').replace('changePeriod_','');
 		var path = "changestudentperiod.html?" + data;
@@ -134,7 +134,7 @@ $(document).ready(function(){
 	});
 	
 	// setup change period dialog
-	$('.removeStudent').live('click',function(){
+	$('.removeStudent').on('click',function(){
 		var title = $(this).attr('title');
 		var data = $(this).attr('id').replace('removeStudent_','');
 		var path = "removestudentfromrun.html?" + data;
@@ -163,7 +163,7 @@ $(document).ready(function(){
 	});
 	
 	// setup change all passwords dialog
-	$('.changeAllPasswords').live('click',function(){
+	$('.changeAllPasswords').on('click',function(){
 		var title = $(this).attr('title');
 		var data = $(this).attr('id').replace('changeAllPasswords_','');
 		var path = "batchstudentchangepassword.html?" + data;
@@ -384,7 +384,7 @@ var postChanges = function(tabIndex){
 
 // displays notification messages/warnings
 var displayNotification = function(message){
-	var selectedTab = $('#periodTabs').tabs("option", "selected");
+	var selectedTab = $('#periodTabs').tabs("option", "active");
 	var selected = selectedTab + 1;
 	var toolbars = $('#period_' + selected + ' .studentManageHeader');
 	var top = toolbars.offset().top + toolbars.outerHeight() + 7;

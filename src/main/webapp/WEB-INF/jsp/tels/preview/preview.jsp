@@ -1,3 +1,6 @@
+<%@ include file="../include.jsp"%>
+
+<!DOCTYPE html>
 <html>
 <head>
 <title>WISE4</title>

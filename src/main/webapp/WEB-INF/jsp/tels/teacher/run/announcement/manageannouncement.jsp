@@ -1,7 +1,7 @@
-<%@ include file="../include.jsp"%>
+<%@ include file="../../../include.jsp"%>
 
-<!DOCTYPE html >
-<html xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
 <head>
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />

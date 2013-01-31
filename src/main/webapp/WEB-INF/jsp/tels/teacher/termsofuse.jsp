@@ -1,6 +1,4 @@
-<%@ include file="include.jsp"%>
-
-<!-- $Id: index.jsp 888 2007-08-06 23:47:19Z archana $ -->
+<%@ include file="../include.jsp"%>
 
 <!DOCTYPE html>
 <html lang="en">

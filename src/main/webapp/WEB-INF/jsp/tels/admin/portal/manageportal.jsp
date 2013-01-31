@@ -1,4 +1,6 @@
 <%@ include file="../../include.jsp"%>
+
+<!DOCTYPE html>
 <html>
 <head>
 <script type="text/javascript" src="../../javascript/tels/jquery-1.4.1.min.js"></script>
