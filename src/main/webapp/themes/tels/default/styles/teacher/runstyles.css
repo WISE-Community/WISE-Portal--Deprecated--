@@ -1,8 +1,4 @@
 /* Project and run display styles */
-.dialog p {
-	font-size: 0.9em;
-    margin-bottom: 0.5em;
-}
 
 #myProjects_wrapper .bottom, #myArchivedProjects_wrapper .bottom {
 	height:20px;  /*TODO: Fix this - should not need to set a height */
@@ -44,7 +40,7 @@
     margin-left: -4px;
     position: fixed;
     top: 0;
-    z-index: 999;
+    z-index: 1;
 }
 
 /*.projectBox {

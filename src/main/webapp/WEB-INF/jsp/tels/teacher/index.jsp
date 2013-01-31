@@ -1,38 +1,27 @@
-<%@ include file="./include.jsp"%>
+<%@ include file="../include.jsp"%>
 
-<!-- $Id$ -->
-
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="chrome=1" />
 
-<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
-<script type="text/javascript" src="<spring:theme code="jquerycookiesource"/>"></script>
-<script type="text/javascript" src="<spring:theme code="browserdetectsource"/>"></script>
-<script type="text/javascript" src="<spring:theme code="checkcompatibilitysource"/>"></script>
-<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
-<script type="text/javascript" src="<spring:theme code="utilssource"/>"></script>
-<script type="text/javascript" src="<spring:theme code="jqueryuisource"/>"></script>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<script type="text/javascript">
-    // only alert user about browser comptibility issue once.
-    if ($.cookie("hasBeenAlertedBrowserCompatibility") != "true") {
-    	alertBrowserCompatibility();
-    }
-	$.cookie("hasBeenAlertedBrowserCompatibility","true");
-	
-	// set unread message count and last login time in session (used in page headers)
-	$.cookie("unreadMessages","<c:out value="${fn:length(unreadMessages)}" />", {path:"/"});
-	
-</script>
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="jquerystylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script> 
+<script type="text/javascript" src="<spring:theme code="jqueryuisource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="jquerymigrate.js"/>"></script>
+<script type="text/javascript" src="<spring:theme code="jquerycookiesource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="browserdetectsource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="checkcompatibilitysource"/>"></script>
+<!-- <script type="text/javascript" src="<spring:theme code="utilssource"/>"></script> -->
 
 <title><spring:message code="teacher.index.wiseTeacherDashboard" /></title>
 
@@ -46,89 +35,6 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 </script>
 
 </head>
-
-        <!-- Page-specific script TODO: Make text translatable and move to external script-->
-
-        <script type="text/javascript">
-            /**
-             * Asynchronously updates the run with the given id on the server and 
-             * displays the appropriate reponse when completed.
-             */
-            $('.extendReminderLink').live('click',function(){
-            	var link = $(this);
-            	var id = $(this).attr('id').replace('extendReminder_','');
-            	var updatingText = $('<span style="color: #DDCDB5;"> ' + '<spring:message code="teacher.index.updating"/>' + '</span>');
-            	link.parent().append(updatingText);
-            	$.ajax({
-					type: 'post',
-					url: '/webapp/teacher/run/manage/extendremindertime.html?runId=' + id,
-					success: function(request){
-						updatingText.remove();
-						link.css('text-decoration','strike-through');
-						link.parent().append('<span style="color: #DDCDB5;"> ' + '<spring:message code="teacher.index.youWillBeReminded"/>' + ' ' + id + ' ' + '<spring:message code="teacher.index.in30Days"/>');
-						setTimeout(function(){link.parent().fadeOut();},5000);
-					},
-					error: function(request,error){
-						updatingText.remove();
-						link.parent().append('<span style="color: #DD2424;"> ' + '<spring:message code="teacher.index.unableToUpdateRun"/> ' + id + ' ' + '<spring:message code="teacher.index.tryAgainLater"/>' + '</span>');
-					}
-            	});
-            });
-			
-            /**
-            * Asynchronously archives a run
-            **/
-            $('.runArchiveLink').live('click',function(){
-            	var link = $(this);
-            	var id = $(this).attr('id').replace('archiveRun_','');
-            	var updatingText = $('<span style="color: #DDCDB5;"> ' + '<spring:message code="teacher.index.updating"/>' + '</span>');
-            	link.parent().append(updatingText);
-            	$.ajax({
-					type: 'post',
-					url: '/webapp/teacher/run/manage/extendremindertime.html?runId=' + id,
-					success: function(request){
-						updatingText.remove();
-						link.css('text-decoration','strike-through');
-						link.parent().append('<span style="color: #DDCDB5;"> ' + '<spring:message code="teacher.index.projectRun"/>' + ' ' + id + ' ' + '<spring:message code="teacher.index.hasBeenArchivedWillRefresh"/>' + '</span>');
-						setTimeout(function(){window.location.reload();},2000);
-					},
-					error: function(request,error){
-						updatingText.remove();
-						link.parent().append('<span style="color: #DD2424;"> ' + '<spring:message code="teacher.index.unableToArchiveRun"/>' + ' ' + id + ' ' + '<spring:message code="teacher.index.tryAgainLater"/>' + '</span>');
-					}
-            	});
-            });
-
-            /**
-             * Asynchronously archives a message
-             **/
-            function archiveMessage(messageId, sender) {
-				var messageDiv = $('#message_' + messageId);
-				messageDiv.html('<spring:message code="teacher.index.archivingMessage"/>');
-				
-				$.ajax({
-					type: 'post',
-					url: '/webapp/message.html?action=archive&messageId='+messageId,
-					success: function(request){
-						/* update message on teacher index page announcements section */
-						messageDiv.remove();
-						$("#message_confirm_div_" + messageId).html('<span style="color: #24DD24;">' + '<spring:message code="teacher.index.messageFrom"/>' + ' ' + sender + ' ' + '<spring:message code="teacher.index.hasBeenArchived"/>' + '</span>');
-						/* update count of new message in message count div */
-						var messageCountDiv = $("#newMessageCount");
-						var messages = $("#messageDiv");
-						if (messages.length == 1) {
-							messageCountDiv.html('<spring:message code="teacher.index.youHave"/>' + " " + messages.length + " " + '<spring:message code="teacher.index.newMessage"/>');
-						} else {
-							messageCountDiv.html('<spring:message code="teacher.index.youHave"/>' + " " + messages.length + " " + '<spring:message code="teacher.index.newMessage"/>');
-						}
-					},
-					error: function(request,error){
-						/* set failure message */
-						messageDiv.html('<span style="color: #992244;">' + '<spring:message code="teacher.index.unableToArchiveMessage"/>' + '</span>');
-					}
-				});
-            }
-        </script>
     
 <body>
 
@@ -255,6 +161,89 @@ var isTeacherIndex = true; //global var used by spawned pages (i.e. archive run)
 	
 	<%@ include file="../footer.jsp"%>
 </div>
+
+<!-- Page-specific script TODO: Make text translatable and move to external script-->
+
+<script type="text/javascript">
+    /**
+     * Asynchronously updates the run with the given id on the server and 
+     * displays the appropriate reponse when completed.
+     */
+    $('.extendReminderLink').on('click',function(){
+    	var link = $(this);
+    	var id = $(this).attr('id').replace('extendReminder_','');
+    	var updatingText = $('<span style="color: #DDCDB5;"> ' + '<spring:message code="teacher.index.updating"/>' + '</span>');
+    	link.parent().append(updatingText);
+    	$.ajax({
+			type: 'post',
+			url: '/webapp/teacher/run/manage/extendremindertime.html?runId=' + id,
+			success: function(request){
+				updatingText.remove();
+				link.css('text-decoration','strike-through');
+				link.parent().append('<span style="color: #DDCDB5;"> ' + '<spring:message code="teacher.index.youWillBeReminded"/>' + ' ' + id + ' ' + '<spring:message code="teacher.index.in30Days"/>');
+				setTimeout(function(){link.parent().fadeOut();},5000);
+			},
+			error: function(request,error){
+				updatingText.remove();
+				link.parent().append('<span style="color: #DD2424;"> ' + '<spring:message code="teacher.index.unableToUpdateRun"/> ' + id + ' ' + '<spring:message code="teacher.index.tryAgainLater"/>' + '</span>');
+			}
+       	});
+       });
+
+        /**
+        * Asynchronously archives a run
+        **/
+        $('.runArchiveLink').on('click',function(){
+        	var link = $(this);
+        	var id = $(this).attr('id').replace('archiveRun_','');
+        	var updatingText = $('<span style="color: #DDCDB5;"> ' + '<spring:message code="teacher.index.updating"/>' + '</span>');
+        	link.parent().append(updatingText);
+        	$.ajax({
+				type: 'post',
+				url: '/webapp/teacher/run/manage/extendremindertime.html?runId=' + id,
+				success: function(request){
+					updatingText.remove();
+					link.css('text-decoration','strike-through');
+					link.parent().append('<span style="color: #DDCDB5;"> ' + '<spring:message code="teacher.index.projectRun"/>' + ' ' + id + ' ' + '<spring:message code="teacher.index.hasBeenArchivedWillRefresh"/>' + '</span>');
+					setTimeout(function(){window.location.reload();},2000);
+				},
+				error: function(request,error){
+					updatingText.remove();
+					link.parent().append('<span style="color: #DD2424;"> ' + '<spring:message code="teacher.index.unableToArchiveRun"/>' + ' ' + id + ' ' + '<spring:message code="teacher.index.tryAgainLater"/>' + '</span>');
+				}
+        	});
+        });
+
+	/**
+	 * Asynchronously archives a message
+	 **/
+	function archiveMessage(messageId, sender) {
+		var messageDiv = $('#message_' + messageId);
+		messageDiv.html('<spring:message code="teacher.index.archivingMessage"/>');
+
+		$.ajax({
+			type: 'post',
+			url: '/webapp/message.html?action=archive&messageId='+messageId,
+			success: function(request){
+				/* update message on teacher index page announcements section */
+				messageDiv.remove();
+				$("#message_confirm_div_" + messageId).html('<span style="color: #24DD24;">' + '<spring:message code="teacher.index.messageFrom"/>' + ' ' + sender + ' ' + '<spring:message code="teacher.index.hasBeenArchived"/>' + '</span>');
+				/* update count of new message in message count div */
+				var messageCountDiv = $("#newMessageCount");
+				var messages = $("#messageDiv");
+				if (messages.length == 1) {
+					messageCountDiv.html('<spring:message code="teacher.index.youHave"/>' + " " + messages.length + " " + '<spring:message code="teacher.index.newMessage"/>');
+				} else {
+					messageCountDiv.html('<spring:message code="teacher.index.youHave"/>' + " " + messages.length + " " + '<spring:message code="teacher.index.newMessage"/>');
+				}
+			},
+			error: function(request,error){
+				/* set failure message */
+				messageDiv.html('<span style="color: #992244;">' + '<spring:message code="teacher.index.unableToArchiveMessage"/>' + '</span>');
+			}
+		});
+    }
+</script>
 
 </body>
 

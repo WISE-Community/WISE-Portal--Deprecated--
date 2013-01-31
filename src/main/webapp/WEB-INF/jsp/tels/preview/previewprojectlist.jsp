@@ -1,7 +1,5 @@
 <%@ include file="../include.jsp"%>
 
-<!-- $Id$ -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -212,7 +210,7 @@
 			loadProjectThumbnails();
 			
 			// Set up more details toggle click action for each project
-			$('.detailsToggle, .projectTitle').live("click",function(){
+			$('.detailsToggle, .projectTitle').on("click",function(){
 				var id;
 				if($(this).hasClass('detailsToggle')){
 					id = $(this).attr('id').replace('detailsToggle_','');
@@ -228,7 +226,7 @@
 			});
 			
 			// Set up view project details click action for each project id link
-			$('a.projectDetail').live('click',function(){
+			$('a.projectDetail').on('click',function(){
 				var title = $(this).attr('title');
 				var projectId = $(this).attr('id').replace('projectDetail_','');
 				var path = "/webapp/teacher/projects/projectinfo.html?projectId=" + projectId;
@@ -251,7 +249,7 @@
 			});
 			
 			// Set up view lesson plan click action for each project
-			$('a.viewLesson').live('click',function(){
+			$('a.viewLesson').on('click',function(){
 				var id = $(this).attr('id').replace('viewLesson_','');
 				$('#lessonPlan_' + id).dialog({
 					width: 800,
@@ -261,7 +259,7 @@
 			});
 			
 			// Set up print lesson click action for each project
-			$('.printLesson').live('click',function(){
+			$('.printLesson').on('click',function(){
 				var id = $(this).attr('id').replace('printLesson_','');
 				var printstyle = "<spring:theme code="teacherrunstylesheet"/>"; // TODO: create print-optimized stylesheet
 				$('#lessonPlan_' + id).printElement({

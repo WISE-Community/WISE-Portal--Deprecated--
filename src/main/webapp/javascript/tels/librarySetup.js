@@ -17,7 +17,7 @@ $(document).ready(function() {
 			}
 			var $childLink = '<div style="float:left;"><a id="childToggle_' + id + '" class="childToggle">' + numChildren + copyLabel + ' +</a></div>';
 			$('#projectBox_' + id + ' tr.detailsLinks td').prepend($childLink);
-			$('#childToggle_' + id).live('click',function(){
+			$('#childToggle_' + id).on('click',function(){
 				if ($('#childToggle_' + id).hasClass('expanded')){
 					toggleChildren(id,false);
 				} else {
@@ -139,7 +139,7 @@ $(document).ready(function() {
 	});
 	
 	// Set up more details toggle click action for each project
-	$('.detailsToggle, .projectTitle').live("click",function(){
+	$('.detailsToggle, .projectTitle').on("click",function(){
 		var id;
 		if($(this).hasClass('detailsToggle')){
 			id = $(this).attr('id').replace('detailsToggle_','');
@@ -157,7 +157,7 @@ $(document).ready(function() {
 	});
 	
 	// Set up view lesson plan click action for each project
-	$('a.viewLesson').live('click',function(){
+	$('a.viewLesson').on('click',function(){
 		var id = $(this).attr('id').replace('viewLesson_','');
 		$('#lessonPlan_' + id).dialog({
 			width: 800,
@@ -167,7 +167,7 @@ $(document).ready(function() {
 	});
 	
 	// Set up print lesson click action for each project
-	$('.printLesson').live('click',function(){
+	$('.printLesson').on('click',function(){
 		var id = $(this).attr('id').replace('printLesson_','');
 		var printstyle = jQuery.i18n.prop('teacherrunstylesheet'); // TODO: create print-optimized stylesheet
 		$('#lessonPlan_' + id).printElement({

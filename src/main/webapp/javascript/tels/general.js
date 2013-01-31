@@ -44,8 +44,9 @@ function insertTooltips(target,options){
 		}
 		
 		// set options based on target element attributes
-		if(item.data('tooltip-event') == 'click' || jQuery.browser.mobile){ // if using a mobile browser, always set activation to 'click' (mobile browsers don't support hover events well)
+		if(item.data('tooltip-event') == 'click'){
 			settings['activation'] = 'click';
+			settings['keepAlive'] = true;
 		} else if(item.data('tooltip-event') == 'hover'){
 			settings['activation'] = 'hover';
 		} else if(item.data('tooltip-event') == 'manual'){
@@ -171,10 +172,12 @@ function showSubjectsSelect() {
 	$('#curriculumSubjectsBox').css({'left':xpos,'top':ypos}).fadeToggle();
 };
 
-$(document).ready(function(){
-	prepareInputsForHints();
-	prepareSubjectsSelect();
-});
+if(typeof $ != 'undefined'){
+	$(document).ready(function(){
+		prepareInputsForHints();
+		prepareSubjectsSelect();
+	});
+}
 
 
 /* Added my MattFish to handle special Pop-Up Windows on Teacher Dashboard pages 
