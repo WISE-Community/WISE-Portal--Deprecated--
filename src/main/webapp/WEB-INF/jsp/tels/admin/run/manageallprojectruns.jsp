@@ -1,7 +1,7 @@
 <%@ include file="../../include.jsp"%>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="chrome=1" />
@@ -157,7 +157,7 @@
 	});
 
 	//setup grading and classroom monitor dialogs
-	$('.grading, .researchTools, .classroomMonitor').live('click',function(){
+	$('.grading, .researchTools, .classroomMonitor').on('click',function(){
 		var settings = $(this).attr('id');
 		var title = $(this).attr('title');
 		var path = "/webapp/teacher/grading/gradework.html?" + settings;
@@ -180,7 +180,7 @@
 	});
 	
 	// setup share project run dialog
-	$('.shareRun').live('click',function(){
+	$('.shareRun').on('click',function(){
 		var title = $(this).attr('title');
 		var runId = $(this).attr('id').replace('shareRun_','');
 		var path = "/webapp/teacher/run/shareprojectrun.html?runId=" + runId;
@@ -202,7 +202,7 @@
 	});
 	
 	// setup edit run settings dialog
-	$('.editRun').live('click',function(){
+	$('.editRun').on('click',function(){
 		var title = $(this).attr('title');
 		var runId = $(this).attr('id').replace('editRun_','');
 		var path = "/webapp/teacher/run/editrun.html?runId=" + runId;
@@ -229,7 +229,7 @@
 	});
 
 	//setup archive and restore run dialogs
-	$('.archiveRun, .activateRun').live('click',function(){
+	$('.archiveRun, .activateRun').on('click',function(){
 		var title = $(this).attr('title');
 		if($(this).hasClass('archiveRun')){
 			var params = $(this).attr('id').replace('archiveRun_','');
@@ -261,7 +261,7 @@
 	});
 	
 	// setup manage students dialog
-	$('.manageStudents').live('click',function(){
+	$('.manageStudents').on('click',function(){
 		var title = $(this).attr('title');
 		var params = $(this).attr('id').replace('manageStudents_','');
 		var path = "/webapp/teacher/management/viewmystudents.html?" + params;
@@ -304,7 +304,7 @@
 	});
 
 	//Set up view project details click action for each project id link
-	$('a.projectDetail').live('click',function(){
+	$('a.projectDetail').on('click',function(){
 		var title = $(this).attr('title');
 		if($(this).hasClass('projectDetail')){
 			var projectId = $(this).attr('id').replace('projectDetail_','');

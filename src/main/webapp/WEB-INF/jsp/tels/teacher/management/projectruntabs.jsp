@@ -356,6 +356,28 @@
 					$('html,body').scrollTop(targetOffset);
 				}
 			},
+			"fnInitComplete": function(){
+				// setup tabs
+				$( "#runTabs" ).tabs({ 
+					active: 0,
+					activate: function(event, ui){
+						// Make top header scroll with page
+						var $stickyEl = $('.dataTables_wrapper .top', ui.newPanel);
+						var elTop = $stickyEl.offset().top,
+						width = $stickyEl.width();
+						$(window).on('scroll.sticky',function() {
+					        var windowTop = $(window).scrollTop();
+					        if (windowTop > elTop) {
+					        	$stickyEl.addClass('sticky');
+					        	$stickyEl.css('width',width);
+					        } else {
+					        	$stickyEl.removeClass('sticky');
+					        	$stickyEl.css('width','auto');
+					        }
+					    });
+					}
+				});
+			},
 			"sDom":'<"top"lip>rt<"bottom"ip><"clear">'
 		});
 		
@@ -397,47 +419,31 @@
 					{
 						"identifier": "source", "label": "<spring:message code="teacher.management.projectruntabs.filter_source"/>", "column": 2,
 						"options": [
-							/*{"query": "library", "display": "<spring:message code="teacher.management.projectlibrarydisplay.public"/>"},*/ // TODO: modify FacetedFilter plugin to only require a query for each filter, use query as display if display option is not set
 							{"query": "owned", "display": "<spring:message code="teacher.management.projectruntabs.filter_source_owned"/>"},
 							{"query": "shared", "display": "<spring:message code="teacher.management.projectruntabs.filter_source_shared"/>"}
 						]
 					}
-					/*{
-						"identifier": "<spring:message code="teacher.run.myprojectruns.58C"/>", "label": "<spring:message code="teacher.datatables.filter.2a"/>", "column": 5,
-						"options": [
-							{"query": "custom", "display": "<spring:message code="teacher.datatables.filter.2b"/>"},
-							{"query": "library", "display": "<spring:message code="teacher.datatables.filter.2c"/>"}
-						]
-					}*/
 				]
 			});
 			
 			// add sort logic
 			setSort(i,sortParams,wrapper);
+			
+			// Make top header scroll with page
+			var $stickyEl = $('.dataTables_wrapper .top');
+			var elTop = $stickyEl.offset().top,
+			width = $stickyEl.width();
+			$(window).on('scroll.sticky',function() {
+		        var windowTop = $(window).scrollTop();
+		        if (windowTop > elTop) {
+		        	$stickyEl.addClass('sticky');
+		        	$stickyEl.css('width',width);
+		        } else {
+		        	$stickyEl.removeClass('sticky');
+		        	$stickyEl.css('width','auto');
+		        }
+		    });
 		}
-		
-		// setup tabs
-		$( "#runTabs" ).tabs({ 
-			selected: 0,
-			show: function(event, ui){
-				// Make top header scroll with page
-				var $stickyEl = $('.dataTables_wrapper .top', ui.panel);
-				if($stickyEl.length>0){
-					var elTop = $stickyEl.offset().top,
-					width = $stickyEl.width();
-					$(window).scroll(function() {
-				        var windowTop = $(window).scrollTop();
-				        if (windowTop > elTop) {
-				            $stickyEl.addClass('sticky');
-				        	$stickyEl.css('width',width);
-				        } else {
-				            $stickyEl.removeClass('sticky');
-				        	$stickyEl.css('width','auto');
-				        }
-				    });
-				}
-			}
-		});
 		
 		// setup sorting
 		function setSort(index,sortParams,wrapper) {
@@ -465,7 +471,7 @@
 	});
 	
 	// setup grading and classroom monitor dialogs
-	$('.grading, .researchTools, .classroomMonitor').live('click',function(){
+	$('.grading, .researchTools, .classroomMonitor').on('click',function(){
 		var settings = $(this).attr('id');
 		var title = $(this).attr('title');
 		var path = "/webapp/teacher/grading/gradework.html?" + settings;
@@ -475,7 +481,6 @@
 			modal: true,
 			width: $(window).width() - 32,
 			height: $(window).height() - 32,
-			position: 'center',
 			title: title,
 			close: function (e, ui) { $(this).html(''); $('body').css('overflow','auto'); },
 			buttons: {
@@ -488,7 +493,7 @@
 	});
 	
 	// setup share project run dialog
-	$('.shareRun').live('click',function(){
+	$('.shareRun').on('click',function(){
 		var title = $(this).attr('title');
 		var runId = $(this).attr('id').replace('shareRun_','');
 		var path = "/webapp/teacher/run/shareprojectrun.html?runId=" + runId;
@@ -498,7 +503,6 @@
 			width: '650',
 			height: '450',
 			title: title,
-			position: 'center',
 			close: function(){ 
 				$(this).html('');
 			},
@@ -510,7 +514,7 @@
 	});
 	
 	// setup edit run settings dialog
-	$('.editRun').live('click',function(){
+	$('.editRun').on('click',function(){
 		var title = $(this).attr('title');
 		var runId = $(this).attr('id').replace('editRun_','');
 		var path = "/webapp/teacher/run/editrun.html?runId=" + runId;
@@ -520,7 +524,6 @@
 			width: '600',
 			height: '400',
 			title: title,
-			position: 'center',
 			close: function(){
 				if(document.getElementById('editIfrm').contentWindow['runUpdated']){
 					window.location.reload();
@@ -537,7 +540,7 @@
 	});
 	
 	// setup edit manage announcements dialog
-	$('.editAnnouncements').live('click',function(){
+	$('.editAnnouncements').on('click',function(){
 		var title = $(this).attr('title');
 		var runId = $(this).attr('id').replace('editAnnouncements_','');
 		var path = "/webapp/teacher/run/announcement/manageannouncement.html?runId=" + runId;
@@ -547,7 +550,6 @@
 			width: '600',
 			height: '400',
 			title: title,
-			position: 'center',
 			close: function(){ $(this).html(''); },
 			buttons: {
 				Close: function(){
@@ -559,7 +561,7 @@
 	});
 	
 	// setup archive and restore run dialogs
-	$('.archiveRun, .activateRun').live('click',function(){
+	$('.archiveRun, .activateRun').on('click',function(){
 		var title = $(this).attr('title');
 		if($(this).hasClass('archiveRun')){
 			var params = $(this).attr('id').replace('archiveRun_','');
@@ -574,7 +576,6 @@
 			width: '600',
 			height: '450',
 			title: title,
-			position: 'center',
 			close: function(){
 				if(document.getElementById('archiveIfrm').contentWindow['refreshRequired']){
 					window.location.reload();
@@ -591,7 +592,7 @@
 	});
 	
 	// setup manage students dialog
-	$('.manageStudents').live('click',function(){
+	$('.manageStudents').on('click',function(){
 		var title = $(this).attr('title');
 		var params = $(this).attr('id').replace('manageStudents_','');
 		var path = "/webapp/teacher/management/viewmystudents.html?" + params;
@@ -602,7 +603,6 @@
 			width: $(window).width() - 32,
 			height: $(window).height() - 32,
 			title: title,
-			position: 'center',
 			beforeClose: function() {
 				// check for unsaved changes and alert user if necessary
 				if(document.getElementById('manageStudentsIfrm').contentWindow['unsavedChanges']){
@@ -635,7 +635,7 @@
 	});
 	
 	// Set up view project details click action for each project id link
-	$('a.projectDetail, a.projectInfo').live('click',function(){
+	$('a.projectDetail, a.projectInfo').on('click',function(){
 		var title = $(this).attr('title');
 		if($(this).hasClass('projectDetail')){
 			var projectId = $(this).attr('id').replace('projectDetail_','');
@@ -649,7 +649,6 @@
 			width: '800',
 			height: '400',
 			title: title,
-			position: 'center',
 			close: function(){ $(this).html(''); },
 			buttons: {
 				Close: function(){

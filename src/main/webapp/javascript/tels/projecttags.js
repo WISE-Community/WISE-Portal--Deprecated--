@@ -38,7 +38,7 @@ function createTag(projectId){
 	}
 	
 	/* make a request to the server to add a tag */
-	$.ajax({type:'POST', url:'tagger.html', data:'command=createTag&projectId=' + projectId + '&tag=' + val, error:tagPostFailure, success:createTagSuccess, context:{projectId:projectId}});
+	$.ajax({type:'POST', url:'tagger.html', dataType:'text', data:'command=createTag&projectId=' + projectId + '&tag=' + val, error:tagPostFailure, success:createTagSuccess, context:{projectId:projectId}});
 };
 
 /**

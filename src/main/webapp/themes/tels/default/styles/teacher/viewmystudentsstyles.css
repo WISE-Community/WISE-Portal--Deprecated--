@@ -21,6 +21,7 @@
 	margin:0;
 	padding:0;
 	border:0 none;
+	background:none;
 }
 
 .manageStudents .ui-tabs .ui-tabs-nav li a {
@@ -44,7 +45,7 @@
 
 .manageStudents .ui-state-active a.periodChoice, a.periodChoice.checked {
 	background-color: #DADF8B;
-    color: #333;
+    color: #333 !important;
 	text-decoration: none !important;
 	border-radius: 4px;
 }

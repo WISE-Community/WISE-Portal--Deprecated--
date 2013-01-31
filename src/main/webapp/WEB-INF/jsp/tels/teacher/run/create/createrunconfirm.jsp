@@ -1,9 +1,7 @@
 <%@ include file="../../../include.jsp"%>
 
-<!-- $Id: setupRun1.jsp 357 2007-05-03 00:49:48Z archana $ -->
-
 <!DOCTYPE html >
-<html xml:lang="en" lang="en">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="chrome=1" />
@@ -17,10 +15,6 @@
 <script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="jquerycookiesource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
-
-<script src="/webapp/javascript/tels/effects.js" type="text/javascript" ></script>
-<script src="/webapp/javascript/tels/prototype.js" type="text/javascript" ></script>
-<script src="/webapp/javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
 <title><spring:message code="teacher.run.create.createrunconfirm.settingUpAProjectRunStep1" /></title>
 

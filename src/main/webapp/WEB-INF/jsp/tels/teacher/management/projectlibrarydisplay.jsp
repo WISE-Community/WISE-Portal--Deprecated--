@@ -149,7 +149,7 @@
 																<div style="float:right;">
 																	<c:choose>
 																		<c:when test="${hasRun && (isChild || isChildNoRoot)}">
-																			<span class="runCopy"><spring:message code="teacher.management.projectlibrarydisplay.createdForRun" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy" />" data-tooltip-anchor="left" data-tooltip-class="info" data-tooltip-title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy_title" />" alt="help" />
+																			<span class="runCopy"><spring:message code="teacher.management.projectlibrarydisplay.createdForRun" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy" />" data-tooltip-anchor="left" data-tooltip-class="info" data-tooltip-event="click" data-tooltip-title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy_title" />" alt="help" />
 																		</c:when>
 																		<c:otherwise>
 																			<spring:message code="teacher.management.projectlibrarydisplay.created" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
@@ -390,7 +390,7 @@
 																<div style="float:right;">
 																	<c:choose>
 																		<c:when test="${hasRun && (isChild || isChildNoRoot)}">
-																			<span class="runCopy"><spring:message code="teacher.management.projectlibrarydisplay.createdForRun" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy" />" data-tooltip-anchor="left" data-tooltip-class="info" data-tooltip-title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy_title" />" alt="help" />
+																			<span class="runCopy"><spring:message code="teacher.management.projectlibrarydisplay.createdForRun" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy" />" data-tooltip-anchor="left" data-tooltip-class="info" data-tooltip-event="click" data-tooltip-title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy_title" />" alt="help" />
 																		</c:when>
 																		<c:otherwise>
 																			<spring:message code="teacher.management.projectlibrarydisplay.created" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
@@ -814,7 +814,7 @@
 																		<div style="float:right;">
 																			<c:choose>
 																				<c:when test="${hasRun && (isChild || isChildNoRoot)}">
-																					<span class="runCopy"><spring:message code="teacher.management.projectlibrarydisplay.createdForRun" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy" />" data-tooltip-anchor="left" data-tooltip-class="info" data-tooltip-title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy_title" />" alt="help" />
+																					<span class="runCopy"><spring:message code="teacher.management.projectlibrarydisplay.createdForRun" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy" />" data-tooltip-anchor="left" data-tooltip-class="info" data-tooltip-event="click" data-tooltip-title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy_title" />" alt="help" />
 																				</c:when>
 																				<c:otherwise>
 																					<spring:message code="teacher.management.projectlibrarydisplay.created" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
@@ -1043,7 +1043,7 @@
 																		<div style="float:right;">
 																			<c:choose>
 																				<c:when test="${hasRun && (isChild || isChildNoRoot)}">
-																					<span class="runCopy"><spring:message code="teacher.management.projectlibrarydisplay.createdForRun" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy" />" data-tooltip-anchor="left" data-tooltip-class="info" data-tooltip-title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy_title" />" alt="help" />
+																					<span class="runCopy"><spring:message code="teacher.management.projectlibrarydisplay.createdForRun" /> ${projectRunIdMap[project.id]}: <fmt:formatDate value="${projectRunDateMap[project.id]}" type="date" dateStyle="medium" /> </span><img class='tooltip' src="<spring:theme code="helpicon"/>" title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy" />" data-tooltip-anchor="left" data-tooltip-class="info" data-tooltip-event="click" data-tooltip-title="<spring:message code="teacher.management.projectlibrarydisplay.help_runCopy_title" />" alt="help" />
 																				</c:when>
 																				<c:otherwise>
 																					<spring:message code="teacher.management.projectlibrarydisplay.created" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" />
@@ -1358,14 +1358,12 @@
 
 <!-- Page-specific script, TODO: move to external js - will need client-side i18n support -->
 <script type="text/javascript">
-	// TODO: convert to prototype format: ProjectLibrary.js (requires js i18n)
+	// TODO: convert to prototype format/external js (requires js i18n)
 
 	var activeChildren = {}, archivedChildren = {}, // objects to hold all child project divs
 		activeRootProjectIds = [], archivedRootProjectIds = [], // arrays to hold root project ids
 		totalActiveProjects = 0, totalArchivedProjects = 0, totalProjects = 0, // ints to hold total number of projects in user's library
 		otable; // object to hold datatables instances (requires jQuery datatables plugin: http://datatables.net/)
-
-	/** AJAX Functions **/
 	
 	// adds/removes bookmark (favorite) for the specified project. pID=projectID of project to remove bookmark
 	function toggleBookmark(pID){
@@ -1434,7 +1432,7 @@
 			closeOnEscape: false,
 			beforeclose : function() { return agreed; },
 			buttons: [
-			    { text: '<spring:message code="cancel" />', click: function(){
+			    { text: '<spring:message code="cancel" />', class: 'secondary', class: 'secondary', click: function(){
 					agreed = true;
 					$(this).dialog('close');
 				} },
@@ -1845,29 +1843,27 @@
 			"fnInitComplete":function(){
 				// setup tabs
 				$( "#projectTabs" ).tabs({ 
-					selected: 0,
-					show: function(event, ui){
-						// Make top header scroll with page
-						var $stickyEl = $('.dataTables_wrapper .top', ui.panel);
-						if($stickyEl.length>0){
-							var elTop = $stickyEl.offset().top,
-							width = $stickyEl.width();
-							$(window).scroll(function() {
-						        var windowTop = $(window).scrollTop();
-						        if (windowTop > elTop) {
-						            $stickyEl.addClass('sticky');
-						        	$stickyEl.css('width',width);
-						        } else {
-						            $stickyEl.removeClass('sticky');
-						        	$stickyEl.css('width','auto');
-						        }
-						    });
-						}
-						
+					active: 0,
+					activate: function(event, ui){
 						$('div.projectBox.rootProject',ui.panel).show(); // TODO: not sure why this is necessary for some projects
 						
 						// set project title widths
 						$('div.projectBox',ui.panel).each(function(){setTitleWidth($(this));});
+						
+						// Make top header scroll with page
+						var $stickyEl = $('.dataTables_wrapper .top', ui.newPanel);
+						var elTop = $stickyEl.offset().top,
+						width = $stickyEl.width();
+						$(window).on('scroll.sticky',function() {
+					        var windowTop = $(window).scrollTop();
+					        if (windowTop > elTop) {
+					        	$stickyEl.addClass('sticky');
+					        	$stickyEl.css('width',width);
+					        } else {
+					        	$stickyEl.removeClass('sticky');
+					        	$stickyEl.css('width','auto');
+					        }
+					    });
 					}
 				});
 			},
@@ -1980,16 +1976,16 @@
 		}
 		
 		// Make top header scroll with page
-		var $stickyEl = $('.dataTables_wrapper .top'),
-			elTop = $stickyEl.offset().top,
-			width = $stickyEl.width();
-		$(window).scroll(function() {
+		var $stickyEl = $('.dataTables_wrapper .top');
+		var elTop = $stickyEl.offset().top,
+		width = $stickyEl.width();
+		$(window).on('scroll.sticky',function() {
 	        var windowTop = $(window).scrollTop();
 	        if (windowTop > elTop) {
-	            $stickyEl.addClass('sticky');
+	        	$stickyEl.addClass('sticky');
 	        	$stickyEl.css('width',width);
 	        } else {
-	            $stickyEl.removeClass('sticky');
+	        	$stickyEl.removeClass('sticky');
 	        	$stickyEl.css('width','auto');
 	        }
 	    });
@@ -2319,11 +2315,11 @@
 		$('#archiveDialog').html(dialogContent).dialog({
 			modal: true,
 			title: title,
-			width: '600',
+			width: '500',
 			closeOnEscape: false,
 			beforeclose : function() { return agreed; },
 			buttons: [
-				{ text: '<spring:message code="cancel" />', click: function(){
+				{ text: '<spring:message code="cancel" />', class: 'secondary', click: function(){
 					agreed = true;
 					$(this).dialog('close');
 				} },
@@ -2397,7 +2393,7 @@
 			closeOnEscape: false,
 			beforeclose : function() { return agreed; },
 			buttons: [
-				{ text: '<spring:message code="cancel" />', click: function(){
+				{ text: '<spring:message code="cancel" />', class: 'secondary', click: function(){
 					agreed = true;
 					$(this).dialog('close');
 				} },

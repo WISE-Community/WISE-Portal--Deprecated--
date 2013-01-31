@@ -1,9 +1,7 @@
 <%@ include file="../include.jsp"%>
 
-<!-- $Id: previewproject.jsp 323 2007-04-21 18:08:49Z hiroki $ -->
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
-<html xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 

@@ -1,9 +1,7 @@
 <%@ include file="../../../include.jsp"%>
 
-<!-- $Id: setupRun3.jsp 357 2007-05-03 00:49:48Z archana $ -->
-
 <!DOCTYPE html>
-<html xml:lang="en" lang="en">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="chrome=1" />
@@ -108,7 +106,7 @@
     	
     	
    	// Set up view project details click action for each project id link
-	$('a.projectDetail').live('click',function(){
+	$('a.projectDetail').on('click',function(){
 		var title = $(this).attr('title');
 		var projectId = $(this).attr('id').replace('projectDetail_','');
 		var path = "/webapp/teacher/projects/projectinfo.html?projectId=" + projectId;

@@ -1,9 +1,7 @@
-<%@ include file="../include.jsp"%>
-
-<!-- $Id:archiveRunSuccess.jsp 1443 2007-11-21 01:00:34Z mattf $ -->
+<%@ include file="../../include.jsp"%>
 
 <!DOCTYPE html>
-<html xml:lang="en" lang="en">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 

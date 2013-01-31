@@ -1,7 +1,7 @@
 <%@ include file="../../../include.jsp"%>
 
 <!DOCTYPE html >
-<html xml:lang="en" lang="en">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="chrome=1" />
@@ -15,10 +15,6 @@
 <script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="jquerycookiesource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
-
-<script src="/webapp/javascript/tels/effects.js" type="text/javascript" ></script>
-<script src="/webapp/javascript/tels/prototype.js" type="text/javascript" ></script>
-<script src="/webapp/javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
 <title><spring:message code="teacher.run.create.createrunarchive.settingUpAProjectRunStep2" /></title>
 

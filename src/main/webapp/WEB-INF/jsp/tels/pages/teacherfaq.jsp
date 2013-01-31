@@ -1,4 +1,6 @@
 <%@ include file="../include.jsp"%>
+
+<!DOCTYPE html>
 <html>
 <head>
 <meta name=Title content="<spring:message code="pages.teacherfaq.wise4TeacherInformationSheet" />">

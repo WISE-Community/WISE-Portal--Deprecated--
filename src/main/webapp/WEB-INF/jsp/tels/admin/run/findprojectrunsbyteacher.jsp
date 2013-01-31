@@ -1,7 +1,7 @@
 <%@ include file="../../include.jsp"%>
 
 <!DOCTYPE html>
-<html xml:lang="en" lang="en">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="chrome=1" />
@@ -10,9 +10,6 @@
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
-
-<script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
-<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
 
     
 <title><spring:message code="admin.manage.runs.title" /></title>
@@ -28,7 +25,6 @@
 		
 		<div id="pageContent">
 			<div class="contentPanel">
-<h5 style="color:#0000CC;"><a href="../index.html">Return to Main Menu</a></h5>
 			
 				<div class="panelHeader"><spring:message code="admin.manage.runs.findbyteacher.1" />
 					<span class="pageTitle"><spring:message code="header.location.admin"/></span>
@@ -47,12 +43,14 @@
 
 
 
-					<form:form method="post" commandName="findProjectParameters" id="search" autocomplete='off'>
-						<form:label path="userName"><spring:message code="admin.manage.runs.findbyteacher.2" /> </form:label>
-						<form:input path="userName" id="userName" />
-						
-						<input type="submit" id="save" value="Submit" />
-					</form:form>
+					<h5>
+						<form:form method="post" commandName="findProjectParameters" id="search" autocomplete='off'>
+							<form:label path="userName"><spring:message code="admin.manage.runs.findbyteacher.2" /> </form:label>
+							<form:input path="userName" id="userName" />
+							
+							<input type="submit" id="save" value="Submit" />
+						</form:form>
+						</h5>
 				</div>
 			</div>
 		</div>

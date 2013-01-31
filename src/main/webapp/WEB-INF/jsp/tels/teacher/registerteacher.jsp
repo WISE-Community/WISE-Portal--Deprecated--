@@ -1,9 +1,7 @@
-<%@ include file="include.jsp"%>
-
-<!-- $Id: header.jsp 368 2007-05-05 01:41:18Z mattfish $ -->
+<%@ include file="../include.jsp"%>
 
 <!DOCTYPE html>
-<html xml:lang="en" lang="en">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 

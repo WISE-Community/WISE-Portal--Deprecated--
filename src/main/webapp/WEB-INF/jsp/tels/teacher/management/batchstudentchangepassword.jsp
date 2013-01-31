@@ -1,7 +1,7 @@
-<%@ include file="include.jsp"%>
+<%@ include file="../../include.jsp"%>
 
 <!DOCTYPE html>
-<html xml:lang="en" lang="en">
+<html>
 <head>
 
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />

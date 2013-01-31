@@ -3,7 +3,7 @@
 <!-- $Id: signup.jsp 323 2007-04-21 18:08:49Z hiroki $ -->
 
 <!DOCTYPE html>
-<html xml:lang="en" lang="en">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 

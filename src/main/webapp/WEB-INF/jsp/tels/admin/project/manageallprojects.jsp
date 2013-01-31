@@ -1,7 +1,7 @@
 <%@ include file="../../include.jsp"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
-<html xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
@@ -10,8 +10,9 @@
 <link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
     
-<script type="text/javascript" src="../../javascript/tels/jquery/js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="../../javascript/tels/projecttags.js"></script>
+<script src="<spring:theme code="jquerysource"/>" type="text/javascript"></script>
+<script src="<spring:theme code="jquerymigrate.js"/>" type="text/javascript"></script>
+<script src="<spring:theme code="projecttags.js"/>" type="text/javascript"></script>
     
 <title><spring:message code="application.title" /></title>
 

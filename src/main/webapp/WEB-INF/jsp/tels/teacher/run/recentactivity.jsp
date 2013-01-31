@@ -1,253 +1,5 @@
 <link href="<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
-<script type="text/javascript">
-	// setup grading dialogs
-	$('.grading, .researchTools, .classroomMonitor').live('click',function(){
-		var settings = $(this).attr('id');
-		var title = $(this).attr('title');
-		var path = "/webapp/teacher/grading/gradework.html?" + settings;
-		var div = $('#gradingDialog').html('<iframe id="gradingIfrm" width="100%" height="100%" style="overflow-y:hidden;"></iframe>');
-		$('body').css('overflow','hidden');
-		div.dialog({
-			modal: true,
-			width: $(window).width() - 32,
-			height: $(window).height() - 32,
-			position: 'center',
-			title: title,
-			close: function (e, ui) { $(this).html(''); $('body').css('overflow','auto'); },
-			buttons: {
-				Exit: function(){
-					$(this).dialog('close');
-				}
-			}
-		});
-		$("#gradingDialog > #gradingIfrm").attr('src',path);
-	});
-	
-	// setup share project run dialog
-	$('.shareRun').live('click',function(){
-		var title = $(this).attr('title');
-		var runId = $(this).attr('id').replace('shareRun_','');
-		var path = "/webapp/teacher/run/shareprojectrun.html?runId=" + runId;
-		var div = $('#shareDialog').html('<iframe id="shareIfrm" width="100%" height="100%"></iframe>');
-		div.dialog({
-			modal: true,
-			width: '650',
-			height: '450',
-			title: title,
-			position: 'center',
-			close: function(){
-				$(this).html('');
-			},
-			buttons: {
-				Close: function(){$(this).dialog('close');}
-			}
-		});
-		$("#shareDialog > #shareIfrm").attr('src',path);
-	});
-	
-	// setup edit run settings dialog
-	$('.editRun').live('click',function(){
-		var title = $(this).attr('title');
-		var runId = $(this).attr('id').replace('editRun_','');
-		var path = "/webapp/teacher/run/editrun.html?runId=" + runId;
-		var div = $('#editRunDialog').html('<iframe id="editIfrm" width="100%" height="100%"></iframe>');
-		div.dialog({
-			modal: true,
-			width: '600',
-			height: '400',
-			title: title,
-			position: 'center',
-			close: function(){
-				if(document.getElementById('editIfrm').contentWindow['runUpdated']){
-					window.location.reload();
-				}
-				$(this).html('');
-			},
-			buttons: {
-				Close: function(){
-					$(this).dialog('close');
-				}
-			}
-		});
-		$("#editRunDialog > #editIfrm").attr('src',path);
-	});
-	
-	// setup edit manage announcements dialog
-	$('.editAnnouncements').live('click',function(){
-		var title = $(this).attr('title');
-		var runId = $(this).attr('id').replace('editAnnouncements_','');
-		var path = "/webapp/teacher/run/announcement/manageannouncement.html?runId=" + runId;
-		var div = $('#editAnnouncementsDialog').html('<iframe id="announceIfrm" width="100%" height="100%"></iframe>');
-		div.dialog({
-			modal: true,
-			width: '600',
-			height: '400',
-			title: title,
-			position: 'center',
-			close: function(){ $(this).html(''); },
-			buttons: {
-				Close: function(){
-					$(this).dialog('close');
-				}
-			}
-		});
-		$("#editAnnouncementsDialog > #announceIfrm").attr('src',path);
-	});
-	
-	// setup manage students dialog
-	$('.manageStudents').live('click',function(){
-		var title = $(this).attr('title');
-		var params = $(this).attr('id').replace('manageStudents_','');
-		var path = "/webapp/teacher/management/viewmystudents.html?" + params;
-		var div = $('#manageStudentsDialog').html('<iframe id="manageStudentsIfrm" width="100%" height="100%"></iframe>');
-		$('body').css('overflow','hidden');
-		div.dialog({
-			modal: true,
-			width: $(window).width() - 32,
-			height: $(window).height() - 32,
-			title: title,
-			position: 'center',
-			beforeClose: function() {
-				// check for unsaved changes and alert user if necessary
-				if(document.getElementById('manageStudentsIfrm').contentWindow['unsavedChanges']){
-					var answer = confirm("<spring:message code="teacher.run.recentactivity.warningUnsavedChangesToStudentTeams"/>\n\n<spring:message code="teacher.run.recentactivity.areYouSureYouWantToExit"/>")
-					if(answer){
-						return true;
-					} else {
-						return false;
-					};
-				} else {
-					return true;
-				}
-			},
-			close: function(){
-				// refresh page if required (run title or student periods have been modified)
-				if(document.getElementById('manageStudentsIfrm').contentWindow['refreshRequired']){
-					window.location.reload();
-				}
-				$(this).html('');
-				$('body').css('overflow','auto');
-			},
-			buttons: {
-				Exit: function(){
-					$(this).dialog('close');
-				}
-			}
-		});
-		$("#manageStudentsDialog > #manageStudentsIfrm").attr('src',path);
-	});
-	
-	// setup archive and restore run dialogs
-	$('.archiveRun, .activateRun').live('click',function(){
-		var title = $(this).attr('title');
-		if($(this).hasClass('archiveRun')){
-			var params = $(this).attr('id').replace('archiveRun_','');
-			var path = "/webapp/teacher/run/manage/archiveRun.html?" + params;
-		} else if($(this).hasClass('activateRun')){
-			var params = $(this).attr('id').replace('activateRun_','');
-			var path = "/webapp/teacher/run/manage/startRun.html?" + params;
-		}
-		var div = $('#archiveRunDialog').html('<iframe id="archiveIfrm" width="100%" height="100%"></iframe>');
-		div.dialog({
-			modal: true,
-			width: '600',
-			height: '450',
-			title: title,
-			position: 'center',
-			close: function(){
-				if(document.getElementById('archiveIfrm').contentWindow['refreshRequired']){
-					window.location.reload();
-				}
-				$(this).html('');
-			},
-			buttons: {
-				Close: function(){
-					$(this).dialog('close');
-				}
-			}
-		});
-		$("#archiveRunDialog > #archiveIfrm").attr('src',path);
-	});
-	
-	// Set up view project details click action for each project id link
-	$('a.projectDetail, a.projectInfo').live('click',function(){
-		var title = $(this).attr('title');
-		if($(this).hasClass('projectDetail')){
-			var projectId = $(this).attr('id').replace('projectDetail_','');
-		} else if($(this).hasClass('projectInfo')){
-			var projectId = $(this).attr('id').replace('projectInfo_','');
-		}
-		var path = "/webapp/teacher/projects/projectinfo.html?projectId=" + projectId;
-		var div = $('#projectDetailDialog').html('<iframe id="projectIfrm" width="100%" height="100%"></iframe>');
-		div.dialog({
-			modal: true,
-			width: '800',
-			height: '400',
-			title: title,
-			position: 'center',
-			close: function(){ $(this).html(''); },
-			buttons: {
-				Close: function(){
-					$(this).dialog('close');
-				}
-			}
-		});
-		$("#projectDetailDialog > #projectIfrm").attr('src',path);
-	});
-
-	function unshareFromRun(runId,runName) {
-		var agreed = false,
-			dialogContent = '<spring:message code="teacher.run.recentactivity.warningRemoveYourselfFromSharedTeachers" htmlEscape="false" />',
-			title = '<spring:message code="teacher.run.recentactivity.unshare" /> ' + runName + ' (<spring:message code="teacher.run.recentactivity.id" />: ' + runId + ')',
-			processing = '<spring:message code="teacher.run.recentactivity.updatingRunPermissions" />';
-		$('#unshareDialog').html(dialogContent).dialog({
-			modal: true,
-			title: title,
-			width: '500',
-			closeOnEscape: false,
-			beforeclose : function() { return agreed; },
-			buttons: {
-				'<spring:message code="cancel" />': function(){
-					agreed = true;
-					$(this).dialog('close');
-				},
-				'<spring:message code="ok" />': function(){
-					var processingHtml = '<p>' + processing + '</p>' + 
-						'<p><img src="/webapp/themes/tels/default/images/rel_interstitial_loading.gif" /></p>';
-					$('#unshareDialog').css('text-align','center');
-					$('#unshareDialog').html(processingHtml);
-					$('ui-dialog-titlebar-close',$(this).parent()).hide();
-					$('button',$(this).parent()).hide().unbind();
-					//make the request to unshare the project
-					$.ajax({
-						url:"/webapp/teacher/run/unshareprojectrun.html",
-						type:"POST",
-						data:{"runId":runId},
-						success: function(data, text, xml){
-							$('#unshareDialog').html("<p><spring:message code='teacher.run.recentactivity.successfullyRemovedFromSharedTeachers' /></p>");
-							$('button:eq(1)',$('#unshareDialog').parent()).show().click(function(){
-								agreed = true;
-								$('#unshareDialog').dialog('close');
-								// reload page
-								window.location.reload();
-							});
-						},
-						error: function(data, text, xml){
-							// an error occured, so we will display an error message to the user
-							$('#unshareDialog').html('<p><spring:message code="teacher.run.recentactivity.errorFailedToEditSharedSettings" /></p>');
-							$('button:eq(1)',$('#unshareDialog').parent()).show().click(function(){
-								agreed = true;
-								$('#unshareDialog').dialog('close');
-							});
-						}
-					});
-				}
-			}
-		});
-	};
-</script>
-
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -436,3 +188,244 @@
 <div id="manageStudentsDialog" style="overflow:hidden;" class="dialog"></div>
 <div id="projectDetailDialog" style="overflow:hidden;" class="dialog"></div>
 <div id="archiveRunDialog" style="overflow:hidden;" class="dialog"></div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		// setup grading dialogs
+		$('.grading, .researchTools, .classroomMonitor').on('click',function(){
+			var settings = $(this).attr('id');
+			var title = $(this).attr('title');
+			var path = "/webapp/teacher/grading/gradework.html?" + settings;
+			var div = $('#gradingDialog').html('<iframe id="gradingIfrm" width="100%" height="100%" style="overflow-y:hidden;"></iframe>');
+			div.dialog({
+				modal: true,
+				width: $(window).width() - 32,
+				height: $(window).height() - 32,
+				title: title,
+				close: function (e, ui) { $(this).html(''); },
+				buttons: {
+					Exit: function(){
+						$(this).dialog('close');
+					}
+				}
+			});
+			$("#gradingDialog > #gradingIfrm").attr('src',path);
+		});
+		
+		// setup share project run dialog
+		$('.shareRun').on('click',function(){
+			var title = $(this).attr('title');
+			var runId = $(this).attr('id').replace('shareRun_','');
+			var path = "/webapp/teacher/run/shareprojectrun.html?runId=" + runId;
+			var div = $('#shareDialog').html('<iframe id="shareIfrm" width="100%" height="100%"></iframe>');
+			div.dialog({
+				modal: true,
+				width: '650',
+				height: '450',
+				title: title,
+				close: function(){
+					$(this).html('');
+				},
+				buttons: {
+					Close: function(){$(this).dialog('close');}
+				}
+			});
+			$("#shareDialog > #shareIfrm").attr('src',path);
+		});
+		
+		// setup edit run settings dialog
+		$('.editRun').on('click',function(){
+			var title = $(this).attr('title');
+			var runId = $(this).attr('id').replace('editRun_','');
+			var path = "/webapp/teacher/run/editrun.html?runId=" + runId;
+			var div = $('#editRunDialog').html('<iframe id="editIfrm" width="100%" height="100%"></iframe>');
+			div.dialog({
+				modal: true,
+				width: '600',
+				height: '400',
+				title: title,
+				close: function(){
+					if(document.getElementById('editIfrm').contentWindow['runUpdated']){
+						window.location.reload();
+					}
+					$(this).html('');
+				},
+				buttons: {
+					Close: function(){
+						$(this).dialog('close');
+					}
+				}
+			});
+			$("#editRunDialog > #editIfrm").attr('src',path);
+		});
+		
+		// setup edit manage announcements dialog
+		$('.editAnnouncements').on('click',function(){
+			var title = $(this).attr('title');
+			var runId = $(this).attr('id').replace('editAnnouncements_','');
+			var path = "/webapp/teacher/run/announcement/manageannouncement.html?runId=" + runId;
+			var div = $('#editAnnouncementsDialog').html('<iframe id="announceIfrm" width="100%" height="100%"></iframe>');
+			div.dialog({
+				modal: true,
+				width: '600',
+				height: '400',
+				title: title,
+				close: function(){ $(this).html(''); },
+				buttons: {
+					Close: function(){
+						$(this).dialog('close');
+					}
+				}
+			});
+			$("#editAnnouncementsDialog > #announceIfrm").attr('src',path);
+		});
+		
+		// setup manage students dialog
+		$('.manageStudents').on('click',function(){
+			var title = $(this).attr('title');
+			var params = $(this).attr('id').replace('manageStudents_','');
+			var path = "/webapp/teacher/management/viewmystudents.html?" + params;
+			var div = $('#manageStudentsDialog').html('<iframe id="manageStudentsIfrm" width="100%" height="100%"></iframe>');
+			div.dialog({
+				modal: true,
+				width: $(window).width() - 32,
+				height: $(window).height() - 32,
+				title: title,
+				beforeClose: function() {
+					// check for unsaved changes and alert user if necessary
+					if(document.getElementById('manageStudentsIfrm').contentWindow['unsavedChanges']){
+						var answer = confirm("<spring:message code="teacher.run.recentactivity.warningUnsavedChangesToStudentTeams"/>\n\n<spring:message code="teacher.run.recentactivity.areYouSureYouWantToExit"/>")
+						if(answer){
+							return true;
+						} else {
+							return false;
+						};
+					} else {
+						return true;
+					}
+				},
+				close: function(){
+					// refresh page if required (run title or student periods have been modified)
+					if(document.getElementById('manageStudentsIfrm').contentWindow['refreshRequired']){
+						window.location.reload();
+					}
+					$(this).html('');
+				},
+				buttons: {
+					Exit: function(){
+						$(this).dialog('close');
+					}
+				}
+			});
+			$("#manageStudentsDialog > #manageStudentsIfrm").attr('src',path);
+		});
+		
+		// setup archive and restore run dialogs
+		$('.archiveRun, .activateRun').on('click',function(){
+			var title = $(this).attr('title');
+			if($(this).hasClass('archiveRun')){
+				var params = $(this).attr('id').replace('archiveRun_','');
+				var path = "/webapp/teacher/run/manage/archiveRun.html?" + params;
+			} else if($(this).hasClass('activateRun')){
+				var params = $(this).attr('id').replace('activateRun_','');
+				var path = "/webapp/teacher/run/manage/startRun.html?" + params;
+			}
+			var div = $('#archiveRunDialog').html('<iframe id="archiveIfrm" width="100%" height="100%"></iframe>');
+			div.dialog({
+				modal: true,
+				width: '600',
+				height: '450',
+				title: title,
+				close: function(){
+					if(document.getElementById('archiveIfrm').contentWindow['refreshRequired']){
+						window.location.reload();
+					}
+					$(this).html('');
+				},
+				buttons: {
+					Close: function(){
+						$(this).dialog('close');
+					}
+				}
+			});
+			$("#archiveRunDialog > #archiveIfrm").attr('src',path);
+		});
+		
+		// Set up view project details click action for each project id link
+		$('a.projectDetail, a.projectInfo').on('click',function(){
+			var title = $(this).attr('title');
+			if($(this).hasClass('projectDetail')){
+				var projectId = $(this).attr('id').replace('projectDetail_','');
+			} else if($(this).hasClass('projectInfo')){
+				var projectId = $(this).attr('id').replace('projectInfo_','');
+			}
+			var path = "/webapp/teacher/projects/projectinfo.html?projectId=" + projectId;
+			var div = $('#projectDetailDialog').html('<iframe id="projectIfrm" width="100%" height="100%"></iframe>');
+			div.dialog({
+				modal: true,
+				width: '800',
+				height: '400',
+				title: title,
+				close: function(){ $(this).html(''); },
+				buttons: {
+					Close: function(){
+						$(this).dialog('close');
+					}
+				}
+			});
+			$("#projectDetailDialog > #projectIfrm").attr('src',path);
+		});
+	
+		function unshareFromRun(runId,runName) {
+			var agreed = false,
+				dialogContent = '<spring:message code="teacher.run.recentactivity.warningRemoveYourselfFromSharedTeachers" htmlEscape="false" />',
+				title = '<spring:message code="teacher.run.recentactivity.unshare" /> ' + runName + ' (<spring:message code="teacher.run.recentactivity.id" />: ' + runId + ')',
+				processing = '<spring:message code="teacher.run.recentactivity.updatingRunPermissions" />';
+			$('#unshareDialog').html(dialogContent).dialog({
+				modal: true,
+				title: title,
+				width: '500',
+				closeOnEscape: false,
+				beforeclose : function() { return agreed; },
+				buttons: {
+					'<spring:message code="cancel" />': function(){
+						agreed = true;
+						$(this).dialog('close');
+					},
+					'<spring:message code="ok" />': function(){
+						var processingHtml = '<p>' + processing + '</p>' + 
+							'<p><img src="/webapp/themes/tels/default/images/rel_interstitial_loading.gif" /></p>';
+						$('#unshareDialog').css('text-align','center');
+						$('#unshareDialog').html(processingHtml);
+						$('ui-dialog-titlebar-close',$(this).parent()).hide();
+						$('button',$(this).parent()).hide().unbind();
+						//make the request to unshare the project
+						$.ajax({
+							url:"/webapp/teacher/run/unshareprojectrun.html",
+							type:"POST",
+							data:{"runId":runId},
+							success: function(data, text, xml){
+								$('#unshareDialog').html("<p><spring:message code='teacher.run.recentactivity.successfullyRemovedFromSharedTeachers' /></p>");
+								$('button:eq(1)',$('#unshareDialog').parent()).show().click(function(){
+									agreed = true;
+									$('#unshareDialog').dialog('close');
+									// reload page
+									window.location.reload();
+								});
+							},
+							error: function(data, text, xml){
+								// an error occured, so we will display an error message to the user
+								$('#unshareDialog').html('<p><spring:message code="teacher.run.recentactivity.errorFailedToEditSharedSettings" /></p>');
+								$('button:eq(1)',$('#unshareDialog').parent()).show().click(function(){
+									agreed = true;
+									$('#unshareDialog').dialog('close');
+								});
+							}
+						});
+					}
+				}
+			});
+		};
+	});
+</script>

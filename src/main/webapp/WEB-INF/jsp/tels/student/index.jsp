@@ -73,7 +73,7 @@ $(document).ready(function() {
 	});
 	
 	// setup announcement link click handlers
-	$('.viewAnnouncements').live('click',function(){
+	$('.viewAnnouncements').on('click',function(){
 		var runIds = $(this).attr('id').replace('viewAnnouncements_','');
 		showAnnouncements(runIds);
 	});

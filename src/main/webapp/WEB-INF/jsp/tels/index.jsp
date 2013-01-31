@@ -289,8 +289,9 @@
 </div>
 <div id="projectDetailDialog" style="overflow:hidden;" class="dialog"></div>
 
-<script src="<spring:theme code="jquerysource"/>" type="text/javascript"></script>
-<script src="<spring:theme code="jqueryuisource"/>" type="text/javascript"></script>
+<!-- <script src="<spring:theme code="jquerysource"/>" type="text/javascript"></script> -->
+<script src="<spring:theme code="jquerymigrate.js"/>" type="text/javascript"></script>
+<!-- <script src="<spring:theme code="jqueryuisource"/>" type="text/javascript"></script> -->
 <script src="<spring:theme code="jquerymousewheel.js"/>" type="text/javascript"></script>
 <!-- <script src="<spring:theme code="mwheelintent.js"/>" type="text/javascript"></script>  -->
 <script src="<spring:theme code="jqueryjscrollpane.js"/>" type="text/javascript"></script>
@@ -309,12 +310,10 @@
 		
 		$('#newsContent').jScrollPane();
 		
-		$('.tinycarousel').tinycarousel({ axis: 'y', pager: true, duration:500 });
-		
 		loadProjectThumbnails();
 		
 		// Set up view project details click action for each project id link
-		$('a.projectDetail').on('click',function(){
+		$('#projectShowcase').on('click','a.projectDetail',function(){
 			var title = $(this).attr('title');
 			var projectId = $(this).attr('id').replace('projectDetail_','');
 			var path = "/webapp/teacher/projects/projectinfo.html?projectId=" + projectId;
@@ -323,7 +322,6 @@
 				width: '800',
 				height: '400',
 				title: title,
-				position: 'center',
 				modal:true,
 				close: function(){ $(this).html(''); },
 				buttons: {
@@ -359,13 +357,15 @@
 		// set random opening slide for project showcase
 		var numSlides = $('#projectShowcase dt').length;
 		var start = Math.floor(Math.random()*numSlides);
-		$('#projectShowcase dt').eq(start).addClass('activea');
 		
 		// initiate project showcase accordion
 		$('#project-showcase').easyAccordion({ 
 		   autoStart: false,
-		   slideNum: false	
+		   slideNum: false,
+		   startSlide: start
 		});
+		
+		$('.tinycarousel').tinycarousel({ axis: 'y', pager: true, duration:500 });
 	});
 	
 	// load thumbnails for each project by looking for curriculum_folder/assets/project_thumb.png (makes a ajax GET request)
