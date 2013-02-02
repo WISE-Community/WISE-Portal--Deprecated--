@@ -1,7 +1,7 @@
 <%@ include file="../include.jsp"%>
 
 <!DOCTYPE html>
-<html>
+<html style="height:100%;">
 <head>
 <title>WISE4</title>
 

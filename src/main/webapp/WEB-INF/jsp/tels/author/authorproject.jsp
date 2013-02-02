@@ -1,7 +1,7 @@
 <%@ include file="../include.jsp"%>
 
 <!DOCTYPE html>
-<html>
+<html style="height:100%;">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -26,12 +26,11 @@ function loaded(){
 
 </head>
 
-<body style="margin:0;padding:0;" >
+<body style="margin:0; overflow-y:hidden; height:100%;" >
 <iframe id="authorfrm" src="${vleAuthorUrl}" name="authorfrm" scrolling="auto" width="100%" height="100%" frameborder="0">
  [Iframes not enabled]
 </iframe>
 </iframe>
 <div id="hiddenLogoutDiv" style="display:none"><a id="hiddenLogoutLink" onclick="window.location='/webapp/index.html'"></a></div>
-</body>
 </body>
 </html>
