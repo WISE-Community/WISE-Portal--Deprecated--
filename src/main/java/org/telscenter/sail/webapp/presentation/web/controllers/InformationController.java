@@ -401,14 +401,17 @@ public class InformationController extends AbstractController{
 			if(workgroup == null) {
 				/*
 				 * the user is not in a workgroup for the run so they should not be
-				 * allowed to access the config
+				 * allowed to access the config, unless the user is an admin
 				 */
-				return;
+				User signedInUser = ControllerUtil.getSignedInUser();
+				if (!signedInUser.isAdmin()) {					
+					return;
+				}
 			} else if(((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
 				//workgroup is a teacher
 			} else {
 				//workgroup is a student so we will get the period
-				Group periodGroup = ((WISEWorkgroup) workgroup).getPeriod();//geoff
+				Group periodGroup = ((WISEWorkgroup) workgroup).getPeriod(); //geoff
 				periodId = periodGroup.getId();
 			}
 			
