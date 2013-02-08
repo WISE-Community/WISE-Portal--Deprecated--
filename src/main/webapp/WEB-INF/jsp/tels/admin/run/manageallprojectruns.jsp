@@ -6,10 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="chrome=1" />
 
-<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
+<script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script> 
+<script type="text/javascript" src="<spring:theme code="jquerydatatables.js"/>"></script>
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="jqueryuisource"/>"></script>
-<script type="text/javascript" src="<spring:theme code="jquerydatatables.js"/>"></script>
 <script type="text/javascript" src="<spring:theme code="facetedfilter.js"/>"></script>
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
@@ -24,137 +24,8 @@
 
 <!-- TODO: move to separate js setup file (will require js i18n implementation for portal) -->
 <script type="text/javascript">
+
 	$(document).ready(function() {
-		var oTable = $('.runTable').dataTable({
-			"sPaginationType": "full_numbers",
-			"iDisplayLength": 10,
-			"aLengthMenu": [[10, 25, 100, -1], [10, 25, 100, "All"]],
-			"bSort": false,
-			"oLanguage": {
-				"sInfo": "<spring:message code="teacher.datatables.1"/> _START_-_END_ <spring:message code="teacher.datatables.2"/> _TOTAL_",
-				"sInfoEmpty": "<spring:message code="teacher.datatables.3"/>",
-				"sInfoFiltered": "<spring:message code="teacher.datatables.4"/>", // (from _MAX_ total)
-				"sLengthMenu": "<spring:message code="teacher.datatables.5"/> _MENU_ <spring:message code="teacher.datatables.6"/>",
-				"sProcessing": "<spring:message code="teacher.datatables.7"/>",
-				"sZeroRecords": "<spring:message code="teacher.datatables.8"/>",
-				"sInfoPostFix":  "<spring:message code="teacher.datatables.9"/>",
-				"sSearch": "<spring:message code="teacher.datatables.10"/>",
-				"sUrl": "<spring:message code="teacher.datatables.11"/>",
-				"oPaginate": {
-					"sFirst":    "<spring:message code="teacher.datatables.12"/>",
-					"sPrevious": "<spring:message code="teacher.datatables.13"/>",
-					"sNext":     "<spring:message code="teacher.datatables.14"/>",
-					"sLast":     "<spring:message code="teacher.datatables.15"/>"
-				}
-			},
-			"fnDrawCallback": function( oSettings ){
-				// automatically scroll to top on page change
-				var tableID = $(this).attr('id');
-				var targetOffset = $('#' + tableID).offset().top - 14;
-				if ($(window).scrollTop() > targetOffset){
-					$('html,body').scrollTop(targetOffset);
-				}
-			},
-			"sDom":'<"top"lip>rt<"bottom"ip><"clear">'
-		});
-		
-		// define sort options
-		var sortParams = {
-			"items": [
-				{"label": "<spring:message code="teacher.datatables.sort.1a"/>", "column": 7, "direction": "desc" },
-				{"label": "<spring:message code="teacher.datatables.sort.1b"/>", "column": 7, "direction": "asc" },
-				{"label": "<spring:message code="teacher.datatables.sort.1c"/>", "column": 0, "direction": "asc" },
-				{"label": "<spring:message code="teacher.datatables.sort.1d"/>", "column": 0, "direction": "desc" }
-			]
-		};
-		
-		// setup sorting
-		function setSort(index,sortParams,wrapper) {
-			if(sortParams.items.length){
-				// insert sort options into DOM
-				var sortHtml = '<div class="dataTables_sort"><spring:message code="teacher.datatables.sort.label"/> <select id="' + 'sort_' + index + '"  size="1">';
-				$.each(sortParams.items,function(){
-					sortHtml += '<option>' + this.label + '</option>';
-				});
-				sortHtml +=	'</select></div>';
-				$(wrapper).children('.top').prepend(sortHtml);
-				
-				$('#sort_' + index).change(function(){
-					$.fn.dataTableExt.iApiIndex = index;
-					var i = $('option:selected', '#sort_' + index).index();
-					oTable.fnSort( [ [sortParams.items[i].column,sortParams.items[i].direction] ] );
-				});
-			}
-		};
-		
-		var i;
-		for(i=0; i<oTable.length; i++){
-			oTable.dataTableExt.iApiIndex = i;
-			var wrapper = oTable.fnSettings().nTableWrapper;
-			var table = oTable.fnSettings();
-			var id = $(table.oInstance).attr('id');
-			
-			// Define FacetedFilter options
-			var facets = new FacetedFilter( table, {
-				"bScroll": false,
-				"sClearFilterLabel": "<spring:message code="teacher.datatables.filter.clear"/>",
-				"sClearSearchLabel": "<spring:message code="teacher.datatables.search.clear"/>",
-				"sFilterLabel": "<spring:message code="teacher.datatables.filter.label"/>",
-				"sSearchLabel": "<spring:message code="teacher.datatables.search.label"/>",
-				"aSearchOpts": [
-					{
-						"identifier": "<spring:message code="teacher.datatables.search.1a"/>", "label": "<spring:message code="teacher.datatables.search.1b"/> ", "column": 0, "maxlength": 50
-					}
-				 ],
-				"aFilterOpts": [
-					<c:if test="${empty param.q}">
-					{
-						"identifier": "<spring:message code="admin.datatables.filter.1a"/>", "label": "<spring:message code="admin.datatables.filter.1b"/>", "column": 10,
-						"options": [
-							{"query": "current", "display": "<spring:message code="admin.datatables.filter.1c"/>"},
-							{"query": "archived", "display": "<spring:message code="admin.datatables.filter.1d"/>"}
-						]
-					}
-					</c:if>
-					/*{
-						"identifier": "<spring:message code="teacher.run.myprojectruns.58C"/>", "label": "<spring:message code="teacher.datatables.filter.2a"/>", "column": 5,
-						"options": [
-							{"query": "custom", "display": "<spring:message code="teacher.datatables.filter.2b"/>"},
-							{"query": "library", "display": "<spring:message code="teacher.datatables.filter.2c"/>"}
-						]
-					}*/
-				]
-			});
-			
-			// add sort logic
-			setSort(i,sortParams,wrapper);
-			
-			// reset cloumn widths on run tables (datatables seems to change these)
-			$('.runHeader').width(215);
-			$('.studentHeader').width(145);
-			$('.teacherHeader').width(115);
-			$('.toolsHeader').width(170);
-			
-			oTable.fnSort( [ [7,'desc'] ] );
-		}
-		
-		// Make top header scroll with page
-		var $stickyEl = $('.dataTables_wrapper .top');
-		if($stickyEl.length>0){
-			var elTop = $stickyEl.offset().top,
-			width = $stickyEl.width();
-			$(window).scroll(function() {
-		        var windowTop = $(window).scrollTop();
-		        if (windowTop > elTop) {
-		            $stickyEl.addClass('sticky');
-		        	$stickyEl.css('width',width);
-		        } else {
-		            $stickyEl.removeClass('sticky');
-		        	$stickyEl.css('width','auto');
-		        }
-		    });
-		}
-	});
 
 	//setup grading and classroom monitor dialogs
 	$('.grading, .researchTools, .classroomMonitor').on('click',function(){
@@ -328,6 +199,140 @@
 		});
 		$("#projectDetailDialog > #projectIfrm").attr('src',path);
 	});
+	
+
+
+		var oTable = $('.runTable').dataTable({
+			"sPaginationType": "full_numbers",
+			"iDisplayLength": 10,
+			"aLengthMenu": [[10, 25, 100, -1], [10, 25, 100, "All"]],
+			"bSort": false,
+			"oLanguage": {
+				"sInfo": "<spring:message code="teacher.datatables.1"/> _START_-_END_ <spring:message code="teacher.datatables.2"/> _TOTAL_",
+				"sInfoEmpty": "<spring:message code="teacher.datatables.3"/>",
+				"sInfoFiltered": "<spring:message code="teacher.datatables.4"/>", // (from _MAX_ total)
+				"sLengthMenu": "<spring:message code="teacher.datatables.5"/> _MENU_ <spring:message code="teacher.datatables.6"/>",
+				"sProcessing": "<spring:message code="teacher.datatables.7"/>",
+				"sZeroRecords": "<spring:message code="teacher.datatables.8"/>",
+				"sInfoPostFix":  "<spring:message code="teacher.datatables.9"/>",
+				"sSearch": "<spring:message code="teacher.datatables.10"/>",
+				"sUrl": "<spring:message code="teacher.datatables.11"/>",
+				"oPaginate": {
+					"sFirst":    "<spring:message code="teacher.datatables.12"/>",
+					"sPrevious": "<spring:message code="teacher.datatables.13"/>",
+					"sNext":     "<spring:message code="teacher.datatables.14"/>",
+					"sLast":     "<spring:message code="teacher.datatables.15"/>"
+				}
+			},
+			"fnDrawCallback": function( oSettings ){
+				// automatically scroll to top on page change
+				var tableID = $(this).attr('id');
+				var targetOffset = $('#' + tableID).offset().top - 14;
+				if ($(window).scrollTop() > targetOffset){
+					$('html,body').scrollTop(targetOffset);
+				}
+			},
+			"sDom":'<"top"lip>rt<"bottom"ip><"clear">'
+		});
+		
+		// define sort options
+		var sortParams = {
+			"items": [
+				{"label": "<spring:message code="teacher.datatables.sort.1a"/>", "column": 7, "direction": "desc" },
+				{"label": "<spring:message code="teacher.datatables.sort.1b"/>", "column": 7, "direction": "asc" },
+				{"label": "<spring:message code="teacher.datatables.sort.1c"/>", "column": 0, "direction": "asc" },
+				{"label": "<spring:message code="teacher.datatables.sort.1d"/>", "column": 0, "direction": "desc" }
+			]
+		};
+		
+		// setup sorting
+		function setSort(index,sortParams,wrapper) {
+			if(sortParams.items.length){
+				// insert sort options into DOM
+				var sortHtml = '<div class="dataTables_sort"><spring:message code="teacher.datatables.sort.label"/> <select id="' + 'sort_' + index + '"  size="1">';
+				$.each(sortParams.items,function(){
+					sortHtml += '<option>' + this.label + '</option>';
+				});
+				sortHtml +=	'</select></div>';
+				$(wrapper).children('.top').prepend(sortHtml);
+				
+				$('#sort_' + index).change(function(){
+					$.fn.dataTableExt.iApiIndex = index;
+					var i = $('option:selected', '#sort_' + index).index();
+					oTable.fnSort( [ [sortParams.items[i].column,sortParams.items[i].direction] ] );
+				});
+			}
+		};
+		
+		var i;
+		for(i=0; i<oTable.length; i++){
+			oTable.dataTableExt.iApiIndex = i;
+			var wrapper = oTable.fnSettings().nTableWrapper;
+			var table = oTable.fnSettings();
+			var id = $(table.oInstance).attr('id');
+			
+			// Define FacetedFilter options
+			var facets = new FacetedFilter( table, {
+				"bScroll": false,
+				"sClearFilterLabel": "<spring:message code="teacher.datatables.filter.clear"/>",
+				"sClearSearchLabel": "<spring:message code="teacher.datatables.search.clear"/>",
+				"sFilterLabel": "<spring:message code="teacher.datatables.filter.label"/>",
+				"sSearchLabel": "<spring:message code="teacher.datatables.search.label"/>",
+				"aSearchOpts": [
+					{
+						"identifier": "<spring:message code="teacher.datatables.search.1a"/>", "label": "<spring:message code="teacher.datatables.search.1b"/> ", "column": 0, "maxlength": 50
+					}
+				 ],
+				"aFilterOpts": [
+					<c:if test="${empty param.q}">
+					{
+						"identifier": "<spring:message code="admin.datatables.filter.1a"/>", "label": "<spring:message code="admin.datatables.filter.1b"/>", "column": 10,
+						"options": [
+							{"query": "current", "display": "<spring:message code="admin.datatables.filter.1c"/>"},
+							{"query": "archived", "display": "<spring:message code="admin.datatables.filter.1d"/>"}
+						]
+					}
+					</c:if>
+					/*{
+						"identifier": "<spring:message code="teacher.run.myprojectruns.58C"/>", "label": "<spring:message code="teacher.datatables.filter.2a"/>", "column": 5,
+						"options": [
+							{"query": "custom", "display": "<spring:message code="teacher.datatables.filter.2b"/>"},
+							{"query": "library", "display": "<spring:message code="teacher.datatables.filter.2c"/>"}
+						]
+					}*/
+				]
+			});
+			
+			// add sort logic
+			setSort(i,sortParams,wrapper);
+			
+			// reset cloumn widths on run tables (datatables seems to change these)
+			$('.runHeader').width(215);
+			$('.studentHeader').width(145);
+			$('.teacherHeader').width(115);
+			$('.toolsHeader').width(170);
+			
+			oTable.fnSort( [ [7,'desc'] ] );
+		}
+		
+		// Make top header scroll with page
+		var $stickyEl = $('.dataTables_wrapper .top');
+		if($stickyEl.length>0){
+			var elTop = $stickyEl.offset().top,
+			width = $stickyEl.width();
+			$(window).scroll(function() {
+		        var windowTop = $(window).scrollTop();
+		        if (windowTop > elTop) {
+		            $stickyEl.addClass('sticky');
+		        	$stickyEl.css('width',width);
+		        } else {
+		            $stickyEl.removeClass('sticky');
+		        	$stickyEl.css('width','auto');
+		        }
+		    });
+		}
+	});
+
 </script>
 
 </head>
@@ -339,8 +344,7 @@
 
 <div id="pageWrapper">
 
-	<%@ include file="../../headermain.jsp"%>
-	
+
 	<div id="page">
 		
 		<div id="pageContent">

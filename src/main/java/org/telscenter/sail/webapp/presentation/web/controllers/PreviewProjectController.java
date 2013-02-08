@@ -40,7 +40,7 @@ public class PreviewProjectController extends AbstractController {
 
 	private static final String PROJECT_ID_PARAM_NAME = "projectId";
 	
-	private static final String PROJECT_ID_PARAM_NAME_LOWERCASE = "projectId";
+	private static final String PROJECT_ID_PARAM_NAME_LOWERCASE = "projectid";
 
 	private static final String RUN_ID_PARAM_NAME = "runId";
 
