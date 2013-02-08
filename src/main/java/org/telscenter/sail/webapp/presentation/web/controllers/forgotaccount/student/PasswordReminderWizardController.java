@@ -106,14 +106,14 @@ public class PasswordReminderWizardController extends AbstractWizardFormControll
 		switch (page) {
 		case 0:
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors,
-					"username", "error.no-username");
+					"username", "presentation.web.controllers.forgotaccount.student.PasswordReminderWizardController.errorNoUsername");
 			
 			if(errors.getErrorCount() == 0){
 				try {
 					String username = reminderParameters.getUsername();
 					
 					if(username == null){
-						errors.rejectValue("username", "error.username-not-found");
+						errors.rejectValue("username", "presentation.web.controllers.forgotaccount.student.PasswordReminderWizardController.errorUsernameNotFound");
 						break;
 					} else {
 						username = StringUtils.trimToNull(username);
@@ -121,12 +121,12 @@ public class PasswordReminderWizardController extends AbstractWizardFormControll
 						
 						/* check to see if user exists and ensure that user is a student */
 						if(user == null || !(user.getUserDetails() instanceof StudentUserDetails)){
-							errors.rejectValue("username", "error.username-not-found");
+							errors.rejectValue("username", "presentation.web.controllers.forgotaccount.student.PasswordReminderWizardController.errorUsernameNotFound");
 						}
 					}
 				} catch (EmptyResultDataAccessException e) {
 					//TODO: archana needs to update these
-					errors.rejectValue("username", "error.username-not-found");
+					errors.rejectValue("username", "presentation.web.controllers.forgotaccount.student.PasswordReminderWizardController.errorUsernameNotFound");
 				}
 			}
 			
@@ -134,7 +134,7 @@ public class PasswordReminderWizardController extends AbstractWizardFormControll
 		case 1:
 			//TODO: archana needs to update these
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors,
-					"submittedAccountAnswer", "error.submitted-account-question-blank");
+					"submittedAccountAnswer", "presentation.web.controllers.forgotaccount.student.PasswordReminderWizardController.errorSubmittedAccountQuestion");
 			
 			String submittedAccountAnswer = reminderParameters
 			.getSubmittedAccountAnswer();
@@ -148,7 +148,7 @@ public class PasswordReminderWizardController extends AbstractWizardFormControll
 		
 			if (!accountAnswer.equals(submittedAccountAnswer)) {
 				//TODO: archana needs to update these
-				errors.reject("error.submitted-account-question");
+				errors.reject("presentation.web.controllers.forgotaccount.student.PasswordReminderWizardController.errorSubmittedAccountQuestion");
 			}
 			
 			
@@ -157,11 +157,11 @@ public class PasswordReminderWizardController extends AbstractWizardFormControll
 			
 			//TODO: archana needs to update these
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors,
-					"verifyPassword", "error.verify-newpassword");
+					"verifyPassword", "presentation.web.controllers.forgotaccount.student.PasswordReminderWizardController.errorVerifyNewPassword");
 		
 			//TODO: archana needs to update these
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors,
-					"newPassword", "error.verify-newpassword");
+					"newPassword", "presentation.web.controllers.forgotaccount.student.PasswordReminderWizardController.errorVerifyNewPassword");
 			
 			if (errors.hasErrors()) {
 				break;
@@ -180,7 +180,7 @@ public class PasswordReminderWizardController extends AbstractWizardFormControll
 			
 			if (!verifyPassword.equals(newPassword)) {
 				//TODO: archana needs to update these
-				errors.reject("error.verify-newpassword");
+				errors.reject("presentation.web.controllers.forgotaccount.student.PasswordReminderWizardController.errorVerifyNewPassword");
 			}
 			break;
 		default:
