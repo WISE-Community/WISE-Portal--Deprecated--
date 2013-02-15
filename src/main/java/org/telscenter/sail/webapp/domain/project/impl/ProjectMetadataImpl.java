@@ -183,7 +183,7 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	@Column(name = COLUMN_NAME_POST_LEVEL)
 	private Long postLevel;
 	
-	@Column(name = COLUMN_NAME_MAX_SCORES)
+	@Column(name = COLUMN_NAME_MAX_SCORES, length = 32768)
 	private String maxScores;
 	
 	@Column(name = COLUMN_NAME_THEME)
