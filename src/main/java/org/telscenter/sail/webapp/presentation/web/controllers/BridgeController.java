@@ -241,6 +241,17 @@ public class BridgeController extends AbstractController {
 			} else if(type.equals("brainstorm")) {
 				workgroupIdStr = request.getParameter("userId");
 				canAccessOtherWorkgroups = true;
+			} else if (type.equals("aggregate")) {
+				// student/teacher is trying to get other students' work so that it can be used to show 
+				// the aggregate view. nodeIds should be passed in.
+				// Check that the nodeIds exist and that we can get the student data from them
+				// in the VLE.
+				if (request.getParameter("nodeIds") == null) {
+					canAccessOtherWorkgroups = false;
+				} else {
+					workgroupIdStr = request.getParameter("userId");
+					canAccessOtherWorkgroups = true;
+				}
 			} else if (type.equals("journal")) {
 				workgroupIdStr = request.getParameter("workgroupId");
 			} else if(type.equals("peerreview")) {
@@ -388,6 +399,11 @@ public class BridgeController extends AbstractController {
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/getdata.html");
 			requestDispatcher.forward(request, response);
 		} else if (type.equals("brainstorm")){
+			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/getdata.html");
+			requestDispatcher.forward(request, response);
+		} else if (type.equals("aggregate")){
+			setProjectPath(run, request);  //set the project path into the request object
+
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/getdata.html");
 			requestDispatcher.forward(request, response);
 		} else if (type.equals("flag") || type.equals("inappropriateFlag") || type.equals("annotation")){			// get flags
