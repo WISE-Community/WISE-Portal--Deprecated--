@@ -249,8 +249,12 @@ public class BridgeController extends AbstractController {
 				if (request.getParameter("nodeIds") == null) {
 					canAccessOtherWorkgroups = false;
 				} else {
-					workgroupIdStr = request.getParameter("userId");
-					canAccessOtherWorkgroups = true;
+					if (request.getParameter("allStudents") != null && Boolean.valueOf(request.getParameter("allStudents"))) {
+						return true;
+					} else {
+						workgroupIdStr = request.getParameter("userId");
+						canAccessOtherWorkgroups = true;
+					}
 				}
 			} else if (type.equals("journal")) {
 				workgroupIdStr = request.getParameter("workgroupId");
@@ -403,6 +407,18 @@ public class BridgeController extends AbstractController {
 			requestDispatcher.forward(request, response);
 		} else if (type.equals("aggregate")){
 			setProjectPath(run, request);  //set the project path into the request object
+			if (Boolean.parseBoolean(request.getParameter("allStudents"))) {
+				// request for all students work in run. lookup workgroups in run and construct workgroupIdString
+				String workgroupIdStr = "";
+				try {
+					Set<Workgroup> workgroups = runService.getWorkgroups(runId);
+					for (Workgroup workgroup : workgroups) {
+						workgroupIdStr += workgroup.getId() + ":";
+					}
+					request.setAttribute("userId", workgroupIdStr);
+				} catch (ObjectNotFoundException e) {
+				}				
+			}
 
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/getdata.html");
 			requestDispatcher.forward(request, response);
