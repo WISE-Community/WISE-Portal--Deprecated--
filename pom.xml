@@ -107,7 +107,8 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<forkMode>once</forkMode>
-					<excludes>
+ 					<skipTests>true</skipTests>
+ 					<excludes>
 						<exclude>**/AllTests.java</exclude>
 					</excludes>
 				</configuration>
