@@ -55,6 +55,7 @@ import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
 import org.telscenter.sail.webapp.presentation.util.json.JSONException;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.presentation.web.filters.TelsAuthenticationProcessingFilter;
+import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
@@ -316,6 +317,20 @@ public class InformationController extends AbstractController{
 				//set the values into the shared owner JSONObject
 				sharedTeacherUserInfo.put("workgroupId", sharedTeacherWorkgroup.getId());
 				sharedTeacherUserInfo.put("userName", sharedTeacherWorkgroup.generateWorkgroupName());
+				
+				//get the shared teacher role
+				String sharedTeacherRole = runService.getSharedTeacherRole(run, sharedOwner);
+
+				if(sharedTeacherRole == null) {
+					//shared teacher does not have a role
+					sharedTeacherUserInfo.put("role", "");
+				} else if(sharedTeacherRole.equals(UserDetailsService.RUN_READ_ROLE)) {
+					//shared teacher can view the run
+					sharedTeacherUserInfo.put("role", "read");
+				} else if(sharedTeacherRole.equals(UserDetailsService.RUN_GRADE_ROLE)) {
+					//shared teacher can grade the run
+					sharedTeacherUserInfo.put("role", "grade");
+				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
