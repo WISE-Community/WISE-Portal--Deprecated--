@@ -23,8 +23,7 @@
 					<tbody>
 					  <c:if test="${fn:length(current_run_list) > 0}">
 						  <c:forEach var="run" items="${current_run_list}">
-						  <sec:accesscontrollist domainObject="${run}" hasPermission="2" var="hasWritePermissionOnRun"></sec:accesscontrollist>
-				 	      <sec:accesscontrollist domainObject="${run}" hasPermission="1" var="hasReadPermissionOnRun"></sec:accesscontrollist>
+						  <sec:accesscontrollist domainObject="${run}" hasPermission="16" var="isRunOwner"></sec:accesscontrollist>
 						  <tr id="runTitleRow_${run.id}" class="runRow">
 						    <td>
 						    	<div class="runTitle">${run.name}</div>
@@ -92,21 +91,19 @@
 						              <td style="width:35%;" class="tableInnerData">${period.name}</td>
 						              <td style="width:65%;" class="tableInnerDataRight">
 						              <c:choose>
-				 	                  	<c:when test="${hasWritePermissionOnRun==true}">
+				 	                  	<c:when test="${isRunOwner==true}">
 				 	                  		<a class="manageStudents" title="<spring:message code="teacher.run.recentactivity.manageStudents"/>: ${run.name} (<spring:message code="teacher.run.recentactivity.runId2"/> ${run.id})" id="runId=${run.id}&periodName=${period.name}">${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.recentactivity.registered"/></a>
 				 	                  	</c:when>
-				 	                    <c:when test="${hasReadPermissionOnRun==true}">
+				 	                    <c:otherwise>
 				 	                    	${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.recentactivity.registered"/>
-				 	                    </c:when>
+				 	                    </c:otherwise>
 				 	                  </c:choose>
 						              </td>
 						            </tr>
 						          </c:forEach>
-						          <c:choose>
-				 	              	<c:when test="${hasWritePermissionOnRun==true}">
-				 	                	<tr><td colspan="2" class="manageStudentGroups"><a class="manageStudents" title="<spring:message code="teacher.run.recentactivity.manageStudents"/>: ${run.name} (<spring:message code="teacher.run.recentactivity.runId2"/> ${run.id})" id="runId=${run.id}"><img class="icon" alt="groups" src="/webapp/themes/tels/default/images/icons/teal/connected.png" /><span><spring:message code="teacher.run.recentactivity.manageStudents"/></span></a></td></tr>
-				 	                </c:when>
-				 	              </c:choose>
+						          <c:if test="${isRunOwner==true}">
+				 	                <tr><td colspan="2" class="manageStudentGroups"><a class="manageStudents" title="<spring:message code="teacher.run.recentactivity.manageStudents"/>: ${run.name} (<spring:message code="teacher.run.recentactivity.runId2"/> ${run.id})" id="runId=${run.id}"><img class="icon" alt="groups" src="/webapp/themes/tels/default/images/icons/teal/connected.png" /><span><spring:message code="teacher.run.recentactivity.manageStudents"/></span></a></td></tr>
+				 	              </c:if>
 						        </table>
 						    </td> 
 						    <td>

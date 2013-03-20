@@ -819,6 +819,40 @@ public class InformationController extends AbstractController{
 	}
 	
 	/**
+	 * Get the student ids from the workgroup
+	 * @param workgroup the workgroup to get student ids from
+	 * @return a string containing the student ids delimited by ':'
+	 * e.g.
+	 * "123:124"
+	 */
+	private String getStudentIdsFromWorkgroup(Workgroup workgroup) {
+		StringBuffer studentIds = new StringBuffer();
+		
+		//get all the members of the workgroup
+		Set<User> members = workgroup.getMembers();
+		Iterator<User> iterator = members.iterator();
+		
+		//loop through all the members in the workgroup
+		while(iterator.hasNext()) {
+			//get a student in the workgroup
+			User user = iterator.next();
+
+			//get the student id
+			Long studentId = user.getId();
+			
+			if(studentIds.length() != 0) {
+				//separate student ids by :
+				studentIds.append(":");
+			}
+			
+			//add the student id to the accumulation of student ids for this workgroup
+			studentIds.append(studentId);
+		}
+		
+		return studentIds.toString();
+	}
+	
+	/**
 	 * Get the xml for the classmate user info
 	 * @param classmateWorkgroup the workgroup of the classmate
 	 * @return an xml string containing the info for the classmate
@@ -839,6 +873,10 @@ public class InformationController extends AbstractController{
 				if(((WISEWorkgroup) classmateWorkgroup).getPeriod() != null) {
 					classmateUserInfo.put("periodId", ((WISEWorkgroup) classmateWorkgroup).getPeriod().getId());
 					classmateUserInfo.put("periodName", ((WISEWorkgroup) classmateWorkgroup).getPeriod().getName());
+
+					//add the student ids into the classmateUserInfo JSONObject
+					String studentIds = getStudentIdsFromWorkgroup(classmateWorkgroup);
+					classmateUserInfo.put("studentIds", studentIds);
 				}
 			}
 		} catch (JSONException e) {
