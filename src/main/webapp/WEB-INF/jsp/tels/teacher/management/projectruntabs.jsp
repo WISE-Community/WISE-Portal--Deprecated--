@@ -31,7 +31,8 @@
 						<tbody>
 						  <c:if test="${fn:length(current_run_list) > 0}">
 							  <c:forEach var="run" items="${current_run_list}">
-							  
+							  <sec:accesscontrollist domainObject="${run}" hasPermission="2" var="hasWritePermissionOnRun"></sec:accesscontrollist>
+				 	          <sec:accesscontrollist domainObject="${run}" hasPermission="1" var="hasReadPermissionOnRun"></sec:accesscontrollist>
 							  <tr id="runTitleRow_${run.id}" class="runRow">
 							    <td>
 							    	<div class="runTitle">${run.name}</div>
@@ -98,11 +99,22 @@
 							            <tr>
 							              <td style="width:35%;" class="tableInnerData">${period.name}</td>
 							              <td style="width:65%;" class="tableInnerDataRight">
-							              	<a class="manageStudents" title="<spring:message code="teacher.management.projectruntabs.manageStudents"/>: ${run.name} (<spring:message code="run_id"/> ${run.id})" id="runId=${run.id}&periodName=${period.name}">${fn:length(period.members)}&nbsp;<spring:message code="teacher.management.projectruntabs.registered"/></a>
+				 	                    	<c:choose>
+				 	                    		<c:when test="${hasWritePermissionOnRun==true}">
+				 	                    			<a class="manageStudents" title="<spring:message code="teacher.management.projectruntabs.manageStudents"/>: ${run.name} (<spring:message code="run_id"/> ${run.id})" id="runId=${run.id}&periodName=${period.name}">${fn:length(period.members)}&nbsp;<spring:message code="teacher.management.projectruntabs.registered"/></a>
+				 	                    		</c:when>
+				 	                    		<c:when test="${hasReadPermissionOnRun==true}">
+				 	                    			${fn:length(period.members)}&nbsp;<spring:message code="teacher.management.projectruntabs.registered"/>
+				 	                    		</c:when>
+				 	                    	</c:choose>
 							              </td>
 							            </tr>
 							          </c:forEach>
-							          <tr><td colspan="2" class="manageStudentGroups"><a class="manageStudents" title="<spring:message code="teacher.management.projectruntabs.manageStudents"/>: ${run.name} (<spring:message code="run_id"/> ${run.id})" id="runId=${run.id}"><img class="icon" alt="groups" src="/webapp/themes/tels/default/images/icons/teal/connected.png" /><span><spring:message code="teacher.management.projectruntabs.manageStudents"/></span></a></td></tr>
+							          <c:choose>
+				 	                    <c:when test="${hasWritePermissionOnRun==true}">
+				 	                    	<tr><td colspan="2" class="manageStudentGroups"><a class="manageStudents" title="<spring:message code="teacher.management.projectruntabs.manageStudents"/>: ${run.name} (<spring:message code="run_id"/> ${run.id})" id="runId=${run.id}"><img class="icon" alt="groups" src="/webapp/themes/tels/default/images/icons/teal/connected.png" /><span><spring:message code="teacher.management.projectruntabs.manageStudents"/></span></a></td></tr>
+				 	                    </c:when>
+				 	                  </c:choose>
 							        </table>
 							    </td> 
 							    <td>
