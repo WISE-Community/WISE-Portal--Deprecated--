@@ -23,8 +23,7 @@
 					<tbody>
 					  <c:if test="${fn:length(current_run_list) > 0}">
 						  <c:forEach var="run" items="${current_run_list}">
-						  <sec:accesscontrollist domainObject="${run}" hasPermission="2" var="hasWritePermissionOnRun"></sec:accesscontrollist>
-				 	      <sec:accesscontrollist domainObject="${run}" hasPermission="1" var="hasReadPermissionOnRun"></sec:accesscontrollist>
+						  <sec:accesscontrollist domainObject="${run}" hasPermission="16" var="isRunOwner"></sec:accesscontrollist>
 						  <tr id="runTitleRow_${run.id}" class="runRow">
 						    <td>
 						    	<div class="runTitle">${run.name}</div>
@@ -72,11 +71,13 @@
 											<td><a id="projectDetail_${run.project.parentProjectId}" class="projectDetail" title="<spring:message code="teacher.run.recentactivity.projectDetails"/>">${run.project.parentProjectId}</a></td>
 											</c:if>
 						      			</tr>
-						      			<tr>
-						      				<td colspan="2" style="padding-top:.5em;">
-						      				<a id="editRun_${run.id}" class="editRun" title="<spring:message code="teacher.run.recentactivity.editRunSettings"/>: ${run.name} (<spring:message code="teacher.run.recentactivity.runId2"/> ${run.id})"><img class="icon" alt="settings" src="/webapp/themes/tels/default/images/icons/teal/processing.png" /><span><spring:message code="teacher.run.recentactivity.editRunSettings"/></span></a>
-						      				</td>
-						      			</tr>
+						      			<c:if test="${isRunOwner==true}">
+											<tr>
+						      					<td colspan="2" style="padding-top:.5em;">
+						      						<a id="editRun_${run.id}" class="editRun" title="<spring:message code="teacher.run.recentactivity.editRunSettings"/>: ${run.name} (<spring:message code="teacher.run.recentactivity.runId2"/> ${run.id})"><img class="icon" alt="settings" src="/webapp/themes/tels/default/images/icons/teal/processing.png" /><span><spring:message code="teacher.run.recentactivity.editRunSettings"/></span></a>
+						      					</td>
+						      				</tr>
+						      			</c:if>
 								</table>
 						      	
 							</td>
@@ -92,21 +93,19 @@
 						              <td style="width:35%;" class="tableInnerData">${period.name}</td>
 						              <td style="width:65%;" class="tableInnerDataRight">
 						              <c:choose>
-				 	                  	<c:when test="${hasWritePermissionOnRun==true}">
+				 	                  	<c:when test="${isRunOwner==true}">
 				 	                  		<a class="manageStudents" title="<spring:message code="teacher.run.recentactivity.manageStudents"/>: ${run.name} (<spring:message code="teacher.run.recentactivity.runId2"/> ${run.id})" id="runId=${run.id}&periodName=${period.name}">${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.recentactivity.registered"/></a>
 				 	                  	</c:when>
-				 	                    <c:when test="${hasReadPermissionOnRun==true}">
+				 	                    <c:otherwise>
 				 	                    	${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.recentactivity.registered"/>
-				 	                    </c:when>
+				 	                    </c:otherwise>
 				 	                  </c:choose>
 						              </td>
 						            </tr>
 						          </c:forEach>
-						          <c:choose>
-				 	              	<c:when test="${hasWritePermissionOnRun==true}">
-				 	                	<tr><td colspan="2" class="manageStudentGroups"><a class="manageStudents" title="<spring:message code="teacher.run.recentactivity.manageStudents"/>: ${run.name} (<spring:message code="teacher.run.recentactivity.runId2"/> ${run.id})" id="runId=${run.id}"><img class="icon" alt="groups" src="/webapp/themes/tels/default/images/icons/teal/connected.png" /><span><spring:message code="teacher.run.recentactivity.manageStudents"/></span></a></td></tr>
-				 	                </c:when>
-				 	              </c:choose>
+						          <c:if test="${isRunOwner==true}">
+				 	                <tr><td colspan="2" class="manageStudentGroups"><a class="manageStudents" title="<spring:message code="teacher.run.recentactivity.manageStudents"/>: ${run.name} (<spring:message code="teacher.run.recentactivity.runId2"/> ${run.id})" id="runId=${run.id}"><img class="icon" alt="groups" src="/webapp/themes/tels/default/images/icons/teal/connected.png" /><span><spring:message code="teacher.run.recentactivity.manageStudents"/></span></a></td></tr>
+				 	              </c:if>
 						        </table>
 						    </td> 
 						    <td>
@@ -128,14 +127,16 @@
 										    	<spring:message code="teacher.run.recentactivity.gradingAndFeedback" var="gradingAndFeedback"/>
 												<li><span style="font-weight:bold;"><spring:message code="teacher.run.recentactivity.gradeByStep"/>:</span> <a class="grading" title="${gradingAndFeedback}: ${run.name} (<spring:message code="teacher.run.recentactivity.runId2"/> ${run.id})" id="runId=${run.id}&gradingType=step&getRevisions=false&minified=true"><spring:message code="teacher.run.recentactivity.latestWork"/></a>&nbsp;|&nbsp;<a class="grading" title="${gradingAndFeedback}: ${run.name} (<spring:message code="teacher.run.recentactivity.runId2"/>: ${run.id})" id="runId=${run.id}&gradingType=step&getRevisions=true&minified=true"><spring:message code="teacher.run.recentactivity.allRevisions"/></a></li>
 						  	                    <li><span style="font-weight:bold;"><spring:message code="teacher.run.recentactivity.gradeByTeam"/>:</span> <a class="grading" title="${gradingAndFeedback}: ${run.name} (<spring:message code="teacher.run.recentactivity.runId2"/> ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=false&minified=true"><spring:message code="teacher.run.recentactivity.latestWork"/></a>&nbsp;|&nbsp;<a class="grading" title="${gradingAndFeedback}: ${run.name} (<spring:message code="teacher.run.recentactivity.runId2"/>: ${run.id})" id="runId=${run.id}&gradingType=team&getRevisions=true&minified=true"><spring:message code="teacher.run.recentactivity.allRevisions"/></a></li>
-                    							<c:choose>
-	                    							<c:when test="${isXMPPEnabled && run.XMPPEnabled}">
-	                    								<li><a class="classroomMonitor" title="<spring:message code="teacher.run.recentactivity.classroomMonitor"/>: ${run.name} (<spring:message code="teacher.run.recentactivity.runId2"/> ${run.id})" id="runId=${run.id}&gradingType=monitor"><img class="icon" alt="monitor" src="/webapp/themes/tels/default/images/icons/teal/bar-chart.png" /><span><spring:message code="teacher.run.recentactivity.classroomMonitor"/></span></a></li>
-	                    							</c:when>
-	                    							<c:otherwise>
-	                    								<li><a class="classroomMonitor" title="<spring:message code="teacher.run.recentactivity.classroomMonitor"/>: ${run.name} (<spring:message code="teacher.run.recentactivity.runId2"/> ${run.id})" id="runId=${run.id}&gradingType=monitor" style="display:none"><img class="icon" alt="monitor" src="/webapp/themes/tels/default/images/icons/teal/bar-chart.png" /><span><spring:message code="teacher.run.recentactivity.classroomMonitor"/></span></a></li>
-	                    							</c:otherwise>
-	                    						</c:choose>
+                    							<c:if test="${isRunOwner==true}">
+                    								<c:choose>
+	                    								<c:when test="${isXMPPEnabled && run.XMPPEnabled}">
+	                    									<li><a class="classroomMonitor" title="<spring:message code="teacher.run.recentactivity.classroomMonitor"/>: ${run.name} (<spring:message code="teacher.run.recentactivity.runId2"/> ${run.id})" id="runId=${run.id}&gradingType=monitor"><img class="icon" alt="monitor" src="/webapp/themes/tels/default/images/icons/teal/bar-chart.png" /><span><spring:message code="teacher.run.recentactivity.classroomMonitor"/></span></a></li>
+	                    								</c:when>
+	                    								<c:otherwise>
+	                    									<li><a class="classroomMonitor" title="<spring:message code="teacher.run.recentactivity.classroomMonitor"/>: ${run.name} (<spring:message code="teacher.run.recentactivity.runId2"/> ${run.id})" id="runId=${run.id}&gradingType=monitor" style="display:none"><img class="icon" alt="monitor" src="/webapp/themes/tels/default/images/icons/teal/bar-chart.png" /><span><spring:message code="teacher.run.recentactivity.classroomMonitor"/></span></a></li>
+	                    								</c:otherwise>
+	                    							</c:choose>
+                    							</c:if>
 							               </ul>
 							               <ul class="actionList">
 										        <li>
