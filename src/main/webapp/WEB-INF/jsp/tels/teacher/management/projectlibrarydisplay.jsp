@@ -1506,7 +1506,7 @@
 		
 		function processCopyResult(item,message,success){
 			$('#copyDialog').html(message);
-			$('button:eq(0)',$('#copyDialog').parent()).show().click(function(){
+			$('.ui-dialog-buttonset button:eq(1)',$('#copyDialog').parent()).show().click(function(){
 				agreed = true;
 				$(item).dialog('close');
 				if(success){
