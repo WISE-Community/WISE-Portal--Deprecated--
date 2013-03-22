@@ -125,15 +125,6 @@ LOCK TABLES `groups_related_to_users` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping data for table `jaxbquestions`
---
-
-LOCK TABLES `jaxbquestions` WRITE;
-/*!40000 ALTER TABLE `jaxbquestions` DISABLE KEYS */;
-/*!40000 ALTER TABLE `jaxbquestions` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping data for table `jnlps`
 --
 
