@@ -1432,7 +1432,7 @@
 			closeOnEscape: false,
 			beforeclose : function() { return agreed; },
 			buttons: [
-			    { text: '<spring:message code="cancel" />', class: 'secondary', click: function(){
+			    { text: '<spring:message code="cancel" />', class: 'secondary', class: 'secondary', click: function(){
 					agreed = true;
 					$(this).dialog('close');
 				} },
@@ -1506,7 +1506,7 @@
 		
 		function processCopyResult(item,message,success){
 			$('#copyDialog').html(message);
-			$('button:eq(0)',$('#copyDialog').parent()).show().click(function(){
+			$('button:eq(1)',$('#copyDialog').parent()).show().click(function(){
 				agreed = true;
 				$(item).dialog('close');
 				if(success){
