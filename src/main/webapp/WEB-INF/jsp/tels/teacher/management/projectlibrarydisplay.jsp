@@ -1432,7 +1432,7 @@
 			closeOnEscape: false,
 			beforeclose : function() { return agreed; },
 			buttons: [
-			    { text: '<spring:message code="cancel" />', class: 'secondary', class: 'secondary', click: function(){
+			    { text: '<spring:message code="cancel" />', class: 'secondary', click: function(){
 					agreed = true;
 					$(this).dialog('close');
 				} },
