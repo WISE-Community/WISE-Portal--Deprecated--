@@ -13,7 +13,7 @@
 		function startWithConfig() {
 			var vleConfigUrl = "${vleConfigUrl}";
 			window.frames['topifrm'].eventManager.subscribe('fatalError', notifyFatal);
-			window.frames['topifrm'].eventManager.fire('startVLEFromConfig', vleConfigUrl);
+			window.frames['topifrm'].view.startVLEFromConfig(vleConfigUrl);
 		}
 	</script>
 
