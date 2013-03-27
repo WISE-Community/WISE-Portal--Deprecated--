@@ -19,6 +19,10 @@
 		<form:form method="post" action="changestudentpassword.html" commandName="changeStudentPasswordParameters" id="changestudentpassword" autocomplete='off'>
 			
 		<div>
+			<label for="changestudentpassword"><spring:message code="changePassword_current" /></label>
+	      	<form:password path="passwd0" />
+		</div>
+		<div>
 			<label for="changestudentpassword"><spring:message code="changePassword_new" /></label>
 	      	<form:password path="passwd1" />
 		</div>

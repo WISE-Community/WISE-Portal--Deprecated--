@@ -22,7 +22,6 @@
  */
 package org.telscenter.sail.webapp.domain.impl;
 
-import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.ChangePasswordParameters;
 
 /**
@@ -33,19 +32,4 @@ public class ChangeStudentPasswordParameters extends ChangePasswordParameters{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private User user;
-	
-	/**
-	 * @return the user
-	 */
-	public User getUser(){
-		return user;
-	}
-	
-	/**
-	 * @param sets the user
-	 */
-	public void setUser(User user){
-		this.user = user;
-	}
 }

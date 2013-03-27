@@ -24,6 +24,8 @@ package net.sf.sail.webapp.domain.impl;
 
 import java.io.Serializable;
 
+import net.sf.sail.webapp.domain.User;
+
 /**
  * A form-backing object for WISE students when changing a 
  * their existing passwords
@@ -36,7 +38,26 @@ public class ChangePasswordParameters implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String passwd1, passwd2;
+	private String passwd0, passwd1, passwd2;
+	
+	private User user;
+	private User teacherUser;
+	
+	/**
+	 * Get what the user has entered as their current password
+	 * @return what the user has entered as their current password
+	 */
+	public String getPasswd0() {
+		return passwd0;
+	}
+
+	/**
+	 * Set what the user has entered as their current password
+	 * @param passwd0 what the user has entered as their current password
+	 */
+	public void setPasswd0(String passwd0) {
+		this.passwd0 = passwd0;
+	}
 
 	/**
 	 * @return the passwd1
@@ -66,4 +87,36 @@ public class ChangePasswordParameters implements Serializable {
 		this.passwd2 = passwd2;
 	}
 
+	/**
+	 * @return the user
+	 */
+	public User getUser(){
+		return user;
+	}
+	
+	/**
+	 * @param sets the user
+	 */
+	public void setUser(User user){
+		this.user = user;
+	}
+
+	/**
+	 * Get the teacher User object
+	 * If the teacher is changing the password for a student we will need
+	 * the teacher account to make sure the teacher typed in their own
+	 * password correctly
+	 * @return
+	 */
+	public User getTeacherUser() {
+		return teacherUser;
+	}
+
+	/**
+	 * Set the teacher User object
+	 * @param teacherUser the teacher User object
+	 */
+	public void setTeacherUser(User teacherUser) {
+		this.teacherUser = teacherUser;
+	}
 }

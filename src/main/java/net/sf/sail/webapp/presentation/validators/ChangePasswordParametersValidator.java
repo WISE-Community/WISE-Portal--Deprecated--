@@ -22,12 +22,13 @@
  */
 package net.sf.sail.webapp.presentation.validators;
 
-import java.lang.reflect.Method;
-
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.ChangePasswordParameters;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.validation.BindException;
+import org.springframework.security.authentication.dao.SystemWideSaltSource;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -44,6 +45,7 @@ import org.telscenter.sail.webapp.domain.impl.Passwords;
 public class ChangePasswordParametersValidator implements Validator {
 
 	protected static final int MAX_PASSWORD_LENGTH = 20;
+	private SystemWideSaltSource systemSaltSource;
 
 	/**
 	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
@@ -62,6 +64,11 @@ public class ChangePasswordParametersValidator implements Validator {
 	public void validate(Object paramsIn, Errors errors) {
 		ChangePasswordParameters params = (ChangePasswordParameters) paramsIn;
 
+		validatePasswd0(errors,params);
+		
+		if( errors.getErrorCount() != 0 )
+			return;
+		
 		validatePasswd1(errors,params);
 		
 		if( errors.getErrorCount() != 0 )
@@ -77,9 +84,57 @@ public class ChangePasswordParametersValidator implements Validator {
 		validatePasswordsMatch(errors, passwords, params);
 	}
 	
+	/**
+	 * Validate the current password the user has entered
+	 * @param errors
+	 * @param params
+	 */
+	public void validatePasswd0(Errors errors, ChangePasswordParameters params) {
+		User userToCheckPasswordFor = null;
+		
+		if(params.getTeacherUser() != null) {
+			/*
+			 * the teacher is changing the password for a student so we need
+			 * to check that the teacher has typed in their current password 
+			 * correctly
+			 */
+			userToCheckPasswordFor = params.getTeacherUser();
+		} else {
+			/*
+			 * the teacher or student is changing their own password so we need
+			 * to check if they typed in their current password correctly 
+			 */
+			userToCheckPasswordFor = params.getUser();
+		}
+		
+		PasswordEncoder encoder = new Md5PasswordEncoder();
+		
+		//get the typed in current password the user has entered
+		String typedInCurrentPassword = params.getPasswd0();
+		
+		if(typedInCurrentPassword != null) {
+			//get the hashed typed in current password
+			String hashedTypedInCurrentPassword = encoder.encodePassword(typedInCurrentPassword, systemSaltSource.getSystemWideSalt());
+			
+			//get the hashed actual current password
+			String hashedActualCurrentPassword = userToCheckPasswordFor.getUserDetails().getPassword();
+			
+			if(hashedTypedInCurrentPassword != null && hashedActualCurrentPassword != null &&
+					hashedTypedInCurrentPassword.equals(hashedActualCurrentPassword)) {
+				//the user has typed in the correct current password
+			} else {
+				//the user has not typed in the correct current password
+				errors.rejectValue("passwd0", "presentation.validators.ChangePasswordParametersValidator.errorIncorrectCurrentPassword");
+			}
+		} else {
+			//typed in current password is null
+			errors.rejectValue("passwd0", "presentation.validators.ChangePasswordParametersValidator.errorCurrentPasswordMissing");
+		}
+	}
+
 	public void validatePasswd1(Errors errors, ChangePasswordParameters params) {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "passwd1",
-		"error.password-not-specified");
+		"presentation.validators.ChangePasswordParametersValidator.errorNewPasswordMissing");
 		
 		if( errors.getErrorCount() != 0 )
 			return;
@@ -88,7 +143,7 @@ public class ChangePasswordParametersValidator implements Validator {
 	
 	public void validatePasswd2(Errors errors, ChangePasswordParameters params) {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "passwd2",
-		"error.password-not-specified");
+		"presentation.validators.ChangePasswordParametersValidator.errorNewPasswordMissing");
 		
 		if( errors.getErrorCount() != 0 )
 			return;
@@ -102,14 +157,14 @@ public class ChangePasswordParametersValidator implements Validator {
 		validatePasswordLength(errors, params);
 		
 		if (!passwords.match()) {
-			errors.rejectValue("passwd1", "error.passwords-mismatch");
+			errors.rejectValue("passwd1", "presentation.validators.ChangePasswordParametersValidator.errorNewPasswordsDoNotMatch");
 		}
 	}
 
 	public void validatePasswordAlphaNumeric(Errors errors,
 			String passwd) {
 		if (!StringUtils.isAlphanumeric(passwd))
-			errors.rejectValue("passwd1", "error.password-illegal-characters");
+			errors.rejectValue("passwd1", "presentation.validators.ChangePasswordParametersValidator.errorPasswordContainsIllegalCharacters");
 		
 	}
 
@@ -117,7 +172,7 @@ public class ChangePasswordParametersValidator implements Validator {
 			ChangePasswordParameters params) {
 		if (params.getPasswd1().length() > MAX_PASSWORD_LENGTH
 				|| params.getPasswd2().length() > MAX_PASSWORD_LENGTH) {
-			errors.rejectValue("passwd1", "error.password-too-long");
+			errors.rejectValue("passwd1", "presentation.validators.ChangePasswordParametersValidator.errorPasswordTooLong");
 		}
 	}
 
@@ -204,4 +259,11 @@ public class ChangePasswordParametersValidator implements Validator {
 //		return message;
 //	}
 
+	public SystemWideSaltSource getSystemSaltSource() {
+		return systemSaltSource;
+	}
+
+	public void setSystemSaltSource(SystemWideSaltSource systemSaltSource) {
+		this.systemSaltSource = systemSaltSource;
+	}
 }

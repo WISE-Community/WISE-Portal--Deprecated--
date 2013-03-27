@@ -63,7 +63,7 @@ $(document).ready(function() {
 			modal:true,
 			resizable:false,
 			width:600,
-			height:300,
+			height:350,
 			title: 'Change Password',
 			buttons: {
 				'Close': function(){ $(this).dialog('destroy'); }

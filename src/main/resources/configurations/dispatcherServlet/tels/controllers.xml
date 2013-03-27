@@ -552,6 +552,17 @@
 		<property name="validator" ref="changePasswordParametersValidator"/>
 	</bean>
 	
+	<bean id="changeTeacherPasswordController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ChangeTeacherPasswordController">
+		<property name="successView" value="teacher/management/changepasswordsuccess"/>
+		<property name="userService" ref="userService"/>
+		<property name="studentService" ref="studentService"/>
+		<property name="sessionForm" value="true"/>
+		<property name="commandName" value="changeStudentPasswordParameters"/>
+		<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.ChangeStudentPasswordParameters"/>
+		<property name="validator" ref="changePasswordParametersValidator"/>
+	</bean>
+	
     <bean id="changeWorkgroupParametersValidator"
     	class="org.telscenter.sail.webapp.presentation.validators.teacher.ChangeWorkgroupParametersValidator"/>
 
