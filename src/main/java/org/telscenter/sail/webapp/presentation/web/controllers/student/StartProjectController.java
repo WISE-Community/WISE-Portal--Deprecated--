@@ -258,8 +258,6 @@ public class StartProjectController extends AbstractController {
 			session.getServletContext().setAttribute("studentsToRuns", studentToRuns);
 		}
 		
-		@SuppressWarnings("unused")
-		int size = run.getOwners().size();  // do this to eager-fetch the owners so we can display in admin "currentlyloggedinusers" table.
 		studentToRuns.put(sessionId, run);
 	}
 	
