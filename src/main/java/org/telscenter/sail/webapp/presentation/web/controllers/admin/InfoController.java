@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -68,7 +69,14 @@ public class InfoController extends AbstractController{
 				this.studentService.isStudentAssociatedWithTeacher(infoUser, signedInUser)){
 			MutableUserDetails userDetails = (MutableUserDetails) infoUser.getUserDetails();
 			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.addObject(USER_INFO_MAP, userDetails.getInfo());
+			
+			//get the user info map that maps fields to values such as 'First Name' to 'Spongebob'
+			HashMap<String, Object> userInfo = userDetails.getInfo();
+			
+			//we want the id to be the user id instead of the user details id so we will override it
+			userInfo.put("ID", infoUser.getId());
+			
+			modelAndView.addObject(USER_INFO_MAP, userInfo);
 			
 			if(infoUser.getUserDetails().hasGrantedAuthority(UserDetailsService.STUDENT_ROLE)) {
 				//the user we are looking up is a student
