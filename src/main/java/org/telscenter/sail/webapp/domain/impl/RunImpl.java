@@ -170,7 +170,7 @@ public class RunImpl extends OfferingImpl implements Run {
     @Sort(type = SortType.NATURAL)
     private Set<Group> periods = new TreeSet<Group>();
     
-    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
     @JoinTable(name = OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name =  RUNS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = OWNERS_JOIN_COLUMN_NAME, nullable = false))
     private Set<User> owners = new TreeSet<User>();
     
