@@ -33,6 +33,14 @@
     <util:properties id="portalproperties" 
         location="classpath:portal.properties" />
         
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    	<property name="locations">
+        	<list>
+            	<value>classpath:portal.properties</value>
+	        </list>
+    	</property>
+	</bean>
+    
     <bean id="adminjob" class="org.telscenter.sail.webapp.domain.admin.AdminJob">
         <property name="javaMail" ref="javaMail"/>
 		<property name="emaillisteners" ref="emaillisteners" />			
