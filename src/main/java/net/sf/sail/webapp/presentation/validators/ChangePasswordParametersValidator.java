@@ -106,29 +106,34 @@ public class ChangePasswordParametersValidator implements Validator {
 			 */
 			userToCheckPasswordFor = params.getUser();
 		}
-		
-		PasswordEncoder encoder = new Md5PasswordEncoder();
-		
-		//get the typed in current password the user has entered
-		String typedInCurrentPassword = params.getPasswd0();
-		
-		if(typedInCurrentPassword != null) {
-			//get the hashed typed in current password
-			String hashedTypedInCurrentPassword = encoder.encodePassword(typedInCurrentPassword, systemSaltSource.getSystemWideSalt());
+
+		//if the user is not an admin we need to make sure they typed in the current teacher password
+		if(!userToCheckPasswordFor.isAdmin()) {
+			//the user is not an admin
 			
-			//get the hashed actual current password
-			String hashedActualCurrentPassword = userToCheckPasswordFor.getUserDetails().getPassword();
+			PasswordEncoder encoder = new Md5PasswordEncoder();
 			
-			if(hashedTypedInCurrentPassword != null && hashedActualCurrentPassword != null &&
-					hashedTypedInCurrentPassword.equals(hashedActualCurrentPassword)) {
-				//the user has typed in the correct current password
+			//get the typed in current password the user has entered
+			String typedInCurrentPassword = params.getPasswd0();
+			
+			if(typedInCurrentPassword != null) {
+				//get the hashed typed in current password
+				String hashedTypedInCurrentPassword = encoder.encodePassword(typedInCurrentPassword, systemSaltSource.getSystemWideSalt());
+				
+				//get the hashed actual current password
+				String hashedActualCurrentPassword = userToCheckPasswordFor.getUserDetails().getPassword();
+				
+				if(hashedTypedInCurrentPassword != null && hashedActualCurrentPassword != null &&
+						hashedTypedInCurrentPassword.equals(hashedActualCurrentPassword)) {
+					//the user has typed in the correct current password
+				} else {
+					//the user has not typed in the correct current password
+					errors.rejectValue("passwd0", "presentation.validators.ChangePasswordParametersValidator.errorIncorrectCurrentPassword");
+				}
 			} else {
-				//the user has not typed in the correct current password
-				errors.rejectValue("passwd0", "presentation.validators.ChangePasswordParametersValidator.errorIncorrectCurrentPassword");
+				//typed in current password is null
+				errors.rejectValue("passwd0", "presentation.validators.ChangePasswordParametersValidator.errorCurrentPasswordMissing");
 			}
-		} else {
-			//typed in current password is null
-			errors.rejectValue("passwd0", "presentation.validators.ChangePasswordParametersValidator.errorCurrentPasswordMissing");
 		}
 	}
 
