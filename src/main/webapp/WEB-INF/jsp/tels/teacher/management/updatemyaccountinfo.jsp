@@ -56,7 +56,12 @@
 						  		<td><label for="lastname" id="lastname1"><spring:message code="teacher.registerteacher.lastName"/></label></td>
 								<td><form:input disabled="true" path="userDetails.lastname" id="teacherLastName" size="25" maxlength="25" tabindex="2"/> <span class="hint"><spring:message code="teacher.registerteacher.required"/><span class="hint-pointer"></span></span> </td>
 							</tr>
-						
+
+						    <tr>
+						  		<td><label for="displayname" id="displayname"><spring:message code="teacher.management.updatemyaccountinfo.displayName" /></label></td>
+						    	<td><form:input path="userDetails.displayname" id="teacherDisplayName" size="25" maxlength="50" tabindex="2"/><span class="hint"><spring:message code="teacher.registerteacher.required"/><span class="hint-pointer"></span></span> </td>
+						    </tr>
+
 						    <tr>
 						    	<td><label for="emailAddress" id="emailAddress1"><spring:message code="teacher.registerteacher.email" /></label></td>
 								<td><form:input path="userDetails.emailAddress" id="teacherEmail" size="25" maxlength="40" tabindex="3"/> <span class="hint"><spring:message code="teacher.registerteacher.yourAccountInformationWillBeEmailed"/> <span class="hint-pointer"></span></span></td>
