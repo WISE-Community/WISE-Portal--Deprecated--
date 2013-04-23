@@ -93,7 +93,7 @@ $(document).ready(function(){
 		div.dialog({
 			modal: true,
 			width: '650',
-			height: '350',
+			height: '400',
 			title: title,
 			position: 'center',
 			close: function(){ $(this).remove(); },
@@ -172,7 +172,7 @@ $(document).ready(function(){
 		div.dialog({
 			modal: true,
 			width: '650',
-			height: '400',
+			height: '425',
 			title: title,
 			position: 'center',
 			close: function(){ $(this).remove(); },

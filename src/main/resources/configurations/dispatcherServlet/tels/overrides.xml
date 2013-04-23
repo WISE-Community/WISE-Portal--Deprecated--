@@ -152,7 +152,7 @@
 				/**/changepassword.html=changeUserPasswordController
 				/teacher/management/viewmystudents.html=viewMyStudentsController
 				/teacher/management/batchstudentchangepassword.html=batchStudentChangePasswordController
-				/teacher/management/changepassword.html=changeUserPasswordController
+				/teacher/management/changepassword.html=changeTeacherPasswordController
 				/teacher/management/changestudentpassword.html=changeUserPasswordController
 				/teacher/management/changeworkgroup.html=changeWorkgroupController
 				/teacher/management/removestudentfromrun.html=removeStudentFromRunController

@@ -355,7 +355,8 @@ public class AuthorProjectController extends AbstractController {
 				"removeFile".equals(command)||
 				"assetList".equals(command) || 
 				"getSize".equals(command) || 
-				"assetmanager".equals(forward)) {
+				"assetmanager".equals(forward) ||
+				"filemanager".equals(forward)) {
 			//get the full project folder path
 			String projectFolderPath = getProjectFolderPath(project);
 			request.setAttribute("projectFolderPath", projectFolderPath);

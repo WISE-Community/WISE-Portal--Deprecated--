@@ -65,10 +65,12 @@ public class BatchStudentChangePasswordController extends SimpleFormController {
 		User user = ControllerUtil.getSignedInUser();
 		Run run = this.runService.retrieveById(Long.parseLong(request.getParameter("runId")));
 		
-		if(this.aclService.hasPermission(run, BasePermission.ADMINISTRATION, user) ||
+		if(user.isAdmin() ||
+				this.aclService.hasPermission(run, BasePermission.ADMINISTRATION, user) ||
 				this.aclService.hasPermission(run, BasePermission.WRITE, user)){
 			BatchStudentChangePasswordParameters params = new BatchStudentChangePasswordParameters();
 			params.setGroupId(Long.parseLong(request.getParameter(GROUPID_PARAM_NAME)));
+			params.setTeacherUser(user);
 			return params;
 		} else {
 			throw new NotAuthorizedException("You are not authorized to change these passwords.");

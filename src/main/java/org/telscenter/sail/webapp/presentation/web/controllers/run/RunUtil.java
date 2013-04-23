@@ -143,11 +143,11 @@ public class RunUtil {
 							classmateJSONObject.put("periodId", JSONObject.NULL);
 						}
 
-						//get the student logins as a string delimited by ':'
-						String loginsFromWorkgroup = getLoginsFromWorkgroup(workgroup);
+						//get the student user ids as a string delimited by ':'
+						String userIdsFromWorkgroup = getUserIdsFromWorkgroup(workgroup);
 						
-						//put the student logins string into the json object
-						classmateJSONObject.put("studentLogins", loginsFromWorkgroup);
+						//put the student user ids string into the json object
+						classmateJSONObject.put("userIds", userIdsFromWorkgroup);
 						
 						//add the student to the list of classmates array
 						classmateUserInfosJSONArray.put(classmateJSONObject);	
@@ -349,13 +349,13 @@ public class RunUtil {
 	}
 	
 	/**
-	 * Get the student logins as a string delimited by ':"
-	 * @param workgroup the workgroup id to obtain logins for
-	 * @return a string containing the student logins delimited by ':'
+	 * Get the wise ids as a string delimited by ':'
+	 * @param workgroup the workgroup id to obtain wise ids for
+	 * @return a string containing the wise ids delimited by ':'
 	 */
-	public static String getLoginsFromWorkgroup(Workgroup workgroup) {
+	public static String getUserIdsFromWorkgroup(Workgroup workgroup) {
 		//the string buffer to maintain the user names
-		StringBuffer userNames = new StringBuffer();
+		StringBuffer userIds = new StringBuffer();
 		
 		//get the members of the group in an iterator
 		Set<User> members = workgroup.getMembers();
@@ -366,22 +366,19 @@ public class RunUtil {
 			//get a member
 			User user = iterator.next();
 
-			//get the login
-			net.sf.sail.webapp.domain.authentication.MutableUserDetails userDetails = user.getUserDetails();
-
 			//get the wise student id
-			Long wiseStudentId = user.getUserDetails().getId();
+			Long userId = user.getId();
 			
 			//separate the names with a :
-			if(userNames.length() != 0) {
-				userNames.append(":");
+			if(userIds.length() != 0) {
+				userIds.append(":");
 			}
 			
 			//add the wise student id for this user
-			userNames.append(wiseStudentId);
+			userIds.append(userId);
 		}
 		
 		//return the : delimited user names that are in this workgroup
-		return userNames.toString();
+		return userIds.toString();
 	}
 }

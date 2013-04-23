@@ -26,18 +26,15 @@
 				<div class="panelHeader"><spring:message code="changePassword"/></div>
 				<div class="infoContentBox">
 	
-					<div class="errorMsgNoBg">
-						<!-- Support for Spring errors object -->
-						<spring:bind path="changeStudentPasswordParameters.*">
-					  		<c:forEach var="error" items="${status.errorMessages}">
-					   			 <p><c:out value="${error}"/></p>
-					   		</c:forEach>
-						</spring:bind>
-					</div>
-	
 					<div>
-						<form:form method="post" action="changestudentpassword.html" commandName="changeStudentPasswordParameters" id="changestudentpassword" autocomplete='off'>
+						<form:form method="post" action="changepassword.html" commandName="changeStudentPasswordParameters" id="changestudentpassword" autocomplete='off'>
 						<table style="margin:0 auto;">
+							<sec:authorize ifNotGranted="ROLE_ADMINISTRATOR">
+								<tr>
+									<td><label for="changestudentpassword"><spring:message code="changePassword_current" /></label></td>
+					      			<td><form:password path="passwd0" /></td>
+								</tr>
+							</sec:authorize>
 							<tr>
 							<td><label for="changestudentpassword"><spring:message code="changePassword_new" /></label></td>
 					      	<td><form:password path="passwd1" /></td>
@@ -47,8 +44,19 @@
 							<td><form:password path="passwd2" /></td>
 							</tr>
 						</table>
-								
-					    <div><input type="submit" value="<spring:message code="saveChanges"/>"/></div>
+
+								<div class="errorMsgNoBg">
+									<!-- Support for Spring errors object -->
+									<spring:bind path="changeStudentPasswordParameters.*">
+										<c:forEach var="error" items="${status.errorMessages}">
+											<p>
+												<c:out value="${error}" />
+											</p>
+										</c:forEach>
+									</spring:bind>
+								</div>
+
+						<div><input type="submit" value="<spring:message code="saveChanges"/>"/></div>
 						<div><a href="updatemyaccount.html"><spring:message code="cancel"/></a></div>
 					
 						</form:form>

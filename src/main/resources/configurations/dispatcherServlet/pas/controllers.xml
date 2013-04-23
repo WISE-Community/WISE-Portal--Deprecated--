@@ -140,6 +140,7 @@
     <bean id="changePasswordParametersValidator"
 		class="net.sf.sail.webapp.presentation.validators.ChangePasswordParametersValidator" >
 		<dwr:remote javascript="ChangePasswordParametersValidator" />
+		<property name="systemSaltSource" ref="systemSaltSource" />
 	</bean>
 	
 	<dwr:controller id="dwrController" debug="true"/>

@@ -8,9 +8,6 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.UserService;
 
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -82,14 +79,18 @@ public class ChangeUserPasswordController extends SimpleFormController {
     protected Object formBackingObject(HttpServletRequest request) throws Exception {
     	String username = request.getParameter(USER_NAME);
     	User userToChange = null;
+    	User teacherUser = null;
     	if (username != null) {
+    		//the username is provided which means a teacher is changing the password for a student
     		userToChange = userService.retrieveUserByUsername(username);
+    		teacherUser = ControllerUtil.getSignedInUser();
     	} else {
     		// if username is not specified, assume that logged-in user wants to change his/her own password.
     		userToChange = ControllerUtil.getSignedInUser();
     	}
 		ChangeStudentPasswordParameters params = new ChangeStudentPasswordParameters();
 		params.setUser(userToChange);
+		params.setTeacherUser(teacherUser);
 		return params;
     }
 	

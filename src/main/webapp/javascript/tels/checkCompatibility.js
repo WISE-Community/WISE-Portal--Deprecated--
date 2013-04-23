@@ -6,7 +6,7 @@
 
 //the default requirements
 var defaultRequirements = {
-	requiredFirefoxVersion:'3.5',
+	requiredFirefoxVersion:'6.0',
 	requiredInternetExplorerVersion:'9.0',
 	requiredChromeVersion:'5.0',
 	requiredSafariVersion:'3.0',

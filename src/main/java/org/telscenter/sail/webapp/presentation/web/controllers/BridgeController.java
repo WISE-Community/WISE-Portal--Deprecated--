@@ -901,9 +901,16 @@ public class BridgeController extends AbstractController {
 	 * @param request
 	 */
 	private void setCRaterAttributes(HttpServletRequest request) {
-		request.setAttribute("cRaterVerificationUrl", portalProperties.getProperty("cRater_verification_url"));
-		request.setAttribute("cRaterScoringUrl", portalProperties.getProperty("cRater_scoring_url"));
-		request.setAttribute("cRaterClientId", portalProperties.getProperty("cRater_client_id"));
+		String cRaterItemType = request.getParameter("cRaterItemType");
+		if (cRaterItemType == null || cRaterItemType.equals("CRATER")) {
+			request.setAttribute("cRaterVerificationUrl", portalProperties.getProperty("cRater_verification_url"));
+			request.setAttribute("cRaterScoringUrl", portalProperties.getProperty("cRater_scoring_url"));
+			request.setAttribute("cRaterClientId", portalProperties.getProperty("cRater_client_id"));
+		} else if (cRaterItemType.equals("HENRY")) {
+			request.setAttribute("cRaterVerificationUrl", portalProperties.getProperty("henry_verification_url"));
+			request.setAttribute("cRaterScoringUrl", portalProperties.getProperty("henry_scoring_url"));
+			request.setAttribute("cRaterClientId", portalProperties.getProperty("henry_client_id"));			
+		}
 	}
 	
 	/**

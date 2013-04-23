@@ -22,11 +22,15 @@
 
 	<form:form method="post" action="batchstudentchangepassword.html" commandName="batchStudentChangePasswordParameters" id="batchstudentchangepassword" autocomplete='off'>
 		<div class="sectionContent">
-			<label><spring:message code="changePassword_new"/></label>
+			<label><spring:message code="teacher.management.batchstudentchangepassword.typeTeacherPassword"/></label>
+			<form:password path="passwd0"/>
+		</div>
+		<div class="sectionContent">
+			<label><spring:message code="teacher.management.batchstudentchangepassword.typeStudentPassword"/></label>
 			<form:password path="passwd1"/>
 		</div>
 		<div class="sectionContent">
-			<label><spring:message code="changePassword_confirm"/></label>
+			<label><spring:message code="teacher.management.batchstudentchangepassword.typeStudentPasswordAgain"/></label>
 			<form:password path="passwd2"/>
 		</div>
 		

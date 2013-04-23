@@ -30,6 +30,21 @@
       	   http://www.springframework.org/schema/util
       	   http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
+        <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+        destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="${db.url}" />        
+        <property name="username" value="${db.username}" />
+        <property name="password" value="${db.password}" />
+        <property name="defaultAutoCommit" value="false" />
+        <property name="initialSize" value="50" />
+        <property name="maxActive" value="100" />
+        <property name="maxWait" value="1000" /> <!-- millieconds -->
+        <property name="removeAbandoned" value="true" />
+        <property name="removeAbandonedTimeout" value="60" />
+        <property name="logAbandoned" value="true" />
+    </bean>
+    
 	<util:properties id="javaMailProperties"
 		location="classpath:portal.properties" />
 
@@ -62,7 +77,7 @@
 
     <bean id="sessionFactory"
         class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource" /> 
         <!-- place any extra extension files after the pas/hibernate.cfg.xml base file -->
         <property name="configLocations">
             <list>
