@@ -4,6 +4,9 @@ src/main/resources/portal.properties
 # ignore target directory
 target
 
+# ignore /bin directory
+bin
+
 # ignore temp files
 *~
 
