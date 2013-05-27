@@ -24,6 +24,12 @@ $(document).ready(function(){
 	}
 });
 
+/*
+ * used to remember the run code the student has previously entered
+ * so we don't keep trying to find the period for the same run code
+ */
+previousRunCode = '';
+
 function findPeriods() {
 	  var successCallback = function(o) {
   			var periodSelect = document.getElementById("runCode_part2");
@@ -225,6 +231,49 @@ function setup() {
 		findPeriods();
 	}
 }
+
+/**
+ * Check if the run code the student entered is in the proper format
+ * and if so, try to find the periods for that run code.
+ */
+function checkRunCode() {
+	//get the run code the student has entered
+	var runCode = $('#runCode_part1').val();
+	
+	/*
+	 * the run code regex to check if the run code the student entered is
+	 * in the proper format so we can make the request to get the periods.
+	 * the proper format is any number of letters followed by 3 digits.
+	 */
+	var runCodePattern = /^[A-Za-z]*\d\d\d$/
+	
+	/*
+	 * check if the run code has changed since the last time the student
+	 * has entered the run code
+	 */
+	if(runCode != previousRunCode) {
+		//run code has changed
+		if(runCode.match(runCodePattern)) {
+			/*
+			 * run code matches the proper run code format so we will try
+			 * to find the periods
+			 */
+			findPeriods();
+		} else {
+			/*
+			 * the run code the student entered is not in the proper 
+			 * format so we will not try to find the periods
+			 */
+		}		
+	}
+	
+	/*
+	 * remember the value the student entered so we can compare it the next 
+	 * time this function is called 
+	 */
+	previousRunCode = runCode;
+}
+
 </script>
 </head>
 
@@ -351,16 +400,11 @@ function setup() {
 				
 						<tr>
 							<td><label for="runCode_part1" id="runCode_part1_label"><spring:message code="student.registerstudent.accessCode"/></label></td>
-							<td><form:input path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="10"/>
+							<td><form:input path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="10" onkeyup="checkRunCode()"/>
 						       	  <form:errors path="runCode_part1" />
 						          <span class="hint"><spring:message code="student.registerstudent.accessCodeHelp"/><span class="hint-pointer"></span></span>
 						    </td>
 						</tr>
-						
-						<tr>
-							<td><label for="runCode_part1" id="runCode_part1_label"></label></td>
-					  		<td><a style="font-weight:1.1em;" onclick="findPeriods();"><spring:message code="student.registerstudent.showClassPeriods"/></a></td>
-					  	</tr>
 				
 				      	<tr>
 				      		<td><label for="runCode_part2" id="runCode_part2_label"><spring:message code="student.registerstudent.classPeriod"/></label></td>

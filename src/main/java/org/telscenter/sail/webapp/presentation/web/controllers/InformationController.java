@@ -419,7 +419,8 @@ public class InformationController extends AbstractController{
 				 * allowed to access the config, unless the user is an admin
 				 */
 				User signedInUser = ControllerUtil.getSignedInUser();
-				if (!signedInUser.isAdmin()) {					
+				if (signedInUser == null || !signedInUser.isAdmin()) {
+					//user is not signed in or is not admin so we will not let them proceed
 					return;
 				}
 			} else if(((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {

@@ -153,6 +153,7 @@ public class TeamSignInController extends SimpleFormController {
 		for (User user : otherUsers) {
 			if (user != null) {
 				try {
+					userService.updateUser(user);
 					studentService.addStudentToRun(user, projectcode);
 				} catch (StudentUserAlreadyAssociatedWithRunException e) {
 					// do nothing. it's okay if the student is already associated with this run.

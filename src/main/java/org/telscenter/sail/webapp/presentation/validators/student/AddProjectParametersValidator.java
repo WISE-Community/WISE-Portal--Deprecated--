@@ -51,7 +51,7 @@ public class AddProjectParametersValidator implements Validator {
 		AddProjectParameters params = (AddProjectParameters) paramsIn;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "projectcode",
-				"error.no-projectcode");
+				"student.addproject.invalidAccessCode");
 		
 		if (errors.getErrorCount() != 0) {
 			return;
