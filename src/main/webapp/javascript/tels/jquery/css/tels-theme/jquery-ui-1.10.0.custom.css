@@ -1173,6 +1173,63 @@ body .ui-tooltip {
 	border-radius: 4px;
 }
 
+/*!
+ * jQuery UI Selectmenu @VERSION
+ * http://jqueryui.com
+ *
+ * Copyright 2013 jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Selectmenu#theming
+ */
+.ui-selectmenu-menu {
+	padding: 0;
+	margin: 0;
+	position:absolute;
+	top: 0;
+	display: none;
+}
+.ui-selectmenu-menu  ul.ui-menu {
+	overflow: auto;
+	overflow-y: auto ;
+	overflow-x: hidden;
+}
+.ui-selectmenu-menu .ui-menu .ui-menu-item a {
+	padding: 0.3em 1em 0.3em 1em;
+}
+.ui-selectmenu-menu .ui-menu li.ui-selectmenu-optgroup {
+	font-size: 1em;
+	font-weight: bold;
+	line-height: 1.5;
+	padding: 2px 0.4em;
+	margin: 0.5em 0 0 0;
+	height: auto;
+	border: 0;
+}
+.ui-selectmenu-open {
+	display: block;
+}
+.ui-selectmenu-button a.ui-button {
+	display: inline-block;
+	overflow: hidden;
+	position: relative;
+	text-decoration: none;
+}
+.ui-selectmenu-button span.ui-icon {
+	right: 0.5em;
+	left: auto;
+	margin-top: -8px;
+	position: absolute;
+	top: 50%;
+}
+.ui-selectmenu-button span.ui-selectmenu-text {
+	text-align: left;
+	padding: 0.4em 2.1em 0.4em 1em;
+	display: block;
+	line-height: 1.4;
+}
+
 /*
  * WISE Custom Style Overrides
  */
@@ -1307,9 +1364,10 @@ body .ui-tooltip {
     padding: 0.5em;
 }
 .ui-dialog .ui-dialog-title { 
-	font-weight: normal;
+	font-family: Helvetica,sans-serif;
+	font-weight: 300;
 	font-size:.9em;
-	margin: 0.1em 16px 0.1em 2px;
+	margin: 2px 16px -1px 2px;
 }  
 .ui-dialog .ui-dialog-titlebar-close { 
 	margin: -10px 0 0 0;
@@ -1329,9 +1387,7 @@ body .ui-tooltip {
 .ui-dialog .ui-dialog-titlebar-close .ui-icon, .ui-dialog .ui-dialog-titlebar-close:hover .ui-icon, .ui-dialog .ui-dialog-titlebar-close:focus .ui-icon {
 	background-image: url(images/ui-icons_ffffff_256x240.png);
 }
-.ui-dialog .ui-dialog-content { 
-	/*background: none repeat scroll 0 0 #FFFFFF;*/
-	/*border:1px solid #999999;*/
+.ui-dialog .ui-dialog-content {
     font-size: 0.85em;
     padding: 0.5em;
     margin:0;
@@ -1340,21 +1396,25 @@ body .ui-tooltip {
 
 .ui-dialog .ui-dialog-content p {
 	font-size:1em;
-	margin-bottom:.5em;
+	margin: 0.5em 0;
 }
 
 .ui-dialog .ui-dialog-buttonpane { 
-    background: none repeat scroll 0 0 #d5d5d5;
+    background: none repeat scroll 0 0 #dddddd;
     border: 0 none;
     margin: 0;
-    padding: 0 .75em;
+    padding: 0 0.5em;
 }
 .ui-dialog .ui-dialog-buttonpane button {
-    margin: 0.6em 0 0.6em 0.6em;
-	-o-box-shadow: 0 0 1px #444444;
-	-moz-box-shadow: 0 0 1px #444444;
-	-webkit-box-shadow: 0 0 1px #444444;
-	box-shadow: 0 0 1px #444444;
+    -moz-box-shadow: 0 0 1px #AAAAAA;
+    -webkit-box-shadow: 0 0 1px #AAAAAA;
+    -o-box-shadow: 0 0 1px #AAAAAA;
+    box-shadow: 0 0 1px #AAAAAA;
+    margin: 0.45em 0 0.45em 0.5em;
+    -moz-text-shadow: 0 0 1px #888888;
+    -webkit-text-shadow: 0 0 1px #888888;
+    -o-text-shadow: 0 0 1px #888888;
+    text-shadow: 0 0 1px #888888;
 }
 
 /*
@@ -1363,9 +1423,8 @@ body .ui-tooltip {
 .ui-dialog.settings .ui-dialog-title {
 	background-image: url("/vlewrapper/vle/images/icons/settings-white.png");
     background-repeat: no-repeat;
-    background-position:left 1px;
+    background-position:left -1px;
     padding-left:26px;
-    line-height:20px;
 }
 
 /*
@@ -1437,31 +1496,25 @@ body .ui-tooltip {
 	border: 1px solid #1C8CA8;
 }
 
-/* Selectmenu
-----------------------------------*/
-.ui-selectmenu-menu { padding: 0; margin: 0; position:absolute; top: 0; display: none; }
-.ui-selectmenu-menu  ul.ui-menu { overflow: auto; overflow-y: auto ; overflow-x: hidden; }
-.ui-selectmenu-menu .ui-menu .ui-menu-item a { 
+/*
+ * jQuery UI Selectmenu
+ */
+ .ui-selectmenu-button a.button {
+ 	text-align:left;
+ 	position:relative;
+ }
+ .ui-selectmenu-button span.ui-icon {
+ 	position:absolute;
+ }
+.ui-selectmenu-menu .ui-menu .ui-menu-item a {
 	color: #444444;
     font-size: 0.8em;
     padding: 0.25em 0.35em;
-}
-.ui-selectmenu-menu .ui-menu .ui-menu-item a:hover,
-.ui-selectmenu-menu .ui-menu .ui-menu-item a.ui-state-focus {
-	margin:0;
-	color:#ffffff;
-	-o-border-radius:0;
-	-moz-border-radius:0;
-	-webkit-border-radius:0;
-	border-radius:0;
-}
-.ui-selectmenu-menu .ui-menu .ui-menu-item.ui-state-disabled {
-	display:none;
+    text-align:left;
 }
 .ui-selectmenu-menu .ui-menu li.ui-selectmenu-optgroup {
 	font-size: .85em;
 }
-.ui-selectmenu-open { display: block; }
 .ui-selectmenu-button a.ui-button {
 	background: #fcfcfc; /* Old browsers */
 	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
@@ -1475,6 +1528,7 @@ body .ui-tooltip {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#e2e2e2',GradientType=0 ); /* IE6-8 */
 	border:1px solid #aaaaaa;
 }
+
 .ui-selectmenu-button a.ui-button:focus, .ui-selectmenu-button a.ui-button.ui-state-hover,
 .ui-selectmenu-button a.ui-button.ui-state-focus {
 	-o-box-shadow: 0 0 2px #cccccc inset;
@@ -1482,8 +1536,25 @@ body .ui-tooltip {
     -webkit-box-shadow: 0 0 2px #cccccc inset;
     box-shadow: 0 0 2px #cccccc inset;
 }
-.ui-selectmenu-button span.ui-icon { 
-	right: 0.25em;
+
+.ui-selectmenu-menu .ui-menu .ui-menu-item a:hover,
+.ui-selectmenu-menu .ui-menu .ui-menu-item a.ui-state-focus {
+	margin:0;
+	color:#ffffff;
+	-o-border-radius:0;
+	-moz-border-radius:0;
+	-webkit-border-radius:0;
+	border-radius:0;
+}
+.ui-selectmenu-menu .ui-menu .ui-menu-item.ui-state-disabled {
+	display:none;
+}
+.ui-selectmenu-button a.ui-button:focus, .ui-selectmenu-button a.ui-button.ui-state-hover,
+.ui-selectmenu-button a.ui-button.ui-state-focus {
+	-o-box-shadow: 0 0 2px #cccccc inset;
+    -moz-box-shadow: 0 0 2px #cccccc inset;
+    -webkit-box-shadow: 0 0 2px #cccccc inset;
+    box-shadow: 0 0 2px #cccccc inset;
 }
 .ui-selectmenu-button span.ui-selectmenu-text { 
 	color: #444444;
@@ -1498,8 +1569,14 @@ body .ui-tooltip {
 /* special styles for secondary jquery-ui dialog buttons like 'cancel' and 'close' */
 .ui-button.secondary.ui-state-default {
 	background:transparent;
-	color: #333333;
-    text-shadow: 1px 1px 0 #dddddd;
+	color: #555555;
+    -moz-text-shadow: 1px 1px 0 #eeeeee;
+    -webkit-text-shadow: 1px 1px 0 #eeeeee;
+    -o-text-shadow: 1px 1px 0 #eeeeee;
+    text-shadow: 1px 1px 0 #eeeeee;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    -o-box-shadow:none;
     box-shadow:none;
     border:0 none;
     margin-left:0;
@@ -1508,7 +1585,7 @@ body .ui-tooltip {
 	color:#000000;
 }
 .ui-button.secondary.ui-state-active, .ui-button.secondary:active {
-	color:#555555;
+	color:#666666;
 }
 
 /* browser alert/confirmation style dialogs */
@@ -1530,9 +1607,8 @@ body .ui-tooltip {
 
 .ui-dialog.alert .ui-dialog-title {
 	color: #745A33;
-	font-size:.95em;
-	/*font-family: Helvetica,sans-serif;
-    font-weight: 300;*/
+    font-size: 1em;
+    text-shadow: 0 0 1px #EEEEEE;
 }
 
 .ui-dialog.alert .ui-dialog-titlebar-close {
@@ -1568,6 +1644,10 @@ body .ui-tooltip {
     -webkit-box-shadow:none;
     -o-box-shadow:none;
     box-shadow:none;
+    -moz-text-shadow:none;
+    -webkit-text-shadow:none;
+    -o-text-shadow:none;
+    text-shadow:none;
 	background: #f5f5f5; /* Old browsers */
 	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
 	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y1ZjVmNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNkNWQ1ZDUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
@@ -1611,10 +1691,6 @@ body .ui-tooltip {
 }
 
 .ui-dialog.alert .ui-dialog-content p, .ui-dialog.alert .ui-dialog-content div {
-}
-
-.ui-dialog.alert .ui-dialog-content p:last-child {
-	margin-bottom:0;
 }
 
 .dialog h3 {
