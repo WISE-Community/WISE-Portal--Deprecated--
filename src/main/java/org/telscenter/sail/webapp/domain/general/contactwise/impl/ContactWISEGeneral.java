@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.domain.general.contactwise.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import net.sf.sail.webapp.domain.User;
@@ -29,8 +31,6 @@ import net.sf.sail.webapp.domain.User;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.general.contactwise.ContactWISE;
 import org.telscenter.sail.webapp.domain.general.contactwise.IssueType;
-import org.telscenter.sail.webapp.domain.general.contactwise.OperatingSystem;
-import org.telscenter.sail.webapp.domain.general.contactwise.WebBrowser;
 
 /**
  * @author Hiroki Terashima
@@ -173,8 +173,19 @@ public class ContactWISEGeneral implements ContactWISE {
 	 * Returns a string array of emails to be cc'd
 	 */
 	public String[] getMailCcs() {
-		String[] cc = {getEmail()};
-		return cc;
+		//get the email to cc
+		String emailToCC = getEmail();
+		
+		String[] cc = {};
+		List<String> list = new ArrayList<String>();
+		
+		if(emailToCC != null) {
+			//add the email to cc to the list
+			list.add(emailToCC);
+		}
+		
+		//get the list as a String[]
+		return list.toArray(cc);
 	}
 	
 	public String getMailSubject() {
@@ -198,13 +209,19 @@ public class ContactWISEGeneral implements ContactWISE {
 	
 	public void setIsStudent(Boolean isStudent) {
 		this.isStudent = isStudent;
-		setEmail("student@wise.com");
+		
+		//use the portal email address since students don't have an email address
+		String portalEmailAddress = emaillisteners.getProperty("portalemailaddress");
+		setEmail(portalEmailAddress);
 	}
 
 	public void setIsStudent(User user) {
 		if(user != null && user.getUserDetails() instanceof StudentUserDetails) {
 			isStudent = true;
-			setEmail("student@wise.com");
+			
+			//use the portal email address since students don't have an email address
+			String portalEmailAddress = emaillisteners.getProperty("portalemailaddress");
+			setEmail(portalEmailAddress);
 		}
 	}
 	
