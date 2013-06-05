@@ -141,15 +141,9 @@ public class ContactWISEGeneral implements ContactWISE {
 	public String[] getMailRecipients() {
 		String[] recipients = new String[0];
 		
-		if(this.issuetype != null) {
-			//get the email recipient for the issue type
-			String emailForIssueType = emaillisteners.getProperty(this.issuetype.name().toLowerCase());
-			
-			if(emailForIssueType != null && !emailForIssueType.equals("")) {
-				//we have an email address for the issue type
-				recipients = emailForIssueType.split(",");
-			}
-		}
+		//get the email address that we will send this user request to
+		String contactEmail = emaillisteners.getProperty("contact_email");
+		recipients = contactEmail.split(",");
 		
 		if(recipients.length == 0) {
 			/*
@@ -195,33 +189,35 @@ public class ContactWISEGeneral implements ContactWISE {
 	}
 	
 	public String getMailMessage() {
-		String message = "Contact WISE General Request\n" +
-		 "=================\n" + 
-		 "Name: " + name + "\n" + 
-		 "Email: " + email + "\n" + 
-		 "Issue Type: " + issuetype + "\n" +
-		 "Summary: " + summary + "\n" + 
-		 "Description: " + description + "\n" +
-		 "User System: " + usersystem + "\n";
+		StringBuffer message = new StringBuffer();
 		
-		return message;
+		message.append("Contact WISE General Request\n");
+		message.append("=================\n");
+		message.append("Name: " + name + "\n");
+		
+		/*
+		 * do not display the Email line if email is null or blank.
+		 * this variable will be null if the user is a student.
+		 */
+		if(email != null && !email.equals("")) {
+			message.append("Email: " + email + "\n");
+		}
+		
+		message.append("Issue Type: " + issuetype + "\n");
+		message.append("Summary: " + summary + "\n");
+		message.append("Description: " + description + "\n");
+		message.append("User System: " + usersystem + "\n");
+		
+		return message.toString();
 	}
 	
 	public void setIsStudent(Boolean isStudent) {
 		this.isStudent = isStudent;
-		
-		//use the portal email address since students don't have an email address
-		String portalEmailAddress = emaillisteners.getProperty("portalemailaddress");
-		setEmail(portalEmailAddress);
 	}
 
 	public void setIsStudent(User user) {
 		if(user != null && user.getUserDetails() instanceof StudentUserDetails) {
 			isStudent = true;
-			
-			//use the portal email address since students don't have an email address
-			String portalEmailAddress = emaillisteners.getProperty("portalemailaddress");
-			setEmail(portalEmailAddress);
 		}
 	}
 	

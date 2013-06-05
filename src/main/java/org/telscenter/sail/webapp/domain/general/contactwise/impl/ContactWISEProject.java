@@ -55,19 +55,29 @@ public class ContactWISEProject extends ContactWISEGeneral {
 		return subject;
 	}
 	
-	public String getMailMessage() {		
-		String message = "Contact WISE Project Request\n" +
-		 "=================\n" + 
-		 "Name: " + name + "\n" + 
-		 "Email: " + email + "\n" + 
-		 "Project Name: " + projectName + "\n" +
-		 "Project ID: " + projectId + "\n" +
-		 "Issue Type: " + issuetype + "\n" +
-		 "Summary: " + summary + "\n" + 
-		 "Description: " + description + "\n" +
-		 "User System: " + usersystem + "\n";
+	public String getMailMessage() {
+		StringBuffer message = new StringBuffer();
 		
-		return message;
+		message.append("Contact WISE Project Request\n");
+		message.append("=================\n");
+		message.append("Name: " + name + "\n");
+		
+		/*
+		 * do not display the Email line if email is null or blank.
+		 * this variable will be null if the user is a student.
+		 */
+		if(email != null && !email.equals("")) {
+			message.append("Email: " + email + "\n");			
+		}
+		
+		message.append("Project Name: " + projectName + "\n");
+		message.append("Project ID: " + projectId + "\n");
+		message.append("Issue Type: " + issuetype + "\n");
+		message.append("Summary: " + summary + "\n");
+		message.append("Description: " + description + "\n");
+		message.append("User System: " + usersystem + "\n");
+		
+		return message.toString();
 	}
 
 	/**

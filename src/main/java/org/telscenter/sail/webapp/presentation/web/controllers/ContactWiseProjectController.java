@@ -70,6 +70,15 @@ public class ContactWiseProjectController extends SimpleFormController {
 		String fromEmail = contactWISEProject.getEmail();
 		String[] cc = contactWISEProject.getMailCcs();
 
+		//fromEmail will be null if the signed in user is a student
+		if(fromEmail == null) {
+			/*
+			 * set the fromEmail to a non null and non empty string otherwise
+			 * an exception will be thrown
+			 */
+			fromEmail = "null";
+		}
+		
 		//get the run id
 		Long runId = contactWISEProject.getRunId();
 		

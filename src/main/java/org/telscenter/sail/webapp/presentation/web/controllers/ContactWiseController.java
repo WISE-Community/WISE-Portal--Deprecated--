@@ -77,6 +77,15 @@ public class ContactWiseController extends SimpleFormController {
 		String message = contactWISEGeneral.getMailMessage();
 		String[] cc = contactWISEGeneral.getMailCcs();
 
+		//fromEmail will be null if the signed in user is a student
+		if(fromEmail == null) {
+			/*
+			 * set the fromEmail to a non null and non empty string otherwise
+			 * an exception will be thrown
+			 */
+			fromEmail = "null";
+		}
+		
 		//for testing out the email functionality without spamming the groups
 		if(DEBUG) {
 			cc = new String[1];
