@@ -32,8 +32,8 @@
 	<div id="userInfoBlock" class="userInfo">
 		<a id="signOut" class="wisebutton minibutton" href="<c:url value="/j_spring_security_logout"/>" title="<spring:message code="signOutTitle"/>"><spring:message code="signOut"/></a>
 		<div id="userName">
-			<c:set var="firstName"><sec:authentication property="principal.firstname" /></c:set>
-			<c:set var="lastName"><sec:authentication property="principal.lastname" /></c:set>
+			<c:set var="firstName"><sec:authentication property="principal.firstname" htmlEscape="false"/></c:set>
+			<c:set var="lastName"><sec:authentication property="principal.lastname" htmlEscape="false"/></c:set>
 			<span><spring:message code="accountmenu.welcome" arguments="${firstName},${lastName}"/></span>
 		</div>
 		<div<sec:authorize ifAnyGranted="ROLE_STUDENT"></sec:authorize>>
