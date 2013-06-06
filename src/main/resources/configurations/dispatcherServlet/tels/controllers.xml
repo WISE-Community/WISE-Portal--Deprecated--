@@ -375,6 +375,7 @@
     	<property name="successView" value="contact/contactwiseconfirm" />
     	<property name="javaMail" ref="javaMail"/>
     	<property name="uiHTMLProperties" ref="uihtmlproperties"/>
+    	<property name="runService" ref="runService" />
 	</bean>	
 	
 	<bean id="contactWiseProjectController"
@@ -395,6 +396,7 @@
     <bean id="contactwisegeneral"
         class="org.telscenter.sail.webapp.domain.general.contactwise.impl.ContactWISEGeneral">
         <property name="emaillisteners" ref="emaillisteners" />
+        <property name="userService" ref="userService" />
     </bean>
 
     <bean id="contactWISEProject"

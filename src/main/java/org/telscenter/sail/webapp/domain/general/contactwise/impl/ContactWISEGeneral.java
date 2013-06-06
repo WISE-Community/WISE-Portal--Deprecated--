@@ -26,7 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.service.UserService;
 
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.general.contactwise.ContactWISE;
@@ -47,6 +50,8 @@ public class ContactWISEGeneral implements ContactWISE {
 	
 	protected String email;
 	
+	private Long teacherId;
+
 	protected String summary;
 	
 	protected String description;
@@ -59,8 +64,8 @@ public class ContactWISEGeneral implements ContactWISE {
 	
 	protected String usersystem;
 	
+	private static UserService userService;
 
-	
 	/**
 	 * @param properties the properties to set
 	 */
@@ -178,6 +183,22 @@ public class ContactWISEGeneral implements ContactWISE {
 			list.add(emailToCC);
 		}
 		
+		/*
+		 * get the teacher id. this is only used when a student is making
+		 * a contact request. when a teacher is making a contact request,
+		 * getTeacherId() will return null and the teacher's email will 
+		 * already have been added just above this.
+		 */
+		Long tempTeacherId = getTeacherId();
+		
+		//get the teacher email
+		String teacherEmail = getTeacherEmail(tempTeacherId);
+		
+		if(teacherEmail != null) {
+			//add the teacher email to the list of emails to cc
+			list.add(teacherEmail);
+		}
+		
 		//get the list as a String[]
 		return list.toArray(cc);
 	}
@@ -211,6 +232,35 @@ public class ContactWISEGeneral implements ContactWISE {
 		return message.toString();
 	}
 	
+	/**
+	 * Get the teacher email address
+	 * @param userId the teacher user id
+	 * @return the teacher email address or null if no user id
+	 * is provided or a user is not found
+	 */
+	private String getTeacherEmail(Long userId) {
+		String email = null;
+		
+		if(userId != null) {
+			try {
+				//get the user
+				User user = getUserService().retrieveById(userId);
+				
+				if(user != null) {
+					//get the user details
+					MutableUserDetails userDetails = user.getUserDetails();
+					
+					//get the email address of the user
+					email = userDetails.getEmailAddress();
+				}
+			} catch (ObjectNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return email;
+	}
+	
 	public void setIsStudent(Boolean isStudent) {
 		this.isStudent = isStudent;
 	}
@@ -238,5 +288,21 @@ public class ContactWISEGeneral implements ContactWISE {
 	 */
 	public void setUsersystem(String usersystem) {
 		this.usersystem = usersystem;
+	}
+
+	public Long getTeacherId() {
+		return teacherId;
+	}
+
+	public void setTeacherId(Long teacherId) {
+		this.teacherId = teacherId;
+	}
+	
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 }

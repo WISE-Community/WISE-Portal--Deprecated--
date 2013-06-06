@@ -22,17 +22,6 @@
  */
 package org.telscenter.sail.webapp.domain.general.contactwise.impl;
 
-import java.util.Properties;
-
-import net.sf.sail.webapp.domain.User;
-
-import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
-import org.telscenter.sail.webapp.domain.general.contactwise.ContactWISE;
-import org.telscenter.sail.webapp.domain.general.contactwise.IssueType;
-import org.telscenter.sail.webapp.domain.general.contactwise.OperatingSystem;
-import org.telscenter.sail.webapp.domain.general.contactwise.WebBrowser;
-import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * @author Hiroki Terashima
@@ -72,6 +61,12 @@ public class ContactWISEProject extends ContactWISEGeneral {
 		
 		message.append("Project Name: " + projectName + "\n");
 		message.append("Project ID: " + projectId + "\n");
+		
+		//display the run id if it is not null
+		if(runId != null) {
+			message.append("Run ID: " + runId + "\n");
+		}
+		
 		message.append("Issue Type: " + issuetype + "\n");
 		message.append("Summary: " + summary + "\n");
 		message.append("Description: " + description + "\n");

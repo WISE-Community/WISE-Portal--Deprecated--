@@ -75,6 +75,19 @@
 							<dt><label for="emailContact" id="emailContact"><span class="asterix">* </span><spring:message code="contact.contactwisegeneral.email"/></label></dt>
 							<dd><form:input path="email" id="email" size="50" tabindex="2"/> </dd>
 						</sec:authorize>
+						
+						<sec:authorize ifAllGranted="ROLE_STUDENT">
+							<dt><label for="teacher" id="teacher"><span class="asterix">* </span><spring:message code="contact.contactwisegeneral.teacher"/></label> </dt>
+							<dd>
+								<form:select path="teacherId" id="teacherId"  tabindex="3">
+							      <c:forEach items="${teachers}" var="teacher">
+						            <form:option value="${teacher.id}">
+						            	${teacher.userDetails.firstname} ${teacher.userDetails.lastname}
+						            </form:option>
+						          </c:forEach>
+								</form:select>
+							</dd>
+						</sec:authorize>
 						   
 					    <dt><label for="issueTypeContact" id="emailContact"><span class="asterix">* </span><spring:message code="contact.contactwisegeneral.issueType"/></label> </dt>
 						<dd><form:select path="issuetype" id="issuetype"  tabindex="3">
