@@ -32,6 +32,7 @@ import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.service.UserService;
 
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.domain.general.contactwise.ContactWISE;
 import org.telscenter.sail.webapp.domain.general.contactwise.IssueType;
 
@@ -212,6 +213,13 @@ public class ContactWISEGeneral implements ContactWISE {
 	public String getMailMessage() {
 		StringBuffer message = new StringBuffer();
 		
+		if(getIsStudent()) {
+			//a student is submitting this contact form and we are cc'ing their teacher
+			message.append("Dear " + getTeacherName(getTeacherId()) + ",");
+			message.append("\n\n");
+			message.append("One of your students has submitted a WISE trouble ticket.\n\n");
+		}
+		
 		message.append("Contact WISE General Request\n");
 		message.append("=================\n");
 		message.append("Name: " + name + "\n");
@@ -229,6 +237,11 @@ public class ContactWISEGeneral implements ContactWISE {
 		message.append("Description: " + description + "\n");
 		message.append("User System: " + usersystem + "\n");
 		
+		if(getIsStudent()) {
+			//a student is submitting this contact form and we are cc'ing their teacher
+			message.append("\nWe recommend that you follow up with your student if necessary. If you need further assistance, you can 'Reply to all' on this email to contact us.");
+		}
+		
 		return message.toString();
 	}
 	
@@ -238,7 +251,7 @@ public class ContactWISEGeneral implements ContactWISE {
 	 * @return the teacher email address or null if no user id
 	 * is provided or a user is not found
 	 */
-	private String getTeacherEmail(Long userId) {
+	protected String getTeacherEmail(Long userId) {
 		String email = null;
 		
 		if(userId != null) {
@@ -259,6 +272,38 @@ public class ContactWISEGeneral implements ContactWISE {
 		}
 		
 		return email;
+	}
+	
+	/**
+	 * Get the teacher name
+	 * @param userId the teacher user id
+	 * @return the teacher name or null
+	 */
+	protected String getTeacherName(Long userId) {
+		String name = null;
+		
+		if(userId != null) {
+			try {
+				//get the user
+				User user = getUserService().retrieveById(userId);
+				
+				if(user != null) {
+					//get the user details
+					MutableUserDetails userDetails = user.getUserDetails();
+					
+					if(userDetails instanceof TeacherUserDetails) {
+						//get the first and last name of the teacher
+						String firstName = ((TeacherUserDetails) userDetails).getFirstname();
+						String lastName = ((TeacherUserDetails) userDetails).getLastname();
+						name = firstName + " " + lastName;
+					}
+				}
+			} catch (ObjectNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return name;
 	}
 	
 	public void setIsStudent(Boolean isStudent) {

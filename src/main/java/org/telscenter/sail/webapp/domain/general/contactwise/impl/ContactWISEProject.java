@@ -47,6 +47,13 @@ public class ContactWISEProject extends ContactWISEGeneral {
 	public String getMailMessage() {
 		StringBuffer message = new StringBuffer();
 		
+		if(getIsStudent()) {
+			//a student is submitting this contact form and we are cc'ing their teacher
+			message.append("Dear " + getTeacherName(getTeacherId()) + ",");
+			message.append("\n\n");
+			message.append("One of your students has submitted a WISE trouble ticket.\n\n");
+		}
+		
 		message.append("Contact WISE Project Request\n");
 		message.append("=================\n");
 		message.append("Name: " + name + "\n");
@@ -71,6 +78,11 @@ public class ContactWISEProject extends ContactWISEGeneral {
 		message.append("Summary: " + summary + "\n");
 		message.append("Description: " + description + "\n");
 		message.append("User System: " + usersystem + "\n");
+		
+		if(getIsStudent()) {
+			//a student is submitting this contact form and we are cc'ing their teacher
+			message.append("\nWe recommend that you follow up with your student if necessary. If you need further assistance, you can 'Reply to all' on this email to contact us.");
+		}
 		
 		return message.toString();
 	}
