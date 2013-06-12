@@ -157,7 +157,7 @@ public class UploadProjectController extends SimpleFormController {
 
 				System.out.println("Extracting file: " + entry.getName() );
 				copyInputStream(zipFile.getInputStream(entry),
-						new BufferedOutputStream(new FileOutputStream(entry.getName().replace(filename, newFileFullDir))));
+						new BufferedOutputStream(new FileOutputStream(entry.getName().replaceFirst(filename, newFileFullDir))));
 			}
 
 			zipFile.close();
