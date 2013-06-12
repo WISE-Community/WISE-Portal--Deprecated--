@@ -65,7 +65,7 @@ public class CustomContextLoader extends ContextLoader {
      */
     @Override
     protected WebApplicationContext createWebApplicationContext(
-            ServletContext servletContext, ApplicationContext parent)
+            ServletContext servletContext)
             throws BeansException {
 
         Class<?> contextClass = determineContextClass(servletContext);
@@ -78,7 +78,6 @@ public class CustomContextLoader extends ContextLoader {
 
         ConfigurableWebApplicationContext webApplicationContext = (ConfigurableWebApplicationContext) BeanUtils
                 .instantiateClass(contextClass);
-        webApplicationContext.setParent(parent);
         webApplicationContext.setServletContext(servletContext);
 
         String configClass = servletContext

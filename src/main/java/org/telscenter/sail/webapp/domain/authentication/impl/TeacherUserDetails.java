@@ -134,7 +134,7 @@ public class TeacherUserDetails extends PersistentUserDetails implements
     private String displayname;
 	
     @Column(name = TeacherUserDetails.COMUN_NAME_EMAILVALID, nullable=false)
-    private boolean emailValid;
+    private boolean emailValid = true;
     
     @Column(name = TeacherUserDetails.COLUMN_NAME_HOW_HEAR)
     private String howDidYouHearAboutUs;
