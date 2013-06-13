@@ -1,28 +1,32 @@
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.mail.IMailFacade;
-import net.sf.sail.webapp.mail.JavaMailHelper;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
-import org.telscenter.sail.webapp.domain.general.contactwise.ContactWISE;
 import org.telscenter.sail.webapp.domain.general.contactwise.IssueType;
 import org.telscenter.sail.webapp.domain.general.contactwise.OperatingSystem;
 import org.telscenter.sail.webapp.domain.general.contactwise.WebBrowser;
 import org.telscenter.sail.webapp.domain.general.contactwise.impl.ContactWISEGeneral;
+import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
  * Copyright (c) 2007 Regents of the University of California (Regents). Created
@@ -53,6 +57,8 @@ public class ContactWiseController extends SimpleFormController {
 	
 	protected Properties uiHTMLProperties = null;
 	
+	private RunService runService;
+	
 	/* change this to true if you are testing and do not want to send mail to
 	   the actual groups */
 	private static final Boolean DEBUG = false;
@@ -77,6 +83,15 @@ public class ContactWiseController extends SimpleFormController {
 		String message = contactWISEGeneral.getMailMessage();
 		String[] cc = contactWISEGeneral.getMailCcs();
 
+		//fromEmail will be null if the signed in user is a student
+		if(fromEmail == null) {
+			/*
+			 * set the fromEmail to a non null and non empty string otherwise
+			 * an exception will be thrown
+			 */
+			fromEmail = "null";
+		}
+		
 		//for testing out the email functionality without spamming the groups
 		if(DEBUG) {
 			cc = new String[1];
@@ -128,6 +143,56 @@ public class ContactWiseController extends SimpleFormController {
 			throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
 		
+		//get the signed in user or null if not signed in
+		User user = ControllerUtil.getSignedInUser();
+
+		if(user != null) {
+			//get the user details
+			net.sf.sail.webapp.domain.authentication.MutableUserDetails userDetails = user.getUserDetails();
+			
+			/*
+			 * we only need to retrieve the list of associated teachers if the
+			 * user is a student
+			 */
+			if(userDetails instanceof StudentUserDetails) {
+				//user is a student
+				
+				//the vector to accumulate the teachers associated with the student
+				Vector<User> teachers = new Vector<User>();
+				
+				if(user != null) {
+					//get all the runs that this student is in
+					List<Run> runList = runService.getRunList(user);
+					Iterator<Run> runListIterator = runList.iterator();
+					
+					//loop through all the runs
+					while(runListIterator.hasNext()) {
+						//get a run
+						Run tempRun = runListIterator.next();
+						
+						//get the owners of the run
+						Set<User> owners = tempRun.getOwners();
+						Iterator<User> ownersIterator = owners.iterator();
+						
+						//loop through all the owners of the run
+						while(ownersIterator.hasNext()) {
+							//get an owner
+							User owner = ownersIterator.next();
+							
+							//add the teacher to the list if they are not already in it
+							if(!teachers.contains(owner)) {
+								//the teacher is not in the list so we will add them
+								teachers.add(owner);
+							}
+						}
+					}
+					
+					//add the list of teachers to the model
+					model.put("teachers", teachers);
+				}
+			}			
+		}
+			
 		//places the array of constants into the model so the view can display
 		model.put("issuetypes", IssueType.values());
 		model.put("operatingsystems", OperatingSystem.values());
@@ -165,4 +230,17 @@ public class ContactWiseController extends SimpleFormController {
 		WebBrowser.setProperties(uiHTMLProperties);
 	}
 
+	/**
+	 * @return the run service
+	 */
+	public RunService getRunService() {
+		return runService;
+	}
+	
+	/**
+	 * @param runService the run service to set
+	 */
+	public void setRunService(RunService runService) {
+		this.runService = runService;
+	}
 }

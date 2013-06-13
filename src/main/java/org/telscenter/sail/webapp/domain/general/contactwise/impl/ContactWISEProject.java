@@ -22,17 +22,6 @@
  */
 package org.telscenter.sail.webapp.domain.general.contactwise.impl;
 
-import java.util.Properties;
-
-import net.sf.sail.webapp.domain.User;
-
-import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
-import org.telscenter.sail.webapp.domain.general.contactwise.ContactWISE;
-import org.telscenter.sail.webapp.domain.general.contactwise.IssueType;
-import org.telscenter.sail.webapp.domain.general.contactwise.OperatingSystem;
-import org.telscenter.sail.webapp.domain.general.contactwise.WebBrowser;
-import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * @author Hiroki Terashima
@@ -55,19 +44,47 @@ public class ContactWISEProject extends ContactWISEGeneral {
 		return subject;
 	}
 	
-	public String getMailMessage() {		
-		String message = "Contact WISE Project Request\n" +
-		 "=================\n" + 
-		 "Name: " + name + "\n" + 
-		 "Email: " + email + "\n" + 
-		 "Project Name: " + projectName + "\n" +
-		 "Project ID: " + projectId + "\n" +
-		 "Issue Type: " + issuetype + "\n" +
-		 "Summary: " + summary + "\n" + 
-		 "Description: " + description + "\n" +
-		 "User System: " + usersystem + "\n";
+	public String getMailMessage() {
+		StringBuffer message = new StringBuffer();
 		
-		return message;
+		if(getIsStudent()) {
+			//a student is submitting this contact form and we are cc'ing their teacher
+			message.append("Dear " + getTeacherName(getTeacherId()) + ",");
+			message.append("\n\n");
+			message.append("One of your students has submitted a WISE trouble ticket.\n\n");
+		}
+		
+		message.append("Contact WISE Project Request\n");
+		message.append("=================\n");
+		message.append("Name: " + name + "\n");
+		
+		/*
+		 * do not display the Email line if email is null or blank.
+		 * this variable will be null if the user is a student.
+		 */
+		if(email != null && !email.equals("")) {
+			message.append("Email: " + email + "\n");			
+		}
+		
+		message.append("Project Name: " + projectName + "\n");
+		message.append("Project ID: " + projectId + "\n");
+		
+		//display the run id if it is not null
+		if(runId != null) {
+			message.append("Run ID: " + runId + "\n");
+		}
+		
+		message.append("Issue Type: " + issuetype + "\n");
+		message.append("Summary: " + summary + "\n");
+		message.append("Description: " + description + "\n");
+		message.append("User System: " + usersystem + "\n");
+		
+		if(getIsStudent()) {
+			//a student is submitting this contact form and we are cc'ing their teacher
+			message.append("\nWe recommend that you follow up with your student if necessary. If you need further assistance, you can 'Reply to all' on this email to contact us.");
+		}
+		
+		return message.toString();
 	}
 
 	/**

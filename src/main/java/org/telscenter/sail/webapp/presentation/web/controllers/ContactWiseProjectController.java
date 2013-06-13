@@ -70,6 +70,15 @@ public class ContactWiseProjectController extends SimpleFormController {
 		String fromEmail = contactWISEProject.getEmail();
 		String[] cc = contactWISEProject.getMailCcs();
 
+		//fromEmail will be null if the signed in user is a student
+		if(fromEmail == null) {
+			/*
+			 * set the fromEmail to a non null and non empty string otherwise
+			 * an exception will be thrown
+			 */
+			fromEmail = "null";
+		}
+		
 		//get the run id
 		Long runId = contactWISEProject.getRunId();
 		
@@ -103,8 +112,10 @@ public class ContactWiseProjectController extends SimpleFormController {
 				//we have run owner email addresses
 				
 				for(int x=0; x<cc.length; x++) {
-					//add the cc emails to the run owner emails to merge them
-					runOwnerEmailAddresses.add(cc[x]);			
+					if(!runOwnerEmailAddresses.contains(cc[x])) {
+						//add the cc emails to the run owner emails to merge them
+						runOwnerEmailAddresses.add(cc[x]);						
+					}
 				}
 				
 				//create a new String array the same size as the runOwnerEmailAddresses
@@ -180,6 +191,24 @@ public class ContactWiseProjectController extends SimpleFormController {
 		if(runId != null) {
 			//set the run id into the object so we can access it later
 			contactWISEProject.setRunId(new Long(runId));
+			
+			//get the run
+			Run run = getRunService().retrieveById(new Long(runId));
+			
+			//get the owners of the run
+			Set<User> owners = run.getOwners();
+			Iterator<User> ownersIterator = owners.iterator();
+
+			if(ownersIterator.hasNext()) {
+				//get the first owner of the run
+				User owner = ownersIterator.next();
+				
+				//get the teacher id
+				Long teacherId = owner.getId();
+				
+				//set the teacher id
+				contactWISEProject.setTeacherId(teacherId);				
+			}
 		}
 		
 		contactWISEProject.setIssuetype(IssueType.PROJECT_PROBLEMS);
