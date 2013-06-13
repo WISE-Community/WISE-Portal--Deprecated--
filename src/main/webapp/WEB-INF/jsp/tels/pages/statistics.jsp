@@ -498,104 +498,122 @@ function parseVLEStatistics(vleStatisticsArray) {
 		var totalAnnotationCount = vleStatisticsEntry.totalAnnotationCount;
 
 		//add the counts to our arrays
-		totalHintViewCountArray.push([timestamp, totalHintViewCount]);
-		totalNodeCountArray.push([timestamp, totalNodeCount]);
-		totalStepWorkCountArray.push([timestamp, totalStepWorkCount]);
-		totalAnnotationCountArray.push([timestamp, totalAnnotationCount]);
+		
+		if(totalHintViewCount != null) {
+			totalHintViewCountArray.push([timestamp, totalHintViewCount]);
+		}
+		
+		if(totalNodeCount != null) {
+			totalNodeCountArray.push([timestamp, totalNodeCount]);
+		}
+		
+		if(totalStepWorkCount != null) {
+			totalStepWorkCountArray.push([timestamp, totalStepWorkCount]);
+		}
+		
+		if(totalAnnotationCount != null) {
+			totalAnnotationCountArray.push([timestamp, totalAnnotationCount]);
+		}
 
 		//get the counts for the individual node types
 		var individualNodeTypeCounts = vleStatisticsEntry.individualNodeTypeCounts;
 
-		//loop through all the node types
-		for(var a=0; a<individualNodeTypeCounts.length; a++) {
-			//get the entry
-			var individualNodeTypeCount = individualNodeTypeCounts[a];
+		if(individualNodeTypeCounts != null) {
+			//loop through all the node types
+			for(var a=0; a<individualNodeTypeCounts.length; a++) {
+				//get the entry
+				var individualNodeTypeCount = individualNodeTypeCounts[a];
 
-			//get the node type
-			var nodeType = individualNodeTypeCount.nodeType;
+				//get the node type
+				var nodeType = individualNodeTypeCount.nodeType;
 
-			//get the count
-			var count = individualNodeTypeCount.count;
+				//get the count
+				var count = individualNodeTypeCount.count;
 
-			//add the count to the object that holds the individual statistics for all the node types
-			addCountForType(individualNodeTypeCountsObject, nodeType, timestamp, count);
+				//add the count to the object that holds the individual statistics for all the node types
+				addCountForType(individualNodeTypeCountsObject, nodeType, timestamp, count);
 
-			if(x == vleStatisticsArray.length - 1) {
-				/*
-				 * we are on the last entry for this node type so we will add
-				 * it to our array that we will use to graph all the node types
-				 * next to each other for comparison
-				 */
+				if(x == vleStatisticsArray.length - 1) {
+					/*
+					 * we are on the last entry for this node type so we will add
+					 * it to our array that we will use to graph all the node types
+					 * next to each other for comparison
+					 */
 
-				//add the count
-				nodeTypeCountsComparison.push([a, count]);
+					//add the count
+					nodeTypeCountsComparison.push([a, count]);
 
-				//add the label
-				nodeTypeCountsComparisonTicks.push([a, removeNodeTextAndMakeVertical(nodeType)]);
+					//add the label
+					nodeTypeCountsComparisonTicks.push([a, removeNodeTextAndMakeVertical(nodeType)]);
+				}
 			}
 		}
 
 		//get the counts for the individual node types for step works
 		var individualStepWorkNodeTypeCounts = vleStatisticsEntry.individualStepWorkNodeTypeCounts;
 
-		//loop through all the node types
-		for(var b=0; b<individualStepWorkNodeTypeCounts.length; b++) {
-			//get the entry
-			var individualStepWorkNodeTypeCount = individualStepWorkNodeTypeCounts[b];
+		if(individualStepWorkNodeTypeCounts != null) {
+			//loop through all the node types
+			for(var b=0; b<individualStepWorkNodeTypeCounts.length; b++) {
+				//get the entry
+				var individualStepWorkNodeTypeCount = individualStepWorkNodeTypeCounts[b];
 
-			//get the node type
-			var nodeType = individualStepWorkNodeTypeCount.nodeType;
+				//get the node type
+				var nodeType = individualStepWorkNodeTypeCount.nodeType;
 
-			//get the count
-			var count = individualStepWorkNodeTypeCount.count;
+				//get the count
+				var count = individualStepWorkNodeTypeCount.count;
 
-			//add the count to the object that holds the individual statistics for all the node types for step works
-			addCountForType(individualStepWorkNodeTypeCountsObject, nodeType, timestamp, count);
+				//add the count to the object that holds the individual statistics for all the node types for step works
+				addCountForType(individualStepWorkNodeTypeCountsObject, nodeType, timestamp, count);
 
-			if(x == vleStatisticsArray.length - 1) {
-				/*
-				 * we are on the last entry for this node type so we will add
-				 * it to our array that we will use to graph all the node types
-				 * next to each other for comparison
-				 */
+				if(x == vleStatisticsArray.length - 1) {
+					/*
+					 * we are on the last entry for this node type so we will add
+					 * it to our array that we will use to graph all the node types
+					 * next to each other for comparison
+					 */
 
-				//add the count
-				stepWorkNodeTypesCountsComparison.push([b, count]);
+					//add the count
+					stepWorkNodeTypesCountsComparison.push([b, count]);
 
-				//add the label
-				stepWorkNodeTypesCountsComparisonTicks.push([b, removeNodeTextAndMakeVertical(nodeType)]);
+					//add the label
+					stepWorkNodeTypesCountsComparisonTicks.push([b, removeNodeTextAndMakeVertical(nodeType)]);
+				}
 			}
 		}
 
 		//get the counts for the individual annotation types
 		var individualAnnotationCounts = vleStatisticsEntry.individualAnnotationCounts;
 
-		//loop through all the annotation types
-		for(var c=0; c<individualAnnotationCounts.length; c++) {
-			//get the entry
-			var individualAnnotationCount = individualAnnotationCounts[c];
+		if(individualAnnotationCounts != null) {
+			//loop through all the annotation types
+			for(var c=0; c<individualAnnotationCounts.length; c++) {
+				//get the entry
+				var individualAnnotationCount = individualAnnotationCounts[c];
 
-			//get the annotation type
-			var annotationType = individualAnnotationCount.annotationType;
+				//get the annotation type
+				var annotationType = individualAnnotationCount.annotationType;
 
-			//get the count
-			var count = individualAnnotationCount.count;
+				//get the count
+				var count = individualAnnotationCount.count;
 
-			//add the count to the object that holds the individual statistics for all annotation types
-			addCountForType(individualAnnotationCountsObject, annotationType, timestamp, count);
+				//add the count to the object that holds the individual statistics for all annotation types
+				addCountForType(individualAnnotationCountsObject, annotationType, timestamp, count);
 
-			if(x == vleStatisticsArray.length - 1) {
-				/*
-				 * we are on the last entry for this node type so we will add
-				 * it to our array that we will use to graph all the node types
-				 * next to each other for comparison
-				 */
+				if(x == vleStatisticsArray.length - 1) {
+					/*
+					 * we are on the last entry for this node type so we will add
+					 * it to our array that we will use to graph all the node types
+					 * next to each other for comparison
+					 */
 
-				//add the count
-				annotationCountsComparison.push([c, count]);
+					//add the count
+					annotationCountsComparison.push([c, count]);
 
-				//add the label
-				annotationCountsComparisonTicks.push([c, removeNodeText(annotationType)]);
+					//add the label
+					annotationCountsComparisonTicks.push([c, removeNodeText(annotationType)]);
+				}
 			}
 		}
 	}
