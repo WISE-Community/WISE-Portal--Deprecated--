@@ -198,7 +198,7 @@ li.sfHover > a > .sf-sub-indicator {
 }
 
 .sf-menu li.level1 > a {
-	font-family:Trebuchet MS;
+	font-family:"Trebuchet MS", Helvetica, sans-serif;
 	color:#745A34;
 	font-weight:bold;
 }

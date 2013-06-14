@@ -494,7 +494,7 @@ a#name {
 .panelHeader {
 	border-bottom: 1px solid #D8C6B3;
     color: #745A33;
-    font-family: Trebuchet MS;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
     font-size: 1.3em;
     font-weight: bold;
     margin: 0 0.75em;
@@ -726,7 +726,7 @@ a#name {
 ul.welcome-menu {
 	line-height: 44px;
     padding: 0 1em;
-    font-family: Trebuchet MS;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
 ul.welcome-menu li {
@@ -1027,7 +1027,7 @@ form {margin:0px; padding:0px;}
 	font-weight:bold;
 	font-size:1.2em;
 	margin:1em .5em .5em;
-	font-family: Trebuchet MS;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
 .featuresShowcase .featureContent p {
