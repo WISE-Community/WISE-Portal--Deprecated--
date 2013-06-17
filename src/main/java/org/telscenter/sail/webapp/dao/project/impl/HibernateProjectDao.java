@@ -166,8 +166,8 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 		}
 		tagString = tagString.substring(0, tagString.length() - 1);
 		
-		String q = "select distinct project from ProjectImpl project inner join project.tags tag with tag.name in (" + tagString + ") ";			
-		
+		String q = "select distinct project from ProjectImpl project inner join project.tags tag with tag.name in (" + tagString + ") group by project having count(*) = "+counter;			
+
 		return this.getHibernateTemplate().find(q);
 	}
 	
