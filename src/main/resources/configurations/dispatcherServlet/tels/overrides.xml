@@ -160,7 +160,8 @@
 				/teacherinfo.html=infoController
 				/dwr/*=dwrController
 				/author/authorproject.html=authorProjectController
-				/author/project/exportproject.html=exportProjectController
+				/project/exportproject.html=exportProjectController
+				/project/importexternalproject.html=importExternalProjectController
 				/admin/project/uploadproject.html=uploadProjectController
 				/admin/account/manageusers.html=viewAllUsersController
 				/admin/account/enabledisableuser.html=enableDisableUserController
@@ -177,7 +178,6 @@
 				/admin/news/editnewsitem.html=editNewsItemController
 				/admin/news/removenewssuccess.html=removeNewsItemController
 				/admin/news/removenewsconfirm.html=removeNewsConfirmController
-				/admin/project/importexternalproject.html=importExternalProjectController
 				/admin/project/getallexternalprojects.html=getAllExternalProjectsController
 				/admin/project/viewprojectcommunicators.html=projectCommunicatorController
 				/admin/project/manageprojectcommunicator.html=projectCommunicatorController
