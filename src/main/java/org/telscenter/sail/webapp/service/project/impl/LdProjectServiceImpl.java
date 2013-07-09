@@ -802,6 +802,7 @@ public class LdProjectServiceImpl implements ProjectService {
 		
 		try {
 			project = this.getById(projectId);
+			project.getTags().size();  // force-fetch project tags from db
 			for(Tag t : project.getTags()){
 				if(t.getName().toLowerCase().equals(name.toLowerCase())){
 					return true;

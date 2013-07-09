@@ -144,7 +144,7 @@ function updateMaxTotalAssetsSize(projectId, newMaxTotalAssetsSize) {
 <!-- 	<a href="editproject.html?projectId=${project.id}">Edit Project Metadata</a>&nbsp;|&nbsp;		 -->	
 		<a href="../../previewproject.html?projectId=${project.id}">Preview</a>&nbsp;|&nbsp;
 		<a href="../../teacher/projects/customized/shareproject.html?projectId=${project.id}">Manage Ownership/Shared Teachers</a>&nbsp;|&nbsp;
-		<a href="../../author/project/exportproject.html?projectId=${project.id}">Export project as Zip</a>&nbsp;|&nbsp;
+		<a href="../../project/exportproject.html?projectId=${project.id}">Export project as Zip</a>&nbsp;|&nbsp;
 		</td>		
 	</tr>
 	</c:forEach>

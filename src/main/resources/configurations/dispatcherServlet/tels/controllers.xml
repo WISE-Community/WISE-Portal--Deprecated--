@@ -746,8 +746,8 @@
 	</bean>
 	
 	<bean id="importExternalProjectController"
-	    class="org.telscenter.sail.webapp.presentation.web.controllers.admin.ImportExternalProjectController">
-	    <property name="projectService" ref="externalProjectService"/>
+	    class="org.telscenter.sail.webapp.presentation.web.controllers.project.ImportExternalProjectController">
+	    <property name="wiseUpService" ref="wiseUpService" />		
 	</bean>
 	
 	
@@ -782,7 +782,7 @@
     </bean>
     
 	<bean id="exportProjectController"
-		class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.ExportProjectController">
+		class="org.telscenter.sail.webapp.presentation.web.controllers.project.ExportProjectController">
         <property name="projectService" ref="projectService" />
 		<property name="portalProperties" ref="portalproperties" />		
 	</bean>

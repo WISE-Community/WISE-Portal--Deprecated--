@@ -20,7 +20,7 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers.author.project;
+package org.telscenter.sail.webapp.presentation.web.controllers.project;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Properties;
+import java.util.TreeSet;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -68,7 +69,7 @@ public class ExportProjectController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
+
 		User signedInUser = ControllerUtil.getSignedInUser();
 
 		String projectId = request.getParameter("projectId");
@@ -76,11 +77,15 @@ public class ExportProjectController extends AbstractController {
 
 		// check if user is authorized to export
 		boolean authorized = authorize(signedInUser, project);
-		if (!authorized) {
+		if (authorized) {
+			// user is admin or is owner of project
+		} else if (projectService.projectContainsTag(new Long(projectId), "public")) {
+			// project is marked as being public
+		} else {
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You are not authorized to access this page");
-			return null;
+			return null;			
 		}
-		
+
 		String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
 
 		String sep = System.getProperty("file.separator");
@@ -89,11 +94,11 @@ public class ExportProjectController extends AbstractController {
 		String projectJSONFullPath = curriculumBaseDir + sep + rawProjectUrl;
 		String foldername = rawProjectUrl.substring(1, rawProjectUrl.lastIndexOf(sep));
 		String projectJSONDir = projectJSONFullPath.substring(0, projectJSONFullPath.lastIndexOf(sep));
-		
+
 		response.setContentType("application/zip");
 		response.addHeader("Content-Disposition", "attachment;filename=\"" + foldername+".zip" + "\"");
 
-		
+
 		//add project metadata to zip
 		ProjectMetadata metadata = project.getMetadata();
 		String metadataJSONString = metadata.toJSONString();
@@ -102,7 +107,7 @@ public class ExportProjectController extends AbstractController {
 		PrintWriter metaOut = new PrintWriter(metaFileName);
 		metaOut.println(metadataJSONString);
 		metaOut.close();
-		
+
 		// zip the folder and write to outputstream		
 		ServletOutputStream outputStream = response.getOutputStream();
 
@@ -110,23 +115,23 @@ public class ExportProjectController extends AbstractController {
 		ZipOutputStream out = new ZipOutputStream(
 				new BufferedOutputStream(outputStream));
 
-		
+
 		//path to the folder to be zipped
 		File zipFolder = new File(projectJSONDir);
-		
+
 		//get path prefix so that the zip file does not contain the whole path
 		// eg. if folder to be zipped is /home/lalit/test
 		// the zip file when opened will have test folder and not home/lalit/test folder
 		int len = zipFolder.getAbsolutePath().lastIndexOf(File.separator);
 		String baseName = zipFolder.getAbsolutePath().substring(0,len+1);
-		
+
 		addFolderToZip(zipFolder, out, baseName);
 
 		//ZipEntry zipEntry = new ZipEntry(updateFilename(projectJSONDir + sep + metaFileName));
 		//out.putNextEntry(zipEntry);
 		//IOUtils.copy(new FileInputStream(metaFileName), out);
 		//out.closeEntry();
-		
+
 		out.close();
 		return null;
 	}
@@ -138,21 +143,24 @@ public class ExportProjectController extends AbstractController {
 	 * @return true/false
 	 */
 	private boolean authorize(User signedInUser, Project project) {
-		Collection<? extends GrantedAuthority> authorities = signedInUser.getUserDetails().getAuthorities();
-		for (GrantedAuthority authority : authorities) {
-			if (authority.getAuthority().equals(UserDetailsService.ADMIN_ROLE)) {
-				// if signed in user is an admin, (s)he can export all projects.
-				return true;
-			} else if(authority.getAuthority().equals(UserDetailsService.TEACHER_ROLE)) {
-				//the signed in user is a teacher
-				return this.projectService.canAuthorProject(project, signedInUser) ||
-						this.projectService.canReadProject(project, signedInUser);
+		if (signedInUser != null) {
+
+			Collection<? extends GrantedAuthority> authorities = signedInUser.getUserDetails().getAuthorities();
+			for (GrantedAuthority authority : authorities) {
+				if (authority.getAuthority().equals(UserDetailsService.ADMIN_ROLE)) {
+					// if signed in user is an admin, (s)he can export all projects.
+					return true;
+				} else if(authority.getAuthority().equals(UserDetailsService.TEACHER_ROLE)) {
+					//the signed in user is a teacher
+					return this.projectService.canAuthorProject(project, signedInUser) ||
+							this.projectService.canReadProject(project, signedInUser);
+				}
 			}
 		}
 		// other request methods are not authorized at this point
 		return false;
 	}
-	
+
 	private static void addFolderToZip(File folder, ZipOutputStream zip, String baseName) throws IOException {
 		File[] files = folder.listFiles();
 		for (File file : files) {
@@ -193,7 +201,7 @@ public class ExportProjectController extends AbstractController {
 		} 
 		return oldFilename;
 	}
-	
+
 	/**
 	 * @param projectService the projectService to set
 	 */

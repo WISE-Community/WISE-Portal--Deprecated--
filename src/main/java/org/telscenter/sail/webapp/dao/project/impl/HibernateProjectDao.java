@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.dao.project.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -168,7 +169,20 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 		
 		String q = "select distinct project from ProjectImpl project inner join project.tags tag with tag.name in (" + tagString + ") ";			
 		
-		return this.getHibernateTemplate().find(q);
+		List<Project> projects = this.getHibernateTemplate().find(q);
+		List<Project> result = new ArrayList<Project>();
+		for (Project project : projects) {
+			int numMatches = 0;
+			for (Tag projectTag : project.getTags()) {
+				if (tagNames.contains(projectTag.getName())) {
+					numMatches++;
+				}
+			}
+			if (numMatches == tagNames.size()) {
+				result.add(project);
+			}
+		}
+		return result;
 	}
 	
 	/**
