@@ -1423,7 +1423,7 @@ body .ui-tooltip {
 .ui-dialog.settings .ui-dialog-title {
 	background-image: url("/vlewrapper/vle/images/icons/settings-white.png");
     background-repeat: no-repeat;
-    background-position:left -1px;
+    background-position:left center;
     padding-left:26px;
 }
 
@@ -1559,7 +1559,7 @@ body .ui-tooltip {
 .ui-selectmenu-button span.ui-selectmenu-text { 
 	color: #444444;
     font-weight: normal;
-    padding: 0.1em 1.75em 0.1em 0.5em;
+    padding: 0.15em 1.75em 0.15em 0.5em;
  }
 
 
