@@ -101,13 +101,13 @@
 		<property name="portalProperties" ref="portalproperties" />
 		<property name="filterProcessesUrl" value="/j_acegi_security_check" />
 	</bean>
-	
+
 	<bean id="aclService"
-        class="org.telscenter.sail.webapp.spring.impl.TelsJdbcMutableAclService">
-        <constructor-arg ref="dataSource" />
-        <constructor-arg ref="lookupStrategy" />
-        <constructor-arg ref="aclCache" />
-    </bean>
+		class="org.telscenter.sail.webapp.spring.impl.TelsJdbcMutableAclService">
+		<constructor-arg ref="dataSource" />
+		<constructor-arg ref="lookupStrategy" />
+		<constructor-arg ref="aclCache" />
+	</bean>
 
 	<bean id="filterInvocationInterceptor"
 		class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
@@ -201,6 +201,10 @@
 					access="ROLE_ANONYMOUS,ROLE_USER" />
 				<sec:intercept-url pattern="/pages/**/*.html"
 					access="ROLE_ANONYMOUS,ROLE_USER" />
+				<sec:intercept-url pattern="/project/exportproject.html"
+					access="ROLE_ANONYMOUS,ROLE_USER" />				
+				<sec:intercept-url pattern="/project/importexternalproject.html"
+					access="ROLE_USER" />
 				<sec:intercept-url pattern="/vle/preview.html"
 					access="ROLE_ANONYMOUS,ROLE_USER" />
 				<sec:intercept-url pattern="/preview.html"

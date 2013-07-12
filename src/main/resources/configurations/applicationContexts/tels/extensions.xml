@@ -246,7 +246,7 @@
 	    class="org.telscenter.sail.webapp.service.project.impl.ProjectCommunicatorServiceImpl">
 	    <property name="projectCommunicatorDao" ref="diyProjectCommunicatorDao" />
 	</bean>
-	
+
 	<bean id="externalProjectService"
 	    class="org.telscenter.sail.webapp.service.project.impl.ExternalProjectServiceImpl">
 	    <property name="projectCommunicator" ref="projectCommunicator" />
@@ -254,6 +254,14 @@
 	    <property name="projectCommunicatorDao" ref="diyProjectCommunicatorDao" />
 	    <property name="workgroupDao" ref="wiseWorkgroupDao" />
 	    <property name="runService" ref="runService" />
+	</bean>
+		
+	<bean id="wiseUpService"
+	    class="org.telscenter.sail.webapp.service.wiseup.impl.WiseUpServiceImpl">
+	    <property name="projectService" ref="projectService"/>
+        <property name="curnitService" ref="curnitService" />
+	    <property name="portalProperties" ref="portalproperties" />
+	    <property name="wiseUpHubUrl" value="http://166.78.236.95/wiseup" />	        
 	</bean>
 	
 	<bean id="projectCommunicator"
