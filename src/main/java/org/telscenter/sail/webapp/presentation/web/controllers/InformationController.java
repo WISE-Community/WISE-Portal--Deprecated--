@@ -517,6 +517,15 @@ public class InformationController extends AbstractController{
 	    	
 			/* Set the post level if specified in the run */
 			Integer postLevel = run.getPostLevel();
+			
+			//get the websocket base url e.g. ws://wise4.berkeley.edu
+			String webSocketBaseUrl = portalurl.replace("http", "ws");
+			
+			//get the url for websocket connections
+			String webSocketUrl = webSocketBaseUrl + "/webapp/websocket/wise";
+			
+			//get the url for the student to send their status to the server
+			String studentStatusUrl = portalurl + "/webapp/bridge/request.html?type=studentStatus";
 	    	
 	    	//put all the config params into the json object
 			try {
@@ -542,6 +551,8 @@ public class InformationController extends AbstractController{
 				config.put("hostName", hostName);
 				config.put("cRaterRequestUrl", cRaterRequestUrl);
 				config.put("chatLogUrl", chatLogUrl);
+				config.put("webSocketUrl", webSocketUrl);
+				config.put("studentStatusUrl", studentStatusUrl);
 				
 				if(postLevel!=null){
 					config.put("postLevel", postLevel);

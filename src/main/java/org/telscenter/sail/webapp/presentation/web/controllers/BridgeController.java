@@ -47,6 +47,7 @@ import net.sf.sail.webapp.dao.sds.impl.AbstractHttpRestCommand;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
+import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.domain.webservice.http.HttpPostRequest;
 import net.sf.sail.webapp.domain.webservice.http.impl.HttpRestTransportImpl;
@@ -498,7 +499,11 @@ public class BridgeController extends AbstractController {
 		} else if(type.equals("chatLog")) {
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/chatLog.html");
 			requestDispatcher.forward(request, response);
+		} else if(type.equals("studentStatus")) {
+			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/studentStatus.html");
+			requestDispatcher.forward(request, response);
 		}
+		
 		return null;
 	}
 
@@ -532,8 +537,183 @@ public class BridgeController extends AbstractController {
 		} else if(type.equals("chatLog")) {
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/chatLog.html");
 			requestDispatcher.forward(request, response);
+		} else if(type.equals("studentStatus")) {
+			handleIdeaStudentStatus(request, response);
 		}
 		return null;
+	}
+	
+	/**
+	 * Handle student status requests
+	 * @param request
+	 * @param response
+	 */
+	private void handleIdeaStudentStatus(HttpServletRequest request, HttpServletResponse response) {
+		ServletContext servletContext = this.getServletContext();
+		ServletContext vlewrappercontext = servletContext.getContext("/vlewrapper");
+		
+		try {
+			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/studentStatus.html");
+			
+			//make sure the user is allowed to make this POST
+			if(authenticateStudentStatusPOST(request, response)) {
+				//forward the request to the vlewrapper
+				requestDispatcher.forward(request, response);				
+			}
+		} catch (ServletException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	/**
+	 * Make sure the signed in user is allowed to POST the data they are
+	 * trying to POST. The user should only be trying to update their
+	 * own student status.
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	private boolean authenticateStudentStatusPOST(HttpServletRequest request, HttpServletResponse response) {
+		boolean result = false;
+		
+		//get the signed in user
+		User user = ControllerUtil.getSignedInUser();
+		
+		//get the parameters from the request
+		String runIdString = request.getParameter("runId");
+		String periodIdString = request.getParameter("periodId");
+		String workgroupIdString = request.getParameter("workgroupId");
+		String status = request.getParameter("status");
+		
+		try {
+			Long runId = Long.parseLong(runIdString);
+			Long periodId = Long.parseLong(periodIdString);
+			Long workgroupId = Long.parseLong(workgroupIdString);
+			
+			//make sure the user is in the run, in the period, and is in the workgroup
+			if(isUserInRun(user, runId) && 
+					isUserInPeriod(user, runId, periodId) &&
+					isUserInWorkgroupId(user, workgroupId) &&
+					status != null) {
+				result = true;
+			}
+			
+		} catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Check if the user is in the run
+	 * @param user the user
+	 * @param runId the run id
+	 * @return whether the user is in the run
+	 */
+	private boolean isUserInRun(User user, Long runId) {
+		boolean result = false;
+		
+		if(user != null && runId != null) {
+			//get the list of runs this user is in
+			List<Run> runList = runService.getRunList(user);
+			
+			Iterator<Run> runListIterator = runList.iterator();
+			
+			//loop through all the runs this user is in
+			while(runListIterator.hasNext()) {
+				//get a run
+				Run tempRun = runListIterator.next();
+				
+				if(tempRun != null) {
+					//get the run id
+					Long tempRunId = tempRun.getId();
+					
+					//check if the run id matches the one we are searching for
+					if(runId.equals(tempRunId)) {
+						//the run id matches so the user is in the run
+						result = true;
+						break;
+					}
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Check if the user is in the period
+	 * @param user the user
+	 * @param runId the run id
+	 * @param periodId the period id
+	 * @return whether the user is in the period
+	 */
+	private boolean isUserInPeriod(User user, Long runId, Long periodId) {
+		boolean result = false;
+		
+		if(user != null && runId != null && periodId != null) {
+			try {
+				//get the run
+				Run run = runService.retrieveById(runId);
+				
+				//get the period the student is in for the run
+				Group periodOfStudent = run.getPeriodOfStudent(user);
+				
+				if(periodOfStudent != null) {
+					//get the period id
+					Long tempPeriodId = periodOfStudent.getId();
+					
+					//check if the period id matches the one we are searching for
+					if(periodId.equals(tempPeriodId)) {
+						//the period id matches so the user is in the period
+						result = true;
+					}
+				}
+			} catch (ObjectNotFoundException e) {
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Check if the user is in the workgroup id
+	 * @param user the user
+	 * @param workgroupId the workgroup id
+	 * @return whether the user is in the workgroup
+	 */
+	private boolean isUserInWorkgroupId(User user, Long workgroupId) {
+		boolean result = false;
+		
+		if(user != null && workgroupId != null) {
+			//get all the workgroups this user is in
+			List<Workgroup> workgroupsForUser = workgroupService.getWorkgroupsForUser(user);
+			
+			Iterator<Workgroup> workgroupsForUserIterator = workgroupsForUser.iterator();
+			
+			//loop through all the workgroups this user is in
+			while(workgroupsForUserIterator.hasNext()) {
+				//get a workgroup
+				Workgroup tempWorkgroup = workgroupsForUserIterator.next();
+				
+				if(tempWorkgroup != null) {
+					//get the workgroup id
+					Long tempWorkgroupId = tempWorkgroup.getId();
+					
+					//check if the workgroup id matches the one we are searching for
+					if(workgroupId.equals(tempWorkgroupId)) {
+						//the workgroup id matches so the user is in the workgroup
+						result = true;
+						break;
+					}
+				}
+			}
+		}
+		
+		return result;
 	}
 	
 	private void handleIdeaBasket(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
