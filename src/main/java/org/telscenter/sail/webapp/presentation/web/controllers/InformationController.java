@@ -524,8 +524,11 @@ public class InformationController extends AbstractController{
 			//get the url for websocket connections
 			String webSocketUrl = webSocketBaseUrl + "/webapp/websocket/wise";
 			
-			//get the url for the student to send their status to the server
+			//get the url for sending and receiving student statuses
 			String studentStatusUrl = portalurl + "/webapp/bridge/request.html?type=studentStatus";
+			
+			//get the url for sending and receiving run statuses
+			String runStatusUrl = portalurl + "/webapp/bridge/request.html?type=runStatus";
 	    	
 	    	//put all the config params into the json object
 			try {
@@ -553,6 +556,7 @@ public class InformationController extends AbstractController{
 				config.put("chatLogUrl", chatLogUrl);
 				config.put("webSocketUrl", webSocketUrl);
 				config.put("studentStatusUrl", studentStatusUrl);
+				config.put("runStatusUrl", runStatusUrl);
 				
 				if(postLevel!=null){
 					config.put("postLevel", postLevel);

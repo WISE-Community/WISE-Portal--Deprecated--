@@ -277,6 +277,11 @@ public class BridgeController extends AbstractController {
 				if("scoring".equals(cRaterRequestType)) {
 					return true;
 				}
+			} else if(type.equals("runStatus")) {
+				//check if the user is the owner of the run or in the run
+				if(isUserOwnerOfRun(signedInUser, runId) || isUserInRun(signedInUser, runId)) {
+					return true;					
+				}
 			} else {
 				// this should never happen
 			}
@@ -502,6 +507,9 @@ public class BridgeController extends AbstractController {
 		} else if(type.equals("studentStatus")) {
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/studentStatus.html");
 			requestDispatcher.forward(request, response);
+		} else if(type.equals("runStatus")) {
+			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/runStatus.html");
+			requestDispatcher.forward(request, response);
 		}
 		
 		return null;
@@ -538,7 +546,9 @@ public class BridgeController extends AbstractController {
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/chatLog.html");
 			requestDispatcher.forward(request, response);
 		} else if(type.equals("studentStatus")) {
-			handleIdeaStudentStatus(request, response);
+			handleStudentStatus(request, response);
+		} else if(type.equals("runStatus")) {
+			handleRunStatus(request, response);
 		}
 		return null;
 	}
@@ -548,7 +558,7 @@ public class BridgeController extends AbstractController {
 	 * @param request
 	 * @param response
 	 */
-	private void handleIdeaStudentStatus(HttpServletRequest request, HttpServletResponse response) {
+	private void handleStudentStatus(HttpServletRequest request, HttpServletResponse response) {
 		ServletContext servletContext = this.getServletContext();
 		ServletContext vlewrappercontext = servletContext.getContext("/vlewrapper");
 		
@@ -602,6 +612,95 @@ public class BridgeController extends AbstractController {
 			
 		} catch(NumberFormatException e) {
 			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Handle student status requests
+	 * @param request
+	 * @param response
+	 */
+	private void handleRunStatus(HttpServletRequest request, HttpServletResponse response) {
+		ServletContext servletContext = this.getServletContext();
+		ServletContext vlewrappercontext = servletContext.getContext("/vlewrapper");
+		
+		try {
+			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/runStatus.html");
+			
+			//make sure the user is allowed to make this POST
+			if(authenticateRunStatusPOST(request, response)) {
+				//forward the request to the vlewrapper
+				requestDispatcher.forward(request, response);				
+			}
+		} catch (ServletException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	/**
+	 * Make sure the signed in user is allowed to POST the data they are
+	 * trying to POST. The user should only be trying to update their
+	 * own student status.
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	private boolean authenticateRunStatusPOST(HttpServletRequest request, HttpServletResponse response) {
+		boolean result = false;
+		
+		//get the signed in user
+		User user = ControllerUtil.getSignedInUser();
+		
+		//get the parameters from the request
+		String runIdString = request.getParameter("runId");
+		String status = request.getParameter("status");
+		
+		try {
+			//get the run id
+			Long runId = Long.parseLong(runIdString);
+			
+			//check if the user is the owner of the run and the status is not null
+			if(isUserOwnerOfRun(user, runId) && status != null) {
+				result = true;
+			}
+		} catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Check if a user is the owner or shared owner of a run
+	 * @param user the signed in user
+	 * @param runId the run id
+	 * @return whether the user is an owner of the run
+	 */
+	private boolean isUserOwnerOfRun(User user, Long runId) {
+		boolean result = false;
+		
+		if(user != null && runId != null) {
+			try {
+				//get the run
+				Run run = runService.retrieveById(runId);
+				
+				if(run != null) {
+					//get the owners and shared owners
+					Set<User> owners = run.getOwners();
+					Set<User> sharedowners = run.getSharedowners();
+					
+					if(owners.contains(user) || sharedowners.contains(user)) {
+						//the user is the owner or a shared owner
+						result = true;
+					}
+				}
+			} catch (ObjectNotFoundException e) {
+				e.printStackTrace();
+			}			
 		}
 		
 		return result;
