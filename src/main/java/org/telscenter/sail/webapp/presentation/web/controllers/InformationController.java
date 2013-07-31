@@ -153,7 +153,8 @@ public class InformationController extends AbstractController{
 		String periodName = "";
 		
 		User loggedInUser = ControllerUtil.getSignedInUser();
-		
+
+		JSONArray userIds = new JSONArray();
 		Long workgroupId = null;
 
 		//get the period
@@ -207,8 +208,14 @@ public class InformationController extends AbstractController{
 		String userNames = "";
 		if (workgroup != null) {
 			userNames = getUserNamesFromWorkgroup(workgroup);
+			
+			//get the user ids for the students in the workgroup
+			userIds = getStudentIdsFromWorkgroup(workgroup);
 		} else if (workgroup == null && loggedInUser.isAdmin()) {
 			userNames = ((MutableUserDetails) loggedInUser.getUserDetails()).getCoreUsername();
+
+			//get the user id of the admin
+			userIds.put(loggedInUser.getId());
 		}
 			 
 		
@@ -221,6 +228,7 @@ public class InformationController extends AbstractController{
 			myUserInfo.put("userName", userNames);
 			myUserInfo.put("periodId", periodId);
 			myUserInfo.put("periodName", periodName);
+			myUserInfo.put("userIds", userIds);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -837,12 +845,10 @@ public class InformationController extends AbstractController{
 	/**
 	 * Get the student ids from the workgroup
 	 * @param workgroup the workgroup to get student ids from
-	 * @return a string containing the student ids delimited by ':'
-	 * e.g.
-	 * "123:124"
+	 * @return a JSONArray containing the student ids
 	 */
-	private String getStudentIdsFromWorkgroup(Workgroup workgroup) {
-		StringBuffer studentIds = new StringBuffer();
+	private JSONArray getStudentIdsFromWorkgroup(Workgroup workgroup) {
+		JSONArray studentIds = new JSONArray();
 		
 		//get all the members of the workgroup
 		Set<User> members = workgroup.getMembers();
@@ -856,16 +862,11 @@ public class InformationController extends AbstractController{
 			//get the student id
 			Long studentId = user.getId();
 			
-			if(studentIds.length() != 0) {
-				//separate student ids by :
-				studentIds.append(":");
-			}
-			
 			//add the student id to the accumulation of student ids for this workgroup
-			studentIds.append(studentId);
+			studentIds.put(studentId);
 		}
 		
-		return studentIds.toString();
+		return studentIds;
 	}
 	
 	/**
@@ -891,8 +892,8 @@ public class InformationController extends AbstractController{
 					classmateUserInfo.put("periodName", ((WISEWorkgroup) classmateWorkgroup).getPeriod().getName());
 
 					//add the student ids into the classmateUserInfo JSONObject
-					String studentIds = getStudentIdsFromWorkgroup(classmateWorkgroup);
-					classmateUserInfo.put("studentIds", studentIds);
+					JSONArray studentIds = getStudentIdsFromWorkgroup(classmateWorkgroup);
+					classmateUserInfo.put("userIds", studentIds);
 				}
 			}
 		} catch (JSONException e) {
