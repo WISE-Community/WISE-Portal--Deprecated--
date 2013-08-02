@@ -217,7 +217,37 @@ public class InformationController extends AbstractController{
 			//get the user id of the admin
 			userIds.put(loggedInUser.getId());
 		}
-			 
+		
+		JSONArray periods = new JSONArray();
+		
+		//get all the periods in the run
+		Set<Group> periodsSet = run.getPeriods();
+		
+		if(periodsSet != null) {
+			Iterator<Group> periodsIterator = periodsSet.iterator();
+			
+			//loop through all the periods in the run
+			while(periodsIterator.hasNext()) {
+				//get a period
+				Group period = periodsIterator.next();
+				
+				//get the period id and period name
+				Long tempPeriodId = period.getId();
+				String tempPeriodName = period.getName();
+				
+				try {
+					//put the period id and period name in a JSONObject
+					JSONObject periodObject = new JSONObject();
+					periodObject.put("periodId", tempPeriodId);
+					periodObject.put("periodName", tempPeriodName);
+					
+					//add the JSONObject into our array of periods
+					periods.put(periodObject);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		
 		// add this user's info:
 		//userInfoString.append("<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + userNames + "</userName><periodId>" + periodId + "</periodId><periodName>" + periodName + "</periodName></myUserInfo>");
@@ -353,6 +383,7 @@ public class InformationController extends AbstractController{
 			myClassInfo.put("classmateUserInfos", classmateUserInfos);
 			myClassInfo.put("teacherUserInfo", teacherUserInfo);
 			myClassInfo.put("sharedTeacherUserInfos", sharedTeacherUserInfos);
+			myClassInfo.put("periods", periods);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
