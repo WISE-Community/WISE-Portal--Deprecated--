@@ -191,6 +191,50 @@ public class WISEWebSocketServlet extends WebSocketServlet {
     }
     
     /**
+     * Get the student connections for a period
+     * @param runId the run id
+     * @param periodId the period id
+     * @return a set of student connections for the period
+     */
+    private Set<WISEMessageInbound> getStudentConnectionsForPeriod(Long runId, Long periodId) {
+    	Set<WISEMessageInbound> studentConnectionsForRun = null;
+    	Set<WISEMessageInbound> studentConnectionsForPeriod = new CopyOnWriteArraySet<WISEMessageInbound>();
+    	
+    	//get the set of student connections for the run
+    	studentConnectionsForRun = runToStudentConnections.get(runId);
+    	
+    	if(studentConnectionsForRun == null) {
+    		//the set does not exist for the run so we will create a set
+    		studentConnectionsForRun = new CopyOnWriteArraySet<WISEMessageInbound>();
+    		
+    		//put the set of student connections into the hashtable that maps run to student connection sets
+    		runToStudentConnections.put(runId, studentConnectionsForRun);
+    	}
+    	
+    	//loop through all the student connections for the run
+    	Iterator<WISEMessageInbound> studentConnectionsForRunIter = studentConnectionsForRun.iterator();
+    	while(studentConnectionsForRunIter.hasNext()) {
+    		//get a student connection
+    		WISEMessageInbound studentConnection = studentConnectionsForRunIter.next();
+    		
+    		//get the period id of the student connection
+    		Long studentConnectionPeriodId = studentConnection.getPeriodId();
+    		
+    		//check if the period id matches the one we want
+    		if(periodId.equals(studentConnectionPeriodId)) {
+    			/*
+    			 * the period id matches so we will add this student connection to
+    			 * our set of student connections to return
+    			 */
+    			studentConnectionsForPeriod.add(studentConnection);
+    		}
+    	}
+    	
+    	//return the set of student connections for the run
+    	return studentConnectionsForPeriod;
+    }
+    
+    /**
      * Add a teacher connection
      * @param wiseMessageInbound the object that represents a connection
      */
@@ -255,7 +299,7 @@ public class WISEWebSocketServlet extends WebSocketServlet {
      */
     private Set<WISEMessageInbound> getAllConnectionsForRun(Long runId) {
     	//create a set to hold all the connections
-    	Set<WISEMessageInbound> allConnectionsForRun = new CopyOnWriteArraySet<WISEMessageInbound>();;
+    	Set<WISEMessageInbound> allConnectionsForRun = new CopyOnWriteArraySet<WISEMessageInbound>();
     	
     	//get all the student connections for the run
     	Set<WISEMessageInbound> studentConnectionsForRun = getStudentConnectionsForRun(runId);
@@ -1024,7 +1068,8 @@ public class WISEWebSocketServlet extends WebSocketServlet {
 					} else if(messageParticipants.equals("teacherToGroup")) {
 						//TODO
 					} else if(messageParticipants.equals("teacherToStudentsInPeriod")) {
-						//TODO
+						//the teacher is sending a message to the students in a period
+						sendTeacherToStudentsInPeriodMessage(messageJSON);
 					} else if(messageParticipants.equals("teacherToStudentsInRun")) {
 						//the teacher is sending a message to the students in a run
 						sendTeacherToStudentsInRunMessage(messageJSON);
@@ -1079,8 +1124,56 @@ public class WISEWebSocketServlet extends WebSocketServlet {
 	        	//get all the currently connected students for the run
 	        	Set<WISEMessageInbound> studentConnectionsForRun = getStudentConnectionsForRun(runId);
 	        	
+	        	//get all the currently connected teachers for the run
+	        	Set<WISEMessageInbound> teacherConnectionsForRun = getTeacherConnectionsForRun(runId);
+	        	
+	        	//create a set to combine all the connections
+	        	Set<WISEMessageInbound> connections = new CopyOnWriteArraySet<WISEMessageInbound>();
+	        	
+	        	//gather all the connections
+	        	connections.addAll(studentConnectionsForRun);
+	        	connections.addAll(teacherConnectionsForRun);
+	        	
 	        	//send the message to all the currently connected students for the run
-	        	sendMessageToConnections(message, studentConnectionsForRun);
+	        	sendMessageToConnections(message, connections);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+        }
+        
+        /**
+         * Handle the message that a teacher is sending to the students of a period
+         * @param messageJSON the message to send
+         */
+        private void sendTeacherToStudentsInPeriodMessage(JSONObject messageJSON) {
+        	try {
+        		//add the run id into the message
+	        	Long runId = getRunId();
+	        	messageJSON.put("runId", getRunId());
+	        	
+	        	if(messageJSON.has("periodId")) {
+		        	//get the period id
+		        	Long periodId = messageJSON.getLong("periodId");
+		        	
+		        	//get the message as a string
+		        	String message = messageJSON.toString();
+		        	
+		        	//get all the currently connected students for the period
+		        	Set<WISEMessageInbound> studentConnectionsForRun = getStudentConnectionsForPeriod(runId, periodId);
+		        	
+		        	//get all the currently connected teachers for the run
+		        	Set<WISEMessageInbound> teacherConnectionsForRun = getTeacherConnectionsForRun(runId);
+		        	
+		        	//create a set to combine all the connections
+		        	Set<WISEMessageInbound> connections = new CopyOnWriteArraySet<WISEMessageInbound>();
+		        	
+		        	//gather all the connections
+		        	connections.addAll(studentConnectionsForRun);
+		        	connections.addAll(teacherConnectionsForRun);
+		        	
+		        	//send the message to all the currently connected students for the period
+		        	sendMessageToConnections(message, connections);
+	        	}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
