@@ -396,7 +396,8 @@ public class CreateRunController extends AbstractWizardFormController {
     		String newProjectId = request.getParameter("newProjectId");
     		Project newProject = projectService.getById(new Long(newProjectId));
     		runParameters.setProject(newProject);
-    		
+    		Locale userLocale = request.getLocale();
+    		runParameters.setLocale(userLocale);
 			run = this.runService.createRun(runParameters);
 			
 			// create a workgroup for the owners of the run (teacher)
