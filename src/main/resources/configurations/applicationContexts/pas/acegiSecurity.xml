@@ -196,7 +196,7 @@
     
     <bean id="charsetFilter"
         class="org.springframework.web.filter.CharacterEncodingFilter">
-        <property name="encoding"><value>UTF8</value></property>
+        <property name="encoding"><value>UTF-8</value></property>
         <property name="forceEncoding"><value>true</value></property>
     </bean>
     
