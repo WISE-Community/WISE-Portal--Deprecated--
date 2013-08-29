@@ -196,8 +196,6 @@ public class ExportProjectController extends AbstractController {
 			return prepend+"/wise4.project.json";
 		} else if (oldFilename.endsWith(".project-min.json")) {
 			return prepend+"/wise4.project-min.json";
-		} else if (oldFilename.endsWith(".project-meta.json")) {
-			return prepend+"/wise4.project-meta.json";
 		} 
 		return oldFilename;
 	}
