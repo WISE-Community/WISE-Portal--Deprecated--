@@ -534,6 +534,18 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/sail-data-emf-0.1.0-SNAPSHOT.jar</systemPath>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-catalina</artifactId>
+			<version>7.0.32</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-coyote</artifactId>
+			<version>7.0.32</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 	<reporting>
 		<plugins>

@@ -153,7 +153,8 @@ public class InformationController extends AbstractController{
 		String periodName = "";
 		
 		User loggedInUser = ControllerUtil.getSignedInUser();
-		
+
+		JSONArray userIds = new JSONArray();
 		Long workgroupId = null;
 
 		//get the period
@@ -207,10 +208,46 @@ public class InformationController extends AbstractController{
 		String userNames = "";
 		if (workgroup != null) {
 			userNames = getUserNamesFromWorkgroup(workgroup);
+			
+			//get the user ids for the students in the workgroup
+			userIds = getStudentIdsFromWorkgroup(workgroup);
 		} else if (workgroup == null && loggedInUser.isAdmin()) {
 			userNames = ((MutableUserDetails) loggedInUser.getUserDetails()).getCoreUsername();
+
+			//get the user id of the admin
+			userIds.put(loggedInUser.getId());
 		}
-			 
+		
+		JSONArray periods = new JSONArray();
+		
+		//get all the periods in the run
+		Set<Group> periodsSet = run.getPeriods();
+		
+		if(periodsSet != null) {
+			Iterator<Group> periodsIterator = periodsSet.iterator();
+			
+			//loop through all the periods in the run
+			while(periodsIterator.hasNext()) {
+				//get a period
+				Group period = periodsIterator.next();
+				
+				//get the period id and period name
+				Long tempPeriodId = period.getId();
+				String tempPeriodName = period.getName();
+				
+				try {
+					//put the period id and period name in a JSONObject
+					JSONObject periodObject = new JSONObject();
+					periodObject.put("periodId", tempPeriodId);
+					periodObject.put("periodName", tempPeriodName);
+					
+					//add the JSONObject into our array of periods
+					periods.put(periodObject);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		
 		// add this user's info:
 		//userInfoString.append("<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + userNames + "</userName><periodId>" + periodId + "</periodId><periodName>" + periodName + "</periodName></myUserInfo>");
@@ -221,6 +258,7 @@ public class InformationController extends AbstractController{
 			myUserInfo.put("userName", userNames);
 			myUserInfo.put("periodId", periodId);
 			myUserInfo.put("periodName", periodName);
+			myUserInfo.put("userIds", userIds);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -345,6 +383,7 @@ public class InformationController extends AbstractController{
 			myClassInfo.put("classmateUserInfos", classmateUserInfos);
 			myClassInfo.put("teacherUserInfo", teacherUserInfo);
 			myClassInfo.put("sharedTeacherUserInfos", sharedTeacherUserInfos);
+			myClassInfo.put("periods", periods);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -517,6 +556,18 @@ public class InformationController extends AbstractController{
 	    	
 			/* Set the post level if specified in the run */
 			Integer postLevel = run.getPostLevel();
+			
+			//get the websocket base url e.g. ws://wise4.berkeley.edu
+			String webSocketBaseUrl = portalurl.replace("http", "ws");
+			
+			//get the url for websocket connections
+			String webSocketUrl = webSocketBaseUrl + "/webapp/websocket/wise";
+			
+			//get the url for sending and receiving student statuses
+			String studentStatusUrl = portalurl + "/webapp/bridge/request.html?type=studentStatus";
+			
+			//get the url for sending and receiving run statuses
+			String runStatusUrl = portalurl + "/webapp/bridge/request.html?type=runStatus";
 	    	
 	    	//put all the config params into the json object
 			try {
@@ -542,6 +593,9 @@ public class InformationController extends AbstractController{
 				config.put("hostName", hostName);
 				config.put("cRaterRequestUrl", cRaterRequestUrl);
 				config.put("chatLogUrl", chatLogUrl);
+				config.put("webSocketUrl", webSocketUrl);
+				config.put("studentStatusUrl", studentStatusUrl);
+				config.put("runStatusUrl", runStatusUrl);
 				
 				if(postLevel!=null){
 					config.put("postLevel", postLevel);
@@ -822,12 +876,10 @@ public class InformationController extends AbstractController{
 	/**
 	 * Get the student ids from the workgroup
 	 * @param workgroup the workgroup to get student ids from
-	 * @return a string containing the student ids delimited by ':'
-	 * e.g.
-	 * "123:124"
+	 * @return a JSONArray containing the student ids
 	 */
-	private String getStudentIdsFromWorkgroup(Workgroup workgroup) {
-		StringBuffer studentIds = new StringBuffer();
+	private JSONArray getStudentIdsFromWorkgroup(Workgroup workgroup) {
+		JSONArray studentIds = new JSONArray();
 		
 		//get all the members of the workgroup
 		Set<User> members = workgroup.getMembers();
@@ -841,16 +893,11 @@ public class InformationController extends AbstractController{
 			//get the student id
 			Long studentId = user.getId();
 			
-			if(studentIds.length() != 0) {
-				//separate student ids by :
-				studentIds.append(":");
-			}
-			
 			//add the student id to the accumulation of student ids for this workgroup
-			studentIds.append(studentId);
+			studentIds.put(studentId);
 		}
 		
-		return studentIds.toString();
+		return studentIds;
 	}
 	
 	/**
@@ -876,8 +923,8 @@ public class InformationController extends AbstractController{
 					classmateUserInfo.put("periodName", ((WISEWorkgroup) classmateWorkgroup).getPeriod().getName());
 
 					//add the student ids into the classmateUserInfo JSONObject
-					String studentIds = getStudentIdsFromWorkgroup(classmateWorkgroup);
-					classmateUserInfo.put("studentIds", studentIds);
+					JSONArray studentIds = getStudentIdsFromWorkgroup(classmateWorkgroup);
+					classmateUserInfo.put("userIds", studentIds);
 				}
 			}
 		} catch (JSONException e) {

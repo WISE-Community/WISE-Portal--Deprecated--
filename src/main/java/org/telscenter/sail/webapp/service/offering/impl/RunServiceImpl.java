@@ -24,6 +24,8 @@ package org.telscenter.sail.webapp.service.offering.impl;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
@@ -69,17 +71,7 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
  */
 public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 
-	private static final String[] RUNCODE_WORDS = { 
-		    "Tiger", "Lion", "Fox", "Owl", "Panda", "Hawk", "Mole", "Falcon", "Orca", "Eagle", 
-		    "Manta", "Otter", "Cat", "Zebra", "Flea", "Wolf", "Dragon", "Seal", "Cobra", "Bug", 
-		    "Gecko", "Fish", "Koala", "Mouse", "Wombat", "Shark", "Whale", "Sloth",	"Slug", "Ant", 
-		    "Mantis", "Bat", "Rhino", "Gator", "Monkey", "Swan", "Ray", "Crow", "Goat", "Marmot", 
-		    "Dog", "Finch", "Puffin", "Fly", "Camel", "Kiwi", "Spider", "Lizard", "Robin", "Bear",
-			"Boa", "Cow", "Crab", "Mule", "Moth", "Lynx", "Moose", "Skunk", "Mako", "Liger", 
-			"Llama", "Shrimp", "Parrot", "Pig", "Clam", "Urchin", "Toucan", "Frog", "Toad", "Turtle", 
-			"Viper", "Trout", "Hare", "Bee", "Krill", "Dodo", "Tuna", "Loon", "Leech", "Python", 
-			"Wasp", "Yak", "Snake", "Duck", "Worm", "Yeti"
-			 };
+	private String DEFAULT_RUNCODE_PREFIXES = "Tiger,Lion,Fox,Owl,Panda,Hawk,Mole,Falcon,Orca,Eagle,Manta,Otter,Cat,Zebra,Flea,Wolf,Dragon,Seal,Cobra,Bug,Gecko,Fish,Koala,Mouse,Wombat,Shark,Whale,Sloth,Slug,Ant,Mantis,Bat,Rhino,Gator,Monkey,Swan,Ray,Crow,Goat,Marmot,Dog,Finch,Puffin,Fly,Camel,Kiwi,Spider,Lizard,Robin,Bear,Boa,Cow,Crab,Mule,Moth,Lynx,Moose,Skunk,Mako,Liger,Llama,Shrimp,Parrot,Pig,Clam,Urchin,Toucan,Frog,Toad,Turtle,Viper,Trout,Hare,Bee,Krill,Dodo,Tuna,Loon,Leech,Python,Wasp,Yak,Snake,Duck,Worm,Yeti";
 
 	private static final int MAX_RUNCODE_DIGIT = 1000;
 
@@ -90,6 +82,8 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	private UserDao<User> userDao;
 	
 	private ProjectService projectService;
+	
+	private Properties portalProperties;
 
 	/**
 	 * @param groupDao
@@ -156,11 +150,12 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 
 	/**
 	 * Generate a random runcode
+	 * @param locale 
 	 * 
 	 * @return the randomly generated runcode.
 	 * 
 	 */
-	String generateRunCode() {
+	String generateRunCode(Locale locale) {
 		Random rand = new Random();
 		Integer digits = rand.nextInt(MAX_RUNCODE_DIGIT);
 		StringBuffer sb = new StringBuffer(digits.toString());
@@ -170,8 +165,15 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		while (sb.length() < max_runcode_digit_length) {
 			sb.insert(0, "0");
 		}
-
-		String word = RUNCODE_WORDS[rand.nextInt(RUNCODE_WORDS.length)];
+		String language = locale.getLanguage();  // languages is two-letter ISO639 code, like en, es, he, etc.
+		
+		// read in runcode prefixes from portal.properties.
+		String runcodePrefixesStr = portalProperties.getProperty("runcode_prefixes_en", DEFAULT_RUNCODE_PREFIXES);
+		if (portalProperties.containsKey("runcode_prefixes_"+language)) {
+			runcodePrefixesStr = portalProperties.getProperty("runcode_prefixes_"+language);
+		}
+		String[] runcodePrefixes = runcodePrefixesStr.split(",");
+		String word = runcodePrefixes[rand.nextInt(runcodePrefixes.length)];
 		String runCode = (word + sb.toString());
 		return runCode;
 	}
@@ -192,7 +194,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		Run run = new RunImpl();
 		run.setEndtime(null);
 		run.setStarttime(Calendar.getInstance().getTime());
-		run.setRuncode(generateUniqueRunCode());
+		run.setRuncode(generateUniqueRunCode(runParameters.getLocale()));
 		run.setOwners(runParameters.getOwners());
 		run.setMaxWorkgroupSize(runParameters.getMaxWorkgroupSize());
 		run.setProject(project);
@@ -356,13 +358,13 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		addRolesToSharedTeacher(runId, userId, roles);
 	}
 
-	private String generateUniqueRunCode() {
-		String tempRunCode = generateRunCode();
+	private String generateUniqueRunCode(Locale locale) {
+		String tempRunCode = generateRunCode(locale);
 		while (true) {
 			try {
 				checkForRunCodeDuplicate(tempRunCode);
 			} catch (DuplicateRunCodeException e) {
-				tempRunCode = generateRunCode();
+				tempRunCode = generateRunCode(locale);
 				continue;
 			}
 			break;
@@ -648,5 +650,9 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		Run run = this.retrieveById(runId);
 		run.setXMPPEnabled(isEnabled);
 		this.runDao.save(run);
+	}
+
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
 	}
 }

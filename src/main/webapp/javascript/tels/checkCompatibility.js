@@ -12,7 +12,7 @@ var defaultRequirements = {
 	requiredSafariVersion:'3.0',
 	requiredQuickTimeVersion:'7.0',
 	requiredFlashVersion:'10.0',
-	requiredJavaVersion:'1.5'
+	requiredJavaVersion:'1.6'
 }
 
 /**

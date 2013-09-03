@@ -101,6 +101,10 @@ public class GradeWorkController extends AbstractController {
 			    	String getGradeWorkUrl = portalurl + "/vlewrapper/vle/gradework.html";
 					String getGradingConfigUrl = portalurl + "/webapp/request/info.html?action=getVLEConfig&runId=" + run.getId().toString() + "&gradingType=" + gradingType + "&requester=grading&getRevisions=" + getRevisions;
 					
+					//get the classroom monitor urls
+					String getClassroomMonitorUrl = portalurl + "/vlewrapper/vle/classroomMonitor.html";
+					String getClassroomMonitorConfigUrl = portalurl + "/webapp/request/info.html?action=getVLEConfig&runId=" + run.getId().toString() + "&gradingType=" + gradingType + "&requester=grading&getRevisions=" + getRevisions;
+					
 					String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
 					String rawProjectUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 					String contentUrl = curriculumBaseWWW + rawProjectUrl;
@@ -110,6 +114,8 @@ public class GradeWorkController extends AbstractController {
 					modelAndView.addObject("run", run);
 					modelAndView.addObject("getGradeWorkUrl", getGradeWorkUrl);
 					modelAndView.addObject("getGradingConfigUrl", getGradingConfigUrl);
+					modelAndView.addObject("getClassroomMonitorUrl", getClassroomMonitorUrl);
+					modelAndView.addObject("getClassroomMonitorConfigUrl", getClassroomMonitorConfigUrl);
 					modelAndView.addObject("contentUrl", contentUrl);
 					
 					//set the permission variable so that we can access it in the .jsp

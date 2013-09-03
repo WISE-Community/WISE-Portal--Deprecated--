@@ -19,6 +19,7 @@ package org.telscenter.sail.webapp.domain.impl;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -52,6 +53,8 @@ public class RunParameters extends OfferingParameters implements Serializable {
 	private Integer loggingLevel = 5;
 	
 	private Integer postLevel = 5;
+	
+	private Locale locale;
 	
 	/**
 	 * @return <code>Integer</code> the maximum size of workgroup
@@ -235,6 +238,14 @@ public class RunParameters extends OfferingParameters implements Serializable {
 	 */
 	public void setPostLevel(Integer postLevel) {
 		this.postLevel = postLevel;
+	}
+
+	public Locale getLocale() {
+		return locale;
+	}
+
+	public void setLocale(Locale locale) {
+		this.locale = locale;
 	}
 
 }

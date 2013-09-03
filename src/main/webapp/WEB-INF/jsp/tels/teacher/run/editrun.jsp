@@ -21,7 +21,6 @@
 	function updateRunTitle(runId){
 		$('#msgDiv').html('');
 		var val = $('#editRunTitleInput').val();
-		val = escape(val);
 
 		/* validate user entered value */
 		if(!val || val==''){
@@ -29,7 +28,7 @@
 			return;
 		}
 
-		$.ajax({type:'POST', url:'updaterun.html', data:'command=updateTitle&runId=' + runId + '&title=' + val, error:updateFailure, success:updateTitleSuccess});
+		$.ajax({type:'POST', url:'updaterun.html', data:{command:'updateTitle',runId:runId,title:val}, error:updateFailure, success:updateTitleSuccess});
 	}
 
 	function updateRunPeriod(runId){

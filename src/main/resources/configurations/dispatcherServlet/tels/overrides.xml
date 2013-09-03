@@ -124,6 +124,7 @@
 				/teacher/run/report.html=projectRunReportController
     		    /teacher/grading/gradework.html=gradeWorkController
 				/teacher/grading/premadeComments.html=premadeCommentsController
+				/teacher/classroomMonitor/classroomMonitor.html=gradeWorkController
     		    /teacher/management/overview.html=managementOverviewController
     		    /teacher/management/managemystudents.html=manageStudentsController
     		    /teacher/management/updatemyaccount.html=updateMyAccountController

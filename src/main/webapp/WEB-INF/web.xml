@@ -150,7 +150,14 @@
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
 
-
+    <servlet>
+        <servlet-name>wiseWebSocket</servlet-name>
+        <servlet-class>org.telscenter.sail.webapp.service.websocket.WISEWebSocketServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>wiseWebSocket</servlet-name>
+        <url-pattern>/websocket/wise</url-pattern>
+    </servlet-mapping>
 
     <!--
         Make it distributable for load balancing purposes.
