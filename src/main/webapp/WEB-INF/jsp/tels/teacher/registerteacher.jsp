@@ -16,10 +16,12 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	
-	//focus cursor into the First Name field on page ready 
-	if($('#teacherFirstName').length){
-		$('#teacherFirstName').focus();
+
+	//focus cursor into the First Name field on page ready iff there are no errors
+	if ($(".errorMsgNoBg").children().length == 0) {
+		if($('#teacherFirstName').length){
+			$('#teacherFirstName').focus();
+		}
 	}
 });
 

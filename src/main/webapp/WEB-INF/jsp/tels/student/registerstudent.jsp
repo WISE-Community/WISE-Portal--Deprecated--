@@ -18,9 +18,11 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	//focus cursor into the First Name field on page ready 
-	if($('#firstname').length){
-		$('#firstname').focus();
+	//focus cursor into the First Name field on page ready iff there are no errors
+	if ($(".errorMsgNoBg").children().length == 0) {
+		if($('#firstname').length){
+			$('#firstname').focus();
+		}		
 	}
 });
 
