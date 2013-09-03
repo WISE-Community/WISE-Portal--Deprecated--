@@ -650,6 +650,9 @@ public class AuthorProjectController extends AbstractController {
 				}
 			}
 			
+			//get parent project id
+			Long parentId = project.getParentProjectId();
+			
 			/*
 			 * create json object to hold project details
 			 */
@@ -660,6 +663,7 @@ public class AuthorProjectController extends AbstractController {
 			projectDetails.put("isFavorite", bookmarked);
 			projectDetails.put("sharedUsers", sharedUsers);
 			projectDetails.put("thumbUrl", thumbUrl);
+			projectDetails.put("parentId", parentId);
 			
 			response.getWriter().write(projectDetails.toString());
 		}
