@@ -557,8 +557,8 @@ public class InformationController extends AbstractController{
 			/* Set the post level if specified in the run */
 			Integer postLevel = run.getPostLevel();
 			
-			//get the websocket base url e.g. ws://wise4.berkeley.edu
-			String webSocketBaseUrl = portalurl.replace("http", "ws");
+			//get the websocket base url e.g. ws://wise4.berkeley.edu:8080
+			String webSocketBaseUrl = "ws://" + hostName + ":8080";
 			
 			//get the url for websocket connections
 			String webSocketUrl = webSocketBaseUrl + "/webapp/websocket/wise";
