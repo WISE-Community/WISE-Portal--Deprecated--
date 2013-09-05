@@ -58,6 +58,10 @@ public class JavaMailHelper implements IMailFacade {
 			String from, String[] cc) throws MessagingException {
 		sender.setUsername((String) properties.getProperty("mail.user"));
 		sender.setPassword((String) properties.getProperty("mail.password"));
+		sender.setHost((String) properties.getProperty("mail.smtp.host"));
+		String portString = (String) properties.getProperty("mail.smtp.port");
+		sender.setPort(Integer.valueOf(portString));
+		sender.setProtocol((String) properties.getProperty("mail.transport.protocol"));
 		sender.setJavaMailProperties(properties);
 		MimeMessage mimeMessage = sender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");

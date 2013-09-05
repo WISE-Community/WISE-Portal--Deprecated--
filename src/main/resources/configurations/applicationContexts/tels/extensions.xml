@@ -18,7 +18,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
 	<util:properties id="uihtmlproperties"
-		location="classpath:messages/tels/ui-html.properties" />
+		location="classpath:messages/tels/ui-html_en_US.properties" />
 
 	<util:properties id="emaillisteners" location="classpath:portal.properties" />
 

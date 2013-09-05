@@ -103,7 +103,9 @@ public class CreateRunController extends AbstractWizardFormController {
 	private MessageSource messageSource;
 
 	protected Properties portalProperties;
-	
+
+	private Map<Long,String> postLevelTextMap;
+
 	/* change this to true if you are testing and do not want to send mail to
 	   the actual groups */
 	private static final Boolean DEBUG = false;
@@ -112,13 +114,6 @@ public class CreateRunController extends AbstractWizardFormController {
 	private static final String DEBUG_EMAIL = "youremail@email.com";
 	
 	private static final Long[] IMPLEMENTED_POST_LEVELS = {5l,1l};
-	
-	private final static Map<Long,String> POST_LEVEL_TEXT_MAP = new HashMap<Long,String>();
-	static {
-		POST_LEVEL_TEXT_MAP.put(5l, "High (more storage intensive; student activity in every step is recorded)");
-		POST_LEVEL_TEXT_MAP.put(1l, "Low  (less storage intensive; only work directly submitted by student is recorded)");
-			
-	}
 	
 	/**
 	 * Constructor
@@ -313,6 +308,19 @@ public class CreateRunController extends AbstractWizardFormController {
 			model.put("periodNames", DefaultPeriodNames.values());
 			break;
 		case 3:
+			postLevelTextMap = new HashMap<Long,String>();
+			String defaultPostLevelHighMessage = messageSource.getMessage("presentation.web.controllers.teacher.run.CreateRunController.postLevelHighMessage", 
+					null, Locale.US);
+			String postLevelHighMessage = messageSource.getMessage("presentation.web.controllers.teacher.run.CreateRunController.postLevelHighMessage", 
+				null,defaultPostLevelHighMessage, request.getLocale());
+			String defaultPostLevelLowMessage = messageSource.getMessage("presentation.web.controllers.teacher.run.CreateRunController.postLevelLowMessage", 
+					null, Locale.US);
+			String postLevelLowMessage = messageSource.getMessage("presentation.web.controllers.teacher.run.CreateRunController.postLevelLowMessage", 
+				null,defaultPostLevelLowMessage, request.getLocale());
+
+			postLevelTextMap.put(5l, postLevelHighMessage);
+			postLevelTextMap.put(1l, postLevelLowMessage);
+
 			try {
 				project = (Project) this.projectService.getById(projectId);
 			} catch (ObjectNotFoundException e) {
@@ -323,7 +331,7 @@ public class CreateRunController extends AbstractWizardFormController {
 			runParameters.setMaxWorkgroupSize(maxWorkgroupSize);
 			model.put("maxWorkgroupSize", maxWorkgroupSize);
 			model.put("implementedPostLevels", IMPLEMENTED_POST_LEVELS);
-			model.put("postLevelTextMap", POST_LEVEL_TEXT_MAP);
+			model.put("postLevelTextMap", postLevelTextMap);
 			model.put("minPostLevel", this.getMinPostLevel(project));
 			break;
 		case 4:
@@ -424,8 +432,9 @@ public class CreateRunController extends AbstractWizardFormController {
 		//tries to retrieve the user from the session
 		User user = ControllerUtil.getSignedInUser();
 		Locale locale = request.getLocale();
+		String portalBaseUrlString = ControllerUtil.getBaseUrlString(request);
 		CreateRunEmailService emailService = 
-			new CreateRunEmailService(command, run, user, locale);
+			new CreateRunEmailService(command, run, user, locale, portalBaseUrlString);
 		Thread thread = new Thread(emailService);
 		thread.start();
 		
@@ -438,13 +447,15 @@ public class CreateRunController extends AbstractWizardFormController {
 		private Run run;
 		private User user;
 		private Locale locale;
+		private String portalBaseUrlString;
 		
 		public CreateRunEmailService(
-				Object command, Run run, User user, Locale locale) {
+				Object command, Run run, User user, Locale locale, String portalBaseUrlString) {
 			this.command = command;
 			this.run = run;
 			this.user = user;
 			this.locale = locale;
+			this.portalBaseUrlString = portalBaseUrlString;
 		}
 
 		public void run() {
@@ -502,6 +513,8 @@ public class CreateRunController extends AbstractWizardFormController {
 			projectID = runParameters.getProject().getId();
 			Long runID = run.getId();
 			
+    		String previewProjectUrl = portalBaseUrlString + "/webapp/previewproject.html?projectId="+run.getProject().getId();
+
 			String[] recipients = emaillisteners.getProperty("project_setup").split(",");
 			
 			
@@ -525,7 +538,8 @@ public class CreateRunController extends AbstractWizardFormController {
 					run.getProject().getProjectInfo().getName(),
 					projectID,
 					runID,
-					sdf.format(date)					
+					sdf.format(date),
+					previewProjectUrl
 					}, 
 					Locale.US);
 
@@ -542,7 +556,8 @@ public class CreateRunController extends AbstractWizardFormController {
 					run.getProject().getProjectInfo().getName(),
 					projectID,
 					runID,
-					sdf.format(date)					
+					sdf.format(date),
+					previewProjectUrl
 					}, 
 					defaultMessage,
 					this.locale);
