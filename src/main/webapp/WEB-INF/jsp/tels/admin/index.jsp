@@ -18,7 +18,7 @@
 <script type="text/javascript" src="<spring:theme code="generalsource"/>"></script>
 
     
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="wiseHomepage" /></title>
 
 <script type='text/javascript' src='/webapp/dwr/interface/ChangePasswordParametersValidatorJS.js'></script>
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
@@ -34,7 +34,7 @@
 	//if(!$.cookie("lastLoginTime")){
 		<c:choose>
 			<c:when test="${userDetails.lastLoginTime == null}">
-				var lastLogin = "<spring:message code="teacher.index.5" />";
+				var lastLogin = "never";
 			</c:when>
 			<c:otherwise>
 				var lastLogin = "<fmt:formatDate value="${userDetails.lastLoginTime}" type="both" dateStyle="medium" timeStyle="short" />";
