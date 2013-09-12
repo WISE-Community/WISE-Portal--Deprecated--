@@ -11,7 +11,7 @@
 <link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
     
     
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="wiseAdmin" /></title>
 
 </head>
 <body>
@@ -27,13 +27,13 @@
 </spring:bind>
 
 <br>
-<h5>Edit News Item</h5>
+<h5><spring:message code="admin.news.editNewsItem" /></h5>
 
 	<form:form method="post" action="editnewsitem.html" commandName="newsItemParameters" id="editnewsitem" autocomplete='off'>
 		<dl>
-		<dt><label for="titleField"><spring:message code="newsitem.title" /></label></dt>
+		<dt><label for="titleField"><spring:message code="title" /></label></dt>
 		<dd><form:input path="title" size="50" id="titleField"/> </dd>
-		<dt><label for="newsField"><spring:message code="newsitem.news" /></label></dt>
+		<dt><label for="newsField"><spring:message code="message" /></label></dt>
 		<dd><form:textarea rows="10" cols="50" path="news" id="newsField"/></dd>
 		</dl>
  	

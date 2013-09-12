@@ -10,7 +10,7 @@
 <link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="wiseAdmin" /></title>
 </head>
 
 <body>
@@ -20,12 +20,13 @@
 <div id="page">
 <div id="pageContent" class="contentPanel">
 
-<h5 style="color:#0000CC;"><a href="../index.html">Return to Main Menu</a></h5>
+<h5 style="color:#0000CC;"><a href="../index.html"><spring:message code="returnToMainAdminPage" /></a></h5>
 
-<h3>Runs by activity</h3>
+<h3><spring:message code="admin.index.runsByActivity" /></h3>
 <table id="runStatsTable">
 	<thead>
-		<tr><th>Run ID</th><th>Run Code</th><th>Run Name</th><th>Owners</th><th>Number of times run</th></tr>
+		<tr><th><spring:message code="run_id" /></th><th><spring:message code="run_accessCode" /></th><th><spring:message code="run_name" /></th>
+		<th><spring:message code="admin.run.owners" /></th><th><spring:message code="admin.run.totalAccessCount" /></th></tr>
 	</thead>
 	<tbody>
 		<tr></tr>

@@ -11,16 +11,16 @@
 <link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
     
     
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="wiseAdmin" /></title>
 
 </head>
 <body>
 <%@ include file="../adminheader.jsp"%>
 
-Confirm removal of News Item: ${newsTitle}
+<spring:message code="admin.news.confirmRemove" />: ${newsTitle}
 <br><br>
-<a href="removenewssuccess.html?newsId=${newsId}">Confirm</a><br><br>
-<a href="#" onclick="javascript:window.close()">Cancel</a>
+<a href="removenewssuccess.html?newsId=${newsId}"><spring:message code="confirm" /></a><br><br>
+<a href="#" onclick="javascript:window.close()"><spring:message code="cancel" /></a>
 
 </body>
 </html>

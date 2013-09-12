@@ -8,14 +8,14 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"    type="text/css" />
 
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="wiseAdmin" /></title>
 </head>
 
 <body>
 
-<h2>News Item successfully updated!</h2>
+<h2><spring:message code="success" /></h2>
 
-<div><a href="#" onclick="javascript:window.close()">Close this window</a></div>
+<div><a href="#" onclick="window.opener.location.reload(); window.close()"><spring:message code="close" /></a></div>
 
 </body>
 </html>

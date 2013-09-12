@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../javascript/tels/general.js"></script>
 <script type="text/javascript" src="../javascript/tels/projectcommunicator.js"></script>
     
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="wiseAdmin" /></title>
 
 <script type='text/javascript' src='/webapp/dwr/interface/ChangePasswordParametersValidatorJS.js'></script>
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
@@ -111,7 +111,7 @@
 
 <%@ include file="../adminheader.jsp"%>
 
-<h5 style="color:#0000CC;"><a href="../index.html">Return to Admin Main Menu</a></h5>
+<h5 style="color:#0000CC;"><a href="../index.html"><spring:message code="returnToMainAdminPage" /></a></h5>
 
     <center><div id="map" style="width: 900px; height: 600px"></div></center><br/><br/>
 

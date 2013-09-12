@@ -8,7 +8,7 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="wiseAdmin" /></title>
 </head>
 
 <body>
@@ -16,12 +16,15 @@
 
 <div id="page">
 <div id="pageContent" class="contentPanel">
-<h5 style="color:#0000CC;"><a href="../index.html">Return to Main Menu</a></h5>
+<h5 style="color:#0000CC;"><a href="../index.html"><spring:message code="returnToMainAdminPage" /></a></h5>
 
-<h3>Runs run ${period} (${fn:length(runs)} runs)</h3>
+<h3><spring:message code="run_plural" /> ${period} (${fn:length(runs)} <spring:message code="run_plural" />)</h3>
 <table id="runStatsTable" border="1">
 	<thead>
-		<tr><th>Run ID</th><th>Run Code</th><th>Run Name</th><th>Last Access Time</th><th>Access Count ${period}</th><th>Total access count (all time)</th><th>Owners (click to login as user)</th><th>Actions</th></tr>
+		<tr><th><spring:message code="run_id" /></th><th><spring:message code="run_accessCode" /></th><th><spring:message code="run_name" /></th>
+			<th><spring:message code="run_lastAccessTime" /></th><th><spring:message code="admin.run.accessCount" /> ${period}</th>
+			<th><spring:message code="run_name" /><spring:message code="admin.run.totalAccessCount" /></th><th><spring:message code="admin.run.owners" /></th>
+			<th><spring:message code="available_actions" /></th></tr>
 	</thead>
 	<tbody>
 		<tr></tr>
@@ -42,8 +45,8 @@
 			    <td>
 			    	<ul>
 			    		<sec:authorize ifAnyGranted="ROLE_ADMINISTRATOR">
-			    		  <li><a href="../../teacher/run/shareprojectrun.html?runId=${run.id}">Manage shared teachers</a></li>
-			    		  <li><a href="../../teacher/management/viewmystudents.html?runId=${run.id}">Manage students</a></li>
+			    		  <li><a href="../../teacher/run/shareprojectrun.html?runId=${run.id}"><spring:message code="admin.run.manageSharedTeachers" /></a></li>
+			    		  <li><a href="../../teacher/management/viewmystudents.html?runId=${run.id}"><spring:message code="admin.run.manageStudents" /></a></li>
 			    		</sec:authorize>
 			    	</ul>
 			    </td>

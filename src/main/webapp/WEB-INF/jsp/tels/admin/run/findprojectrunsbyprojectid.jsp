@@ -10,7 +10,7 @@
 <link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
     
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="wiseAdmin" /></title>
 
 </head>
 
@@ -21,7 +21,7 @@
 <%@ include file="../adminheader.jsp"%>
 <div id="page">
 <div id="pageContent" class="contentPanel">
-<h5 style="color:#0000CC;"><a href="../index.html">Return to Main Menu</a></h5>
+<h5 style="color:#0000CC;"><a href="../index.html"><spring:message code="returnToMainAdminPage" /></a></h5>
 
 <!-- Support for Spring errors object -->
 <div id="regErrorMessages" style="color:#FF8822">
@@ -34,14 +34,14 @@
 </spring:bind>
 </div>
 
-	<br><h5>Enter the Id of the project you wish to manage</h5>
+	<br><h5><spring:message code="admin.run.findprojectrunsbyprojectid.enterProjectId" /></h5>
 	<form:form method="post" commandName="findProjectParameters" autocomplete='off'>
 		<input type="text" name="projectId"/>
 		<input type="image" id="save" src="<spring:theme code="register_save" />" 
 	    	onmouseover="swapSaveImage('save',1)"onmouseout="swapSaveImage('save',0)"/>	
 	</form:form>
-	<h5>Or</h5>
-	<h5>Click here to see All projects <a href="../project/manageallprojects.html">All Projects</a></h5>
+	<h5><spring:message code="forgotaccount.selectaccounttype.or" /></h5>
+	<h5> <a href="../project/manageallprojects.html"><spring:message code="admin.run.findprojectrunsbyprojectid.seeAllProjects" /></a></h5>
 </div></div>
 
 </body>

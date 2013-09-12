@@ -12,7 +12,7 @@
 <link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
     
-<title><spring:message code="admin.manage.runs.title" /></title>
+<title><spring:message code="wiseAdmin" /></title>
 
 </head>
 
@@ -24,10 +24,12 @@
 	<div id="page">
 		
 		<div id="pageContent">
+			<h5 style="color:#0000CC;"><a href="../index.html"><spring:message code="returnToMainAdminPage" /></a></h5>
+		
 			<div class="contentPanel">
 			
-				<div class="panelHeader"><spring:message code="admin.manage.runs.findbyteacher.1" />
-					<span class="pageTitle"><spring:message code="header.location.admin"/></span>
+				<div class="panelHeader"><spring:message code="admin.run.findprojectrunsbyteacher.findClassroomRunsByTeacher" />
+					<span class="pageTitle"><spring:message code="header_location_admin"/></span>
 				</div>
 				
 				<div class="panelContent">
@@ -45,10 +47,10 @@
 
 					<h5>
 						<form:form method="post" commandName="findProjectParameters" id="search" autocomplete='off'>
-							<form:label path="userName"><spring:message code="admin.manage.runs.findbyteacher.2" /> </form:label>
+							<form:label path="userName"><spring:message code="admin.run.findprojectrunsbyteacher.enterTeacherUsername" /></form:label>
 							<form:input path="userName" id="userName" />
 							
-							<input type="submit" id="save" value="Submit" />
+							<input type="submit" id="save" value="<spring:message code="submit" />" />
 						</form:form>
 						</h5>
 				</div>
