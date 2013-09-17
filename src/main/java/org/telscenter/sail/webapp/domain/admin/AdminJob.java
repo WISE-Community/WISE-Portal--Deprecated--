@@ -95,11 +95,11 @@ public class AdminJob extends QuartzJobBean {
 		List<Run> runsCreatedSinceYesterday = findRunsCreatedSinceYesterday();
 		messageBody += "Number of Runs started between " 
 			+ df.format(yesterday) + " and " + df.format(today) + ": "
-			+ runsCreatedSinceYesterday.size();
+			+ runsCreatedSinceYesterday.size() + "\n";
 		
 		// show info about the run
 		for (Run run : runsCreatedSinceYesterday) {
-			messageBody += "\n\tProject:" + run.getProject().getName();
+			messageBody += "\tProject:" + run.getProject().getName();
 			Set<User> owners = run.getOwners();
 			User owner = owners.iterator().next();
 			TeacherUserDetails teacherUserDetails = (TeacherUserDetails) owner.getUserDetails();
@@ -109,6 +109,7 @@ public class AdminJob extends QuartzJobBean {
 			
 			messageBody += "\n\tTeacher Username:" + teacherUserDetails.getUsername();
 			messageBody += "\n\tTeacher School Info: " + schoolName + ", " + schoolCity + ", " + schoolState;
+			messageBody += "\n\n";
 		}
 		 
 		List<User> teachersJoinedSinceYesterday = findUsersJoinedSinceYesterday("teacherUserDetails");

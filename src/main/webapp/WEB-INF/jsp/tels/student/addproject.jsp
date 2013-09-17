@@ -12,7 +12,7 @@
 <script type="text/javascript" src="<spring:theme code="jquerysource"/>"></script>
 <script type="text/javascript" src="<spring:theme code="jqueryuisource"/>"></script>
 
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="student.title" /></title>
 
 <script type="text/javascript">
 	$(document).ready(function() {

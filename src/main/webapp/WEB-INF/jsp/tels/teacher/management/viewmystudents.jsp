@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<title><spring:message code="viewmystudents.message" /></title>
+<title><spring:message code="teacher.run.recentactivity.manageStudents" /></title>
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />

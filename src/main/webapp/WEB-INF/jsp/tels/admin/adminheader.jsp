@@ -6,7 +6,7 @@
 		
 		<%@ include file="../accountmenu.jsp"%>
 	 	
-	 	<div class="locationName"><span><spring:message code="header.location.admin"/></span></div>
+	 	<div class="locationName"><span><spring:message code="header_location_admin"/></span></div>
 	 		
 	</div>
 </div>
