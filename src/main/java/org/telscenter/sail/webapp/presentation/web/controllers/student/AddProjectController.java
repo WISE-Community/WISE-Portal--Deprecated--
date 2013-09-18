@@ -70,13 +70,13 @@ public class AddProjectController extends SimpleFormController {
     		studentService.addStudentToRun(user, projectcode);
     		modelAndView = new ModelAndView(getSuccessView());
     	} catch (ObjectNotFoundException e) {
-    		errors.rejectValue("projectcode", "error.illegal-projectcode");
+    		errors.rejectValue("projectcode", "student.index.error.illegalRunCode");
     		return showForm(request, response, errors);
     	} catch (PeriodNotFoundException e) {
-    		errors.rejectValue("projectcode", "error.illegal-projectcode");
+    		errors.rejectValue("projectcode", "student.index.error.illegalRunCode");
     		return showForm(request, response, errors);
     	} catch (StudentUserAlreadyAssociatedWithRunException se) {
-    		errors.rejectValue("projectcode", "error.student-already-associated-with-run");
+    		errors.rejectValue("projectcode", "student.index.error.studentAlreadyAssociatedWithRun");
     		return showForm(request, response, errors);
     	}
 		return modelAndView;
