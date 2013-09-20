@@ -182,7 +182,7 @@ public class ResetPasswordController extends SimpleFormController {
 			javaMail.postMail(recipients, subject, body, userEmail);
 			
 			//passwords are the same so we will change their password
-			errors.reject("error.password-reset-success");
+			errors.reject("changePassword_success");
 
 			//tell the jsp to display the success message
 			request.setAttribute("passwordResetSuccess", true);

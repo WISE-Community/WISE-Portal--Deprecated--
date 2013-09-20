@@ -201,6 +201,8 @@
 					access="ROLE_ANONYMOUS,ROLE_USER" />
 				<sec:intercept-url pattern="/pages/**/*.html"
 					access="ROLE_ANONYMOUS,ROLE_USER" />
+				<sec:intercept-url pattern="/errors/*.html"
+					access="ROLE_ANONYMOUS,ROLE_USER" />
 				<sec:intercept-url pattern="/project/exportproject.html"
 					access="ROLE_ANONYMOUS,ROLE_USER" />				
 				<sec:intercept-url pattern="/project/importexternalproject.html"

@@ -60,7 +60,7 @@ public class AddProjectParametersValidator implements Validator {
 		Projectcode projectcode = new Projectcode(params.getProjectcode());
 
 		if (!projectcode.isLegalProjectcode()) {
-			errors.rejectValue("projectcode", "error.illegal-projectcode");
+			errors.rejectValue("projectcode", "student.addproject.invalidAccessCode");
 		}
 	}
 

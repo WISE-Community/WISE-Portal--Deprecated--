@@ -63,6 +63,8 @@ public class ControllerUtil {
 		} catch (ClassCastException cce) {
 			// the try-block throws class cast exception if user is not logged in.
 			return null;
+		} catch (NullPointerException npe) {
+			return null;
 		}
 	}
 	

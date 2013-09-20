@@ -74,7 +74,6 @@
         <property name="javaMail" ref="javaMail" />
     </bean>
     
-
     <bean id="openSessionInViewInterceptor"
         class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
         <property name="sessionFactory" ref="sessionFactory" />
@@ -88,6 +87,7 @@
     			/request/info.html=informationController
     			/metadata.html=projectMetadataController
     		    /index.html=urlFilenameViewController
+    		    /errors/friendlyError.html=urlFilenameViewController
     		    /accessdenied.html=accessDeniedController
     		    /router.html=routerController
     		    /preview.html=previewLDProjectController
