@@ -67,7 +67,7 @@ public class UserAccountFormValidator implements Validator {
 			}
 
 			if (!StringUtils.isAlphanumeric(userDetails.getPassword())) {
-				errors.rejectValue("userDetails.password", "error.password-illegal-characters");
+				errors.rejectValue("userDetails.password", "presentation.validators.ChangePasswordParametersValidator.errorPasswordContainsIllegalCharacters");
 				return;
 			}
 			
@@ -80,7 +80,7 @@ public class UserAccountFormValidator implements Validator {
 			"error.username-not-specified");
 			
 	        if (!StringUtils.isAlphanumeric(userDetails.getUsername())) {
-	            errors.rejectValue("userDetails.username", "error.illegal-characters");
+	            errors.rejectValue("userDetails.username", "error.username-illegal-characters");
 	        }
 		}
 		

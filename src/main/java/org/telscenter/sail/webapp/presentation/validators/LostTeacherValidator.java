@@ -45,11 +45,9 @@ public class LostTeacherValidator extends TeacherUserDetailsValidator {
 		
 		if (username == null
 				&& email == null) {
-			errors.reject("error.no-email-username");
 			return;
 	
 		} else if( username != null && email != null ) {
-			errors.reject("error.both-email-username");
 			return;
 		}// if
 
