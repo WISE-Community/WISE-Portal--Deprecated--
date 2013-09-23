@@ -270,43 +270,42 @@
 				"iDisplayLength": -1,
 				"aaSorting": [ [0,'asc'] ],
 				"oLanguage": {
-					"sInfo": "_TOTAL_ <spring:message code="teacher.datatables.16"/>",
-					// TODO: Mofidy these entries in ui-html.properties (make separate entries for datatables - not teacher.datatables.1, for ex.)
-					"sInfoEmpty": "<spring:message code="teacher.datatables.3"/>",
-					"sInfoFiltered": "<spring:message code="teacher.datatables.17"/> _MAX_ <spring:message code="teacher.datatables.18"/>", // (from _MAX_ total)
-					"sLengthMenu": "<spring:message code="teacher.datatables.5"/> _MENU_ <spring:message code="teacher.datatables.6"/>",
-					"sProcessing": "<spring:message code="teacher.datatables.7"/>",
-					"sZeroRecords": "<spring:message code="teacher.datatables.8"/>",
-					"sInfoPostFix":  "<spring:message code="teacher.datatables.9"/>",
-					"sSearch": "<spring:message code="teacher.datatables.10"/>",
-					"sUrl": "<spring:message code="teacher.datatables.11"/>"
+					"sInfo": "<spring:message code="datatable_info_showing"/> _START_-_END_ <spring:message code="of"/> _TOTAL_",
+					"sInfoEmpty": "<spring:message code="datatable_info_empty"/>",
+					"sInfoFiltered": "<spring:message code="datatable_info_filtered_post_matches"/>", // (from _MAX_ total)
+					"sLengthMenu": "<spring:message code="datatable_lengthLabel"/> _MENU_ <spring:message code="datatable_perPage"/>",
+					"sProcessing": "<spring:message code="processing"/>",
+					"sZeroRecords": "<spring:message code="datatable_noMatch"/>",
+					"sInfoPostFix":  "",
+					"sSearch": "<spring:message code="datatable_search"/>",
+					"sUrl": ""
 				},
 				"sDom":'<"top"i<"clear">>rt<"bottom"i<"clear">><"clear">'
 			});
 			
 			var facets = new FacetedFilter( otable.fnSettings(), {
 				"bScroll": false,
-				"sClearFilterLabel": "Clear",
+				"sClearFilterLabel": "<spring:message code="datatable_ff_filter_clear"/>",
 				"aSearchOpts": [
-					{
-						"identifier": "<spring:message code="teacher.datatables.search.1a"/>", "label": "<spring:message code="teacher.datatables.search.1b"/> ", "column": 0, "maxlength": 50
-					}
-				 ],
-				"aFilterOpts": [
-					{
-						"identifier": "subject", "label": "<spring:message code="teacher.datatables.filter.5a"/>", "column": 1,
-						"options": [
-							{"query": "<spring:message code="teacher.datatables.filter.5b"/>", "display": "<spring:message code="teacher.datatables.filter.5b"/>"}, // TODO: modify FacetedFilter plugin to only require a query for each filter, use query as display if display option is not set
-							{"query": "<spring:message code="teacher.datatables.filter.5c"/>", "display": "<spring:message code="teacher.datatables.filter.5c"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.5d"/>", "display": "<spring:message code="teacher.datatables.filter.5d"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.5e"/>", "display": "<spring:message code="teacher.datatables.filter.5e"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.5f"/>", "display": "<spring:message code="teacher.datatables.filter.5f"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.5g"/>", "display": "<spring:message code="teacher.datatables.filter.5g"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.5h"/>", "display": "<spring:message code="teacher.datatables.filter.5h"/>"}
-						]
-					}
-				]
-			});
+								{
+									"identifier": "keyword", "label": "<spring:message code="datatable_ff_keyword_label"/> ", "column": 0, "maxlength": 50
+								},
+								{
+									"identifier": "period", "label": "<spring:message code="datatable_ff_period_label"/> ", "column": 7, "maxlength": 30,
+									"regexreplace": {"match": "/,\s*/gi", "replacement": " "},
+									"instructions": "<spring:message code="datatable_ff_period_instructions"/>"
+								}
+							 ],
+							"aFilterOpts": [
+								{
+									"identifier": "source", "label": "<spring:message code="teacher.management.projectruntabs.filter_source"/>", "column": 2,
+									"options": [
+										{"query": "owned", "display": "<spring:message code="teacher.management.projectruntabs.filter_source_owned"/>"},
+										{"query": "shared", "display": "<spring:message code="teacher.management.projectruntabs.filter_source_shared"/>"}
+									]
+								}
+							]
+				});
 			
 			function toggleDetails(id,open){
 				if (typeof open == 'undefined'){
@@ -323,7 +322,7 @@
 						$('#summaryText_' + id + ' .truncated').slideDown('fast');
 						$('#summaryText_' + id + ' .truncated').css('display','inline');
 					}
-					$('#detailsToggle_' + id).addClass('expanded').text('<spring:message code="teacher.manage.library.29" />');
+					$('#detailsToggle_' + id).addClass('expanded').text('<spring:message code="teacher.management.projectlibrarydisplay.detailsHide" />');
 					$('#details_' + id).slideDown('fast');
 				} else {
 					if($('#projectBox_' + id).hasClass('childProject')){
@@ -351,7 +350,7 @@
 					} else {
 						$('#details_' + id).slideUp('fast');
 					}
-					$('#detailsToggle_' + id).removeClass('expanded').text('<spring:message code="teacher.manage.library.28" />');
+					$('#detailsToggle_' + id).removeClass('expanded').text('<spring:message code="teacher.management.projectlibrarydisplay.detailsShow" />');
 				}
 			};
 		});
