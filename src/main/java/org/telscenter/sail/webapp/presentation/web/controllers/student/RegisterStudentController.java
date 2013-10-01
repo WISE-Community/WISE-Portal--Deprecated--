@@ -38,6 +38,7 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.presentation.web.controllers.SignupController;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
+import org.hibernate.StaleObjectStateException;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 import org.springframework.transaction.annotation.Transactional;
@@ -124,6 +125,10 @@ public class RegisterStudentController extends SignupController {
 						try {
 							studentService.addStudentToRun(user, projectcode);  // add student to period
 						} catch (HibernateOptimisticLockingFailureException holfe) {
+							// multiple students tried to create an account at the same time, resulting in this exception. try saving again.
+							currentLoopIndex++;
+							continue;
+						} catch (StaleObjectStateException sose) {
 							// multiple students tried to create an account at the same time, resulting in this exception. try saving again.
 							currentLoopIndex++;
 							continue;

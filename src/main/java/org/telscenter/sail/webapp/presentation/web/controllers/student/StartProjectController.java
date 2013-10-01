@@ -229,10 +229,50 @@ public class StartProjectController extends AbstractController {
 		} else {
 			// TODO HT: this case should never happen. But since WISE requirements are not clear yet regarding
 			// the workgroup issues, leave this for now.
-			workgroup = (WISEWorkgroup) workgroups.get(0);
-			ModelAndView modelAndView = new ModelAndView(TEAM_SIGN_IN_URL);
-			modelAndView.addObject("runId", runId);
-			return modelAndView;
+			
+			//the user is in multiple workgroups for the run so we will just get the last one
+			workgroup = (WISEWorkgroup) workgroups.get(workgroups.size() - 1);
+			if (workgroup.getMembers().size() == 1) {
+				/* update run statistics */
+				int maxLoop = 30;  // to ensure that the following while loop gets run at most this many times.
+				int currentLoopIndex = 0;
+				while(currentLoopIndex < maxLoop) {
+					try {
+						this.runService.updateRunStatistics(run.getId());
+					} catch (HibernateOptimisticLockingFailureException holfe) {
+						// multiple students tried to update run statistics at the same time, resulting in the exception. try again.
+						currentLoopIndex++;
+						continue;
+					}
+					// if it reaches here, it means that HibernateOptimisticLockingFailureException was not thrown, so we can exit the loop.
+					break;
+				}
+				
+				// if the student is already in a workgroup and she is the only member,
+				// launch the project
+				LaunchProjectParameters launchProjectParameters = new LaunchProjectParameters();
+				launchProjectParameters.setRun(run);
+				launchProjectParameters.setWorkgroup(workgroup);
+				launchProjectParameters.setHttpRestTransport(this.httpRestTransport);
+				launchProjectParameters.setHttpServletRequest(request);
+				
+				//get the value for the student attendance
+				Long workgroupId = workgroup.getId();
+				JSONArray presentUserIds = new JSONArray();
+				JSONArray absentUserIds = new JSONArray();
+				presentUserIds.put(user.getId());
+				
+				//create a student attendance entry
+				addStudentAttendanceEntry(workgroupId, runId, presentUserIds, absentUserIds);
+				
+				// update servlet session
+				notifyServletSession(request, run);
+				return (ModelAndView) projectService.launchProject(launchProjectParameters);				
+			} else {
+				ModelAndView modelAndView = new ModelAndView(TEAM_SIGN_IN_URL);
+				modelAndView.addObject("runId", runId);
+				return modelAndView;
+			}
 
 //			
 //			throw new IllegalStateException("The user " + 
