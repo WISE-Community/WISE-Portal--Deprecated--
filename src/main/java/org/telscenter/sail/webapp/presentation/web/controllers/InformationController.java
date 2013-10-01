@@ -801,9 +801,15 @@ public class InformationController extends AbstractController{
 			List<Workgroup> workgroupListByOfferingAndUser 
 			= workgroupService.getWorkgroupListByOfferingAndUser(run, user);
 
-			if (workgroupListByOfferingAndUser.size() > 0) {
+			if (workgroupListByOfferingAndUser.size() == 1) {
+				//this user is in one workgroup
 				workgroup = workgroupListByOfferingAndUser.get(0);
+			} else if(workgroupListByOfferingAndUser.size() > 1) {
+				//this user is in more than one workgroup so we will just get the last one
+				workgroup = workgroupListByOfferingAndUser.get(workgroupListByOfferingAndUser.size() - 1);
 			} else {
+				//this user is not in any workgroups
+				
 				String previewRequest = request.getParameter(PREVIEW);
 				if (previewRequest != null && Boolean.valueOf(previewRequest)) {
 					// if this is a preview, workgroupId should be specified, so use
