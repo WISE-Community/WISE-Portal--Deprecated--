@@ -40,6 +40,7 @@ import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.UserService;
 
+import org.hibernate.StaleObjectStateException;
 import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -272,6 +273,10 @@ public class TeamSignInController extends SimpleFormController {
 				this.runService.updateRunStatistics(run.getId());
 			} catch (HibernateOptimisticLockingFailureException holfe) {
 				// multiple students tried to update run statistics at the same time, resulting in the exception. try again.
+				currentLoopIndex++;
+				continue;
+			} catch (StaleObjectStateException sose) {
+				// multiple students tried to create an account at the same time, resulting in this exception. try saving again.
 				currentLoopIndex++;
 				continue;
 			}

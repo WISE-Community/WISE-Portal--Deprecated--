@@ -80,7 +80,8 @@ public class RegisterStudentController extends SignupController {
 	@Override
 	@Transactional(rollbackFor = { 
 			DuplicateUsernameException.class, ObjectNotFoundException.class, 
-			PeriodNotFoundException.class, HibernateOptimisticLockingFailureException.class })
+			PeriodNotFoundException.class, HibernateOptimisticLockingFailureException.class,
+			StaleObjectStateException.class})
 	protected synchronized ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {
