@@ -39,6 +39,7 @@ import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
+import org.hibernate.StaleObjectStateException;
 import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -146,6 +147,10 @@ public class StartProjectController extends AbstractController {
 						// multiple students tried to update run statistics at the same time, resulting in the exception. try again.
 						currentLoopIndex++;
 						continue;
+					} catch (StaleObjectStateException sose) {
+						// multiple students tried to create an account at the same time, resulting in this exception. try saving again.
+						currentLoopIndex++;
+						continue;
 					}
 					// if it reaches here, it means that HibernateOptimisticLockingFailureException was not thrown, so we can exit the loop.
 					break;
@@ -196,6 +201,10 @@ public class StartProjectController extends AbstractController {
 						// multiple students tried to update run statistics at the same time, resulting in the exception. try again.
 						currentLoopIndex++;
 						continue;
+					} catch (StaleObjectStateException sose) {
+						// multiple students tried to create an account at the same time, resulting in this exception. try saving again.
+						currentLoopIndex++;
+						continue;
 					}
 					// if it reaches here, it means that HibernateOptimisticLockingFailureException was not thrown, so we can exit the loop.
 					break;
@@ -241,6 +250,10 @@ public class StartProjectController extends AbstractController {
 						this.runService.updateRunStatistics(run.getId());
 					} catch (HibernateOptimisticLockingFailureException holfe) {
 						// multiple students tried to update run statistics at the same time, resulting in the exception. try again.
+						currentLoopIndex++;
+						continue;
+					} catch (StaleObjectStateException sose) {
+						// multiple students tried to create an account at the same time, resulting in this exception. try saving again.
 						currentLoopIndex++;
 						continue;
 					}
