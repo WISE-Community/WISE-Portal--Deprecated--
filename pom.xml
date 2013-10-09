@@ -22,7 +22,7 @@
 	<artifactId>webapp</artifactId>
 	<packaging>war</packaging>
 	<name>WISE Portal Application</name>
-	<version>4.7</version>
+	<version>4.8</version>
 	<url>http://sail.sourceforge.net/</url>
 	<developers>
 		<developer>
