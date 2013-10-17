@@ -91,6 +91,18 @@ function findPeriods() {
  * there are no matching accounts we will create the new account.
  */
 function checkForExistingAccountsAndCreateAccount() {
+	var firstName = $('#firstname').val();
+	var lastName = $('#lastname').val();
+
+	//check to make sure first name and last name are latin-based characters
+	 if( /[^a-zA-Z0-9]/.test( firstName ) ) {
+		alert("<spring:message code='error.firstname-illegal-characters'/>");
+		return;
+	 } else if( /[^a-zA-Z0-9]/.test( lastName ) ) {
+		alert("<spring:message code='error.lastname-illegal-characters'/>");
+		return;
+     }
+	 
 	if(!isCreateAccountParametersValid()) {
 		//create account parameters are not valid
 	} else if(checkForExistingAccounts()) {
