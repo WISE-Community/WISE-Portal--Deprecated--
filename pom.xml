@@ -22,7 +22,7 @@
 	<artifactId>webapp</artifactId>
 	<packaging>war</packaging>
 	<name>WISE Portal Application</name>
-	<version>4.7</version>
+	<version>4.8</version>
 	<url>http://sail.sourceforge.net/</url>
 	<developers>
 		<developer>
@@ -410,7 +410,7 @@
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
-			<version>1.4</version>
+			<version>1.4.7</version>
 		</dependency>
 		<dependency>
 			<groupId>aspectj</groupId>

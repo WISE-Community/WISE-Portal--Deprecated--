@@ -11,7 +11,7 @@
 <link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
     
     
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="wiseAdmin" /></title>
 
 
 </head>
@@ -21,7 +21,7 @@
 <div id="page">
 <div id="pageContent" class="contentPanel">
 
-<h5 style="color:#0000CC;"><a href="../index.html">Return to Main Menu</a></h5>
+<h5 style="color:#0000CC;"><a href="../index.html"><spring:message code="returnToMainAdminPage" /></a></h5>
 
 <!-- Support for Spring errors object -->
 <div id="regErrorMessages" style="color:#FF8822">
@@ -35,7 +35,7 @@
 
 
 <form:form method="post" commandName="findProjectParameters" id="search" autocomplete='off'>
-	<form:label path="runId">Enter the run Id: </form:label>
+	<form:label path="runId"><spring:message code="admin.run.findprojectrunsbyprojectid.enterRunId" />: </form:label>
 	<form:input path="runId" id="runId"/>
 	
 	<input type="image" id="save" src="<spring:theme code="register_save" />" 

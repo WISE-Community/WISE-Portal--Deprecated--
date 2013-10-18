@@ -10,7 +10,7 @@
 <link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
     
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="wiseAdmin" /></title>
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 
@@ -23,7 +23,7 @@
 
 <%@ include file="../adminheader.jsp"%>
 
-<h5 style="color:#0000CC;"><a href="../index.html">Return to Main Menu</a></h5>
+<h5 style="color:#0000CC;"><a href="../index.html"><spring:message code="returnToMainAdminPage" /></a></h5>
 
 	<c:choose>
 		<c:when test="${fn:length(openedProjectIds) > 0}">

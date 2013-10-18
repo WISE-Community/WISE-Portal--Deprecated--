@@ -171,16 +171,16 @@ public class ForgotAccountTeacherIndexController extends SimpleFormController {
 			if (userNameProvided) {
 				//the user entered their user name so we will send them a password reset link by email
 				// subject looks like this: "Notification from WISE4@Berkeley: Password Changed"
-				defaultSubject = messageSource.getMessage("password.change.request.email.subject", new Object[]{portalName}, Locale.US); 
-				subject = messageSource.getMessage("password.change.request.email.subject", new Object[]{portalName}, defaultSubject, userLocale); 
-				defaultBody = messageSource.getMessage("password.change.request.email.body", new Object[]{username,passwordResetLink,portalName}, Locale.US);
-				body = messageSource.getMessage("password.change.request.email.body", new Object[] {username,passwordResetLink,portalName}, defaultBody, userLocale);				
+				defaultSubject = messageSource.getMessage("forgotaccount.teacher.index.passwordChangeRequestEmailSubject", new Object[]{portalName}, Locale.US); 
+				subject = messageSource.getMessage("forgotaccount.teacher.index.passwordChangeRequestEmailSubject", new Object[]{portalName}, defaultSubject, userLocale); 
+				defaultBody = messageSource.getMessage("forgotaccount.teacher.index.passwordChangeRequestEmailBody", new Object[]{username,passwordResetLink,portalName}, Locale.US);
+				body = messageSource.getMessage("forgotaccount.teacher.index.passwordChangeRequestEmailBody", new Object[] {username,passwordResetLink,portalName}, defaultBody, userLocale);				
 			} else if (emailProvided) {
 				//the user entered their email so we will send them their username by email
-				defaultSubject = messageSource.getMessage("username.request.email.subject", new Object[]{portalName}, Locale.US); 
-				subject = messageSource.getMessage("username.request.email.subject", new Object[]{portalName}, defaultSubject, userLocale); 
-				defaultBody = messageSource.getMessage("username.request.email.body", new Object[]{username,portalName}, Locale.US);
-				body = messageSource.getMessage("username.request.email.body", new Object[] {username,portalName}, defaultBody, userLocale);				
+				defaultSubject = messageSource.getMessage("forgotaccount.teacher.index.usernameRequestEmailSubject", new Object[]{portalName}, Locale.US); 
+				subject = messageSource.getMessage("forgotaccount.teacher.index.usernameRequestEmailSubject", new Object[]{portalName}, defaultSubject, userLocale); 
+				defaultBody = messageSource.getMessage("forgotaccount.teacher.index.usernameRequestEmailBody", new Object[]{username,portalName}, Locale.US);
+				body = messageSource.getMessage("forgotaccount.teacher.index.usernameRequestEmailBody", new Object[] {username,portalName}, defaultBody, userLocale);				
 			}
 			
 			// send password in the email here

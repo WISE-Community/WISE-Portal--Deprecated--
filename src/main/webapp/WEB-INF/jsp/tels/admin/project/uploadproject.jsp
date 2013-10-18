@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<h5 style="color:#0000CC;"><a href="../index.html">Return to Main Menu</a></h5>
+<h5 style="color:#0000CC;"><a href="../index.html"><spring:message code="returnToMainAdminPage" /></a></h5>
 
 <c:out value="${msg}" />
 

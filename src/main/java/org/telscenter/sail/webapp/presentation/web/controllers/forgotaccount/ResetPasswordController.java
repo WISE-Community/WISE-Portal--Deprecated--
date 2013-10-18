@@ -173,16 +173,16 @@ public class ResetPasswordController extends SimpleFormController {
 			Locale userLocale = request.getLocale();
 			
 			// subject looks like this: "Notification from WISE4@Berkeley: Password Changed"
-			String defaultSubject = messageSource.getMessage("password.changed.email.subject", new Object[]{portalName}, Locale.US); 
-			String subject = messageSource.getMessage("password.changed.email.subject", new Object[]{portalName}, defaultSubject, userLocale); 
-			String defaultBody = messageSource.getMessage("password.changed.email.body", new Object[]{username,portalName}, Locale.US);
-			String body = messageSource.getMessage("password.changed.email.body", new Object[] {username,portalName}, defaultBody, userLocale);				
+			String defaultSubject = messageSource.getMessage("forgotaccount.teacher.index.passwordChangedEmailSubject", new Object[]{portalName}, Locale.US); 
+			String subject = messageSource.getMessage("forgotaccount.teacher.index.passwordChangedEmailSubject", new Object[]{portalName}, defaultSubject, userLocale); 
+			String defaultBody = messageSource.getMessage("forgotaccount.teacher.index.passwordChangedEmailBody", new Object[]{username,portalName}, Locale.US);
+			String body = messageSource.getMessage("forgotaccount.teacher.index.passwordChangedEmailBody", new Object[] {username,portalName}, defaultBody, userLocale);				
 			
 			// send password in the email here
 			javaMail.postMail(recipients, subject, body, userEmail);
 			
 			//passwords are the same so we will change their password
-			errors.reject("error.password-reset-success");
+			errors.reject("changePassword_success");
 
 			//tell the jsp to display the success message
 			request.setAttribute("passwordResetSuccess", true);

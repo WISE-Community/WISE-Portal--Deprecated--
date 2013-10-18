@@ -58,7 +58,7 @@ public class UserDetailsValidator extends
 		}
 
 		if (!StringUtils.isAlphanumeric(userDetails.getPassword())) {
-			errors.rejectValue("password", "error.password-illegal-characters");
+			errors.rejectValue("password", "presentation.validators.ChangePasswordParametersValidator.errorPasswordContainsIllegalCharacters");
 			return;
 		}
 		

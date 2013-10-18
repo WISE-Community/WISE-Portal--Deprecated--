@@ -117,11 +117,6 @@ public class StudentAccountFormValidator extends UserAccountFormValidator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userDetails.accountAnswer",
                 "error.no-accountanswer");
         
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "birthmonth", 
-        		"error.birthmonth-not-specified");
-        
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "birthdate", 
-        		"error.birthdate-not-specified");
         
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "projectCode", 
         		"error.no-projectcode");

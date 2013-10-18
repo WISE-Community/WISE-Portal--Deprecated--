@@ -55,7 +55,7 @@ public enum IssueType {
 	 */
 	@Override
 	public String toString() {
-		return uiHTMLProperties.getProperty("issuetypes." + this.name());
+		return uiHTMLProperties.getProperty("contact.contactwisegeneral." + this.name());
 	}
 
 	/*

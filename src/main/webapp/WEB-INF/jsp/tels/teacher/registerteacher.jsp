@@ -34,8 +34,22 @@ $(document).ready(function(){
  * there are no matching accounts we will create the new account.
  */
 function checkForExistingAccountsAndCreateAccount() {
+	
 	 if (checkIfLegalAcknowledged()){
-		 if(checkForExistingAccounts()) {
+		//get the first name and last name from the form
+		var firstName = $('#teacherFirstName').val();
+		var lastName = $('#teacherLastName').val();
+
+		 //check to make sure first name and last name are latin-based characters
+		 if( /[^a-zA-Z0-9]/.test( firstName ) ) {
+			alert("<spring:message code='error.firstname-illegal-characters'/>");
+			return;
+		 } else if( /[^a-zA-Z0-9]/.test( lastName ) ) {
+			alert("<spring:message code='error.lastname-illegal-characters'/>");
+			return;
+	     }
+
+		 if(checkForExistingAccounts(firstName,lastName)) {
 			//accounts exist, ask teacher if these accounts are theirs
 
 			//get the JSON array of existing accounts
@@ -99,10 +113,7 @@ function checkForExistingAccountsAndCreateAccount() {
  * Make a sync request for any existing teacher accounts with the same
  * first name and last name
  */
-function checkForExistingAccounts() {
-	//get the first name and last name from the form
-	var firstName = $('#teacherFirstName').val();
-	var lastName = $('#teacherLastName').val();
+function checkForExistingAccounts(firstName, lastName) {
 
 	var data = {
 		accountType:'teacher',

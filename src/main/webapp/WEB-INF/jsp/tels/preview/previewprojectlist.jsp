@@ -15,7 +15,7 @@
 <link href="<spring:theme code="jquerydatatables.css"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="facetedfilter.css"/>" media="screen" rel="stylesheet"  type="text/css" />
 
-<title><spring:message code="teacher.manage.library.title" /></title>
+<title><spring:message code="teacher.management.library.title" /></title>
 
 <!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
 <!--[if lt IE 7]>
@@ -37,7 +37,7 @@
 			
 			<div class="contentPanel">
 			
-				<div class="panelHeader"><spring:message code="header.publiclibrary" /></div>
+				<div class="panelHeader"><spring:message code="teacher.management.library.title" /></div>
 				
 				<div class="panelContent">
 					
@@ -45,8 +45,8 @@
 						<table id="libraryTable" class="projectTable">
 							<thead class="tableHeaderMain">
 								<tr style="display:none;">
-									<th>project</th>
-									<th>subject</th>
+									<th><spring:message code="project" /></th>
+									<th><spring:message code="teacher.management.projectlibrarydisplay.filter_subject" /></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -65,11 +65,11 @@
 															</c:if>
 														</c:forEach>
 														<a class="projectTitle" id="project_${project.id}">${project.name}</a>
-														<span>(<spring:message code="teacher.manage.library.4" /> ${project.id})</span>
+														<span>(<spring:message code="id_label" /> ${project.id})</span>
 													</div>
 													<div class="projectTools">
 														<ul class="actions">
-															<li><a style="font-weight:bold;" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" target="_blank"><spring:message code="teacher.manage.library.6" /></a></li>
+															<li><a style="font-weight:bold;" href="<c:url value="/previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>" target="_blank"><spring:message code="preview" /></a></li>
 														</ul>
 													</div>
 												</div>
@@ -77,13 +77,13 @@
 												<div class="projectSummary">
 													<div class="projectThumb" thumbUrl="${projectThumbMap[project.id]}"><img src='/webapp/themes/tels/default/images/projectThumb.png' alt='thumb'></div>
 													<div class="summaryInfo">
-														<div class="libraryIcon"><img src="/webapp/themes/tels/default/images/open_book.png" alt="library project" /> <spring:message code="teacher.manage.library.32" /></div>
+														<div class="libraryIcon"><img src="/webapp/themes/tels/default/images/open_book.png" alt="library project" /> <spring:message code="pages.wise-advantage.wiseLibraryProjects" /></div>
 														<div class="basicInfo">
 															<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-															<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
-															<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.manage.library.21" /> ${project.metadata.totalTime} | </c:if>
+															<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.projects.projectinfo.meta_grades" /> ${project.metadata.gradeRange} | </c:if>
+															<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.projects.projectinfo.meta_duration" /> ${project.metadata.totalTime} | </c:if>
 															<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
-															<div style="float:right;"><spring:message code="teacher.manage.library.3" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></div>
+															<div style="float:right;"><spring:message code="teacher.management.projectlibrarydisplay.created" /> <fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="medium" /></div>
 														</div>	
 														<div id="summaryText_${project.id}" class="summaryText">
 														<c:if test="${project.metadata.summary != null && project.metadata.summary != ''}">
@@ -92,47 +92,45 @@
 																	<c:set var="length" value="${fn:length(project.metadata.summary)}" />
 																	<c:set var="summary" value="${fn:substring(project.metadata.summary,0,170)}" />
 																	<c:set var="truncated" value="${fn:substring(project.metadata.summary,170,length)}" />
-																	<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
+																	<span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_summary" /></span> ${summary}<span class="ellipsis">...</span><span class="truncated">${truncated}</span>
 																</c:when>
 																<c:otherwise>
-																	<span style="font-weight:bold;"><spring:message code="teacher.manage.library.12" /></span> ${project.metadata.summary}
+																	<span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_summary" /></span> ${project.metadata.summary}
 																</c:otherwise>
 															</c:choose>
 														</c:if>
 														</div>
 														<div class="details" id="details_${project.id}">
-															<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.13" /></span> ${project.metadata.keywords}</p></c:if>
-															<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/pages/check.html" target="_blank"><spring:message code="teacher.manage.library.22" /></a>)</p></c:if>
-															<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.15" /></span> ${project.metadata.compTime}</p></c:if>
-															<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.19" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="teacher.manage.library.16" /></a></p>
-															<c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.17" /></span> ${project.metadata.author}</p></c:if>
+															<c:if test="${project.metadata.keywords != null && project.metadata.keywords != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tags" /></span> ${project.metadata.keywords}</p></c:if>
+															<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tech" /></span> ${project.metadata.techDetailsString} (<a href="/webapp/pages/check.html" target="_blank"><spring:message code="teacher.projects.projectinfo.checkCompatibility" /></a>)</p></c:if>
+															<c:if test="${project.metadata.compTime != null && project.metadata.compTime != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_compTime" /></span> ${project.metadata.compTime}</p></c:if>
+															<p><span style="font-weight:bold;"><spring:message code="teacher.management.projectlibrarydisplay.projectContact" /></span> <a href="/webapp/contact/contactwiseproject.html?projectId=${project.id}"><spring:message code="contact_wise" /></a></p>
+															<c:if test="${project.metadata.author != null && project.metadata.author != ''}"><p><span style="font-weight:bold;"><spring:message code="author_plural" /></span> ${project.metadata.author}</p></c:if>
 															<c:set var="lastEdited" value="${project.metadata.lastEdited}" />
 															<c:if test="${lastEdited == null || lastEdited == ''}">
 																<c:set var="lastEdited" value="${project.dateCreated}" />
 															</c:if>
-															<p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.18" /></span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
+															<p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_lastUpdated" /></span> <fmt:formatDate value="${lastEdited}" type="both" dateStyle="medium" timeStyle="short" /></p>
 															<c:if test="${(project.metadata.lessonPlan != null && project.metadata.lessonPlan != '') ||
 																(project.metadata.standards != null && project.metadata.standards != '')}">
-																<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="<spring:message code="teacher.manage.library.23" />"><spring:message code="teacher.manage.library.24" /></a></div>
-																<div class="lessonPlan" id="lessonPlan_${project.id}" title="<spring:message code="teacher.manage.library.24" />">
-																	<div class="panelHeader">${project.name} (<spring:message code="teacher.manage.library.4" /> ${project.id})
+																<div class="viewLesson"><a class="viewLesson" id="viewLesson_${project.id}" title="<spring:message code="teacher.projects.projectinfo.tipsAndStandards_tip" />"><spring:message code="teacher.projects.projectinfo.tipsAndStandards" /></a></div>
+																<div class="lessonPlan" id="lessonPlan_${project.id}" title="<spring:message code="teacher.projects.projectinfo.tipsAndStandards" />">
+																	<div class="panelHeader">${project.name} (<spring:message code="id_label" /> ${project.id})
 																		<span style="float:right;"><a class="printLesson" id="printLesson_${project.id}">Print</a></span>
 																	</div>
 																	<c:if test="${project.metadata.lessonPlan != null && project.metadata.lessonPlan != ''}">
 																		<div class="basicInfo sectionContent">
 																			<c:if test="${project.metadata.subject != null && project.metadata.subject != ''}">${project.metadata.subject} | </c:if>
-																			<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.manage.library.20" /> ${project.metadata.gradeRange} | </c:if>
-																			<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.manage.library.21" /> ${project.metadata.totalTime} | </c:if>
+																			<c:if test="${project.metadata.gradeRange != null && project.metadata.gradeRange != ''}"><spring:message code="teacher.projects.projectinfo.meta_grades" /> ${project.metadata.gradeRange} | </c:if>
+																			<c:if test="${project.metadata.totalTime != null && project.metadata.totalTime != ''}"><spring:message code="teacher.projects.projectinfo.meta_duration" /> ${project.metadata.totalTime} | </c:if>
 																			<c:if test="${project.metadata.language != null && project.metadata.language != ''}">${project.metadata.language}</c:if>
-																			<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.manage.library.14" /></span> ${project.metadata.techDetailsString}</p></c:if>
+																			<c:if test="${project.metadata.techDetailsString != null && project.metadata.techDetailsString != ''}"><p><span style="font-weight:bold;"><spring:message code="teacher.projects.projectinfo.meta_tech" /></span> ${project.metadata.techDetailsString}</p></c:if>
 																		</div>
-																		<div class="sectionHead"><spring:message code="teacher.manage.library.25" /></div>
-																		<div class="lessonHelp"><spring:message code="teacher.manage.library.25a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
+																		<div class="sectionHead"><spring:message code="teacher.projects.projectinfo.meta_tips" /></div>
 																		<div class="sectionContent">${project.metadata.lessonPlan}</div>
 																	</c:if>
 																	<c:if test="${project.metadata.standards != null && project.metadata.standards != ''}">
-																		<div class="sectionHead"><spring:message code="teacher.manage.library.26" /></div>
-																		<div class="lessonHelp"><spring:message code="teacher.manage.library.26a" /></div><!-- TODO: remove this, convert to global info/help rollover popup -->
+																		<div class="sectionHead"><spring:message code="teacher.projects.projectinfo.meta_standards" /></div>
 																		<div class="sectionContent">${project.metadata.standards}</div>
 																	</c:if>
 																</div>
@@ -143,7 +141,7 @@
 												<div style="clear:both;"></div>
 												<div class="detailsLinks">
 													<div style="float:right; text-align:right">
-														<a id="detailsToggle_${project.id}" class="detailsToggle"><spring:message code="teacher.manage.library.28" /></a>
+														<a id="detailsToggle_${project.id}" class="detailsToggle"><spring:message code="teacher.management.projectlibrarydisplay.detailsShow" /></a>
 													</div>
 													<div style="clear:both;"></div>
 												</div>
@@ -272,43 +270,42 @@
 				"iDisplayLength": -1,
 				"aaSorting": [ [0,'asc'] ],
 				"oLanguage": {
-					"sInfo": "_TOTAL_ <spring:message code="teacher.datatables.16"/>",
-					// TODO: Mofidy these entries in ui-html.properties (make separate entries for datatables - not teacher.datatables.1, for ex.)
-					"sInfoEmpty": "<spring:message code="teacher.datatables.3"/>",
-					"sInfoFiltered": "<spring:message code="teacher.datatables.17"/> _MAX_ <spring:message code="teacher.datatables.18"/>", // (from _MAX_ total)
-					"sLengthMenu": "<spring:message code="teacher.datatables.5"/> _MENU_ <spring:message code="teacher.datatables.6"/>",
-					"sProcessing": "<spring:message code="teacher.datatables.7"/>",
-					"sZeroRecords": "<spring:message code="teacher.datatables.8"/>",
-					"sInfoPostFix":  "<spring:message code="teacher.datatables.9"/>",
-					"sSearch": "<spring:message code="teacher.datatables.10"/>",
-					"sUrl": "<spring:message code="teacher.datatables.11"/>"
+					"sInfo": "<spring:message code="datatable_info_showing"/> _START_-_END_ <spring:message code="of"/> _TOTAL_",
+					"sInfoEmpty": "<spring:message code="datatable_info_empty"/>",
+					"sInfoFiltered": "<spring:message code="datatable_info_filtered_post_matches"/>", // (from _MAX_ total)
+					"sLengthMenu": "<spring:message code="datatable_lengthLabel"/> _MENU_ <spring:message code="datatable_perPage"/>",
+					"sProcessing": "<spring:message code="processing"/>",
+					"sZeroRecords": "<spring:message code="datatable_noMatch"/>",
+					"sInfoPostFix":  "",
+					"sSearch": "<spring:message code="datatable_search"/>",
+					"sUrl": ""
 				},
 				"sDom":'<"top"i<"clear">>rt<"bottom"i<"clear">><"clear">'
 			});
 			
 			var facets = new FacetedFilter( otable.fnSettings(), {
 				"bScroll": false,
-				"sClearFilterLabel": "Clear",
+				"sClearFilterLabel": "<spring:message code="datatable_ff_filter_clear"/>",
 				"aSearchOpts": [
-					{
-						"identifier": "<spring:message code="teacher.datatables.search.1a"/>", "label": "<spring:message code="teacher.datatables.search.1b"/> ", "column": 0, "maxlength": 50
-					}
-				 ],
-				"aFilterOpts": [
-					{
-						"identifier": "subject", "label": "<spring:message code="teacher.datatables.filter.5a"/>", "column": 1,
-						"options": [
-							{"query": "<spring:message code="teacher.datatables.filter.5b"/>", "display": "<spring:message code="teacher.datatables.filter.5b"/>"}, // TODO: modify FacetedFilter plugin to only require a query for each filter, use query as display if display option is not set
-							{"query": "<spring:message code="teacher.datatables.filter.5c"/>", "display": "<spring:message code="teacher.datatables.filter.5c"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.5d"/>", "display": "<spring:message code="teacher.datatables.filter.5d"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.5e"/>", "display": "<spring:message code="teacher.datatables.filter.5e"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.5f"/>", "display": "<spring:message code="teacher.datatables.filter.5f"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.5g"/>", "display": "<spring:message code="teacher.datatables.filter.5g"/>"},
-							{"query": "<spring:message code="teacher.datatables.filter.5h"/>", "display": "<spring:message code="teacher.datatables.filter.5h"/>"}
-						]
-					}
-				]
-			});
+								{
+									"identifier": "keyword", "label": "<spring:message code="datatable_ff_keyword_label"/> ", "column": 0, "maxlength": 50
+								},
+								{
+									"identifier": "period", "label": "<spring:message code="datatable_ff_period_label"/> ", "column": 7, "maxlength": 30,
+									"regexreplace": {"match": "/,\s*/gi", "replacement": " "},
+									"instructions": "<spring:message code="datatable_ff_period_instructions"/>"
+								}
+							 ],
+							"aFilterOpts": [
+								{
+									"identifier": "source", "label": "<spring:message code="teacher.management.projectruntabs.filter_source"/>", "column": 2,
+									"options": [
+										{"query": "owned", "display": "<spring:message code="teacher.management.projectruntabs.filter_source_owned"/>"},
+										{"query": "shared", "display": "<spring:message code="teacher.management.projectruntabs.filter_source_shared"/>"}
+									]
+								}
+							]
+				});
 			
 			function toggleDetails(id,open){
 				if (typeof open == 'undefined'){
@@ -325,7 +322,7 @@
 						$('#summaryText_' + id + ' .truncated').slideDown('fast');
 						$('#summaryText_' + id + ' .truncated').css('display','inline');
 					}
-					$('#detailsToggle_' + id).addClass('expanded').text('<spring:message code="teacher.manage.library.29" />');
+					$('#detailsToggle_' + id).addClass('expanded').text('<spring:message code="teacher.management.projectlibrarydisplay.detailsHide" />');
 					$('#details_' + id).slideDown('fast');
 				} else {
 					if($('#projectBox_' + id).hasClass('childProject')){
@@ -353,7 +350,7 @@
 					} else {
 						$('#details_' + id).slideUp('fast');
 					}
-					$('#detailsToggle_' + id).removeClass('expanded').text('<spring:message code="teacher.manage.library.28" />');
+					$('#detailsToggle_' + id).removeClass('expanded').text('<spring:message code="teacher.management.projectlibrarydisplay.detailsShow" />');
 				}
 			};
 		});

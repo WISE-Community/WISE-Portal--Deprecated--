@@ -24,7 +24,7 @@
 		<ul class="welcome-menu">
 			<li><spring:message code="accountmenu.welcomeNewToWise"/></li>
 		</ul>
-		<a id="createAccountButton" href="signup.html" class="wisebutton signup" title="<spring:message code="accountmenu.createAccountTitle"/>"><spring:message code="accountmenu.createAccount"/></a>
+		<a id="createAccountButton" href="/webapp/signup.html" class="wisebutton signup" title="<spring:message code="accountmenu.createAccountTitle"/>"><spring:message code="accountmenu.createAccount"/></a>
 	</div>
 </sec:authorize>
 

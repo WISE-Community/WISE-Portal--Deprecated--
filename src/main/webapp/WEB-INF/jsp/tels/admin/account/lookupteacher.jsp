@@ -13,7 +13,7 @@
     
 <script src="../../javascript/tels/general.js" 			type="text/javascript"> </script>
     
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="wiseAdmin" /></title>
 
 <script type='text/javascript'>
 // update lookup criteria options based on lookup field chosen
@@ -35,7 +35,7 @@ function lookupFieldChanged() {
 <div id="page">
 
 <div id="pageContent">
-<h5 style="color:#0000CC;"><a href="../index.html">Return to Main Menu</a></h5>
+<h5 style="color:#0000CC;"><a href="../index.html"><spring:message code="returnToMainAdminPage" /></a></h5>
 
 <!-- Support for Spring errors object -->
 <div id="regErrorMessages">
@@ -47,17 +47,17 @@ function lookupFieldChanged() {
 </div>
 
 <form:form method="post" action="lookupteacher.html" commandName="lookupParameters" id="lookupTeacher" autocomplete='off'>
-	<form:label path="lookupField">Search for all teachers by  </form:label>
+	<form:label path="lookupField"><spring:message code="admin.account.lookupteacher.searchForTeachersBy" /> </form:label>
 	<form:select path="lookupField" id="lookupField" onchange="lookupFieldChanged()">
 		<c:forEach var="field" items="${fields }">
 			<form:option value="${field}">${field }</form:option>
 		</c:forEach>
 	</form:select>
 	
-	<form:label path="lookupCriteria">  that  </form:label>
+	<form:label path="lookupCriteria"> <spring:message code="admin.account.lookupteacher.that" /> </form:label>
 	<form:select path="lookupCriteria" id="lookupCriteria">
-		<form:option id="likeCriteria" value="like">CONTAINS</form:option>
-		<form:option id="equalsCriteria" value="=">MATCHES</form:option>
+		<form:option id="likeCriteria" value="like"><spring:message code="admin.account.lookupteacher.contains" /></form:option>
+		<form:option id="equalsCriteria" value="="><spring:message code="admin.account.lookupteacher.matches" /></form:option>
 	</form:select>
 	
 	<form:input path="lookupData" id="lookupData"/>

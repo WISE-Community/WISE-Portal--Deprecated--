@@ -29,6 +29,8 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
+import org.hibernate.StaleObjectStateException;
+import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -67,16 +69,32 @@ public class AddProjectController extends SimpleFormController {
     	ModelAndView modelAndView = null;
     	Projectcode projectcode = new Projectcode(params.getProjectcode());
     	try {
-    		studentService.addStudentToRun(user, projectcode);
-    		modelAndView = new ModelAndView(getSuccessView());
+			int maxLoop = 100;  // to ensure that the following while loop gets run at most this many times.
+			int currentLoopIndex = 0;
+			while (currentLoopIndex < maxLoop) {
+				try {
+					studentService.addStudentToRun(user, projectcode);  // add student to period
+					modelAndView = new ModelAndView(getSuccessView());
+				} catch (HibernateOptimisticLockingFailureException holfe) {
+					// multiple students tried to create an account at the same time, resulting in this exception. try saving again.
+					currentLoopIndex++;
+					continue;
+				} catch (StaleObjectStateException sose) {
+					// multiple students tried to create an account at the same time, resulting in this exception. try saving again.
+					currentLoopIndex++;
+					continue;
+				}
+				// if it reaches here, it means that hibernate optimisitic locking exception was not thrown, so we can exit the loop.
+				break;
+			}
     	} catch (ObjectNotFoundException e) {
-    		errors.rejectValue("projectcode", "error.illegal-projectcode");
+    		errors.rejectValue("projectcode", "student.index.error.illegalRunCode");
     		return showForm(request, response, errors);
     	} catch (PeriodNotFoundException e) {
-    		errors.rejectValue("projectcode", "error.illegal-projectcode");
+    		errors.rejectValue("projectcode", "student.index.error.illegalRunCode");
     		return showForm(request, response, errors);
     	} catch (StudentUserAlreadyAssociatedWithRunException se) {
-    		errors.rejectValue("projectcode", "error.student-already-associated-with-run");
+    		errors.rejectValue("projectcode", "student.index.error.studentAlreadyAssociatedWithRun");
     		return showForm(request, response, errors);
     	}
 		return modelAndView;

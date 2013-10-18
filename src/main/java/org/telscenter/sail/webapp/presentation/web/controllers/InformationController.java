@@ -556,9 +556,17 @@ public class InformationController extends AbstractController{
 	    	
 			/* Set the post level if specified in the run */
 			Integer postLevel = run.getPostLevel();
+
+			//get the websocket base url e.g. ws://wise4.berkeley.edu:8080
+			String webSocketBaseUrl = portalProperties.getProperty("webSocketBaseUrl");
 			
-			//get the websocket base url e.g. ws://wise4.berkeley.edu
-			String webSocketBaseUrl = portalurl.replace("http", "ws");
+			if(webSocketBaseUrl == null) {
+				/*
+				 * if the websocket base url was not provided in the portal properties
+				 * we will use the default websocket base url
+				 */
+				webSocketBaseUrl = "ws://" + hostName + ":8080";
+			}
 			
 			//get the url for websocket connections
 			String webSocketUrl = webSocketBaseUrl + "/webapp/websocket/wise";
@@ -793,9 +801,15 @@ public class InformationController extends AbstractController{
 			List<Workgroup> workgroupListByOfferingAndUser 
 			= workgroupService.getWorkgroupListByOfferingAndUser(run, user);
 
-			if (workgroupListByOfferingAndUser.size() > 0) {
+			if (workgroupListByOfferingAndUser.size() == 1) {
+				//this user is in one workgroup
 				workgroup = workgroupListByOfferingAndUser.get(0);
+			} else if(workgroupListByOfferingAndUser.size() > 1) {
+				//this user is in more than one workgroup so we will just get the last one
+				workgroup = workgroupListByOfferingAndUser.get(workgroupListByOfferingAndUser.size() - 1);
 			} else {
+				//this user is not in any workgroups
+				
 				String previewRequest = request.getParameter(PREVIEW);
 				if (previewRequest != null && Boolean.valueOf(previewRequest)) {
 					// if this is a preview, workgroupId should be specified, so use

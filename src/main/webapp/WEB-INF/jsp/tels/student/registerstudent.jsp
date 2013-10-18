@@ -32,7 +32,12 @@ $(document).ready(function(){
  */
 previousRunCode = '';
 
+//boolean value to remember if the run code the student has entered is currently valid
+isRunCodeValid = false;
+
 function findPeriods() {
+	isRunCodeValid = false;
+	
 	  var successCallback = function(o) {
   			var periodSelect = document.getElementById("runCode_part2");
 			periodSelect.innerHTML = "";
@@ -42,6 +47,7 @@ function findPeriods() {
 		  	if (responseText == "not found" || responseText.length < 2) {
 		  		alert("<spring:message code='student.addproject.invalidAccessCode'/>");
 		  	} else {
+		  		isRunCodeValid = true;
 			  	var op = document.createElement('option');
 			  	op.appendChild(document.createTextNode("<spring:message code='student.addproject.selectClassPeriod'/>"));
 			  	op.value = 'none';
@@ -85,7 +91,21 @@ function findPeriods() {
  * there are no matching accounts we will create the new account.
  */
 function checkForExistingAccountsAndCreateAccount() {
-	if(checkForExistingAccounts()) {
+	var firstName = $('#firstname').val();
+	var lastName = $('#lastname').val();
+
+	//check to make sure first name and last name are latin-based characters
+	 if( /[^a-zA-Z0-9]/.test( firstName ) ) {
+		alert("<spring:message code='error.firstname-illegal-characters'/>");
+		return;
+	 } else if( /[^a-zA-Z0-9]/.test( lastName ) ) {
+		alert("<spring:message code='error.lastname-illegal-characters'/>");
+		return;
+     }
+	 
+	if(!isCreateAccountParametersValid()) {
+		//create account parameters are not valid
+	} else if(checkForExistingAccounts()) {
 		//accounts exist, ask student if these accounts are theirs
 
 		//get the JSON array of existing accounts
@@ -198,32 +218,83 @@ function checkIfReallyWantToCreateAccount() {
 	}
 }
 
-function createAccount() {
-	var runcode = document.getElementById("runCode_part1").value;
+/**
+ * Validate the parameters that the student entered into the create student account form
+ */
+function isCreateAccountParametersValid() {
+	var result = false;
+	
+	//get the parameters the student entered
+	var runCode = document.getElementById("runCode_part1").value;
 	var period = document.getElementById("runCode_part2").value;
 	var firstname = document.getElementById("firstname").value;
 	var lastname = document.getElementById("lastname").value;
+	var password = document.getElementById("password").value;
+	var repeatedPassword = document.getElementById("repeatedPassword").value;
+	var accountAnswer = document.getElementById("accountAnswer").value;
 	
-	if(!/^[a-zA-Z]*$/.test(firstname)) {
+	if(firstname == null || firstname == '') {
+		//first name is blank
+		alert("<spring:message code='student.registerstudent.firstNameCanNotBeBlank' />");
+		result = false;
+	} else if(!/^[a-zA-Z]*$/.test(firstname)) {
 		//first name contains characters that are not letters
 		alert("<spring:message code='student.registerstudent.firstNameOnlyLetters' />");
+		result = false;
+	} else if(lastname == null || lastname == '') {
+		//last name is blank
+		alert("<spring:message code='student.registerstudent.lastNameCanNotBeBlank' />");
+		result = false;
 	} else if(!/^[a-zA-Z]*$/.test(lastname)) {
 		//last name contains characters that are not letters
 		alert("<spring:message code='student.registerstudent.lastNameOnlyLetters' />");
-	} else if (runcode == null || runcode == "") {
-		alert("<spring:message code='student.addproject.enterAccessCode'/>");		
-			var periodSelect = document.getElementById("runCode_part2");
-			periodSelect.innerHTML = "";
-	  		periodSelect.disabled = true;
-	} else if ((period != null && period == "none") || period == null || period == "") {
-		alert("<spring:message code='student.addproject.selectClassPeriod' />");
-	} else if (runcode != null && period != null && period != "none") {
-		var projectCode = document.getElementById("projectCode");
-		projectCode.value = runcode + "-" + period;
-		document.getElementById("studentRegForm").submit();		
-	} else {
-		alert("<spring:message code='student.addproject.invalidAccessCode' />");
+		result = false;
+	} else if(password == null || password == '') {
+		//password is blank
+		alert("<spring:message code='student.registerstudent.passwordCanNotBeBlank' />");
+		result = false;
+	} else if(repeatedPassword == null || repeatedPassword == '') {
+		//retyped password is blank
+		alert("<spring:message code='student.registerstudent.verifyPasswordCanNotBeBlank' />");
+		result = false;
+	} else if(accountAnswer == null || accountAnswer == '') {
+		//answer for security question is blank
+		alert("<spring:message code='student.registerstudent.securityQuestionAnswerCanNotBeBlank' />");
+		result = false;
+	} else if (runCode == null || runCode == "") {
+		//the run code is blank
+		alert("<spring:message code='student.addproject.enterAccessCode'/>");
+	  	result = false;
+	} else if(runCode != null && runCode != "") {
+		if(!isRunCodeValid) {
+			//run code is invalid
+			alert("<spring:message code='student.addproject.invalidAccessCode' />");
+			result = false;
+		} else if((period != null && period == "none") || period == null || period == "") {
+			//the period is blank
+			alert("<spring:message code='student.addproject.selectClassPeriod' />");
+			result = false;
+		} else {
+			/*
+			 * the run code is valid and the period is filled in and these are 
+			 * the last elements to validate so all the parameters are valid
+			 */
+			result = true;			
+		}
 	}
+	
+	return result;
+}
+
+/**
+ * Submit the create account form
+ */
+function createAccount() {
+	var runcode = document.getElementById("runCode_part1").value;
+	var period = document.getElementById("runCode_part2").value;
+	var projectCode = document.getElementById("projectCode");
+	projectCode.value = runcode + "-" + period;
+	document.getElementById("studentRegForm").submit();
 }
 
 
@@ -239,6 +310,8 @@ function setup() {
  * and if so, try to find the periods for that run code.
  */
 function checkRunCode() {
+	isRunCodeValid = false;
+	
 	//get the run code the student has entered
 	var runCode = $('#runCode_part1').val();
 	
@@ -264,8 +337,13 @@ function checkRunCode() {
 		} else {
 			/*
 			 * the run code the student entered is not in the proper 
-			 * format so we will not try to find the periods
+			 * format so we will not try to find the periods. we will
+			 * clear out the periods drop down in case it was previously
+			 * populated.
 			 */
+			var periodSelect = document.getElementById("runCode_part2");
+			periodSelect.innerHTML = "";
+			periodSelect.disabled = true;
 		}		
 	}
 	

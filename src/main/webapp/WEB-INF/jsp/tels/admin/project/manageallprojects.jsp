@@ -14,7 +14,7 @@
 <script src="<spring:theme code="jquerymigrate.js"/>" type="text/javascript"></script>
 <script src="<spring:theme code="projecttags.js"/>" type="text/javascript"></script>
     
-<title><spring:message code="application.title" /></title>
+<title><spring:message code="wiseAdmin" /></title>
 
 <script type='text/javascript'>
 <c:forEach var='project' items="${internal_project_list}">
@@ -78,7 +78,7 @@ function updateMaxTotalAssetsSize(projectId, newMaxTotalAssetsSize) {
 <%@page import="org.telscenter.sail.webapp.domain.project.impl.ProjectType" %>
 
 
-<h5 style="color:#0000CC;"><a href="../index.html">Return to Main Menu</a></h5>
+<h5 style="color:#0000CC;"><a href="../index.html"><spring:message code="returnToMainAdminPage" /></a></h5>
 
 <c:out value="${message}" />
 
